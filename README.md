@@ -1,3 +1,3 @@
-# Universita
+# Università
 
 Notes and exercises
