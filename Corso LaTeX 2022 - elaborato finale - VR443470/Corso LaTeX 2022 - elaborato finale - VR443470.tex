@@ -1,0 +1,198 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+%\newtheorem{theorem}{Teorema}[section]	% definizione teorema
+
+% Definizione nuovi comandi
+\newcommand{\Z}{\mathcal{Z}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\customimg}[2]{\includegraphics[width=#1\textwidth]{#2}}
+
+% lista personalizzata di primo livello
+\setlist[itemize, 1]{label=\ding{217}}
+
+\begin{document}
+	% logo università di Verona
+	\begin{figure}
+		\centering
+		\customimg{0.3}{img/logo-univr.jpg}
+		\label{img-univr}
+	\end{figure}
+
+	\author{VR443470}
+	\title{Corso \LaTeX\:2022 - Elaborato finale}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Campionamento e quantizzazione}
+	
+	\subsection{Campionamento}
+	
+	Il \textbf{campionamento} è la tecnica che consente di effettuare la \underline{trasformazione} da analogico (\emph{segnale continuo}) a digitale (\emph{segnale discreto}). In particolare, è il dominio che viene trasformato da continuo a discreto.
+	La trasformazione avviene senza perdita di informazioni, se rispettate alcune condizioni (\textbf{teorema del campionamento ideale}), e il segnale sarà ricostruito perfettamente (\textbf{formula di interpolazione ideale di Shannon}).
+	Graficamente, per eseguire il campionamento di un segnale continuo, sarà necessario campionare ad un certo intervallo $T$ il segnale, come nel seguente esempio, ottenendo valori reali:
+	
+	\begin{figure}[!htp]
+		\centering
+		\customimg{0.7}{img/campionamento.pdf}
+		\caption{In verde il segnale originale, in grigio il segnale campionato nel tempo.}
+		\label{img-camp_esempio}
+	\end{figure}
+	
+	\subsection{Quantizzazione}
+	
+	La la \textbf{quantizzazione} consente di effettuare la trasformazione del codominio entro certi intervalli. Per capire meglio, si prenda in considerazione il seguente grafico:
+	
+	\begin{figure}[!htp]
+		\centering
+		\customimg{0.7}{img/quantizzazione.pdf}
+		\caption{Segnale sinusoidale quantizzato nelle ampiezze e il suo segnale originale.}
+		\label{img-quant_esempio}
+	\end{figure}
+
+	Gli scalini che sono visibili sulla linea del segnale, sono i vari campionamenti effettuati durante il tempo, ovvero lungo l’asse delle ascisse $t$. A differenza del campionamento in cui i valori campionati potevano essere acquisiti liberamente, nella quantizzazione i valori devono essere uguali a determinati valori presenti sull’asse delle ordinate $v(t)$. Quindi, ipotizzando che sull’asse $v(t)$ ci siano numeri interi $(0, 1, 2, 3, ...)$ la punta del primo scalino indicherà il valore $1$, la seconda punta dello scalino, spostandosi lungo l'asse del tempo $t$, indicherà due e così via.
+	
+	\section{Replicazione e campionamento}\label{sec-rep_e_camp}
+	
+	In questo capitolo vengono introdotti i concetti di replicazione e campionamento.
+	
+	\subsection{Replicazione}\label{subsec-rep}
+
+	Si definisce \textbf{treno campionatore} ideale di periodo$T$ la funzione:
+	\begin{equation}\label{eq-treno_camp}
+		\tilde{\delta}_T(t) = \sum_{k=-\infty}^{\infty} \delta(t-kT)
+	\end{equation}
+
+	Il treno campionatore è sostanzialmente una sequenza infinita di impulsi ideali, come in figura, di supporto $\{t = kT \in \mathbb{R}\:|\:k \in \mathbb{Z}\}$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\customimg{0.5}{img/treno-campionatore.pdf}
+		\caption{Treno campionatore $\tilde{\delta}_T(t)$.}
+		\label{img-treno_camp}
+	\end{figure}
+
+	Inoltre, si ha che:
+	\begin{equation*}
+		\tilde{\delta}_T(t) \underset{\longleftrightarrow}{\F} \dfrac{1}{T} \sum_{k=-\infty}^{\infty} \delta\left(f-\dfrac{k}{T}\right)
+	\end{equation*}
+	
+	Che equivale a:
+	\begin{equation*}
+		\tilde{\delta}_T(t) \underset{\longleftrightarrow}{\F} \dfrac{1}{T} \tilde{\delta}_{\frac{1}{T}}(f)
+	\end{equation*}
+
+	Infine, la trasformata di Fourier del treno campionatore ideale è un treno campionatore ideale (in frequenza) in cui gli impulsi hanno l’area $\dfrac{1}{T}$ e sono equispaziati alla frequenza $\dfrac{1}{T}$ (come in figura~\ref*{img-tdf_treno_camp}).
+	
+	\begin{figure}[!htp]
+		\centering
+		\customimg{0.5}{img/tdf-treno-campionatore.pdf}
+		\caption{La Trasformata di Fourier del treno campionatore~(\ref{eq-treno_camp}) con periodo $T=2$.}
+		\label{img-tdf_treno_camp}
+	\end{figure}
+	
+	Dato un segnale $v(t), t\in\mathbb{R}, 0<T\in\mathbb{R}$, si definisce \textbf{campionamento} del segnale $v$ come:	
+	\begin{equation}\label{eq-camp}
+		[\mathrm{samp}_T\:v](t) := \sum_{k=-\infty}^{\infty} v(kT)
+	\end{equation}
+	
+	Allora, per la proprietà di campionamento dell’impulso, si ha:
+	\begin{equation}\label{eq-camp_imp}
+		[\mathrm{samp}_T\:v](t) = \sum_{k=-\infty}^{\infty} v(t)\delta(t-kT) = v(t)\cdot\tilde{\delta}_T(t)
+	\end{equation}
+	
+	\begin{figure}[!htp]
+		\centering
+		\customimg{0.7}{img/camp-impulso.pdf}
+		\caption{Campionamento di un segnale.}
+		\label{img-camp}
+	\end{figure}
+	
+	\section{Sistemi a tempo discreto}\label{sec-sis_tmp_disc}
+	
+	Si definisce \textbf{sistema a tempo discreto} un sistema i cui elementi descrittivi, come funzioni di \emph{ingresso} e \emph{uscita}, sono successioni $(a_{k})_{k\in\mathbb{Z}}$, cioè funzioni a variabile discreta.
+	
+	\subsection{Proprietà sistemi a tempo discreto}
+	
+	Le proprietà dei sistemi a tempo discreto sono le stesse di quelle dei sistemi a tempo continuo.
+	
+	\begin{itemize}
+		\item Linearità
+		\item Tempo invarianza
+		\item Casualità
+		\item Stabilità asintotica
+		\item \textsc{BIBO} stabilità
+	\end{itemize}
+
+	\newpage
+
+	\section{Trasformata zeta}
+	
+	Sia $v(k)$ una successione a valori reali o complessi. Si definisce \textbf{trasformata zeta}:
+	
+	\begin{equation}
+		\Z [v(k)] (z) := \sum_{k=-\infty}^{\infty} v(k) z^{-k} = V(z)
+	\end{equation}
+
+	La funzione $V:\mathbb{C}\rightarrow\mathbb{C}$, con $z\in\mathbb{C}$. Essa è definita per tutti i numeri complessi $z$ per cui la serie è convergente.
+	
+	\subsection{Proprietà della trasformata zeta}
+	
+	% Ho cambiato lo stile dell'elenco puntato solamente a scopo illustrativo.
+	\begin{enumerate}
+		\item Linearità
+		\item Moltiplicazione per successione esponenziale
+		\item Moltiplicazione per un monomio
+		\item Ritardo temporale
+		\item Anticipo temporale
+	\end{enumerate}
+	
+	\newpage
+	
+	\section{Tabella riassuntiva trasformate notevoli}
+	
+	\begin{table}[!htbp]
+		\centering
+	
+		\begin{tabular}{@{} c c @{}}
+			\toprule
+			Segnale & Trasformata $\Z$ \\
+			\midrule
+			$\mathit{A}$ 					& $A \cdot \dfrac{z}{z-1}$ 				\\
+			$A\delta(k)$ 					& $A$									\\
+			$A\delta(k-i)$					& $A z^{-i}$							\\
+			$A\delta_{-1}(k)$				& $A \cdot \dfrac{z}{z-1}$				\\
+			$\lambda^k \delta_{-1} (k)$		& $\dfrac{z}{z-\lambda}$				\\
+			$k\lambda^k \delta_{-1} (k)$	& $\dfrac{\lambda z}{(z-\lambda)^2}$	\\
+			\bottomrule
+		\end{tabular}
+	
+		\caption{Trasformate notevoli}
+		\label{tab-trasf_not}
+	\end{table}
+	
+\end{document}
