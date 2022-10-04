@@ -1,0 +1,123 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\begin{document}
+	% indice
+	\tableofcontents
+	
+	\newpage
+		
+	\section{Introduzione}
+	
+	\subsection{Sistemi informativi, informazioni e dati}
+	
+	Ogni organizzazione è dotata di un \textbf{\emph{sistema informativo}}, che organizza e gestisce le informazioni necessarie per perseguire gli scopi dell'organizzazione stessa. Per indicare la \textbf{porzione automatizzata del sistema informativo} viene di solito utilizzato il termine \textbf{\emph{sistema informatico}}.\newline
+	Nei sistemi informatici le informazioni vengono rappresentate per mezzo di \emph{dati}, che hanno bisogno di essere interpretati per fornire informazioni.\newline
+	Esiste una differenza sottile tra dato e informazioni. Solitamente i primi, se presi da soli, non hanno significato, ma, una volta interpretati e correlati opportunamente, essi forniscono informazioni, che consentono di arricchire la conoscenza:
+
+	\begin{description}
+		\item[\textbf{Informazione}:] notizia, dato o elemento che consente di avere conoscenza più o meno esatta di fatti, situazioni, modi di essere;
+		\item[\textbf{Dato}:] ciò che è immediatamente presente alla conoscenza, prima di ogni elaborazione. In informatica, sono elementi di informazione costituiti da simboli che devono essere elaborati.
+	\end{description}
+	
+	\noindent
+	\textcolor{Red3}{\textbf{[ESAME] Definizione base di dati}}: Una \textbf{\emph{base di dati}} è una collezione di dati, utilizzati per rappresentare con tecnologia informatica le informazioni di interesse per un sistema informativo.\newline
+	
+	\newpage
+	
+	
+	
+	\subsection{Basi di dati e sistemi di gestione di basi di dati}
+	
+	Inizialmente, venne adottato un ``\underline{approccio convenzionale}'' alla gestione dei dati. Esso \textbf{sfruttava} la presenza di archivi o \textbf{file per memorizzare} e \textbf{per ricercare dati}. Tuttavia, i metodi di accesso e condivisione erano semplici e banali.\newline
+	Infatti, erano presenti numerosi \textbf{problemi}:
+	
+	\begin{itemize}
+		\item[\ding{56}] \textbf{Accesso sequenziale}: la scarsa efficienza nell'accesso ai dati su file rendeva lento l'accesso a tali informazioni;
+		\item[\ding{56}] \textbf{Ridondanza}: i dati di interesse per più programmi sono replicati tante volte quanti sono i programmi che li utilizzano, con evidente ridondanza e possibilità di incoerenza;
+		\item[\ding{56}] \textbf{Inconsistenza}: una diretta conseguenza della ridondanza. Con la presenza di più copie di un determinato dato, l'eventuale cambiamento di uno solo potrebbe portare a questo effetto;
+		\item[\ding{56}] \textbf{Progettazione duplicata}: per ogni programma viene replicata la progettazione.
+	\end{itemize}
+	
+	La \textbf{soluzione} è arrivata negli anni '80 con l'avvento delle \textbf{basi di dati}. Quest'ultime gestiscono in modo integrato e flessibile le informazioni di interesse per diversi soggetti.\newline
+	\newline \noindent	
+	\textcolor{Red3}{\textbf{[ESAME] Definizione DBMS}}: Un \textbf{\emph{sistema di gestione di basi di dati}} (in inglese \emph{Data Base Management System}, \textbf{DBMS}) è un sistema software in grado di gestire collezioni di dati che siano:
+	
+	\begin{itemize}
+		\item[\ding{52}] \textbf{Grandi};
+		\item[\ding{52}] \textbf{Condivise};
+		\item[\ding{52}] \textbf{Persistenti}.
+	\end{itemize}
+	
+	\noindent
+	\underline{assicurando} allo stesso tempo:
+	
+	\begin{itemize}
+		\item[\ding{72}] \textbf{Affidabilità};
+		\item[\ding{72}] \textbf{Privatezza};
+		\item[\ding{72}] \textbf{Accesso efficiente}.
+	\end{itemize}
+
+	Il \textbf{vantaggio} di utilizzare un DBMS è stato evidenziato nella definizione. Quindi:
+	
+	\begin{itemize}
+		\item[\ding{51}] \textbf{Maggiore astrazione} poiché le sue funzioni \underline{estendono il \emph{file system}}, fornendo la possibilità di accesso condiviso agli stessi dati da parte di più utenti e applicazioni;
+		\item[\ding{51}] \textbf{Maggiore efficacia} poiché le operazioni di accesso ai dati si basano su un linguaggio di interrogazione.
+	\end{itemize}
+	
+	
+	
+	
+	\subsection{Linguaggi per basi di dati}
+	Su un DBMS è possibile specificare operazioni di vario tipo, ma principalmente si distinguono in due categorie:
+
+	\begin{itemize}
+		\item \textbf{Linguaggi di definizione dei dati} (\emph{Data Definition Language}, abbreviato con \textbf{DDL}) utilizzati per \underline{definire} gli \underline{schemi logici}, \underline{esterni} e \underline{fisici} e le \underline{autorizzazioni per l'accesso};
+		\item \textbf{Linguaggi di manipolazione dei dati} (\emph{Data Manipulation Language}, abbreviato con \textbf{DML}) \underline{utilizzati} per l'\underline{interrogazione} e l'\underline{aggiornamento} delle \underline{istanze} di basi di dati:
+		\begin{itemize}
+			\item \emph{Linguaggio di interrogazione}, estrae informazioni da una base di dati (SQL, algebra relazionale);
+			\item \emph{Linguaggio di manipolazione}, popola la base di dati, modifica il suo contenuto con aggiunte, cancellazioni e variazioni sui dati (SQL).
+		\end{itemize}
+	\end{itemize}
+	
+	\newpage
+	
+	
+	
+	
+	\subsection{Modelli dei dati}
+	\textcolor{Red3}{\textbf{Definizione modello dei dati}}: Un \textbf{\emph{modello dei dati}} è un insieme di concetti utilizzati per organizzare i dati di interesse e descriverne la struttura in modo che essa risulti comprensibile ad un elaboratore.\newline
+	Ogni modello dei dati fornisce \textbf{meccanismi di strutturazione}, analoghi ai \textbf{\emph{costruttori}} di tipo dei linguaggi di programmazione (es: Java), che permettono di definire nuovi tipi sulla base di tipi predefiniti (elementari) e costruttori di tipo.\newline
+	Quindi, i \emph{costruttori} consentono di:
+	
+	\begin{itemize}
+		\item[\ding{43}] \textbf{\emph{Definire}} le \textbf{strutture dati che conterranno le informazioni} della base di dati;
+		\item[\ding{43}] \textbf{\emph{Specificare}} le \textbf{proprietà che dovranno soddisfare le istanze} di informazione che saranno contenuto nelle strutture dati.
+	\end{itemize}
+
+	\noindent \newline
+	\textcolor{Red3}{\textbf{Definizione schemi e istanze}}: È molto importante distinguere gli \textbf{schemi} e le \textbf{istanze} dal concetto di modello dei dati:
+	
+	\begin{itemize}
+		\item \textbf{\emph{Schema}}: parte \underline{invariante nel tempo}, è costituita dalle caratteristiche dei dati. In altre parole, è la descrizione della struttura e delle proprietà di una specifica base di dati fatta utilizzando i costrutti del modello dei dati;
+		\item \textbf{\emph{Istanza} o \emph{stato}}: parte \underline{variabile nel tempo}, è costituita dai valori effettivi. Quest'ultimi, in un certo istante, popolano le strutture dati della base di dati.
+	\end{itemize}
+\end{document}
