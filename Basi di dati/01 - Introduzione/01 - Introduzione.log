@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.21)  4 OCT 2022 20:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.21)  6 OCT 2022 15:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -456,13 +456,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [1
 
-{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 41--43
-
- []
-
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 60--63
+{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 60--64
 
  []
 
@@ -477,7 +472,7 @@ Here is how much of TeX's memory you used:
  33286 multiletter control sequences out of 15000+600000
  477992 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,5n,77p,396b,562s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,5n,77p,446b,562s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{c:/tex
 live/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<c:/texlive/2022/
 texmf-dist/fonts/type1/public/cm-super/sfbi1000.pfb><c:/texlive/2022/texmf-dist
@@ -486,7 +481,7 @@ e1/public/cm-super/sfbx1200.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/
 cm-super/sfbx1440.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/s
 frm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti1000.pf
 b><c:/texlive/2022/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on "01 - Introduzione.pdf" (5 pages, 136505 bytes).
+Output written on "01 - Introduzione.pdf" (5 pages, 136527 bytes).
 PDF statistics:
  98 PDF objects out of 1000 (max. 8388607)
  75 compressed objects within 1 object stream
