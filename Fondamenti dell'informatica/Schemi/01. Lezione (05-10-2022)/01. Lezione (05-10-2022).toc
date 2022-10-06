@@ -1,0 +1,8 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Introduzione alla materia}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Cardinalità degli insiemi}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Alcune notazioni}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Teorema di Cantor}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Problema decisionale e ipotesi del continuo}{5}{subsection.1.4}%

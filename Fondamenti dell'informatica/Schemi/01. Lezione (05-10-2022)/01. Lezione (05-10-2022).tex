@@ -1,0 +1,208 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
+\usepackage{amsthm}					% teoremi migliorati
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+
+
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\newtheorem{theorem}{Teorema}
+\renewcommand{\qedsymbol}{QED}
+\newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+
+\begin{document}
+	Riferimenti al libro di testo:
+	\begin{itemize}
+		\item Capitolo 2: 2.7
+		\item Capitolo 3
+		\item Capitolo 4: 4.1
+	\end{itemize}
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Introduzione alla materia}
+	
+	Prima di iniziare con la presentazione di alcuni concetti fondamentali, si definisce l'\textbf{invariante induttiva}: pensando a qualsiasi linguaggio di programmazione, una generica condizione è \underline{sempre} vera prima, durante e dopo un ciclo. Questo concetto ritornerà in futuro.
+	
+	\subsection{Cardinalità degli insiemi}
+	Il motivo dell'interesse di un ripasso di un argomento trattato in passato è giustificato dal fatto che i dati manipolati in informatica sono (e)numerabili, ovvero è possibile metterli in corrispondenza biunivoca con i numeri naturali, essendo essi stessi rappresentati da numeri (binari).
+	
+	Di seguito viene mostrato un richiamo ai concetti di base in relazione alla cardinalità di insiemi:
+	\begin{itemize}
+		\item[\ding{80}] \textbf{Cardinalità.} Se $S$ è un insieme, la sua \textbf{\emph{cardinalità}} si rappresenta con il simbolo $|S|$.
+	
+		\item[\ding{80}] \textbf{Equipotenza.} Due insiemi $A$ e $B$ sono \textbf{\emph{equipotenti}} se esiste una funzione biiettiva del tipo $f: A \rightarrow B$ (cioè una funzione sia iniettiva che suriettiva; approfondimento: \href{https://www.youmath.it/lezioni/analisi-matematica/le-funzioni-da-r-a-r-in-generale/7-iniettivita-suriettivita-e-invertibilita-di-una-funzione-generica.html}{link}, oppure qui di seguito). \newline
+		La \textbf{\emph{rappresentazione}} matematica è la seguente $A \approx B$.\newline
+		La relazione $|A| \le |B|$ è possibile se esiste una funzione iniettiva $f: A \rightarrow B$. Si osservi che la funzione $f$ stabilisce una corrispondenza tra gli elementi dei due insiemi. Infatti, l'\textbf{iniettività} assicura che la corrispondenza è stabilita elemento per elemento, mentre la \textbf{surriettività} assicura che la quantità degli oggetti nei due insiemi coincide.
+	
+		\item[\ding{80}] \textbf{Insiemi finiti e infiniti.} Negli \textbf{\emph{insiemi finiti}}, la cardinalità è un numero naturale corrispondente al numero di oggetti contenuti nell'insieme.\newline
+		Invece, negli \textbf{\emph{insiemi infiniti}} la $|A|$ rappresenta la collezione degli insiemi $Y$ tale che $Y \approx A$. Questa collezione viene chiamata \textbf{cardinalità} di $A$. Quindi, è vero che se $A \subseteq B$ allora si deduce che $|A| \le |B|$.
+		
+		\item[\ding{80}] \textbf{Insieme numerabile.} Un insieme $A$ viene detto \textbf{\emph{numerabile}} se è finito o equipotente all'insieme dei numeri naturali $\mathbb{N}$ (ovvero, $A \approx \mathbb{N}$). \newline
+		La cardinalità degli insiemi infiniti numerabili è denotata con $\mathfrak{N}_0$. \newline
+		Un insieme $A$ è finito se $|A| < \mathfrak{N}_0$. Quindi, un insieme è numerabile se $|A| \le \mathfrak{N}_0$ (ovvero se è finito, quindi minore, oppure se è un insieme infinito numerabile rappresentato come $\mathfrak{N}_0$, quindi uguale).
+	\end{itemize}
+	
+	\newpage
+	
+	\subsection{Alcune notazioni}
+	
+	Se un generico \textbf{\emph{linguaggio di programmazione}} viene indicato con la lettera $\mathfrak{L}$ e un generico \textbf{\emph{algoritmo}} di un programma viene indicato con la lettera $A$, allora se un \emph{algoritmo viene implementato in un linguaggio di programmazione}, è possibile scrivere la notazione insiemistica $A \in \mathfrak{L}$. In un linguaggio di programmazione \underline{è possibile scrivere infiniti programmi}, ovvero l'insieme dei numeri naturali $\mathbb{N}$. \newline
+	\noindent
+	Esistono due tipi di \textbf{\emph{rappresentazioni}}:
+
+	\begin{itemize}
+		\item[\ding{42}] \textbf{Rappresentazione intensionale.} Rappresenta solo l'algoritmo, più nello specifico solamente quella specifica parte di codice (esempio a fine elenco).
+		
+		\item[\ding{42}] \textbf{Rappresentazione estensionale.} Rappresenta l'insieme ma tramite una forma più estesa (esempio a fine elenco).
+	\end{itemize}
+	
+	L'\textbf{\emph{esecuzione}} di un determinato algoritmo si indica con delle parentesi quadre più spesse $\exec{A}$. Quindi, la sua \emph{rappresentazione intensionale} è solamente $A$, mentre la sua \emph{rappresentazione estensionale} è data da $\exec{A}(i) = o$ ($i$ è input e $o$ è output). La rappresentazione estensionale può essere anche nel seguente modo $\exec{M} \in \left\{f\: | \: f =\exec{M}\right\}$
+	con $f = \left\{ \left(x, f(x)\right)\: | \: x \in \mathbb{N}\right\}$.
+	
+	Un programma restituisce uno o più risultati come numeri naturali $\mathbb{N}$, prendendo in input dei numeri naturali $\mathbb{N}$. Quindi, più formalmente si può scrivere $\mathbb{N} \longrightarrow \mathbb{N}$. Questa rappresentazione non è altro che la definizione dei \textbf{\emph{problemi \label{def:problema}}} esistenti. Difatti, l'informatica si pone il dubbio che esista una certa soluzione ($f$), scritta sotto forma di algoritmo appartenente ad un linguaggio di programmazione, tale che la sua esecuzione dia la soluzione. Più formalmente:
+	
+	\begin{equation*}
+		\mathbb{N} \longrightarrow \mathbb{N} \ni f \hspace{2em}
+		\exists A \in \mathfrak{L} : \exec{A} = f
+	\end{equation*}
+	
+	\newpage
+	
+	\subsection{Teorema di Cantor}
+	
+	Il seguente teorema ha come conseguenza che \textbf{esistono insiemi non numerabili}. Questo risultato si attribuisce a Georg Cantor, matematico tedesco, nel 1874.
+	
+	La \textbf{dimostrazione} è importante da capire. Essa utilizza una tecnica, detta dimostrazione diagonale, che è alla base di gran parte dei risultati principali che stabiliscono i fondamenti dell'informatica come scienza (Dauben, 1979; \href{https://www.cambridge.org/core/journals/journal-of-symbolic-logic/article/abs/joseph-warren-dauben-georg-cantor-his-mathematics-and-philosophy-of-the-infinite-harvard-university-press-cambridge-mass-and-london-1979-ix-404-pp/52B6E0EDBF207D9023F9526866CDF92D}{Official Cambridge article link}).
+	
+	\begin{theorem}[\textbf{Cantor}] \label{cantor}
+		\begin{equation}
+			|\mathbb{N}| < |\mathbb{N} \longrightarrow \mathbb{N}|
+		\end{equation}
+		La cardinalità di $\mathbb{N}$ (numero di programmi per risolvere problemi) è strettamente più piccolo della cardinalità delle funzioni $\mathbb{N} \longrightarrow \mathbb{N}$ (numero di problemi esistenti).
+	\end{theorem}
+
+	\begin{proof}[\textbf{Dimostrazione}]
+		Si supponga per assurdo che $|\mathbb{N}| = |\mathbb{N}\longrightarrow\mathbb{N}|$. Questo implica che esistono funzioni numerabili come per esempio $f_0, f_1, f_2, ..., f_x, ...$.
+		
+		La genialità di Cantor si manifesta quando pensa ad una funzione $g(x)$ così definita:
+	
+		\begin{equation*}
+			g(x) = f_{x}(x) + 1 \hspace{2em} \text{con } g:\mathbb{N}\longrightarrow\mathbb{N}
+		\end{equation*}
+	
+		Con ovviamente $x\in\mathbb{N}$. La funzione $g(x)$ prende un numero naturale e restituisce un numero naturale, quindi è correttamente identificabile come un problema (definizione di problema a pagina~\pageref{def:problema}) e matematicamente formalizzabile come $\mathbb{N}\longrightarrow\mathbb{N}$.
+		
+		Dunque, prendendo qualsiasi funzione $f$ numerata $x$-esima, essa sarà diversa dalla funzione $g$ numerata $x$-esima poiché sempre aumentata di $1$:
+		
+		\begin{equation*}
+			f_{x}(x) \ne g(x) \longrightarrow f_{x}(x) \ne f_{x}(x) + 1
+		\end{equation*}
+	\end{proof}
+
+	Questo teorema purtroppo non è possibile applicarlo agli algoritmi informatici poiché se al posto della funzione $f_{x}(x)$ venisse inserito un algoritmo e quest'ultimo non terminasse mai, dunque sostituibile con $\infty$, la somma $+1$ non verrebbe mai eseguita. Per esempio, quando un programma entra in un loop che non gli consente di eseguire le istruzioni successive.
+	
+	\newpage
+	
+	
+	
+	\subsection{Problema decisionale e ipotesi del continuo}
+	
+	Un \textbf{\emph{alfabeto}} è una sequenza di simboli con cui è possibile scrivere gli algoritmi risolutivi. L'alfabeto utilizzato nelle realizzazioni tecnologiche è l'\textbf{alfabeto binario} $\Sigma = \{0, 1\}$.
+	
+	Un \textbf{\emph{problema decisionale}} è la versione associata ad un dato problema informatico $f\in\mathbb{N}\longrightarrow\mathbb{N}$, ovvero alla funzione:
+	
+	\begin{equation}\label{problema_decisionale}
+		d_{f} : \mathbb{N}\times\mathbb{N}\longrightarrow\{0,1\}
+	\end{equation}
+
+	\noindent
+	Definita nel seguente modo:
+	
+	\begin{equation*}
+		d_{f} ((x,y)) = 
+		\begin{cases}
+			1 & \text{se}\:y = f(x)\\
+			0 & \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	
+	\noindent
+	Un problema decisionale non è altro che una funzione con co-dominio $\{0,1\}$ che è in grado di decidere se una data coppia $(x,y)\in\mathbb{N}\times\mathbb{N}$ appartiene ad $f$.
+	
+	Essendo un problema decisionale una funzione associata ai problemi in informatica, allora esiste la relazione:
+	\begin{equation*}
+		\mathbb{N}\longrightarrow\{0,1\}\subseteq\mathbb{N}\longrightarrow\mathbb{N}
+	\end{equation*}
+	
+	\noindent
+	Dunque, sicuramente sarà vera la seguente condizione:
+	\begin{equation*}
+		|\mathbb{N}\longrightarrow\{0,1\}| \le |\mathbb{N}\longrightarrow\mathbb{N}|
+	\end{equation*}
+
+	\noindent
+	Ma sarà vera anche la seguente:
+	\begin{equation*}
+		|\mathbb{N}\longrightarrow\{0,1\}| = |\mathbb{N}\longrightarrow\mathbb{N}|
+	\end{equation*}
+
+	\begin{proof}[\textbf{Dimostrazione}]
+		È chiaro che la seguente relazione è vera:
+		\begin{equation*}
+			|\mathbb{N} \times \mathbb{N}| = |\mathbb{N}|
+		\end{equation*}
+	
+		\noindent
+		Allora, vale anche:
+		\begin{equation*}
+			|\mathbb{N}\longrightarrow\{0,1\}| = |\mathbb{N}\times\mathbb{N}\longrightarrow\{0,1\}|
+		\end{equation*}
+		
+		\noindent
+		Si prenda qualsiasi funzione del tipo $f: \mathbb{N} \longrightarrow \mathbb{N}$. A tale funzione, viene associato l'insieme:
+		\begin{equation*}
+			S_{f} = \left\{
+			(i, o)\: | \: f(i) = o
+			\right\} \subseteq \mathbb{N} \times \mathbb{N}
+		\end{equation*}
+		
+		\noindent
+		In cui $i$ indica l'input e $o$ indica l'output. Viene scritta la sua relativa equazione caratteristica:
+		\begin{equation*}
+			f_{S_{f}} (x,y) =
+			\begin{cases}
+				1 & \text{se } (x,y) \in S_{f} \\
+				0 & \text{altrimenti}
+			\end{cases}
+		\end{equation*}
+	
+		\noindent
+		Allora si può affermare con certezza:
+		\begin{equation}\label{uguaglianza_problema_decisionale}
+			|\mathbb{N}| < |\mathbb{N} \longrightarrow \mathbb{N}| = |\mathbb{N} \longrightarrow \{0,1\}| = |2^{\mathbb{N}}| = |\mathbb{R}|
+		\end{equation}
+	
+		\noindent
+		L'ultima uguaglianza è possibile grazie all'\textbf{ipotesi del continuo}.
+	\end{proof}
+\end{document}
