@@ -1,0 +1,60 @@
+\documentclass[a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\begin{document}
+	\author{VR443470}
+	\title{Reti di calcolatori}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	%%%%%%%%%%%%%%%%
+	% INTRODUZIONE %
+	%%%%%%%%%%%%%%%%
+	\section{Introduzione}
+	
+	\textbf{Internet} è una rete di calcolatori che interconnette miliardi di dispositivi di calcolo in tutto il mondo. Gli strumenti in una rete, per esempio cellulari o computer, vengono chiamati \textbf{host} (\emph{ospiti}) o \textbf{sistemi periferici} (\emph{end system}). Essi sono connessi tra di loro tramite una \textbf{rete di collegamenti} (\emph{communication link}) e \textbf{commutatori di pacchetti} (\emph{packet switch}). I collegamenti possono essere di vario tipo: cavi coassiali, fili di rame, fibre ottiche e onde elettromagnetiche. \newline
+	Ogni collegamento detiene una sua \textbf{velocità di trasmissione} (\emph{transmission rate}), ovvero la velocità di trasmissione dei dati. L’\textbf{unità di misura} è il bit per secondo (bit/secondo, \emph{bps}).
+	
+	L’insieme delle informazioni, o dati, che vengono inviati o ricevuti prendono il nome di \textbf{pacchetto}. L’\textbf{obbiettivo} \underline{di un commutatore di pacchetti} è quello di ricevere un pacchetto che arriva da un collegamento in ingresso e di ritrasmetterlo su un collegamento d’uscita. I due \underline{principali commutatori} di internet sono: \emph{router} e i commutatori a livello di collegamento (\emph{link-layer switch}). La sequenza di collegamenti e di commutatori di pacchetto attraversata dal singolo pacchetto è nota come \textbf{percorso} o \textbf{cammino} (\emph{route} o \emph{path}).
+	
+	Quindi, in sintesi, le definizioni più rilevanti sono:
+	
+	\begin{itemize}
+		\item[\ding{42}] \textbf{Internet.} Rete di calcolatori che interconnette i dispositivi di calcolo di tutto il mondo.
+		
+		\item[\ding{42}] \textbf{Host (\emph{o} sistemi periferici).} Strumenti in una rete, per esempio computer.
+		
+		\item[\ding{42}] \textbf{Rete di collegamenti (\emph{communication link}) e commutatori di pacchetto (\emph{packet switch}).} Collega vari \emph{host}, per esempio cavi coassiali o fili di rame.
+		
+		\item[\ding{42}] \textbf{Velocità di trasmissione (\emph{transmission rate})}. È la velocità di trasmissione dei dati e solitamente la sua \textbf{unità di misura} è il bit per secondo, cioè \emph{bps}.
+		
+		\item[\ding{42}] \textbf{Pacchetto.} Insieme delle informazioni che vengono inviate e ricevute.
+		
+		\item[\ding{42}] \textbf{\underline{Obbiettivo} commutatore di pacchetti.} Ricevere un pacchetto proveniente da un collegamento in ingresso e ritrasmetterlo su un collegamento d'uscita. Per esempio i \emph{router}.
+		
+		\item[\ding{42}] \textbf{Percorso (\emph{route}) o cammino (\emph{path}).} Sequenza di collegamenti e di commutatori di pacchetto attraversata dal singolo pacchetto.
+	\end{itemize}
+\end{document}
