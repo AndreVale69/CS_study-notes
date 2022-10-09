@@ -1,0 +1,170 @@
+\documentclass[a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage[x11names]{xcolor}		% colori aggiuntivi
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\begin{document}
+	\author{VR443470}
+	\title{Reti di calcolatori}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	%%%%%%%%%%%%%%
+	% LEZIONE 01 %
+	%%%%%%%%%%%%%%
+	\section{Lezione 01}
+	
+	\subsection{Equazioni a variabili separabili}
+	
+	Le equazioni differenziali a \textbf{variabili separabili} hanno due forme:
+	
+	\begin{itemize}
+		\item \textbf{Forma canonica.} $y'(x) = f(x)\cdot g\left(y(x)\right)$
+		\item \textbf{Forma alternativa.} $y' = f(x) \cdot g(y)$
+	\end{itemize}
+	
+	\noindent
+	Dove $f$ e $g$ sono funzioni continue ``in un intervallo reale'', più formalmente:
+	
+	\begin{gather*}
+		f \text{ continua in } I \subseteq R \\
+		g \text{ continua in } J \subseteq R
+	\end{gather*}
+	
+	\noindent
+	Le \textbf{soluzioni} di un'equazione differenziale possono essere:
+	
+	\begin{itemize}
+		\item[\ding{51}] \textbf{Costanti.} Quando $\bar{y}\in\mathbb{R}$ è uno zero di $g(y)$ e dunque vale:
+		\begin{equation*}
+			y(x)=\bar{y} \hspace{1em} \forall x\in I
+		\end{equation*}
+
+		\noindent
+		Quindi, quando un valore annulla $g(y)$, vuol dire che è stata trovata una soluzione costante dell'equazione differenziale.
+		
+		\item[\ding{51}] \textbf{\underline{Non} costanti.} Quando $g(y)$ non si annulla e quindi ci sarà la relazione:
+		\begin{equation*}
+			y'(x) = f(x) \cdot g(y(x)) \longrightarrow \dfrac{y'(x)}{g(y(x))} = f(x)
+		\end{equation*}
+	\end{itemize}
+
+	\noindent
+	Tuttavia, supponendo che $G(y)$ sia una primitiva di $\dfrac{1}{g(y)}$, allora:
+	
+	\begin{equation*}
+		\dfrac{\mathrm{d}}{\mathrm{d}x} G\left(y(x)\right) = f(x) \hspace{2em} \text{con} \hspace{2em} G(x) = F(x) + c \hspace{1em} c\in\mathbb{R}
+	\end{equation*}
+	
+	\noindent
+	Dove $F(x)$ è la primitiva di $f(x)$. Ma dato che $G$ è invertibile, si scrive:
+	
+	\begin{equation}\label{integrale_generale}
+		y(x) = G^{-1} \left(F(x) + c\right) \hspace{2em} \text{con } c \in \mathbb{R}
+	\end{equation}
+
+	\noindent
+	L'equazione \ref{integrale_generale} rappresenta l'\textbf{insieme delle soluzioni dell'equazione differenziale} e viene chiamato anche \textcolor{Red3}{\textbf{integrale generale}}.
+	
+	\newpage
+	
+	\begin{center}
+		\large \textcolor{Green4}{\textbf{Esempio equazione differenziale a variabili separabili}}
+	\end{center}
+	
+	\noindent
+	Equazione differenziale: $y' = x y$ in cui la $x$ rappresenta $f(x)$ e la $y$ rappresenta la $g(y)$. Una \textbf{nuova notazione} utilizzata negli esercizi è la seguente:
+	
+	\begin{equation*}
+		f, g \in \mathcal{C}^{0}(\mathbb{R})
+	\end{equation*}
+
+	\noindent
+	Che indica che le \textbf{funzioni $f$ e $g$ sono continue nell'intervallo $\mathbb{R}$}.
+	
+	L'esercizio si svolge \emph{cercando} inizialmente le \underline{soluzioni costanti}. Il modo più semplice per farlo è porre $y=0$ e verificare se $g(y)$ si annulla: in caso affermativo esiste una soluzione costante. In questo esercizio si annulla, quindi \emph{ha soluzione costante}.
+	
+	Al contrario, le \underline{soluzioni \emph{non} costanti} si trovano quando $y \ne 0$. Quindi:
+	
+	\begin{gather*}
+		y' = xy \rightarrow \dfrac{\mathrm{d}y}{\mathrm{d}x} = xy \rightarrow \dfrac{1}{y} \mathrm{d}y = x \: \mathrm{d}x \rightarrow \displaystyle \int \dfrac{1}{y} \mathrm{d}y = \int x \mathrm{d} x \rightarrow \ln |y| = \dfrac{1}{2} x^{2} + c \hspace{1em} c\in\mathbb{R}
+	\end{gather*}
+
+	\noindent
+	Esplicitando il risultato:
+	
+	\begin{equation*}
+		|y(x)| = e^{\frac{1}{2} x^2 + c} \hspace{1em} c\in\mathbb{R} \longrightarrow y(x) = \pm e^{c} \cdot e^{\frac{1}{2} x^2} \hspace{1em} c \in \mathbb{R}
+	\end{equation*}
+
+	Dato che $e^c$ può essere positivo o negativo escluso lo zero (soluzione costante!), si riscrive più precisamente l'\textbf{integrale generale dell'equazione}:
+	
+	\begin{equation*}
+		y(x) = k \cdot e^{\frac{1}{2} x^2} \hspace{1em} k \in \mathbb{R} \setminus \{0\}
+	\end{equation*}
+
+	È possibile \textbf{verificare la soluzione} dell'equazione differenziale effettuando una derivazione:
+	
+	\begin{gather*}
+		y(x) = k \cdot e^{\frac{1}{2} x^2} \\
+		y'(x) = k \cdot x \cdot e^{\frac{1}{2} x^2} \hspace{1em} \forall x \in \mathbb{R} \hspace{1em} \text{\textcolor{Green3}{\checkmark Verificata}}
+	\end{gather*}
+	
+	\newpage
+	
+	\subsection{Problema di Cauchy}
+	
+	Nel caso in cui si è interessati ad una soluzione particolare, è necessaria una condizione. In questo caso, si è di fronte al \textcolor{Red3}{\textbf{problema di Cauchy}}, il quale è caratterizzato dalla presenza di un'equazione differenziale e da \underline{almeno} una condizione.\newline
+	L'\textbf{obbiettivo} è \underline{verificare} la/le condizione/i tramite una soluzione (o più soluzioni).\newline
+	La \textbf{struttura} è la seguente:
+	
+	\begin{equation}\label{problema_di_Cauchy}
+		\begin{cases}
+			y'= f(x) \cdot g(y) \\
+			y(x_0) = y_0 & x_0 \in I
+		\end{cases}
+	\end{equation}
+
+	\begin{center}
+		\large \textcolor{Green4}{\textbf{Esempio problema di Cauchy}}
+	\end{center}
+
+	\noindent
+	Il problema:
+	
+	\begin{equation*}
+		\begin{cases}
+			y' = -3y \\
+			y(0) = 2
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	La risoluzione:
+	
+	\begin{equation*}
+		contenuto...
+	\end{equation*}
+\end{document}
