@@ -7,6 +7,7 @@
 \usepackage{amsmath}				% pacchetto matematica
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage[x11names]{xcolor}		% colori aggiuntivi
 % Link ipertestuali per l'indice
 \usepackage{xcolor}
 \usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
@@ -56,5 +57,190 @@
 		\item[\ding{42}] \textbf{\underline{Obbiettivo} commutatore di pacchetti.} Ricevere un pacchetto proveniente da un collegamento in ingresso e ritrasmetterlo su un collegamento d'uscita. Per esempio i \emph{router}.
 		
 		\item[\ding{42}] \textbf{Percorso (\emph{route}) o cammino (\emph{path}).} Sequenza di collegamenti e di commutatori di pacchetto attraversata dal singolo pacchetto.
+	\end{itemize}
+
+	\newpage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% ISP, TCP/IP, commutazione dei pacchetti e ritardi %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{ISP, TCP/IP, commutazione dei pacchetti e ritardi}
+	
+	\subsection{ISP}
+	
+	I sistemi periferici accedono ad Internet tramite un servizio chiamato \textbf{Internet Service Provider} (ISP). Con \textbf{provider} si intende un insieme di commutatori di pacchetto e di collegamenti. Gli \textbf{obbiettivi} degli ISP è fornire ai sistemi periferici svariati tipi di accesso alla rete, come quello residenziale a larga banda (e.g. DSL), quello in rete locale ad alta velocità, quello senza fili (\emph{wireless}) e in mobilità.
+	
+	\noindent
+	Esistono \textbf{$3$ tipi} di livelli di ISP:
+	
+	\begin{description}
+		\item{\textbf{Livello 1.}} \emph{Internazionale} (Telecom, TIM, ...);
+		\item{\textbf{Livello 2.}} \emph{Nazionale} (Fastweb);
+		\item{\textbf{Livello 3.}} \emph{Locale} (solitamente per professionisti).
+	\end{description}
+
+	Più è basso il livello, più gli ISP sono costituiti da \emph{router} ad alta velocità interconnessi tipicamente tramite fibra ottica.
+	
+	\subsection{TCP/IP}
+	
+	I sistemi periferici, i commutatori di pacchetto e altre parti di Internet fanno uso di \textbf{protocolli} che controllano l’invio e la ricezione di informazioni all’interno della rete. Esistono \textbf{due principali protocolli} Internet: \textbf{\emph{Transmission Control Protocol}} (TCP) e \textbf{\emph{Internet Protocol}} (IP). In particolare, l’IP specifica il formato dei pacchetti scambiati tra router e sistemi periferici. Generalmente ci si riferisce a questi due protocolli tramite il nome collettivo TCP/IP.
+	
+	\newpage
+	
+	\subsection{Commutazione dei pacchetti}
+	
+	Esistono due diversi approcci per spostare quantità di dati all’interno di una rete: la \textbf{commutazione di circuito} e la \textbf{commutazione di pacchetto}.
+	
+	\begin{center}
+		\large \textcolor{Red3}{\textbf{Commutazione di circuito}}
+	\end{center}
+	
+	Nella \textbf{commutazione di circuito} le risorse richieste lungo un percorso (buffer e velocità di trasmissione sui collegamenti) sono \textbf{riservate} per l'intera durata della sessione di comunicazione.
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Vantaggi:}}
+	
+	\begin{itemize}
+		\item[\ding{51}] \textbf{Velocità costante} durante il collegamento poiché le risorse sono riservate e non condivise. Questo si traduce in un \textbf{ritardo contenuto}.
+	\end{itemize}
+
+	\noindent
+	\textcolor{Red1}{\textbf{Svantaggi:}}
+	
+	\begin{itemize}
+			\item[\ding{55}] \textbf{Spreco di risorse} poiché i circuiti sono inattivi durante i periodi di silenzio, ovvero nei periodi in cui non c’è comunicazione;
+			
+			\item[\ding{55}] \textbf{Complicazioni} nello stabilire circuiti e nel riservare larghezza di banda \emph{end-to-end}.
+	\end{itemize}
+
+	In questo contesto, i ritardi possono essere causati solamente per tre motivi: (1) a causa dell'instaurazione del circuito, (2) a causa della distanza tra sorgente e destinazione, (3) a causa della trasmissione vera e propria.
+	
+	\begin{center}
+		\large \textcolor{Red3}{\textbf{Commutazione di pacchetto}}
+	\end{center}
+
+	Nella \textbf{commutazione di pacchetto} la sorgente divide i messaggi in parti più piccole, ovvero in \textbf{pacchetti} assegnando a ciascuno un'intestazione. I pacchetti viaggiano attraverso collegamenti e commutatori di pacchetto dalla sorgente alla destinazione.
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Vantaggi:}}
+	
+	\begin{itemize}
+		\item[\ding{51}] \textbf{Ottimizzazione} delle risorse poiché c’è una condivisione di esse nei momenti di inattività.
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Red1}{\textbf{Svantaggi:}}
+	
+	\begin{itemize}
+		\item[\ding{55}] \textbf{Possibile perdita} di pacchetti nel caso in cui un buffer di un nodo sia saturo. Questo comporta un buffer overflow e una conseguente perdita;
+		
+		\item[\ding{55}] \textbf{Ritardo dovuto a \emph{store and forward} e numero di nodi intermedi.} A causa dello \emph{store and forward}, ogni nodo deve attendere di ricevere l'intero pacchetto prima di ritrasmetterlo. Inoltre, con l'aumentare dei nodi intermedi, il ritardo aumenta.\newline
+		(approfondimento \href{https://it.wikipedia.org/wiki/Store_and_forward#:~:text=Nelle%20telecomunicazioni%2C%20lo%20store%20and,ritrasmesso%20nel%20collegamento%20in%20uscita}{\emph{store and forward}})
+	\end{itemize}
+	
+	\newpage
+	
+	\subsection{Tipologie di ritardi}
+	
+	Esistono diverse tipologie di ritardo perché quando un pacchetto parte da un \emph{host} (sorgente), passa attraverso una serie di \emph{router} e conclude il viaggio in un altro \emph{host} (destinazione). Questo comporta un ritardo in ciascun nodo (\emph{host} o \emph{router}). I principali ritardi sono: \textbf{ritardo di elaborazione}, \textbf{ritardo di accodamento}, \textbf{ritardo di trasmissione} e \textbf{ritardo di propagazione}. L'insieme di questi ritardi è chiamato \textbf{ritardo totale di nodo} (\emph{nodal delay}).
+	
+	\begin{flushleft}
+		\large \textcolor{Red3}{\textbf{Ritardo di elaborazione}}
+	\end{flushleft}
+	
+	\noindent
+	Il tempo richiesto per esaminare l’intestazione del pacchetto e per determinare dove dirigerlo fa parte del \textbf{ritardo di elaborazione} (\emph{processing delay}). Per dirigere si intende il tempo che impiega il \emph{router} a determinare la sua parte di uscita.
+	
+	\begin{flushleft}
+		\large \textcolor{Red3}{\textbf{Ritardo di accodamento}}
+	\end{flushleft}
+	
+	\noindent
+	Una volta in coda, il pacchetto subisce un \textbf{ritardo di accodamento} (\emph{queuing delay}) mentre attende la trasmissione sul collegamento. La lunghezza di tale ritardo dipenderà dal numero di pacchetto precedentemente arrivati, accodati e in attesa di trasmissione sullo stesso collegamento. In altre parole, è il tempo speso nel \emph{buffer} prima che il pacchetto venga ritrasmesso.
+	
+	\begin{flushleft}
+		\large \textcolor{Red3}{\textbf{Ritardo di trasmissione}}
+	\end{flushleft}
+	
+	\noindent
+	Data $L$ la lunghezza del pacchetto, in bit, e $R$ \emph{bps} la velocità di trasmissione del collegamento dal \emph{router} $A$ al \emph{router} $B$, il \textbf{ritardo di trasmissione} (\emph{transmission delay}) sarà $L\div R$. Questo è il tempo richiesto per trasmettere tutti i bit del pacchetto sul collegamento.\newline
+	Più semplicemente, dipende dalla velocità di trasmissione e dalla dimensione del pacchetto ed è possibile sintetizzarlo con la formula:
+	
+	\begin{equation*}
+		t_{\text{trasm}} = \dfrac{\text{dim\_pacchetto}}{\text{velocità\_trasmissione}}
+	\end{equation*}
+	
+	\begin{flushleft}
+	\large \textcolor{Red3}{\textbf{Ritardo di propagazione}}
+	\end{flushleft}
+	
+	\noindent
+	Una volta immesso sul collegamento, un bit deve propagarsi fino al \emph{router} B. Il tempo impiegato è il \textbf{ritardo di propagazione} (\emph{propagation delay}). In altre parole è il tempo impiegato per percorrere la distanza verso il \emph{router} successivo.
+	
+	\begin{flushleft}
+		\large \textbf{Strumenti di misurazione}
+	\end{flushleft}
+	
+	\noindent
+	Esistono diversi \textbf{strumenti per misurare il ritardo}:
+	
+	\begin{itemize}
+		\item \textbf{PING.} Dato un indirizzo di destinazione, il calcolatore manda una serie di messaggi e misura il tempo che intercorre tra l'invio e la ricezione della risposta, chiamato anche \emph{Rount Trip Time} (RTT).
+		
+		\item \textbf{TRACEROUTE.} Misura il \emph{Round Trip Time} tra la sorgente e \textbf{tutti} gli apparati di rete intermedi.
+	\end{itemize}
+	
+	\newpage
+	
+	\subsection{Sintesi}
+	
+	\begin{itemize}
+		\item[\ding{42}] \textbf{\emph{Internet Service Provider} (ISP).} Strumento utilizzato dai sistemi periferici per accedere ad Internet.
+		
+		\item[\ding{42}] \textbf{\emph{Provider}.} Insieme di commutatori di pacchetto e di collegamenti, solitamente è un'azienda che fornisce servizi.
+		
+		\item[\ding{42}] \textbf{\underline{Obbiettivi} ISP.} Fornire vari tipi di accesso alla rete ai dispositivi che si collegano (e.g. DSL, \emph{wireless}, ecc.).
+		
+		\item[\ding{42}] \textbf{\underline{Tipi} di ISP:}
+			\begin{itemize}
+				\item{\textbf{Livello 1.}} \emph{Internazionale} (Telecom, TIM, ...);
+				\item{\textbf{Livello 2.}} \emph{Nazionale} (Fastweb);
+				\item{\textbf{Livello 3.}} \emph{Locale} (solitamente per professionisti).
+			\end{itemize}
+		
+		\item[\ding{42}] \textbf{Definizione TCP/IP.} Protocolli più famosi utilizzati dai sistemi periferici, i commutatori di pacchetto e altre parti di Internet. N.B. il protocollo IP specifica il formato dei pacchetti scambiati tra \emph{router} e sistemi periferici.
+		
+		\item[\ding{42}] \textbf{Definizione commutazione di circuito.}  Le risorse sono \underline{riservate} per l'intera comunicazione.
+		
+		\begin{enumerate}
+			\item[\ding{43}] \textbf{\underline{Vantaggio} commutazione di circuito.} Velocità costante grazie ad un canale dedicato e quindi ritardo contenuto.
+			
+			\item[\ding{43}] \textbf{\underline{Svantaggio} commutazione di circuito.} Spreco di risorse in caso di silenzi durante la comunicazione.
+			
+			\item[\ding{43}] \textbf{\underline{Causa dei ritardi} nella commutazione di circuito.} I motivi possono essere tre:
+			\begin{enumerate}[label=\Roman*]
+				\item Instaurazione del circuito;
+				\item Distanza tra sorgente e destinazione;
+				\item Trasmissione vera e propria della comunicazione.
+			\end{enumerate}
+		\end{enumerate}
+		
+		\item[\ding{42}] \textbf{Definizione commutazione di pacchetto.} La sorgente divide i messaggi in parti più piccole chiamate \textbf{pacchetti}.
+		
+		\begin{enumerate}
+			\item[\ding{43}] \textbf{\underline{Vantaggio} commutazione di pacchetto.} Ottimizzazione delle risorse poiché c'è una condivisione durante l'inattività.
+			
+			\item[\ding{43}] \textbf{\underline{Svantaggi} commutazione di circuito.} Eventuale perdita di pacchetti nel caso in cui un nodo intermedio abbia il \emph{buffer} saturo (generazione di \emph{buffer overflow}); ritardo causato da \emph{store and forward} poiché ogni pacchetto per essere inoltrato deve essere completamente trasmesso; all'aumentare dei nodi intermedi, il ritardo aumenta.
+		\end{enumerate}
+	
+		\item[\ding{42}] \textbf{Ritardo di elaborazione (\emph{processing delay}).} Tempo impiegato dal \emph{router} per esaminare l'intestazione del pacchetto e determinare l'uscita.
+		
+		\item[\ding{42}] \textbf{Ritardo di accodamento (\emph{queuing delay}).} Tempo impiegato dal pacchetto all'interno della coda del buffer del \emph{router}.
+		
+		\item[\ding{42}] \textbf{Ritardo di trasmissione (\emph{transmission delay}).} Tempo che dipende dal rapporto tra la dimensione del pacchetto e la velocità di trasmissione.
+		
+		\item[\ding{42}] \textbf{Ritardo di propagazione (\emph{propagation delay}).} Tempo impiegato per percorrere la distanza verso il \emph{router} successivo.
+		
+		\item[\ding{42}] \textbf{Strumenti per la misurazione del ritardo.} I due strumenti sono ``PING'' e ``TRACEROUTE''. La differenza è che PING misura il RTT tra sorgente e destinazione, mentre il TRACEROUTE misura il RTT tra sorgente e \underline{ogni} nodo intermedio.
 	\end{itemize}
 \end{document}
