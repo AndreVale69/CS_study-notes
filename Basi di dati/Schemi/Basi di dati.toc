@@ -1,0 +1,13 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Introduzione}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Sistemi informativi, informazioni e dati}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Basi di dati e sistemi di gestione di basi di dati}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Linguaggi per basi di dati}{5}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Modelli dei dati}{6}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Astrazione (architettura) dei DBMS}{7}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Indipendenza dei dati}{8}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Metodologie e modelli per il progetto}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Ciclo di vita dei sistemi informativi}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Metodologie di progettazione e basi di dati}{11}{subsection.2.2}%
