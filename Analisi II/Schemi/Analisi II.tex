@@ -20,7 +20,7 @@
 
 \begin{document}
 	\author{VR443470}
-	\title{Reti di calcolatori}
+	\title{Analisi II}
 	\date{\printdayoff\today}
 	\maketitle
 	
@@ -147,6 +147,8 @@
 		\end{cases}
 	\end{equation}
 
+	\vspace{1em}
+
 	\begin{center}
 		\large \textcolor{Green4}{\textbf{Esempio problema di Cauchy}}
 	\end{center}
@@ -164,7 +166,80 @@
 	\noindent
 	La risoluzione:
 	
+	\begin{gather*}
+		\dfrac{\mathrm{d}y}{\mathrm{d}x} = - 3y \longrightarrow \dfrac{\mathrm{d}y}{y} = - 3 \: \mathrm{d}x \longrightarrow  \displaystyle \int {\dfrac{1}{y} \: \mathrm{d}y} = -3x + c \longrightarrow ...\\
+		... \longrightarrow y(x) = k e^{-3x} \hspace{1em} k \in \mathbb{R} \text{ [}\textcolor{Red3}{\textbf{Integrale generale}}\text{]}
+	\end{gather*}
+
+	\noindent
+	Adesso si esegue la \textbf{verifica della condizione} sostituendo quest'ultima nella soluzione:
+	
+	\begin{gather*}
+		\text{Condizione: } y(0) = 2 \\
+		\text{Eq. diff.: } y(0) = k e^{-3 \cdot (0)} \longrightarrow 2 = k \cdot e^0 \longrightarrow k = 2
+	\end{gather*}
+
+	\noindent
+	Quindi, la \textbf{soluzione del problema di Cauchy}:
+	
 	\begin{equation*}
-		contenuto...
+		y(x) = 2 e^{-3x} \hspace{1em} \text{con } x \in \mathbb{R}
 	\end{equation*}
+
+	\newpage
+	
+	\begin{center}
+		\large \textcolor{Green4}{\textbf{Un altro esempio del problema di Cauchy}}
+	\end{center}
+
+	\noindent
+	Il problema:
+	
+	\begin{equation*}
+		\begin{cases}
+			y' = (1 + y^2) x & f, g \in \mathcal{C}^0 \left(\mathbb{R}\right) \\
+			y(0) = 1
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Cercando la \textbf{soluzione costante} sostituendo $y = 0$, si osserva che la funzione non si annulla, quindi $1 + y^2 \ne 0 \hspace{1em} \forall y \in \mathbb{R}$, ovvero nessun numero reale annulla $g(y)$.
+	
+	\noindent
+	Cercando eventuali \textbf{soluzioni costanti}:
+	
+	\begin{gather*}
+		\dfrac{\mathrm{d}y}{\mathrm{d}x} = (1 + y^2) x \longrightarrow \dfrac{1}{1 + y^2} \mathrm{d}y = x \mathrm{d}x \longrightarrow \int{\dfrac{1}{1 + y^2} \mathrm{d}y} = \int{x \mathrm{d}x} \longrightarrow \\
+		\longrightarrow \textcolor{Red3}{\textbf{ Integrale generale}}\text{: } \arctan{\left(y\right)} = \dfrac{1}{2} x^2 + c \hspace{1em} c \in \mathbb{R}
+	\end{gather*}
+
+	\noindent
+	\textbf{Verificando la condizione} sostituendo, si ottiene:
+	
+	\begin{gather*}
+		\text{Condizione: } y(0) = 1 \\
+		\text{Eq. diff.: } \arctan{\left(1\right)} = \dfrac{1}{2}\cdot 0^2 + c \longrightarrow \arctan{\left(1\right)} = 0 + c \longrightarrow c = \dfrac{\pi}{4}
+	\end{gather*}
+	
+	\noindent
+	È possibile \textbf{esplicitare} la funzione $y(x)$ dall'integrale generale, ottenendo la seguente forma:
+	
+	\begin{equation*}
+		y(x) = \tan{\left(\dfrac{1}{2}x^2 + \dfrac{\pi}{4}\right)}
+	\end{equation*}
+
+	\noindent
+	Inoltre, dato che $\arctan$ è sicuramente compreso, per definizione, nell'intervallo:
+	
+	\begin{equation*}
+		\pm \dfrac{\pi}{2} \longrightarrow -\dfrac{\pi}{2} < \dfrac{1}{2} x^2 + c < \dfrac{\pi}{2}
+	\end{equation*}
+
+	\noindent
+	Allora è possibile sostituire la $c$ con il valore trovato durante l'esplicitazione:s
+	
+	\begin{equation*}
+		-\dfrac{\pi}{2} < \dfrac{1}{2} x^2 + \dfrac{\pi}{4} < \dfrac{\pi}{2}
+	\end{equation*}
+	
 \end{document}
