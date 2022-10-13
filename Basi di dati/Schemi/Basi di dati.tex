@@ -19,12 +19,14 @@
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
 
+\newcommand{\dquotes}[1]{``#1''}
+
 \begin{document}
 	\author{VR443470}
 	\title{Basi di dati}
 	\date{\printdayoff\today}
 	\maketitle
-	
+
 	\newpage
 	
 	% indice
@@ -54,7 +56,7 @@
 	
 	\subsection{Basi di dati e sistemi di gestione di basi di dati}
 	
-	Inizialmente, venne adottato un ``\underline{approccio convenzionale}'' alla gestione dei dati. Esso \textbf{sfruttava} la presenza di archivi o \textbf{file per memorizzare} e \textbf{per ricercare dati}. Tuttavia, i metodi di accesso e condivisione erano semplici e banali.\newline
+	Inizialmente, venne adottato un \dquotes{\underline{approccio convenzionale}} alla gestione dei dati. Esso \textbf{sfruttava} la presenza di archivi o \textbf{file per memorizzare} e \textbf{per ricercare dati}. Tuttavia, i metodi di accesso e condivisione erano semplici e banali.\newline
 	Infatti, erano presenti numerosi \textbf{problemi}:
 	
 	\begin{itemize}
@@ -249,21 +251,148 @@
 
 	%\newpage
 
-	Negli anni si è \emph{consolidata una metodologia} di progetto che ha dato prova di soddisfare pienamente le proprietà descritte. Si basa sull'idea di separare le decisioni relative a ``cosa'' rappresentare in una base di dati (prima fase), da quelle relative a ``come'' farlo (seconda e terza fase):
+	Negli anni si è \emph{consolidata una metodologia} di progetto che ha dato prova di soddisfare pienamente le proprietà descritte. Si basa sull'idea di separare le decisioni relative a \dquotes{cosa} rappresentare in una base di dati (prima fase), da quelle relative a \dquotes{come} farlo (seconda e terza fase):
 	
 	\begin{itemize}
 		\item[\ding{42}] \textbf{Progettazione concettuale.}\newline
 		\textcolor{Red3}{\textbf{Obbiettivo:}} rappresentare le specifiche informali della realtà di interesse in termini di una descrizione formale e completa. La \textbf{\underline{rappresentazione}} \textbf{\underline{deve essere indipendente}} dai criteri di rappresentazione utilizzati nei sistemi di gestione di basi di dati.\newline
 		\textcolor{Green4}{\textbf{Prodotto di questa fase:}} \underline{schema concettuale}. È un documento formale che rappresenta il contenuto della base di dati in modo indipendente dall'implementazione (DBMS).\newline
-		\textcolor{Blue3}{\textbf{Applicazione:}} cercare di rappresentare il \textbf{contenuto informativo} della base di dati, senza preoccuparsi né della modalità con le quali queste informazioni verranno codificate in un sistema reale, né dell'efficienza dei programmi che faranno uso di queste informazioni.
+		\textcolor{Blue3}{\textbf{Applicazione:}} cercare di rappresentare il \textbf{contenuto informativo} della base di dati, senza preoccuparsi né della modalità con le quali queste informazioni verranno codificate in un sistema reale, né dell'efficienza dei programmi che faranno uso di queste informazioni.\label{progettazione concettuale}
 		
 		\item[\ding{42}] \textbf{Progettazione logica.}\newline
 		\textcolor{Red3}{\textbf{Obbiettivo:}} traduzione dello schema concettuale prodotto nella fase precedente, in termini del modello di rappresentazione dei dati adottato dal sistema di gestione di base di dati a disposizione.\newline
 		\textcolor{Green4}{\textbf{Prodotto di questa fase:}} \underline{schema logico}.\newline
-		\textcolor{Blue3}{\textbf{Applicazione:}} durante la traduzione, le scelte progettuali si \underline{devono} basare anche su criteri di ottimizzazione delle operazioni da effettuare sui dati.
+		\textcolor{Blue3}{\textbf{Applicazione:}} durante la traduzione, le scelte progettuali si \underline{devono} basare anche su criteri di ottimizzazione delle operazioni da effettuare sui dati.\label{progettazione logica}
 		
 		\item[\ding{42}] \textbf{Progettazione fisica.}\newline
 		\textcolor{Red3}{\textbf{Obbiettivo:}} lo schema logico viene completato con la specifica dei parametri fisici di memorizzazione dei dati.\newline
-		\textcolor{Green4}{\textbf{Prodotto di questa fase:}} \underline{schema fisico}.\newline
+		\textcolor{Green4}{\textbf{Prodotto di questa fase:}} \underline{schema fisico}.\newline\label{progettazione fisica}
 	\end{itemize}
+
+	\newpage
+	
+	
+	
+	
+	\subsection{Il modello Entità-Relazione (E-R)}
+	
+	Il \textcolor{Red3}{\textbf{\emph{modello Entità-Relazione}}} è un modello \textbf{concettuale} di dati, quindi utilizzato nella \textbf{progettazione concettuale}, e fornisce una serie di strutture, chiamati \textbf{\emph{costrutti}}, atte a descrivere la realtà di interesse in una maniera facile da comprendere e che prescinde dai criteri di organizzazione dei dati nei calcolatori.
+	
+	I \underline{costrutti vengono utilizzati} per \textbf{definire schemi} che \textbf{descrivono l'organizzazione e la struttura delle occorrenze} (o \textbf{istanze}) \textbf{dei dati}, ovvero, dei valori assunti dai dati al variare del tempo.
+	
+	\noindent
+	Si possono \underline{riassumere le caratteristiche} del modello Entità-Relazione:
+	
+	\begin{itemize}
+		\item[\ding{42}] \textcolor{SpringGreen4}{\textbf{\emph{Modello concettuale}.}} Utilizzato durante la progettazione concettuale (definizione al paragrafo~\ref{progettazione concettuale}) di una base di dati.
+		
+		\item[\ding{42}] \textcolor{SpringGreen4}{\textbf{\emph{Strumenti formali}.}} Vengono messi a disposizione diversi strumenti per definire la \textbf{struttura} e le \textbf{proprietà} di una base di dati (\emph{esempio i costrutti}).
+		
+		\item[\ding{42}] \textcolor{SpringGreen4}{\textbf{\emph{Indipendente dalla tecnologia}.}} Essendo un modello astratto, l'obbiettivo è quello di definire la struttura e le proprietà della base di dati (\underline{non di implementarla!}).
+		
+		\item[\ding{42}] \textcolor{SpringGreen4}{\textbf{\emph{Formale}.}} È facile da utilizzare nonostante non ammetta ambiguità.
+		
+		\item[\ding{42}] \textcolor{SpringGreen4}{\textbf{\emph{Grafico}.}} La sintassi è prettamente grafica e questo aumenta anche la leggibilità.
+	\end{itemize}
+
+	\newpage
+	
+	
+	
+	
+	\subsection{I costrutti principali del modello}
+	
+	Si analizzano i principali costrutti di questo modello: entità (pagina~\pageref{entità}), relazioni(pagina~\pageref{relazioni}) e attributi (pagina~\pageref{attributi}).
+	
+	\subsubsection{Entità}\label{entità}
+	\textcolor{Red3}{\textbf{Definizione.}} Rappresentano \textbf{classi di oggetti} (per esempio, fatti, cose, persone) \textbf{che hanno proprietà comuni ed esistenza \dquotes{autonoma} ai fini dell'applicazione di interesse}. Per esempio, \dquotes{città, dipartimento, impiegato, acquisto e vendita} sono entità di un'applicazione aziendale. Inoltre, \textbf{ogni entità ha un nome identificativo}, il quale deve essere \textbf{univoco}. In sintesi:
+	
+	\begin{itemize}
+		\item Hanno \textbf{proprietà comuni};
+		\item Hanno \textbf{esistenza autonoma};
+		\item Hanno \textbf{identificazione univoca}.
+	\end{itemize}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Sintassi grafica.}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/entita_def.pdf}
+		\caption{Sintassi grafica dell'entità.}
+	\end{figure}
+
+	\noindent
+	\textcolor{blue}{\textbf{Istanza (o occorrenza).}} Un'\textbf{istanza} (o occorrenza) di un'entità è un \textbf{oggetto della classe che l'entità rappresenta}. Le città di Roma, Milano e Palermo sono esempi di occorrenze dell'entità \dquotes{Città}.\newline
+	\textbf{\underline{Attenzione!}} L'istanza di un'entità \textbf{\emph{non è un valore}} che identifica un oggetto (per esempio, il cognome dell'impiegato o il suo codice fiscale),\textbf{\emph{ ma è l'oggetto stesso}} (l'impiegato in \dquotes{carne e ossa}). Quindi, un'\textbf{istanza ha un'esistenza indipendente dalle proprietà a esso associate}.
+	
+	Un’istanza dell’entità $E$ è un oggetto appartenente alla classe rappresentata da $E$. Si indica con $I(E)$ l’insieme delle istanze di $E$ che esistono nella base di dati in un certo istante.
+	
+	\newpage
+	
+	
+	
+	
+	\subsubsection{Relazioni (o associazioni)}\label{relazioni}
+	
+	\textcolor{Red3}{\textbf{Definizione.}} Rappresentano \textbf{legami logici}, significativi per l'applicazione di interesse, \textbf{tra due o più entità}. Per esempio, \dquotes Residenza'' è una relazione che sussiste tra le entità \dquotes{Città} e \dquotes{Impiegato}.Nello schema E-R, \textbf{ogni relazione ha un nome identificativo univoco}.
+	
+	\noindent
+	Le relazioni possono essere di \textbf{tipo}:
+	
+	\begin{itemize}
+		\item \textbf{\emph{Ricorsive}}, ovvero \textbf{relazioni tra un'entità e se stessa}. Per esempio, la relazione \dquotes{Collega} sull'entità \dquotes{Impiegato} connette coppie di impiegati che lavorano insieme.
+		
+		\item \textbf{\emph{n-arie}}, ovvero \textbf{relazioni che coinvolgono più di due entità}. Per esempio, la relazione \dquotes{Fornitura} tre le tre entità \dquotes{Fornitore, Prodotto e Dipartimento} descrive il fatto che un fornitore rifornisce un dipartimento di un certo prodotto.
+	\end{itemize}
+
+	\noindent
+	\textbf{\underline{Nota fondamentale:}} \textbf{per eseguire una relazione, le entità devono essere tutte piene o con almeno un dato all'interno.} \newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Sintassi grafica.}} Una relazione $R$ si rappresenta nello schema con un \textbf{rombo} a cui si collegano attraverso linee spezzate le entità coinvolte nella relazione. Il nome della relazione viene scritto a fianco del rombo.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/relazione_def.pdf}
+		\caption{Sintassi grafica della relazione.}
+	\end{figure}
+
+	\noindent
+	\textcolor{blue}{\textbf{Istanza (o occorrenza).}} Un'istanza di relazione è un'\textbf{ennupla costituita da istanze di entità, una per ciascuna delle entità coinvolte}.
+	
+	\noindent
+	Data una relazione $R$ tra $n$ entità $E_1, \cdots, E_n$, un’istanza della relazione $R$ è una ennupla di istanze di entità:
+	
+	\begin{equation*}
+		\left(e_1, \cdots, e_n\right) \text{ dove } e_i \in I(E_i), 1\le i \le n
+	\end{equation*}
+
+	\noindent
+	Infine, esiste una relazione importante. Data una relazione $R$ tra $n$ entità, vale sempre la seguente proprietà sull’insieme delle istanze di $R (I(R))$:
+	
+	\begin{equation*}
+		I(R) \subseteq I(E_1) \times \cdots \times I(E_n)
+	\end{equation*}
+	
+	\newpage
+	
+	
+	
+	
+	\subsubsection{Attributi}\label{attributi}
+	
+	\textcolor{Red3}{\textbf{Definizione.}}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Sintassi grafica.}}
+	
+%	\begin{figure}[!htp]
+%		\centering
+%		\includegraphics[width=0.5\textwidth]{img/entita_def.pdf}
+%		\caption{Sintassi grafica dell'entità.}
+%	\end{figure}
+	
+	\noindent
+	\textcolor{blue}{\textbf{Istanza (o occorrenza).}}
 \end{document}
