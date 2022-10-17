@@ -26,14 +26,9 @@
 \newtheorem{theorem}{Teorema}
 \renewcommand{\qedsymbol}{QED}
 \newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+\newcommand{\dquotes}[1]{``#1''}
 
 \begin{document}
-	Riferimenti al libro di testo:
-	\begin{itemize}
-		\item Capitolo 4: 4.1
-		\item Capitolo 4: 4.2
-		\item Capitolo 4: 4.3
-	\end{itemize}
 	% indice
 	\tableofcontents
 	
@@ -88,7 +83,7 @@
 	
 	\newpage
 	
-	\subsection{Teorema di Cantor}
+	\subsection{Teorema di Cantor (1874)}
 	
 	Il seguente teorema ha come conseguenza che \textbf{esistono insiemi non numerabili}. Questo risultato si attribuisce a Georg Cantor, matematico tedesco, nel 1874.
 	
@@ -392,7 +387,7 @@
 
 	\newpage
 
-	\subsubsection{Automi deterministici}
+	\subsubsection{Automi deterministici (DFA)}\label{automi deterministici}
 	
 	Un \textbf{automa a stati finiti \underline{deterministico}} (DFA) è una che, date determinate condizioni, è possibile determinare la serie di operazioni. Viene rappresentato con una quintupla del tipo $\left\langle Q, \Sigma, \delta, q_0, F\right\rangle$ in cui:
 	
@@ -428,4 +423,259 @@
 	
 	\noindent
 	Un linguaggio $L$ viene detto \textcolor{Red3}{\textbf{\emph{linguaggio regolare}}} se è accettato da qualche automa a stati finiti deterministico (DFA), ovvero se esiste $M$ tale che $L = L(M)$.
+	
+	\newpage
+	
+	\subsubsection{Esempio esercizio (automi deterministici)}
+	
+	\textcolor{Red3}{\textbf{\emph{Esercizio.}}}
+	
+	\noindent
+	Il grafo dell'esercizio è il seguente:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/grafo_ex1.pdf}
+		\caption{Grafo di un automa a stati finiti deterministico.}
+	\end{figure}
+	
+	\noindent
+	I dati forniti sono i seguenti:
+	
+	\begin{gather*}
+		\textbf{Linguaggio: } L(M) = \left\{x \in \{0, 1\}^* \: | \: x \text{ contiene almeno uno } 0 \right\} \\
+		\textbf{Alfabeto: } \Sigma = \left\{0, 1\right\}
+	\end{gather*}
+	
+	\noindent
+	Si dimostri che $L(M)$ è $\subseteq$ e $\supseteq$ del linguaggio che è stato dato. Quindi, è necessario verificare le condizioni con:
+	
+	\begin{equation*}
+		\left\{x \in \{0, 1\}^* \: | \: x \text{ contiene almeno uno } 0 \right\}
+	\end{equation*}
+	\newline
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}
+	
+	\noindent
+	La stringa $x$ è sicuramente formata da:
+	
+	\begin{equation*}
+		x = 1^{n}\: 0 \: w \in \{0,1\}^{*} \text{ e } n \in \mathbb{N}
+	\end{equation*}
+	
+	\noindent
+	In cui ci deve essere un numero $n$ di concatenazioni di numeri $1$, uno $0$ come viene specificato \dquotes{$x \text{ contiene almeno uno } 0$} e infine una qualsiasi stringa dell'alfabeto $w$. L'\textbf{obbiettivo} è dimostrare che:
+	
+	\begin{equation*}
+		\forall w \in \left\{0, 1\right\}^{*} : \overset{\wedge}{\delta} (q_{1}, w) = q_{1}
+	\end{equation*}
+
+	\noindent
+	Ovvero che dato qualsiasi simbolo appartenente all'alfabeto, lo stato successivo sia sempre $q_{1}$, ovvero quello finale!
+	
+	\newpage
+	
+	Si supponga che la cardinalità di $w$, ovvero la lunghezza della stringa, sia uguale a $m$, cioè $|w| = m$. Questo implica che lo stato non varia:
+	
+	\begin{equation*}
+		m = 0 \Longrightarrow w = \varepsilon \hspace{1em} \text{ e quindi } \hspace{1em} \overset{\wedge}{\delta} (q_{1}, w) = q_{1}
+	\end{equation*}
+
+	\noindent
+	Invece, il caso in cui la stringa non sia vuota:
+	
+	\begin{equation*}
+		m \ge 0 \text { e } m+1 \Longrightarrow w = \sigma 0 \hspace{1em} \textbf{ oppure } \hspace{1em} w = \sigma 1
+	\end{equation*}
+
+	\noindent
+	Per \textbf{induzione} si riesce a dimostrare che:
+	
+	\begin{equation*}
+		\overset{\wedge}{\delta} \left(q_{1}, \sigma 0\right) = \delta\left(\overset{\wedge}{\delta} \left(q_{1}, \sigma\right), 0\right) = \delta \left(q_{1}, 0\right) = q_{1}
+	\end{equation*}
+	
+	\noindent
+	Grazie all'induzione è stato dimostrato che se era vero per $m$, allora è vero anche per $m+1$, quindi qualsiasi $m$ (maggiore o uguale a zero ovviamente). Quindi, il \textbf{primo passo dell'esercizio è stato concluso, ovvero quello di dimostrare che la $w$ è sempre accettata soltanto se posta dopo il primo zero} (sequenza conclusiva dell'automa a stati finiti deterministico).\newline
+	
+	Adesso si prosegue la dimostrazione dimostrando che per ogni numero naturale, con una sequenza di $1$ si finisce nello stato $q_{0}$ o $q_{2}$, ovvero l'automa non termina.
+	
+	
+	\noindent
+	\textbf{\emph{\underline{Caso base}}}:
+	
+	
+	\begin{itemize}
+		\item $n = 0: \hspace{1em} \overset{\wedge}{\delta} \left(q_{0}, \varepsilon\right) = q_{0} \in \left\{q_{0}, q_{2}\right\}$
+		\item $n \ge 0: \hspace{1em} \overset{\wedge}{\delta} \left(q_{0}, 1^{n+1}\right) = \overset{\wedge}{\delta} \left(q_{0}, 1^{n} \: 1\right) = \delta \left(\overset{\wedge}{\delta} \left(q_{0}, 1^{n}\right)\right) \in \left\{q_{0}, q_{2}\right\}$
+	\end{itemize}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\checkmark Dimostrato}} che ogni stringa in forma $x \in L$ (ogni stringa nel linguaggio), è accettata dall'automa. Ovvero $L \subseteq L\left(M\right)$.\newline
+	
+	L'esercizio si conclude con la dimostrazione $L \supseteq L\left(M\right)$- Quindi se $x$ non contiene almeno uno zero ($x = 1^{n}$), allora si può affermare con certezza che $x$ non è in $L\left(M\right) = \left\{\sigma \: | \: \overset{\wedge}{\delta} \left(q_{0}, \sigma\right) = q_{1}\right\}$. Quindi formalmente:
+	
+	\begin{equation*}
+		\forall n : 1^{n} \Longrightarrow \overset{\wedge}{\delta} \left(q_{0}, x\right) \in \left\{q_{0}, q_{2}\right\} \hspace{2em} \textcolor{Green4}{\textbf{\checkmark Dimostrato}}
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection{Automi non-deterministici (NFA)}\label{automi non-deterministici}
+	
+	Un \textbf{automa a stati finiti \underline{non-deterministico}} (NFA) è una quintupla $\left\langle Q, \Sigma, \delta, q_0, F\right\rangle$ dove $Q, \Sigma, q_{0}$ e $F \subseteq Q$ mantengono il significato visto per gli automi deterministici (pagina~\pageref{automi deterministici}), mentre la \textbf{funzione di transizione} $\delta$ è definita come:
+	
+	\begin{equation*}
+		\delta : Q \times \Sigma \longrightarrow P(Q) = 2^{Q} = 2^{|Q|}
+	\end{equation*}
+
+	\noindent
+	Ovvero è una relazione tra stati.
+
+	In particolare, si tratta di un concetto fondamentale in informatica che definisce un \textbf{modello (ideale)} di calcolo parallelo su cui si fonda la moderna analisi della complessità degli algoritmi.
+	
+	Adesso è possibile avere $\delta \left(q, a\right) = \emptyset$ per qualche $q \in Q$ ed $a \in \Sigma$, poiché l'\textcolor{Red3}{\textbf{automa non può avere transizioni per alcuni simboli in input}}.\newline
+	
+	\noindent
+	Si definisce la funzione $\overset{\wedge}{\delta} : Q \times \Sigma^{*} \longrightarrow P\left(Q\right)$ nel seguente modo:
+	
+	\begin{equation*}
+		\begin{cases}
+			\overset{\wedge}{\delta} \left(q, \varepsilon\right) = \left\{q\right\} \\
+			\overset{\wedge}{\delta} \left(q, wa\right) = \bigcup_{p \in \overset{\wedge}{\delta} \left(q, w\right)} \delta \left(p, a\right)
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Inoltre, si dice che \textcolor{Red3}{\textbf{una \underline{stringa} $x$ è accettata da un automa a stati finiti non-deterministici NFA}} $M = \left\langle Q, \Sigma, \delta, q_{0}, F\right\rangle$ \textbf{se}:
+	
+	\begin{equation*}
+		\overset{\wedge}{\delta} \left(q_{0}, x\right) \cap F \ne \emptyset
+	\end{equation*}
+
+	\noindent
+	In altre parole, una stringa è accettata quando una di queste computazioni raggiunge uno stato finale dopo aver consumato la sequenza in input.
+
+	Invece, si dice che \textcolor{Red3}{\textbf{un \underline{linguaggio} è accettato da un automa a stati finiti non-deterministici NFA}} $M$ \textbf{se corrisponde all'insieme delle stringhe accettate}:
+	
+	\begin{equation*}
+		L\left(M\right) = \left\{x \in \Sigma^{*} \: | \: \overset{\wedge}{\delta} \left(q_{0}, x\right) \cap F \ne \emptyset\right\}
+	\end{equation*}
+
+	La rappresentazione a grafo rimane pressoché immutata. L'\textbf{unica differenza} è che da un nodo possono uscire più archi (o nessuno) etichettati dallo stesso simbolo.
+	
+	\newpage
+	
+	\subsubsection{Teorema Rabin-Scott (1959)}
+	
+	\begin{theorem}[\textbf{Rabin-Scott}] \label{rabin-scott}
+		Sia $M = \left\langle Q, \Sigma, \delta, q_{0}, F \right\rangle$ un automa a stati finiti non deterministica (NFA). Allora esiste un automa a stati finiti deterministica $M^{'}$ tale che $L\left(M\right) = L(M^{'})$.
+	\end{theorem}
+
+	\begin{proof}[\textbf{Dimostrazione}]
+		Si definisce l'automa a stati finiti non deterministica con la quintupla $M^{'} = \left\langle\ Q^{'}, \Sigma^{'}, \delta^{'}, q_{0}^{'}, F^{'} \right\rangle$ e con le seguenti proprietà:
+		
+		\begin{itemize}
+			\item[\ding{72}] $\Sigma^{'} = \Sigma$.
+			
+			\item[\ding{72}] $Q^{'} = P(Q)$, sarebbe più preciso definire $Q^{'} = \left\{q_{1}, \cdots, q_{2\: |Q|}\right\}$ e poi stabilire una corrispondenza biunivoca fra tali stati e gli elementi di $P(Q)$. Tuttavia, così facendo rimane più chiara la dimostrazione.
+			
+			\item[\ding{72}] $q_{0}^{'} = \left\{q_{0}\right\}$.
+			
+			\item[\ding{72}] $F^{'} = \left\{P \subseteq Q \: | \: P \cap F \ne \emptyset\right\}$
+			
+			\item[\ding{72}] $\delta^{'}\left(\mathrm{P}, a\right) = \bigcup_{p \in \mathrm{P}} \delta \left(p, a\right)$, per ogni $\mathrm{P} \in P(Q)$
+		\end{itemize}
+	
+		Si mostra, \textbf{per induzione}, sulla lunghezza della stringa di input $\sigma \in \Sigma^{*}$ che:
+		
+		\begin{equation}\label{induzione rabin-scott}
+			\forall \sigma \in \Sigma^{*} : \overset{\wedge}{\delta} \left(q_{0}, x\right) = \overset{\wedge}{\delta^{'}} \left(q_{0}^{'}, x\right)
+		\end{equation}
+	
+		\noindent
+		In cui la parte di sinistra è per gli automi non deterministici ($\overset{\wedge}{\delta} \left(q_{0}, x\right)$), mentre la parte di destra è per gli automi deterministici $\left(\overset{\wedge}{\delta^{'}} \left(q_{0}^{'}, x\right)\right)$.\newline
+		
+		\noindent
+		\textbf{\emph{\underline{Caso base.}}}\footnote{Il simbolo $\iff$ indica \dquotes{se e solo se}.}
+		
+		\begin{equation*}
+			|\sigma| = 0 \iff \sigma = \varepsilon : \overset{\wedge}{\delta} \left(q_{0}, \varepsilon\right) = \left\{q_{0}\right\} = q^{'}_{0} = \overset{\wedge}{\delta^{'}} \left(q_{0}^{'}, \varepsilon\right)
+		\end{equation*}
+	
+		\noindent
+		\textbf{\emph{\underline{Passo induttivo.}}}
+		
+		\begin{equation*}
+			\forall \sigma \in \Sigma^{*} : |\sigma| \le n : \overset{\wedge}{\delta} \left(q_{0}, \sigma\right) = \overset{\wedge}{\delta} \left(q_{0}, \sigma\right)
+		\end{equation*}
+	
+		\noindent
+		Quindi che non ci siano gli apici $'$ come nell'equazione~\ref{induzione rabin-scott}. Si dimostra induttivamente:
+		
+		\begin{equation*}
+			\overset{\wedge}{\delta^{'}} \left(q_{0}^{'}, \sigma a\right) = \delta^{'} \left(\overset{\wedge}{\delta^{'}}\left(q_{0}^{'}, a\right), a\right) = \delta^{'} \left(\overset{\wedge}{\delta}\left(q_{0}, \sigma\right), a\right) = \bigcup_{p \in \overset{\wedge}{\delta}\left(q_{0}, \sigma\right)} \delta\left(p, a\right) = \overset{\wedge}{\delta} \left(q_{0}, \sigma a\right)
+		\end{equation*}
+	
+		\noindent
+		In cui $p \in \overset{\wedge}{\delta}\left(q_{0}, \sigma\right)$ e $\overset{\wedge}{\delta} \left(q_{0}, \sigma a\right)$ sono \textbf{macchine deterministiche}.
+		
+		\noindent
+		La dimostrazione si conclude con le seguenti ovvie relazioni:
+		
+		\begin{gather*}
+			\sigma \in L \iff
+			\overset{\wedge}{\delta}\left(q_{0}, \sigma\right) \cap F \ne 0 \iff
+			\overset{\wedge}{\delta^{'}}\left(q_{0}^{'}, \sigma\right) \cap F \ne \emptyset \iff
+			\overset{\wedge}{\delta^{'}}\left(q_{0}^{'}, \sigma\right) \in F^{'} \iff
+			\sigma \in L\left(M^{'}\right)
+		\end{gather*}
+	\end{proof}
+	
+	\newpage
+	
+	\subsubsection{Esempio esercizio (automi non-deterministici)}
+	
+	\textcolor{Red3}{\textbf{\emph{Esercizio.}}}
+	
+	\noindent
+	Il grafo dell'esercizio è il seguente:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/grafo_ex2.pdf}
+		\caption{Grafo di un automa a stati finiti non-deterministico.}
+	\end{figure}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}
+	
+	\noindent
+	La $Q$ è formata da $\left\{q_{0}, q_{1}, q_{2}\right\}$, mentre la $P(a)$ ha i seguenti insiemi:
+	
+	\begin{equation*}
+		P\left(a\right) = \left\{
+		\emptyset, \left\{q_{0}\right\},
+		\left\{q_{1}\right\},
+		\textcolor{Red3}{\left\{q_{2}\right\}}, \left\{q_{0}, q_{1}\right\},
+		\textcolor{Red3}{\left\{q_{0}, q_{2}\right\}, \left\{q_{1}, q_{2}\right\},
+		\left\{q_{0}, q_{1}, q_{2}\right\}}\right\}
+	\end{equation*}
+
+	\noindent
+	Le espressioni in rosso sono sequenze finite che terminano.
+	
+	\noindent
+	Infine, l'automa non-deterministico è riconducibile a un automa deterministico:
+	
+	\begin{equation*}
+		\delta^{'} \left(s, a\right) = \bigcup_{q \in S} \delta \left(q, a\right)
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=1\textwidth]{img/grafo_ex2-sol.pdf}
+		\caption{Rappresentazione di una conversione da non-deterministico a deterministico con relativa ottimizzazione.}
+	\end{figure}
 \end{document}
