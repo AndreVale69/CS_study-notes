@@ -628,4 +628,116 @@
 
 	\noindent
 	È evidente che il segnale è di potenza. Come si evince dalla figura~\ref{ex2_grafico}, i tratti di colore verde indicano il rettangolo formato dal segnale. Calcolando l'area del rettangolo, si ottiene esattamente il valore di $T_{0}$. Infatti, la base del rettangolo (verticale) è $2$, mentre l'altezza (orizzontale) è $1$.
+	
+	\newpage
+	
+	\subsubsection{Cross-Correlazione Normalizzata}
+	
+	Ha l'\textbf{obbiettivo} di trattare segnali con range di valori diversi e consente di eseguire \textbf{confronti uno-a-molti} (\emph{one-to-many}):
+	
+	\begin{equation*}
+		f_{1} \bar{\otimes} f_{2}\left(t\right) = \dfrac{\displaystyle \int_{-\infty}^{+\infty} \tilde{f_{1}}\left(\tau\right) f_{2}\left(\tau - t\right) \: \mathrm{d}\tau}{\displaystyle \sqrt{E_{f_{1}} E_{f_{2}}}}
+	\end{equation*}
+	
+	\noindent
+	In cui $E_{f}$ indica l'\textbf{energia} del segnale $f$. Ci sono due caratteristiche importanti:
+	
+	\begin{itemize}
+		\item $f_{1} \bar{\otimes} f_{2}\left(t\right) \in \left[-1, 1\right]$
+		
+		\item $\left|f_{1} \bar{\otimes} f_{2}\left(t\right)\right| = 1 \iff f_{1}\left(\tau\right) = \alpha f_{2} \left(\tau - t\right)$
+	\end{itemize}
+	
+	\noindent
+	Inoltre, si parla di \textbf{autocorrelazione} (normalizzata e non) quando $f_{1} = f_{2}$. Utile per i segnali stocastici.\newline
+	
+	\noindent
+	Nel \textbf{\emph{caso di segnali discreti}}, dati $x_{1}\left(k\right), x_{2}\left(k\right)$:
+	
+	\begin{equation*}
+		x_{1} \otimes x_{2}\left(n\right) = \sum_{k = -\infty}^{+\infty} \tilde{x_{1}}\left(k\right) x_{2} \left(k - n\right) \hspace{1em} k \in \mathbb{Z}
+	\end{equation*}
+
+	\noindent
+	Sotto l'ipotesi di convergenza della serie, cioè la serie deve convergere.\newline
+	
+	\noindent
+	Nel caso in cui $x_{1}\left(k\right)$ e $x_{2}\left(k\right)$ sono limitati di lunghezza M ed N rispettivamente, allora la \textbf{cross correlazione è di lunghezza} $M+N-1$.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Cross-Correlazione 1D}}\newline
+	
+	\noindent
+	Data la definizione:
+	
+	\begin{equation*}
+		x_{1} \otimes x_{2}\left(n\right) = \sum_{k = -\infty}^{+\infty} x_{1}\left(k\right) x_{2}\left(k - n\right)
+	\end{equation*}
+	
+	\noindent
+	Esistono diverse casistiche:
+	
+	\begin{itemize}
+		\item $n = 0$ si confronta tra $x_{1}$ e $x_{2}$ nei loro domini temporali originali.
+		
+		\item $n > 0$ sposto $x_{2}$ a destra poiché c'è l'anticipo di $x_{2}$
+		
+		\item $n < 0$ sposto $x_{2}$ a sinistra poiché c'è ritardo di $x_{2}$
+	\end{itemize}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/ex_exam/eg_cross-correlazione-1D.pdf}
+		\caption{Esempio di cross-correlazione normalizzata 1D.}
+	\end{figure}
+
+	\noindent
+	Il triangolo $x_{2}$ va verso sinistra e il lasso di tempo che $x_{2}$ non combacia con $x_{1}$, viene rappresentato come una linea orizzontale sull'asse delle $n$ nel piano cartesiano di destra.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Cross-Correlazione 2D}}\newline
+	
+	\noindent
+	Data la definizione:
+	
+	\begin{equation*}
+		x_{1} \otimes x_{2}\left(m, n\right) = \sum_{u = -\infty}^{+\infty} \sum_{v = -\infty}^{+\infty} x_{1}\left(u, v\right) x_{2}\left(u - m, v - n\right) \hspace{1em} u,v,m,n \in \mathbb{Z}
+	\end{equation*}
+	
+	\noindent
+	Nel 2D $x_{1}$ e $x_{2}$ possono essere pensate come \textbf{immagini infinite}.\newline
+	
+	\noindent
+	Di solito $x_{1}$ e $x_{2}$ sono \textbf{immagini finite} (segnali digitali ad intervallo limitato), e gli estremi di sommatoria sono quindi finiti.\newline
+	
+	\noindent
+	Il primo segnale $x_{1}$ viene chiamato \textbf{\emph{template}}, o \textbf{\emph{matrice kernel}}, mentre $x_{2}$ genericamente \textbf{immagine} (di solito, la matrice kernel $x_{1}$ ha una dimensionalità minore di quella dell'immagine).\newline
+	
+	\noindent
+	Nel caso $x_{1} = x_{2}$ si ha \textbf{autocorrelazione 2D}.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Cross-Correlazione normalizzata 2D}}\newline
+	
+	\noindent
+	Si definisce come:
+	
+	\begin{equation*}
+		x_{1} \otimes x_{2}\left(m,n\right) = \dfrac
+		{\sum_{u = -\infty}^{+\infty} \sum_{v = -\infty}^{+\infty} \left[x_{1}\left(u, v\right)\right]\left[x_{2}\left(u-m, v-n\right)\right]}
+		{\sqrt{\sum_{u = -\infty}^{+\infty} \sum_{v = -\infty}^{+\infty} \left[x_{1}\left(u,v\right)\right]^{2} {\sum_{u = -\infty}^{+\infty} \sum_{v = -\infty}^{+\infty} \left[x_{2}\left(u,v\right)\right]^{2}}}}
+	\end{equation*}
+
+	\noindent
+	In altre parole, fissato il punto di applicazione $n, m$, si sottrae la media ad ogni punto nell'interno di applicazione dalla matrice kernel. Successivamente, si divide per il prodotto della varianza dei due segnali, estraendo a radice alla fine.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=1\textwidth]{img/ex_exam/eg_cross-correlazione-2D.pdf}
+		\caption{Esempio di Cross-Correlazione normalizzata 2D.}
+	\end{figure}
 \end{document}
