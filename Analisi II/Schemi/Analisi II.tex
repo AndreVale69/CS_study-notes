@@ -18,6 +18,9 @@
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
 
+\newtheorem{theorem}{Teorema}
+\newcommand{\dquotes}[1]{``#1''}
+
 \begin{document}
 	\author{VR443470}
 	\title{Analisi II}
@@ -54,7 +57,7 @@
 	\end{gather*}
 	
 	\noindent
-	Le \textbf{soluzioni} di un'equazione differenziale possono essere:
+	Le \textcolor{Red3}{\textbf{soluzioni}} di un'equazione differenziale possono essere:
 	
 	\begin{itemize}
 		\item[\ding{51}] \textbf{Costanti.} Quando $\bar{y}\in\mathbb{R}$ è uno zero di $g(y)$ e dunque vale:
@@ -272,5 +275,151 @@
 		\centering
 		\includegraphics[width=0.7\textwidth]{img/intervallo_max_eg.pdf}
 		\caption{Intervallo massimale delle soluzioni.}
+	\end{figure}
+
+	\newpage
+
+	%%%%%%%%%%%%%%
+	% LEZIONE 02 %
+	%%%%%%%%%%%%%%
+	\section{Lezione 02}
+	
+	\subsection[Problema di Cauchy per eq. diff. a variabili separabili]{Problema di Cauchy per equazioni differenziali a variabili separabili}
+	
+	Per introdurre il problema di Cauchy con le equazioni differenziali a variabili separabili, è necessario introdurre il \textbf{teorema di \underline{esistenza} e \underline{unicità}}.\newline
+	
+	\noindent
+	Si consideri il problema:
+	
+	\begin{equation*}
+		\begin{cases}
+			y^{'} = f\left(x\right) \cdot g\left(y\right) \\
+			y\left(x_{0}\right) = y_{0}
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	In cui $f$ è una funzione continua su $I = \left(x_{0} - r_{1}, x_{0} + r_{1}\right)$ e $g$ è una funzione continua su un intervallo $J = \left(y_{0} - r_{2}, y_{0} + r_{2}\right)$.
+	
+	\begin{theorem}[Esistenza]
+		Esiste una soluzione al problema di Cauchy definita per ogni $x \in I^{'} = \left[x_{0} - \delta, x + \delta\right] \subseteq I$. È dunque \textbf{garantita la soluzione locale} e non obbligatoriamente su tutto l'intervallo $I$.
+	\end{theorem}
+
+	\begin{theorem}[Unicità]
+		Se $g\left(y\right)$ è \underline{continua e derivabile} con derivata continua (formalmente: $g\left(y\right) \in \mathcal{C}^{1} \left(J\right)$), allora la \textbf{soluzione è unica}.
+	\end{theorem}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/prob_cauchy-variabili_separabili.pdf}
+		\caption{Rappresentazione grafica del problema di Cauchy con variabili separabili.}
+	\end{figure}
+
+	\newpage
+
+	\noindent
+	\textbf{Caso in cui il teorema dell'unicità viene violato! È facilmente riconoscibile poiché ci sono due soluzioni che passano per la condizione imposta $\left(\text{il punto } x_{0}, y_{0}\right)$.}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/prob_cauchy-variabili_separabili_violazione.pdf}
+		\caption{Teorema dell'esistenza garantito, ma teorema dell'unicità violato.}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Alcuni esempi}
+	
+	\large \textcolor{Green4}{\textbf{Esempio 1}}\newline
+	
+	\noindent
+	Il problema:
+	
+	\begin{equation*}
+		\begin{cases}
+			y' \cdot y = 1 \\
+			y\left(1\right) = 0
+		\end{cases}
+	\end{equation*}
+	
+	\noindent
+	In questo caso \textbf{\underline{non esiste una soluzione}} poiché $y^{'}\left(1\right) \cdot y\left(1\right)$ deve essere uguale a $1$. Se nell'espressione $y^{'}\left(1\right) \cdot y\left(1\right) = 1$ vengono sostituite le funzioni con il valore zero, risulta impossibile l'uguaglianza: $y^{'}\left(1\right) \cdot 0 = 1$.\newline
+	
+	\noindent
+	\large \textcolor{Green4}{\textbf{Esempio 2}}\newline
+	
+	\noindent
+	Il problema:
+	
+	\begin{equation*}
+		\begin{cases}
+			y' = y^{\frac{2}{3}} \\
+			y\left(0\right) = 0
+		\end{cases}
+	\end{equation*}
+	
+	\noindent
+	Esiste sicuramente \textbf{\underline{una soluzione costante}} con $y = 0$.
+	
+	Inoltre, andando a studiare le \textbf{\underline{soluzioni non costanti}}, quindi con $y \ne 0$, si evince chiaramente che:
+	
+	\begin{gather*}
+		y^{'} = y^{\frac{2}{3}} \longrightarrow
+		\dfrac{\mathrm{d}y}{y^{\frac{2}{3}}} = \mathrm{d}x \longrightarrow
+		y^{-\frac{2}{3}} \mathrm{d}y = \mathrm{d}x \\
+		\textbf{Integrando...} \longrightarrow
+		3y^{\frac{1}{3}} = x + c
+	\end{gather*}
+
+	\noindent
+	Dato che utilizzando la condizione del problema $y\left(0\right) = 0$ la $c$ è zero:
+	
+	\begin{equation*}
+		3\left(y\left(0\right)^{\frac{1}{3}}\right) = 0 + c
+	\end{equation*}
+
+	\noindent
+	Esplicitando la $y$, si ottiene la \textbf{soluzione al problema di Cauchy}:
+	
+	\begin{equation*}
+		y = \dfrac{1}{27} x^{3} \hspace{2em} \text{con } x \ge 0
+	\end{equation*}
+
+	\newpage
+
+	\noindent\fbox{%
+		\parbox{\textwidth}{%
+			È interessante notare che la soluzione può essere prolungata a tutto l'insieme dei reali $\mathbb{R}$:
+			
+			\begin{equation*}
+				\tilde{y}\left(x\right) = 
+				\begin{cases}
+					0 					& x < 0 \\
+					\dfrac{1}{27} x^{3} & x \ge 0
+				\end{cases}
+			\end{equation*}
+		
+			\noindent
+			Inoltre, è possibile anche traslare funzioni di questo tipo:
+			
+			\begin{equation*}
+				\tilde{y}\left(x\right) = 
+				\begin{cases}
+					0 & x < \alpha \\
+					\dfrac{1}{27} \left(x - \alpha\right)^{3} & x \ge \alpha
+				\end{cases}
+			\end{equation*}
+			
+			\noindent
+			Questo dimostra che la funzione ha una derivata non limitata nell'intervallo.
+		}%
+	}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/prob_cauchy-variabili_separabili-OSS.pdf}
+		\caption{Grafico dell'osservazione estesa a $\mathbb{R}$.}
+		\includegraphics[width=0.6\textwidth]{img/prob_cauchy-variabili_separabili-OSS2.pdf}
+		\caption{Grafico dell'osservazione estesa a $\mathbb{R}$ e traslata di $\alpha$.}
 	\end{figure}
 \end{document}
