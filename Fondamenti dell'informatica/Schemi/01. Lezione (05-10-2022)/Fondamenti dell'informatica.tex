@@ -6,6 +6,7 @@
 \usepackage{amsfonts}
 \usepackage{booktabs}				% tabelle di qualità superiore
 \usepackage{amsmath}				% pacchetto matematica
+\usepackage{mathtools}				% per sottolineare sotto le equazioni
 \usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
 \usepackage{amsthm}					% teoremi migliorati
 \usepackage{enumitem}				% gestione delle liste
@@ -29,6 +30,13 @@
 \newcommand{\dquotes}[1]{``#1''}
 
 \begin{document}
+	\author{VR443470}
+	\title{Fondamenti dell'informatica}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
 	% indice
 	\tableofcontents
 	
@@ -560,7 +568,7 @@
 	Invece, si dice che \textcolor{Red3}{\textbf{un \underline{linguaggio} è accettato da un automa a stati finiti non-deterministici NFA}} $M$ \textbf{se corrisponde all'insieme delle stringhe accettate}:
 	
 	\begin{equation*}
-		L\left(M\right) = \left\{x \in \Sigma^{*} \: | \: \overset{\wedge}{\delta} \left(q_{0}, x\right) \cap F \ne \emptyset\right\}
+		L\left(M\right) = \left\{x \in \Sigma^{*} \: \left| \: \hat{\delta} \left(q_{0}, x\right) \cap F \ne \emptyset\right.\right\}
 	\end{equation*}
 
 	La rappresentazione a grafo rimane pressoché immutata. L'\textbf{unica differenza} è che da un nodo possono uscire più archi (o nessuno) etichettati dallo stesso simbolo.
@@ -678,4 +686,126 @@
 		\includegraphics[width=1\textwidth]{img/grafo_ex2-sol.pdf}
 		\caption{Rappresentazione di una conversione da non-deterministico a deterministico con relativa ottimizzazione.}
 	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Esercizi da esame}
+	
+	\textcolor{Red3}{\textbf{\underline{Esercizio 1}}}\label{ASFD-esercizio_1}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{gather*}
+		L = \left\{x \hspace{0.5em} | \hspace{0.5em} |x_{0}| = 2\mathbb{N}\right\} \\
+		\Sigma = \left\{0, 1\right\}
+	\end{gather*}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	L'automa da costruire si basa sulla condizione del linguaggio, ovvero che $x_{0}$ (\textbf{numero degli zeri di $x$}) sia uguale a $2\mathbb{N}$ (\textbf{numero pari}).\footnote{Un numero dispari si rappresenta come $2\mathbb{N} + 1$.}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/esercitazioni/01_exe1.pdf}
+		\caption{Grafo dell'automa a stati finiti deterministico.}
+	\end{figure}
+
+	\noindent
+	L'\textbf{unica osservazione} da effettuare è che lo stato $q_{0}$ è finito poiché la macchina deve terminare sia per un numero pari di zeri, ma anche nel caso in cui venga si presenti una stringa vuota poiché zero $0$ è pari.
+
+	\newpage
+
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Si vuole dimostrare inizialmente che $\sigma \in L \iff \delta\left(q_{0}, \sigma\right) \in F$ tramite l'induzione.\newline
+		
+		\noindent
+		\textbf{\underline{Caso base.}}
+		
+		\begin{enumerate}
+			\item $x = \varepsilon \in L \longrightarrow \delta\left(q_{0}, \varepsilon\right) = q_{0} \in F$
+			\item $x = 0 \notin L \longrightarrow \delta\left(q_{0}, 0\right) = q_{1} \notin F$
+		\end{enumerate}
+	
+		\noindent
+		In altre parole, se la stringa in entrata è vuota, cioè $\varepsilon$, allora l'automa rimane in $q_{0}$, cioè lo stato finito e quindi appartiene al linguaggio e all'insieme $F$. Nel caso in cui la stringa \underline{non} è vuota, dallo stato $q_{0}$ si finisce in $q_{1}$, il quale non appartiene né al linguaggio né all'insieme $F$ dato che non l'automa non finisce in uno stato di fine.\newline
+		
+		\noindent
+		\textbf{\underline{Ipotesi induttiva.}}\newline
+		
+		\noindent
+		Per $x$ con $|x| < n$, cioè con la lunghezza della stringa $x$ minore di $n$, allora $x \in L \Longrightarrow \delta\left(q_{0}, x\right) \in F$.
+		
+		\noindent
+		Allora si ipotizzi una $x$ di lunghezza $n + 1$ che dunque non appartiene né al linguaggio:
+		
+		\begin{equation*}
+			x^{'} = x 0 \notin L
+		\end{equation*}
+	
+		\noindent
+		Né all'insieme $F$:
+		
+		\begin{equation*}
+			\delta\left(q_{0}, x^{'}\right) = \delta\left(q_{0}, x0\right) = \delta\left(q_{0}, 0\right) = q_{1} \notin F
+		\end{equation*}
+	
+		\noindent
+		Dallo stato $q_{0}$ con una stringa $x$ si rimane in $q_{0}$ (formalmente $\delta\left(q_{0}, x\right) = q_{0}$).
+		
+		\noindent
+		È stato inserito uno $0$ nella dimostrazione, ma era possibile dimostrarlo anche tramite $1$, cioè:
+		
+		\begin{equation*}
+			x^{'} = x 1 \notin L
+		\end{equation*}
+	
+		\noindent
+		Né all'insieme $F$:
+		
+		\begin{equation*}
+			\delta\left(q_{0}, x^{'}\right) = \delta\left(q_{0}, x1\right) = \delta\left(q_{0}, 1\right) = q_{0} \in F
+		\end{equation*}
+	\end{proof}
+
+	\newpage
+
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione 2}}]
+		Questa seconda dimostrazione ha l'obbiettivo di dimostrare, pardon per il gioco di parole, l'espressione $\sigma \notin L \Longrightarrow \delta\left(q_{0}, \sigma\right) \notin F$ tramite l'induzione. La differenza dalla dimostrazione precedente sta nel dimostrare la \textbf{\emph{non appartenenza}} al linguaggio e all'insieme degli stati finiti $F$.\newline
+		
+		\noindent
+		\textbf{\underline{Caso base.}}\newline
+		
+		\noindent
+		Si utilizza quello della dimostrazione precedente, quindi:
+		
+		\begin{enumerate}
+			\item $x = \varepsilon \in L \longrightarrow \delta\left(q_{0}, \varepsilon\right) = q_{0} \in F$
+			\item $x = 0 \notin L \longrightarrow \delta\left(q_{0}, 0\right) = q_{1} \notin F$
+		\end{enumerate}
+	
+		\noindent
+		\textbf{\underline{Ipotesi induttiva.}}\newline
+		
+		\noindent
+		Per $x$ con $|x| < n$, cioè con la lunghezza della stringa $x$ minore di $n$, allora $x \notin L \Longrightarrow \delta\left(q_{0}, x\right) \notin F$.
+		
+		\noindent
+		In questa dimostrazione si considerano le stesse casistiche precedenti, quindi con $0$ e $1$:
+		
+		\begin{gather*}
+			x^{'} = x 0 \in L \longrightarrow \delta\left(q_{0}, x^{'}\right) = \delta\left(q_{0}, x_{0}\right) = \delta\left(q_{1}, 0\right) = q_{0} \in F \\
+			x^{'} = x 1 \in L \longrightarrow \delta\left(q_{0}, x^{'}\right) = \delta\left(q_{0}, x_{1}\right) = \delta\left(q_{1}, 1\right) = q_{1} \notin F
+		\end{gather*}
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 2}}}\label{ASFD-esercizio_2}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
 \end{document}
