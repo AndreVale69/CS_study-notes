@@ -5,6 +5,7 @@
 \usepackage{amsfonts}
 \usepackage{booktabs}				% tabelle di qualità superiore
 \usepackage{amsmath}				% pacchetto matematica
+\usepackage{mathtools}				% per sottolineare sotto le equazioni
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
 \usepackage[x11names]{xcolor}		% colori aggiuntivi
@@ -328,9 +329,9 @@
 
 	\newpage
 	
-	\subsection{Alcuni esempi}
+	\subsection{Esempi di problemi di Cauchy}
 	
-	\large \textcolor{Green4}{\textbf{Esempio 1}}\newline
+	\subsubsection[Esempio semplice]{\textcolor{Green4}{\textbf{Esempio semplice}}}
 	
 	\noindent
 	Il problema:
@@ -345,8 +346,7 @@
 	\noindent
 	In questo caso \textbf{\underline{non esiste una soluzione}} poiché $y^{'}\left(1\right) \cdot y\left(1\right)$ deve essere uguale a $1$. Se nell'espressione $y^{'}\left(1\right) \cdot y\left(1\right) = 1$ vengono sostituite le funzioni con il valore zero, risulta impossibile l'uguaglianza: $y^{'}\left(1\right) \cdot 0 = 1$.\newline
 	
-	\noindent
-	\large \textcolor{Green4}{\textbf{Esempio 2}}\newline
+	\subsubsection[Esempio medio]{\textcolor{Green4}{\textbf{Esempio medio}}}
 	
 	\noindent
 	Il problema:
@@ -422,4 +422,227 @@
 		\includegraphics[width=0.6\textwidth]{img/prob_cauchy-variabili_separabili-OSS2.pdf}
 		\caption{Grafico dell'osservazione estesa a $\mathbb{R}$ e traslata di $\alpha$.}
 	\end{figure}
+
+	\newpage
+	
+	\subsubsection[Esempio difficile]{\textcolor{Green4}{\textbf{Esempio difficile}}}
+	
+	\noindent
+	Il problema:
+	
+	\begin{equation*}
+		\begin{cases}
+			e^{x+y} \cdot y + x = 0 \\
+			y\left(0\right) = 0
+		\end{cases}
+	\end{equation*}
+	
+	\noindent
+	Tuttavia, la funzione non è in forma canonica, quindi si eseguono alcune operazioni algebriche:
+	
+	\begin{equation*}
+		e^{x+y} \cdot y + x = 0 \longrightarrow e^{x+y} \cdot y = -x \longrightarrow y^{'} = - \dfrac{x}{e^{x+y}}
+	\end{equation*}
+
+	\noindent
+	Quindi:
+	
+	\begin{equation*}
+		\begin{cases}
+			y^{'} = - \dfrac{x}{e^{x+y}} \\
+			y\left(0\right) = 0
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Il problema si risolve tramite la \textbf{\underline{tecnica delle variabili separabili}}. Infatti:
+	\begin{equation*}
+		y^{'} = -\dfrac{x}{e^{x+y}}; \hspace{1em}
+		y^{'} = -\dfrac{x}{e^{x} \cdot e^{y}}; \hspace{1em}
+		y^{'} = -\dfrac{x}{e^{x}} \cdot \dfrac{1}{e^{y}}; \hspace{1em}
+		y^{'} = - \underbracket[0.14ex]{x \cdot e^{-x}}_{f\left(x\right)} \cdot \underbracket[0.14ex]{e^{-y}}_{g\left(y\right)}
+	\end{equation*}
+
+	\noindent
+	Con gli intervalli definiti in tutto $\mathbb{R}$ cioè $I = J = \mathbb{R}$.
+	
+	\noindent
+	La risoluzione si svolge separando le variabili e integrando (N.B. la funzione $g\left(y\right)$ non ha zeri e quindi \textbf{\underline{non esistono soluzioni costanti}}):
+	
+	\begin{gather*}
+		e^{y} \mathrm{d}y = -x e^{-x} \mathrm{d}x; \hspace{1em}
+		\int e^{y} \mathrm{d}y = \int -x e{-x} \mathrm{d}x; \hspace{1em}
+		e^{y} = x e^{-x} - \int 1 \cdot e^{-x} \mathrm{d}x; \hspace{1em} \\
+		\textbf{Soluzione: } e^{y} = x e^{-x} + e^{-x} + c
+	\end{gather*}
+
+	\noindent
+	Dunque, l'\textbf{\underline{integrale generale}}:
+	
+	\begin{equation*}
+		y\left(x\right) = \ln \left(x e^{-x} + e^{-x} + c\right)
+	\end{equation*}
+
+	\noindent
+	Imponendo la \textbf{condizione iniziale}:
+	
+	\begin{equation*}
+		y\left(0\right) = \ln \left(1+c\right) \hspace{2em} \text{con } c = 0
+	\end{equation*}
+
+	\noindent
+	Per cui, la \textbf{\underline{soluzione al problema di Cauchy}} è:
+	
+	\begin{equation*}
+		y\left(x\right) = \ln\left(x e^{-x} + e^{-x}\right) \hspace{2em} \text{con } x > -1
+	\end{equation*}
+
+	\noindent
+	L'\textbf{\underline{intervallo massimale}} è:
+	
+	\begin{equation*}
+		\left(-1; +\infty\right)
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{Modello di crescita logaritmica}
+	
+	Creato dal matematico belga Verhulst, riguarda le equazioni differenziali. Infatti, la forma generale trovata nei problemi di Cauchy è del tipo $y^{'} = a y \left(1 - by\right)$, ma in questo modello è importante una forma alternativa della funzione del problema di Cauchy:
+	
+	\begin{equation*}
+		\begin{cases}
+			\text{Funzione:} & y^{'} = k y \left(1 - y\right) \\
+			\text{Condizione:} & y\left(0\right) = y_{0}
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	In modo più formale, nel modello di crescita logaritmica l'equazione differenziale rappresenta una frazione di popolazione. Dunque, è possibile riscriverla come:
+	
+	\begin{equation*}
+		\begin{cases}
+			y^{'} = k y\left(1 - y\right) & 0 \le y \le 1 \\
+			y\left(0\right) = y_{0} & \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	In questo caso, le \textbf{\underline{soluzioni costanti} (o stabili, o d'equilibrio)} sono $y = 0$ e $y = 1$. Invece, le \textbf{\underline{soluzioni \emph{non} costanti}} sono:
+	
+	\begin{gather*}
+		\dfrac{\mathrm{d}y}{y\left(1 - y\right)} = k \mathrm{d}x \xlongrightarrow{\text{Integrando...}}
+		\int \dfrac{\mathrm{d}y}{y\left(1 - y\right)} = \int k \mathrm{d}x; \\
+		\ln\left(y\right) - \ln\left(1 - y\right) = k x + c; \\
+		\ln\left(\dfrac{y}{1 - y}\right) = k x + c
+	\end{gather*}
+
+	\noindent
+	Nonostante la forma sia corretta, è utile avere la $y$ esplicitata, quindi:
+	
+	\begin{gather*}
+		\dfrac{y}{1 - y} = e^{kx} \cdot e^{c}; \hspace{2em}
+		y = e^{c} \cdot e^{kx} \cdot \left(1 - y\right); \\
+		y = e^{c} \cdot e^{kx} - e^{c} \cdot e^{kx} y; \hspace{2em}
+		y\left(1 + e^{c} \cdot e^{kx}\right) = e^{c} \cdot e^{kx}; \\
+		y\left(x\right) = \dfrac{e^{c} \cdot e^{kx}}{1 + e^{c} \cdot e^{kx}}
+	\end{gather*}
+
+	\noindent
+	Il modello si conclude \textbf{\underline{applicando}} la \textbf{\underline{condizione iniziale}}:
+	
+	\begin{gather*}
+		\underbracket[0.14ex]{y\left(0\right)}_{=y_{0}} = \dfrac{e^{c}}{1 + e^{c}} \xlongrightarrow{\text{Esplicitando } e^{c}}
+		\left(1 + e^{c}\right) y_{0} = e^{c}; \hspace{2em} e^{c} \left(y_{0} + 1\right) = y_{0}; \\
+		e^{c} = \dfrac{y_{0}}{1 - y_{0}}
+	\end{gather*}
+
+	\newpage
+	\noindent
+	Quindi, andando a sostituire il valore trovato con la condizione iniziale, si trova la \textbf{\underline{soluzione}}:
+	
+	\begin{equation*}
+		y\left(t\right) = \dfrac{\dfrac{y_{0}}{1 - y_{0}} \cdot e^{kx}}{1 + \dfrac{y_{0}}{1 - y_{0}} \cdot e^{kx}} = \dfrac{y_{0} \cdot e^{kx}}{1 - y_{0} + y_{0} \cdot e^{kx}}
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/modello_crescita_logaritmica-eg.pdf}
+		\caption{Esempio di grafico con un certo $y_{0}$.}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Esercizio con domande da \textcolor{Red3}{esame}}
+	
+	Dato il seguente problema di Cauchy:
+	
+	\begin{equation*}
+		\begin{cases}
+			y^{'} = e^{x} + y^{2} \\
+			y\left(0\right) = 1
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Si \textbf{risponda alle seguenti \underline{domande}}:
+	
+	\begin{enumerate}[label=\Roman*]
+		\item Scrivere l'equazione della tangente al grafico della curva con soluzione nel punto di coordinate $\left(0, 1\right)$.
+		
+		\item Vicino (o intorno) al punto $x = 0$, la funzione è concava o convessa?
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Risposta domanda I.}}}\newline
+	
+	\noindent
+	L'equazione generale (o definizione) della retta tangente è:
+	
+	\begin{equation*}
+		y - y_{0} = m \left(x - x_{0}\right)
+	\end{equation*}
+
+	\noindent
+	Con $x_{0}$, $y_{0}$ che sono coordinate del punto $m$, ovvero la \emph{pendenza}. Quindi, andando a sostituire le coordinate fornite dall'esercizio nella definizione di retta tangente:
+	
+	\begin{equation*}
+		\textbf{Sostituzione } \left(0, 1\right) \rightarrow y - 1 = m \left(x - 0\right)
+	\end{equation*}
+
+	\noindent
+	Sapendo che la pendenza $m$ è la derivata della funzione calcolata nel punto zero, si eseguono questi calcoli usando la funzione fornita dall'esercizio:
+	
+	\begin{equation*}
+		m \longrightarrow y^{'}\left(0\right) = e^{0} + \left[y\left(0\right)\right]^{2}; \hspace{2em} y^{'}\left(0\right) = 1 + 1^{2} = 2
+	\end{equation*}
+
+	\noindent
+	Il valore noto viene sostituito nella definizione di retta tangente, quindi l'equazione di quest'ultima diventa:
+	
+	\begin{equation*}
+		y - 1 = 2\left(x - 0\right) \longrightarrow y = 2x - 1
+	\end{equation*}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Risposta domanda II.}}}\newline
+	
+	\noindent
+	Per la concavità o convessità si studia la derivata seconda:
+	
+	\begin{equation*}
+		y^{''}\left(x\right) = e^{x} + 2y\left(x\right) \cdot y^{'}\left(x\right)
+	\end{equation*}
+
+	\noindent
+	Dalla derivata seconda ottenuta si inserisce la condizione del problema:
+	
+	\begin{equation*}
+		y^{''}\left(0\right) = 1 + 2 \cdot 1 \cdot \textcolor{Red3}{2} = 5
+	\end{equation*}
+
+	\noindent
+	Il \textcolor{Red3}{2} è il risultato della $y^{'}\left(0\right)$ trovato prima.
+	
+	Dato che il \textbf{\underline{risultato è positivo, allora la funzione è convessa}}. Più formalmente, in un intorno di $x = 0$, se la $y^{''}\left(0\right) > 0$, la funzione si dice che è convessa.
 \end{document}
