@@ -335,7 +335,7 @@
 	
 	\subsubsection{Relazioni (o associazioni)}\label{relazioni}
 	
-	\textcolor{Red3}{\textbf{Definizione.}} Rappresentano \textbf{legami logici}, significativi per l'applicazione di interesse, \textbf{tra due o più entità}. Per esempio, \dquotes Residenza'' è una relazione che sussiste tra le entità \dquotes{Città} e \dquotes{Impiegato}.Nello schema E-R, \textbf{ogni relazione ha un nome identificativo univoco}.
+	\textcolor{Red3}{\textbf{Definizione.}} Rappresentano \textbf{legami logici}, significativi per l'applicazione di interesse, \textbf{tra due o più entità}. Per esempio, \dquotes{Residenza} è una relazione che sussiste tra le entità \dquotes{Città} e \dquotes{Impiegato}.Nello schema E-R, \textbf{ogni relazione ha un nome identificativo univoco}.
 	
 	\noindent
 	Le relazioni possono essere di \textbf{tipo}:
@@ -382,17 +382,39 @@
 	
 	\subsubsection{Attributi}\label{attributi}
 	
-	\textcolor{Red3}{\textbf{Definizione.}}
+	\textcolor{Red3}{\textbf{Definizione.}} Descrivono le \textbf{proprietà elementari} di entità o relazioni che sono di interesse ai fini dell'applicazione. Per esempio, \dquotes{Cognome, Stipendio ed Età} sono possibili attributi dell'entità \dquotes{Impiegato}.
+	
+	Un attributo associa a ciascun istanza di entità (o relazione) \textbf{\underline{uno e un solo}} valore appartenente a un insieme, chiamato \textbf{\emph{dominio}}, che contiene i valori ammissibili per l'attributo. Per esempio, l'attributo \dquotes{Cognome} dell'entità \dquotes{Impiegato} può avere come dominio l'insieme delle stringhe di $20$ caratteri.
+	
+	L'attributo può essere visto come una \textbf{funzione che ha come dominio le istanze dell'entità} (o relazione) e come \textbf{codominio l'insieme dei valori ammissibili}:
+	
+	\begin{equation*}
+		f_{a} : I\left(E\right) \rightarrow D
+	\end{equation*}
+
+	\begin{itemize}
+		\item $a$ è un attributo dell'entità $E$;
+		
+		\item $I\left(E\right)$ è l'insieme delle istanze di $E$;
+		
+		\item $D$ è l'insieme dei valori ammissibili.
+	\end{itemize}
 	
 	\noindent
 	\textcolor{Green4}{\textbf{Sintassi grafica.}}
 	
-%	\begin{figure}[!htp]
-%		\centering
-%		\includegraphics[width=0.5\textwidth]{img/entita_def.pdf}
-%		\caption{Sintassi grafica dell'entità.}
-%	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/attributo_def.pdf}
+		\caption{Sintassi grafica dell'attributo.}
+	\end{figure}
 	
 	\noindent
-	\textcolor{blue}{\textbf{Istanza (o occorrenza).}}
+	\textcolor{blue}{\textbf{Istanza (o occorrenza).}} Dato un attributo $a$ di un'entità $E$ (o relazione $R$), un'istanza di $a$ è il valore $v$ che esso assume su un'istanza di $E$ (o istanza di $R$).
+	
+	Quindi, data un'istanza $e$ dell'entità $E$ (o relazione $R$), l'istanza di un suo attributo $a$ si ottiene dalla funzione $f_{a}$ applicata a $e$:
+	
+	\begin{equation*}
+		\text{valore di } a \text{ su } e = f_{a}\left(e\right)
+	\end{equation*}
 \end{document}
