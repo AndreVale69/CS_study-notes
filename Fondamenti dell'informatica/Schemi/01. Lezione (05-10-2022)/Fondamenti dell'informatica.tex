@@ -11,6 +11,7 @@
 \usepackage{amsthm}					% teoremi migliorati
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
 
 
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
@@ -691,7 +692,7 @@
 	
 	\subsubsection{Esercizi da esame}
 	
-	\textcolor{Red3}{\textbf{\underline{Esercizio 1}}}\label{ASFD-esercizio_1}\newline
+	\textcolor{Red3}{\textbf{\underline{Esercizio 1}}}\newline
 	
 	\noindent
 	I dati dell'esercizio sono i seguenti:
@@ -710,7 +711,7 @@
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=0.8\textwidth]{img/esercitazioni/01_exe1.pdf}
-		\caption{Grafo dell'automa a stati finiti deterministico.}
+		\caption{Grafo dell'automa a stati finiti deterministico dell'esercizio 1.}\label{ASFD-esercizio_1}
 	\end{figure}
 
 	\noindent
@@ -804,8 +805,266 @@
 	\newpage
 	
 	\noindent
-	\textcolor{Red3}{\textbf{\underline{Esercizio 2}}}\label{ASFD-esercizio_2}\newline
+	\textcolor{Red3}{\textbf{\underline{Esercizio 2}}}\newline
 	
 	\noindent
 	I dati dell'esercizio sono i seguenti:
+	
+	\begin{gather*}
+		L = \left\{x \hspace{0.5em} | \hspace{0.5em} |x_{0}| = 1\right\} \\
+		\Sigma = \left\{0, 1\right\}
+	\end{gather*}\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	L'automa da costruire si basa sulla condizione del linguaggio, ovvero che $x_{0}$ (\textbf{numero degli zeri di $x$}) sia uguale a $1$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/esercitazioni/01_exe2.pdf}
+		\caption{Grafo dell'automa a stati finiti deterministico dell'esercizio 2.}\label{ASFD-esercizio_2}
+	\end{figure}
+	
+	\noindent
+	Sono \textbf{due} le \textbf{osservazioni} da fare: 
+	
+	\begin{enumerate}
+		\item Dato che è necessario solo uno zero per terminare, lo stato $q_{1}$ è obbligatoriamente uno stato finito;
+		\item Lo stato $q_{2}$ esiste solamente per bloccare la macchina nel caso in cui la sequenza sia errata, ovvero nel momento in cui vengano inseriti più zeri. Questo stato particolare prende il nome di \dquotes{\textbf{\underline{stato pozzo}}}.
+	\end{enumerate}
+
+	\newpage
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Si vuole dimostrare che $\sigma \in L \iff \delta\left(q_{0}, \sigma\right) \in F$ tramite l'induzione.\newline
+		
+		\noindent
+		\textbf{\underline{Caso base.}}
+		
+		\begin{enumerate}
+			\item $x = \varepsilon \notin L \longrightarrow \delta\left(q_{0}, \varepsilon\right) = q_{0} \notin F$
+			\item $x = 0 \in L \longrightarrow \delta\left(q_{0}, 0\right) = q_{1} \in F$
+			\item $x = 00 \notin L \longrightarrow \delta(\underbrace{q_{0}, 0}_{q_{1}} 0) = \delta\left(q_{1}, 0\right) = q_{2} \notin F$
+		\end{enumerate}
+		
+		\noindent
+		Con il caso base sono stati ricoperti tutti gli stati.\newline
+		
+		\noindent
+		\textbf{\underline{Ipotesi induttiva.}}\newline
+		
+		\noindent
+		Si vuole dimostrare che $\sigma \in L \Longrightarrow \delta\left(q_{0}, \sigma\right) \in F$, allora l'ipotesi induttiva è: se $|x| < n$ allora $x \in L \Longrightarrow \delta\left(q_{0}, x\right) \in F$. Per farlo, si dimostrano le due casistiche classiche:
+		
+		\begin{itemize}
+			\item $x^{'} = x0 \notin L \longrightarrow \delta(\overbrace{q_{0}, x}^{q_{1}} 0) = \delta\left(q_{1}, 0\right) = q_{2} \notin F$
+			
+			\item $x^{'} = x1 \in L \longrightarrow \delta(\underbrace{q_{0}, x}_{q_{1}} 1) = \delta\left(q_{1}, 1\right) = q_{1} \in F$
+		\end{itemize}
+	\end{proof}
+
+	\newpage
+
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione 2}}]
+		Dopo la prima dimostrazione, adesso si vuole dimostrare che $\sigma \notin L \Longrightarrow \delta\left(q_{0}, \sigma\right) \notin F$ tramite l'induzione.\newline
+		
+		\noindent
+		Come caso base si utilizza quello visto nella precedente dimostrazione.\newline
+		
+		\noindent
+		\textbf{\underline{Ipotesi induttiva.}}\newline
+		
+		\noindent
+		Si vuole dimostrare che $\sigma \notin L \Longrightarrow \delta\left(q_{0}, \sigma\right) \notin F$, allora l'ipotesi induttiva è: se $|x| < n$ allora $x \notin L \Longrightarrow \delta\left(q_{0}, x\right) \notin F$. Per farlo, si devono trovare delle casistiche particolari:
+		
+		\begin{enumerate}[label=\alph*.]
+			\item $x = 1^{n}$
+			
+			\item $x = 1^{n} 0 1^{n} 0 \left\{0, 1\right\}^{n}$
+		\end{enumerate}
+	
+		\noindent
+		Le casistiche \dquotes{generali} in cui una stringa non appartiene al linguaggio, e quindi all'insieme degli stati finali $F$, è quando la stringa è formata da una concatenazione di $1$ (caso a), oppure quando una stringa è formata da una concatenazione di $1$, uno zero, un'altra concatenazione di $1$ e una concatenazione di simboli dell'alfabeto, quindi quando ci sono almeno due zeri (caso b).\newline
+		
+		\noindent
+		Adesso si procede con la dimostrazione dei vari casi:
+		
+		\begin{enumerate}[label=\alph*.]
+			\item $x = 1^{n}$
+				\begin{itemize}
+					\item $x^{'} = x0 \in L \longrightarrow \delta(\overbrace{q_{0}, x}^{q_{0}} 0) = \delta\left(q_{0}, 0\right) = q_{1} \in F$
+					\item $x^{'} = x1 \notin L \longrightarrow \delta(\underbrace{q_{0}, x}_{q_{0}} 1) = \delta\left(q_{0}, 1\right) = q_{0} \notin F$
+				\end{itemize}
+			\item $x = 1^{n} 0 1^{n} 0 \left\{0, 1\right\}^{n}$
+				\begin{itemize}
+					\item $x^{'} = x0 \notin L \longrightarrow \delta(\overbrace{q_{0}, x}^{q_{2}} 0) = \delta\left(q_{2}, 0\right) = q_{2} \notin F$
+					\item $x^{'} = x1 \notin L \longrightarrow \delta(\underbrace{q_{0}, x}_{q_{2}} 1) = \delta\left(q_{2}, 1\right) = q_{2} \notin F$
+				\end{itemize}
+		\end{enumerate}
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 3}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{gather*}
+		L = \left\{0^{n} \hspace{0.5em} | \hspace{0.5em} n = 3\mathbb{N}\right\} \xlongrightarrow{\text{forma alternativa}} L = \left\{0^{3\mathbb{N}}\right\}\\
+		\Sigma = \left\{0, 1\right\}
+	\end{gather*}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	L'automa da costruire si basa sulla condizione del linguaggio, ovvero che $n$ (\textbf{valore della variabile $n$}) sia uguale a $3\mathbb{N}$ (\textbf{multipli di 3}).
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/esercitazioni/01_exe3.pdf}
+		\caption{Grafo dell'automa a stati finiti deterministico dell'esercizio 3.}\label{ASFD-esercizio_3}
+	\end{figure}
+
+	\noindent
+	L'unica \textbf{osservazione} da fare riguarda lo stato $q_{\bot}$ è il suo significato. Nell'esercizio 2 a pagina~\pageref{ASFD-esercizio_2} si parla di \dquotes{\textbf{stato pozzo}}, in questo esercizio lo stato $q_{\bot}$ è la stessa identica cosa.
+	
+	\newpage
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Si vuole dimostrare che $\sigma \in L \iff \delta\left(q_{0}, \sigma\right) \in F$ tramite l'induzione.\newline
+		
+		\noindent
+		\textbf{\underline{Caso base.}}
+		
+		\begin{enumerate}
+			\item $x = \varepsilon \in L \longrightarrow \delta\left(q_{0}, \varepsilon\right) = q_{0} \in F$
+			
+			\item $x = 0 \notin L \longrightarrow \delta\left(q_{0}, 0\right) = q_{1} \notin F$
+			
+			\item $x = 00 \notin L \longrightarrow \delta(\underbrace{q_{0}, 0}_{q_{1}} 0) = \delta\left(q_{1}, 0\right) = q_{2} \notin F$
+			
+			\item $x = 1 \notin L \longrightarrow \delta\left(q_{0}, 1\right) = q_{\bot} \notin F$
+		\end{enumerate}
+		
+		\noindent
+		Con il caso base sono stati ricoperti tutti gli stati.\newline
+		
+		\noindent
+		\textbf{\underline{Ipotesi induttiva.}}\newline
+		
+		\noindent
+		Si vuole dimostrare che $\sigma \in L \Longrightarrow \delta\left(q_{0}, \sigma\right) \in F$, allora l'ipotesi induttiva è: se $|x| < n$ allora $x \in L \Longrightarrow \delta\left(q_{0}, x\right) \in F$. Per farlo, si dimostrano le due casistiche classiche:
+		
+		\begin{itemize}
+			\item $x^{'} = x0 \notin L \longrightarrow \delta(\overbrace{q_{0}, x}^{q_{0}} 0) = \delta\left(q_{0}, 0\right) = q_{1} \notin F$
+			
+			\item $x^{'} = x1 \notin L \longrightarrow \delta(\underbrace{q_{0}, x}_{q_{0}} 1) = \delta\left(q_{0}, 1\right) = q_{\bot} \notin F$
+		\end{itemize}
+	\end{proof}
+
+	\newpage
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione 2}}]
+		Dopo la prima dimostrazione, adesso si vuole dimostrare che $\sigma \notin L \Longrightarrow \delta\left(q_{0}, \sigma\right) \notin F$ tramite l'induzione.\newline
+		
+		\noindent
+		Come caso base si utilizza quello visto nella precedente dimostrazione.\newline
+		
+		\noindent
+		\textbf{\underline{Ipotesi induttiva.}}\newline
+		
+		\noindent
+		Si vuole dimostrare che $\sigma \notin L \Longrightarrow \delta\left(q_{0}, \sigma\right) \notin F$, allora l'ipotesi induttiva è: se $|x| < n$ allora $x \notin L \Longrightarrow \delta\left(q_{0}, x\right) \notin F$. Per farlo, si devono trovare delle casistiche particolari:
+		
+		\begin{enumerate}[label=\alph*.]
+			\item $x = 0^{3\mathbb{N} + 1}$
+			
+			\item $x = 0^{3\mathbb{N} + 2}$
+			
+			\item $x = \left\{0\right\}^{n} 1 \left\{0, 1\right\}^{n}$
+		\end{enumerate}
+		
+		\noindent
+		Le casistiche \dquotes{generali} in cui una stringa non appartiene al linguaggio, e quindi all'insieme degli stati finali $F$, è quando:
+		
+		\begin{itemize}
+			\item La stringa è formata da una concatenazione di $0$ multipli di $3$ ma aggiungendo $1$ al risultato, quest'ultimo non è più multiplo (caso a);
+			
+			\item Stessa situazione del punto precedente ma aggiungendo $2$ come valore (caso b);
+			
+			\item La stringa è formata da una concatenazione di zeri, poi almeno un $1$ e successivamente una serie di concatenazioni di $0$ e/o $1$.
+		\end{itemize}
+		
+		\noindent
+		Adesso si procede con la dimostrazione dei vari casi:
+		
+		\begin{enumerate}[label=\alph*.]
+			\item $x = 0^{3\mathbb{N} + 1}$
+			\begin{itemize}
+				\item $x^{'} = x0 \notin L \longrightarrow \delta(\overbrace{q_{0}, x}^{q_{1}} 0) = \delta\left(q_{1}, 0\right) = q_{2} \notin F$
+				\item $x^{'} = x1 \notin L \longrightarrow \delta(\underbrace{q_{0}, x}_{q_{1}} 1) = \delta\left(q_{1}, 1\right) = q_{\bot} \notin F$
+			\end{itemize}
+			
+			\item $x = 0^{3\mathbb{N} + 2}$
+			\begin{itemize}
+				\item $x^{'} = x0 \in L \longrightarrow \delta(\overbrace{q_{0}, x}^{q_{2}} 0) = \delta\left(q_{2}, 0\right) = q_{0} \in F$
+				\item $x^{'} = x1 \notin L \longrightarrow \delta(\underbrace{q_{0}, x}_{q_{2}} 1) = \delta\left(q_{2}, 1\right) = q_{\bot} \notin F$
+			\end{itemize}
+		
+			\item $x = \left\{0\right\}^{n} 1 \left\{0, 1\right\}^{n}$
+			\begin{itemize}
+				\item $x^{'} = x0 \notin L \longrightarrow \delta(\overbrace{q_{0}, x}^{q_{\bot}} 0) = \delta\left(q_{\bot}, 0\right) = q_{\bot} \notin F$
+				\item $x^{'} = x1 \notin L \longrightarrow \delta(\underbrace{q_{0}, x}_{q_{\bot}} 1) = \delta\left(q_{\bot}, 1\right) = q_{\bot} \notin F$
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+
+	\newpage
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizi con linguaggi e relativi grafi}}}\newline
+	
+	\noindent
+	Di seguito si riportano alcuni linguaggi dati come esercizio ed i relativi grafi.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{Esercizio 4}}\newline
+	
+	\noindent
+	Il linguaggio e l'alfabeto:
+	
+	\begin{gather*}
+		L = \left\{0^{n} 1^{m} \hspace{0.5em} | \hspace{0.5em} n,m > 0\right\} \\
+		\Sigma = \left\{0, 1\right\}
+	\end{gather*}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/esercitazioni/01_exe4.pdf}
+		\caption{Grafo dell'automa a stati finiti deterministico dell'esercizio 4.}\label{ASFD-esercizio_4}
+	\end{figure}
+
+	\newpage
+
+	\noindent
+	\textcolor{Red3}{\textbf{Esercizio 5}}\newline
+	
+	\noindent
+	Il linguaggio e l'alfabeto:
+	
+	\begin{gather*}
+		L = \left\{x \hspace{0.5em} | \hspace{0.5em} |x_{0}| > 0, |x_{1}| > 1\right\} \\
+		\Sigma = \left\{0, 1\right\}
+	\end{gather*}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/esercitazioni/01_exe5.pdf}
+		\caption{Grafo dell'automa a stati finiti deterministico dell'esercizio 5.}\label{ASFD-esercizio_5}
+	\end{figure}
 \end{document}
