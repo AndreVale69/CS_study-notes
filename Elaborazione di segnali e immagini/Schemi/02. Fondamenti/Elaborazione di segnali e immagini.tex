@@ -23,6 +23,12 @@
 %\usepackage{showkeys}				% visualizzazione etichetta
 
 \begin{document}
+	\author{VR443470}
+	\title{Elaborazione di segnali e immagini}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
 	% indice
 	\tableofcontents
 	
@@ -740,4 +746,268 @@
 		\includegraphics[width=1\textwidth]{img/ex_exam/eg_cross-correlazione-2D.pdf}
 		\caption{Esempio di Cross-Correlazione normalizzata 2D.}
 	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Convoluzione}
+	
+	La \textbf{convoluzione} è un parente stretto della cross-correlazione, ma è leggermente diverso. È definito nel seguente modo:
+	
+	\begin{equation*}
+		f_{1} * f_{2}\left(t\right) = \int_{-\infty}^{+\infty} f_{1}\left(\tau\right) f_{2}\left(t - \tau\right) \mathrm{d}\tau
+	\end{equation*}
+
+	\noindent
+	Con $t in \mathbb{R}$. Si ricordi che se i \textbf{segnali non sono né di energia né di potenza, l'integrale \underline{converge}}.\newline
+	
+	\noindent
+	Nel caso in cui i \textbf{segnali} siano \textbf{discreti}, dati $x_{1}\left(n\right)$, $x_{1}\left(n\right)$:
+	
+	\begin{equation*}
+		x_{1} * x_{2} \left(n\right) = \sum_{k = -\infty}^{+\infty} x_{1}\left(k\right) x_{2}\left(n - k\right)
+	\end{equation*}
+
+	\noindent
+	Con $k \in \mathbb{Z}$.
+	
+	\noindent
+	Nel caso in cui $x_{1} \left(n\right)$ e $x_{2} \left(n\right)$ sono limitati di lunghezza $M$ ed $N$ rispettivamente, allora la \textbf{convoluzione è di lunghezza} $M+N-1$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Convoluzione 2D}}\newline
+	
+	\noindent
+	Nel caso delle immagini, quindi del 2D, $x_{1}$ ed $x_{2}$ sono solitamente \textbf{segnali digitali ad intervallo limitato}, e la convoluzione diventa dunque:
+	
+	\begin{equation*}
+		x_{1} * x_{2}\left(m,n\right) = \sum_{u = -\infty}^{+\infty} \sum_{v = -\infty}^{+\infty} x_{1} \left(u,v\right) x_{2}\left(m - u, n - v\right) \hspace{2em} u,v,m,n\in\mathbb{Z}
+	\end{equation*}
+
+	\noindent
+	Solitamente il primo segnale $x_{1}$ viene chiamato \textbf{\underline{filtro}}, o \textbf{\underline{matrice kernel}}, mentre $x_{2}$ genericamente \textbf{\underline{immagine}} (solitamente la matrice kernel ha una dimensione inferiore di quella dell'immagine).
+	
+	\newpage
+	
+	\section{Analisi di Fourier}
+	
+	\subsection{Serie di Fourier}
+	
+	Una funzione, chiamata \textbf{\underline{funzione di sintesi}}, $f: \mathbb{R} \rightarrow \mathbb{R}$ di variabile continua $t$, periodica di periodo $T$, si esprime come:
+	
+	\begin{equation*}
+		f(t) = \sum_{n = -\infty}^{+\infty} c_{n} \underbrace{e^{j \frac{2\pi n}{T}t}}_{\text{fasore}} \hspace{2em} n\in\mathbb{Z}
+	\end{equation*}
+
+	\noindent
+	Dove $c_{n}$ è un numero complesso. Invece, una \textbf{\underline{funzione di analisi}} è espressa come:
+	
+	\begin{equation*}
+		c_{n} \in \mathbb{C} = \dfrac{1}{T} \int_{-\frac{T}{2}}^{+\frac{T}{2}} f\left(t\right) \underbrace{e^{-j \frac{2\pi n}{T}t}}_{\text{fasore}} \mathrm{d}t \hspace{2em} n \in \mathbb{Z}
+	\end{equation*}
+
+	\noindent
+	\textbf{N.B.} si ricorda che $e^{j \frac{2\pi n}{T}t}$ è un \textbf{fasore rotante} di velocità angolare $\dfrac{2\pi n}{T} t$.\newline
+	La \textbf{\underline{funzione di sintesi}} quindi non è altro che una somma di infiniti termini. Ciascuno è composto dalla moltiplicazione tra un numero complesso ed un fasore, il quale \emph{produce un altro fasore}. Esprimendo $c_{n}$ come numero complesso in forma polare:
+	
+	\begin{equation*}
+		c_{n} e^{j \frac{2 \pi n}{T} t} = |c_{n}| e^{j \theta_{n}} e^{j \frac{2 \pi n}{T} t} = |c_{n}| e^{j \left(\frac{2 \pi n}{T} t + \theta_{n}\right)}
+	\end{equation*}
+
+	\noindent
+	Si può notare come questa conversione corrisponda ad \textbf{estendere} il fasore $e^{j\frac{2 \pi n}{T} t}$ ad una lunghezza $|c_{n}|$ facendolo partire con un \textbf{angolo di partenza} uguale a $\theta_{n}$ (chiamato \textbf{\underline{angolo di fase}}).\newline
+	
+	\noindent
+	\textbf{\underline{Altra osservazione:}} se $c_{n}$ appartiene all'insieme $\mathbb{R}$, significa che $\theta_{n}$ non compare. Questo comporta un cambiamento nella lunghezza dell'$n$-esimo fasore pari a $|c_{n}|$:
+	
+	\begin{equation*}
+		c_{n} = |c_{n}| \cancel{e^{j \theta_{n}}}
+	\end{equation*}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Esempio 1}}}\newline
+	
+	\noindent
+	Il primo esempio di serie di Fourier si applica per il segnale trigonometrico:
+	
+	\begin{equation*}
+		f\left(t\right) = \cos\left(2 \pi t\right) \hspace{2em} \text{con } T = 1
+	\end{equation*}
+
+	\noindent
+	Applicando la \textbf{funzione di analisi} e saltando i passaggi perché complessi, si ottengono i seguenti valori:
+	
+	\begin{equation*}
+		c_{-1} = \dfrac{1}{2} \hspace{3em}
+		c_{0} = 0 \hspace{3em}
+		c_{1} = \dfrac{1}{2} \hspace{3em}
+		c_{i \le -2, i \ge 2} = 0
+	\end{equation*}
+
+	\noindent
+	E sostituendo nella \textbf{funzione di sintesi}:
+	
+	\begin{equation*}
+		\cos\left(2 \pi t\right) = \dfrac{1}{2} e^{-j 2 \pi t} + \dfrac{1}{2} e^{j 2 \pi t} = \dfrac{e^{j 2 \pi t} + e^{-j 2 \pi t}}{2}
+	\end{equation*}
+
+	\noindent
+	Ci sono \textbf{tre osservazioni} da fare:
+	
+	\begin{enumerate}[label=\Roman*.]
+		\item $\dfrac{2\pi}{T} = f_{0}$;
+		
+		\item $c_{n} = |c_{n}| e^{j\theta_{n}}$;
+		
+		\item In questo caso, $c_{n} \in \mathbb{R}$ quindi l'angolo di fase non è presente.
+	\end{enumerate}
+
+	\noindent
+	\textbf{Le parti} dell'equazione sono le seguenti:
+	
+	\begin{equation*}
+		\cos{\left(2 \pi t\right)} = \dfrac{1}{2} e^{-j 2 \pi t} + \dfrac{1}{2} e^{j 2 \pi t}
+	\end{equation*}
+
+	\begin{itemize}[label=\ding{43}]
+		\item $\cos{\left(2 \pi t\right)} \rightarrow$ La funzione trigonometrica da studiare
+		
+		\item $\dfrac{1}{2} e^{-j 2 \pi t} \rightarrow$ Fasore di modulo $0.5$ e velocità angolare $-2\pi t$
+		
+		\item $\dfrac{1}{2} e^{j 2 \pi t} \rightarrow$ Fasore di modulo $0.5$ e velocità angolare $2\pi t$
+	\end{itemize}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/fourier_eg1.pdf}
+		\caption{Grafico rappresentante i due fasori. La freccia verde rappresenta il valore assunto da $\cos{\left(2\pi t\right)}$ per $t = \dfrac{1}{8}$.}
+	\end{figure}
+
+	\noindent
+	I coefficienti $c_{n = -1}$ e $c_{n = 1}$ sono relativi ai \textbf{\underline{moduli o ampiezze}} \textbf{dei fasori} complessi di frequenza $f_{0} \cdot n$ con $n = -1,1$ e ricordando che:
+	
+	\begin{equation*}
+		\exp\left(j \left(\dfrac{2 \pi n}{T} t\right)\right) = \exp\left(j \left(f_{0} n t\right)\right)
+	\end{equation*}
+
+	\noindent
+	Che si possono annotare con le variabili $f_{-1}$ e $f_{1}$ per $f_{0} \cdot n$ con $n = -1, 1$ e analogamente per gli altri $n \in \mathbb{Z}$.\newline
+	
+	\noindent
+	Inoltre, è possibile disegnare lo \textbf{\underline{spettro di ampiezza}} che \textbf{mostra i moduli dei fasori costruiti con la trasformata di Fourier}, in particolare la funzione di sintesi.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/fourier_spettro_di_ampiezza.pdf}
+		\caption{Grafico che rappresenta lo spettro di ampiezza.}
+	\end{figure}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Esempio 2}}}\newline
+	
+	\noindent
+	Il secondo esempio di serie di Fourier è il segnale trigonometrico:
+	
+	\begin{equation*}
+		f\left(t\right) = \sin\left(2 \pi t\right) \hspace{2em} \text{con } T = 1
+	\end{equation*}
+
+	\noindent
+	Applicando la \textbf{funzione di analisi} e saltando i passaggi perché complessi, si ottengono i seguenti valori:
+	
+	\begin{equation*}
+		c_{-1} = -\dfrac{1}{2j} \hspace{3em}
+		c_{0} = 0 \hspace{3em}
+		c_{1} = \dfrac{1}{2j} \hspace{3em}
+		c_{i \le -2, i \ge 2} = 0
+	\end{equation*}
+
+	\noindent
+	Dove questa volta $c_{n} \in \mathbb{C}$ ed in particolare:
+	
+	\begin{equation*}
+		\pm \dfrac{1}{2j} = \pm \dfrac{1}{2j} \cdot \dfrac{j}{j} = \pm \dfrac{1}{2} \cdot \dfrac{j}{j^{2}} = j \cdot \mp \dfrac{1}{2}
+	\end{equation*}
+
+	\noindent
+	Si passa alla forma di esponenziale complesso:
+	
+	\begin{gather*}
+		j \cdot \dfrac{1}{2} = 0 + j \cdot \dfrac{1}{2} \\
+		|c| = \sqrt{0^{2} + \left(\dfrac{1}{2}\right)^{2}} = \dfrac{1}{2} \\
+		\theta = \arctan\left(\dfrac{0.5}{0}\right) \rightarrow \dfrac{\pi}{2} \\
+		\dfrac{1}{2} e^{j \cdot \frac{\pi}{2}} = c_{-1}
+	\end{gather*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.3\textwidth]{img/fourier_eg2.pdf}
+		\caption{Grafico di $c_{-1}$.}
+	\end{figure}
+
+	\newpage
+	\noindent
+	Analogamente:
+	
+	\begin{gather*}
+		j \cdot -\dfrac{1}{2} = 0 + j \cdot \left(-\dfrac{1}{2}\right) \\
+		|c| = \sqrt{0^{2} + \left(-\dfrac{1}{2}\right)^{2}} = \dfrac{1}{2} \\
+		\theta = \arctan\left(-\dfrac{0.5}{0}\right) \rightarrow -\dfrac{\pi}{2} \\
+		\dfrac{1}{2} e^{j \cdot \left(-\frac{\pi}{2}\right)} = c_{1}
+	\end{gather*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.3\textwidth]{img/fourier_eg2_2.pdf}
+		\caption{Grafico di $c_{1}$.}
+	\end{figure}
+
+	\newpage
+	\noindent
+	Applicando l'\textbf{equazione di sintesi} e sostituendo i termini noti:
+	
+	\begin{gather*}
+		\sin{\left(2 \pi t\right)} = \sum_{n = -\infty}^{+\infty} c_{n} e^{j \frac{2 \pi n}{T} t} = c_{-1} e^{j-2\pi t} + c_{1} e^{j2\pi t} \\
+		\xrightarrow{\text{sostituzione dei termini noti }c_{-1}, c_{1}} = \dfrac{1}{2} e^{j \frac{\pi}{2}} e^{j \cdot \left(-2 \pi t\right)} + \dfrac{1}{2}  e^{j \frac{-\pi}{2}} e^{j 2 \pi t} \\
+		\xrightarrow{\text{forma finale }} = \dfrac{1}{2} \exp{\left(j\left(-2 \pi t + \dfrac{\pi}{2}\right)\right)} + \exp{\left(j\left(2 \pi t - \dfrac{\pi}{2}\right)\right)}
+	\end{gather*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/fourier_eg2_3.pdf}
+		\caption{Grafico finale.}
+	\end{figure}
+
+	\noindent
+	Infine, si disegna lo \textbf{\underline{spettro di ampiezza}} e lo \textbf{\underline{spettro di fase}}, quest'ultimo è un \textbf{grafico in cui si riportano gli angoli di fase della funzione}.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/fourier_spettro_di_ampiezza-e-fase.pdf}
+		\caption{Spettro di ampiezza e di fase della funzione $\sin\left(2 \pi t\right)$.}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Proprietà della serie di Fourier}
+	
+	\noindent
+	Lo \textbf{spettro di ampiezza e di fase} sono funzioni nel dominio delle frequenze che formano lo {\underline{\textcolor{Red3}{\textbf{spettro di Fourier}}}}. Lo spettro di Fourier per i segnali periodici gode delle \textbf{seguenti \underline{proprietà}}:
+	
+	\begin{itemize}
+		\item Lo \textbf{spettro di ampiezza è \emph{simmetrico}} rispetto all'asse $y$;
+		
+		\item Lo \textbf{spettro di fase è \emph{antisimmetrico}} rispetto all'asse $y$;
+		
+		\item Se i coefficienti $c_{n}$ sono reali, \textbf{non esiste lo spettro di fase};
+		
+		\item Entrambe gli spettri sono funzioni a pettine, definite su frequenze multiple rispetto a quella fondamentale:
+		
+		\begin{equation*}
+			\left\{\dfrac{2 \pi n}{T}\right\}_{n \in \mathbb{Z}} = \left\{f_{0} \cdot n\right\}_{n \in \mathbb{Z}} \equiv \left\{f_{n}\right\}_{n \in \mathbb{Z}}
+		\end{equation*}
+	\end{itemize}
 \end{document}
