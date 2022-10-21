@@ -417,4 +417,88 @@
 	\begin{equation*}
 		\text{valore di } a \text{ su } e = f_{a}\left(e\right)
 	\end{equation*}
+
+	\newpage
+	
+	\subsection{Altri costrutti del modello}
+	
+	I rimanenti costrutti del modello E-R sono le cardinalità delle relazioni e gli identificatori.
+	
+	\subsubsection{Cardinalità}
+	
+	\textcolor{Red3}{\textbf{Definizione.}} Le \textbf{cardinalità} vengono \textbf{specificate per ciascuna entità collegata ad una relazione} e descrivono il \textbf{numero minimo e massimo di occorrenze} di relazione a cui una occorrenza dell'entità può partecipare.
+	
+	Più formalmente, data una relazione $R$ i vincoli di cardinalità vengono specificati per ogni entità $E_{i}$ coinvolta nella relazione $R$ e specificano: il numero massimo e il numero minimo di istanze di $R$ a cui un'istanza di $E_{i}$ deve/può partecipare.
+	
+	In parole povere, dicono quante volte, in una relazione tra entità, un'istanza di una di queste entità può essere legata a istanze delle altre entità coinvolte. \textbf{\underline{Per esempio}}, in una relazione \dquotes{Assegnamento} tra le entità \dquotes{Impiegato} e \dquotes{Incarico} si specifica per la prima entità una cardinalità minima pari a uno e una cardinalità massima pari a cinque. Quindi, un impiegato può partecipare a un minimo di una occorrenza e a un massimo di cinque occorrenze della relazione \dquotes{Assegnamento}.\newline
+	
+	\noindent
+	\textbf{\underline{N.B.}} Specificando \textbf{zero come cardinalità minima}, si impone che un'occorrenza può apparire oppure no.\newline
+	
+	\noindent
+	È possibile \textbf{assegnare un qualunque valore intero \underline{non negativo} a una cardinalità di una relazione con l'\underline{unico vincolo} che la cardinalità \emph{minima} deve essere \underline{minore o uguale} della cardinalità \emph{massima}}.
+	
+	\noindent
+	Tuttavia, nella maggior parte dei casi, è sufficiente utilizzare solamente tre simboli: $0$, $1$ e $N$ (molti).
+	
+	\begin{itemize}[label=\ding{72}]
+		\item \textbf{\underline{Cardinalità minima.}}
+		\begin{itemize}
+			\item \textbf{Zero.} La partecipazione dell'entità relativa è \emph{\textbf{opzionale}};
+			\item \textbf{Uno.} La partecipazione dell'entità relativa è \emph{\textbf{obbligatoria}}.
+		\end{itemize}
+	
+		\item \textbf{\underline{Cardinalità massima.}}
+		\begin{itemize}
+			\item \textbf{Uno.} La partecipazione dell'entità relativa è come una funzione che associa a una occorrenza dell'entità una sola occorrenza (o nessuna) dell'altra entità che partecipa alla relazione;
+			\item \textbf{N (molti).} Esiste un'associazione con un numero arbitrario di occorrenze dell'altra entità.
+		\end{itemize}
+	\end{itemize}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Sintassi grafica.}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.52\textwidth]{img/cardinalita_def.pdf}
+		\caption{Sintassi grafica della cardinalità.}
+	\end{figure}
+
+	\subsubsection{Identificatori}
+	
+	\textcolor{Red3}{\textbf{Definizione.}} Vengono \textbf{specificati per ciascuna entità} di uno schema e \textbf{descrivono i} concetti (\textbf{attributi e/o entità}) dello schema che \textbf{permettono di identificare in maniera \underline{univoca} le occorrenze delle entità}.\newline
+	
+	\noindent
+	È assolutamente \textbf{vietato inserire uno o più identificatori all'interno di una relazione}. Quindi, quest'ultima non può avere identificatori interni!\newline
+	
+	\noindent
+	\textbf{Per esempio}, un identificato interno per l'entità \dquotes{Automobile} con attributi \dquotes{Modello, Targa e Colore} è l'attributo \dquotes{Targa}, in quanto non possono esistere due automobili con la stessa targa e quindi due occorrenze dell'entità \dquotes{Automobile} con gli stessi valori sull'attributo \dquotes{Targa}.\newline
+	
+	\noindent
+	Un'entità $E$ può essere identificata da altre entità solo se tali entità sono coinvolte in una relazione a cui $E$ partecipa con cardinalità $\left(1, 1\right)$. Nei casi in cui l'identificazione di un'entità è ottenuta utilizzando altre entità si parla di \textbf{identificatore \underline{esterno}}. \newline
+	Per comprendere meglio si espone un \textbf{esempio}. Per identificare univocamente uno studente serve, oltre al numero di matricola, anche la relativa università. Quindi, un identificatore corretto per l'entità \dquotes{Studente} in questo schema è costituito dall'attributo \dquotes{Matricola} e dall'entità \dquotes{Università}.\newline
+	
+	\noindent
+	Quindi, in generale:
+	
+	\begin{itemize}
+		\item Un identificatore può \textbf{coinvolgere uno o più attributi}, ognuno dei quali deve avere cardinalità $\left(1,1\right)$;
+		
+		\item Un identificatore esterno può \textbf{coinvolgere una o più entità}, ognuna delle quali deve essere membro di una relazione alla quale l'entità da identificare partecipa con cardinalità $\left(1,1\right)$;
+		
+		\item Un identificatore esterno può \textbf{coinvolgere un'entità che è a sua volta identificata esternamente}, purché non vengano generati, in questa maniera, cicli di identificazione esterna;
+		
+		\item Ogni \textbf{entità deve avere almeno un identificatore} (interno o esterno), ma ne può avere in generale più di uno.
+	\end{itemize}
+
+	\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{Sintassi grafica.}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/identificatore_def.pdf}
+		\caption{Sintassi grafica dell'identificatore.}
+	\end{figure}
 \end{document}
