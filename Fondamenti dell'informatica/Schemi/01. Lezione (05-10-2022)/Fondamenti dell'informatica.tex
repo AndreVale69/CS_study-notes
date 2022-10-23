@@ -1067,4 +1067,326 @@
 		\includegraphics[width=0.8\textwidth]{img/esercitazioni/01_exe5.pdf}
 		\caption{Grafo dell'automa a stati finiti deterministico dell'esercizio 5.}\label{ASFD-esercizio_5}
 	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Automi con $\boldsymbol{\varepsilon}$-transizioni ($\boldsymbol{\varepsilon}$-NFA)}
+	
+	Il terzo tipo di automa che estende il modello non-deterministico precedente ma che è equivalente dal punto di vista dei linguaggi accettati. L'idea è che l'automa compia transizione di stato anche senza leggere alcun simbolo. Questo sarà modellato ammettendo transizioni etichettate $\varepsilon$.
+	
+	Un \textcolor{Red3}{\textbf{automa a stati finti non deterministico con $\boldsymbol{\varepsilon}$ transizioni}}, brevemente ASFND+$\varepsilon$ oppure $\varepsilon$-NFA, \textcolor{Red3}{\textbf{è una quintupla}}:
+	
+	\begin{equation*}
+		\left\langle Q, \Sigma, \delta, q_{0}, F \right\rangle
+	\end{equation*}
+
+	\noindent
+	Dove $Q, \Sigma, \delta, q_{0} \text{ e } F \subseteq Q$ sono definiti come per gli automi non-deterministici, mentre la \textbf{\underline{funzione di transizione}} $\delta$ è definita come:
+	
+	\begin{equation*}
+		\delta: Q \times \left(\Sigma \cup \left\{\varepsilon\right\}\right) \longrightarrow P\left(Q\right)
+	\end{equation*}
+
+	\noindent
+	Ne consegue che la funzione $\overset{\wedge}{\delta}: Q \times \Sigma^{*} \longrightarrow P\left(Q\right)$ nel caso dei $\varepsilon$-NFA risulta più complessa.\newline
+	
+	\noindent
+	Si introduce una nuova \textcolor{Red3}{\textbf{operazione}} chiamata \textcolor{Red3}{\underline{\textbf{$\boldsymbol{\varepsilon}$-chiusura}}} (\textcolor{Red3}{\emph{$\varepsilon$-closure}}) che, applicata ad uno stato, \textcolor{Red3}{\textbf{restituisce l'insieme degli stati raggiungibili da esso (compreso sè stesso) mediante $\boldsymbol{\varepsilon}$-transizioni}}.	Essa non è altro che un insieme di stati:
+	
+	\begin{equation*}
+		\varepsilon\text{-closure}\left(P\right) = \bigcup_{p \in P} \varepsilon\text{-closure}\left(p\right)
+	\end{equation*}
+
+	\noindent
+	Quindi, la \underline{$\overset{\wedge}{\delta}$ è possibile definirla nel seguente modo}:
+	
+	\begin{equation*}
+		\begin{cases}
+			\overset{\wedge}{\delta}\left(q, \varepsilon\right) = \varepsilon\text{-closure}\left(q\right) \\
+			\overset{\wedge}{\delta}\left(q, wa\right) = \bigcup_{p \in \hat{\delta}\left(q, w\right)} \varepsilon\text{-closure}\left(\delta\left(p, a\right)\right)
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	In questo caso è possibile che $\overset{\wedge}{\delta}\left(q, a\right)$ sia diverso da $\delta\left(q, a\right)$. Come, per esempio, nel seguente automa:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/automa_epsilon-transizioni.pdf}
+		\caption{Esempio di automa con $\overset{\wedge}{\delta}$ e $\delta$ diversi.}
+	\end{figure}
+
+	\noindent
+	\dquotes{Consumando} la stringa $a$ si giunge nello stato $q^{'}$: $\delta\left(q, a\right) = \left\{q^{'}\right\}$. Invece, con la stringa $a\varepsilon$ si giunge allo stato $q^{''}$ e si descrive come: $\overset{\wedge}{\delta}\left(q,a\right) = \bigcup_{p \in \hat{\delta}\left(q,\varepsilon\right)} \varepsilon$-closure$\left(\delta\left(p,a\right)\right) = \left\{q^{'}, q^{''}\right\}$.
+	
+	\noindent
+	Infine, si definisce il \textcolor{Red3}{\textbf{linguaggio accettato dall'automa}}:
+	
+	\begin{equation*}
+		L\left(M\right) = \left\{x \in \Sigma^{*} \: \left| \: \hat{\delta}\left(q_{0}, x\right) \cap F \ne \emptyset\right.\right\}
+	\end{equation*}
+
+	\noindent
+	E inoltre $\overset{\wedge}{\delta}\left(q,x\right) = \varepsilon$-closure $\left(\overset{\wedge}{\delta}\left(q,x\right)\right)$.
+	
+	\subsubsection{Teorema dell'equivalenza di $\boldsymbol{\varepsilon}$-NFA e NFA}
+	
+	\textbf{Obbiettivo:} con il seguente teorema si dimostra che la classe dei linguaggi riconosciuti dagli automi $\varepsilon$-NFA non estende propriamente quella dei linguaggi riconosciuti da automi NFA.
+	
+	\begin{theorem}[\textbf{Equivalenza}]
+		Sia una quintupla di un automa a stati finiti non-deterministico $\varepsilon$ ($\varepsilon$-NFA):
+		
+		\begin{equation*}
+			M = \langle Q, \Sigma, \delta, q_{0}, F \rangle
+		\end{equation*}
+	
+		\noindent
+		Allora esiste un automa a stati finiti non-deterministico (NFA) $M^{'}$ tale che $L\left(M\right) = L\left(M^{'}\right)$.
+	\end{theorem}
+
+	\begin{proof}[\textbf{Dimostrazione}]
+		Si definisce l'automa a stati finiti non-deterministico $M^{'}$ con la quintupla:
+		
+		\begin{equation*}
+			M^{'} = \langle Q^{'}, \Sigma^{'}, \delta^{'}, q_{0}^{'}, F^{'} \rangle
+		\end{equation*}
+	
+		\noindent
+		Con le caratteristiche simili alla NFA:
+		
+		\begin{itemize}
+			\item $Q^{'} = Q$
+			\item $\Sigma^{'} = \Sigma$
+			\item $q_{0}^{'} = q_{0}$
+			\item $F^{'} =
+				\begin{cases}
+					F \cup \left(q_{0}\right) 	& \text{se } \varepsilon\text{-closure}\left(q_{0}\right) \cap F \ne \emptyset \\
+					F 							& \text{altrimenti}
+				\end{cases}$
+			\item $\delta^{'} \left(q,a\right) = \overset{\wedge}{\delta}\left(q,a\right)$
+		\end{itemize}
+	
+		\noindent
+		Si osservi che nel sistema degli stati finiti $F$, l'unione con lo stato iniziale $q_{0}$ produce uno stato finito (se l'intersezione non è nulla!).
+		
+		\noindent
+		L'\textbf{\underline{obbiettivo}} è dimostrare che siano uguali:
+		
+		\begin{equation*}
+			\overset{\wedge}{\delta}\left(q_{0}, x\right) \cap F \ne \emptyset \iff \overset{\wedge}{\delta^{'}}\left(q_{0}, x\right) \cap F^{'} \ne \emptyset
+		\end{equation*}
+		
+		\noindent
+		Quindi, in altri termini:
+		
+		\begin{equation*}
+			\forall x \in \Sigma^{*} \longrightarrow \overset{\wedge}{\delta}\left(q_{0}, x\right) = \overset{\wedge}{\delta^{'}}\left(q_{0}, x\right) \hspace{2em} \text{per } |x|\ge 1
+		\end{equation*}
+	
+		\noindent
+		\textbf{\underline{Caso base.}}\newline
+		
+		\noindent
+		Entrambe hanno l'operazione $\varepsilon$-closure.
+		
+		\newpage
+		
+		\noindent
+		\textbf{\underline{Passo induttivo.}}
+		
+		\begin{gather*}
+			\overset{\wedge}{\delta^{'}}(q_{0}, \overbrace{xa}^{n+1}) = \bigcup_{p \in \hat{\delta^{'}}\left(q_{0}, x\right)} \delta^{'}\left(p, a\right) \\
+			\xrightarrow{\text{per definizione}}\bigcup_{p \in \hat{\delta^{'}} \left(q_{0}, x\right)} \overset{\wedge}{\delta} \left(p, a\right) \\
+			\xrightarrow{\text{per induzione}}\bigcup_{p \in \hat{\delta}\left(q_{0}, x\right)} \overset{\wedge}{\delta}\left(p, a\right) \\
+			\xrightarrow{\text{applicando l'operazione}}\bigcup_{p \in \hat{\delta}\left(q_{0}, a\right)} \varepsilon\text{-closure}\left(\delta\left(p, a\right)\right) \\
+			\xrightarrow{\text{si conclude}} \overset{\wedge}{\delta}\left(q_{0}, xa\right)
+		\end{gather*}
+	
+		\noindent
+		Si \textbf{\underline{conclude la dimostrazione}} verificando graficamente che $F = F^{'}$. Per farlo, si pensi al caso in cui $F^{'} \ne F$, ovvero un caso impossibile. Questo perché lo stato $q_{0}$ è \textbf{per definizione} contenuto sia nell'insieme $F$, sia nell'insieme $F^{'}$ (dimostrazione eseguita sopra).
+		
+		Quindi, \textbf{lo stato $q_{0}$, se presente in uno dei due insiemi, sarà sicuramente presente anche nell'altro}, come si vede dall'immagine~\ref{dimostrazione:equivalenza insieme}.
+		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=0.5\textwidth]{img/teorema_equivalenza1.pdf}
+			\caption{Dimostrazione grafica per evidenziare l'impossibilità della presenza dello stato $q_{0}$ solamente in un insieme.}
+			\includegraphics[width=0.5\textwidth]{img/teorema_equivalenza2.pdf}
+			\caption{Dimostrazione grafica della corretta rappresentazione dei due insiemi e dello stato $q_{0}$.}\label{dimostrazione:equivalenza insieme}
+		\end{figure}
+	\end{proof}
+
+
+	\section{Espressioni regolari}
+	
+	\subsection{Espressioni regolari}
+	
+	Sia $\Sigma$ un alfabeto, si definiscono \textcolor{Red3}{\textbf{espressioni regolari su $\Sigma$}} e gli \textbf{insiemi} che esse denotano tramite le seguenti caratteristiche:
+	
+	\begin{enumerate}[label=\Roman*.]
+		\item $\emptyset$ è una espressione regolare che indica l'\textbf{insieme vuoto};
+		
+		\item $\varepsilon$ è una espressione regolare che indica l'\textbf{insieme $\left\{\varepsilon\right\}$};
+		
+		\item Per ogni simbolo $a \in \Sigma$, $a$ è una espressione regola che indica l'\textbf{insieme $\left\{a\right\}$};
+		
+		\item Se $r$ e $s$ sono espressioni regolari che denotano rispettivamente gli insiemi $R$ e $S$, allora:
+			\begin{itemize}[label=-]
+				\item $\left(r + s\right)$ denota l'insieme $R \cup S$
+				\item $\left(rs\right)$ denota l'insieme $R \cap S$ oppure con un'altra notazione $RS$
+				\item $\left(r^{*}\right)$ denota l'insieme $R^{*}$
+			\end{itemize}
+	\end{enumerate}
+
+	\noindent
+	Se $r$ è una espressione regolare, si indica con $L\left(r\right)$ il linguaggio denotato con $r$, ovvero l'insieme di stringhe di $\Sigma^{*}$ che essa denota. Inoltre, varrà l'eguaglianza $r = s$ se e solo se $L\left(r\right) = L\left(s\right)$.\newline
+	
+	\noindent
+	Quindi, \textbf{\underline{riassumendo la definizione}}:
+	
+	\begin{itemize}[label=\ding{42}]
+		\item $L\left(\emptyset\right) = \emptyset$
+		\item $L\left(\varepsilon\right) = \left\{\varepsilon\right\}$
+		\item $L\left(a\right) = \left\{a\right\}$
+		\item $L\left(r+s\right) = L\left(r\right) \cup L\left(s\right)$
+		\item $L\left(r \cdot s\right) = L\left(r\right) \cdot L\left(s\right)$
+		\item $L\left(r^{*}\right) = L\left(r\right)^{*}$
+	\end{itemize}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Esempi:}}
+	
+	\begin{itemize}[label=-]
+		\item $\left\{a^{n} b^{m} c^{h} \: \left| \: m,n,h \ge 0 \right.\right\} \longrightarrow a^{*} b^{*} c^{*}$
+		
+		\item $\left\{a^{n} b^{m} c^{h} \: \left| \: m,n,h > 0 \right.\right\} \longrightarrow aa^{*} bb^{*} cc^{*}$
+	\end{itemize}
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Proprietà}}}
+	
+	\begin{itemize}[label=\ding{72}]
+		\item $e_{1} + \left(e_{2} + e_{3}\right) = e_{1}\cdot e_{2} + e_{1} \cdot e_{3}$
+		
+		\item $\left(e_{1} + e_{2}\right) \cdot e_{3} = e_{1} \cdot e_{3} + e_{2} \cdot e_{3}$
+		
+		\item $e_{1} + \left(e_{2} + e_{3}\right) = \left(e_{1} + e_{2}\right) + e_{3}$
+		
+		\item $e_{1} \cdot \left(e_{2} \cdot e_{3}\right) = \left(e_{1} \cdot e_{2}\right) \cdot e_{3}$
+		
+		\item $e \cdot \varepsilon = \varepsilon \cdot e = e$
+		
+		\item $e \cdot \emptyset = \emptyset \cdot e = \emptyset$
+		
+		\item $e + e = e$
+		
+		\item $\emptyset^{*} = \varepsilon$
+	\end{itemize}
+
+	\newpage
+	
+	\subsubsection{Teorema McNaughton \& Yamamada (1960) - Equivalenza tra DFA e ER}
+
+	\begin{theorem}[\textbf{McNaughton \& Yamamada}]
+		Sia $r$ una espressione regolare, allora esiste una macchina $M$ (automa) a stati finiti non-deterministico + $\varepsilon$ tale che $L\left(M\right) = L\left(r\right)$. Più formale:\footnote{ER = espressione regolare.}
+		
+		\begin{equation*}
+			r \in ER \Longrightarrow L\left(r\right)
+		\end{equation*}
+	\end{theorem}
+	
+	\begin{proof}[\textbf{Dimostrazione}]
+		Si dimostra che esiste un automa a stati finiti non-deterministico + $\varepsilon$ tale che $L\left(r\right) = L\left(M\right)$. Formalmente:
+		
+		\begin{equation*}
+			\exists M \underbrace{ASFND+\varepsilon}_{\varepsilon-NFA} \text{ t.c. } L\left(r\right) = L\left(M\right)
+		\end{equation*}
+	
+		\noindent
+		Per farlo, si hanno i seguenti tre casi base.\newline
+		
+		\noindent
+		\textbf{\underline{Caso base.}}
+		
+		\begin{itemize}
+			\item L'automa $\varepsilon$ è composto da un solo stato finito:
+				\begin{figure}[!htp]
+					\centering
+					\includegraphics[width=0.13\textwidth]{img/teorema_McN-Yamada1.pdf}
+				\end{figure}
+			
+			\item L'automa $\emptyset$ è composto da uno stato iniziale e uno stato finale che non viene mai raggiunto:
+				\begin{figure}[!htp]
+					\centering
+					\includegraphics[width=0.3\textwidth]{img/teorema_McN-Yamada2.pdf}
+				\end{figure}
+			
+			\item L'automa $a$ ha uno stato iniziale che accetta una stringa $a$, la quale la porta allo stato finale:
+				\begin{figure}[!htp]
+				\centering
+				\includegraphics[width=0.3\textwidth]{img/teorema_McN-Yamada3.pdf}
+			\end{figure}
+		\end{itemize}
+	
+		\newpage
+	
+		\noindent
+		\textbf{\underline{Passo induttivo.}}\newline
+		
+		\noindent
+		Ipotizzando che $r$ ed $s$ siano espressioni regolari $r,s \in ER$ e si creano due macchine per le espressioni regolari: $L\left(r\right) = M_{1}$ e $L\left(s\right) = M_{2}$. Si analizzano tre casi:
+		
+		\begin{itemize}
+			\item $r + s$. Questo automa riconosce il linguaggio $L\left(r\right) \cup L\left(s\right)$
+				\begin{figure}[!htp]
+					\centering
+					\includegraphics[width=0.7\textwidth]{img/teorema_McN-Yamada4.pdf}
+				\end{figure}
+			
+			\item $r \cdot s$. Questo automa riconosce il linguaggio $L\left(r\right) \cap L\left(s\right)$
+				\begin{figure}[!htp]
+					\centering
+					\includegraphics[width=1\textwidth]{img/teorema_McN-Yamada5.pdf}
+				\end{figure}
+			
+			\item $r^{*}$. Questo automa riconosce il linguaggio $L\left(r\right)^{*}$
+				\begin{figure}[!htp]
+					\centering
+					\includegraphics[width=0.8\textwidth]{img/teorema_McN-Yamada6.pdf}
+				\end{figure}
+		\end{itemize}
+	\end{proof}
+
+	\newpage
+
+	\subsubsection{Proprietà di chiusura}
+	
+	\begin{theorem}[\textcolor{Red3}{\textbf{Proprietà di chiusura}}]
+		I linguaggi regolari sono \textbf{\underline{chiusi}} \textbf{rispetto alle operazioni di unione, concatenazione e chiusura di Kleene}.
+	\end{theorem}
+	\begin{proof}[\textcolor{Green4}{\textbf{Dimostrazione}}]
+		Immediata dalla definizione di espressione regolare e dal Teorema di McNaughton \& Yamada (1960).
+	\end{proof}
+
+	\vspace{2em}
+
+	\begin{theorem}[\textcolor{Red3}{\textbf{Complementazione}}]
+		I \textbf{linguaggi regolari} sono \textbf{chiusi rispetto all'operazione di complementazione}. Formalmente:
+		
+		\begin{equation*}
+			\text{Se } L \subseteq \Sigma^{*} \text{ è regolare, anche } \bar{L} = \Sigma^{*} \setminus L \text{ è regolare}
+		\end{equation*}
+	\end{theorem}
+	\begin{proof}[\textcolor{Green4}{\textbf{Dimostrazione}}]
+		Sia $M = \langle Q, \Sigma^{'}, \delta, q_{0}, F \rangle$ l'automa a stati finiti deterministico (DFA) che riconosce il linguaggio $L$. Si assuma che $\Sigma^{'} = \Sigma$, allora $M^{'} = \langle Q, \Sigma, \delta, q_{0}, Q \setminus F \rangle$ riconosce il linguaggio $\bar{L}^{'}$.
+	\end{proof}
+
+	\vspace{2em}
+
+	\begin{theorem}[\textcolor{Red3}{\textbf{Intersezione}}]
+		\textbf{I linguaggi regolari sono chiusi rispetto all'intersezione}.
+	\end{theorem}
+	\begin{proof}[\textcolor{Green4}{\textbf{Dimostrazione}}]
+		Immediata dal fatto che $L_{1} \cap L_{2} = \overline{\left(\overline{L_{1}} \cup \overline{L_{2}}\right)}$
+	\end{proof}
 \end{document}
