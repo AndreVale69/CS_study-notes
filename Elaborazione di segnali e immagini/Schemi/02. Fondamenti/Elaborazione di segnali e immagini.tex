@@ -749,6 +749,63 @@
 
 	\newpage
 	
+	\noindent
+	\textcolor{Red3}{\textbf{Esercizio Cross-Correlazione 2D}}\newline
+	
+	\noindent
+	Dati le due immagini $x_{1}$ di dimensione $5 \times 5$ e $x_{2}$ di dimensione $3 \times 3$, si calcola la cross-correlazione 2D. Quindi, si effettua la rappresentazione grafica.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/cross-correlazione-2D_ex1.pdf}
+		\caption{Piano cartesiano di $x_{2}$ di dimensione $5 \times 5$.}
+		\includegraphics[width=0.5\textwidth]{img/cross-correlazione-2D_ex1_1.pdf}
+		\caption{Piano cartesiano di $x_{1}$ di dimensione $3 \times 3$.}
+	\end{figure}
+
+	\noindent
+	E vengono fornite dall'esercizio le due matrici:
+	
+	\begin{equation*}
+		x_{2} =
+		\begin{bmatrix}
+			1 & 0 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 & 0 \\
+			0 & 1 & 1 & 0 & 1 \\
+			0 & 0 & 0 & 1 & 0 \\
+		\end{bmatrix}
+		\hspace{2em}
+		x_{1} =
+		\begin{bmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & 0 \\
+			0 & 0 & 1 \\
+		\end{bmatrix}		
+	\end{equation*}
+
+	\noindent
+	Esse indicano i valori nei punti corrispondenti. L'\textbf{obbiettivo dell'esercizio} è trovare:
+	
+	\begin{itemize}
+		\item L'argomento massimo della cross-correlazione ($\arg \max x_{1} \otimes x_{2}\left(m,n\right)$);
+		
+		\item Il massimo della cross-correlazione ($\max x_{1} \otimes x_{2} \left(m,n\right)$).
+	\end{itemize}
+
+	\noindent
+	L'argomento massimo è con i valori $m = 1$ e $n = -1$ poiché così facendo la diagonale incontra tutti i valori positivi e che formano il massimo. Infatti, prendendo in considerazione la matrice $x_{2}\:5 \times 5$ e osservando l'operazione di cross-correlazione 2D:
+	
+	\begin{gather*}
+		\sum_{u} \sum_{v} x_{1} \left(u,v\right) \cdot x_{2}\left(u - m, v - n\right) \\
+		\xrightarrow{\text{sostituzione termini noti } (m, n)} \sum_{u} \sum_{v} x_{1} \left(u,v\right) \cdot x_{2}\left(u - 1, v - \left(-1\right)\right)
+	\end{gather*}
+
+	\noindent
+	Risulta evidente come si debba spostare a destra, rispetto l'origine, la matrice $x_{2}$ di un solo valore\footnote{Shift a destra poiché $u-1$ nell'equazione rappresenta un ritardo.} e sotto, rispetto sempre l'origine, di un valore negativo\footnote{Spostamento sotto l'asse delle ascisse poiché è un valore positivo $v+1$.}. Così facendo, la diagonale della matrice $x_{2}$ corrisponderà esattamente a tutti i valori $1$ della matrice $x_{1}$.
+
+	\newpage
+	
 	\subsubsection{Convoluzione}
 	
 	La \textbf{convoluzione} è un parente stretto della cross-correlazione, ma è leggermente diverso. È definito nel seguente modo:
