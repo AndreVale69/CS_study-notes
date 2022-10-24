@@ -418,13 +418,22 @@
 		\text{valore di } a \text{ su } e = f_{a}\left(e\right)
 	\end{equation*}
 
+	\noindent
+	\fbox{%
+		\parbox{\textwidth}{%
+			\textcolor{Red3}{\textbf{\underline{Attributi composti.}}}\newline
+			
+			Questo tipo di attributo viene introdotto solo a fini didattici, ma l'obbiettivo è quello di usare unicamente gli attributi normali. Talvolta potrebbe tornare comodo raggruppare \textbf{attributi di una medesima entità o relazione che presentano affinità nel loro significato o uso}: tale insieme prende il nome di \textbf{attributo composto}. Per esempio, gli attributi \dquotes{Via, Numero civico e CAP} dell'entità \dquotes{Persona} per formare l'attributo composto \dquotes{Indirizzo}.
+		}%
+	}
+
 	\newpage
 	
 	\subsection{Altri costrutti del modello}
 	
-	I rimanenti costrutti del modello E-R sono le cardinalità delle relazioni e gli identificatori.
+	I rimanenti costrutti del modello E-R sono le cardinalità delle relazioni e degli attributi e gli identificatori.
 	
-	\subsubsection{Cardinalità}
+	\subsubsection{Cardinalità delle relazioni}
 	
 	\textcolor{Red3}{\textbf{Definizione.}} Le \textbf{cardinalità} vengono \textbf{specificate per ciascuna entità collegata ad una relazione} e descrivono il \textbf{numero minimo e massimo di occorrenze} di relazione a cui una occorrenza dell'entità può partecipare.
 	
@@ -463,6 +472,33 @@
 		\includegraphics[width=0.52\textwidth]{img/cardinalita_def.pdf}
 		\caption{Sintassi grafica della cardinalità.}
 	\end{figure}
+	
+	\newpage
+
+	\subsubsection{Cardinalità degli attributi}
+	
+	\textcolor{Red3}{\textbf{Definizione.}} Le \textbf{cardinalità degli attributi} è specificata per gli attributi di entità o relazione e hanno l'\textbf{\underline{obbiettivo}} di \textbf{descrivere il numero minimo e massimo di valori dell'attributo associati a ogni occorrenza di entità o relazione}.\newline
+	
+	\noindent
+	Solitamente, il valore di cardinalità pari $\left(1,1\right)$,  ma si possono avere vari casi:
+	
+	\begin{itemize}
+		\item $\left(1, 1\right) \longrightarrow$ L'attributo rappresenta una funzione che associa ad ogni occorrenza di entità un solo valore dell'attributo. Solitamente viene omesso e, come si vede nell'immagine~\ref{esempio cardinalità attributi}, la \dquotes{Persona} ha uno e un solo \dquotes{Cognome};
+		
+		\item $\left(0, 1\right) \longrightarrow$ L'attributo con cardinalità minima pari a zero vuol dire che è \textbf{opzionale} e la cardinalità massima pari a uno indica che nel \textbf{caso in cui esista}, questo valore è \textbf{unico}. Nell'esempio in figura~\ref{esempio cardinalità attributi}, la persona può avere solo un numero di patente, ma potrebbe anche non avercela;
+		
+		\item $\left(1, N\right) \longrightarrow$ L'attributo deve esistere, ma contiene più valori, quindi si dice che è \textbf{multivalore};
+		
+		\item $\left(0, N\right) \longrightarrow$ L'attributo è opzionale, ma se esiste può essere multivalore.
+	\end{itemize}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/cardinalita-attributi_def.pdf}
+		\caption{Esempio di cardinalità degli attributi.}\label{esempio cardinalità attributi}
+	\end{figure}
+
+	\newpage
 
 	\subsubsection{Identificatori}
 	
