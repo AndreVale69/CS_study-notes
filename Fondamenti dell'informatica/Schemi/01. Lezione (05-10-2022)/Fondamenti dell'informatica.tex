@@ -12,6 +12,7 @@
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
 \usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
+\usepackage{cancel}					% per cancellare delle espressioni matematiche
 
 
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
@@ -26,6 +27,7 @@
 %\usepackage{showkeys}				% visualizzazione etichetta
 
 \newtheorem{theorem}{Teorema}
+\newtheorem{lemma}{Lemma}
 \renewcommand{\qedsymbol}{QED}
 \newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
 \newcommand{\dquotes}[1]{``#1''}
@@ -1388,5 +1390,282 @@
 	\end{theorem}
 	\begin{proof}[\textcolor{Green4}{\textbf{Dimostrazione}}]
 		Immediata dal fatto che $L_{1} \cap L_{2} = \overline{\left(\overline{L_{1}} \cup \overline{L_{2}}\right)}$
+	\end{proof}
+
+	\newpage
+	
+	\section{Proprietà dei linguaggi regolari}
+	
+	\subsection{Teorema di Myhill-Nerode (1957-58)}
+	
+	Prima di introdurre il teorema di Myhill-Nerode (1957-58), si espongono alcuni concetti base.\newline
+	
+	\noindent
+	Dato un insieme $S$, una relazione di equivalenza $R \subseteq S \times S$ induce univocamente una partizione di $S = S_{1} \cup S_{2} \cup \cdots$ ove per ogni $i$ si ha $S_{i} \ne \emptyset$ e per ogni $i, j$ con $i \ne j$ si ha che:
+	
+	\begin{enumerate}[label=\Roman*]
+		\item $S_{i} \cap S_{j} = \emptyset$
+		
+		\item $\left(\forall a, b \in S_{i}\right): a \: R \: b$
+		
+		\item $\left(\forall a \in S_{i}\right)\left(\forall b \in S_{j}\right): \lnot \left(a \: R \: b\right)$
+	\end{enumerate}
+	
+	\noindent
+	Le varie $S_{i}$ sono dette \textcolor{Red3}{\textbf{\underline{classi di equivalenza}}}. La notazione è la seguente (caso in cui $a$ appartenga alla classe di equivalenza $S_{i}$):
+	
+	\begin{equation*}
+		a \in S_{i} \longrightarrow \left[a\right]_{R}
+	\end{equation*}\newline
+
+	\noindent
+	Se $S$ è partizionato in un numero finito di classi $S_{1} \cup S_{2} \cup \cdots \cup S_{k}$ allora $R$ viene detto \textcolor{Red3}{\textbf{\underline{indice finito}}} su $S$.\newline
+	
+	\noindent
+	Date due relazioni $R_{1}$ e $R_{2}$ sullo stesso insieme $S$, $R_{1}$ è un \textcolor{Red3}{\textbf{\underline{raffinamento}}} di $R_{2}$ se ogni classe di equivalenza della partizione indotta da $R_{1}$ è sottoinsieme di qualche classe di equivalenza della partizione indotta da $R_{2}$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Per esempio}}}, se $S = \left\{2, 3, 4, 5\right\}, P_{1} = \left\{\left\{2, 3, 5\right\}, 4\right\}$ e $P_{2} = \left\{\left\{2\right\}, \left\{3, 5\right\}, \left\{4\right\}\right\}$ denotano le partizioni di $S$ ottenute a partire dalle seguenti relazioni:
+	
+	\begin{gather*}
+		\left(R_{1}\right) \hspace{1em} x \: R_{1} \: y \iff x \text{ e } y \text{ sono entrambi primi o uguali tra loro} \\
+		\left(R_{2}\right) \hspace{1em} x \: R_{2} \: y \iff x \text{ e } y \text{ sono entrambi primi e dispari, o uguali tra loro}
+	\end{gather*}
+
+	\noindent
+	Allora $R_{2}$ è un \emph{\textbf{raffinamento}} di $R_{1}$.\newline
+	
+	\newpage
+	
+	\noindent
+	Ad ogni linguaggio $L \subseteq \Sigma$ è possibile associare una relazione di tipo $R_{L} \subseteq \Sigma^{*} \times \Sigma^{*}$ definita nel seguente modo:
+	
+	\begin{equation}\label{relazione sul linguaggio}
+		x \: R_{L} \: y \iff \left(\forall z \in \Sigma^{*}\right) \left(xz \in L \leftrightarrow yz \in L \right)
+	\end{equation}
+	
+	\noindent
+	Questa definizione viene chiamata \textcolor{Red3}{\textbf{\underline{relazione sul linguaggio}}}.\newline
+	
+	\noindent
+	Analogamente, se $M = \left\langle Q, \Sigma, \delta, q_{0}, F \right\rangle$ è una macchina a stati finiti deterministica (DFA), è possibile associare una relazione di tipo $R_{M} \subseteq \Sigma^{*} \times \Sigma^{*}$ definita come:
+	
+	\begin{equation}\label{relazione sull'automa}
+		x \: R_{M} \: y \iff \hat{\delta}\left(q_{0}, x \right) = \hat{\delta} \left(q_{0}, y\right)
+	\end{equation}
+	
+	\noindent
+	Questa definizione viene chiamata \textcolor{Red3}{\textbf{\underline{relazione sull'automa/macchina}}}. Inoltre, li linguaggio $L_{q} = \left\{x \in \Sigma^{*} \: : \: \hat{\delta}\left(q_{0}, x\right) = q\right\}$ è associato allo stato $q$ dell'automa. È evidente che le classi di equivalenza $R_{M}$ sono esattamente i linguaggi associati ad ogni stato dell'automa $M$.\newline
+	
+	\begin{lemma}[\textbf{Relazioni di equivalenza}]
+		La relazione sul linguaggio e la relazione sull'automa (o macchina) vengono chiamate \textcolor{Red3}{\textbf{\underline{relazioni di equivalenza}}}.
+	\end{lemma}
+	\:\newline
+	
+	\noindent
+	Infine, una relazione $R \subseteq \Sigma^{*} \times \Sigma^{*}$ che gode della seguente proprietà:
+	
+	\begin{equation*}
+		x \: R \: y \xlongrightarrow{implica} \left(\forall z \in \Sigma^{*}\right) \left(xz \: R \: yz\right)
+	\end{equation*}
+
+	\noindent
+	(la relazione) si chiama \textcolor{Red3}{\textbf{\underline{invariante a destra}}} rispetto alla concatenazione. Quindi sia la \textbf{relazione sul linguaggio che sull'automa/macchina è invariante a destra}.
+	
+	\newpage
+	
+	\begin{proof}[\textcolor{Red3}{\textbf{Dimostrazione invariante a destra - Relazione sull'automa/macchina}}]
+		La relazione sull'automa/macchina è invariante destra poiché aggiungendo una lettera $z$ a $x$, il comportamento è identico anche per $y$ (dimostrazione verbale, non matematica).
+	\end{proof}
+
+	\begin{proof}[\textcolor{Red3}{\textbf{Dimostrazione invariante a destra - Relazione sul linguaggio}}]
+		Si ipotizzi per assurdo che data la relazione $x \: R \: y$, l'espressione che se ne deriva sia \textbf{\emph{falsa}}, cioè:
+		
+		\begin{equation*}
+			\forall z \in \Sigma^{*}  \: : \: xz \: R \: yz
+		\end{equation*}
+	
+		\noindent
+		Se ne deriva che dunque esiste:
+		
+		\begin{equation*}
+			\exists z \in \Sigma^{*} \: : \: \bcancel{xz \: R_{L} \: yz}
+		\end{equation*}
+	
+		\noindent
+		Ovvero che la relazione è falsa.
+		
+		\noindent
+		Dalla relazione sul linguaggio:
+		
+		\begin{equation*}
+			\exists w \in \Sigma^{*} \: : \: x\underbrace{zw}_{z^{'}} \in L, \:\: y\underbrace{zw}_{z^{'}} \in L
+		\end{equation*}
+	
+		\noindent
+		Allora per assurdo si ottiene:
+		
+		\begin{equation*}
+			xz^{'} \in L, \:\: yz^{'} \notin L \Longrightarrow x \: R_{L} \: y
+		\end{equation*}
+	\end{proof}
+	
+	\newpage
+	
+	\begin{theorem}[\textbf{Myhill-Nerode, 1957-58}]
+		Le seguenti affermazioni si equivalgono:
+		
+		\begin{enumerate}
+			\item $L \subseteq \Sigma^{*}$ è regolare;
+			
+			\item $L$ è l'unione di classi di equivalenza su $\Sigma^{*}$ indotte da una relazione invariante a destra di indice finito\footnote{Con indice finito si intende che l'insieme viene \emph{partizionato} in classi finite.};
+			
+			\item $R_{L}$ è di indice finito.
+		\end{enumerate}
+	\end{theorem}
+
+	\begin{proof}[\textbf{Dimostrazione}]
+		La dimostrazione avviene per implicazione, cioè che $(1) \Rightarrow (2), (2) \Rightarrow (3)$ e $(3) \Rightarrow (1)$.
+
+		\begin{center}
+			\item[\ding{42}] $(1) \Rightarrow (2)$
+		\end{center}
+		
+		\noindent
+		Sia $L$ un linguaggio regolare, come da definizione 1. È dunque ammesso un automa a stati finiti deterministico (ASFD o DFA) con la quintupla $M = \left\langle Q, \Sigma, \delta, q_{0}, F \right\rangle$ tale per cui il linguaggio regolare è uguale al linguaggio dell'automa $L = L\left(M\right)$. L'automa è di \textbf{indice finito} poiché il numero di stati è finito.\newline
+		
+		\noindent
+		Per definizione di linguaggio riconosciuto da un automa, si ha la seguente uguaglianza:
+		
+		\begin{equation*}
+			L = \bigcup_{q \in F} \overbrace{\left\{x \in \Sigma^{*} \: \left| \: \hat{\delta}\left(q_{0}, x\right) = q \right.\right\}}^{L_{q}}
+		\end{equation*}
+	
+		\noindent
+		Dato che la relazione sull'automa $M$ ($R_{M}$) è invariante a destra, l'espressione $L_{q}$ rappresenta i vari insiemi che costituiscono le classi di equivalenza della partizione indotta da $R_{M}$.\newline
+		
+		\noindent
+		In termini matematici:
+		
+		\begin{gather*}
+			\text{Se } x \in \Sigma^{*} : \left[x\right]_{R_{M}} = L_{q} \hspace{1em} \text{per un qualsiasi } q \in Q \\
+			|Q| < w \Rightarrow L = \bigcup_{q \in F} L_{q}
+		\end{gather*}
+	
+		\noindent
+		Si ricorda che $\left[x\right]_{R_{M}}$ indica la classe di equivalenza.
+		
+		\newpage
+		
+		\begin{center}
+			\item[\ding{42}] $(2) \Rightarrow (3)$
+		\end{center}
+		
+		\noindent
+		Assumendo che il punto 2 del teorema sia vero, si vuole dimostrare che l'indice è finito. Ovvero, ogni relazione di equivalenza $R$ che soddisfa il punto 2 è un raffinamento di $R_{L}$.
+		
+		Sia $x \in \Sigma^{*}$, si vuole dimostrare che $\left[x\right]_{R} \subseteq \left[x\right]_{R_{L}}$, cioè che il numero degli elementi in $R_{L}$ è maggiore o uguale di $R$.\newline
+		
+		\noindent
+		\textbf{\underline{Ipotesi induttiva:}} si assuma che $y \in \left[x\right]_{R}$ sia vera (N.B. $\Rightarrow y \in \left[x\right]_{R_{L}}$).
+		
+		\noindent
+		Dall'ipotesi induttiva e dal fatto che la relazione $R$ è invariante a destra per ipotesi, allora:
+		
+		\begin{equation*}
+			\forall z \in \Sigma^{*} : xz \: R \: yz
+		\end{equation*}
+	
+		\noindent
+		Quindi, dato che $L$ è l'unione delle classi di equivalenza di $R$:
+		
+		\begin{equation*}
+			L = \left[x_{1}\right]_{R} \cup \cdots \cup \left[x_{n}\right]_{R}
+		\end{equation*}
+	
+		\noindent
+		Ciò implica che ogni qualvolta, in generale, si ha una relazione del tipo:
+		
+		\begin{equation*}
+			v \: R \: w \Longrightarrow v \in L \iff w \in L
+		\end{equation*}
+	
+		\noindent
+		Pertanto, sostituendo i termini generali $v$ e $w$ rispettivamente con $xz$ e $yz$:
+		
+		\begin{equation*}
+			\forall z \in \Sigma^{*} : \underbrace{xz}_{v} \in L \iff \underbrace{yz}_{w} \in L \coloneqq x \: R_{L} \: y
+		\end{equation*}
+	
+		\noindent
+		La relazione sul linguaggio $R_{L}$ tra $x$ e $y$ viene ricavata per definizione (come nell'equazione~\ref{relazione sul linguaggio}). Si può riscrivere anche come:
+		
+		\begin{equation*}
+			y \in \left[x\right]_{R_{L}}
+		\end{equation*}
+	
+		\noindent
+		Essendo la relazione $R$ un raffinamento della relazione sul linguaggio $R_{L}$, l'indice di $R_{L}$ è minore di quello di $R$, che per ipotesi è finito. Infatti, essendo un raffinamento, sicuramente in $R$ l'indice sarà maggiore. Si conclude che $R_{L}$ ha indice finito.
+		
+		\newpage
+		
+		\begin{center}
+			\item[\ding{42}] $(3) \Rightarrow (1)$
+		\end{center}
+		
+		\noindent
+		Assumendo che la relazione sul linguaggio abbia un indice finito, si deduce che esiste un automa a stati finiti deterministico tale che $L = L\left(M\right)$. Quindi, si costruisce la macchina nel seguente modo:
+		
+		\begin{equation*}
+			\text{ASFD (DFA) } M^{'} = \left\langle Q^{'}, \Sigma^{'}, \delta^{'}, q_{0}^{'}, F^{'} \right\rangle \text{ che riconosce } L
+		\end{equation*}
+		
+		\begin{enumerate}[label=\Roman*.]
+			\item $Q^{'}$ è l'insieme (finito per ipotesi) di classi di equivalenza di $R_{L}$, formalmente: $\left\{\left[x\right]_{R_{L}} \: \left| \: x \in \Sigma^{*}\right.\right\}$;
+			
+			\item $\Sigma^{'}$ è lo stesso di $L$, cioè un alfabeto finito;
+			
+			\item $\delta^{'} \left(\left[x\right], a\right) = \left[xa\right]$ dato che $R_{L}$ è invariante a destra, la definizione vale indipendentemente dalla scelta di $x$;
+			
+			\item $q_{0}^{'} = \left[\varepsilon\right]$;
+			
+			\item $F^{'} = \left\{\left[x\right]_{R_{L}} \: \left| \: x \in L \right.\right\}$.
+		\end{enumerate}
+		
+		\noindent
+		Mostrando che $L\left(M^{'}\right) = L$ si termina la dimostrazione.\newline
+		
+		\noindent
+		Allora si suppone che esiste una $y$:
+		
+		\begin{equation*}
+			\forall y \in \Sigma^{*} : \hat{\delta}\left(\left[x\right]_{R_{L}}, y\right) = \left[x y\right]_{R_{L}}
+		\end{equation*}
+		
+		\noindent
+		E con le diverse cardinalità di $y$ si dimostra che:
+		
+		\begin{itemize}
+			\item $|y| = 0 \iff y = \varepsilon : \hat{\delta} \left(\left[x\right]_{R_{L}}, \varepsilon\right) = \left[x\right]_{R_{L}} = \left[x\varepsilon\right]_{R_{L}}$
+			
+			\item $|y| \ge 0 : \hat{\delta}\left(\left[x\right]_{R_{L}}, ya\right) = \delta\left(\hat{\delta}\left(\left[x\right]_{R_{L}}, y\right), a\right) = \delta\left(\left[xy\right]_{R_{L}}, a\right) = \left[xya\right]_{R_{L}}$
+		\end{itemize}
+		
+		\noindent
+		Analogamente, si ha lo stesso ragionamento:
+		
+		\begin{equation*}
+			\hat{\delta^{'}}\left(q_{0}^{'}, x\right) = \hat{\delta^{'}}\left(\left[\varepsilon\right], x\right) = \left[\varepsilon, x\right] = \left[x\right]
+		\end{equation*}
+		
+		\noindent
+		Dunque si conclude la dimostrazione:
+		
+		\begin{equation*}
+			x \in L\left(M^{'}\right) \iff \hat{\delta^{'}}\left(q_{0}^{'}, x\right) \in F^{'} \iff \left[x\right] \in F^{'} \iff x \in L
+		\end{equation*}
+		
+		\noindent
+		Che tradotto vorrebbe dire che $x$ appartiene al linguaggio dell'automa $M^{'}$ se e solo se la transizione dallo stato iniziale $q_{0}$ consumando $x$ sia uno stato finale, cioè appartenente a $F$, se e solo se la classe di equivalenza $x$ della relazione sul linguaggio $R_{L}$ appartiene all'insieme degli stati finali se e solo se $x$ appartiene al linguaggio.
 	\end{proof}
 \end{document}
