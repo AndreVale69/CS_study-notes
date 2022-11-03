@@ -26,7 +26,7 @@
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
 
-\newtheorem{theorem}{Teorema}
+\newtheorem{theorem}{\textcolor{Red3}{\underline{Teorema}}}
 \newtheorem{lemma}{Lemma}
 \renewcommand{\qedsymbol}{QED}
 \newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
@@ -1668,4 +1668,115 @@
 		\noindent
 		Che tradotto vorrebbe dire che $x$ appartiene al linguaggio dell'automa $M^{'}$ se e solo se la transizione dallo stato iniziale $q_{0}$ consumando $x$ sia uno stato finale, cioè appartenente a $F$, se e solo se la classe di equivalenza $x$ della relazione sul linguaggio $R_{L}$ appartiene all'insieme degli stati finali se e solo se $x$ appartiene al linguaggio.
 	\end{proof}
+
+	\newpage
+	
+	\subsection{Pumping Lemma}
+	
+	Il pumping lemma è un \textbf{metodo utilizzato per dimostrare che un linguaggio \emph{non} è regolare}.
+	
+	\begin{lemma}[\textbf{Bar-Hillel, Perles, Shamir, 1961}]
+		Sia $L$ un linguaggio regolare. Allora esiste una costante $n \in \mathbb{N}$ tale che per ogni $z \in L$ tale che $|z| \ge n$ esistono tre stringhe $u, v, w$ tali che:
+		
+		\begin{enumerate}
+			\item $z = uvw$ con $u,v,w \in \Sigma^{*}$;
+			\item $|uv| \le n$;
+			\item $|v| > 0$, cioè non può essere vuota;
+			\item per ogni $i \ge 0$ vale che $u v^{i} w \in L$ o in forma più matematica: $\forall i \ge 0: uv^{i}w \in L$.
+		\end{enumerate}
+	\end{lemma}
+
+	\begin{proof}[\textcolor{Green4}{\textbf{Dimostrazione grafica}}]
+		Data un automa a stati finiti deterministico (ASFD o DFA) con la quintupla $M = \left\langle Q, \Sigma, \delta, q_{0}, F \right\rangle$ e con il linguaggio $L\left(M\right) = L$.\newline
+		Data la stringa $z \in L = L\left(M\right)$ e con la lunghezza $n = |Q| + 5$.\footnote{Il numero $5$ è casuale, si potrebbe prendere anche $1$, l'importante è che la lunghezza di $n$ sia più grande.}\newline
+		
+		\noindent
+		Quindi, l'automa si crea nel seguente modo:
+		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=1\textwidth]{img/lemma_pumping1.pdf}
+			\caption{Automa a stati finiti deterministico.}
+		\end{figure}
+	
+		\noindent
+		\textbf{\underline{Punto 1, dimostrazione $z = uvw$ con $u,v,w \in \Sigma^{*}$.}}
+		
+		\noindent
+		La dimostrazione è immediata poiché si esegue creando l'automa della dimostrazione. Infatti, nell'automa si vede chiaramente la distinzione delle tre parti della stringa, ovvero la $u$, la $v$ e la $w$.\newline
+		
+		\noindent
+		\textbf{\underline{Punto 2, dimostrazione $|uv| \le n$.}}
+		
+		\noindent
+		La cardinalità di $uv$ deve essere minore o uguale ad $n$ poiché in caso contrario dovrebbe esserci un altro stato tra $q_{0}$ e $q$. L'aggiunta di uno stato renderebbe la lunghezza della stringa più lunga di $n$.
+		
+		\newpage
+		
+		\noindent
+		\textbf{\underline{Punto 3, dimostrazione $|v| > 0$, cioè non può essere vuota.}}
+		
+		\noindent
+		È abbastanza chiara la dimostrazione poiché se $v$ non fosse maggiore di zero, lo stato non si ripeterebbe almeno una volta e questo andrebbe in contrasto con il punto $4$ del \emph{Pumping Lemma} in cui la $v$ si ripete almeno una volta (con $i = 0$ si ha una ripetizione di $v$).\newline
+		
+		\noindent
+		\textbf{\underline{Punto 4, dimostrazione $\forall i \ge 0: uv^{i}w \in L$.}}
+		
+		\noindent
+		Anche questa dimostrazione è immediata. Guardando l'automa a stati finiti è evidente che, dato un numero indefinito di $v$, si arriverà comunque allo stato finale una volta ricevuto il simbolo $w$ nello stato $q$.
+	\end{proof}
+
+	\vspace{2em}
+	
+	Si osservi come il lemma asserisca la veridicità di una \textbf{formula logica} che afferma: per ogni linguaggio $L$, se $L$ è regolare, allora vale
+	
+	\begin{equation}\label{Pumping lemma}
+		\exists n \in \mathbb{N} \: \forall z
+		\left(
+		\begin{matrix}
+			\left(z \in L \land |z| \ge z\right) \Rightarrow \exists u, v, w \\
+			\addlinespace
+			\left( z = uvw \land |uv| \le n \land |v| > 0 \land \forall i \left(i \in \mathbb{N} \Rightarrow uv^{i}w \in L\right) \right)
+		\end{matrix}
+		\right)
+	\end{equation}
+	
+	Come detto all'inizio del paragrafo, l'\textbf{\underline{obbiettivo}} dell'utilizzo del Pumping Lemma è dimostrare che un dato linguaggio non è regolare. Per farlo, si assume che $L$ non sia regolare e si deve mostrare che vale la negazione della formula~\eqref{Pumping lemma}, quindi:
+	
+	\begin{equation}
+		\forall n \in \mathbb{N} \: \exists z
+		\left(
+		\begin{matrix}
+			z \in L \land |z| \ge n \: \land \\
+			\addlinespace
+			\forall u, v, w
+			\left(
+			\begin{matrix}
+				z = uvw \land |uv| \le n \land |v| > 0 \\
+				\addlinespace
+				\Rightarrow \exists i \left(i \in \mathbb{N} \land uv^{i}w \notin L \right)
+			\end{matrix}
+			\right)
+		\end{matrix}
+		\right)
+	\end{equation}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempi di linguaggi non regolari}}}\newline
+	
+	\noindent
+	I seguenti linguaggi sono irregolari:
+	
+	\begin{itemize}
+		\item $L = \left\{a^{n} b^{n} \: \left| \: n \ge 0 \right.\right\}$
+		
+		\item $L = \left\{a^{n^{2}} \: \left| \: n \ge 1 \right.\right\}$
+	\end{itemize}
+
+	\noindent
+	Al contrario, un linguaggio regolare è per esempio:
+	
+	\begin{equation*}
+		L = \left\{a^{2n} \: \left| \: n \ge 0 \right.\right\}
+	\end{equation*}
 \end{document}
