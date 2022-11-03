@@ -537,4 +537,54 @@
 		\includegraphics[width=0.7\textwidth]{img/identificatore_def.pdf}
 		\caption{Sintassi grafica dell'identificatore.}
 	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Generalizzazioni}
+	
+	\textcolor{Red3}{\textbf{Definizione.}} Sono i legami logici tra un'entità $E$, chiamata \textbf{entità \underline{genitore}}, e una o più entità $E_{1}, ..., E_{n}$, dette \textbf{entità \underline{figlie}}, di cui $E$ è più generale, nel senso che le comprende come caso particolare. Quindi, si dice che $E$ è \textbf{\underline{generalizzazione}} di $E_{1}, ..., E_{n}$ e che le entità $E_{1}, ..., E_{n}$ sono \textbf{\underline{specializzazioni}} dell'entità $E$.
+	
+	\textbf{Per esempio}, l'entità \dquotes{Persona} è una generalizzazione delle entità \dquotes{Uomo e Donna}. Invece, \dquotes{Professionista} è una generalizzazione delle entità \dquotes{Ingegnere, Medico e Avvocato}.\newline
+	
+	\noindent
+	\textbf{\underline{Proprietà.}}
+	
+	\begin{itemize}
+		\item \textbf{Ogni occorrenza di un'entità figlia è anche un'occorrenza dell'entità genitore}. Per esempio, una occorrenza dell'entità \dquotes{Avvocato} è anche una occorrenza dell'entità \dquotes{Professionista}.
+		
+		\item \textbf{Ogni proprietà dell'entità genitore} (come attributi, identificatori, relazioni e altre generalizzazioni) \textbf{è anche una proprietà delle entità figlie}. Per esempio, se l'entità \dquotes{Persona} ha attributi \dquotes{Cognome ed Età}, anche le entità \dquotes{Uomo} e \dquotes{Donna} possiedono questi attributi.
+	\end{itemize}
+
+	\noindent
+	\textbf{\underline{Classificazioni.}} Le generalizzazioni possono essere classificate:
+	
+	\begin{itemize}
+		\item \textbf{\underline{Totale.}} Ogni occorrenza dell'entità genitore è una occorrenza di almeno una dell'entità figlie. Se non è così, la generalizzazione è \textbf{\underline{parziale}};
+		
+		\item \textbf{\underline{Esclusiva.}} Ogni occorrenza dell'entità genitore è al massimo un'occorrenza di una delle entità figlie. Se non è così, la generalizzazione è \textbf{\underline{sovrapposta}}.
+	\end{itemize}
+
+	\noindent
+	In generale, una stessa entità può essere coinvolta in più generalizzazioni diverse. Possono esserci \textbf{generalizzazioni su più livelli}: in questo caso si parla di \textbf{\underline{gerarchia}} di generalizzazioni. Infine, una \textbf{generalizzazione può avere una sola entità figlia}: in questo caso si parla di \textbf{\underline{sottoinsieme}}.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Sintassi grafica.}} Non è difficile da comprendere, ma si presti attenzione a $\left(x, y\right)$. Esse indicano il \textbf{tipo di generalizzazione}:
+	
+	\begin{itemize}
+		\item $\left[t,e\right] \rightarrow$ totale ed esclusiva;
+		
+		\item $\left[t,s\right] \rightarrow$ totale e sovrapposta;
+		
+		\item $\left[p,e\right] \rightarrow$ parziale ed esclusiva;
+		
+		\item $\left[p,s\right] \rightarrow$ parziale e sovrapposta.
+	\end{itemize}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/generalizzazione_sintassi.pdf}
+		\caption{Sintassi grafica della generalizzazione.}
+	\end{figure}
 \end{document}
