@@ -692,7 +692,7 @@
 
 	\newpage
 	
-	\subsubsection{Esercizi da esame}
+	\subsubsection[\textcolor{Red3}{Esercizi da esame}]{Esercizi da esame}\label{Esercizi da esame - ASFD / linguaggi regolari}
 	
 	\textcolor{Red3}{\textbf{\underline{Esercizio 1}}}\newline
 	
@@ -1779,4 +1779,447 @@
 	\begin{equation*}
 		L = \left\{a^{2n} \: \left| \: n \ge 0 \right.\right\}
 	\end{equation*}
+
+	\newpage
+	
+	\subsubsection[\textcolor{Red3}{Esercizi da esame}]{Esercizi da esame}
+	
+	\textcolor{Red3}{\textbf{\underline{Esercizio 1}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L = \left\{1^{k} \: 0^{i} \: 1^{i} \: 0^{j} \: 1^{j} \: 0^{k} \: \left| \: i,j,k \ge 0 \right.\right\}
+	\end{equation*}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Per prima cosa si analizza il linguaggio per verificare se è regolare o no. Nel caso in cui lo fosse, si eseguono le procedure ampiamente spiegate al paragrafo~\ref{Esercizi da esame - ASFD / linguaggi regolari}. Tuttavia, in caso contrario, come in questo esercizio, si applica il Pumping Lemma.
+	
+	Perché questo linguaggio non è regolare? Per capirlo basta vedere la sequenza accettata dal linguaggio. Infatti, in questo caso il numero di zeri (indice $i$), per esempio, deve essere uguale al numero di uni (sempre indice $i$). Per sapere il numero esatto di ripetizioni di zeri, per poi concatenare lo stesso numero di volte gli uni, è necessaria una memoria. Dunque, il linguaggio non è regolare.
+	
+	Questo ragionamento può essere esteso sia per $1$ e $0$ con indice $k$, sia per $0$ e $1$ con indice $j$.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Per qualsiasi $n$ si prende una stringa $z$ la quale rappresenti il caso limite, ovvero quella situazione che non è gestibile da un ASFD senza memoria:
+		
+		\begin{equation*}
+			\forall n : z = 1^{n} 0^{n} \hspace{1em} \text{con } n = 0 \text{ e } i,j = 0	
+		\end{equation*}
+	
+		\noindent
+		Grazie al Pumping Lemma è noto per definizione che $z = uvw$ e $|uv| \le n$. Inoltre, la stringa con l'indice $i$ del Pumping Lemma diventa:
+		
+		\begin{equation*}
+			z^{'} = u v^{i} w = 1^{n + |v|\left(i - 1\right)} \: 0^{n}
+		\end{equation*}
+		
+		\noindent
+		Se ne deduce che data la stringa $z$, la sua suddivisione è simile alla seguente figura:
+		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=0.4\textwidth]{img/lemma_pumping_ex1.pdf}
+			\caption{Rappresentazione della stringa $z$.}
+		\end{figure}
+		
+		\noindent
+		Si ipotizzi una $i$ per rendere l'espressione più semplice da manipolare. Quindi, con $i = 2$ l'espressione diventa:
+		
+		\begin{equation*}
+			z^{'} = u v^{i} w = 1^{n + |v|\left(i - 1\right)} \: 0^{n} = u v^{i} w = 1^{n + |v|\left(2 - 1\right)} \: 0^{n} = u v^{i} w = 1^{n + |v|} \: 0^{n}
+		\end{equation*}
+	
+		\noindent
+		Si analizzano gli esponenti per renderli uguali poiché gli $1$ devono essere uguali, come quantità, agli $0$:
+		
+		\begin{equation*}
+			n + |v| = n \xrightarrow{approssimando} \cancel{n} + |v| = \cancel{n}
+		\end{equation*}
+	
+		\noindent
+		Se ne conclude che $|v| = 0$ e che per assurdo $z \notin L$.
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 2}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L = \left\{0^{m} \: 1^{n} \: 0^{k} \: 1^{2k} \: \left| \: m,n,k \in \mathbb{N} \right.\right\}
+	\end{equation*}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Il linguaggio potrebbe sembrare regolare, ma se si separa la parte che non provoca una \dquotes{rottura}, si può osservare che serve una memoria e dunque è irregolare:
+	
+	\begin{equation*}
+		L^{'} = \left(0^{k} \: 1^{2k} \: \left| \: k \in \mathbb{N} \right.\right)
+	\end{equation*}
+
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Per qualsiasi $k$ che faccia parte dei naturali, si cerca una stringa limite:
+		
+		\begin{equation*}
+			\forall k \in \mathbb{N} : z = 0^{k} \: 1^{2k}
+		\end{equation*}
+	
+		\noindent
+		Il pumping lemma assicura che sia vero che $z = uvw$, $|uv| \le k$ e infine $|v| > 0$.\newline
+		
+		\noindent
+		Si sceglie una $i$, ma prima si costruisce la stringa $z^{'}$:
+		
+		\begin{equation*}
+			z^{'} = u v^{i} w = 0^{k} \: 1^{2k} = 0^{k + |v|\left(i-1\right)} \: 1^{2k}
+		\end{equation*}
+	
+		\noindent
+		Si applica sempre la $i = 2$ e $z^{'} \in L$, cioè deve appartenere al linguaggio. Questo è vero solamente se:
+		
+		\begin{equation*}
+			z^{'} \in L \iff 2k = 2 \left(k+|v|\right)\left(i-1\right)
+		\end{equation*}
+		
+		\noindent
+		Gli esponenti, per essere uguali, necessitano di una manipolazione. Infatti, il valore $2$ è stato aggiunto anche a destra poiché il numero di $1$ è il doppio degli zeri e dunque, per uguagliarli, si aggiunge un $2$ al numero di zeri. Si sostituisce anche la $i$ e si eseguono le semplificazioni:
+		
+		\begin{gather*}
+			2k = 2 \left(k+|v|\right)\left(2-1\right) \\
+			\rightarrow \cancel{2k} = \cancel{2k} + 2 |v| \\
+			\rightarrow |v| = 0
+		\end{gather*}
+	
+		\noindent
+		La conclusione per assurdo si conclude con $|v| = 0$, che non soddisfa il Pumping Lemma e dunque dimostra che il linguaggio non è regolare ma $z^{'} \in L^{'}$.
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 3}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L = \left\{\omega \: \omega^{R} \: \left| \: \omega \in \left\{0,1\right\}^{*} \right.\right\}
+	\end{equation*}\newline
+
+	\noindent
+	N.B. con $\omega^{R}$ si intende l'inversione (\emph{reverse}) della stringa.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Il linguaggio è irregolare poiché per capire eseguire l'inversione di una stringa, si deve salvare la stringa originale.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Per qualsiasi $n$ appartenente ai naturali, si considera la stringa limite $z$:
+		
+		\begin{equation*}
+			\forall n \in \mathbb{N} : z = \underbrace{0^{n} \: 1}_{\omega} \: \underbrace{1 \: 0^{n}}_{\omega^{R}}
+		\end{equation*}
+	
+		\noindent
+		Il pumping lemma ci assicura che $z = uvw$, $|uv| \le n$ e $|v| > 0$. Si scrive dunque la stringa:
+		
+		\begin{equation*}
+			z^{'} = uv^{i}w = 0^{n + |v|\left(i-1\right)} \: 1 \: 1 \: 0^{n}
+		\end{equation*}
+	
+		\noindent
+		Si sceglie una $i = 0$:
+		
+		\begin{equation*}
+			z = 0^{n + |v|\left(i-1\right)} \: 1 \: 1 \: 0^{n} = 0^{n + |v|\left(-1\right)} \: 1 \: 1 \: 0^{n} \longrightarrow 0{n - |v|} \: 1 = 0^{n} \: 1
+		\end{equation*}
+	
+		\noindent
+		Si analizzano gli esponenti:
+		
+		\begin{equation*}
+			\cancel{n} - |v| = \cancel{n} \longrightarrow |v| = 0
+		\end{equation*}
+	
+		\noindent
+		La dimostrazione si conclude perché l'assurdo è verificato. $|v| = 0$ e la stringa $z \notin L$.
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 4}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L = \left\{a^{m} \: b^{n} \: \left| \: m > n \right.\right\}
+	\end{equation*}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Il linguaggio è irregolare poiché per sapere quando $m$ è maggiore di $n$ è necessaria una memoria.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Si sceglie una qualsiasi $n$ tale che la stringa limite:
+		
+		\begin{equation*}
+			\forall n : z = a^{n} \: b^{n-1}
+		\end{equation*}
+		
+		\noindent
+		Appartenga al linguaggio, cioè $\in L$. Il pumping lemma assicura che $|uv| \le n$, $|v| > 0$ e $z = uvw$. Allora, esiste una stringa $z^{'}$ tale per cui:
+		
+		\begin{equation*}
+			z^{'} = a^{n + |v|\left(i-1\right)} \: b^{n-1}
+		\end{equation*}
+	
+		\noindent
+		Viene scelta una $i = 0$ per la dimostrazione per assurdo:
+		
+		\begin{equation*}
+			z^{'} = a^{n + |v|\left(i-1\right)} \: b^{n-1} = a^{n - |v|} \: b^{n-1}
+		\end{equation*}
+	
+		\noindent
+		Analizzando gli esponenti:
+		
+		\begin{gather*}
+			n - |v| > n - 1 \\
+			\rightarrow |v| < 1 \\
+			\rightarrow |v| = 0
+		\end{gather*}
+	
+		\noindent
+		Il linguaggio non è regolare ed è stato dimostrato per assurdo.
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 5}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L = \left\{0^{P} \: \left| \: P \text{ è un numero primo} \right.\right\}
+	\end{equation*}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Il linguaggio è irregolare poiché per rappresentare un numero primo non un algoritmo specifico escluso il \dquotes{brute force}.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Per ogni $n$ con la stringa limite $z$:
+		
+		\begin{equation*}
+			\forall n : z = 0^{P} \hspace{2em} \text{con } P \text{ primo maggiore di n} \rightarrow P > n
+		\end{equation*}
+	
+		\noindent
+		Il pumping lemma assicura che $|uv| \le n$, $|v| > 0$ e $z = uvw$. Allora, esiste una stringa $z^{'}$ tale per cui:
+		
+		\begin{equation*}
+			z^{'} = uv^{i}w = 0^{P + |v|\left(i-1\right)}
+		\end{equation*}
+	
+		\noindent
+		Scegliere una $i$ per dimostrare per assurdo non è semplice. Quindi, si ragiona in modo differente. Data una certa $i$ che tolto il numero $1$ dia un numero primo, si ha:
+		
+		\begin{equation*}
+			P + |v| \underbrace{\left(i - 1\right)}_{P}
+		\end{equation*}
+	
+		\noindent
+		Andando a sostituire e raccogliendo i termini:
+		
+		\begin{equation*}
+			P + |v|P \longrightarrow \left(P\right) \left(1 + |v|\right)
+		\end{equation*}
+	
+		\noindent
+		Da questa espressione si evince che un numero primo, per essere tale, deve essere moltiplicato per sé stesso o per $1$. Quindi, sicuramente l'espressione $1 + |v|$ deve essere uguale a $1$:
+		
+		\begin{equation*}
+			1 + |v| = 1 \longrightarrow \cancel{1} + |v| = \cancel{1} \longrightarrow |v| = 0
+		\end{equation*}
+	
+		\noindent
+		Il linguaggio non è regolare ed è stato dimostrato per assurdo grazie alla negazione del pumping lemma.
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 6 - Linguaggio parametrizzato}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L\left(m,k\right) = \left\{a^{n} \: b^{m} \: c^{k} \: \left| \: n-m \le k \right.\right\}
+	\end{equation*}\newline
+
+	\noindent
+	L'esercizio è diverso dagli altri poiché il linguaggio è \textbf{\underline{parametrizzato}}.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Per capire se il linguaggio è regolare o non regolare, si inseriscono alcuni valori noti. Infine, si prova con l'intersezione e l'unione dell'insieme dei numeri naturali $\mathbb{N}$.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Si provano prima i valori $m = 0, k = 0$:
+		
+		\begin{equation*}
+			L\left(0,0\right) = \left\{a^{n} \: \cancel{b^{0}} \: \cancel{c^{0}} \: \left| n \le 0 \right.\right\} = \left\{\varepsilon\right\}
+		\end{equation*}
+	
+		\noindent
+		In questo caso corrisponde alla stringa vuota. Al contrario, con i valori $m = 0, k = 1$:
+		
+		\begin{equation*}
+			L\left(0,1\right) = \left\{a^{n} \: \cancel{b^{0}} \: c^{1} \: \left| \: n \le 1 \right.\right\}
+		\end{equation*}
+		
+		\noindent
+		Per $m$ e $k$ fissati, l'insieme è finito e quindi è regolare.\newline
+		
+		\noindent
+		Adesso si esegue la prova con l'\textbf{\underline{unione}} di $m,k$ con l'insieme dei naturali $\mathbb{N}$:
+		
+		\begin{equation*}
+			\bigcup_{m,k \in \mathbb{N}} L\left(m,k\right) = \left\{a^{n} \: b^{m} \: c^{k} \: \left| \: n-m \le k, \hspace{1em} m,n,k \in \mathbb{N}\right.\right\}
+		\end{equation*}
+	
+		\noindent
+		Il linguaggio risulta non regolare poiché sarebbe necessario tenere conto del risultato di $n-m$ e successivamente confrontarlo con $k$. Quindi, si prosegue con la dimostrazione per assurdo e utilizzando il pumping lemma:
+		
+		\begin{equation*}
+			\forall n : z = a^{2n} \: b^{n} \: c^{n}
+		\end{equation*}
+	
+		\noindent
+		Il pumping lemma assicura che $z = uvw, |uv| \le n$ e $|v| > 0$. Si definisce la stringa $z^{'}$:
+		
+		\begin{equation*}
+			z^{'} = a^{2n + \left(i -1 \right)} \: b^{n} \: c^{n}
+		\end{equation*}
+	
+		\noindent
+		Si sceglie una $i$, in questo caso uguale a $2$:
+		
+		\begin{equation*}
+			z^{'} = a^{2n + |v|} \: b^{n} \: c^{n}
+		\end{equation*}
+	
+		\noindent
+		Analizzando gli esponenti:
+		
+		\begin{equation*}
+			2n + |v| \le 2n \longrightarrow |v| \le 0
+		\end{equation*}
+	
+		\noindent
+		Dimostrato per assurdo.
+		
+		\newpage
+		
+		\noindent
+		Invece, si prova l'operazione di \textbf{\underline{intersezione}} di $m,k$ con l'insieme dei naturali $\mathbb{N}$:
+		
+		\begin{equation*}
+			\bigcap_{m,k \in \mathbb{N}} L\left(m,n\right) = \emptyset
+		\end{equation*}
+	
+		\noindent
+		L'insieme è vuoto poiché basta vedere cosa accade nel caso in cui si prova a ricavare l'insieme di intersezione dal linguaggio parametrizzato con valori noti. Infatti, all'inizio della risoluzione, sono state eseguite alcune sostituzioni che hanno portato a due risultati. Eseguendo l'intersezione tra questi due insiemi, si può osservare come l'insieme risultante sia vuoto.
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 7 - Linguaggio parametrizzato}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L\left(m\right) = \left\{\sigma = \left\{0,1\right\}^{*} \: \left| \: |\sigma_{0}| = |\sigma_{1}|^{m} \right.\right\}
+	\end{equation*}\newline
+	
+	\noindent
+	L'esercizio riguarda sempre un linguaggio \textbf{\underline{parametrizzato}}.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Anche in questo caso, si provano due casi.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Con il valore $0$ il linguaggio dà il seguente risultato:
+		
+		\begin{equation*}
+			L\left(0\right) = \left\{\sigma = \left\{0,1\right\}^{*} \: \left| |\sigma_{0}| = |\sigma_{1}|^{0} = 1 \right.\right\}
+		\end{equation*}
+	
+		\noindent
+		Il linguaggio in questo caso è regolare e dunque si crea l'automa e la sua relativa dimostrazione (esercizio identico a quello già visto nel paragrafo~\ref{Esercizi da esame - ASFD / linguaggi regolari}). Al contrario, con il valore $1$ il linguaggio corrisponde a:
+		
+		\begin{equation*}
+			L\left(1\right) = \left\{\left\{0,1\right\}^{*} \: \left| |\sigma_{0}| = |\sigma_{1}| \right.\right\}
+		\end{equation*}
+	
+		\noindent
+		In questo caso, il linguaggio non è regolare perché non è possibile contare il numero di $0$ e $1$ per eseguire successivamente il confronto. Quindi, si prosegue con il pumping lemma:
+		
+		\begin{equation*}
+			\forall n : z = 0^{n} \: 1^{n}
+		\end{equation*}
+	
+		\noindent
+		Il lemma assicura che $z = uvw, |uv| \le n$ e $|v| > 0$. Si crea dunque la stringa $z^{'}$:
+		
+		\begin{equation*}
+			z^{'} = 0^{n + |v|\left(i-1\right)} \: 1^{n}
+		\end{equation*}
+	
+		\noindent
+		Si sceglie una $i$ per dimostrare che il linguaggio non è regolare. In questo caso $i = 2$:
+		
+		\begin{equation*}
+			z^{'} = 0^{n + |v|\left(i-1\right)} \: 1^{n} = 0^{n + |v|} \: 1^{n}
+		\end{equation*}
+	
+		\noindent
+		Si analizzano gli esponenti:
+		
+		\begin{gather*}
+			n + |v| = n \\
+			\rightarrow \cancel{n} + |v| = \cancel{n} \\
+			\rightarrow |v| = 0
+		\end{gather*}
+	
+		\noindent
+		Si conclude la dimostrazione per assurdo aggiungendo $z^{'} \notin L$
+	\end{proof}
 \end{document}
