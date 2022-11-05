@@ -22,6 +22,8 @@
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
 
+\newcommand{\dquotes}[1]{``#1''}
+
 \begin{document}
 	\author{VR443470}
 	\title{Elaborazione di segnali e immagini}
@@ -231,12 +233,12 @@
 
 	\newpage
 	
-	\subsubsection{Funzione box $\Pi$ e impulso di Dirac}
+	\subsubsection{Funzione box $\Pi$ e impulso di Dirac}\label{funzione box e impulso di Dirac}
 	
 	La funzione \textbf{\emph{box}} è definita nel seguente modo:
 	
 	\begin{equation*}
-		A \Pi(\dfrac{x}{b}) \hspace{2em} x\in\left[-\dfrac{b}{2}, \dfrac{b}{2}\right]
+		A \Pi\left(\dfrac{x}{b}\right) \hspace{2em} x\in\left[-\dfrac{b}{2}, \dfrac{b}{2}\right]
 	\end{equation*}
 
 	\begin{figure}[!htp]
@@ -261,14 +263,14 @@
 	
 	\begin{enumerate}
 		\item $\delta(x-x_0) = 0 \hspace{1em} \forall x\ne x_0$
-		\item Data una funzione generica $f$ (\textbf{setacciamento}): $\displaystyle \int_{-\infty}^{\infty} f(x)\delta(x-x_0)\: dt = f(x_0)$
+		\item Data una funzione generica $f$ (\textbf{setacciamento}\label{setacciamento}): $\displaystyle \int_{-\infty}^{\infty} f(x)\delta(x-x_0)\: dt = f(x_0)$
 		\item $\delta(x - x_0) = \delta(x_0 - x)$
 		\item $\delta(ax) = \dfrac{1}{|a|} \delta(x) \hspace{1em} \forall x \in \mathbb{R} \text{, fissato } a \in \mathbb{R}-\{0\}$
 	\end{enumerate}
 
 	\newpage
 	
-	\subsubsection{Funzione sinc}
+	\subsubsection{Funzione sinc}\label{funzione sinc}
 	
 	La funzione \textbf{\emph{sinc}} è definita nel seguente modo:
 	
@@ -1049,7 +1051,7 @@
 
 	\newpage
 	
-	\subsection{Proprietà della serie di Fourier}
+	\subsubsection{Proprietà della serie di Fourier}
 	
 	\noindent
 	Lo \textbf{spettro di ampiezza e di fase} sono funzioni nel dominio delle frequenze che formano lo {\underline{\textcolor{Red3}{\textbf{spettro di Fourier}}}}. Lo spettro di Fourier per i segnali periodici gode delle \textbf{seguenti \underline{proprietà}}:
@@ -1061,10 +1063,281 @@
 		
 		\item Se i coefficienti $c_{n}$ sono reali, \textbf{non esiste lo spettro di fase};
 		
-		\item Entrambe gli spettri sono funzioni a pettine, definite su frequenze multiple rispetto a quella fondamentale:
+		\item Entrambe gli spettri sono funzioni a pettine\label{funzioni a pettine}, definite su frequenze multiple rispetto a quella fondamentale:
 		
 		\begin{equation*}
 			\left\{\dfrac{2 \pi n}{T}\right\}_{n \in \mathbb{Z}} = \left\{f_{0} \cdot n\right\}_{n \in \mathbb{Z}} \equiv \left\{f_{n}\right\}_{n \in \mathbb{Z}}
 		\end{equation*}
 	\end{itemize}
+
+	\newpage
+	
+	\subsection{Trasformata di Fourier continua}
+	
+	\subsubsection{Trasformata di Fourier}
+	
+	Sia $f\left(t\right)$ un \textbf{segnale reale continuo} $f:\mathbb{R} \rightarrow \mathbb{R}$ periodico o non, si definisce la \textcolor{Red3}{\textbf{Trasformata di Fourier}} (TdF) $\mathcal{F}\left(f\left(t\right)\right) = F\left(\mu\right)$ il segnale $\mathcal{F}: \mathbb{R} \rightarrow \mathbb{C}$:
+	
+	\begin{equation*}
+		\mathcal{F}\left(f\left(t\right)\right) = F\left(\mu\right) = \int_{-\infty}^{+\infty} f\left(t\right) e^{-j 2 \pi \mu t} \: \mathrm{d}t
+	\end{equation*}
+
+	\noindent
+	L'\textbf{unità frequenziale} $\mu$ è l'angolo di $\frac{n}{T}$ della serie di Fourier (per esempio, con $n = 1$, $T = 1$ sec. $\rightarrow \mu = 1 \text{ sec.}^{-1} = 1$ Hz).\newline
+	
+	\noindent
+	La Trasformata di Fourier esiste se $f\left(t\right)$ è un \textbf{segnale di energia}. Condizione sufficiente e non necessaria perché altri segnali ammettono la TdF.
+	
+	\subsubsection{Trasformata di Fourier inversa}
+	
+	Sia $F\left(\mu\right)$ la trasformata di Fourier di un segnale $f: \mathbb{R} \rightarrow \mathbb{R}$. Si definisce la \textcolor{Red3}{\textbf{trasformata di Fourier inversa}} il segnale $\mathcal{F}^{-1} \left(F\left(\mu\right)\right) = f\left(t\right)$:
+	
+	\begin{equation*}
+		\mathcal{F}^{-1} = \left(F\left(\mu\right)\right) = f\left(t\right) = \int_{-\infty}^{+\infty} F\left(\mu\right) e^{j 2 \pi \mu t} \: \mathrm{d}\mu
+	\end{equation*}
+
+	\noindent
+	La trasformata di Fourier restituisce, per una data frequenza $\mu$, un coefficiente di \dquotes{presenza} $F\left(\mu\right)$. Infatti, la sua inversa \textbf{\underline{permette di ricostruire $f$ a partire da $F$}}.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=1\textwidth]{img/trasformata_fourier1.pdf}
+		\caption{(Anti)Trasformata di Fourier su un segnale $f\left(t\right)$.}
+	\end{figure}
+
+	\newpage
+
+	\noindent
+	Nel caso in cui il segnale $f\left(t\right)$ non è reale, la trasformata è complessa:
+	
+	\begin{itemize}
+		\item $t$ rappresenta il \textbf{\underline{tempo}} (in secondi), allora $\mu$ rappresenta gli \textbf{Hertz}, cioè $\frac{\text{numero cicli}}{\text{secondi}}$;
+		
+		\item $t$ rappresenta lo \textbf{\underline{spazio}} (in metri), allora $\mu$ rappresenta la \textbf{frequenza spaziale}, cioè $\frac{\text{numero cicli}}{\text{metri}}$
+	\end{itemize}
+
+	\noindent
+	Mentre nella serie di Fourier le funzioni rappresentate negli spettri di ampiezza e di fase erano a \dquotes{pettine} (paragrafo~\ref{funzioni a pettine}), in questo caso le funzioni sono solitamente continue, nello spettro di ampiezza, o continue a tratti:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/trasformata_fourier2.pdf}
+		\caption{Esempio di spettro di ampiezza.}
+	\end{figure}
+	
+	\newpage
+	
+	\subsubsection{Proprietà della trasformata di Fourier}
+	
+	\begin{itemize}[label=\ding{42}]
+		\item \textcolor{Red3}{\textbf{\underline{Linearità}}}
+			\begin{equation*}
+				a_{1} f_{1}\left(t\right) + a_{2}f_{2}\left(t\right) \hspace{1em} \xrightarrow{\mathcal{F}} \hspace{1em} a_{1}F_{1}\left(\mu\right) + a_{2}F_{2}\left(\mu\right)
+			\end{equation*}
+		
+		\item \textcolor{Red3}{\textbf{\underline{Scalatura temporale}}}
+			\begin{equation*}
+				z\left(t\right) = f\left(at\right) \hspace{1em} \xrightarrow{\mathcal{F}} \hspace{1em} Z\left(\mu\right) = \dfrac{1}{a} \: F\left(\dfrac{\mu}{a}\right)
+			\end{equation*}
+		
+		\item \textcolor{Red3}{\textbf{\underline{Dualità}}}
+			\begin{gather*}
+				f\left(t\right) \hspace{1em} \xrightarrow{\mathcal{F}} \hspace{1em} F\left(\mu\right) \\
+				F\left(t\right) \hspace{1em} \xrightarrow{\mathcal{F^{-1}}} \hspace{1em} f\left(-\mu\right)
+			\end{gather*}
+			N.B. derivando la forma analitica per una trasformata, la sua antitrasformata ne produce un'altra con segno opposto.
+			
+		\item \textcolor{Red3}{\textbf{\underline{Time shift}}}
+			\begin{equation*}
+				\begin{matrix}
+					\mathcal{F}\left(f\left(t-t_{0}\right)\right) & = & \displaystyle \int_{-\infty}^{+\infty} f\left(t-t_{0}\right) e^{-j 2 \pi \mu t} \: \mathrm{d}t \\
+					\\
+					& = & \displaystyle \int_{-\infty}^{+\infty} f\left(u\right) e^{-j 2 \pi \mu \left(u + t_{0}\right)} \: \mathrm{d}u \\
+					\\
+					& = & \displaystyle \int_{-\infty}^{+\infty} f\left(u\right) e^{-j 2 \pi \mu u} e^{-j 2 \pi \mu t_{0}} \: \mathrm{d}u \\
+					\\
+					& = & \displaystyle e^{-j 2 \pi \mu t_{0}} \: \int_{-\infty}^{+\infty} f\left(u\right) e^{-j 2 \pi \mu u} \: \mathrm{d}u \\
+					\\
+					& = & F\left(\mu\right) e^{\overbrace{- j 2 \pi \mu t_{0}}^{fase}}
+				\end{matrix}
+			\end{equation*}
+	\end{itemize}
+
+	\newpage
+	
+	\subsubsection{Trasformata di Fourier di una box}
+	
+	La trasformata di Fourier di una box (paragrafo~\ref{funzione box e impulso di Dirac}) è la seguente:
+	
+	\begin{equation*}
+		\mathcal{F}\left(f\left(t\right)\right) = \int_{-\infty}^{+\infty} A \Pi \left(\dfrac{t}{w}\right) e^{-j 2 \pi \mu t} \: \mathrm{d}t = F\left(\mu\right)
+	\end{equation*}
+
+	\noindent
+	Il \textbf{\underline{risultato corrisponde alla funzione}} $\mathrm{sinc}$:
+	
+	\begin{equation*}
+		f\left(\mu\right) = Aw \cdot \mathrm{sinc }\left(\mu w\right)
+	\end{equation*}
+	
+	\noindent
+	Dove la funzione $\mathrm{sinc}$ è uguale a:
+	
+	\begin{equation*}
+		\mathrm{sinc} = \dfrac{\sin\left(\pi \mu w\right)}{\pi \mu w}
+	\end{equation*}
+
+	\noindent
+	Per ripassare la funzione $\mathrm{sinc}$, si rimanda al paragrafo~\ref{funzione sinc}. Tuttavia, si ricorda che la sua forma generale è del tipo:
+	
+	\begin{equation*}
+		\mathrm{sinc} \left(m\right) = \dfrac{\sin \left(\pi m\right)}{\pi m}
+	\end{equation*}
+
+	\noindent
+	E risultata uguale a:
+	
+	\begin{itemize}
+		\item $\mathrm{sinc}\left(0\right) = 1$
+		\item $\mathrm{sinc}\left(m\right) = 0 \hspace{1em} \forall m \in \mathbb{Z}$
+	\end{itemize}
+
+	\noindent
+	Prima di concludere, si ricorda che:
+	
+	\begin{itemize}[label=\ding{43}]
+		\item All'\textbf{aumentare} della \textbf{larghezza} della box, la funzione $\mathrm{sinc}$ tenderà a \textbf{stringersi};
+		
+		\item La box è \textbf{limita}, invece la $\mathrm{sinc}$ è \textbf{infinita} a destra e sinistra, anche se il termine al denominatore attenua il valore della funzione comportando un limite a $0$.
+			
+		\item In sintesi, la TdF di una box è:
+			\begin{equation*}
+				\Pi\left(\dfrac{t}{w}\right) \hspace{1em} \xrightarrow{\mathcal{F}} \hspace{1em} w \cdot \mathrm{sinc} \left(\mu w\right)
+			\end{equation*}
+	\end{itemize}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/sinc.pdf}
+		\caption{Grafico della funzione sinc.}\label{grafico sinc}
+	\end{figure}
+
+	\newpage
+
+	\subsubsection[Trasformata di Fourier di un $\mathrm{sinc}$]{Trasformata di Fourier di un $\boldsymbol{\mathrm{sinc}}$}
+	
+	La trasformata di Fourier di un segnale $\mathrm{sinc}$ (segnale rappresentato in figura~\ref{grafico sinc}) è la seguente:
+	
+	\begin{equation*}
+		\mathcal{F}\left(f\left(t\right)\right) = \int_{-\infty}^{+\infty} \mathrm{sinc}\left(tw\right) e^{-j 2 \pi \mu t} \: \mathrm{d}t = F\left(\mu\right)
+	\end{equation*}
+
+	\noindent
+	Dato che la TdF di una box è:
+	
+	\begin{equation*}
+		\Pi\left(\dfrac{t}{w}\right) \hspace{1em} \xrightarrow{\mathcal{F}} \hspace{1em} w \cdot \mathrm{sinc} \left(\mu w\right)
+	\end{equation*}
+
+	\noindent
+	Al contrario, si ottiene la \textbf{\underline{trasformata di Fourier di un $\mathrm{sinc}$}}:
+	
+	\begin{equation*}
+		\mathrm{sinc}\left(tw\right) \hspace{1em} \xrightarrow{\mathcal{F}} \hspace{1em} \dfrac{1}{w} \Pi \left(-\dfrac{\mu}{w}\right) = \dfrac{1}{w} \cdot \Pi \left(\dfrac{\mu}{w}\right)
+	\end{equation*}
+
+	\newpage
+
+	\subsubsection{Trasformata di Fourier di un impulso}
+	
+	La trasformata di Fourier di un impulso\footnote{Definizione di impulso al paragrafo~\ref{funzione box e impulso di Dirac}.} è la seguente:
+	
+	\begin{equation*}
+		\mathcal{F}\left(f\left(t\right)\right) = F\left(\mu\right) = \int_{-\infty}^{+\infty} \delta\left(t\right) e^{-j 2 \pi \mu t} \: \mathrm{d}t
+	\end{equation*}
+
+	\noindent
+	Il risultato della trasformata di Fourier di un impulso è molto semplice grazie alle sue proprietà. Infatti, il risultato è uguale a:
+	
+	\begin{equation*}
+		\int_{-\infty}^{+\infty} \delta\left(t\right) e^{-j 2 \pi \mu t} \: \mathrm{d}t = \int_{-\infty}^{+\infty} \delta\left(0\right) e^{-j 2 \pi \mu 0} \: \mathrm{d}t = 1
+	\end{equation*}
+
+	\noindent
+	La proprietà che consente di ottenere il risultato uguale a $1$ è la seguente:
+	
+	\begin{equation*}
+		\delta\left(t\right) =
+		\begin{cases}
+			\infty  & \text{se } t = 0 \\
+			0		& \text{se } t \ne 0
+		\end{cases}
+		\hspace{2em} \longrightarrow \hspace{2em}
+		\int_{-\infty}^{+\infty}\delta\left(t\right)\mathrm{d}t = 1
+	\end{equation*}
+
+	\noindent
+	\textbf{\underline{N.B. In questo caso è rappresentabile solo lo spettro di ampiezza!}}\newline
+	
+	\noindent
+	Analogamente, con un impulso centrato in $t_{0}$, quindi non nell'origine:
+	
+	\begin{equation*}
+		\mathcal{F}\left(f\left(t\right)\right) = F\left(\mu\right) = \int_{-\infty}^{+\infty} \delta\left(t-t_{0}\right) e^{-j 2 \pi \mu t} \: \mathrm{d}t = e^{-j 2 \pi \mu t_{0}}
+	\end{equation*}
+
+	\noindent
+	Il risultato è stato ottenuto grazie alla proprietà di setacciamento (definita a pagina~\pageref{setacciamento}). Tuttavia, in questo caso i valori non sono più reali ma complessi.
+	
+	\newpage
+	
+	\subsubsection{Trasformata di Fourier di un treno di impulsi}
+	
+	Data la definizione di treno di impulsi (funzione definita nel paragrafo~\ref{treno_di_impulsi}):
+	
+	\begin{equation*}
+		S_{\Delta T}\left(t\right) = \sum_{n = -\infty}^{+\infty} \delta\left(t - n\Delta T\right) \hspace{1em} n \in \mathbb{Z}
+	\end{equation*}
+
+	\noindent
+	Si ottiene la sua relativa trasformata di Fourier:
+	
+	\begin{equation*}
+		\mathcal{F}\left(S_{\Delta T}\left(t\right)\right) = \int_{-\infty}^{+\infty} S_{\Delta T}\left(t\right) e^{-j 2 \pi \mu t}\: \mathrm{d}t = F\left(\mu\right)
+	\end{equation*}
+
+	\noindent
+	Tralasciando i vari calcoli numerici per arrivare al risultato, si può scrivere la trasformata di Fourier in maniera più semplice:
+	
+	\begin{equation*}
+		S_{\Delta T}\left(t\right) \hspace{2em} \xrightarrow{\mathcal{F}} \hspace{2em} \sum_{n = -\infty}^{+\infty} \dfrac{1}{\Delta T} \delta\left(\mu - \dfrac{n}{\Delta T}\right)
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection{Sintesi}
+	
+	Qui di seguito si lascia un riassunto rapido delle trasformate di Fourier dei segnali più importanti.
+	
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l l c l @{}}
+			\toprule
+			Segnale & & & Trasformata di Fourier \\
+			\midrule
+			Box:				& $A\Pi\left(\dfrac{t}{w}\right)$	& $\xrightarrow{\mathcal{F}}$ & $Aw \cdot \mathrm{sinc}\left(\mu w\right)$ \\
+			&&&\\
+			Sinc:				& $\mathrm{sinc}\left(tw\right)$	& $\xrightarrow{\mathcal{F}}$ & $\dfrac{1}{w}\cdot\Pi \left(-\dfrac{\mu}{w}\right) = \dfrac{1}{w}\cdot \Pi\left(\dfrac{\mu}{w}\right)$ \\
+			&&&\\
+			Impulso:			& $\delta\left(t\right)$			& $\xrightarrow{\mathcal{F}}$ &
+			$\begin{cases}
+				1 						& \text{se valori reali}\\
+				e^{-j 2 \pi \mu t_{0}}	& \text{se valori complessi}
+			\end{cases}$ \\
+			&&&\\
+			Treno di impulsi:	& $S_{\Delta T}\left(t\right)$ 		& $\xrightarrow{\mathcal{F}}$ & $\displaystyle\sum_{n = -\infty}^{+\infty} \dfrac{1}{\Delta T} \cdot \delta \left(\mu - \dfrac{n}{\Delta T}\right)$ \\
+			\bottomrule
+		\end{tabular}
+		\caption{Trasformate di Fourier dei segnali pù importanti.}
+	\end{table}
 \end{document}
