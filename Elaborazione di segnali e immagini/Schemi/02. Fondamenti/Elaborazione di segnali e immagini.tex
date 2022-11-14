@@ -849,7 +849,7 @@
 	
 	\section{Analisi di Fourier}
 	
-	\subsection{Serie di Fourier}
+	\subsection{Serie di Fourier}\label{serie di fourier}
 	
 	Una funzione, chiamata \textbf{\underline{funzione di sintesi}}, $f: \mathbb{R} \rightarrow \mathbb{R}$ di variabile continua $t$, periodica di periodo $T$, si esprime come:
 	
@@ -1072,7 +1072,7 @@
 
 	\newpage
 	
-	\subsection{Trasformata di Fourier continua}
+	\subsection{Trasformata di Fourier continua} \label{trasformata di fouerier continua}
 	
 	\subsubsection{Trasformata di Fourier}
 	
@@ -1317,7 +1317,7 @@
 	
 	\subsubsection{Sintesi}
 	
-	Qui di seguito si lascia un riassunto rapido delle trasformate di Fourier dei segnali più importanti.
+	Qui di seguito si lascia un riassunto rapido delle trasformate di Fourier continue dei segnali più importanti.
 	
 	\begin{table}[!htbp]
 		\centering
@@ -1340,4 +1340,187 @@
 		\end{tabular}
 		\caption{Trasformate di Fourier dei segnali pù importanti.}
 	\end{table}
+
+	\newpage
+	
+	\subsection{Trasformata di Fourier a tempo discreto}\label{trasformata di fourier a tempo discreto}
+	
+	\subsubsection{Campionamento}
+	
+	Sia $f\left(t\right)$ un segnale reale continuo definito $f : \left] -\infty, + \infty \right[ \in \mathbb{R} \rightarrow \mathbb{R}$ (attenzione al dominion non limitato), anche non periodico:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.65\textwidth]{img/campionamento_1.png}
+	\end{figure}
+
+	\noindent
+	Questo tipo di segnale, per essere elaborato al computer deve essere \textbf{campionato} ad intervalli discreti. Per farlo, si prenda in considerazione il treno di impulsi:
+	
+	\begin{equation*}
+		S_{\Delta T} \left(t\right) = \sum_{n = -\infty}^{+\infty} \delta\left(t - n\Delta T\right)
+	\end{equation*}
+
+	\noindent
+	Con periodo $\Delta T$, ossia con \textbf{frequenza di campionamento} pari a: $\mu_{S} = \dfrac{1}{\Delta T}$
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.65\textwidth]{img/campionamento_2.png}
+	\end{figure}
+
+	\noindent
+	Si assuma che il treno di impulsi sia un \textbf{segnale discreto}. Matematicamente parlando, \textbf{campionare un segnale \underline{significa} moltiplicarlo per un treno di impulsi}:
+	
+	\begin{equation*}
+		\tilde{f}\left(t\right) = f\left(t\right) \cdot S_{\Delta T}\left(t\right) = f\left(t\right) \cdot \sum_{n = -\infty}^{+\infty} \delta\left(t - n \Delta T\right)
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.65\textwidth]{img/campionamento_3.png}
+	\end{figure}
+	
+	\newpage
+	
+	\subsubsection{Trasformata di Fourier a tempo discreto}
+	
+	Sia $F\left(\mu\right)$ la trasformata di Fourier di un segnale $f\left(t\right): \mathbb{R} \rightarrow \mathbb{R}$. Si considera $\tilde{f}\left(t\right)$ e si calcola la trasformata di Fourier $\tilde{F}\left(\mu\right)$ (entrambi sono a tempo discreto). Grazie alla convoluzione si ottiene:
+	
+	\begin{equation*}
+		\tilde{F}\left(\mu\right) = \mathcal{F}\left\{\tilde{f}\left(t\right)\right\} = F\left(\mu\right) * S_{\Delta T}\left(\mu\right)
+	\end{equation*}
+
+	\noindent
+	Si ricorda che:
+	
+	\begin{equation*}
+		S_{\Delta T} \left(\mu\right) = \dfrac{1}{\Delta T} \sum_{n = -\infty}^{+\infty}\delta\left(\mu - \dfrac{n}{\Delta T}\right)
+	\end{equation*}	
+
+	\noindent
+	E risolvendo la convoluzione, si ottiene che la \textcolor{Red3}{\textbf{\underline{trasformata di Fourier a tempo}}} \textcolor{Red3}{\textbf{\underline{discreto}}} corrisponde a:
+	
+	\begin{equation*}
+		F\left(\mu\right) * S_{\Delta T}\left(\mu\right) = \int_{-\infty}^{+\infty} F\left(\tau\right) \cdot S_{\Delta T} \left(\mu - \tau\right) \: \mathrm{d}\tau = \dfrac{1}{\Delta T} \sum_{n = -\infty}^{+\infty} F \left(\mu - \dfrac{n}{\Delta T}\right)
+	\end{equation*}
+
+	\noindent
+	Analizzando la formula si evidenziano alcuni termini:
+	
+	\begin{itemize}
+		\item $F\left(\mu\right)$ è la trasformata di Fourier della funzione originale $f\left(t\right)$;
+		
+		\item $F\left(\mu - \dfrac{n}{\Delta T}\right)$ è la trasformata di Fourier della funzione originale $f\left(t\right)$ shiftato a destra di una quantità pari a $\dfrac{n}{\Delta T}$;
+		
+		\item $\dfrac{1}{\Delta T} \sum_{n = -\infty}^{+\infty} F \left(\mu - \dfrac{n}{\Delta T}\right)$ sono infinite copie dello spettro $F\left(\mu\right)$, ripetute ovviamente ogni $\dfrac{1}{\Delta T}$. \newline
+		Inoltre, è un \textbf{segnale periodico} (nelle frequenze) di periodo $\dfrac{1}{\Delta T}$, ovvero si ripete ogni $\dfrac{1}{\Delta T}$ Hz.\newline
+		La sua scalatura nell'ampiezza è pari a $\dfrac{1}{\Delta T}$ e rappresenta la T.d.F. a tempo discreto.
+	\end{itemize}
+
+	\newpage
+	
+	\subsubsection{Teorema del campionamento}
+	
+	Un \textbf{\underline{segnale reale continuo}} $f\left(t\right)$, limitato in banda, può essere \textbf{\underline{ricostruito}} \textbf{\underline{senza errori completamente dai suoi campioni}} se essi sono acquisiti con un tempo di campionamento $\Delta T$ tale per cui:
+	
+	\begin{equation*}
+		\dfrac{1}{\Delta T} = \mu_{S} \ge 2 \mu_{\text{max}}
+	\end{equation*}
+
+	\noindent
+	Ovvero se nel tempo si adotta una frequenza di campionamento $\dfrac{1}{\Delta T}$ almeno doppia rispetto alla frequenza massima del segnale $\mu_{\text{max}}$.\newline
+	In altre parole, il teorema del campionamento afferma che tutte le proprietà di un segnale possono essere espresse usando dei campioni.\newline
+	
+	\noindent
+	\textbf{\underline{Attenzione!}} L'espressione $\dfrac{1}{\Delta T}$ viene chiamata \textbf{\emph{frequenza di Nyquist}} e per frequenze minori si crea aliasing, fenomeno che impedisce la ricostruzione senza errori.
+	
+	\subsubsection{Considerazioni}
+	
+	Dal \textbf{\underline{punto di vista teorico}} la trasformata di Fourier a tempo discreto consente di ricostruire il segnale. Tuttavia, è impossibile implementarla in un computer poiché tende, come limiti, all'infinito e ci vorrebbe un numero infinito di campioni e di segnali di tipo $\mathrm{sinc}$.
+	
+	\newpage
+	
+	\subsection{Trasformata di Fourier discreta}\label{trasformata di fourier discreta}
+	
+	La trasformata di Fourier di un segnale reale continuo $f\left(t\right)$ di dominio illimitato e non periodico, campionato nel tempo con periodo di campionamento $\Delta T$, è una funzione continua, periodica (di periodo $\dfrac{1}{\Delta T}$) anch'essa di dominio illimitato:
+	
+	\begin{equation*}
+		\tilde{f}\left(t\right) = f\left(t\right) \cdot \sum_{n = -\infty}^{+\infty}\delta\left(t - n\Delta T\right) \: \textcolor{Red3}{\overset{\mathcal{F}}{\longrightarrow}} \: \tilde{F}\left(\mu\right) = \dfrac{1}{\Delta T} \sum_{n = -\infty}^{+\infty} F\left(\mu - \dfrac{n}{\Delta T}\right)
+	\end{equation*}
+
+	\noindent
+	Il \textbf{problema} di questa formulazione è data l'espressione analitica dello spettro, la quale suppone che si è a \textbf{conoscenza della T.d.F.} teorica $F$ \textbf{del segnale di partenza}. Questo, spesso, è molto difficile.\newline
+	
+	\noindent
+	Si ricava dunque una \emph{forma più semplice} da manipolare. Essa consente di \textbf{costruire una rappresentazione spettrale a partire dai campioni della funzione originale} $f\left(t\right)$:
+	
+	\begin{equation*}
+		\tilde{F}\left(\mu\right) = \sum_{n = -\infty}^{+\infty} f_{n} \: e^{-j 2 \pi \mu n \Delta T}
+	\end{equation*}
+	
+	\noindent
+	Al contrario, la prima formulazione era più chiara per comprendere il fatto che la T.d.F. di una funzione campionata genera delle repliche dello spettro originale $F\left(\mu\right)$.\newline
+	
+	\noindent
+	L'equazione alternativa deve essere modificata, eseguendo un campionamento per il dominio spettrale, per poterla implementare su un computer. Per farlo, si prende in considerazione solo l'intervallo frequenziale da $0$ a $\dfrac{1}{\Delta T} = \mu_{S}$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/trasformata_fourier_discreta1.pdf}
+	\end{figure}
+
+	\noindent
+	Inoltre, si prendono in considerazione $M$ campioni tramite l'operazione di campionamento.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/trasformata_fourier_discreta2.pdf}
+	\end{figure}
+
+	\noindent
+	In cui:
+	
+	\begin{equation*}
+		\tilde{\mu} = \dfrac{m}{M} \cdot \dfrac{1}{\Delta T} \hspace{2em} \text{con } m = 0, ..., M-1 \text{ e dove } \dfrac{m}{M} \in \left[0,1 - \dfrac{1}{M}\right]
+	\end{equation*}
+
+	\noindent
+	La $m$ indica il \textbf{range di variazione} degli indici dei campioni frequenziali. Calcolando la trasformata di Fourier a tempo discreto sui campioni $M$, si giunge alla \textcolor{Red3}{\textbf{\underline{forma finale della trasformata di Fourier discreta}}}:
+	
+	\begin{equation*}
+		\tilde{F}\left(\tilde{\mu}\right) = \tilde{F}\left(\dfrac{m}{M} \cdot \dfrac{1}{\Delta T}\right) = \sum_{n = 0}^{M - 1} f_{n} e^{-j 2 \pi \frac{m}{M} n} \hspace{2em} \text{con } m = 0, ..., M - 1
+	\end{equation*}
+
+	\noindent
+	La \textcolor{Red3}{\textbf{\underline{trasformata di Fourier discreta inversa}}}, ovvero l'antitrasformata:
+	
+	\begin{equation*}
+		\tilde{f}\left(n \Delta T\right) = f\left(n \Delta T\right) = f_{n} = \dfrac{1}{M} \sum_{m = 0}^{M - 1} F_{m} e^{j 2 \pi \frac{m}{M} n}
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{Riassunto Trasformate}
+	
+	Qui di seguito vengono rappresentate le trasformate più importanti.
+	
+	% TODO: finire la creazione della tabella con le T.d.F. più importanti
+	
+	\newpage
+	
+	\subsection{Domanda da esame}
+	
+	All'esame è possibile che sia richiesto come domanda: \dquotes{quali sono le trasformate di Fourier studiate durante il corso?}
+	
+	La risposta, anche se banale, è la seguente: le trasformate di Fourier studiate durante il corso sono $4$:
+	
+	\begin{enumerate}[label=\Roman*.]
+		\item Serie di Fourier (paragrafo~\ref{serie di fourier})
+		\item Trasformata di Fourier continua (paragrafo~\ref{trasformata di fouerier continua})
+		\item Trasformata di Fourier a tempo discreto (paragrafo~\ref{trasformata di fourier a tempo discreto})
+		\item Trasformata di Fourier discreta (paragrafo~\ref{trasformata di fourier discreta})
+	\end{enumerate}
+
+	% TODO: ricordati il todo
 \end{document}
