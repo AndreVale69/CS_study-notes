@@ -1893,11 +1893,13 @@
 		\noindent
 		Gli esponenti, per essere uguali, necessitano di una manipolazione. Infatti, il valore $2$ è stato aggiunto anche a destra poiché il numero di $1$ è il doppio degli zeri e dunque, per uguagliarli, si aggiunge un $2$ al numero di zeri. Si sostituisce anche la $i$ e si eseguono le semplificazioni:
 		
-		\begin{gather*}
-			2k = 2 \left(k+|v|\right)\left(2-1\right) \\
-			\rightarrow \cancel{2k} = \cancel{2k} + 2 |v| \\
-			\rightarrow |v| = 0
-		\end{gather*}
+		\begin{equation*}
+			\begin{array}{cl}
+				& 2k = 2 \left(k+|v|\right)\left(2-1\right) \\
+				\rightarrow & \cancel{2k} = \cancel{2k} + 2 |v| \\
+				\rightarrow & |v| = 0
+			\end{array}
+		\end{equation*}
 	
 		\noindent
 		La conclusione per assurdo si conclude con $|v| = 0$, che non soddisfa il Pumping Lemma e dunque dimostra che il linguaggio non è regolare ma $z^{'} \in L^{'}$.
@@ -1998,11 +2000,13 @@
 		\noindent
 		Analizzando gli esponenti:
 		
-		\begin{gather*}
-			n - |v| > n - 1 \\
-			\rightarrow |v| < 1 \\
-			\rightarrow |v| = 0
-		\end{gather*}
+		\begin{equation*}
+			\begin{array}{cl}
+				& n - |v| > n - 1 \\
+				\rightarrow & |v| < 1 \\
+				\rightarrow & |v| = 0
+			\end{array}
+		\end{equation*}
 	
 		\noindent
 		Il linguaggio non è regolare ed è stato dimostrato per assurdo.
@@ -2058,7 +2062,11 @@
 		Da questa espressione si evince che un numero primo, per essere tale, deve essere moltiplicato per sé stesso o per $1$. Quindi, sicuramente l'espressione $1 + |v|$ deve essere uguale a $1$:
 		
 		\begin{equation*}
-			1 + |v| = 1 \longrightarrow \cancel{1} + |v| = \cancel{1} \longrightarrow |v| = 0
+			\begin{array}{cl}
+				& 1 + |v| = 1 \\
+				\rightarrow & \cancel{1} + |v| = \cancel{1} \\
+				\rightarrow & |v| = 0
+			\end{array}
 		\end{equation*}
 	
 		\noindent
@@ -2213,13 +2221,635 @@
 		\noindent
 		Si analizzano gli esponenti:
 		
-		\begin{gather*}
-			n + |v| = n \\
-			\rightarrow \cancel{n} + |v| = \cancel{n} \\
-			\rightarrow |v| = 0
-		\end{gather*}
+		\begin{equation*}
+			\begin{array}{cl}
+				& n + |v| = n \\
+				\rightarrow & \cancel{n} + |v| = \cancel{n} \\
+				\rightarrow & |v| = 0
+			\end{array}
+		\end{equation*}
 	
 		\noindent
 		Si conclude la dimostrazione per assurdo aggiungendo $z^{'} \notin L$
 	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 8 - Tratto da un tema d'esame}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L\left(m\right) = \left\{ a^{n} \: b^{m} \: a^{k} \: \left| \: n \in m \mathbb{N} + 1, k \in \mathbb{N} \right.\right\}
+	\end{equation*}\newline
+	
+	\noindent
+	L'esercizio riguarda sempre un linguaggio \textbf{\underline{parametrizzato}}. Inoltre, viene richiesta anche $M$, ovvero l'unione:
+	
+	\begin{equation*}
+		M = \bigcup_{m \in \mathbb{N}} L\left(m\right)
+	\end{equation*}
+	\:\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Come per gli altri linguaggi parametrizzati, si eseguono delle prove con dei valori per cercare di capire se c'è un punto fisso oppure se il linguaggio ad un certo punto diventa irregolare.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Con il valore $0$ il linguaggio è definito nel seguente modo:
+		
+		\begin{equation*}
+			L\left(0\right) = \left\{\underbrace{a^{1} \: a^{k}}_{a^{1+k}} \: \left| \: n = 1, k \in \mathbb{N} \right.\right\}
+		\end{equation*}
+	
+		\noindent
+		Ricordando che il linguaggio ha l'alfabeto definito nel seguente modo $\Sigma = \left\{a,b\right\}$, l'automa è rappresentato nella figura seguente.
+		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=0.5\textwidth]{img/esercitazioni/03_exe1.pdf}
+			\caption{Grafo del linguaggio parametrizzato con il valore $0$.}
+		\end{figure}
+	
+		\noindent
+		Si esegue la dimostrazione del linguaggio regolare.
+		
+		\newpage
+		
+		\begin{proof}[\textbf{Dimostrazione $L\left(0\right)$}]
+			Si dimostra tramite induzione.\newline
+			
+			\noindent
+			\textbf{\underline{Caso base.}}\newline
+			
+			\begin{itemize}[label=-]
+				\item $\begin{array}{lllll}
+					x = \varepsilon & \notin L\left(0\right) & \hspace{1em} & \delta\left(q_{0}, \varepsilon\right) = q_{0} \notin F
+				\end{array}$
+				
+				\item $\begin{array}{lllll}
+					x = a & \in L\left(0\right) & \hspace{1em} & \delta\left(q_{0}, a\right) = q_{1} \in F
+				\end{array}$
+				
+				\item $\begin{array}{lllll}
+					x = b & \notin L\left(0\right) & \hspace{1em} & \delta\left(q_{0}, b\right) = q_{\bot} \notin F
+				\end{array}$
+			\end{itemize}
+		
+			\noindent
+			\textbf{\underline{Passo induttivo.}}\newline
+		
+			\noindent
+			Si dimostra per induzione che:
+			
+			\begin{equation*}
+				\sigma \in L\left(0\right) \Longrightarrow \delta\left(q_{0}, \sigma\right) \in F
+			\end{equation*}
+		
+			\noindent
+			Supponendo che sia vero che la lunghezza della stringa $x$ sia minore di $n$, cioè $|x| < n$, allora:
+			
+			\begin{equation*}
+				x \in L\left(0\right) \Longrightarrow \delta\left(q_{0}, x\right) \in F
+			\end{equation*}
+		
+			\noindent
+			A $x$ si assegna $a^{+}$, \textbf{N.B.}\footnote{Il segno del più indica un numero di concatenazione che è maggiore di zero ($a^{+} = a^{n}$, con $n > 0$). Al contrario, $a^{*} = a^{n}$ con $n \ge 0$.}, la $a^{+}$:
+			
+			\begin{itemize}[label=-]
+				\item $x^{'} = xa \in L \hspace{2em} \delta\left(q_{0}, xa\right) = \delta\left(q_{1}, a\right) = q_{1} \in F$
+				
+				\item $x^{'} = xb \notin L \hspace{2em} \delta\left(q_{0}, xb\right) = \delta\left(q_{1}, b\right) = q_{\bot} \notin F$
+			\end{itemize}
+		
+			\noindent
+			Invece, adesso si dimostra il contrario:
+			
+			\begin{equation*}
+				\sigma \notin L\left(0\right) \Longrightarrow \delta\left(q_{0}, \sigma\right) \notin F
+			\end{equation*}
+		
+			\noindent
+			Supponendo che sia vero che la lunghezza della stringa $x$ sia minore di $n$, cioè $|x| < n$, allora:
+			
+			\begin{equation*}
+				x \notin L\left(0\right) \Longrightarrow \delta\left(q_{0}, x\right) \notin F
+			\end{equation*}
+		
+			\noindent
+			Si prende in considerazione il caso in cui la $x$ è:
+			
+			\begin{equation*}
+				x = a^{*} \: b \: \left\{a,b\right\}^{*}
+			\end{equation*}
+			
+			\noindent
+			E si conclude la dimostrazione:
+			
+			\begin{itemize}[label=-]
+				\item $x^{'} = xa \notin L\left(0\right) \hspace{2em} \delta\left(q_{0}, xa\right) = \delta\left(q_{\bot}, a\right) = q_{\bot} \notin F$
+				
+				\item $x^{'} = xb \notin L\left(0\right) \hspace{2em} \delta\left(q_{0}, xb\right) = \delta\left(q_{\bot}, a\right) = q_{\bot} \notin F$
+			\end{itemize}
+		\end{proof}
+	
+		\newpage
+		
+		\noindent
+		Adesso, con il linguaggio parametrizzato si sostituisce il valore $1$:
+		
+		\begin{equation*}
+			L\left(1\right) = \left\{a^{n} \: b \: a^{k} \: \left| \: n > 0, k \ge 0 \right.\right\}
+		\end{equation*}
+	
+		\noindent
+		L'automa a stati finiti deterministico è il seguente. La dimostrazione di questo linguaggio regolare si salta solamente per evidenziare la diversificazione con altri esercizi.
+		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=0.5\textwidth]{img/esercitazioni/03_exe2.pdf}
+			\caption{Automa a stati finiti deterministico del linguaggio parametrizzato con il valore $1$.}
+		\end{figure}
+
+		\noindent
+		Si provano altri due, tre valori per verificare se il linguaggio continua ad essere regolare oppure no:
+		
+		\begin{itemize}
+			\item $L\left(2\right) = \left\{a^{n} \: bb \: a^{k} \: \left| \: n = 2\mathbb{N} + 1, k \ge 0 \right.\right\}$
+			\item $L\left(3\right) = \left\{a^{n} \: bbb \: a^{k} \: \left| \: n = 3\mathbb{N} + 1, k \ge 0 \right.\right\}$
+			\item $L\left(4\right) = \left\{a^{n} \: bbbb \: a^{k} \: \left| \: n = 4\mathbb{N} + 1, k \ge 0 \right.\right\}$
+		\end{itemize}
+	
+		\noindent
+		Nonostante siano stati provati $3$ valori diversi, il linguaggio rimane regolare. Dunque, la dimostrazione si conclude dicendo che è stato \textbf{trovato un punto fisso}, ovvero il linguaggio è sempre regolare.
+	\end{proof}
+
+	\newpage
+	
+	\begin{proof}[\textbf{Dimostrazione $L\left(0\right)$}]
+		Si dimostra la seguente unione:
+		
+		\begin{equation*}
+			M = \bigcup_{m\in\mathbb{N}} L\left(m\right) = \left\{a^{n} \: b^{m} \: a^{k} \: \left| \: n \in m\mathbb{N} + 1, k \ge 0, m \ge 0 \right.\right\}
+		\end{equation*}
+	
+		\noindent
+		Si dimostra tramite il pumping lemma che per qualsiasi $h$ esiste una stringa $z$ tale per cui:
+		
+		\begin{equation*}
+			\forall h \hspace{2em} \exists z = a^{h + 2} \: b^{h + 1}
+		\end{equation*}
+	
+		\noindent
+		Il pumping lemma, per definizione, afferma che $z = uvw$, che $|uv| \le h$ e infine che $|v| > 0$. Supponendo che $m = h + 1$, che $k = 0$ e che:
+		
+		\begin{equation*}
+			n = h + 2 \in \left(h + 1\right) \mathbb{N} + 1 = 
+			\begin{cases}
+				1 \\
+				h + 1 + 1 = h + 2 \xleftarrow{\text{elemento scelto per la dimostrazione}} \\
+				2\left(h + 1\right) + 1 = 2h + 3 \\
+				\cdots
+			\end{cases}
+		\end{equation*}
+	
+		\noindent
+		L'obbiettivo è dimostrare che \dquotes{pompando} non si arriva né all'elemento precedente ($1$), né all'elemento successivo ($2\left(h + 1\right) + 1 = 2h + 3$). Si sceglie la classica stringa $z^{'}$:
+		
+		\begin{equation*}
+			z^{'} = u v^{i} w = a^{h + 2 +\left(i - 1\right) |v|}  \: b^{h + 1} \hspace{2em} \text{con il vincolo } 0 < |v| \le h
+ 		\end{equation*}
+	
+		\noindent
+		Si sceglie una $i$ per concludere la dimostrazione, in questo caso uguale a $2$:
+		
+		\begin{equation*}
+			z^{'} = a^{h + 2 + |v|} \: b^{h + 1} \hspace{2em} \text{con il vincolo } |v| \le h 
+		\end{equation*}
+		
+		\noindent
+		Quindi l'intervallo in cui ricade la $|v|$ è:
+		
+		\begin{equation*}
+			h + 2 < h + 2 + |v| \le 2h + 2 < 2h + 3 \xRightarrow{\text{si deduce}} z^{'} \notin L
+		\end{equation*}
+	
+		\noindent
+		\fcolorbox{Green4}{white}{%
+			\parbox{\textwidth}{%
+				\textcolor{Green4}{\textbf{Soluzione alternativa: uguaglianza tra esponenti.}}
+				
+				Esiste una alternativa, ovvero l'utilizzo dell'uguaglianza tra esponenti per dimostrare la negazione del pumping lemma. Per farla si prende in considerazione la stringa corrispondente alla $|v|$:
+				
+				\begin{equation*}
+					\begin{array}{llllllll}
+						&& h + 2	 	& \rightarrow	& \cancel{h + 2} = \cancel{h + 2} + |v|	& \rightarrow	& |v| = 0	& \textcolor{Green3}{\textbf{\checkmark}} \\
+						& \nearrow &&&&&& \\
+						h + 2 + |v| = &&&&&&& \\
+						& \searrow &&&&&& \\
+						&& 2h + 3	& \rightarrow 	& 2h + 3 = h + 2 + |v|				   	& \rightarrow	& |v| = h + 1	& \textcolor{Green3}{\textbf{\checkmark}}
+					\end{array}
+				\end{equation*}
+				
+				La prima espressione è dimostrata poiché chiaramente $|v| = 0$ non rispetta la definizione del pumping lemma. Anche la seconda è dimostrata perché $|v|$ al massimo può essere $h$ non $h + 1$.
+			}
+		}
+		\:\newline
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Esercizio 9}}}\newline
+	
+	\noindent
+	I dati dell'esercizio sono i seguenti:
+	
+	\begin{equation*}
+		L = \left\{ 0^{k^{2}} \right\}
+	\end{equation*}\newline
+	
+	\noindent
+	L'esercizio riguarda un linguaggio e bisogna capire se è regolare oppure no.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risoluzione.}}}\newline
+	
+	\noindent
+	Il linguaggio non è regolare e si capisce dal fatto che non è possibile costruire una macchina che concateni una serie di $0$ per $k$ volte alla seconda.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione}}]
+		Per ogni $n$ prendendo la stringa $z$:
+		
+		\begin{equation*}
+			\forall n : z = 0^{n^{2}}
+		\end{equation*}
+	
+		\noindent
+		Il pumping lemma assicura che $z = uvw$, che $|uv| \le n$ e che $|v| < 0$. Si costruisce la stringa $z^{'}$:
+		
+		\begin{equation}
+			z^{'} = 0^{n^{2} + |v| \left(i - 1\right)}
+		\end{equation}
+	
+		Scegliendo una $i$ arbitraria, in questo caso $0$. Si esegue la dimostrazione tramite uguaglianza degli esponenti e disuguaglianza.\newline
+		
+		\noindent
+		\textbf{\underline{Uguaglianza.}}
+		
+		\begin{equation*}
+			\begin{array}{llllllllll}
+				&& \cancel{n^{2}} - |v| = n^{2}			& \rightarrow	& |v| = 0											& \textcolor{Green3}{\textbf{\checkmark}} &&&& \\
+				& \nearrow &&&&&&&& \\
+				n^{2} - |v| &&&&&&&&& \\
+				& \searrow &&&&&&&& \\
+				&& n^{2} - |v| = \left(n - 1\right)^{2}	& \rightarrow 	& \cancel{n^{2}} - |v| = \cancel{n^{2}} - 2n + 1	& \rightarrow	&&&& \\
+				&& |v| = 2n - 1	& \rightarrow & |v| \le n < 2n < -1	& \textcolor{Green3}{\textbf{\checkmark}} &&&&
+			\end{array}
+		\end{equation*}
+	
+		\noindent
+		\textbf{\underline{Disuguaglianza.}}
+		
+		\begin{equation*}
+			n ^{2} - n < n^{2} - |v| < n^{2}
+		\end{equation*}
+	\end{proof}
+
+	\newpage
+	
+	\section{Linguaggi liberi dal contesto}
+	
+	\begin{center}
+		\large
+		\textbf{\emph{Introduzione}}
+	\end{center}
+	
+	Una grammatica è un insieme di regole che permettono di generare un linguaggio. La situazione è quindi diversa rispetto ai linguaggi regolari. Infatti, quest'ultimi sono stati definiti come linguaggi \emph{riconosciuti} da una particolare famiglia di automi, i linguaggi in questo capitolo saranno \emph{generati} da particolari insiemi di regole. Un ruolo fondamentale in questo contesto è giocato dalle grammatiche libere dal contesto (CF) mediante le quali viene solitamente descritta la sintassi dei linguaggi di programmazione. Dunque, si vedrà come questi linguaggi siano anche riconosciuti da particolari automi, detti \emph{automi a pila}.
+	
+	\subsection{Linguaggi liberi dal contesto}
+	
+	Fino ad ora sono stati studiati i linguaggi regolari, i quali hanno visto la loro realizzazione pratica tramite gli automi. Un linguaggio, inoltre, veniva inizialmente studiato per capire se fosse regolare o no. Successivamente, si è rispettivamente eseguita la dimostrazione tramite automa (e matematica) per i primi e la negazione del Pumping Lemma per i secondi.
+	
+	Si è dunque vista la necessità di introdurre un mezzo per manipolare i linguaggi non regolari. Un primo strumento che viene introdotto è la \textcolor{Red3}{\textbf{\underline{grammatica}}} \textcolor{Red3}{\textbf{\underline{libera dal contesto}}} (CF, \emph{context free}), una quadrupla $G = \left\lbrace V, T, P, S \right\rbrace$ in cui:
+	
+	\begin{itemize}
+	 	\item $V$, è un insieme finito di \textbf{\underline{variabili}} (chiamati anche \emph{\textbf{simboli non terminali}});
+	 	
+	 	\item $T$, è un insieme finito di \textbf{\underline{simboli terminali}} ($V \cap T = \emptyset$). È possibile vedere l'analogia con il $\Sigma$;
+	 	
+	 	\item $P$, è un insieme finito di \textbf{\underline{produzioni}} e indica le regole grammaticali. Ogni produzione è della forma $A \rightarrow \alpha$ in cui:
+	 	\begin{itemize}
+	 		\item $A \in V$ è una variabile;
+	 		\item $\alpha \in \left(V \cup T\right)^{*}$.
+	 	\end{itemize}
+	 	
+	 	\item $S \in V$, è una variabile speciale chiamata \textbf{\underline{simbolo iniziale}}.
+	\end{itemize}
+
+	\newpage
+
+	\begin{center}
+		\large
+		\noindent
+		\textcolor{Green4}{\textbf{\underline{Esempi concettuali}}}
+	\end{center}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 1}}}
+	
+	\noindent
+	Si mostra un esempio introduttivo al concetto di linguaggi liberi dal contesto. Dato il seguente linguaggio:
+	
+	\begin{equation*}
+		L = \left\{a^{n} \: b^{n} \: \left| \: n \ge 1 \right.\right\}
+	\end{equation*}
+
+	\noindent
+	Si ha il seguente caso base:
+	
+	\begin{equation*}
+		S \longrightarrow ab
+	\end{equation*}
+
+	\noindent
+	In cui $S$ è sinonimo di $L$. Per dimostrarlo, si usa il passo induttivo:
+	
+	\begin{equation*}
+		S \longrightarrow a \: \underbrace{a^{n} \: b^{n}}_{S} \: b \xrightarrow{\text{quindi...}} S \longrightarrow a \: S \: b
+	\end{equation*}
+
+	\noindent
+	Attenzione! L'ordine è importante, infatti se viene sostituita la $S$, la stringa rimane regolare e dunque nel linguaggio. Per esempio, in questo modo è \emph{errato}:
+	
+	\begin{equation*}
+		S \longrightarrow a \: b \: S \hspace{1em} \textcolor{Red3}{\text{NO!}}
+	\end{equation*}
+	\:\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 2}}}
+	
+	\noindent
+	Dato il seguente linguaggio:
+	
+	\begin{equation*}
+		L = \left\{a^{2n} \: b^{2n} \: \left| \: n \ge 0 \right.\right\}
+	\end{equation*}
+
+	\noindent
+	Il simbolo iniziale è la $\varepsilon$ e doppia $a$, doppia $b$:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			S & \longrightarrow & \varepsilon \\
+			S & \longrightarrow & a \: a \: S \: b \: b
+		\end{array}
+	\end{equation*}
+	\:\newline
+	
+	\noindent
+	\fcolorbox{black}{white}{%
+		\parbox{\textwidth}{%
+			\textcolor{Red3}{\textbf{Linguaggi generati.}}
+			
+			Più in generale, il \textcolor{Red3}{\textbf{linguaggio generato da} $G$} è definito come:
+			
+			\begin{equation*}
+				L\left(G\right) = \left\{w \in T^{*} \: \left| \: S \overset{G}{\Longrightarrow}_{*} w \right.\right\}
+			\end{equation*}
+		
+			La freccia $\overset{G}{\Longrightarrow}_{*}$ indica una \textbf{derivazione finita}, ovvero con una serie \underline{finita} di passi si arriva a $w$.\newline
+		
+			Inoltre, $L$ è un \textcolor{Red3}{\textbf{\underline{linguaggio libero dal contesto}}} (CF) se esiste una grammatica CF ($G$) tale che $L = L\left(G\right)$. Si osservi che due grammatiche $G_{1}$ e $G_{2}$ sono equivalenti se $L\left(G_{1}\right) = L\left(G_{2}\right)$
+		}
+	}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 3}}}
+	
+	\noindent
+	Il linguaggio è il seguente:
+	
+	\begin{equation*}
+		L = \left\{a^{n} \: b^{n} \: \left| \: n \ge 0 \right.\right\}
+	\end{equation*}
+
+	\noindent
+	Si ottiene la grammatica del linguaggio:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			S & \longrightarrow & \varepsilon \\
+			S & \longrightarrow & a \: S \: b
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	L'obbiettivo è dimostrare che il linguaggio sia $L \subseteq L\left(G\right)$, sia $L = L\left(G\right)$ e infine $L \supseteq L\left(G\right)$.
+	
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione caso} $L \subseteq L\left(G\right)$}]
+		Si definisce il caso base con $n = 0$:
+		
+		\begin{equation*}
+			n = 0 \xrightarrow{\text{sostituzione nella stringa}} a^{0} \: b^{0} = \varepsilon
+		\end{equation*}
+	
+		\noindent
+		Grazie alla prima regola l'affermazione è vera, dunque l'ipotesi induttiva è:
+		
+		\begin{equation*}
+			n \ge 0 \hspace{2em} a^{n} \: b^{n} \Longrightarrow S \longrightarrow_{*} a^{n} \: b^{n}
+		\end{equation*}
+	
+		\noindent
+		E l'induzione è la seguente:
+		
+		\begin{equation*}
+			a^{n+1} \: b^{n+1} = a \: \underbrace{a^{n} \: b^{n}}_{S} \: b \Longrightarrow S \rightarrow a \: S \: b \rightarrow a \: a^{n} \: b^{n} \: b = a^{n+1} \: b^{n+1} \hspace{1em} \textcolor{Green4}{\textbf{\checkmark}}
+		\end{equation*}
+	\end{proof}
+
+	\begin{proof}[\textcolor{Blue3}{\textbf{Dimostrazione caso} $L\left(G\right) \supseteq L$}]
+		Si definisce il caso base con $n = 1$:
+		
+		\begin{equation*}
+			n = 1 \xrightarrow{\text{la grammatica è}} S \rightarrow \varepsilon \hspace{1em} \text{con } \varepsilon \in L
+		\end{equation*}
+		
+		\noindent
+		L'ipotesi induttiva è:
+		
+		\begin{equation*}
+			n \ge 1 \hspace{2em} \forall m \le n : S \longrightarrow_{m} x \Longrightarrow x = a^{k} \: b^{k} \in L \hspace{2em} \text{con } x \in T^{*}
+		\end{equation*}
+		
+		\noindent
+		E l'induzione è la seguente:
+		
+		\begin{equation*}
+			\underbrace{S \longrightarrow a \: S \: b \longrightarrow_{*} a \: x \: b}_{m + 1} \xrightarrow{\text{sostituzione } x} a^{k+1} \: b^{k+1} \in L \hspace{1em} \textcolor{Green4}{\textbf{\checkmark}}
+		\end{equation*}
+	\end{proof}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 4}}}
+	
+	\noindent
+	Il linguaggio è il seguente:
+	
+	\begin{equation*}
+		L = \left\{a^{n} \: b^{h} \: c^{h} \: d^{n} \: \left| n, h \ge 0 \right.\right\}
+	\end{equation*}
+
+	\noindent
+	La grammatica generata non è con $\varepsilon$, invece è:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\cancel{S} & \longrightarrow & \cancel{\varepsilon} & \textcolor{Red3}{\textbf{No}} \\
+			S & \longrightarrow & a \: S \: d & \textcolor{Green4}{\textbf{Sì}}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Per includere anche $b$ e $c$ si deve specificare:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			S & \longrightarrow & a \: S \: d \: |H \\
+			H & \longrightarrow & b \: H \: c \: |\varepsilon \\
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	La grammatica ha $H$ che può essere anche $\varepsilon$ perché la variabile $h$ può essere zero.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 5}}}
+	
+	\noindent
+	Dato il seguente linguaggio:
+	
+	\begin{equation*}
+		L = \left\{a^{n} \: b^{n} \: c^{h} \: \left| \: n,h \ge 0\right.\right\}
+	\end{equation*}
+
+	\noindent
+	In cui si raggruppa la stringa in due acronimi:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			A & = & a^{n} \: b^{n} \\
+			C & = & c^{h}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Quindi, la grammatica relativa è:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			S & \longrightarrow & A \: C \\
+			A & \longrightarrow & a \: A \: b \: | \varepsilon \\
+			C & \longrightarrow & c \: C | \varepsilon
+		\end{array}
+	\end{equation*}
+	\:\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 6}}}
+	
+	\noindent
+	Dato il seguente linguaggio:
+	
+	\begin{equation*}
+		L = \left\{a^{n} \: c^{m} \: b^{n} \: \left| \: n,m \ge 0\right.\right\}
+	\end{equation*}
+
+	\noindent
+	La grammatica che genera il linguaggio è:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			S & \longrightarrow & a \: S \: b \: | c \\
+			S & \longrightarrow & c \: C \: | \varepsilon
+		\end{array}
+	\end{equation*}
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 7}}}
+	
+	\noindent
+	Dato il seguente linguaggio:
+	
+	\begin{equation*}
+		L = \left\{0^{n} \: 1^{m} \: 0^{n + m} \: | \: n,m \ge 0\right\}
+	\end{equation*}
+
+	\noindent
+	Il linguaggio può essere scomposto come:
+	
+	\begin{equation*}
+		L = \left\{0^{n} \: 1^{m} \: 0^{m} \: 0^{n} \: | \: n,m \ge 0\right\}
+	\end{equation*}
+
+	\noindent
+	La grammatica che genera il linguaggio è:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			S & \longrightarrow & 0 \: S \: 0 \: | A \\
+			A & \longrightarrow & 1 \: A \: 0 \: | \varepsilon
+		\end{array}
+	\end{equation*}
+	\:\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 8}}}
+	
+	\noindent
+	Dato il seguente linguaggio:
+	
+	\begin{equation*}
+		L = \left\{\sigma \in \left\{0,1\right\}^{*} \: \left| \: \sigma \text{ è polindroma} \right.\right\}
+	\end{equation*}
+
+	\noindent
+	La grammatica che genera il linguaggio è:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			S & \longrightarrow & 0 \: | \: 1 \: | \: \varepsilon \\
+			S & \longrightarrow & 0 \: S \: 0 \: | \: 1 \: S \: 1
+		\end{array}
+	\end{equation*}
+	\:\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 9}}}
+	
+	\noindent
+	Dato il seguente linguaggio:
+	
+	\begin{equation*}
+		L = \left\{w \in \left\{a,b\right\}^{+} \: \left| \: |w|_{a} = |w|_{b} \right.\right\}
+	\end{equation*}
+
+	\noindent
+	La grammatica che genera il linguaggio è:
+	
+	\begin{equation*}
+		S \longrightarrow a \: b \: | \: b \: a \: | \: a \: S \: b \: | \: b \: S \: a \: | \: S \: S
+	\end{equation*}
 \end{document}
