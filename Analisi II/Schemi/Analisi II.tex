@@ -40,7 +40,7 @@
 	%%%%%%%%%%%%%%
 	\section{Lezione 01}
 	
-	\subsection{Equazioni a variabili separabili}
+	\subsection{Equazioni a variabili separabili}\label{Equazioni a variabili separabili}
 	
 	Le equazioni differenziali a \textbf{variabili separabili} hanno due forme:
 	
@@ -302,11 +302,11 @@
 	\noindent
 	In cui $f$ è una funzione continua su $I = \left(x_{0} - r_{1}, x_{0} + r_{1}\right)$ e $g$ è una funzione continua su un intervallo $J = \left(y_{0} - r_{2}, y_{0} + r_{2}\right)$.
 	
-	\begin{theorem}[Esistenza]
+	\begin{theorem}[Esistenza]\label{teorema esistenza}
 		Esiste una soluzione al problema di Cauchy definita per ogni $x \in I^{'} = \left[x_{0} - \delta, x + \delta\right] \subseteq I$. È dunque \textbf{garantita la soluzione locale} e non obbligatoriamente su tutto l'intervallo $I$.
 	\end{theorem}
 
-	\begin{theorem}[Unicità]
+	\begin{theorem}[Unicità]\label{teorema unicità}
 		Se $g\left(y\right)$ è \underline{continua e derivabile} con derivata continua (formalmente: $g\left(y\right) \in \mathcal{C}^{1} \left(J\right)$), allora la \textbf{soluzione è unica}.
 	\end{theorem}
 
@@ -541,11 +541,13 @@
 	Nonostante la forma sia corretta, è utile avere la $y$ esplicitata, quindi:
 	
 	\begin{gather*}
-		\dfrac{y}{1 - y} = e^{kx} \cdot e^{c}; \hspace{2em}
-		y = e^{c} \cdot e^{kx} \cdot \left(1 - y\right); \\
-		y = e^{c} \cdot e^{kx} - e^{c} \cdot e^{kx} y; \hspace{2em}
-		y\left(1 + e^{c} \cdot e^{kx}\right) = e^{c} \cdot e^{kx}; \\
-		y\left(x\right) = \dfrac{e^{c} \cdot e^{kx}}{1 + e^{c} \cdot e^{kx}}
+		\begin{matrix}
+			\dfrac{y}{1 - y} = e^{kx} \cdot e^{c}; & y = e^{c} \cdot e^{kx} \cdot \left(1 - y\right); \\
+			\\
+			y = e^{c} \cdot e^{kx} - e^{c} \cdot e^{kx} y; & y\left(1 + e^{c} \cdot e^{kx}\right) = e^{c} \cdot e^{kx}; \\
+			\\
+			y\left(x\right) = \dfrac{e^{c} \cdot e^{kx}}{1 + e^{c} \cdot e^{kx}}
+		\end{matrix}
 	\end{gather*}
 
 	\noindent
@@ -645,4 +647,472 @@
 	Il \textcolor{Red3}{2} è il risultato della $y^{'}\left(0\right)$ trovato prima.
 	
 	Dato che il \textbf{\underline{risultato è positivo, allora la funzione è convessa}}. Più formalmente, in un intorno di $x = 0$, se la $y^{''}\left(0\right) > 0$, la funzione si dice che è convessa.
+	
+	\section{Lezione 03}
+	
+	\subsection{Equazioni differenziali del primo ordine}
+	
+	La forma generale di un'equazione differenziale lineare del \textbf{\underline{primo ordine}} è la seguente:
+	
+	\begin{equation*}
+		y^{'} + a\left(x\right) y = f\left(x\right) \hspace{2em} \text{con } a\left(x\right), f\left(x\right) \in \mathcal{C}^{0}\left(I\right)
+	\end{equation*}
+
+	\noindent
+	Si ricorda che la $I$ indica l'intervallo nell'insieme dei numeri naturali $\mathbb{R}$. Inoltre, l'\textbf{equazione} si dice:
+	
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{\underline{Omogenea}}}, se $f\left(x\right) \equiv 0$, cioè è nulla;
+		\item \textcolor{Red3}{\textbf{\underline{Non omogenea}}}, se $f\left(x\right) \not\equiv 0$, cioè non nulla;
+	\end{itemize}
+
+	\noindent
+	La \textbf{\underline{risoluzione}} di queste equazioni prevede due passaggi:
+	
+	\begin{enumerate}
+		\item Determinare una primitiva $A\left(x\right)$ di $a\left(x\right)$ sull'intervallo dei reali $I$ e considerare la funzione $e^{A\left(x\right)}$;
+		
+		\item Moltiplicare entrambi i membri dell'equazione differenziale per $e^{A\left(x\right)}$, chiamato anche \textcolor{Red3}{\textbf{\underline{fattore integrante}}}.
+	\end{enumerate}
+
+	\noindent
+	L'\textcolor{Red3}{\textbf{\underline{obbiettivo}}} finale, ovvero successivamente alla risoluzione, è avere al primo membro la derivata di un prodotto tra funzioni.\newline
+	
+	\noindent
+	Più esplicitamente, in maniera \textbf{generalistica}, si eseguono i seguenti passaggi:
+	
+	\begin{enumerate}
+		\item $\overbrace{e^{A\left(x\right)} \cdot y^{'}\left(x\right) + e^{A\left(x\right)} \cdot a\left(x\right) \cdot y\left(x\right)}^{\text{Derivata di un prodotto tra due funzioni}} = e^{A\left(x\right)} \cdot f\left(x\right) \hspace{2em} \forall x \in I$
+
+		\item $e^{A\left(x\right)} \cdot y\left(x\right) = \int e^{A\left(x\right)} f\left(x\right) \: \mathrm{d}x \hspace{2em} \text{con } c \in \mathbb{R}$
+	\end{enumerate}
+
+	\noindent
+	Per derivata di un prodotto tra due funzioni ovviamente si intende:
+	
+	\begin{equation*}
+		\left(e^{A\left(x\right)} \cdot y\left(x\right)\right)^{'}
+	\end{equation*}
+
+	La \textcolor{Red3}{\textbf{\underline{forma risolutiva generale}}} è la seguente:
+	
+	\begin{equation*}
+		y\left(x\right) = e^{-A\left(x\right)} \left(\int e^{A\left(x\right)} f\left(x\right) \: \mathrm{d}x + c\right)
+	\end{equation*}
+
+	\noindent
+	Ovviamente, per determinare la costante $c$ si utilizzano le condizioni iniziali.
+	
+	\newpage
+	
+	\noindent
+	Combinando l'equazione differenziale lineare del primo ordine con le condizioni iniziali, il sistema da risolvere è il di nuovo il \textcolor{Red3}{\textbf{\underline{problema di Cauchy}}}:
+	
+	\begin{equation*}
+		\begin{cases}
+			y^{'}\left(x\right) + a\left(x\right) \cdot y\left(x\right) = f\left(x\right)	& a\left(x\right), f\left(x\right) \in \mathcal{C}^{0}\left(I\right) \\
+			y\left(x_{0}\right) = y_{0}														& x_{0}, y_{0} \in I
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	E per definizione del teorema dell'esistenza e dell'unicità (teoremi \ref{teorema esistenza} e \ref{teorema unicità} a pagina \pageref{teorema esistenza}), l'equazione differenziale lineare del primo ordine \textbf{\underline{ammette un'unica soluzione}} \textbf{\underline{di classe}} $\mathcal{C}^{1}\left(I\right)$. Si osservi che la soluzione è definita su \emph{tutto} l'intervallo e di conseguenza è una \textbf{\underline{soluzione globale}}!\newline
+	
+	\noindent
+	Nei prossimi paragrafi vengono presentati degli esempi guidati.
+	
+	\newpage
+	
+	\subsubsection[Esempio 1]{\textcolor{Green4}{\textbf{Esempio 1}}}
+	
+	L'equazione differenziale è la seguente:
+	
+	\begin{equation*}
+		y^{'} + 2xy = x
+	\end{equation*}
+
+	\noindent
+	Si osservi che l'equazione differenziale, oltre ad essere risolvibile tramite la tecnica presentata nel paragrafo precedente, è possibile risolverla anche a \emph{variabili separabili} (paragrafo \ref{Equazioni a variabili separabili}). In quest'ultimo caso, l'equazione sarebbe:
+	
+	\begin{equation*}
+		y^{'} = x\left(1-2y\right)
+	\end{equation*}
+
+	\noindent
+	Tuttavia, si ricerca l'integrale generale come spiegato nel metodo nel paragrafo precedente.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 1}}}\newline
+	
+	\noindent
+	Data la  forma generale dell'equazione differenziale lineare del primo ordine:
+	
+	\begin{equation*}
+		y^{'} + a\left(x\right) y = f\left(x\right)
+	\end{equation*}
+
+	\noindent
+	Dall'equazione dell'esercizio si ottiene:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			y^{'} + 2xy = x & \longrightarrow	& a\left(x\right) = 2x \\
+							& \longrightarrow	& f\left(x\right) = x
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Con entrambe le funzioni $a\left(x\right)$ e $f\left(x\right)$ continue sull'insieme dei reali $\mathbb{R}$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 2}}}\newline
+	
+	\noindent
+	Si calcola la primitiva del fattore $a\left(x\right)$:
+	
+	\begin{equation*}
+		a\left(x\right) = 2x \xrightarrow{\text{primitiva}} A\left(x\right) = x^{2}
+	\end{equation*}
+
+	\noindent
+	Così da costruire la funzione $e^{A\left(x\right)}$:
+	
+	\begin{equation*}
+		e^{A\left(x\right)} \xrightarrow{\text{sostituzione}} e^{x^{2}}
+	\end{equation*}
+
+	\noindent
+	Funzione chiamata anche \textbf{\underline{fattore integrante}}.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 3}}}\newline
+	
+	\noindent
+	Grazie al passo precedente si ha il fattore integrante, il quale viene usato per moltiplicare entrambi i membri dell'equazione differenziale. Quindi:
+	
+	\begin{equation*}
+		\begin{array}{lllll}
+			\text{Equazione differenziale}					& \longrightarrow & y^{'} + 2x \: y = x && \forall x \in \mathbb{R}\\
+			\text{Equazione diff. per } e^{A\left(x\right)}	& \longrightarrow & \underbrace{e^{x^{2}} \cdot y^{'} + e^{x^{2}} \cdot 2x \: y}_{\left(e^{x^{2}} y\left(x\right)\right)^{'}} = e^{x^{2}} \cdot x && \forall x \in \mathbb{R}
+		\end{array}
+	\end{equation*}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 4}}}\newline
+	
+	\noindent
+	Data la \textbf{\emph{forma risolutiva generale}} delle equazioni differenziali lineari del primo ordine:
+	
+	\begin{equation*}\label{eq}
+		y\left(x\right) = e^{-A\left(x\right)} \left(\int e^{A\left(x\right)} f\left(x\right) \: \mathrm{d}x + c\right)
+	\end{equation*}
+	
+	\noindent
+	Si sostituiscono i valori noti e si calcola l'integrale:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Forma risolutiva generale}					& \longrightarrow & \text{(equazione sopra)} \\
+			&& \\
+			\text{Forma risolutiva generale con valori noti}	& \longrightarrow & e^{x^{2}} \cdot y\left(x\right) = \displaystyle \int x \cdot e^{x^{2}} \: \mathrm{d}x + c \\
+			&& \\
+																& \hookrightarrow & e^{x^{2}} \cdot y\left(x\right) = \dfrac{e^{x^{2}}}{2} + c \\
+			&& \\
+			\textbf{Integrale generale (forma finale)}			& \hookrightarrow & y\left(x\right) = \dfrac{1}{2} + c e^{-x^{2}}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	L'integrale generale ha sempre la $x$ nell'insieme dei reali ovviamente $x \in \mathbb{R}$.
+	
+	\newpage
+	
+	\subsubsection[Esempio 2]{\textcolor{Green4}{\textbf{Esempio 2}}}
+	
+	L'equazione differenziale è la seguente:
+	
+	\begin{equation*}
+		y^{'} - \dfrac{1}{t} y = t^{2}
+	\end{equation*}
+
+	\noindent
+	Si ricerca l'integrale generale.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 1}}}\newline
+	
+	\noindent
+	Data la forma generale dell'equazione differenziale lineare del primo ordine:
+	
+	\begin{equation*}
+		y^{'} + a\left(x\right) y = f\left(x\right)
+	\end{equation*}
+	
+	\noindent
+	Si evidenziano i termini $a\left(x\right)$ e $f\left(x\right)$ nell'equazione differenziale dell'esercizio:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			y^{'} - \dfrac{1}{t} y = t^{2}	& \longrightarrow & a\left(t\right) = - \dfrac{1}{t} \\
+											& \longrightarrow & f\left(t\right) = t^{2}
+		\end{array}
+	\end{equation*}
+
+	\begin{center}
+		\noindent
+		\textcolor{Blue3}{\textbf{\underline{Attenzione!}}}
+	\end{center}
+	Si noti bene che in questo caso la $a\left(t\right)$ è definita nell'insieme: $\left(0, +\infty\right)$. Questo perché la funzione è una frazione e sicuramente non può essere una $0$. Inoltre, dato che \textbf{il problema di Cauchy si definisce solo su intervalli} e nel nostro caso la frazione sarebbe l'unione di due intervalli escluso lo $0$, cioè $\left(-\infty, 0\right) \cup \left(0, +\infty\right)$, è necessario scegliere quale intervallo utilizzare. La decisione viene presa in base ad una specifica dell'esercizio oppure, più frequentemente, in base al punto iniziale fornito dal problema di Cauchy. Infatti, se il punto iniziale fosse maggiore di $0$, si sceglierebbe l'intervallo $\left(0, +\infty\right)$, altrimenti, se fosse negativo, si sceglierebbe l'intervallo $\left(-\infty, 0\right)$.\newline
+	
+	\noindent
+	Al contrario, la funzione $f\left(t\right)$ è definita nell'insieme dei reali $\mathbb{R}$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 2}}}\newline
+	
+	\noindent
+	Si calcola la primitiva di $a\left(t\right)$ per costruire il fattore integrante. Quindi:
+	
+	\begin{equation*}
+		a\left(t\right) = - \dfrac{1}{t} \xrightarrow{\text{primitiva}} A\left(t\right) = -\ln t
+	\end{equation*}
+
+	\noindent
+	E di conseguenza il fattore integrante corrisponde a $e^{-\ln t}$. Con qualche accorgimento è possibile riscrivere il fattore integrante come:
+	
+	\begin{equation*}
+		e^{-\ln t} = \dfrac{1}{t}
+	\end{equation*}
+
+	\noindent
+	Il meno scompare perché si utilizza la proprietà fondamentale dei logaritmi e si ottiene $t^{-1}$.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 3}}}\newline
+	
+	\noindent
+	Si esegue la moltiplicazione del fattore integrante per l'equazione differenziale:
+	
+	\begin{equation*}
+		\begin{array}{lllll}
+			\text{Equazione differenziale}					& \longrightarrow & y^{'} - \dfrac{1}{t} y = t^{2} && \\
+			&&&& \\
+			\text{Equazione diff. per } e^{A\left(x\right)}	& \longrightarrow & \underbrace{\dfrac{1}{t}y^{'} - \dfrac{1}{t^{2}}}_{\left(\dfrac{1}{t}y\left(t\right)\right)^{'}} = t && \text{con } t \in \left(0, +\infty\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	L'insieme in cui cade $t$ è definito nello stesso modo del passo 1.\newline
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 4}}}\newline
+	
+	\noindent
+	L'esercizio si conclude calcolando l'integrale generale tramite l'integrale vero e proprio:
+	
+	\begin{equation*}
+		\begin{array}{rll}
+			\dfrac{1}{t}y				& = &	\displaystyle\int t \: \mathrm{d}t + c \\
+			&& \\
+										& = &	\dfrac{1}{t}y = \dfrac{t^{2}}{2} + c \\
+			&& \\
+			\textbf{Integrale generale}	& = &	y\left(t\right) = \dfrac{1}{2} t^{3} + ct
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Con $t$ definita nell'insieme del passo 1, cioè $t \in \left(0, +\infty\right)$. Al contrario, la costante $c$ in tutto l'insieme dei reali, quindi $c \in \mathbb{R}$.
+	
+	\newpage
+	
+	\subsubsection[Esempio 3]{\textcolor{Green4}{\textbf{Esempio 3}}}
+	
+	L'equazione differenziale è la seguente:
+	
+	\begin{equation*}
+		x^{'}\left(t\right) + \cot \left(t\right) x\left(t\right) = e^{t}
+	\end{equation*}
+
+	Si ricerca l'integrale generale.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 1}}}\newline
+	
+	\noindent
+	Talvolta le equazioni differenziali hanno variabili diverse dal solito, ma il ragionamento rimane invariato. In questo caso, l'equazione ha la variabile $t$ definita nell'intervallo $t \in \left(0, \pi\right)$. Il motivo è banale:
+	
+	\begin{equation*}
+		\cot\left(t\right) = \dfrac{\cos\left(t\right)}{\sin\left(t\right)}
+	\end{equation*}
+
+	\noindent
+	Data la forma generale dell'equazione differenziale lineare di primo grado:
+	
+	\begin{equation*}
+		y^{'} + a\left(x\right) y = f\left(x\right)
+	\end{equation*}
+
+	\noindent
+	Si evidenziano i termini $a\left(t\right)$ e $f\left(t\right)$ dall'equazione:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			x^{'}\left(t\right) + \cot \left(t\right) x\left(t\right) = e^{t}	& \longrightarrow & a\left(t\right) = \cot\left(t\right) \\
+			& \longrightarrow & f\left(t\right) = e^{t}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 2}}}\newline
+	
+	\noindent
+	Si calcola la primitiva di $a\left(t\right)$ così da ottenere il fattore integrante. Quindi:
+	
+	\begin{equation*}
+		a\left(t\right) = \cot\left(t\right) \xrightarrow{\text{primitiva}} A\left(t\right) = \int\dfrac{\cos\left(t\right)}{\sin\left(t\right)} \: \mathrm{d}t = \ln \left|sin\left(t\right)\right|
+	\end{equation*}
+	
+	\noindent
+	Si sostituisce la primitiva nella definizione del fattore integrante $e^{A\left(t\right)}$ e si ottiene:
+	
+	\begin{equation*}
+		e^{A\left(t\right)} \xrightarrow{\text{sostituzione}} e^{\ln\left|\sin\left(t\right)\right|} = \left|\sin\left(t\right)\right| = \sin\left(t\right)
+	\end{equation*}
+	
+	\noindent
+	È possibile portare il $\sin$ fuori dall'esponente grazie ad una delle proprietà dei logaritmi. Inoltre, grazie alla definizione dell'insieme in cui è definita $t$, cioè $t\in\left(0, +\infty\right)$, è possibile anche rimuovere il valore assoluto dato che sarà sempre positivo.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 3}}}\newline
+	
+	\noindent
+	L'equazione differenziale trovata al passo precedente viene moltiplicata per il fattore integrante:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Equazione differenziale}					& \longrightarrow & x^{'}\left(t\right) + \cot \left(t\right) x\left(t\right) = e^{t} \\
+			&& \\
+			\text{Equazione diff. per } e^{A\left(t\right)}	& \longrightarrow & \underbrace{\sin\left(t\right) \cdot x^{'}\left(t\right) + \cos\left(t\right) x\left(t\right)}_{\left(x\left(t\right) \cdot \sin\left(t\right)\right)^{'}} = e^{t} \cdot \sin\left(t\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Il termine $\cos$ si ricava dall'operazione di moltiplicazione tra cotangente $\cot = \dfrac{\cos\left(t\right)}{\sin\left(t\right)}$ e il seno $\sin\left(t\right)$ che rappresenta il fattore integrante.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 4}}}\newline
+	
+	\noindent
+	Si conclude l'esercizio trovando l'integrale generale:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			x\left(t\right) \cdot \sin\left(t\right) 	& = & \displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t \\
+			&& \\
+			\text{Integrale per parti}					& = & e^{t} \sin\left(t\right) - \displaystyle\int e^{t} \cos\left(t\right) \: \mathrm{d}t \\
+			&& \\
+			\text{Si ripete integrazione per parti}		& = & e^{t} \sin\left(t\right) - \left(e^{t} \cos\left(t\right) + \displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t \right) \\
+			&& \\
+														& = & e^{t} \sin\left(t\right) - e^{t} \cos\left(t\right) - \displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Dato che l'incognita iniziale era l'integrale $\int e^{t} \sin\left(t\right) \: \mathrm{d}t$ e il risultato che è stato trovato corrisponde a $e^{t} \sin\left(t\right) - e^{t} \cos\left(t\right) - \displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t$, è possibile eguagliare questi due termini per ottenere la soluzione dell'integrale:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t	& = & e^{t} \sin\left(t\right) - e^{t} \cos\left(t\right) - \displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t \\
+			&& \\
+			\displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t + \displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t	& = & e^{t} \sin\left(t\right) - e^{t} \cos\left(t\right) \\
+			&& \\
+			2 \cdot \displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t & = & e^{t} \sin\left(t\right) - e^{t} \cos\left(t\right) \\
+			&& \\
+			\displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t 	& = & \dfrac{e^{t} \sin\left(t\right) - e^{t} \cos\left(t\right)}{2} \\
+			&& \\
+			\displaystyle\int e^{t} \sin\left(t\right) \: \mathrm{d}t 	& = & \dfrac{1}{2} \cdot e^{t} \left(\sin\left(t\right) - \cos\left(t\right)\right) + c
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Per concludere, si riprendere l'equazione generale iniziale e si sostituisce il risultato dell'integrale trovato:
+	
+	\begin{equation*}
+		x\left(t\right) \cdot \sin\left(t\right) = \dfrac{1}{2} \cdot e^{t} \left(\sin\left(t\right) - \cos\left(t\right)\right) + c
+	\end{equation*}
+
+	\noindent
+	Si esplicita l'incognita e si ottiene l'\textbf{integrale generale}:
+	
+	\begin{equation*}
+		x\left(t\right) = \dfrac{1}{2} \cdot e^{t} \cdot \left(1 - \cot\left(t\right)\right) + \dfrac{c}{\sin\left(t\right)}
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{Operatore differenziale lineare}
+	
+	Con un punto di vista ancora più generale, si definisce una particolare applicazione che si posiziona tra lo spazio continuo $\mathcal{C}^{1}\left(I\right)$ delle funzioni con derivata continua sull'intervallo $I$ e lo spazio continuo $\mathcal{C}^{0}\left(I\right)$ delle funzioni continue su $I$:
+	
+	\begin{equation}\label{operatore differenziale lineare di ordine 1}
+		\begin{array}{llllll}
+			L:	& \mathcal{C}^{1}\left(I\right) & \longrightarrow & \mathcal{C}^{0}\left(I\right) && \\
+				& y\left(x\right)				& \longmapsto 	  & y^{'}\left(x\right) + a\left(x\right)y\left(x\right) && \text{con } a\left(x\right) \text{continua su } I
+		\end{array}
+	\end{equation}
+
+	\noindent
+	L'operazione definita e rappresentata dalla lettera $L$ si chiama: \textcolor{Red3}{\textbf{\underline{operatore}}} \textcolor{Red3}{\textbf{\underline{differenziale lineare di ordine 1}}}. Anche per questa operazione vale la \textbf{linearità}.\newline
+
+	\noindent\fbox{%
+		\parbox{\textwidth}{%
+			\begin{center}
+				\textcolor{Red3}{\textbf{\underline{Linearità}}}
+			\end{center}
+			
+			\noindent
+			Se $y_{1}\left(x\right), y_{2}\left(x\right) \in \mathcal{C}^{1}\left(I\right)$, allora l'operatore differenziale lineare di ordine 1 viene moltiplicato considerando anche le costanti:
+			
+			\begin{equation*}
+				L\left(\alpha y_{1}\left(x\right) + \beta y_{2}\left(x\right)\right) = \alpha L\left(y_{1}\left(x\right)\right) + \beta L\left(y_{2}\left(x\right)\right) \hspace{2em} \text{con } \alpha, \beta \in \mathbb{R}
+			\end{equation*}
+			
+			\noindent
+			Quindi, l'equazione differenziale con la sua forma classica $y^{'}\left(x\right) + a\left(x\right) y\left(x\right) = f\left(x\right)$ con la funzione $f\left(x\right)$ continua sull'intervallo $I$, si può anche riscrivere come:
+			
+			\begin{equation*}
+				L\left(y\left(x\right)\right) = f\left(x\right)
+			\end{equation*}
+		}%
+	}
+
+	\vspace{1.5em}
+
+	\noindent
+	Da questa definizione di linearità, la \textcolor{Red3}{\textbf{\underline{soluzione}}} cambia a seconda del tipo:
+	
+	\begin{itemize}[label=\ding{42}]
+		\item \textcolor{Red3}{\textbf{\underline{Omogenea.}}} Allora la funzione $f\left(x\right) = 0$ e di conseguenza l'equazione differenziale $L\left(y\left(x\right)\right) = 0$ ovvero:
+		\begin{equation*}
+			v = \ker\left(L\right) \text{ è sottospazio vettoriale di } \mathcal{C}^{1}\left(I\right)
+		\end{equation*}
+		Dove:
+		\begin{itemize}[label=-]
+			\item $v$ rappresenta l'\textbf{insieme delle soluzioni} dell'omogenea associata;			
+			\item $\ker\left(L\right)$ è il \textbf{nucleo} (\emph{kernel}, $\ker$) dell'\textbf{applicazione lineare} $L$;
+			\item Il sottospazio vettoriale è chiaro, ma si ricordi che nel caso di equazioni differenziali del primo ordine, la \textbf{dimensione del sottospazio è pari a} $1$.
+		\end{itemize}
+		L'\textbf{\underline{obbiettivo}} delle soluzioni omogenee è trovare le funzioni di classe $\mathcal{C}^{1}$ che hanno come immagine un vettore nullo.
+		
+		\item \textcolor{Red3}{\textbf{\underline{Non omogenea.}}} L'insieme delle soluzioni dell'equazione differenziale $L\left(y\left(x\right)\right) = f\left(x\right)$ è definita come:
+		\begin{equation*}
+			\left\{y_{p}\left(x\right) + y_{v}\left(x\right) : y_{v}\left(x\right) \in \ker\left(L\right)\right\}
+		\end{equation*}
+	\end{itemize}
 \end{document}
