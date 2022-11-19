@@ -5,6 +5,7 @@
 \usepackage{amsfonts}
 \usepackage{booktabs}				% tabelle di qualità superiore
 \usepackage{amsmath}				% pacchetto matematica
+\usepackage{cancel}					% per barrare le equazioni (semplificazioni)
 \usepackage{mathtools}				% per sottolineare sotto le equazioni
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
@@ -694,6 +695,7 @@
 		\left(e^{A\left(x\right)} \cdot y\left(x\right)\right)^{'}
 	\end{equation*}
 
+	\noindent
 	La \textcolor{Red3}{\textbf{\underline{forma risolutiva generale}}} è la seguente:
 	
 	\begin{equation*}
@@ -1115,4 +1117,148 @@
 			\left\{y_{p}\left(x\right) + y_{v}\left(x\right) : y_{v}\left(x\right) \in \ker\left(L\right)\right\}
 		\end{equation*}
 	\end{itemize}
+
+	\newpage
+
+	\section{Lezione 04}
+	
+	\subsection{Equazioni differenziali lineari del secondo ordine}
+	
+	La forma generale di un'equazione differenziale lineare del \textbf{\underline{secondo ordine}} è la seguente:
+	
+	\begin{equation*}
+		y^{''}\left(x\right) + a\left(x\right)y^{'}\left(x\right) + b\left(x\right)y\left(x\right) = f\left(x\right) \hspace{2em} \text{con } a\left(x\right), b\left(x\right), f\left(x\right) \in \mathcal{C}^{0}\left(I\right)
+	\end{equation*}
+
+	\noindent
+	Solitamente le equazioni differenziali lineari del secondo ordine vengono associate ad un \textcolor{Red3}{\textbf{\underline{problema di Cauchy}}} date due condizioni iniziali. La forma generale:
+	
+	\begin{equation*}
+		\begin{cases}
+			y^{''}\left(x\right) + a\left(x\right)y^{'}\left(x\right) + b\left(x\right)y\left(x\right) = f\left(x\right) & a\left(x\right), b\left(x\right), f\left(x\right) \in \mathcal{C}^{0}\left(I\right) \\
+			y\left(x_{0}\right) = y_{0} & x_{0} \in I \\
+			y^{'}\left(x_{0}\right) = y_{1}
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Anche per questo tipo di equazioni esiste il \textcolor{Red3}{\textbf{\underline{teorema di esistenza e unicità}}}: esiste ed è unica la soluzione al problema di Cauchy definita sull'intervallo $I$. La soluzione è definita in $\mathcal{C}^{2}\left(I\right)$.
+	
+	\vspace{2em}
+	
+	\subsubsection{Struttura dell'insieme delle soluzioni di un'equazione differenziale lineare del 2° ordine}
+	
+	Per l'insieme delle soluzioni si definisce un operatore differenziale lineare:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			L: 	& \mathcal{C}^{2}\left(I\right)	& \longrightarrow & \mathcal{C}^{0}\left(I\right) \\
+				& y\left(x\right)				& \longmapsto	  & y^{''}\left(x\right) + a\left(x\right)y^{'}\left(x\right) + b\left(x\right)y\left(x\right) \hspace{2em} \text{con } a\left(x\right), b\left(x\right) \in \mathcal{C}^{0}\left(I\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	L'operatore differenziale lineare $L$ è considerato \dquotes{lineare} poiché:
+	
+	\begin{equation*}
+		L\left(\alpha y_{1}\left(x\right) + f y_{2}\left(x\right)\right) = \alpha L\left(y_{1}\left(x\right)\right) + f L\left(y_{2}\left(x\right)\right) \hspace{2em} \text{con } \forall\alpha, f\in \mathbb{R}
+	\end{equation*}
+
+	\noindent
+	Ne consegue che l'equazione differenziale e l'operatore differenziale lineare hanno una relazione:
+	
+	\begin{equation*}
+		y^{''}\left(x\right) + a\left(x\right)y^{'}\left(x\right) + b\left(x\right)y\left(x\right) = f\left(x\right) \iff L\left(y\left(x\right)\right) = f\left(x\right)
+	\end{equation*}
+
+	\noindent
+	\begin{theorem}
+		L'insieme $V$ delle soluzioni dell'equazione lineare omogenea:
+		
+		\begin{equation*}
+			y^{''}\left(x\right) + a\left(x\right)y^{'}\left(x\right) + b\left(x\right)y\left(x\right) = 0 \hspace{2em} \text{con } a\left(x\right), b\left(x\right) \in \mathcal{C}^{0}\left(I\right)
+		\end{equation*}
+	
+		\noindent
+		È uno spazio vettoriale di dimensione $2$.
+	\end{theorem}
+
+	\subsection{Equazioni differenziali lineari del secondo ordine omogenee a coefficienti costanti}
+	
+	\begin{theorem}
+		La funzione $e^{\lambda x} \left(\lambda\in\mathbb{C}\right)$ è la soluzione dell'equazione omogenea $y^{''} + ay^{'} + by = 0$ con $a, b \in \mathbb{R}$ \underline{se e solo se} $\lambda$ è la soluzione dell'equazione algebrica di secondo grado $\lambda^{2} + a\lambda + b = 0$ (quest'ultima chiamata \textcolor{Red3}{\textbf{\underline{equazione caratteristica}}})
+	\end{theorem}
+
+	\noindent
+	Sia $e^{\lambda x}$ una soluzione. Allora la derivata prima:
+	
+	\begin{equation*}
+		y^{'}\left(x\right) = \lambda e^{\lambda x}
+	\end{equation*}
+
+	\noindent
+	E la derivata seconda:
+	
+	\begin{equation*}
+		y^{''}\left(x\right) = \lambda^{2} e^{\lambda x}
+	\end{equation*}
+	
+	\noindent
+	Sostituendo le derivate nell'equazione differenziale lineare di secondo grado:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			& \lambda^{2}e^{\lambda x} + a\lambda e^{\lambda x} + b e^{\lambda x}	& = & 0 \\
+			&&& \\
+			\longrightarrow & e^{\lambda x}	\underbrace{\left(\lambda^{2} + a\lambda + b\right)}_{\text{eq. caratteristica}}	& = & 0 \\
+			&&& \\
+			\text{La } e \text{ è sempre diverso da } 0: & \cancel{e^{\lambda x}} \left(\lambda^{2} + a\lambda + b\right) & = & 0
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	La \textbf{\underline{risoluzione dell'equazione caratteristica}} prevede tre casi:
+	
+	\begin{enumerate}[label=\Roman*.]
+		\item \textcolor{Red3}{\underline{\textbf{Caso} $\Delta > 0$.}} L'equazione caratteristica ha \textbf{due soluzioni reali distinte} $\lambda_{1}, \lambda_{2}$.\newline
+		Quindi, $e^{\lambda_{1}x}$ e $e^{\lambda_{2}x}$ sono due soluzioni linearmente indipendenti dell'equazione omogenea.\newline
+		Spazio soluzioni rappresenta l'\textbf{\underline{integrale generale}} $v = \left\{c_{1}e^{\lambda_{1}x} + c_{2}e^{\lambda_{2}x} : c_{1}, c_{2} \in \mathbb{R}\right\}$.
+		
+		\item \textcolor{Red3}{\underline{\textbf{Caso} $\Delta = 0$.}} L'equazione caratteristica ha \textbf{due soluzioni reali coincidenti} $\lambda_{1} = \lambda_{2}$.\newline
+		Quindi, $e^{\lambda_{1}x}$ e $e^{\lambda_{2}x}$ sono due soluzioni linearmente indipendenti dell'equazione omogenea.\newline
+		L'\textbf{\underline{integrale generale}} è così rappresentato: $y\left(x\right) = c_{1}e^{\lambda_{1}x} + c_{2}e^{\lambda_{2}x}$ con $c_{1}, c_{2} \in \mathbb{R}$.
+		
+		\item \textcolor{Red3}{\underline{\textbf{Caso} $\Delta < 0$.}} L'equazione caratteristica ha due soluzioni complesse coniugate $\lambda_{1,2} = \alpha \pm i\beta$.\newline
+		Quindi, $e^{\left(\alpha + i\beta\right)x}$, $e^{\left(\alpha - i\beta\right)x}$ che grazie ad Eulero è possibile riscriverle:
+		\begin{equation*}
+			\begin{array}{lll}
+				e^{\left(\alpha + i\beta\right)x}	& \longrightarrow & z_{1} = e^{\alpha x}\left(\cos\left(\beta x\right) + i \sin\left(\beta x\right)\right) \\
+				&& \\
+				e^{\left(\alpha - i\beta\right)x}   & \longrightarrow & z_{2} = e^{\alpha x}\left(\cos\left(\beta x\right) - i \sin\left(\beta x\right)\right)
+			\end{array}
+		\end{equation*}
+		L'\textbf{\underline{integrale generale}} dunque risulta: $y\left(x\right) = c_{1}e^{\alpha x}\cos\left(\beta x\right) + c_{2}e^{\alpha x}\sin\left(\beta x\right)$
+	\end{enumerate}
+
+	\newpage
+
+	\subsection{Equazioni differenziali complete omogenee a coefficienti costanti}
+	
+	L'\textbf{\underline{obbiettivo}} di questo tipo particolare di equazioni consiste nella \emph{ricerca di una soluzione particolare} (definizione spiegata qualche riga più avanti). La forma generale di un'equazione differenziale completa omogenea a coefficienti costanti è:
+	
+	\begin{equation*}
+		y^{''} + ay^{'} + by = f\left(x\right) \hspace{2em} \text{con } x \in I
+	\end{equation*}
+
+	Per risolvere queste equazioni viene utilizzato il \textcolor{Red3}{\textbf{\underline{metodo di somiglianza}}}. Spiegato nel prossimo capitolo, esso consiste nell'individuare una somiglianza tra l'equazione differenziale da calcolare e una già calcolata.\newline
+	
+	\noindent
+	Che cos'è una soluzione particolare? In generale, se la funzione $f\left(x\right)$ è un polinomio di grado $n$ tale che $\left(f\left(x\right) = P_{n}\left(x\right)\right)$ con $b \ne 0$, allora una soluzione particolare è un polinomio di grado $n$:
+	
+	\begin{equation*}
+		y_{P}\left(x\right) = Q_{n}\left(x\right)
+	\end{equation*}
+
+	\noindent
+	In cui $Q_{n}$ indica un polinomio di grado $n$.
 \end{document}
