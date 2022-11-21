@@ -1691,4 +1691,277 @@
 	\newpage
 	
 	\section{Lezione 06}
+	
+	\subsection{Come trovare una soluzione particolare dell'equazione differenziale lineare del 2° ordine a coefficienti costanti}
+	
+	Oltre al metodo di somiglianza introdotto nel capitolo precedente, esiste un altro metodo chiamato \textbf{metodo di variazione delle costanti}.
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Metodo di variazione delle costanti}}}\newline
+	
+	\noindent
+	Data l'equazione differenziale di secondo grado:
+	
+	\begin{equation*}
+		y^{''} + ay^{'} + by = f\left(x\right)
+	\end{equation*}
+
+	\noindent
+	È conosciuto l'integrale generale dell'omogenea associata $y_{v}\left(x\right) = c_{1}y_{1}\left(x\right) + c_{2}y_{2}\left(x\right)$ dove $y_{1}\left(x\right)$ e $y_{2}\left(x\right)$ sono soluzioni indipendenti su $I$.
+	
+	\noindent
+	L'\textcolor{Red3}{\textbf{\underline{obbiettivo}}} è cercare una soluzione particolare dell'equazione completa nella forma:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = c_{1}\left(x\right)y_{1}\left(x\right) + c_{2}\left(x\right)y_{2}\left(x\right)
+	\end{equation*}
+
+	\noindent
+	Con $c_{1}, c_{2}$ sono variazioni delle costanti.\newline
+	
+	\noindent
+	A \textbf{differenza del metodo di somiglianza}, le costanti qui sono \emph{funzioni}. Come nel metodo di somiglianza, l'equazione particolare si sostituisce nell'equazione completa calcolando le derivate (la seconda si omette perché sarà introdotta tra poco):
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			y_{p}\left(x\right)		& = & c_{1}\left(x\right)y_{1}\left(x\right) + c_{2}\left(x\right)y_{2}\left(x\right) \\
+			&& \\
+			y_{p}^{'}\left(x\right) & = & c_{1}^{'}\left(x\right)y_{1}\left(x\right) + c_{1}\left(x\right)y_{1}^{'}\left(x\right) + c_{2}^{'}\left(x\right)y_{2}\left(x\right) + c_{2}\left(x\right)y_{2}^{'}\left(x\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Per semplificare l'espressione, si esegue una scelta di comodo: $c_{1}^{'}\left(x\right)y_{1}\left(x\right) + c_{2}^{'}\left(x\right)y_{2}\left(x\right) = 0$ con $\forall x \in I$. Quindi, la derivata prima e seconda si \emph{riscrivono}:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			y_{p}^{'}\left(x\right)	& = & c_{1}\left(x\right)y_{1}^{'}\left(x\right) + c_{2}\left(x\right)y_{2}^{'}\left(x\right) \\
+			&& \\
+			y_{p}^{''}\left(x\right)& = & c_{1}^{'}\left(x\right)y_{1}^{'}\left(x\right) + c_{1}\left(x\right)y_{1}^{''}\left(x\right) + c_{2}^{'}\left(x\right)y_{2}^{'}\left(x\right) + c_{2}\left(x\right)y_{2}^{''}\left(x\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Sostituendo e raggruppando le derivate nell'equazione completa, si ha:
+	
+	\begin{equation*}
+		c_{1}\underbrace{\left( y_{1}^{''} + ay_{1}^{'} + by_{1} \right)}_{*} + c_{2}\underbrace{\left( y_{2}^{''} + ay_{2}^{'} + by_{2} \right)}_{*} + c_{1}^{'}y_{1}^{'} + c_{2}^{'}y_{2}^{'}
+	\end{equation*}
+	
+	\noindent
+	In cui le due equazioni tra parentesi contrassegnate con l'asterisco sono uguali a zero poiché vengono trattate solamente equazioni omogenee, cioè uguale a zero. Quindi, rimuovendo i termini nulli dall'equazione e mettendo a sistema i rimanenti:
+	
+	\begin{equation*}
+		\cancel{c_{1}\left( y_{1}^{''} + ay_{1}^{'} + by_{1} \right)} + \cancel{c_{2}\left( y_{2}^{''} + ay_{2}^{'} + by_{2} \right)} + c_{1}^{'}y_{1}^{'} + c_{2}^{'}y_{2}^{'} \longrightarrow
+		\begin{cases}
+			c_{1}^{'}y_{1} + c_{2}^{'}y_{2} = 0 \\
+			c_{1}^{'}y_{1}^{'} + c_{2}^{'}y_{2}^{'} = f\left(x\right)
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Grazie al corso di algebra lineare è noto come scrivere un sistema in \textbf{forma matriciale}. In particolare si creano tre matrici, di cui la prima viene chiamata \textcolor{Red3}{\textbf{\underline{matrice wronskiana}}}:
+	
+	\begin{equation*}
+		\begin{cases}
+			c_{1}^{'}y_{1} + c_{2}^{'}y_{2} = 0 \\
+			\\
+			c_{1}^{'}y_{1}^{'} + c_{2}^{'}y_{2}^{'} = f\left(x\right)
+		\end{cases}
+		\longrightarrow
+		\begin{bmatrix}
+			y_{1} 		& y_{2} 	\\
+						&			\\
+			y_{1}^{'}	& y_{2}^{'}
+		\end{bmatrix}
+		\cdot
+		\begin{bmatrix}
+			c_{1}^{'} \\
+			\\
+			c_{2}^{'}
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			0 \\
+			\\
+			f
+		\end{bmatrix}
+	\end{equation*}
+	
+	\noindent
+	La \textbf{\underline{matrice wronskiana}} è associata a $y_{1}$ e $y_{2}$. Inoltre, è sempre invertibile $\forall x \in I$ cioè il \emph{determinante è diverso da zero}: $\det W\left(x\right) \ne 0$ $\forall x \in I$.\newline
+	
+	\noindent
+	Grazie a questa forma matriciale, si calcolano le due variabili $c_{1}^{'}, c_{2}^{'}$:
+	
+	\begin{gather*}
+		c_{1}^{'} = \dfrac{
+		\begin{vmatrix}
+			0	&	y_{2} 		\\
+			f	& 	y_{2}^{'}
+		\end{vmatrix}
+		}{y_{1} \cdot y_{2}^{'} - y_{1}^{'} \cdot y_{2}}
+		=
+		- \dfrac{f \cdot y_{2}}{y_{1} \cdot y_{2}^{'} - y_{1}^{'} \cdot y_{2}}
+		\\
+		\\
+		c_{1}^{'} = \dfrac{
+		\begin{vmatrix}
+			y_{1}		&	0	\\
+			y_{1}^{'}	& 	f
+		\end{vmatrix}
+		}{y_{1} \cdot y_{2}^{'} - y_{1}^{'} \cdot y_{2}}
+		=
+		+ \dfrac{f \cdot y_{1}}{y_{1} \cdot y_{2}^{'} - y_{1}^{'} \cdot y_{2}}
+	\end{gather*}
+
+	\noindent
+	Con $c_{1}^{'}$ e $c_{2}^{'}$ che sono continue nell'intervallo $I$ e quindi integrabili.
+	
+	\newpage
+	
+	\subsubsection[Esempio]{\textcolor{Green4}{Esempio}}
+	
+	Si risolva il seguente problema di Cauchy:
+	
+	\begin{equation*}
+		\begin{cases}
+			y'' + y = \sin\left(x\right) \\
+			y\left(0\right) = 0 \\
+			y'\left(0\right) = 0
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Si elencano di seguito i passaggi per risolvere l'esercizio usando il metodo di variazione delle costanti (paragrafo precedente).\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 1}}}\newline
+	
+	\noindent
+	Si ricava l'equazione caratteristica dall'equazione differenziale data:
+	
+	\begin{equation*}
+		y'' + y = \sin\left(x\right) \longrightarrow \lambda^{2} + 1 = 0
+	\end{equation*}
+
+	\noindent
+	Le soluzioni trovate sono due complesse coniugate: $\lambda_{1} = i, \lambda_{2} = -i$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 2}}}\newline
+	
+	\noindent
+	Si scrive l'integrale generale dell'equazione differenziale omogenea associata, dato che è sicuro che esiste grazie alla matrice wronskiana: $y_{v}\left(x\right) = c_{1}\cos\left(x\right) + c_{2}\sin\left(x\right)$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 3}}}\newline
+	
+	\noindent
+	Adesso è possibile costruire la matrice wronskiana:
+	
+	\begin{equation*}
+		W\left(x\right) = \begin{bmatrix}
+			\phantom{-}\cos\left(x\right)	&	\sin\left(x\right)	\\
+			-\sin\left(x\right)				&	\cos\left(x\right)	
+		\end{bmatrix}
+		\text{ con } \det W\left(x\right) = \cos^{2}\left(x\right) + \sin^{2}\left(x\right) = 1 \hspace{2em} \forall x \in \mathbb{R}
+	\end{equation*}
+	
+	\noindent
+	In cui i valori nella seconda riga sono le derivate della prima.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 4}}}\newline
+	
+	\noindent
+	Si scrive l'intero sistema utilizzando le matrici:
+	
+	\begin{equation*}
+		\begin{bmatrix}
+			\phantom{-}\cos\left(x\right)	&	\sin\left(x\right) \\
+			-\sin\left(x\right)				&	\cos\left(x\right)
+		\end{bmatrix}
+		\cdot
+		\begin{bmatrix}
+			c'_{1}\left(x\right) \\
+			\\
+			c'_{2}\left(x\right)
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			0 \\
+			\\
+			\sin\left(x\right)
+		\end{bmatrix}
+	\end{equation*}
+
+	\noindent
+	E si calcola la matrice inversa:
+	
+	\begin{equation*}
+		\begin{bmatrix}
+			c'_{1}\left(x\right) \\
+			\\
+			c'_{2}\left(x\right)
+		\end{bmatrix}
+		=
+		\underbrace{
+			\begin{bmatrix}
+				\cos\left(x\right)	&	-\sin\left(x\right) \\
+				\sin\left(x\right)	&	\phantom{-}\cos\left(x\right)
+			\end{bmatrix}
+		}_{W^{-1}\left(x\right)}
+		\cdot
+		\begin{bmatrix}
+			0 \\
+			\\
+			\sin\left(x\right)
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			-\sin^{2}\left(x\right) \\
+			\\
+			\sin\left(x\right)\cos\left(x\right)
+		\end{bmatrix}
+	\end{equation*}
+
+	\noindent
+	Le costanti sono evidenti, ovvero:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			c'_{1}\left(x\right)	& = & -\sin^{2}\left(x\right) \\
+			c'_{2}\left(x\right)	& = & \sin\left(x\right)\cos\left(x\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 5}}}\newline
+	
+	\noindent
+	L'ultimo passaggio è calcolare l'integrale delle costanti trovate:
+	
+	\begin{equation*}
+		\begin{array}{lllll}
+			c_{1}\left(x\right) & = & \displaystyle-\int\sin^{2}\left(x\right)\:\mathrm{d}x & = & -\dfrac{1}{2}x + \dfrac{1}{4}\sin\left(2x\right) + c \\
+			&&&& \\
+			c_{2}\left(x\right) & = & \displaystyle\phantom{-}\int\sin\left(x\right)\cos\left(x\right)\:\mathrm{d}x & = & -\dfrac{1}{4}\cos\left(2x\right) + c
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Andando a sostituire le soluzioni trovate nell'equazione particolare $y_{p}$ si trovano i valori:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			y_{p}\left(x\right) & = & c_{1}\left(x\right)\cos\left(x\right) + c_{2}\left(x\right)\sin\left(x\right) \\
+			&& \\
+								& = & \left(- \dfrac{1}{2}x + \dfrac{1}{4} \sin\left(2x\right)\right)\cos\left(x\right) - \dfrac{1}{4} \cos\left(2x\right)\sin\left(x\right)
+		\end{array}
+	\end{equation*}
+	
+	\newpage
+	
+	\section{Lezione 07}
 \end{document}
