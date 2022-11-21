@@ -1964,4 +1964,214 @@
 	\newpage
 	
 	\section{Lezione 07}
+	
+	\subsection[Spazio euclideo ${n}$-dimensionale]{Spazio euclideo $\boldsymbol{n}$-dimensionale}
+	
+	L'insieme in cui si lavora è il seguente:
+	
+	\begin{equation*}
+		\mathbb{R}^{n} = \left\{x = \left(x_{1}, x_{2}, ..., x_{n}\right) : x_{i} \in \mathbb{R}\right\} \hspace{2em} \text{con } i \in \mathbb{N}, 1 \le i \le n
+	\end{equation*}
+
+	\noindent
+	Che identifica uno \textbf{\underline{spazio vettoriale normato}}.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Ripasso - Spazio vettoriale:}}} nello spazio vettoriale esistono due operazioni:
+	
+	\begin{itemize}
+		\item \textbf{Somma:} $\left(x_{1}, ..., x_{n}\right) + \left(y_{1}, ..., y_{n}\right) = \left(x_{1} + y_{1}, x_{2} + y_{2}, ..., x_{n} + y_{n}\right)$ con $x,y \in \mathbb{R}^{n}$
+		
+		\item \textbf{Prodotto per uno scalare:} $\lambda \in \mathbb{R}, x = \left(x_{1}, ..., x_{n}\right) \in \mathbb{R}^{n} : \lambda x = \left(\lambda x_{1}, \lambda x_{2}, ..., \lambda x_{n}\right)$
+	\end{itemize}
+	\:\newline
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Ripasso - Normato:}}} lo spazio vettoriale è normato quando è dotato di una norma, ovvero di una funzione particolare in $\mathbb{R}^{n}$: \textbf{dominio} $\Big||\cdot|\Big| : \mathbb{R}^{n} \longrightarrow \mathbb{R}$, ovvero un vettore restituisce un numero reale:
+	
+	\begin{equation*}
+		x \longmapsto \Big||x|\Big| \text{ che sarebbe la norma di } x
+	\end{equation*}
+
+	\noindent
+	Le sue caratteristiche sono:
+	
+	\begin{itemize}
+		\item $\Big|x\Big| \ge 0$, la norma di x è maggiore uguale a zero per ogni $x \in \mathbb{R}^{n}$; inoltre la norma di $x$ è zero $\Big||x|\Big| = 0$ (norma che rappresenta un numero reale) se e solo se $x = 0$ (con $x$ che è un vettore in $\mathbb{R}^{n}$).
+		
+		\item $\Big||\lambda x|\Big| = |\lambda| \Big||x|\Big|$, ovvero i vettori sono uguali ad un numero reale per un vettore. Questo vale per ogni $\lambda \in \mathbb{R}$ e per ogni $x \in \mathbb{R}^{n}$.
+		
+		\item $\Big||x+y|\Big| \le \Big||x|\Big| + \Big||y|\Big|$ per ogni $x,y \in \mathbb{R}^{n}$. Caratteristica chiamata \textcolor{Red3}{\textbf{\underline{disuguaglianza triangolare}}}.
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Norma euclidea}
+	
+	Si definisce la Norma Euclidea una norma di uno spazio vettoriale, quindi quello che è già stato affrontato nel paragrafo precedente:
+	
+	\begin{equation}\label{Norma euclidea}
+		\Big||x|\Big|_{2} = \sqrt{\sum_{i = 1}^{n} x_{i}^{2}} = \sqrt{x \cdot x}
+	\end{equation}
+	
+	\noindent
+	In cui la moltiplicazione rappresenta il prodotto scalare nell'insieme $\mathbb{R}^{n}$.
+	
+	\subsection{Disuguaglianza (triangolare) di Cauchy-Schwarz}
+	
+	Per ogni $x, y \in \mathbb{R}^{n}$ si ha:
+	
+	\begin{equation}\label{disuguaglianza triangolare di cauchy-schwarz}
+		|x \cdot y| \le \Big||x|\Big| \cdot \Big||y|\Big|
+	\end{equation}
+
+	\noindent
+	In cui il termine di sinistra indica il prodotto scalare assoluto tra due vettori, mentre il termine di destra indica il prodotto nell'insieme $\mathbb{R}$ di norme tra due vettori.
+	
+	\subsection{Distanza euclidea}
+	
+	Introdotta dalla norma seconda, si definisce la distanza euclidea come:
+	
+	\begin{equation}\label{distanza euclidea}
+		\mathrm{d}\left(x,y\right) = \Big||x-y|\Big| = \sqrt{\left(x_{1}-y_{1}\right)^{2} + \left(x_{2}-y_{2}\right)^{2} + \cdots + \left(x_{1}-y_{1}\right)^{2}} \hspace{2em} \text{con } x,y\in\mathbb{R}^{n}
+	\end{equation}
+
+	\noindent
+	Come si vede sotto la radice, essa non è altro che la \emph{differenza delle varie componenti dei vettori}.
+
+	\noindent
+	Per completezza si introduce anche la definizione di \textbf{\underline{distanza di Manhattan}}:
+	
+	\begin{equation}\label{distanza di Manhattan}
+		\mathrm{d}_{1}\left(x,y\right) = \Big||x-y|\Big|_{1} = \sum_{i = 1}^{n} |x_{i} - y_{i}|
+	\end{equation}
+
+	\noindent
+	Inoltre, si definisce \textbf{\underline{metrica}} una funzione $\mathrm{d}$ in $\mathbb{R}^{n}$:
+	
+	\begin{equation}\label{metrica}
+		\begin{array}{lll}
+			\mathbb{R}^{n} \times \mathbb{R}^{n} & \longrightarrow & \mathbb{R} \\
+			&& \\
+			\left(x,y\right)					 & \longmapsto	   & \mathrm{d}\left(x,y\right)
+		\end{array}
+	\end{equation}
+
+	\noindent
+	Con le seguenti \textbf{\emph{proprietà}}:
+	
+	\begin{itemize}
+		\item \textbf{Non negatività:} $\mathrm{d}\left(x,y\right) \ge 0$ per ogni $x,y$. Inoltre, $\mathrm{d}\left(x,y\right) = 0$ se e solo se $x = y$ (la distanza tra $x$ e $y$ non è \underline{mai} nulla).
+		
+		\item \textbf{Simmetria:} $\mathrm{d}\left(x,y\right) = \mathrm{d}\left(y,x\right)$ per ogni $x,y\in\mathbb{R}^{n}$ (la distanza deve essere una funzione simmetrica).
+		
+		\item \textbf{Disuguaglianza triangolare:} $\mathrm{d}\left(x,y\right) + \mathrm{d}\left(y,z\right) \ge \mathrm{d}\left(x,z\right)$ per ogni $x,y,z \in \mathbb{R}^{n}$ (disuguaglianza triangolare).
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Topologia in $\mathbb{R}^{n}$}
+	
+	Si definisce la \textbf{palla aperta} di centro $\bar{x}\in\mathbb{R}^{n}$ e raggio maggiore di zero $r > 0$, cioè la distanza è minore del raggio $r$. La funzione è definita in questo modo:
+	
+	\begin{equation*}
+		B_{r}\left(\bar{x}\right) = \left\{x \in \mathbb{R}^{n} : \mathrm{d}\left(x,\bar{x}\right) < r\right\}
+	\end{equation*}
+
+	\noindent
+	Un esempio di palla aperta con $n = 2$:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/palla_aperta.pdf}
+		\caption{Palla aperta di coordinate $\left(3,2\right)$ con $n = 2$.}
+	\end{figure}
+
+	\noindent
+	Con $n = 1$ la dimensione è monodimensionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/monodimensionale.pdf}
+		\caption{Retta monodimensionale con $n = 1$.}
+	\end{figure}
+
+	\noindent
+	Con $n = 3$ la dimensione è tridimensionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/tridimensionale.pdf}
+		\caption{Sfera in $\mathbb{R}$ con $n = 3$ senza bordo, cioè senza superficie.}
+	\end{figure}
+
+	\newpage
+	
+	\noindent\fcolorbox{Red3}{white}{%
+		\parbox{\textwidth}{%
+			\textcolor{Red3}{\textbf{\underline{Definizione}}}\newline
+			
+			\noindent
+			Si definisce $U$ come il sottoinsieme di $\mathbb{R}^{ n}$, cioè $U \subseteq \mathbb{R}^{n}$ che è intorno di $\bar{x} \in \mathbb{R}^{n}$ se esiste $\exists r > 0$ tale che la palla è centrata: $B_{r}\left(\bar{x}\right) \subseteq U$
+		}%
+	}
+	\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{Per esempio}}, data la seguente figura, si determini se:
+	
+	\begin{enumerate}
+		\item $U$ è intorno di $v = \left(1,1\right)$?
+		
+		\item $U$ è intorno di $v = \left(3,0\right)$?
+	\end{enumerate}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/esempio_topologia.pdf}
+	\end{figure}
+
+	\noindent
+	Nella figura si rappresentano i punti di coordinate $\left(1,1\right)$ e $\left(3,0\right)$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Risposta - Domanda 1}}}\newline
+	
+	\noindent
+	$U$ è intorno di $v = \left(1,1\right)$ perché $B_{\frac{1}{2}}\left(v\right) \subseteq U$. La funzione $B$ ha come pedice $\frac{1}{2}$ poiché questa frazione rappresenta il raggio e infatti è centrata $\left(\frac{1}{2} \cdot 2 = 1\right)$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Risposta - Domanda 2}}}\newline
+	
+	\noindent
+	$U$ \emph{non} è intorno di $v = \left(3,0\right)$ poiché sicuramente almeno un punto è fuori da $U$.
+	
+	\newpage
+	
+	\noindent\fcolorbox{Red3}{white}{%
+		\parbox{\textwidth}{%
+			\textcolor{Red3}{\textbf{\underline{Definizione}}}\newline
+			
+			\noindent
+			Dato un insieme $A$ si definiscono:
+			
+			\begin{itemize}
+				\item \textbf{Punto interno}: tutti i punti dell'intorno sono dentro $A$.
+				 
+				\item \textbf{Punto di frontiera}: alcuni punti sono dentro e altri fuori.
+				
+				\item \textbf{Punto esterno}: tutti i punti sono esterni ad $A$.
+			\end{itemize}
+		}%
+	}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/punti.pdf}
+		\caption{Punto esterno, interno e di frontiera.}
+	\end{figure}
+
+	\newpage
+	
+	\section{Lezione 08}
 \end{document}
