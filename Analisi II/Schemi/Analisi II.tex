@@ -1244,7 +1244,9 @@
 
 	\subsection{Equazioni differenziali complete omogenee a coefficienti costanti}
 	
-	L'\textbf{\underline{obbiettivo}} di questo tipo particolare di equazioni consiste nella \emph{ricerca di una soluzione particolare} (definizione spiegata qualche riga più avanti). La forma generale di un'equazione differenziale completa omogenea a coefficienti costanti è:
+	L'\textbf{\underline{obbiettivo}} di questo tipo particolare di equazioni consiste nella \emph{ricerca di una soluzione particolare} (definizione spiegata qualche riga più avanti).
+	
+	La forma generale di un'equazione differenziale completa omogenea a coefficienti costanti è:
 	
 	\begin{equation*}
 		y^{''} + ay^{'} + by = f\left(x\right) \hspace{2em} \text{con } x \in I
@@ -1261,4 +1263,432 @@
 
 	\noindent
 	In cui $Q_{n}$ indica un polinomio di grado $n$.
+	
+	\newpage
+	
+	\section{Lezione 05}
+	
+	\subsection{Come trovare una soluzione particolare dell'equazione lineare del 2° ordine a coefficienti costanti}
+	
+	\begin{center}
+		\large
+		\textcolor{Red3}{\textbf{\underline{Metodo di somiglianza}}}
+	\end{center}
+
+	\noindent
+	Se il termine forzante $f\left(x\right)$ ha una forma particolare, allora è possibile trovare una soluzione che abbia una forma \dquotes{simile} alla funzione $f\left(x\right)$:
+	
+	\begin{itemize}
+		\item $f\left(x\right) = p\left(x\right) \cdot e^{\lambda x}$
+		
+		\item $f\left(x\right) = p\left(x\right) \cdot e^{\lambda x} \cdot \cos\left(\omega x\right)$
+		
+		\item $f\left(x\right) = p\left(x\right) \cdot e^{\lambda x} \cdot \sin\left(\omega x\right)$
+	\end{itemize}
+
+	\noindent
+	Con $p$ che rappresenta il polinomio, invece le variabili $\alpha, \omega$ rappresentano numeri reali.
+	
+	\subsubsection[Esempio 1]{\textcolor{Green4}{Esempio 1}}
+	
+	Data l'equazione differenziale:
+	
+	\begin{equation*}
+		y^{''} + 5y^{'} + 4y = 3 - 2x
+	\end{equation*}
+	
+	\noindent
+	L'obbiettivo è cercare un polinomio che abbia la forma del tipo:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = a_{0} + a_{1}x
+	\end{equation*}
+
+	\noindent
+	Nell'equazione differenziale, si nota bene che la parte $3-2x$ rappresenta il polinomio di 1° grado. Adesso si va a sostituire il polinomio $y_{P}$ nell'equazione differenziale ricordando di eseguire eventuali derivate:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Equazione differenziale} 	& \longrightarrow & y^{''} + 5y^{'} + 4y = 3 - 2x \\
+			&& \\
+			\text{Derivata seconda}			& \longrightarrow & y^{''} = \left(a_{0}+a_{1}x\right)^{''} = 0 \\
+			&& \\
+			\text{Derivata prima}			& \longrightarrow & 5y^{'} \\
+			&& \\
+											& \longrightarrow & 5\cdot\left(a_{0}+a_{1}x\right)^{'} \\
+			&& \\
+											& \longrightarrow & 5a_{1} \\
+			&& \\
+			\text{Equazione dopo aver sostituito} & \longrightarrow & 0 + 5a_{1} + 4\left(a_{0}+a_{1}x\right) = 3-2x \\
+			&& \\
+											& \longrightarrow & 5a_{1} + 4a_{0} + 4a_{1}x = 3 - 2x
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Con $\forall x \in \mathbb{R}$.
+
+	\newpage
+
+	\noindent
+	Per capire se il polinomio è corretto bisogna eseguire un confronto. Quindi, per capire se due polinomi sono uguali, è necessario verificare che siano uguali i coefficienti. Si crea il sistema:
+	
+	\begin{equation*}
+		\begin{cases}
+			4a_{1} = -2 \\
+			\\
+			5a_{1} + 4a_{0} = 3
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			a_{1} = -\dfrac{1}{2} \\
+			\\
+			a_{0} = \dfrac{11}{8}
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Le equazioni inserite nel sistema corrispondono all'associazione effettuata nell'equazione differenziale, in particolare:
+	
+	\begin{equation*}
+		\textcolor{Green4}{5a_{1}} + \textcolor{Green4}{4a_{0}} + \textcolor{Red3}{4a_{1}x} = \textcolor{Green4}{3} - \textcolor{Red3}{2x}
+	\end{equation*}
+
+	\noindent
+	Grazie ai colori è adesso comprensibile la costruzione delle equazioni nel sistema:
+	
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{Verde}}: $5a_{1} + 4a_{0} = 3$
+		\item \textcolor{Red3}{\textbf{Rosso}}: $4a_{1} = -2$
+	\end{itemize}
+
+	\noindent
+	Dopo aver risolto il sistema, si riscrive il polinomio:
+	
+	\begin{equation*}
+		y_{p} = \dfrac{11}{8} - \dfrac{1}{2}x
+	\end{equation*}
+
+	\noindent
+	Si ottiene l'equazione caratteristica dall'equazione differenziale:
+	
+	\begin{equation*}
+		y^{''} + 5y^{'} + 4y = 3 - 2x \longrightarrow \lambda^{2} + 5\lambda + 4 = 0
+	\end{equation*}
+
+	\noindent
+	La quale ha due soluzioni reali distinte (dato che risale immediatamente all'occhio visto che il delta è positivo $\Delta > 0$) $\lambda_{1} = -4, \lambda_{2} = -1$.\newline
+	
+	\noindent
+	Andando a creare l'equazione completa sommando i due fattori integranti e il polinomio:
+	
+	\begin{equation*}
+		y\left(x\right) = c_{1}e^{-4x} + c_{2}e^{-x} + \dfrac{11}{8} - \dfrac{1}{2} x \hspace{2em} \text{con } c_{1}, c_{2} \in \mathbb{R}
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection[Esempio 2]{\textcolor{Green4}{Esempio 2}}
+	
+	Questo esempio è diverso dagli altri perché si divide in due casi che presentano ed evidenziano due situazioni differenti. L'idea sarebbe quella di svolgere i passaggi in modo coordinato, come se si stessero facendo nello stesso momento. Questo sarà il compito del lettore, ovvero quello di leggere i due casi nello stesso istante (magari alternando!)
+	
+	\begin{center}
+		\large
+		\textcolor{Green4}{\textbf{\underline{Caso A}}}
+	\end{center}
+
+	\noindent
+	Data l'equazione differenziale:
+	
+	\begin{equation*}
+		y^{''} - 3y^{'} +2y = e^{5x}
+	\end{equation*}
+
+	\noindent
+	Il polinomio da ottenere è uguale a:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = c \cdot e^{5x}
+	\end{equation*}
+
+	\noindent
+	Prima di eseguire le sostituzioni nell'equazione differenziale, si effettuano le derivate:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			y_{p}^{'}\left(x\right)	& = & 5 \cdot c e^{5x} \\
+			y_{p}^{''}\left(x\right)& = & 25 \cdot c e^{5x}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Si effettua la sostituzione nell'equazione differenziale:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Equazione differenziale}	& \longrightarrow & y^{''} - 3y^{'} +2y = e^{5x} \\
+			&& \\
+			\text{Polinomio}				& \longrightarrow & y_{p}\left(x\right) = c \cdot e^{5x} \\
+			&& \\
+			\text{Derivate del polinomio}	& \longrightarrow & y_{p}^{'}\left(x\right)	= 5 \cdot c e^{5x} \\
+			&& \\
+											& \longrightarrow & y_{p}^{''}\left(x\right) = 25 \cdot c e^{5x} \\
+			&& \\
+			\text{Sostituzione}				& \longrightarrow & 25 \cdot c e^{5x} - 3 \left(5 \cdot c e^{5x}\right) + 2 \left(c \cdot e^{5x}\right) = e^{5x} \hspace{2em} \forall x \in \mathbb{R}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Si eseguono alcune semplificazioni e si ottiene la variabile $c$:
+	
+	\begin{equation*}
+		\begin{array}{rcc}
+			\dfrac{25 \cdot c \cdot \cancel{e^{5x}}}{\cancel{e^{5x}}} - \dfrac{15 \cdot c \cdot \cancel{e^{5x}}}{\cancel{e^{5x}}} + \dfrac{2 \cdot c \cdot \cancel{e^{5x}}}{\cancel{e^{5x}}} & = & \dfrac{\cancel{e^{5x}}}{\cancel{e^{5x}}} \\
+			&& \\
+			25c - 15c + 2c & = & 1 \\
+			&& \\
+			c & = & \dfrac{1}{12}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Quindi, il polinomio identificato inizialmente diventa:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = c \cdot e^{5x} \longrightarrow y_{p}\left(x\right) = \dfrac{1}{12} e^{5x}
+	\end{equation*}
+
+	\noindent
+	L'esercizio si conclude calcolando l'equazione caratteristica:
+	
+	\begin{equation*}
+		\lambda^{2} - 3\lambda + 2 = 0
+	\end{equation*}
+
+	\noindent
+	Le soluzioni dell'equazione di secondo grado sono due reali e distinte ($\Delta > 0$): $\lambda_{1} = 1, \lambda_{2} = 2$. Andando a sostituire le soluzioni all'interno dell'equazione completa, si ottiene:
+	
+	\begin{equation*}
+		y\left(x\right) = c_{1}e^{x} + c_{2}e^{2x} + \dfrac{1}{12} e^{5x} \hspace{2em} \text{con } c_{1}, c_{2} \in \mathbb{R}
+	\end{equation*}
+
+	\noindent
+	Si ricorda che l'equazione completa si costruisce sommando i due termini $c$ e le due $e$, le quali avranno come esponente la $x$ e come costante le soluzioni trovate nell'equazione caratteristica. Infine, si somma il polinomio trovato tramite la sostituzione del termine $c$. Quindi, evidenziando i termini:
+	
+	\begin{equation*}
+		y\left(x\right) = \overbrace{c_{1}e^{x}}^{\lambda_{1}} + \underbrace{c_{2}e^{2x}}_{\lambda_{2}} + \overbrace{\dfrac{1}{12} e^{5x}}^{y_{p}}
+	\end{equation*}
+
+	\newpage
+	
+	\begin{center}
+		\large
+		\textcolor{Green4}{\textbf{\underline{Caso B}}}
+	\end{center}
+	
+	\noindent
+	Data l'equazione differenziale, differente dal caso precedente:
+	
+	\begin{equation*}
+		y^{''} - 3y^{'} + 2y = e^{2x}
+	\end{equation*}
+	
+	\noindent
+	Il polinomio da ottenere è uguale a:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = c \cdot e^{2x}
+	\end{equation*}
+	
+	\noindent
+	Prima di eseguire le sostituzioni nell'equazione differenziale, si effettuano le derivate:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			y_{p}^{'}\left(x\right)	& = & 2 \cdot c e^{2x} \\
+			y_{p}^{''}\left(x\right)& = & 4 \cdot c e^{2x}
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	Si effettua la sostituzione nell'equazione differenziale:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Equazione differenziale}	& \longrightarrow & y^{''} - 3y^{'} +2y = e^{2x} \\
+			&& \\
+			\text{Polinomio}				& \longrightarrow & y_{p}\left(x\right) = c \cdot e^{2x} \\
+			&& \\
+			\text{Derivate del polinomio}	& \longrightarrow & y_{p}^{'}\left(x\right)	= 2 \cdot c e^{2x} \\
+			&& \\
+			& \longrightarrow & y_{p}^{''}\left(x\right) = 4 \cdot c e^{2x} \\
+			&& \\
+			\text{Sostituzione}				& \longrightarrow & 4 \cdot c e^{2x} - 3 \left(2 \cdot c e^{2x}\right) + 2 \left(c \cdot e^{2x}\right) = e^{2x} \hspace{2em} \forall x \in \mathbb{R}
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	Qui c'è la differenza sostanziale rispetto all'esercizio precedente. Provando a semplificare l'equazione differenziale tramite la variabile $e^{2x}$, si ottiene l'uguaglianza $0 = 1$:
+	
+	\begin{equation*}
+		\dfrac{4 \cdot c \cdot \cancel{e^{2x}}}{\cancel{e^{2x}}} - \dfrac{3 \left(2 \cdot c \cdot \cancel{e^{2x}}\right)}{\cancel{e^{2x}}} + \dfrac{2 \left(c \cdot \cancel{e^{2x}}\right)}{\cancel{e^{2x}}} = \dfrac{\cancel{e^{2x}}}{\cancel{e^{2x}}}
+	\end{equation*}
+
+	\noindent
+	Questo accade perché il valore $2$, il quale era l'unico termine diverso rispetto al caso A, è una soluzione dell'equazione caratteristica. Quindi, si cambia il polinomio applicando una piccola variazione:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = c \cdot x \cdot e^{2x}
+	\end{equation*}
+
+	\noindent
+	Si rieseguono i procedimenti classici:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Equazione differenziale}	& \longrightarrow & y^{''} - 3y^{'} +2y = e^{2x} \\
+			&& \\
+			\text{Polinomio}				& \longrightarrow & y_{p}\left(x\right) = c \cdot x \cdot e^{2x} \\
+			&& \\
+			\text{Derivate del polinomio}	& \longrightarrow & y_{p}^{'}\left(x\right)	= ce^{2x} + cx \cdot 2e^{2x} = ce^{2x}\left(1 + 2x\right) \\
+			&& \\
+			& \longrightarrow & y_{p}^{''}\left(x\right) = 2ce^{2x} \cdot \left(1 + 2x\right) + ce^{2x} \cdot 2 = 2ce^{2x}\left(2 + 2x\right) \\
+			&& \\
+			\text{Sostituzione}				& \longrightarrow & 2ce^{2x}\left(2 + 2x\right) - 3 \left(ce^{2x}\left(1 + 2x\right)\right) + 2\left(ce^{2x}\right) = e^{2x} \hspace{2em} \forall x \in \mathbb{R}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Eseguendo le classe semplificazioni, che vengono omesse, si ottiene la costante uguale a $1$, $c = 1$. Si conclude l'esercizio andando a costruire il polinomio particolare:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = x e^{2x}
+	\end{equation*}
+
+	\noindent
+	Adesso si dovrebbe calcolare l'equazione caratteristica, trovare le sue soluzioni e andare a costruire l'equazione completa. Tuttavia, i passaggi sono identici al caso A dato che le due equazioni differenziali hanno i due termini a sinistra identici.
+	
+	\newpage
+	
+	\subsubsection[Esempio 3]{\textcolor{Green4}{Esempio 3}}
+	
+	Data l'equazione differenziale:
+	
+	\begin{equation*}
+		y^{''} + y = \sin\left(2x\right)
+	\end{equation*}
+
+	Si calcola l'equazione particolare. Il polinomio simile è il seguente:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = c_{1}\cos\left(2x\right) + c_{2}\sin\left(2x\right)
+	\end{equation*}
+
+	\noindent
+	Si calcolano le derivate:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			y_{p}^{'}\left(x\right)	& = & -2c_{1}\sin\left(2x\right) + 2c_{2}\cos\left(2x\right) \\
+			y_{p}^{''}\left(x\right)& = & -4c_{1}\cos\left(2x\right) - 4c_{2}\sin\left(2x\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Nell'equazione differenziale si sostituiscono le derivate:
+	
+	\begin{equation*}
+		-4c_{1}\cos\left(2x\right) - 3c_{2}\sin\left(2x\right) + c_{1}\cos\left(2x\right) + c_{2}\sin\left(2x\right) = \sin\left(2x\right)
+	\end{equation*}
+
+	\noindent
+	Si eseguono le semplificazioni e si ottiene l'equazione:
+	
+	\begin{equation*}
+		-3c_{1}\cos\left(2x\right) - 3c_{2}\sin\left(2x\right) = \sin\left(2x\right)
+	\end{equation*}
+
+	\noindent
+	Le due costanti si ottengono inserendo i valori nel sistema:
+	
+	\begin{equation*}
+		\begin{cases}
+			-3c_{1} = 0 \\
+			-3c_{2} = 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			c_{1} = 0 \\
+			c_{2} = -\dfrac{1}{3}
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Si sostituiscono i valori trovati nel polinomio iniziale:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = c_{1}\cos\left(2x\right) + c_{2}\sin\left(2x\right) \longrightarrow y_{p}\left(x\right) = -\dfrac{1}{3}\sin\left(2x\right)
+	\end{equation*}
+
+	\noindent\fbox{%
+		\parbox{\textwidth}{%
+			\textcolor{Red3}{\textbf{\underline{Attenzione!}}}\newline
+			
+			\noindent
+			Nel caso in cui l'equazione differenziale fosse stata $y^{''} + y = \sin\left(x\right)$, la risoluzione avrebbe avuto gli stessi problemi dell'esempio 2, caso B. La situazione sarebbe stata risolto con una piccola variazione, ovvero aggiungendo una $x$ a $y_{p}$:
+			
+			\begin{equation*}
+				\begin{array}{llll}
+					\textcolor{Red3}{\textbf{OLD:}} & y_{p} & = & c_{1}\cos\left(x\right) + c_{2}\sin\left(x\right) \\
+					\textcolor{Green4}{\textbf{NEW:}} & y_{p} & = & x \cdot \left(c_{1}\cos\left(x\right) + c_{2}\sin\left(x\right)\right)
+				\end{array}
+			\end{equation*}
+		}%
+	}
+
+	\newpage
+	
+	\subsection{Sintesi}
+	
+	In questo capitolo è stato ampiamente spiegato come trovare una soluzione particolare per un'equazione differenziale lineare del 2° ordine a coefficienti costanti. Esistono alcune forme particolari che sono utili per trovare la soluzione (l'elenco è stato fatto all'inizio del capitolo). Il metodo di somiglianza funzione perché si suppone che la soluzione abbia una forma \dquotes{simile} alle forme particolari introdotte.
+	
+	Il primo esempio ha spiegato dettagliatamente i passaggi da seguire per risolvere questo tipo di esercizi. Il secondo ha introdotto un problema che è possibile che si verifichi, ovvero quello di trovare una soluzione dell'equazione caratteristica prima del previsto (caso B). Infine, il terzo esempio ha concluso la spiegazione mostrando un esercizio un leggermente più complesso.\newline
+	
+	\noindent
+	Sia:
+	
+	\begin{equation*}
+		f\left(x\right) = p\left(x\right) e^{\alpha x}
+	\end{equation*}
+	
+	\noindent
+	La funzione particolare, allora si costruisce l'equazione particolare in questo modo:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = Q\left(x\right) x^{m} e^{\alpha x}
+	\end{equation*}
+
+	\noindent
+	In cui la $Q$ rappresenta la $p$ nella funzione $f$. Invece, la variabile $m$ è la molteplicità di $\alpha$ come radice dell'equazione caratteristica e infatti è definita come $m\in\left\{0,1,2\right\}$.\newline
+	
+	\noindent
+	Un'altra forma della funzione è:
+	
+	\begin{equation*}
+		f\left(x\right) = p\left(x\right) e^{\alpha x} \cdot \underbrace{\cos\left(\omega x\right)}_{\text{oppure } \sin\left(\omega x\right)}
+	\end{equation*}
+	
+	\noindent
+	Allora la funzione particolare si costruisce in questo modo:
+	
+	\begin{equation*}
+		y_{p}\left(x\right) = e^{\alpha x} \cdot x^{m} \left(Q_{1}\left(x\right)\cos\left(\omega x\right) + Q_{2}\left(x\right)\sin\left(\omega x\right)\right)
+	\end{equation*}
+
+	\noindent
+	Con $m \ne 0$ se $\alpha + i \omega$ è la soluzione dell'equazione caratteristica.
+	
+	\newpage
+	
+	\section{Lezione 06}
 \end{document}
