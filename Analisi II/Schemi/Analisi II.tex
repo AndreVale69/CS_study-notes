@@ -2174,4 +2174,95 @@
 	\newpage
 	
 	\section{Lezione 08}
+	
+	\subsection{Insiemi}
+	
+	Un \textbf{insieme} $A \subseteq \mathbb{R}^{n}$ (sottoinsieme di $\mathbb{R}^{n}$) si dice \textcolor{Red3}{\textbf{\underline{aperto}}} se è intorno di ogni punto, ovvero:
+	
+	\begin{equation*}
+		\forall x_{0} \in A \hspace{1em} \underbrace{\exists r > 0}_{\text{esiste una palla}} \text{ tale che } B_{r}\left(x_{0}\right)\subseteq A
+	\end{equation*}
+
+	\noindent
+	Si veda l'esercizio nelle pagine successive per capire meglio.\newline
+	
+	\noindent
+	Un \textbf{insieme} $A \subseteq \mathbb{R}^{n}$ (sottoinsieme di $\mathbb{R}^{n}$) si dice \textcolor{Red3}{\textbf{\underline{chiuso}}} se il suo complementare $A^{c}$ è aperto.
+
+	\noindent
+	\textbf{\underline{Nota bene:}} per \emph{complementare} si intende la differenza tra insiemi, in questo caso tra l'insieme $\mathbb{R}^{n}$ e l'insieme $A$, formalmente $\mathbb{R}^{n} \setminus A$.\newline
+	
+	\noindent
+	Esiste anche una famiglia di \textcolor{Red3}{\textbf{\underline{insiemi speciali}}} chiamati cosi poiché sono sia chiusi che aperti: $\mathbb{R}^{n}, \emptyset$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Notazioni}}}
+	
+	\noindent
+	\begin{itemize}
+		\item $\mathring{A}$ si intende \dquotes{interno ad $A$}, cioè l'\textbf{insieme} di tutti i \textbf{punti interni} ad $A$ (notazione alternativa $\mathrm{int}\left(A\right)$);
+		
+		\item $\partial A$ si intende \dquotes{frontiera di $A$}, cioè l'\textbf{insieme} di tutti i \textbf{punti di frontiera} di $A$;
+		
+		\item $\bar{A}$ si intende \dquotes{chiusura di $A$}, cioè l'\textbf{insieme di tutti i punti} di $A$ uniti alla frontiera. Quindi, il \textbf{più piccolo sottoinsieme} di $\mathbb{R}^{n}$ che contiene $A$, formalmente: $A \cup \partial A$;
+		
+		\item $\mathrm{est}\left(A\right)$ si intende l'insieme dei \textbf{punti esterni} ad $A$.
+	\end{itemize}
+
+	\newpage
+	
+	\subsubsection[Esempio 1]{\textcolor{Green4}{Esempio 1}}
+	
+	Dato l'insieme:
+	
+	\begin{equation*}
+		A = \left\{x \in \mathbb{R}^{n} : 2 < \Big||x-x_{0}|\Big| \le 3\right\} \hspace{2em} \text{con } x_{0} \in \mathbb{R}^{n}
+	\end{equation*}
+
+	\noindent
+	Si vuole ottenere $\mathring{A}, \partial A, \bar{A}$, ovvero l'insieme dei punti interni, di frontiera e di chiusura. La rappresentazione è la seguente:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/ex1_insiemi.pdf}
+		\caption{Grafico dell'insieme $A$ con $n = 2$ (bidimensionale).}
+	\end{figure}
+
+	\noindent
+	Con raggio uguale a $2$ (linea tratteggiata verde, la più interna), la linea viene disegnata tratteggiata perché non appartiene ad $A$ (si guardi il dominio per capire perché il $2$ non è accettato!).\newline
+	
+	\noindent
+	Al contrario, con raggio $3$ (linea continua rosso, la più esterna), la linea viene disegnata in modo continuo poiché appartiene ad $A$ (nel dominio c'è il minore uguale che ci consente di affermare che il $3$ può appartenere ad $A$).\newline
+	
+	\noindent
+	Infine, con il colore blu si identificano i punti che sono interni ad $A$.\newline
+	
+	\noindent
+	Si definiscono gli insiemi richiesti:
+	
+	\begin{itemize}
+		\item I punti \textbf{interni} ad $A$ vengono definiti nel seguente modo:
+		\begin{equation*}
+			\mathring{A} = \left\{x \in \mathbb{R}^{n} : 2 < \Big||x-x_{0}|\Big| < 3\right\}
+		\end{equation*}
+		
+		\item I punti di \textbf{frontiera} ad $A$ vengono definiti nel seguente modo:
+		\begin{equation*}
+			\partial A = \left\{x \in \mathbb{R}^{n} : \Big||x-x_{0}|\Big| = 2 \hspace{0.5em} \lor \hspace{0.5em} \Big||x-x_{0}|\Big| = 3 \right\}
+		\end{equation*}
+		
+		\item I punti di \textbf{chiusura} ad $A$ vengono definiti nel seguente modo:
+		\begin{equation*}
+			\bar{A} = \left\{x \in \mathbb{R}^{n} : 2 \le \Big||x-x_{0}|\Big| \le 3\right\}
+		\end{equation*}
+	\end{itemize}
+
+	\noindent
+	Dalla definizione degli insiemi, si deduce che l'\textbf{insieme non è né aperto né chiuso}. Infatti, un \textcolor{Red3}{\textbf{\underline{insieme}}} si dice:
+	
+	\begin{itemize}[label=-]
+		\item \textcolor{Red3}{\textbf{\underline{Aperto}}} se e solo se coincide con il suo interno;
+		
+		\item \textcolor{Red3}{\textbf{\underline{Chiuso}}} se e solo se coincide con la sua chiusura;
+	\end{itemize}
 \end{document}
