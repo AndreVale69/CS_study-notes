@@ -2265,4 +2265,327 @@
 		
 		\item \textcolor{Red3}{\textbf{\underline{Chiuso}}} se e solo se coincide con la sua chiusura;
 	\end{itemize}
+
+	\newpage
+	
+	\subsubsection[Esempio 2]{\textcolor{Green4}{Esempio 2}}
+	
+	Dato l'insieme $B$:
+	
+	\begin{equation*}
+		B = \left(B_{2}\left(\overrightarrow{0}\right) \setminus \left(\left[-1,1\right] \times \left\{0\right\}\right)\right) \cup \left(\left(-1,1\right) \times \left\{3\right\}\right)
+	\end{equation*}
+
+	\noindent
+	Si esamina la sua definizione e si ottengono le seguenti informazioni:
+	
+	\begin{itemize}[label=-]
+		\item $B_{2}\left(\overrightarrow{0}\right)$, rappresenta la palla di raggio $2$ centrata nell'origine. Infatti:
+		\begin{equation*}
+			\left\{\underbrace{\left(x,y\right)}_{\overrightarrow{P}} \in \mathbb{R}^{2} : \mathrm{d}\left(\overrightarrow{P}, \overrightarrow{0}\right) < 2\right\}
+		\end{equation*}
+		In cui la definizione $\mathrm{d}\left(\overrightarrow{P}, \overrightarrow{0}\right) < 2$ indica i punti della palla che hanno distanza minore di $2$.
+		
+		\item $\setminus \left(\left[-1,1\right] \times \left\{0\right\}\right)$, rappresenta la sottrazione di questo intervallo, il quale è definito come:
+		\begin{equation*}
+			\left\{\left(x,y\right) \in \mathbb{R}^{2} : -1 \le x \le 1, y = 0\right\}
+		\end{equation*}
+	
+		\item $\cup \left(\left(-1,1\right) \times \left\{3\right\}\right)$, rappresenta l'unione con questo intervallo, quest'ultimo definito come:
+		\begin{equation*}
+			\left\{\left(x,y\right) \in \mathbb{R}^{2} : -1 < x < 1, y = 3\right\}
+		\end{equation*}
+	\end{itemize}
+
+	\noindent
+	La rappresentazione grafica:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/ex2_insiemi.pdf}
+		\caption{Rappresentazione grafica $B_{2}\left(\overrightarrow{0}\right)$.}
+		\includegraphics[width=0.5\textwidth]{img/ex2-2_insiemi.pdf}
+		\caption{Sottrazione dell'intervallo, estremi compresi $\left[-1,1\right] \times \left\{0\right\}$.}
+		\includegraphics[width=0.5\textwidth]{img/ex2-3_insiemi.pdf}
+		\caption{Unione con l'intervallo, estremi esclusi $\left(-1,1\right) \times \left\{3\right\}$.}
+	\end{figure}
+
+	\newpage
+
+	\noindent
+	Quindi, i punti interni sono:
+	
+	\begin{equation*}
+		\mathring{B} = B_{2}\left(\overrightarrow{0}\right) \setminus \left(\left[-1,1\right] \times \left\{0\right\}\right)
+	\end{equation*}
+
+	\noindent
+	Invece, i punti di frontiera sono definiti dal seguente insieme:
+	
+	\begin{equation*}
+		\partial B = \left\{\left(x,y\right) \in \mathbb{R}^{2} : \sqrt{x^{2} + y^{2}} = 2\right\} \cup \left(\left[-1,1\right] \times \left\{0\right\}\right) \cup \left(\left[-1,1\right] \times \left\{3\right\}\right)
+	\end{equation*}
+	
+	\noindent
+	In cui la definizione $\left\{\left(x,y\right) \in \mathbb{R}^{2} : \sqrt{x^{2} + y^{2}} = 2\right\}$ identifica i punti sulla circonferenza.
+	
+	\newpage
+	
+	\subsubsection{Insieme limitato e punto di accumulazione}
+	
+	\noindent
+	Un insieme $A \subseteq \mathbb{R}^{n}$ (sottoinsieme dell'insieme $\mathbb{R}^{n}$) è \textcolor{Red3}{\textbf{\underline{limitato}}} se $\exists r > 0$ tale che $A \subseteq B_{r}\left(\overrightarrow{0}\right)$. In altre parole, se $\exists r > 0$ tale che $\Big||x|\Big| < r$ per ogni $x \in A$. Visivamente:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.43\textwidth]{img/insiemi_limitati.pdf}
+		\caption{Definizione di insieme limitato.}
+	\end{figure}
+
+	\noindent
+	Dato un insieme $A \subseteq \mathbb{R}^{n}$ si dice che $x_{0}$ è \textcolor{Red3}{\textbf{\underline{punto di accumulazione}}} per $A$ se per ogni $r > 0$:
+	
+	\begin{equation*}
+		B_{r}\left(x_{0}\right) \cap \left(A \setminus \left\{x_{0}\right\}\right) \ne \emptyset
+	\end{equation*}
+
+	\subsubsection[Esempio 3]{\textcolor{Green4}{Esempio 3}}
+	
+	Dato l'insieme $A$:
+	
+	\begin{equation*}
+		A = \left(0,1\right) \times \left[0,1\right] \times \left[0,1\right) \cup \left\{\left(0,0,2\right)\right\} \hspace{2em} \text{con } A \subseteq \mathbb{R}^{3}
+	\end{equation*}
+
+	\noindent
+	Il punto $\left(0,0,2\right)$ è il punto isolato di $A$. Infatti, la rappresentazione grafica:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.43\textwidth]{img/esempio_insieme.pdf}
+		\caption{La rappresentazione grafica con $n = 3$.}
+	\end{figure}
+
+	\noindent
+	L'insieme dei punti di accumulazione di $A$ viene indicata con $A' = \left[0,1\right]^{3}$.
+	
+	\subsection{Funzioni a più variabili}
+	
+	Le \textcolor{Red3}{\textbf{\underline{funzioni a più variabili}}} sono funzioni da $\mathbb{R}^{n}$ a $\mathbb{R}$, che prendono un vettore e lo trasformano in numero reale:
+	
+	\begin{equation*}
+		\begin{array}{lcll}
+			f:	&	D \subseteq \mathbb{R}^{n}	& \longrightarrow & \mathbb{R} \\
+				&	x							& \longmapsto	  & f\left(x\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Dove $x$ è formato da $\left(x_{1}, ..., x_{n}\right)$. Quindi, la funzione viene definita, ovvero il grafico viene definito nel seguente modo:
+	
+	\begin{equation}\label{funzioni a più variabili}
+		\Gamma\left(f\right) = \left\{\left(x, f\left(x\right)\right) \in \mathbb{R}^{n+1} : x \in D\right\}
+	\end{equation}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Per esempio}}, si definisce una funzione:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			f:	&	\mathbb{R}^{2}	& \longrightarrow & \mathbb{R} \\
+				&	\left(x,y\right)& \longmapsto	  & 1
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Quindi $z$ sarà sempre uguale a $1$.
+	
+	\newpage
+	
+	\subsection{Esercizio d'\textcolor{Red3}{esame}}
+	
+	\textcolor{Red3}{\textbf{\emph{\underline{Esercizio}}}}\newline
+	
+	\noindent
+	Data la funzione $f\left(x,y\right) = \sqrt{9 - x^{2} - y^{2}}$ si chiede di rispondere alle seguenti domande:
+	
+	\begin{enumerate}
+		\item Qual è il dominio della funzione?
+		\item Si rappresenti la funzione in un grafico.
+	\end{enumerate}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risoluzione}}}}\newline
+	
+	\noindent
+	Il \textbf{dominio} è il seguente:
+	
+	\begin{equation*}
+		D_{f} = \left\{\left(x,y\right) \in \mathbb{R}^{2} : 9 - x^{2} - y^{2} \ge 0\right\}
+	\end{equation*}
+
+	\noindent
+	Poiché per rimanere nell'insieme dei reali, la radice quadrata non deve essere negativa, altrimenti l'insieme sarebbe quello dei complessi. Sistemando la disuguaglianza, il dominio diventa:
+
+	\begin{equation*}
+		D_{f} = \left\{\left(x,y\right) \in \mathbb{R}^{2} : 9 - x^{2} - y^{2} \ge 0\right\} \longrightarrow
+		D_{f} = \left\{\left(x,y\right) \in \mathbb{R}^{2} : x^{2} + y^{2} \le 9\right\}
+	\end{equation*}
+
+	\noindent
+	Il grafico si rappresenta ed è il seguente:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/grafico_esame1.pdf}
+		\caption{Grafico della funzione.}
+	\end{figure}
+
+	\noindent
+	Il dominio è dentro al cerchio ed è definito come:
+	
+	\begin{equation*}
+		\Gamma\left(f\right) = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} : z = \sqrt{9 - x^{2} - y^{2}}, \left(x,y\right) \in D_{f}\right\}
+	\end{equation*}
+
+	\noindent
+	Si osserva che la variabile $z$ deve essere necessariamente maggiore uguale a zero $\left(z \ge 0\right)$ poiché altrimenti il valore non sarebbe nell'insieme dei reali. Inoltre si ha l'equazione:
+	
+	\begin{equation*}
+		z^{2} = 9 - x^{2} + y^{2} \longrightarrow x^{2} + y^{2} + z^{2} = 9
+	\end{equation*}
+
+	\noindent
+	L'equazione rappresenta la norma euclidea al quadrato: $\Big||\left(x,y,z\right)|\Big|^{2}$, quindi il grafico con $n = 3$ è il seguente:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/grafico2_esame1.pdf}
+	\end{figure}
+
+	\noindent
+	\textbf{\underline{Attenzione!}} L'esame continua nel prossimo capitolo con l'introduzione di un nuovo argomento.
+
+	\newpage
+	
+	\subsection{Insiemi (curve) di livello}
+	
+	Gli insiemi, o curve, di livello sono definiti come:
+	
+	\begin{equation*}
+		L_{k}\left(f\right) = \left\{x \in D : f\left(x\right) = k\right\}
+	\end{equation*}
+
+	\noindent
+	Con $k$ che indica il livello da rappresentare.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/insiemi_di_livello.pdf}
+		\caption{Esempio di curve di livello.}
+	\end{figure}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Per esempio}}}, se $n = 2$, allora la funzione $L_{k}\left(f\right)$ è l'intersezione tra il grafico di $f$ e il piano $z = k$, proiettata sul piano $xy$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Continuo dell'esame precedente}}}\newline
+	
+	\noindent
+	Ricordando che la funzione dell'esame era:
+	
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{9 - x^{2} - y^{2}}
+	\end{equation*}
+
+	\noindent
+	Le sue curve di livello sono $\sqrt{9 - x^{2} - y^{2}} = k$ con diversi valori di $k$:
+	
+	\begin{itemize}
+		\item $k \ge 0$ i passaggi sono i seguenti:
+		\begin{equation*}
+			\begin{array}{lrll}
+								& \sqrt{9 - x^{2} - y^{2}} 	& = & k \\
+				\longrightarrow	& 9 - x^{2} - y^{2}			& = & k^{2} \\
+				\longrightarrow	& x^{2} + y^{2}				& = & 9 - k^{2}
+			\end{array}
+		\end{equation*}
+		La quale rappresenta la circonferenza con raggio $\sqrt{9 - k^{2}}$ con $k \le 3$ e centro in $\left(0,0\right)$.
+		
+		\item $k < 0$ è un insieme vuoto, formalmente: $L_{k}\left(f\right) = \emptyset$.
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Esercizio d'\textcolor{Red3}{esame}}
+	
+	\textcolor{Red3}{\textbf{\underline{\emph{Esercizio}}}}\newline
+	
+	\noindent
+	Data la funzione $f\left(x,y\right) = \sqrt{x + y + 1} - \log\left(x^{2} - y\right)$ e la funzione $g\left(x,y\right) = \sqrt{\log\left(1-3xy\right)}$.
+	
+	\noindent
+	Si vuole:
+	
+	\begin{enumerate}
+		\item Il dominio delle funzioni (all'esame è possibile anche richiedere punti di frontiera, interni, ecc.);
+		
+		\item Rappresentare graficamente le due funzioni;
+		
+		\item Curve di livello con grafico.
+	\end{enumerate}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Risoluzione}}}}\newline
+	
+	\noindent
+	Il \textbf{dominio} della funzione $f$ è la seguente:
+	
+	\begin{equation*}
+		D_{f} = \left\{x,y \in \mathbb{R}^{2} : \hspace{1em} x+y+1 \ge 0, \hspace{1em} x^{2}-y > 0\right\}
+	\end{equation*}
+
+	\noindent
+	Il \textbf{grafico} della disuguaglianza $x+y+1 \ge 0$:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/ex1_esame.pdf}
+	\end{figure}
+
+	\noindent
+	La rappresentazione grafica è stata creata grazie alla classica tabella per rappresentare i punti. Per esempio, si assegna ad $x$ il valore $0$, a questo punto si cerca di calcolare la $y$ per capire quanto vale (in questo caso $-1$). E così via. Bastano anche tre punti per rappresentare la funzione, per esempio con $x = 0, x = 1, x = -1$ si hanno rispettivamente i valori $y = -1, y = -2, y = 0$.
+	
+	Per capire dov'è il dominio (parte in verde disegnata) si utilizza un \textbf{punto di test}. Per esempio, prendendo le coordinate dell'origine $\left(0,0\right)$, esso verifica la condizione? Ovvero, sostituendo i due valori nella disuguaglianza, quest'ultima risulta vera? Andando a sostituire:
+	
+	\begin{equation*}
+		x+y+1 \ge 0 \xrightarrow{\text{sostituendo il punto di test}} 0 + 0 + 1 \ge 0 \longrightarrow 1 \ge 0 \:\: \textcolor{Green4}{\text{Verificato \checkmark}}
+	\end{equation*}
+
+	\newpage
+	
+	\noindent
+	Il \textbf{grafico} della disuguaglianza $x^{2} - y > 0$:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/ex1_esame2.pdf}
+	\end{figure}
+
+	\noindent
+	La rappresentazione grafica viene effettuata nello stesso modo della figura precedente, quindi con i valori di $x = 0, x = 1, x = 2, x = -1, x = -2$, si hanno i valori di $y = 0, y = 1, y = 4, y = 1, y = 4$.
+	
+	Il dominio viene preso in considerazione sotto la parabola poiché prendendo come \textbf{punto di test} le coordinate $\left(1,0\right)$:
+	
+	\begin{equation*}
+		x^{2} - y > 0 \xrightarrow{\text{sostituendo il punto di test}} 1^{2} - 0 > 0 \:\: \textcolor{Green4}{\text{Verificato \checkmark}}
+	\end{equation*}
+
+	\noindent
+	L'\textbf{intersezione} delle due disuguaglianze, ovvero il dominio $D_{f}$ si rappresenta con il seguente grafico:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/ex1_esame3.pdf}
+	\end{figure}
 \end{document}
