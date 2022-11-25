@@ -2588,4 +2588,665 @@
 		\centering
 		\includegraphics[width=0.5\textwidth]{img/ex1_esame3.pdf}
 	\end{figure}
+
+	\newpage
+	
+	\section{Lezione 09}
+	
+	\subsection{Come rappresentare una ellisse e iperbole traslata}
+	
+	Data la funzione di una ellisse iperbole:
+	
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{11 - 4x^{2} - 9y^{2} + 16x - 18y}
+	\end{equation*}
+	
+	Si calcola:
+	
+	\begin{itemize}
+		\item Rappresentare graficamente il dominio di $f$;
+		\item Tracciare la curva di livello $L_{4}\left(f\right)$
+	\end{itemize}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Risoluzione punto 1}}}}\newline
+
+	\noindent
+	Il \textbf{dominio} della funzione si traduce in:
+	
+	\begin{equation*}
+		D_{f} = \left\{\left(x,y\right) \in \mathbb{R}^{2} : 11 - 4x^{2} - 9y^{2} + 16x - 18y \ge 0\right\}
+	\end{equation*}
+
+	\noindent
+	Semplificando la disuguaglianza:
+	
+	\begin{equation*}
+		D_{f} = \left\{\left(x,y\right) \in \mathbb{R}^{2} : 4x^{2} + 9y^{2} - 16x +18y - 11 \le 0\right\}
+	\end{equation*}
+
+	\noindent
+	La frontiera è il punto in cui la funzione si annulla, dunque:
+	
+	\begin{equation*}
+		4x^{2} + 9y^{2} - 16x +18y - 11 = 0
+	\end{equation*}
+	
+	\noindent
+	Per \textbf{ottenere una ellisse traslata}, si applica la \textcolor{Red3}{\textbf{\underline{tecnica}}} del \textcolor{Red3}{\textbf{\underline{completamento del quadrato}}}.\newline
+	
+	\noindent
+	L'\textbf{obbiettivo} è ottenere la forma canonica dell'ellisse traslata:
+	
+	\begin{equation*}
+		\dfrac{\left(x - x_{c}\right)^{2}}{a^{2}} + \dfrac{\left(y - y_{c}\right)^{2}}{b^{2}} = 1
+	\end{equation*}
+
+	\noindent
+	Ovviamente, nel caso in cui $y_{c}$ e $x_{c}$ sono \textbf{nulli}, allora l'ellisse non è traslata.\newline
+	
+	\noindent
+	Per avere la precedente forma anche nella funzione iniziale, sono necessari alcune manipolazioni. Si raggruppano le $x$ e le $y$ in modo da ottenere $1$ come coefficiente di quadrati:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Equazione originaria}				 & \longrightarrow & 4x^{2} + 9y^{2} - 16x +18y - 11 = 0 \\
+			&& \\
+			\text{Raggruppamento}					 & \longrightarrow & 4\left(x^{2} - 4x\right) + 9\left(y^{2} + 2y\right) - 11 = 0 \\
+			&& \\
+			\text{Secondo raggruppamento}			 & \longrightarrow & 4\left[\left(x - 2\right)^{2} - 4\right] + 9\left[\left(y + 1\right)^{2} - 1\right] - 11 = 0 \\
+			&& \\
+			\text{Rimozione delle parentesi}		 & \longrightarrow & 4\left(x-2\right)^{2} - 16 + 9\left(y+1\right)^{2} - 9 - 11 = 0 \\
+			&& \\
+			\text{Si porta a destra il termine noto} & \longrightarrow & 4\left(x-2\right)^{2} + 9\left(y+1\right)^{2} = 36 \\
+			&& \\
+			\text{Dividendo tutto per il termine noto} & \longrightarrow & \dfrac{\cancel{4} \left(x-2\right)^{2}}{\cancelto{9}{36}} + \dfrac{\cancel{9}\left(y+1\right)^{2}}{\cancelto{4}{36}} = \cancelto{1}{\dfrac{36}{36}}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Quindi, il centro ha coordinate pari a $\left(2,-1\right)$ e i semiassi sono $a = 3$ e $b = 2$. Il centro è stato trovato controllando i valori dentro le parentesi, mentre i semiassi basta controllare il denominatore e fare la radice quadrata.\newline
+	
+	\noindent
+	Si rappresenta la funzione in un grafico:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/ellisse_iperbole_traslata.pdf}
+	\end{figure}
+
+	\noindent
+	Il dominio è dentro l'ellisse perché con il punto di test $\left(0,0\right)$, la disuguaglianza viene verificata:
+	
+	\begin{equation*}
+		4x^{2} + 9y^{2} - 16x +18y - 11 \le 0 \xrightarrow{\text{sostituzione punto di test}} 4 \cdot 0^{2} + 9 \cdot 0^{2} - 16 \cdot 0 + 18 \cdot 0 - 11 \le 0 \textcolor{Green4}{\textbf{ \: Verificata \checkmark}}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Risoluzione punto 2}}}}\newline
+	
+	\noindent
+	La curva di livello si definisce nel seguente modo:
+	
+	\begin{equation*}
+		L_{4}\left(f\right) = \left\{\left(x,y\right) \in \mathbb{R}^{2} : \sqrt{11 - 4x^{2} - 9y^{2} + 16x - 18y} = 4\right\}
+	\end{equation*}
+
+	\noindent
+	Si studiano i vari casi:
+	
+	\begin{itemize}[label=-]
+		\item $k < 0$, si ha la curva di livello nulla $L_{4}\left(f\right) = \emptyset$;
+		
+		\item $k = 0$, si ha la circonferenza dell'ellisse;
+		
+		\item $k > 0$, si ha la curva di livello pari a:
+		\begin{gather*}
+			\begin{array}{lrll}
+				L_{4}\left(f\right):& \sqrt{11 - 4x^{2} - 9y^{2} + 16x - 18y}	& = & 4 \\
+				&&& \\
+									& 11 - 4x^{2} - 9y^{2} + 16x - 18y			& = & 4^{2} \\
+				&&& \\
+									& 4x^{2} + 9y^{2} - 16x + 18y + 5			& = & 0
+			\end{array}
+			\\
+			\textbf{applicando la tecnica del completamento del quadrato}\\
+			L_{4}\left(f\right): \dfrac{\left(x - 2\right)^{2}}{5} + \dfrac{\left(y + 1\right)^{2}}{\frac{20}{9}} = 1
+		\end{gather*}
+		Se ne deduce che l'ellisse ha il centro in coordinate $c\left(2,-1\right)$ e semiassi pari ad $a = \sqrt{5}, b = \sqrt{\frac{20}{9}}$.
+	\end{itemize}
+	
+	\newpage
+	
+	\subsection{Curve sezione}
+	
+	Le curve sezione sono definite nel seguente modo:
+	
+	\begin{equation*}
+		\begin{cases}
+			z = f\left(x,y\right) \\
+			x = k
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Riprendendo l'equazione dell'esercizio precedente}}}\newline
+	
+	\noindent
+	L'equazione con $k = 0$ è $z = \sqrt{11 - 9y^{2} - 18y}$ e di sicuro la $z$ vale $z \ge 0$. Per trovare le curve sezione si costruisce il sistema:
+	
+	\begin{equation*}
+		\begin{cases}
+			z \ge 0 \\
+			z^{2} = 11 - 9y - 18y
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			z \ge 0 \\
+			9y^{2} + z^{2} + 18y - 11 = 0
+		\end{cases}
+	\end{equation*}
+	
+	\noindent
+	Applicando la tecnica del completamento del quadrato si ha il seguente svolgimento:
+	
+	\begin{equation*}
+		\begin{array}{rll}
+			9y^{2} + z^{2} + 18y - 11 						& = &  0 \\
+			&& \\
+			9\left[\left(y+1\right)^{2} - 1\right] + z^{2}	& =	& 11 \\
+			&& \\
+			9\left(y+1\right)^{2} + z^{2}					& = & 20 \\
+			&& \\
+			\dfrac{\left(y+1\right)^{2}}{\frac{20}{9}} + \dfrac{z^{2}}{20} = 1
+		\end{array}
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{Continuità}
+	
+	Sia $f$ una funzione definita come $D \subseteq \mathbb{R}$ con $x_{0} \in D$. La funzione $f$ si dice \textcolor{Red3}{\textbf{\underline{continua}}} in $x_{0}$ se per ogni intorno $V$ di $f\left(x_{0}\right)$ esiste un intorno $U$ di $x_{0}$ tale per cui:
+	
+	\begin{equation*}
+		f\left(x\right) \in V \hspace{2em} \forall x \in U \cap D
+	\end{equation*}
+
+	\noindent
+	Dove la $D$ indica il dominio della funzione.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Commento}}}}\newline
+	
+	\noindent
+	Si rappresenta il grafico di una palla continua:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/continuita.pdf}
+		\caption{$n = 2$.}
+	\end{figure}
+	
+	\noindent
+	Qualsiasi punto, che appartiene alla palla, preso in considerazione ritornerà il valore della funzione in quel punto $f\left(x_{0}\right)$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Notazione $\varepsilon$ - $\delta$}}}\newline
+	
+	\noindent
+	Si utilizza una speciale notazione per mostrare una definizione:
+	
+	\begin{equation*}
+		\forall\varepsilon > 0 \hspace{1em} \exists\delta > 0 : \underbrace{\left|f\left(x\right) - f\left(x_{0}\right)\right|}_{\mathbb{R}} < \varepsilon \hspace{1em} \text{se } \overbrace{\Big||x-x_{0}|\Big|}^{\mathbb{R}^{n}} < \delta \hspace{2em} \text{con } x \in D
+	\end{equation*}
+
+	\noindent
+	Da questa definizione si osserva che:
+	
+	\begin{itemize}
+		\item $\forall\varepsilon > 0$, rappresenta il \textbf{raggio dell'intervallo}.
+		
+		\item $\exists\delta > 0$, rappresenta il \textbf{raggio della palla}.
+		
+		\item $\left|f\left(x\right) - f\left(x_{0}\right)\right|$, rappresenta il valore della funzione trovato meno il valore della funzione nel punto $x_{0}$. Il risultato della differenza deve essere minore del raggio dell'intervallo. Quindi, i valori cadono nell'intervallo stabilito.
+		
+		\item $\text{se } \Big||x-x_{0}|\Big| < \delta$, se $x$ appartiene alla palla di raggio $\delta$.
+	\end{itemize}
+
+	\noindent
+	Grazie a questa notazione si evince che nei punti isolati del dominio di una generica funzione, la continuità è presente.
+	Quindi, \textcolor{Red3}{\textbf{\underline{in ogni punto isolato della}}} \textcolor{Red3}{\textbf{\underline{funzione, essa è continua}}}.
+	
+	\newpage
+	
+	\subsubsection{Applicazione della continuità}
+	
+	\textcolor{Red3}{\textbf{\emph{\underline{Richiesta}}}}\newline
+	
+	\noindent
+	Dimostrare che un'applicazione lineare di $\mathbb{R}^{n}$ è continua in ogni punto $x_{0} \in \mathbb{R}^{n}$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Risoluzione}}}}\newline
+	
+	\noindent
+	Una funzione lineare $f$ è:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\mathbb{R}^{n}	& \longrightarrow & \mathbb{R} \\
+			x				& \longmapsto	  & a_{1}x_{1} + a_{2}x_{2} + \cdots + a_{n}x_{n} = a \cdot x
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Con $x$ che rappresenta un vettore. Inoltre, la funzione è definita con $a = \left(a_{1}, a_{2}, ..., a_{n}\right)$ e $x = \left(x_{1}, x_{2}, ..., x_{n}\right)$.\newline
+	
+	\noindent
+	Si studia il valore della funzione in un certo punto:
+	
+	\begin{equation*}
+		\underbrace{\left|ax - ax_{0}\right|}_{\left|f\left(x\right) - f\left(x_{0}\right)\right|} = \left|a \cdot \left(x-x_{0}\right)\right|
+	\end{equation*}
+
+	\noindent
+	Grazie alla \textcolor{Red3}{\textbf{disuguaglianza triangolare di Cauchy-Schwarz}} (pagina \pageref{disuguaglianza triangolare di cauchy-schwarz}), la funzione è possibile riscriverla come:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Definizione}	& \longrightarrow & \left|x \cdot y\right| \le \Big||x|\Big| \cdot \Big||y|\Big| \\
+			&& \\
+			\text{Sostituzione}	& \longrightarrow & \left|a \cdot \left(x-x_{0}\right)\right| \le \Big||a|\Big| \cdot \Big||x-x_{0}|\Big|
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	In cui $\left|x \cdot y\right|$ rappresenta il prodotto scalare assoluto tra due vettori, mentre $\Big||x|\Big| \cdot \Big||y|\Big|$ rappresenta il prodotto in $\mathbb{R}$ di norme tra due vettori.\newline
+	
+	\noindent
+	Quindi $\forall\varepsilon > 0$, il delta è pari a:
+	
+	\begin{equation*}
+		\delta = \dfrac{\varepsilon}{\Big||a|\Big|}
+	\end{equation*}
+
+	\noindent
+	E riscrivendo la disuguaglianza:
+	
+	\begin{equation*}
+		\Big||a|\Big| \cdot \Big||x-x_{0}|\Big| < \cancel{\Big||a|\Big|} \cdot \dfrac{\varepsilon}{\cancel{\Big||a|\Big|}} = \varepsilon
+	\end{equation*}
+
+	\noindent
+	Il risultato ottenuto \textbf{non è banale}. Inoltre, questo vale nel caso in cui $a \ne 0$ poiché in caso contrario, ovvero nel caso in cui $a = 0$, la funzione è chiaramente \textbf{continua}.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{\emph{Richiesta 2}}}}\newline
+	
+	\noindent
+	Dimostrare che la funzione $f\left(x,y\right) = e^{x}$ è continua in $\mathbb{R}^{2}$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Risoluzione}}}}\newline
+	
+	\noindent
+	Si ipotizzi che la funzione $\phi\left(x\right) = e^{x}$ è continua in $\mathbb{R}$. Allora:
+	
+	\begin{equation*}
+		\forall\varepsilon > 0 \hspace{1em} \exists\delta > 0 : \Big|e^{x} - e^{x_{0}}\Big|<\varepsilon \hspace{1em} \text{se } |x-x_{0}| < \delta
+	\end{equation*}
+
+	\noindent
+	Tuttavia, si osservi che:
+	
+	\begin{equation*}
+		|x-x_{0}| \le \sqrt{\left(x-x_{0}\right)^{2} + \left(y - y_{0}\right)^{2}}
+	\end{equation*}
+
+	\noindent
+	Ma attenzione! Quella sotto radice è la normale:
+	
+	\begin{equation*}
+		|x-x_{0}| \le \sqrt{\left(x-x_{0}\right)^{2} + \left(y - y_{0}\right)^{2}} = \Big|\left|\left(x,y\right) - \left(x_{0}, y_{0}\right)\right|\Big|
+	\end{equation*}
+
+	\noindent
+	Allora, si conclude l'esercizio con:
+	
+	\begin{equation*}
+		\forall\varepsilon \hspace{1em} \exists\delta > 0 : \Big|\left|\left(x,y\right) - \left(x_{0}, y_{0}\right)\right|\Big| < \delta
+	\end{equation*}
+
+	\noindent
+	In altre parole, si prende una coppia $x,y$ più piccola di $\delta$. Nel caso in cui questa condizione viene rispettata, allora:
+	
+	\begin{equation*}
+		\left|e^{x} - e^{x_{0}}\right| = \left|f\left(x,y\right) - f\left(x_{0}, y_{0}\right)\right| < \varepsilon
+	\end{equation*}
+
+	\noindent
+	La differenza è minore di $\varepsilon$, nonché uguale a $e^{x} - e^{x_{0}}$.
+	
+	\newpage
+	
+	\subsubsection{Proprietà delle funzioni continue ed \textcolor{Red3}{esame}}
+	
+	Se $f,g$ sono funzioni continue su $A \subseteq \mathbb{R}^{n}$, allora:
+	
+	\begin{itemize}[label=-]
+		\item $f + g$, la \textbf{somma} delle due funzioni è continua su $A$.
+		\item $f - g$, la \textbf{differenza} delle due funzioni è continua su $A$.
+		\item $f \cdot g$, la \textbf{moltiplicazione} delle due funzioni è continua su $A$.
+		\item $\dfrac{f}{g}$, la \textbf{divisione} è una funzione continua su $A \setminus \left\{x \in A : g\left(x\right) = 0\right\}$. Ovvero, nell'insieme non ci devono essere zeri.
+	\end{itemize}
+	
+	\noindent
+	Se $f$ è una funzione continua su $A \subseteq \mathbb{R}^{n}$ e la funzione $g$ è continua sull'intervallo $I \subseteq \mathbb{R}$, allora l'operazione \dquotes{\textbf{composto}} è continua sul dominio:
+	
+	\begin{equation*}
+		D = \left\{x \in A: f\left(x\right) \in I\right\}
+	\end{equation*}
+	
+	\noindent
+	Il dominio indica che i valori \emph{devono} stare all'interno di $A$ per iniziare il processo. Tuttavia, è ammessa anche l'immagine, dei valori, per far processare la funzione $g$.\newline
+	L'operazione \textcolor{Red3}{\dquotes{\textbf{\underline{composto}}}} è formalmente scritta come $h = f \circ g$ e indica che la funzione $f$ riceve dei vettori ($\mathbb{R}^{n}$) e restituisce valori reali i quali saranno processati dalla funzione $g$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{\emph{All'esame...}}}}\newline
+	
+	\noindent
+	Ipotizzando un esercizio del tipo, si dimostri la continuità della funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = x \cdot \dfrac{e^{x^{2} + y^{2}} - 1}{x^{2} + y^{2} + 1}
+	\end{equation*}
+
+	\noindent
+	Si ricava il dominio della funzione, in questo caso $D_{f} = \mathbb{R}^{2}$ e si conclude l'esercizio dicendo che la funzione $f$ è continua in $\mathbb{R}^{2}$ poiché si ottiene combinando funzioni continue su $\mathbb{R}^{2}$.
+	
+	\newpage
+	
+	\subsection{Limiti}
+	
+	Sia $f: D \subseteq \mathbb{R}^{n} \longrightarrow \mathbb{R}$ e sia $x_{0}$ un punto di accumulazione per $D$, si definisce il limite:
+	
+	\begin{equation*}
+		\lim_{x \rightarrow x_{0}} f\left(x\right) = L \hspace{1em} \text{se } \forall\varepsilon > 0 \hspace{1em} \exists\delta > 0 : \left|f\left(x\right) - L\right| < \varepsilon \hspace{1em} \forall x \in D, 0 < \Big|\left|x - x_{0}\right|\Big| < \delta
+	\end{equation*}
+	
+	\noindent
+	In cui:
+	
+	\begin{itemize}
+		\item $\Big|f\left(x\right) - L\Big| < \varepsilon$, rappresenta la distanza tra i valori della funzione e il valore limite $L$ e si impone che sia minore di $\varepsilon$. Questo vale solo nel caso in cui $x$ è nel dominio e sia vicino $\delta$ ma \textbf{non negativo o zero!} \textcolor{Red3}{\textbf{Punti isolati non hanno limiti}}.
+		
+		\item $0 < \Big||x-x_{0}|\Big|$, vuol dire che $x \ne x_{0}$.
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Nota}}}\newline
+	
+	\noindent
+	La funzione $f$ è continua nel punto $x_{0}$ se:
+	
+	\begin{enumerate}[label=\alph*)]
+		\item $x_{0} \in D'$, dove $x_{0}$ è un punto di accumulazione e $D'$ indica gli insiemi dei punti di accumulazione. La continuità esiste se:
+		\begin{equation*}
+			\lim_{x \rightarrow x_{0}} f\left(x\right) = f\left(x_{0}\right)
+		\end{equation*}
+	
+		\item $x_{0}$ è un punto isolato.
+	\end{enumerate}
+
+	\noindent
+	\textcolor{Red3}{\textbf{Valgono tutti i seguenti teoremi \underline{sui limiti} per funzioni di \underline{una sola variabile}:}}
+	
+	\noindent
+	\begin{itemize}[label=-]
+		\item Unicità
+		\item Permanenza del segno
+		\item Confronto
+		\item Somma, prodotto, ecc.
+	\end{itemize}
+
+	\newpage
+	
+	\subsubsection[Esempio introduttivo]{\textcolor{Green4}{Esempio introduttivo}}
+	
+	Calcolare, se esiste, il limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{x^{3} + y^{2}}{x^{2} + y^{2}}
+	\end{equation*}
+
+	\noindent
+	La \textbf{risoluzione} dei limiti prevede di \textbf{provare a dimostrare che essi non esistono}. Quindi, se si riesce a trovare due limiti, con cammini diversi, che portano a risultati diversi, allora il limite non esiste.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Per esempio}}, nel seguente caso i percorsi scelti sono lungo gli assi:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/limiti.pdf}
+		\caption{In rosso il 1° percorso e in verde il 2° percorso.}
+	\end{figure}
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{1° percorso:}}}
+	
+	\begin{equation*}
+		\lim_{y \rightarrow 0} f\left(0,y\right) = \lim_{y \rightarrow 0} \dfrac{y^{2}}{y^{2}} = 1
+	\end{equation*}
+
+	\noindent
+	In cui la funzione $f\left(0,y\right)$ rappresenta la restrizione di $f$ nei punti dell'asse $y$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{2° percorso:}}}
+	
+	\begin{equation*}
+		\lim_{x \rightarrow 0} f\left(x,0\right) = \lim_{x \rightarrow 0} \dfrac{x^{3}}{x^{2}} = 0
+	\end{equation*}
+	
+	\noindent
+	L'esercizio si conclude dicendo che $\lim_{y \rightarrow 0}f\left(0y\right) \ne \lim_{x \rightarrow 0}f\left(x,0\right)$, ovvero che il risultato è diverso. Quindi, per definizione \textbf{\underline{non esiste}}:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} f\left(x,y\right)
+	\end{equation*}
+
+	\newpage
+
+	\subsubsection[Esempio 1]{\textcolor{Green4}{Esempio 1}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		\begin{cases}
+			x \cdot e^{\frac{x}{y}}	& y \ne 0 \\
+			0						& y = 0
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Calcolare, se esiste, il limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} f\left(x,y\right)
+	\end{equation*}
+
+	\noindent
+	Si noti bene che la funzione è nulla sull'asse delle $y$.\newline
+	
+	\noindent
+	Come nell'esercizio del paragrafo precedente, si provano i vari percorsi. Quindi, \textbf{lungo $\boldsymbol{y}$} è pari a zero:
+	
+	\begin{equation*}
+		\lim_{x \rightarrow 0} f\left(x,0\right) = 0
+	\end{equation*}
+
+	\noindent
+	Analogamente, lungo $x$ deve essere $0$ per far esistere il limite della funzione. Dunque, \textbf{lungo $\boldsymbol{x}$} è:
+	
+	\begin{equation*}
+		\lim_{y \rightarrow 0} f\left(0,y\right) = 0 \cdot e^{\frac{0}{y}} = 0
+	\end{equation*}
+
+	\noindent
+	Nonostante sia evidente che il limite esiste, è possibile effettuare una verifica ulteriore tramite una retta passante l'origine $\left(0,0\right)$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/limiti_ex1.pdf}
+		\caption{Retta passante per l'origine.}
+	\end{figure}
+
+	\noindent
+	La retta è definita con la seguente funzione:
+	
+	\begin{equation*}
+		f\left(x, mx\right) = x \cdot e^{\frac{\cancel{x}}{m\cancel{x}}} = x \cdot e^{\frac{1}{m}}
+	\end{equation*}
+
+	\noindent
+	In cui $f\left(x, mx\right)$ indica la restrizione della funzione $f$ lungo la retta per l'origine. Infatti:
+	
+	\begin{equation*}
+		\lim_{x \rightarrow 0} x \cdot e^{\frac{1}{m}} = 0
+	\end{equation*}
+
+	\noindent
+	Nonostante la prova ulteriore, il risultato continua ad essere zero. Tuttavia, adesso si prova con una parabola.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/limiti_ex2.pdf}
+	\end{figure}
+
+	\noindent
+	La funzione restrizione è la seguente:
+	
+	\begin{equation*}
+		f\left(x,x^{2}\right) = x e^{\frac{x}{x^{2}}} = xe^{\frac{1}{x}}
+	\end{equation*}
+
+	\noindent
+	Il limite diventa dunque:
+	
+	\begin{equation*}
+		\lim_{x \rightarrow 0^{+}} x \cdot e^{\frac{1}{x}} = +\infty
+	\end{equation*}
+
+	\noindent
+	Il risultato \textbf{non} è zero e dunque si conclude che il \textbf{limite non esiste}.
+	
+	\newpage
+	
+	\subsubsection[Esempio 2]{\textcolor{Green4}{Esempio 2}}
+	
+	Si provi che non esiste il limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy}{x^{2} + y^{2}}
+	\end{equation*}
+
+	\noindent
+	Si effettuano le prove lungo gli assi $x$ e $y$:
+	
+	\begin{equation*}
+		\lim_{y \rightarrow 0}f\left(0,y\right) = \lim_{x \rightarrow 0} f\left(x,0\right) = 0
+	\end{equation*}
+
+	\noindent
+	Il risultato è sempre zero, dunque si prova lungo la bisettrice con il coefficiente $m$ uguale a $1$:
+	
+	\begin{equation*}
+		\lim_{x \rightarrow 0} f\left(x,x\right) = \dfrac{x \cdot x}{x^{2} + x^{1}} = \dfrac{\cancel{x^{2}}}{2 \cancel{x^{2}}} = \dfrac{1}{2}
+	\end{equation*}
+
+	\noindent
+	L'esercizio si conclude, poiché il risultato è diverso da zero e dunque il limite non esiste.
+	
+	\newpage
+	
+	\subsubsection[Esempio, verifica della continuità]{\textcolor{Green4}{Esempio, verifica della continuità}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) =
+		\begin{cases}
+			\dfrac{x^{4} + y^{4}}{x^{2} + y^{2}}	& \text{se } \left(x,y\right) \ne \left(0,0\right) \\
+			0										& \text{se }\left(x,y\right) = \left(0,0\right)
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Si determini se la funzione è continua in $\left(0,0\right)$.\newline
+	
+	\noindent
+	È necessario verificare che:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} f\left(x,y\right) = f\left(0,0\right) = 0
+	\end{equation*}
+
+	\noindent
+	Si utilizza la \textcolor{Red3}{\textbf{\underline{tecnica del confronto}}} costruendo una maggiorazione:
+	
+	\begin{equation*}
+		\text{se } \left(x,y\right) \ne \left(0,0\right) \Longrightarrow 0 \le \dfrac{x^{4} + y^{4}}{x^{2} + y^{2}} \le \underbrace{\dfrac{\left(x^{2} + y^{2}\right)^{2}}{x^{2} + y^{2}}}_{\text{maggiorazione}} = x^{2} + y^{2}
+	\end{equation*}
+
+	\noindent
+	Adesso si verifica il limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} x^{2} + y^{2} = 0
+	\end{equation*}
+
+	\noindent
+	Il limite è uguale a zero e dunque la funzione è continua.
+	
+	\newpage
+	
+	\subsubsection[Esempio 3]{\textcolor{Green4}{Esempio 3}}
+	
+	Calcolare se esiste il limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} f\left(x,y\right) = \dfrac{x^{2}}{\sqrt{x^{2} + y^{2}}}
+	\end{equation*}
+
+	\noindent
+	Si utilizza il \textbf{teorema del confronto} come nel paragrafo precedente e si ottiene:
+	
+	\begin{equation*}
+		0 \le \dfrac{x^{2}}{\sqrt{x^{2} + y^{2}}} \le \dfrac{x^{2} + y^{2}}{\sqrt{x^{2} + y^{2}}} = \sqrt{x^{2} + y^{2}}
+	\end{equation*}
+
+	\noindent
+	Si applica il limite alla funzione dopo la maggiorazione:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \sqrt{x^{2} + y^{2}}
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{Sintesi delle maggiorazioni}
+	
+	Qui di seguito viene lasciato un elenco di maggiorazioni:
+	
+	\begin{itemize}
+		\item $|x| \le \sqrt{x^{2} + y^{2}}$
+		\item $|xy| \le \dfrac{1}{2}\left(x^{2} + y^{2}\right)$
+		\item $|\sin \left(x\right)| \le |x|$
+	\end{itemize}
+
+	\newpage
+	
+	\
 \end{document}
