@@ -3248,5 +3248,418 @@
 
 	\newpage
 	
-	\
+	\section{Lezione 10}
+	
+	\subsection{Esempi}
+	
+	\subsubsection[Esempio 1]{\textcolor{Green4}{Esempio 1}}
+	
+	Verificare che il limite è uguale a $0$:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{\sin\left(x,y\right)}{\sqrt{|xy|}} = 0
+	\end{equation*}
+
+	\noindent
+	Il dominio della funzione è:
+	
+	\begin{equation*}
+		D_{f} = \left\{\left(x,y\right) \in \mathbb{R}^{2} : x \cdot y \ne 0\right\}
+	\end{equation*}
+
+	\noindent
+	Il grafico del dominio corrisponde a:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/limiti_ex3.pdf}
+	\end{figure}
+
+	\noindent
+	La linea rossa indica che il dominio è definito ovunque nello spazio eccetto sugli assi.\newline
+	
+	\noindent
+	Per verificare l'esistenza del limite si utilizza la \textbf{tecnica del confronto} facendo maggiorazioni:
+	
+	\begin{equation*}
+		0 \le \left|\dfrac{\sin\left(x,y\right)}{\sqrt{|xy|}}\right| \le \dfrac{|xy|}{\sqrt{|xy|}} \xrightarrow{\text{grazie alla razionalizzazione}} \: = \sqrt{|xy|}
+	\end{equation*}
+
+	\noindent
+	Applicando il valore trovato al limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \sqrt{|xy|} = 0
+	\end{equation*}
+
+	\noindent
+	Si conclude affermando che il limite è uguale a zero.
+	
+	\newpage
+	
+	\subsubsection[Esempio 2]{\textcolor{Green4}{Esempio 2}}
+	
+	Verificare l'esistenza del limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(1,0\right)} \dfrac{\left(x-1\right)^{2} + y^{2}}{1-x^{2}-y^{2}}
+	\end{equation*}
+
+	\noindent
+	Per farlo, si verifica sull'asse $x$, dato che che $y = 0$:
+	
+	\begin{equation*}
+		f\left(x,0\right) = \dfrac{\left(x-1\right)^{2} + 0^{2}}{1-x^{2}-0^{2}} = \dfrac{\left(x-1\right)^{2}}{1-x^{2}} = \dfrac{\left(x-1\right)^{\cancel{2}}}{\left(x+1\right)\cancel{\left(x-1\right)}}
+	\end{equation*}
+
+	\noindent
+	Si applica il valore al limite:
+	
+	\begin{equation*}
+		\lim_{x \rightarrow 1} \dfrac{\left(x-1\right)}{\left(x+1\right)} = 0
+	\end{equation*}
+
+	\noindent
+	Provando a sostituire $x = 1$ nella funzione:
+	
+	\begin{equation*}
+		f\left(1,y\right) = \dfrac{\cancel{\left(x-1\right)^{2}} + y^{2}}{\cancel{1 - x^{2}} - y^{2}} = -\dfrac{y^{2}}{y^{2}} = -1
+	\end{equation*}
+
+	\noindent
+	I risultato è diverso da zero, dunque \textbf{il limite non esiste}.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/limiti_ex4.pdf}
+		\caption{Grafico della funzione con $x = 1$.}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Calcolo di limiti con coordinate polari}
+	
+	Le coordinate polari sono una notazione che prevede che nell'asso cartesiano $x,y$, ci sia un punto polare $P$ identificato dalle coordinate polari $x_{P},y_{P}$, da un angolo $\theta$ e da un raggio $r$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/limiti_con_coordinate_polari.pdf}
+		\caption{Rappresentazione delle coordinate polari nell'origine.}
+	\end{figure}
+
+	\noindent
+	Le formule per calcolare i vari punti sono:
+	
+	\begin{itemize}
+		\item La distanza $r$, calcolata come la distanza tra l'origine e il punto $P$. Formalmente $r = \overline{OP}$
+		
+		\item La componente $x$, calcolata come $x = r \cdot \cos\left(\theta\right)$
+		
+		\item La componente $y$, calcolata come $y = r \cdot \sin\left(\theta\right)$
+	\end{itemize}
+
+	\noindent
+	Nel caso in cui l'origine del punto polare \textbf{non} è l'origine degli assi cartesiani, allora le formule sono diverse.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/limiti_con_coordinate_polari2.pdf}
+		\caption{Rappresentazione delle coordinate polari in un punto diverso dall'origine.}
+	\end{figure}
+	
+	\noindent
+	Le formule per calcolare i vari punti sono:
+	
+	\begin{itemize}
+		\item La distanza $r$, la formula rimane invariata, sempre la distanza tra i due punti
+		
+		\item La componente $x$, calcolata come $x = x_{P} + r \cos\left(\theta\right)$
+		
+		\item La componente $y$, calcolata come $y = y_{P} + r \sin\left(\theta\right)$
+	\end{itemize}
+
+	\newpage
+	
+	\noindent
+	Il calcolo dei limiti con coordinate polari prevede di definire la funzione $F$ come:
+	
+	\begin{equation*}
+		F\left(r,\theta\right) = f\left(x_{P} + r \cdot \cos\left(\theta\right), y_{P} + r \cdot \sin\left(\theta\right)\right)
+	\end{equation*}
+
+	\noindent
+	Allora, se il suo limite:
+	
+	\begin{equation*}
+		\lim_{r \rightarrow 0^{+}} F\left(r,\theta\right) = L \in \mathbb{R}
+	\end{equation*}
+
+	\noindent
+	È \textcolor{Red3}{\textbf{\underline{uniformemente rispetto a $\theta$}}}, allora si ha:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(x_{P}, y_{P}\right)} f\left(x,y\right) = L
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection[Esempio di non uniformità]{\textcolor{Green4}{Esempio di non uniformità}}
+	
+	Verificare che il limite esista:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy^{2}}{x^{2} + y^{4}}
+	\end{equation*}
+
+	\noindent
+	Con il caso $x=0$ e l'analogo caso con $y=0$, il limite tende a zero:
+	
+	\begin{equation*}
+		\lim_{y \rightarrow 0} f\left(0,y\right) = \lim_{x \rightarrow 0} f\left(x,0\right) = 0
+	\end{equation*}
+
+	\noindent
+	Applicando le coordinate polari, si ottiene la funzione $F$, definita:
+	
+	\begin{equation*}
+		F\left(r,\theta\right) = \dfrac{r \cdot \cos\left(\theta\right) \cdot \left(r \cdot \sin\left(\theta\right)\right)^{2}}{\left(r \cdot \cos\left(\theta\right)\right)^{2} + \left(r \cdot \sin\left(\theta\right)\right)^{2}} = \dfrac{r^{3} \cdot \cos\left(\theta\right) \cdot \sin^{2}\left(\theta\right)}{r^{2} \cdot \cos^{2}\left(\theta\right) + r^{4} \cdot \sin^{4}\left(\theta\right)} = \dfrac{r \cdot \cos\left(\theta\right) \cdot \sin^{2}\left(\theta\right)}{\cos^{2}\left(\theta\right) + r^{2} \cdot \sin^{4}\left(\theta\right)}
+	\end{equation*}
+
+	\noindent
+	Se facessimo tendere la funzione $F$ a $r \rightarrow 0^{+}$, si otterrebbe zero come risultato. Tuttavia, in questo caso convergerebbe non uniformemente rispetto a $\theta$, quindi il \textbf{limite non esisterebbe}. In altre parole, in questo caso si avrebbe:
+	
+	\begin{equation*}
+		\forall\varepsilon, \forall\theta \: \exists\delta \text{ tale che...}
+	\end{equation*}
+
+	\noindent
+	Al contrario, per essere \textbf{uniformemente rispetto a $\theta$}, dovrebbe essere:
+	
+	\begin{equation*}
+		\forall\varepsilon \: \exists\delta \text{ tale che qualunque sia } \theta ...
+	\end{equation*}
+
+	\subsubsection[Quando è uniforme rispetto a $\boldsymbol{\theta}$]{\textcolor{Red3}{Quando è uniforme rispetto a $\boldsymbol{\theta}$}}
+	
+	Se per $\left(x,y\right)$ che tende a $\left(x_{P},y_{P}\right)$ si ha:
+	
+	\begin{equation*}
+		\left|F\left(r,\theta\right) = L\right| \le g\left(r\right)
+	\end{equation*}
+
+	\noindent
+	Dove la funzione $g\left(r\right)$ ha solo $r$ e dunque $\theta$ non può apparire e il suo limite è zero:
+	
+	\begin{equation*}
+		\lim_{r \rightarrow 0^{+}} g\left(r\right) = 0
+	\end{equation*}
+
+	\noindent
+	In altre parole è la funzione infinitesima.\newline
+	
+	\noindent
+	Se queste condizioni sono rispettate, allora il limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(x_{P},y_{P}\right)} f\left(x,y\right) = L
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection[Esempio 1]{\textcolor{Green4}{Esempio 1}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = \dfrac{xy}{\sqrt{x^{2} + y^{2}}}
+	\end{equation*}
+
+	\noindent
+	Il limite che tede a $\left(0,0\right)$ è:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy}{\sqrt{x^{2} + y^{2}}} = 0
+	\end{equation*}
+
+	\noindent
+	Ed è certo che esiste.\newline
+	Si applicano le coordinate polari:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			F\left(r,\theta\right) & = & \left|\dfrac{r \cdot \cos\left(\theta\right) \cdot r \cdot \sin\left(\theta\right)}{\sqrt{r^{2} \cdot \cos^{2}\left(\theta\right) + r^{2} \cdot \sin^{2}\left(\theta\right)}}\right| \\
+			&& \\
+			& = & \left|\dfrac{r^{\cancel{2}} \cdot \sin\left(\theta\right) \cdot \cos\left(\theta\right)}{\cancel{r}}\right| \\
+			&& \\
+			& = & \left|r \cdot \sin\left(\theta\right) \cdot \cos\left(\theta\right)\right| \\
+			&& \\
+			& = & \left|r \cdot \dfrac{1}{2} \cdot \sin\left(\theta\right)\right| \le \dfrac{1}{2}r
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Dove l'ultima disuguaglianza dà la certezza che per qualsiasi valore di $\theta$, la funzione sarà uguale o minore alla metà del raggio.\newline
+	
+	\noindent
+	Inoltre, l'espressione $\frac{1}{2}r$ rappresenta la funzione $g\left(r\right)$, quindi il limite esiste perché è uniformemente rispetto a $\theta$.
+	
+	\subsubsection[Esempio 2]{\textcolor{Green4}{Esempio 2}}
+	
+	Data il limite della funzione:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(0,1\right)} \dfrac{x^{2}}{\sqrt{x^{{2} + \left(y-1\right)^{2}}}}
+	\end{equation*}
+
+	\noindent
+	Le coordinate polari sono:
+	
+	\begin{equation*}
+		\begin{cases}
+			x = r \cdot \cos\left(\theta\right) \\
+			y = 1 + r \cdot \sin\left(\theta\right)
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	La funzione $F$ che si ricava è òa seguente:
+	
+	\begin{equation*}
+		\left|F\left(r,\theta\right) - 0\right| = \left|\dfrac{r^{2} \cdot \cos^{2}\left(\theta\right)}{\sqrt{r^{2} \cdot \cos^{2}\left(\theta\right) + \left(1 + r \cdot \sin\left(\theta\right) - 1\right)^{2}}}\right| = \left|\dfrac{r^{2} \cdot \cos^{2}\left(\theta\right)}{r}\right| = r \cdot \cos^{2}\left(\theta\right) \le r
+	\end{equation*}
+
+	\noindent
+	In cui $r$ rappresenta la funzione $g\left(r\right)$. Il limite dunque è:
+	
+	\begin{equation*}
+		\lim_{r \rightarrow 0^{+}} g\left(r\right) = 0
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection[Esempio 3 - Difficile]{\textcolor{Green4}{Esempio 3 - Difficile}}
+	
+	Dato il limite della funzione:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(1,2\right)} \dfrac{\log\left(3 - 2x -y + xy\right)}{\sqrt{x^{2} + y^{2} - 2x -4y + 5}}
+	\end{equation*}
+
+	\noindent
+	Sicuramente con le rette a zero, il limite è zero. Quindi, si calcolano le coordinate polari:
+	
+	\begin{equation*}
+		\begin{cases}
+			x = 1 + r \cdot \cos\left(\theta\right) \\
+			y = 2 + r \cdot \sin\left(\theta\right)
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	La relativa funzione è:
+	
+	\begin{gather*}
+		\left|F\left(r,\theta\right) - 0\right| = \\
+		\\
+		\left|\dfrac{\log\left(3 - 2 - 2 \cdot r \cdot \cos\left(\theta\right) - 2 - r \cdot \sin\left(\theta\right) + 2 + r \cdot \sin\left(\theta\right) + 2 \cdot r \cdot \cos\left(\theta\right) + r^{2} \cdot \sin\left(\theta\right) \cdot \cos\left(\theta\right)\right)}{r}\right| = \\
+		\\
+		= \left|\dfrac{\log\left(1 + r^{2} \cdot \sin\left(\theta\right) \cdot \cos\left(\theta\right)\right)}{r}\right|
+	\end{gather*}
+
+	\noindent
+	Dato il logaritmo fondamentale:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			& \longrightarrow & \lim_{t \rightarrow 0} \dfrac{\log\left(1+t\right)}{t} = 1 \\
+			&& \\
+			\text{Con la tecnica di maggiorazione} & \longrightarrow & \left|\dfrac{\log\left(1+t\right)}{t}\right| \le 2 \\
+			&& \\
+			\text{Manipolazione utile}			   & \longrightarrow & \left|\log\left(1+t\right)\right| \le 2\left|t\right| \\
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Si sostituisce (?):
+	
+	\begin{equation*}
+		\left|\dfrac{\log\left(1 + r^{2} \sin\left(\theta\right) \cos\left(\theta\right)\right)}{r}\right| \le \dfrac{2 \cdot \left|r^{2} \sin\left(\theta\right) \cos\left(\theta\right)\right|}{r} \le 2 r \cdot \dfrac{1}{2} = r
+	\end{equation*}
+
+	\noindent
+	Il risultato è uguale a zero.
+	
+	\newpage
+	
+	\subsection{Continuità - Proprietà e teoremi importanti}
+	
+	\textbf{\emph{Le seguenti definizioni valgono solamente per funzioni continue.}}\newline
+	
+	\noindent
+	Sia $f$ una funzione continua su $\mathbb{R}^{n}$. Allora:
+	
+	\begin{equation*}
+		A_{1} = \left\{x \in \mathbb{R}^{n} : f\left(x\right) > 0\right\}
+	\end{equation*}
+	
+	È un \textcolor{Red3}{\textbf{\underline{insieme aperto}}}. Tuttavia, lo è anche:
+	
+	\begin{equation*}
+		A_{2} = \left\{x \in \mathbb{R}^{n} : f\left(x\right) < 0\right\}
+	\end{equation*}
+	
+	E infine anche l'unione dei due insiemi:
+	
+	\begin{equation*}
+		A_{3} = A_{1} \cup A_{2} = \left\{x \in \mathbb{R}^{n} : f\left(x\right) \ne 0\right\}
+	\end{equation*}
+	
+	\noindent
+	Gli \textbf{insiemi complementari} di $A_{1}, A_{2}, A_{e}$ sono detti \textcolor{Red3}{\textbf{\underline{insiemi chiusi}}} poiché gli insiemi zeri di funzioni continue sono insiemi chiusi. I complementari:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			A_{1}^{C} & = & \left\{x \in \mathbb{R}^{n} : f\left(x\right) \le 0\right\} \\
+			&& \\
+			A_{2}^{C} & = & \left\{x \in \mathbb{R}^{n} : f\left(x\right) \ge 0\right\} \\
+			&& \\
+			A_{3}^{C} & = & \left\{x \in \mathbb{R}^{n} : f\left(x\right) = 0\right\}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Quindi, gli \textcolor{Red3}{\textbf{\underline{insiemi (curve) di livello}}} di una funzione continua sono \textcolor{Red3}{\textbf{\underline{insiemi chiusi}}}.
+	
+	\newpage
+	
+	\subsection{Curve continue}
+	
+	Una curva in $\mathbb{R}^{n}$ è una funzione:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma: & I & \longrightarrow & \mathbb{R}^{n} \\
+					& t & \longmapsto	  & \left(\gamma_{1}\left(t\right), \gamma_{2}\left(t\right), ..., \gamma_{n}\left(t\right)\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Dove la $I$ indica l'intervallo in $\mathbb{R}$ e $\mathbb{R}^{n}$ il vettore come risposta. La curva $i$-esima si definisce:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma_{i}: & I & \longrightarrow & \mathbb{R} \\
+			& t & \longmapsto	  & \gamma_{i}\left(t\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	E si definisce \textcolor{Red3}{\textbf{\underline{curva continua}}} quella curva definita per ogni $\gamma_{i}$ con $i = 1, ..., n$.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{\underline{sostengo della curva}}} (solo geometricamente) è definita come:
+	
+	\begin{equation*}
+		\gamma\left(I\right) = \left\{\gamma\left(t\right) : t \in I\right\}
+	\end{equation*}
 \end{document}
