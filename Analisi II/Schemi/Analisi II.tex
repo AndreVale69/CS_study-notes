@@ -3662,4 +3662,508 @@
 	\begin{equation*}
 		\gamma\left(I\right) = \left\{\gamma\left(t\right) : t \in I\right\}
 	\end{equation*}
+
+	\newpage
+	
+	\section{Lezione 11}
+	
+	\subsection{Curve in $\mathbb{R}^{n}$ (continue)}
+	
+	Se $I$ è un intervallo chiuso e limitato $I = \left[a,b\right]$, la \textcolor{Red3}{\textbf{\underline{curva}}} viene chiamata \textcolor{Red3}{\textbf{\underline{arco}}} o \textcolor{Red3}{\textbf{\underline{cammino}}} di estremi $\gamma\left(a\right)$ e $\gamma\left(b\right)$.
+	
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{\underline{Curva semplice}}} con $\gamma$ iniettiva quindi $t_{1} \ne t_{2} \longrightarrow \gamma\left(t_{1}\right) \ne \gamma\left(t_{2}\right)$, cioè due parametri diversi producono due valori diversi, non uguali.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=0.3\textwidth]{img/curva_semplice.pdf}
+			\caption{Curva semplice.}
+		\end{figure}
+	
+		\item \textcolor{Red3}{\textbf{\underline{Curva non semplice}}} con auto-intersezione, quindi $t_{x} = t_{y}$.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=0.2\textwidth]{img/curva_non_semplice.pdf}
+			\caption{Curva non semplice.}
+		\end{figure}
+	
+		\item \textcolor{Red3}{\textbf{\underline{Curva chiusa}}} con l'intervallo $I = \left[a,b\right]$ e $\gamma\left(a\right) = \gamma\left(b\right)$. Questa curva è ancora chiamata \textcolor{Red3}{\textbf{semplice}} perché escludendo il caso agli estremi, la curva rimane semplice.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=0.5\textwidth]{img/curva_chiusa.pdf}
+			\caption{Curva chiusa.}
+		\end{figure}
+	\end{itemize}
+	
+	\newpage
+	
+	\subsubsection[Esempio 1]{\textcolor{Green4}{Esempio 1}}
+	
+	Data la curva:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma:	& \left[0,2\pi\right]	& \longrightarrow	& \mathbb{R}^{2} \\
+			&&& \\
+					& t						& \longmapsto		& \left(\cos\left(t\right), 2 \sin\left(t\right)\right)
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	Si ricavano le equazioni parametriche:
+	
+	\begin{equation*}
+		\begin{cases}
+			x = \cos\left(t\right) \\
+			\\
+			y = 2\sin\left(t\right)
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = \cos\left(t\right) \\
+			\\
+			\dfrac{y}{2} = \sin\left(t\right)
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Esiste una relazione tra $\sin$ e $\cos$:
+	
+	\begin{equation*}
+		x^{2} + \dfrac{y^{2}}{4} = \cos^{2}\left(t\right) + \sin^{2}\left(t\right) = 1
+	\end{equation*}
+
+	\noindent
+	La quale rappresenta l'equazione di un'ellisse di centro $\left(0,0\right)$ e semiassi $a = 1, b = 2$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/curva_chiusa_semplice_ex1.pdf}
+		\caption{Grafico della curva chiusa - semplice.}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection[Esempio 2]{\textcolor{Green4}{Esempio 2}}
+	
+	Data la curva:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma:	& \left[0,\dfrac{\pi}{2}\right]	& \longrightarrow	& \mathbb{R}^{2} \\
+			&&& \\
+			& t						& \longmapsto		& \left(1 + \cos\left(t\right), \sin\left(t\right)\right)
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	Si ricavano le equazioni parametriche:
+	
+	\begin{equation*}
+		\begin{cases}
+			x = 1 + \cos\left(t\right) \\
+			\\
+			y = \sin\left(t\right)
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x - 1 = \cos\left(t\right) \\
+			\\
+			y = \sin\left(t\right)
+		\end{cases}
+	\end{equation*}
+	
+	\noindent
+	Esiste una relazione tra $\sin$ e $\cos$:
+	
+	\begin{equation*}
+		\left(x-1\right)^{2} + y^{2} = \cos^{2}\left(t\right) + \sin^{2}\left(t\right) = 1
+	\end{equation*}
+
+	\noindent
+	La quale rappresenta l'equazione di una circonferenza. La rappresentazione grafica è solamente $\frac{1}{4}$ poiché $\frac{\pi}{2}$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/curva_semplice_ex1.pdf}
+		\caption{Grafico della curva semplice, ma non chiusa.}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection[Esempio 3]{\textcolor{Green4}{Esempio 3}}
+	
+	Data la curva:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma:	& \mathbb{R}	& \longrightarrow	& \mathbb{R}^{2} \\
+			&&& \\
+			& t						& \longmapsto		& \left(t^{2}, t^{3} - t\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	La definizione non rappresenta una \textbf{curva semplice} poiché viene violata la proprietà di iniettività, ovvero prendendo due parametri diversi si ha lo stesso risultato. Per esempio:
+	
+	\begin{equation*}
+		\gamma\left(-1\right) = \gamma\left(1\right) = \gamma\left(1,0\right)
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/nessuna_curva.pdf}
+		\caption{Grafico della curva non semplice e non chiusa}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Parametrizzazioni notevoli (1° tecnica)}
+	
+	Alcuni esercizi chiedono di inserire una parametrizzazione.\newline
+	
+	\noindent
+	Per esempio, il \textbf{caso più semplice è un} \textcolor{Red3}{\textbf{\underline{segmento}}}:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/parametrizzazioni_notevoli_segmento.pdf}
+	\end{figure}
+
+	\noindent
+	Le coordinate dei punti sono:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			A & = & \left(2,1\right) \\
+			B & = & \left(5,2\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Il calcolo di una parametrizzazione prevede di \textcolor{Red3}{\textbf{\underline{definire il vettore che dà la}}} \textcolor{Red3}{\textbf{\underline{direzione della retta}}}. Quindi, nel caso dei segmenti:
+	
+	\begin{equation*}
+		\overrightarrow{V} = B - A = \left(5,2\right) - \left(2,1\right) = \left(3,1\right)
+	\end{equation*}
+
+	\noindent
+	Una possibile parametrizzazione:
+	
+	\begin{equation*}
+		\gamma\left(t\right) = A + t\overrightarrow{V} \hspace{2em} \text{con } t = \left[0,1\right]
+	\end{equation*}
+
+	\noindent
+	Il valore $1$ all'interno della definizione della $t$ indica \dquotes{la destinazione}, ovvero le coordinate di destinazione. Quindi, con il valore $1$ si arriva fino alla fine del segmento, mentre con $\frac{1}{2}$ a metà, con $\frac{1}{4}$ a metà della metà e così via.
+	
+	\begin{equation*}
+		\gamma\left(t\right) = A + t\overrightarrow{V} = \left(2,1\right) + t\left(3,1\right) = \left(2 + 3t, 1 + t\right)
+	\end{equation*}
+
+	\noindent
+	Quindi, una parametrizzazione potrebbe essere:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma: & \left[0,1\right] & \longrightarrow & \mathbb{R}^{2} \\
+			&&& \\
+			& t & \longmapsto & \left(2 + 3t, 1 + t\right)
+		\end{array}
+	\end{equation*}
+
+	\newpage
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{\emph{Variante dell'esercizio}}}}\newline
+	
+	\noindent
+	Una variante dell'esercizio potrebbe essere la seguente. Data una parametrizzazione della retta:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma: & \mathbb{R} & \longrightarrow & \mathbb{R}^{2} \\
+			&&& \\
+			& t & \longmapsto & \left(2 + 3t, 1 + t\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	È possibile ricostruire l'equazione cartesiana?\newline
+	
+	\noindent
+	Per ottenere l'equazione si esplicita la $t$ nelle equazioni parametriche:
+	
+	\begin{equation*}
+		\begin{cases}
+			x = 2 + 3t \\
+			\\
+			y = 1 + t
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			t = \dfrac{x - 2}{3} \\
+			\\
+			y = 1 + \dfrac{x - 2}{3}
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Quindi, l'equazione che si ottiene:
+	
+	\begin{equation*}
+		y - 1 = \dfrac{1}{3}\left(x - 2\right)
+	\end{equation*}
+
+	\noindent
+	Che rappresenta l'equazione della retta nel fascio proprio di centro $A$.
+	
+	\newpage
+	
+	\subsection{Parametrizzazioni notevoli (2° tecnica)}
+	
+	Dato il grafico di una funzione $f$:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			f: & I & \longrightarrow & \mathbb{R} \\
+			   & x & \longmapsto     & f\left(x\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	La parametrizzazione corrisponde a:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			f: & I & \longrightarrow & \mathbb{R}^{2} \\
+			& t & \longmapsto     & \left(t, f\left(t\right)\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Per esempio}}, la parametrizzazione di un \textcolor{Red3}{\textbf{\underline{arco di parabola}}}:
+	
+	\begin{equation*}
+		y = 1 - x^{2} \hspace{2em} \text{con } x \in \left[0,2\right]
+	\end{equation*}
+
+	\noindent
+	Si ottiene:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\sigma: & \left[0,2\right] & \longrightarrow & \mathbb{R}^{2} \\
+			& t & \longmapsto     & \left(t, 1-t^{2}\right)
+		\end{array}
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/parametrizzazioni_notevoli_parabola}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Parametrizzazioni notevoli (casi complessi)}
+	
+	Esistono delle parametrizzazioni notevoli complesse, come quella delle \textcolor{Red3}{\textbf{\underline{canoniche}}}.\newline
+	
+	\noindent
+	Un'altra parametrizzazione complessa è quella della \textcolor{Red3}{\textbf{\underline{ellisse}}} di centro $c\left(x_{c}, y_{c}\right)$ e semiassi $a,b$:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma: & \left[0,2\pi\right] & \longrightarrow & \mathbb{R}^{2} \\
+			&&& \\
+					& t					  & \longmapsto		& \left(x_{c} + a \cos\left(t\right), y_{c} + b \sin\left(t\right)\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	E ancora, un'altra parametrizzazione complessa è la \textcolor{Red3}{\textbf{\underline{iperbole equilatera}}}:
+	
+	\begin{equation*}
+		x^{2} - y^{2} - 1 = 0
+	\end{equation*}
+
+	\noindent
+	Con una parametrizzazione $\boldsymbol{x > 0}$:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma: & \mathbb{R} & \longrightarrow & \mathbb{R}^{2} \\
+					& t			 & \longmapsto	   & \left(\cosh\left(t\right), \sinh\left(t\right)\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Invece, con una parametrizzazione $\boldsymbol{x < 0}$:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma: & \mathbb{R} & \longrightarrow & \mathbb{R}^{2} \\
+					& t			 & \longmapsto	   & \left(- \cosh\left(t\right), \sinh\left(t\right)\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Si ricorda inoltre che:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Coseno iperbolico:}	& \cosh\left(t\right) =	& \dfrac{e^{t} + e^{-t}}{2} \\
+			\\
+			\text{Seno iperbolico:}		& \sinh\left(t\right) =	& \dfrac{e^{t} - e^{-t}}{2}
+		\end{array}
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/iperbole_equilatera.pdf}
+		\caption{In rosso gli asindoti, in verde l'iperbole $x^{2} - y^{2} + 1 = 0$, in blu l'iperbole $x^{2} - y^{2} - 1 = 0$.}
+	\end{figure}
+
+	\noindent
+	Infine, la parametrizzazione di un'\textcolor{Red3}{\textbf{\underline{iperbole normale}}}:
+	
+	\begin{equation*}
+		\sigma\left(t\right) = \left(x_{c} \pm a \cdot \cosh\left(t\right), y_{c} + b \cdot \sinh\left(t\right)\right) \xrightarrow{parametrizza} \dfrac{\left(x - x_{c}\right)^{2}}{a^{2}} - \dfrac{\left(y - y_{c}\right)^{2}}{b^{2}} = 1
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{Derivata di una curva}
+	
+	Una \textcolor{Red3}{\textbf{\underline{curva}}} è \textcolor{Red3}{\textbf{\underline{derivabile}}} in $I$ se tutte le sue componenti sono derivabili in $I$ e in tal caso:
+	
+	\begin{equation*}
+		\gamma'\left(t\right) = \left(\gamma_{1}'\left(t\right), \gamma_{2}'\left(t\right), ..., \gamma_{n}'\left(t\right)\right)
+	\end{equation*}
+	
+	\noindent
+	Ogni $\gamma'$ viene definita come:
+	
+	\begin{equation*}
+		\gamma'\left(t\right) = \lim_{h \rightarrow 0} \dfrac{r\left(t+h\right) - \gamma\left(t\right)}{h}
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.3\textwidth]{img/derivata_curva.pdf}
+		\caption{Rappresentazione grafica della derivata.}
+	\end{figure}
+
+	\noindent
+	Se $\gamma'\left(t_{0}\right) \ne \overrightarrow{0}$ (\textcolor{Red3}{\textbf{\underline{non è un vettore nullo}}}) allora una parametrizzazione della retta tangente al sostegno di $\gamma$ nel punto $\gamma\left(t_{0}\right)$:
+	
+	\begin{equation*}
+		r\left(t\right) = \gamma\left(t_{0}\right) + t \cdot \gamma'\left(t_{0}\right)
+	\end{equation*}
+
+	\noindent
+	Dove $\gamma\left(t_{0}\right)$ indica il punto iniziale e $\gamma'\left(t_{0}\right)$ indica il vettore che dà la direzione.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/derivata_curva2.pdf}
+		\caption{Parametrizzazione retta tangente al sostegno di $\gamma$ nel punto $\gamma\left(t_{0}\right)$.}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection[Esercizio guidato]{\textcolor{Green4}{Esercizio guidato}}
+	
+	Trovare l'equazione della retta tangente al sostegno della curva:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\gamma:	& \left(-1,\infty\right) & \longrightarrow & \mathbb{R}^{3} \\
+					& t						 & \longmapsto     & \left(e^{t}, \ln\left(t+1\right), t\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Nel suo punto di coordinate $\left(0,0,1\right)$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 1}}}\newline
+
+	\noindent
+	Trovare $t_{0 \in \left(-1, \infty\right)}$ tale che $\gamma\left(t_{0}\right) = \left(1,0,0\right)$:
+	
+	\begin{equation*}
+		\begin{cases}
+			e^{t} = 1 \\
+			\ln\left(t+1\right) = 0 \xrightarrow{soluzione} t_{0} = 0 \in \mathbb{R} \\
+			t = 0
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 2}}}\newline
+	
+	\noindent
+	Calcolare il vettore tangente (derivata delle componenti):
+	
+	\begin{equation*}
+		\gamma'\left(t_{0}\right) = \left(\gamma_{1}'\left(t_{0}\right), \gamma_{2}'\left(t_{0}\right), \gamma_{3}'\left(t_{0}\right)\right) = \left(1,1,1\right)
+	\end{equation*}
+
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Passo 3}}}\newline
+	
+	\noindent
+	Parametrizzazione della retta tangente:
+	
+	\begin{equation*}
+		r\left(t\right) = \left(1,0,0\right) + t\left(1,1,1\right) = \left(1+t, t, t\right) \hspace{2em} \text{con } t\in\mathbb{R}
+	\end{equation*}
+
+	\noindent
+	Le equazioni parametriche della retta tangente:
+	
+	\begin{equation*}
+		\begin{cases}
+			x = 1+t \\
+			y = t \\
+			z = t
+		\end{cases}
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{Insiemi connessi per archi}
+	
+	Dato un insieme $D \subseteq \mathbb{R}^{n}$ si dice che è \textcolor{Red3}{\textbf{\underline{connesso per archi}}} se presi due punti qualunque $x,y$ in $D$ esiste un cammino (arco) in $D$ che ha per estremi $x$ e $y$. Si noti bene che in $\mathbb{R}$ solo gli intervalli (aperti o chiusi) sono connessi.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/connesso_per_archi1.pdf}
+		\caption{Esempio di connessione per archi.}
+		\includegraphics[width=0.4\textwidth]{img/connesso_per_archi2.pdf}
+		\caption{Esempio di connessione per archi.}
+		\includegraphics[width=0.4\textwidth]{img/connesso_per_archi3.pdf}
+		\caption{Esempio di \textbf{non} connessione per archi.}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Teorema degli zeri}
+	
+	Sia $f$ una funzione \textbf{continua} su un insieme $D \subseteq \mathbb{R}^{n}$ \textbf{connesso per archi}.\newline
+	Se $x,y$ sono due punti di $D$ tali che $f\left(x\right) > 0$ e $f\left(y\right) < 0$, allora esiste $z \in D$ tale che $f\left(z\right) = 0$.\newline
+	
+	\noindent
+	I requisiti in cui vale il teorema sono quelli della definizione, ovvero la funzione deve essere:
+	
+	\begin{itemize}
+		\item Continua
+		\item Connessa per archi
+	\end{itemize}
+
+	\newpage
+	
+	\section{Lezione 12}
+	
+	\subsection{Derivate parziali}
 \end{document}
