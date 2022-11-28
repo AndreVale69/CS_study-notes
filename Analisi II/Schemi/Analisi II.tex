@@ -590,7 +590,7 @@
 	\noindent
 	Si \textbf{risponda alle seguenti \underline{domande}}:
 	
-	\begin{enumerate}[label=\Roman*]
+	\begin{enumerate}[label=\Roman*.]
 		\item Scrivere l'equazione della tangente al grafico della curva con soluzione nel punto di coordinate $\left(0, 1\right)$.
 		
 		\item Vicino (o intorno) al punto $x = 0$, la funzione è concava o convessa?
@@ -4166,4 +4166,683 @@
 	\section{Lezione 12}
 	
 	\subsection{Derivate parziali}
+	
+	Dato il grafico:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/derivate_parziali.pdf}
+	\end{figure}
+	
+	\noindent
+	Il punto $P$ si muove parallelamente agli assi. La funzione $f$ è definita in un intorno di $\left(x_{0}, y_{0}\right)$:
+	
+	\begin{equation*}
+		x \longrightarrow f\left(x,y\right)
+	\end{equation*}
+
+	\noindent
+	Indica la restrizione della funzione $f$ alla retta di equazione $y = y_{0}$. Se tale restrizione è derivabile in $x_{0}$, si dice che $f$ ammette \textbf{\underline{derivate parziali rispetto a $\boldsymbol{x}$}} in $\left(x_{0}, y_{0}\right)$.\newline
+	
+	\noindent
+	Quindi, la \textcolor{Red3}{\textbf{\underline{derivata parziale rispetto a $\boldsymbol{x}$}}}:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x} \left(x_{0}, y_{0}\right) = \lim_{h \rightarrow 0} \dfrac{f\left(x_{0} + h, y_{0}\right) - f\left(x_{0}, y_{0}\right)}{h}
+	\end{equation*}
+
+	\noindent
+	In modo analogo, si definisce la \textcolor{Red3}{\textbf{\underline{derivata parziale rispetto a $\boldsymbol{y}$}}}:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial y} \left(x_{0}, y_{0}\right) = \lim_{h \rightarrow 0} \dfrac{f\left(x_{0}, y_{0} + h\right) - f\left(x_{0}, y_{0}\right)}{h}
+	\end{equation*}
+
+	\newpage
+
+	\subsubsection{Implementazione geometrica con $\boldsymbol{n = 2}$}
+	
+	Le due derivate parziali sono i coefficienti delle rette tangenti in $\left(x_{0}, y_{0}, f\left(x_{0}, y_{0}\right)\right)$ alle curve ottenute sezionando il grafico di $f$ con i piani $y = y_{0}$ e $x = x_{0}$ rispettivamente.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/interpretazione_geometrica1.pdf}
+	\end{figure}
+	
+	\subsubsection{Implementazione geometrica con $\boldsymbol{n \ge 2}$}
+	
+	Con la funzione $f$ viene definita in un intorno di $P \in \mathbb{R}^{n}$:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x_{i}}\left(P\right) = \lim_{h \rightarrow 0} \dfrac{f\left(P + h e_{i}\right) - f\left(P\right)}{h} \hspace{2em} \text{con } e_{i} = \left(0,0,0,0, ..., 1, ..., 0,0,0,0\right)
+	\end{equation*}
+
+	\noindent
+	Con $1$ che indica la $i$-esima.
+	
+	\newpage
+	
+	\subsection{Tecnica risolutiva derivate parziali}
+	
+	La tecnica di risoluzione delle derivate corrisponde a quella spiegata in Analisi I.
+	
+	\subsubsection[Esempio 1]{\textcolor{Green4}{Esempio 1}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = x^{2} e^{xy}
+	\end{equation*}
+
+	\noindent
+	Con la $y$ costante:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left(x,y\right) = 2xe^{xy} + x^{2} e^{xy} y = xe^{xy} \cdot \left(2 + xy\right)
+	\end{equation*}
+
+	\noindent
+	Con la $x$ costante:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial y}\left(x,y\right) = x^{2} e^{xy} \cdot x = x^{3} e^{xy}
+	\end{equation*}
+
+	\subsubsection[Esempio 2]{\textcolor{Green4}{Esempio 2}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(v,w\right) = \dfrac{w}{v^{2} + w^{2}}
+	\end{equation*}
+	
+	\noindent
+	Con la $w$ costante:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial v}\left(v,w\right) = \dfrac{0 - w \cdot 2v}{\left(v^{2} + w^{2}\right)^{2}} = - \dfrac{2 v w}{\left(v^{2} + w^{2}\right)^{2}}
+	\end{equation*}
+	
+	\noindent
+	Con la $v$ costante:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial w}\left(v,w\right) = \dfrac{1\left(v^{2} + w^{2}\right) - w \cdot 2w}{\left(v^{2} + w^{2}\right)^{2}} = \dfrac{v^{2} - w^{2}}{\left(v^{2} + w^{2}\right)^{2}}
+	\end{equation*}
+
+	\subsubsection[Esempio 3]{\textcolor{Green4}{Esempio 3}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y,z\right) = xyz
+	\end{equation*}
+
+	\noindent
+	Con le $y,z$ costanti:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left(x,y,z\right) = yz
+	\end{equation*}
+
+	\noindent
+	Con le $x,z$ costanti:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial y}\left(x,y,z\right) = xz
+	\end{equation*}
+
+	\noindent
+	Con le $x,y$ costanti:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial z}\left(x,y,z\right) = xy
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection{Esempio 4 da \textcolor{Red3}{esame}}
+	
+	Calcolare la derivata, se esiste:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left(0,0\right)
+	\end{equation*}
+
+	\noindent
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = y \sqrt[3]{x}
+	\end{equation*}
+
+	\noindent
+	Applicando le regole classiche, come negli esercizi precedenti:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left(x,y\right) = y \cdot \dfrac{1}{3 \sqrt[3]{x^{2}}}
+	\end{equation*}
+
+	\noindent
+	È evidente che \textbf{non è definita nel punto} $\left(0,0\right)$.\newline
+	
+	\noindent
+	Quindi, è necessaria la definizione di derivata parziale:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left(0,0\right) = \lim_{h \rightarrow 0} \dfrac{f\left(h,0\right) - f\left(0,0\right)}{h} = \lim_{h \rightarrow 0} \dfrac{0-0}{h} = 0
+	\end{equation*}
+
+	\subsubsection[Esempio 5]{\textcolor{Green4}{Esempio 5}}
+	
+	Calcolare, se esiste, la derivata parziale:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial y}\left(0,0\right)
+	\end{equation*}
+
+	\noindent
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = e^{\sqrt{x^{2} + y^{2}}}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{Metodo pratico}}}\newline
+	
+	\noindent
+	Si esegue direttamente la derivata:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial y}\left(x,y\right) = e^{\sqrt{x^{2} + y^{2}}} \cdot \dfrac{1}{2 \sqrt{x^{2} + y^{2}}} \cdot 2y
+	\end{equation*}
+
+	\noindent
+	Derivata \textbf{non definita nel punto} $\left(0,0\right)$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{Metodo teorico}}}\newline
+	
+	\noindent
+	Si esegue la derivata andando a sostituire i valori all'interno della definizione di derivata parziale:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial y}\left(0,0\right) = \lim_{h \rightarrow 0} \dfrac{f\left(0,h\right) - f\left(0,0\right)}{h} = \lim_{h \rightarrow 0} \dfrac{e^{\sqrt{h^{2}}} - 1}{h} = \lim_{h \rightarrow 0} \dfrac{e^{|h|} - 1}{h}
+	\end{equation*}
+
+	\noindent
+	I risultati del limite sono $1$ se $h$ tende a $0^{+}$ ($h \rightarrow 0^{+}$), altrimenti $-1$ se $h$ tende a $0^{-}$ ($h \rightarrow 0^{-}$).\newline
+
+	\noindent
+	Si conclude l'esercizio dicendo che il \textbf{limite non esiste perché non è unico}.
+	
+	\newpage
+	
+	\subsection{Derivate direzionali}
+	
+	Si consideri la restrizione di $f$ a una retta che si può parametrizzare nel seguente modo:
+	
+	\begin{equation*}
+		r\left(t\right) = P + tv
+	\end{equation*}
+
+	\noindent
+	Dove:
+	
+	\begin{itemize}[label=-]
+		\item $v$ è un versore
+		\item $t \in \mathbb{R}$
+		\item $P$ è un punto iniziale
+	\end{itemize}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/derivate_direzionali.pdf}
+	\end{figure}
+
+	\noindent
+	Si definisce la \textcolor{Red3}{\textbf{\underline{derivata direzionale}}} come:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial v}\left(P\right) = \lim_{t \rightarrow 0} \dfrac{f\left(P + tv\right) - f\left(P\right)}{t}
+	\end{equation*}
+
+	\noindent
+	Si descrive un'interessante osservazione:
+	
+	\begin{itemize}[label=\ding{42}]
+		\item Se $v = \left(1,0\right)$ allora si risolve la \textbf{derivata parziale} rispetto a $x$ con $y$ costante:
+		\begin{equation*}
+			\dfrac{\partial f}{\partial x}\left(P\right)
+		\end{equation*}
+	
+		\item Se $v = \left(0,1\right)$ allora si risolve la \textbf{derivata parziale} rispetto a $y$ con $x$ costante:
+		\begin{equation*}
+			\dfrac{\partial f}{\partial y}\left(P\right)
+		\end{equation*}
+	\end{itemize}
+
+	\subsection{Nota fondamentale sulle derivate direzionali e parziali}
+	
+	\textbf{L'esistenza delle derivate parziali (o di tutte le derivate direzionali) in un punto \underline{non} garantisce la continuità in quel punto.}
+	
+	\newpage
+	
+	\section{Lezione 13}
+	
+	\subsection{Differenziabilità e funzione di Taylor}\label{differenziabilità}\label{funzione di Taylor}
+	
+	Una funzione $f$ definita:
+	
+	\begin{equation*}
+		f: D \subseteq \mathbb{R}^{2} \longrightarrow \mathbb{R}
+	\end{equation*}
+	
+	\noindent
+	Si dice \textcolor{Red3}{\textbf{\underline{differenziabile}}} in un punto $\left(x_{0}, y_{0}\right)$ intorno a $D$ se esistono le derivate parziali rispetto ad $x$ e rispetto a $y$:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left(x_{0}, y_{0}\right) \hspace{2em} \text{ e } \hspace{2em} \dfrac{\partial f}{\partial y}\left(x_{0}, y_{0}\right)
+	\end{equation*}
+
+	\noindent
+	E se esiste anche il limite:
+	
+	\begin{equation*}
+		\lim_{\left(x,y\right) \rightarrow \left(x_{0}, y_{0}\right)} \dfrac{f\left(x,y\right) - T\left(x,y\right)}{\sqrt{\left(x-x_{0}\right)^{2} + \left(y-y_{0}\right)^{2}}} = 0
+	\end{equation*}
+
+	\noindent
+	Dove $\sqrt{\left(x-x_{0}\right)^{2} + \left(y-y_{0}\right)^{2}}$ indica la distanza tra i due punti $\left(x,y\right)$ e $\left(x_{0}, y_{0}\right)$.\newline
+	
+	\noindent
+	Infine, la funzione è differenziabile in un punto se anche la \textcolor{Red3}{\textbf{\underline{funzione di Taylor}}} è definita nel seguente modo:
+	
+	\begin{equation*}
+		T\left(x,y\right) = f\left(x_{0}, y_{0}\right) + \dfrac{\partial f}{\partial x}\left(x_{0}, y_{0}\right)\left(x-x_{0}\right) + \dfrac{\partial f}{\partial y}\left(x_{0}, y_{0}\right)\left(y-y_{0}\right)
+	\end{equation*}
+
+	\newpage
+
+	\subsubsection[Esempio 1]{\textcolor{Green4}{Esempio 1}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = xy - 3x^{2} \hspace{2em} \text{con } \left(x_{0},y_{0}\right) = \left(1,2\right)
+	\end{equation*}
+
+	\noindent
+	Dimostrare che la funzione $f$ è differenziabile in $\left(1,2\right)$.\newline
+	
+	\noindent
+	In primis, si \textbf{calcolano le derivate parziali}:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = y - 6x & \longrightarrow & \dfrac{\partial f}{\partial x}\left(1,2\right) = 4 \\
+			&& \\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = x		& \longrightarrow & \dfrac{\partial f}{\partial y}\left(1,2\right) = 1
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Si \textbf{calcola la funzione di Taylor}:
+	
+	\begin{equation*}
+		T\left(x,y\right) = -1 - 4\left(x-1\right) + 1\left(y-2\right)
+	\end{equation*}
+	
+	\noindent
+	Dove il $-1$ è la funzione $f\left(1,2\right)$. Si \textbf{calcola il limite}:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\lim_{\left(x,y\right) \rightarrow \left(x_{0}, y_{0}\right)} \dfrac{f\left(x,y\right) - T\left(x,y\right)}{\sqrt{\left(x-x_{0}\right)^{2} + \left(y-y_{0}\right)^{2}}} & = & \lim_{\left(x,y\right) \rightarrow \left(1,2\right)} \dfrac{f\left(x,y\right) - T\left(x,y\right)}{\sqrt{\left(x-1\right)^{2} + \left(y-2\right)^{2}}} \\
+			&& \\
+			& = & \lim_{\left(x,y\right) \rightarrow \left(1,2\right)} \dfrac{xy - 3x^{2} + 1 + 4\left(x-1\right) - \left(y-2\right)}{\sqrt{\left(x-1\right)^{2} + \left(y-2\right)^{2}}}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Si \textbf{calcolano le coordinate polari}:
+	
+	\begin{equation*}
+		\begin{cases}
+			x = 1 + r \cdot \cos\left(\theta\right) \\
+			y = 2 + r \cdot \sin\left(\theta\right)
+		\end{cases}
+	\end{equation*}
+	\vspace{1em}
+	\begin{equation*}
+		0 \le \left|\dfrac{\left(1 + r \cdot \cos\left(\theta\right)\right)\left(2 + r\cdot\sin\left(\theta\right)\right) - 3\left(1 + r\cdot\cos\left(\theta\right)\right)^{2} + 1 + 4 r \cdot \cos\left(\theta\right) - r \cdot \sin\left(\theta\right)}{\sqrt{r^{2} \cdot \cos^{2}\left(\theta\right) + r^{2} \cdot \sin^{2}\left(\theta\right)}}\right| =
+	\end{equation*}
+	\vspace{1em}
+	\begin{equation*}
+		\left|\dfrac{r \cdot \sin\left(\theta\right)\cos\left(\theta\right) - 3 r^{2} \cdot \cos^{2}\left(\theta\right)}{r}\right| = \left|\dfrac{r^{2}\left(\sin\left(\theta\right)\cos\left(\theta\right) - 3\cos^{2}\left(\theta\right)\right)}{r}\right| \le 4r
+	\end{equation*}
+
+	\noindent
+	Con $4r$ che indica la funzione $g\left(r\right)$ che tende a zero con $r \rightarrow 0^{+}$.\newline
+	
+	\noindent
+	Quindi il limite esiste ed è stato dimostrato grazie alla tecnica del confronto.
+	
+	\subsubsection[Nota: piano tangente]{\textcolor{Red3}{Nota: piano tangente}}
+	
+	Se la funzione $f\left(x,y\right)$ è differenziabile in $\left(x_{0}, y_{0}\right)$, allora l'equazione:
+	
+	\begin{equation*}
+		z = f\left(x_{0}, y_{0}\right) + \dfrac{\partial f}{\partial x}\left(x_{0},y_{0}\right)\left(x-x_{0}\right) + \dfrac{\partial f}{\partial y}\left(x_{0},y_{0}\right)\left(y-y_{0}\right)
+	\end{equation*}
+
+	\noindent
+	Definisce un piano in $\mathbb{R}^{3}$ chiamato il \textcolor{Red3}{\textbf{\underline{piano tangente}}} al grafico di $f$ nel punto $\left(x_{0},y_{0},f\left(x_{0},y_{0}\right)\right)$ con $f\left(x_{0},y_{0}\right)$ rappresenta $z_{0}$.
+	
+	\newpage
+	
+	\subsubsection[Esempio 2]{\textcolor{Green4}{Esempio 2}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = ye^{-x^{2}}
+	\end{equation*}
+
+	\noindent
+	Si trovi l'equazione del piano tangente nel punto in cui $x = 0, y = 1$.\newline
+	
+	\noindent
+	Per ottenere il piano tangente si inizia con il calcolare le parti:
+	
+	\begin{equation*}
+		f\left(x_{0}, y_{0}\right) = f\left(0,1\right) = 1
+	\end{equation*}
+
+	\noindent
+	Le derivate parziali:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\dfrac{\partial f}{\partial x}\left(x_{0},y_{0}\right) & = & \dfrac{\partial f}{\partial x}\left(0,1\right) = y \cdot \left(-2x\right)e^{-x^{2}} \Bigg|_{x=0, y=1} = 0 \\
+			&& \\
+			\dfrac{\partial f}{\partial y}\left(x_{0},y_{0}\right) & = & \dfrac{\partial f}{\partial y}\left(0,1\right) = e^{-x^{2}} \Bigg|_{x=0, y=1} = 1
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	L'\textbf{equazione del piano tangente}:
+	
+	\begin{equation*}
+		z = 1 + 0\left(x-0\right) + 1\left(y-1\right) = 1 + y - 1 = y
+	\end{equation*}
+
+	\newpage
+
+	\subsubsection[Esempio 3]{\textcolor{Green4}{Esempio 3}}
+	
+	Determinare le coordinate di tutti i punti del grafico della funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = x^{3} - x^{2}y + y
+	\end{equation*}
+
+	\noindent
+	In cui il piano tangente è orizzontale, cioè $z$ è costante.\newline
+	
+	\noindent
+	Si inseriscono le derivate parziali nel sistema per trovare le coordinate:
+	
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x_{0},y_{0}\right) = 0 \\
+			\\
+			\dfrac{\partial f}{\partial y}\left(x_{0},y_{0}\right) = 0
+		\end{cases}
+		\xrightarrow{\text{Svolgendo le derivate parziali}}
+		\begin{cases}
+			3x^{2} - 2xy = 0 \\
+			-x^{2} + 1 = 0
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Risolvendo la seconda equazione, cioè $-x^{2} + 1 = 0$, si trovano le soluzioni $x = \pm 1$. Si sostituiscono i valori trovati nella prima equazione, cioè $3x^{2} - 2xy = 0$:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Caso } x = 1	& \longrightarrow &
+			\begin{cases}
+				x = 1 \\
+				\\
+				3 - 2y = 0 \longrightarrow y = \dfrac{3}{2}
+			\end{cases} \\
+			\\
+			\text{Caso } x = -1	& \longrightarrow &
+			\begin{cases}
+				x = -1 \\
+				\\
+				3 + 2y = 0 \longrightarrow y = -\dfrac{3}{2}
+			\end{cases}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Quindi, i punti cercati sono:
+	
+	\begin{equation*}
+		A\left(1, \dfrac{3}{2}, 1^{\textcolor{Red3}{\star}}\right), \hspace{2em} B\left(-1, -\dfrac{3}{2}, -1^{\textcolor{Green4}{\star}}\right)
+	\end{equation*}
+
+	Dove:
+	
+	\begin{itemize}[label=-]
+		\item \textcolor{Red3}{$\star$} rappresenta il risultato della funzione $f\left(1,\dfrac{3}{2}\right)$
+		\item \textcolor{Green4}{$\star$} rappresenta il risultato della funzione $f\left(-1, -\dfrac{3}{2}\right)$
+	\end{itemize}
+
+	\newpage
+	
+	\subsubsection{Nota: differenziale relativo agli incrementi}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = f\left(x_{0},y_{0}\right) + \dfrac{\partial f}{\partial x}\left(x_{0},y_{0}\right)\left(x-x_{0}\right) + \dfrac{\partial f}{\partial y}\left(x_{0},y_{0}\right)\left(y-y_{0}\right) + \overbracket{0\underbrace{\left(\sqrt{\left(x-x_{0}\right)^{2} + \left(y-y_{0}\right)^{2}}\right)}_{\left(x,y\right) \rightarrow \left(x_{0},y_{0}\right)}}^{\text{funzione d'errore}}
+	\end{equation*}
+
+	\noindent
+	L'\textcolor{Red3}{\textbf{\underline{incremento della variabile dipendente}}}, rappresentato con $\Delta f$:
+	
+	\begin{equation*}
+		f\left(x,y\right) - f\left(x_{0},y_{0}\right) = \underbrace{\dfrac{\partial f}{\partial x}\left(x_{0},y_{0}\right)\left(x-x_{0}\right) + \dfrac{\partial f}{\partial y}\left(x_{0},y_{0}\right)\left(y-y_{0}\right)}_{\star} + 0\left(\sqrt{\left(x-x_{0}\right)^{2} + \left(y-y_{0}\right)^{2}}\right)
+	\end{equation*}
+
+	\noindent
+	In cui la $\star$ rappresenta il \textcolor{Red3}{\textbf{differenziale di $f$ in $\left(x_{0},y_{0}\right)$ relativo agli incrementi $\Delta x$ e $\Delta y$}}.\newline
+	
+	\noindent
+	Quindi, il \textcolor{Red3}{\textbf{\underline{differenziale}}} della funzione $f$ in $\left(x_{0},y_{0}\right)$ è rappresentato da:
+	
+	\begin{equation*}
+		\mathrm{d}f_{\left(x_{0},y_{0}\right)} : \left(\Delta x, \Delta y\right) \longrightarrow \dfrac{\partial f}{\partial x}\left(x_{0},y_{0}\right)\Delta x + \dfrac{\partial f}{\partial y}\left(x_{0},y_{0}\right) \Delta y
+	\end{equation*}
+
+	\noindent
+	Esso è un'applicazione lineare da $\mathbb{R}^{2}$ a $\mathbb{R}$.
+	
+	\newpage
+	
+	\subsubsection[Esempio 4]{\textcolor{Green4}{Esempio 4}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{2x^{2} + e^{2y}}
+	\end{equation*}
+
+	\noindent
+	Calcolare un valore approssimato della funzione $f$ in $\left(2.2, -0.2\right)$.\newline
+	
+	\noindent
+	Il punto $\left(2.2, -0.2\right)$ è vicino a $\left(2, 0\right)$. Quindi, bisogna calcolare l'incremento:
+	
+	\begin{equation*}
+		f\left(2.2,-0.2\right) - f\left(2,0\right)
+	\end{equation*}
+
+	\noindent
+	Che corrisponde in modo approssimato a:
+	
+	\begin{equation*}
+		\Delta f \approx f_{\left(2,0\right)} \left(0.2,-0.2\right) = \dfrac{\partial f}{\partial x}\left(2,0\right) \cdot 0.2 + \dfrac{\partial f}{\partial y}\left(2,0\right) \cdot \left(-0.2\right)
+	\end{equation*}
+
+	\noindent
+	I valori $0.2$ e $-0.2$ rappresentano gli incrementi delle variabili $x$ e $y$:
+	
+	\begin{equation*}
+		\begin{array}{llllll}
+			x: & 2 & \rightarrow & \phantom{-}2.2	& \xrightarrow{\text{incremento effettuato}} & \phantom{-}0.2 \\
+			y: & 0 & \rightarrow & -0.2				& \xrightarrow{\text{incremento effettuato}} & -0.2
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Si \textbf{calcolano le derivate parziali}:
+	
+	\begin{equation*}
+		\begin{array}{lllll}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) & = & \dfrac{1}{2\sqrt{2x^{2} + e^{2y}}} \cdot 4x		& \longrightarrow & \dfrac{\partial f}{\partial x}\left(2,0\right) = \dfrac{4}{3} \\
+			&&&& \\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) & = & \dfrac{1}{2\sqrt{2x^{2} + e^{2y}}} \cdot 2e^{2y}	& \longrightarrow & \dfrac{\partial f}{\partial y}\left(2,0\right) = \dfrac{1}{3}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Per concludere, l'incremento della funzione passando dal punto $\left(2,0\right)$ a $\left(2.2,-0.2\right)$ è circa:
+	
+	\begin{equation*}
+		\Delta f \approx \dfrac{4}{3} \cdot 0.2 - \dfrac{1}{3} \cdot 0.2 = 0.2
+	\end{equation*}
+
+	\noindent
+	E dunque la funzione valutata in $\left(2,0\right)$ vale $3$ e si termina scrivendo:
+	
+	\begin{equation*}
+		f\left(2.2,-0.2\right) \approx 3 + 0.2 = 3.2
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{Gradiente}
+	
+	Se la funzione $f$ ammette derivate parziali in $\left(x_{0},y_{0}\right)$ il vettore:
+	
+	\begin{equation*}
+		\nabla f\left(x_{0},y_{0}\right) = \left(\dfrac{\partial f}{\partial x}\left(x_{0},y_{0}\right), \dfrac{\partial f}{\partial y}\left(x_{0},y_{0}\right)\right)
+	\end{equation*}
+
+	\noindent
+	Si chiama \textcolor{Red3}{\textbf{\underline{gradiente}}} di $f$ in $\left(x_{0},y_{0}\right)$ (il simbolo $\nabla$ si legge \emph{nabla}).\newline
+	
+	\noindent
+	Grazie al gradiente è possibile riscrivere qualche formula:
+	
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{\underline{Funzione di Taylor}}} (pagina \pageref{funzione di Taylor}):
+		\begin{equation*}
+			T\left(x,y\right) = f\left(x_{0},y_{0}\right) + \nabla f\left(x_{0},y_{0}\right) \cdot \left(x-x_{0},y-y_{0}\right) \hspace{2em} \text{N.B. è un prodotto scalare}
+		\end{equation*}
+	
+		\item \textcolor{Red3}{\textbf{\underline{Differenziale}}} (pagina \pageref{differenziabilità}):
+		\begin{equation*}
+			\mathrm{d}f_{\left(x_{0},y_{0}\right)}\left(\Delta x, \Delta y\right) = \nabla f\left(x_{0},y_{0}\right) \cdot \left(\nabla x, \nabla y\right) \hspace{2em} \text{N.B. è un prodotto scalare}
+		\end{equation*}
+		Una notazione alternativa del prodotto scalare può essere la seguente:
+		\begin{equation*}
+			\left\langle \nabla f\left(x_{0}, y_{0}\right), \left(\Delta x, \Delta y\right) \right\rangle
+		\end{equation*}
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Generalizzazione del concetto di differenziabilità per funzioni di $\boldsymbol{n}$ variabili}
+	
+	Sia la funzione $f$ definita in un intorno di $\bar{x} \in \mathbb{R}^{n}$ e supponiamo che esistano tutte le derivate parziali di $f$ in $\bar{x}$. Si dice che $f$ è \textbf{differenziabile} in $\bar{x}$ se:
+	
+	\begin{equation*}
+		\lim_{x \rightarrow \bar{x}} \dfrac{f\left(x\right) - T\left(x\right)}{\Big||x-\bar{x}|\Big|} = 0 \hspace{1em} \text{con } T\left(x\right) = f\left(\bar{x}\right) + \dfrac{\partial f}{\partial x_{1}}\left(\bar{x}\right) \cdot \left(x_{1} - \bar{x}_{1}\right) + \cdots + \dfrac{\partial f}{\partial x_{n}}\left(\bar{x}\right) \cdot \left(x_{n} - \bar{x}_{n}\right)
+	\end{equation*}
+
+	\noindent
+	Dove la parte di derivate parziali rappresenta il differenziale di $f$ in $\bar{x}$ relativo agli incrementi $\Delta x_{i}$ con $i = 1, ..., n$:
+	
+	\begin{equation*}
+		\sum_{i = 1}^{n} \dfrac{\partial f}{\partial x_{i}}\left(\bar{x}\right)\left(x_{i} - \bar{x}_{i}\right)
+	\end{equation*}
+
+	\noindent
+	Il \textbf{gradiente} è:
+	
+	\begin{equation*}
+		\nabla f\left(\bar{x}\right) = \left(\dfrac{\partial f}{\partial x_{1}}\left(\bar{x}\right), \cdots, \dfrac{\partial f}{\partial x_{n}}\left(\bar{x}\right)\right)
+	\end{equation*}
+
+	\subsection[Teorema: differenziabilità implica continuità]{\textcolor{Red3}{Teorema: differenziabilità implica continuità}}
+	
+	\begin{theorem}[\textbf{Differenziabilità implica continuità}]\label{teorema: differenziabilità implica continuità}
+		Se la funzione $f$ è differenziabile nel punto $x_{0}$, allora la funzione $f$ è continua nel punto $x_{0}$. Quindi, in altre parole, la differenziabilità implica la continuità.
+	\end{theorem}
+
+	\subsection[Teorema: differenziale totale]{\textcolor{Red3}{Teorema: differenziale totale}}
+	
+	\begin{theorem}[\textbf{Differenziale totale}]\label{teorema: differenziale totale}
+		Se una funzione $f$ ammette tutte le derivate parziali in un intorno di $x_{0}$ interno la dominio di $f$, continua in $x_{0}$, allora $f$ è differenziabile.
+	\end{theorem}
+
+	\newpage
+	
+	\subsubsection[Esempio]{\textcolor{Green4}{Esempio}}
+	
+	Data la funzione:
+	
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{x^{2} + y^{2}} \hspace{2em} \text{con } D_{f} = \mathbb{R}^{2}
+	\end{equation*}
+
+	\noindent
+	Si \textbf{calcolano le derivate parziali}:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) & = & \dfrac{x}{\sqrt{x^{2} + y^{2}}} \\
+			&& \\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) & = & \dfrac{y}{\sqrt{x^{2} + y^{2}}}
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	Le funzioni sono continue in $\mathbb{R}^{2} \setminus \left\{0,0\right\}$, quindi grazie al teorema a pagina~\pageref{teorema: differenziabilità implica continuità}, la funzione $f$ è differenziabile in tutti i punti di $\mathbb{R}^{2}$ escluso $\left(0,0\right)$.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{La funzione $f$ è differenziabile in $\left(0,0\right)$?}}}\newline
+	
+	\noindent
+	La risposta è no. Infatti, calcolando la derivata parziale rispetto a $x$ tramite la definizione:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left(0,0\right) = \lim_{h \rightarrow 0} \dfrac{\sqrt{h^{2} + 0} - 0}{h} = \lim_{h \rightarrow 0} \dfrac{\sqrt{h^{2}}}{h} = \lim_{h \rightarrow 0} \dfrac{\left|h\right|}{h}
+	\end{equation*}
+
+	\noindent
+	Le soluzioni sono $+1$ con $h \rightarrow 0^{+}$ e $-1$ con $h \rightarrow 0^{-}$.\newline
+	
+	\noindent
+	Quindi \textbf{non esistono le derivate parziali} di $x$ e $y$ nel punto $\left(0,0\right)$, ovvero non esiste in:
+	
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left(0,0\right) \hspace{1em} \text{ e } \hspace{1em} \dfrac{\partial f}{\partial y}\left(0,0\right)
+	\end{equation*}
 \end{document}
