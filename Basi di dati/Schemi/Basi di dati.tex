@@ -587,4 +587,126 @@
 		\includegraphics[width=0.6\textwidth]{img/generalizzazione_sintassi.pdf}
 		\caption{Sintassi grafica della generalizzazione.}
 	\end{figure}
+
+	\newpage
+	
+	\section{Progettazione concettuale}
+	
+	\subsection{Strategie di progetto}
+	
+	Lo sviluppo di uno schema concettuale a partire dalle sue specifiche può essere considerato un processo di ingegnerizzazione.
+	
+	\subsubsection{Strategia top-down}
+	
+	Lo schema concettuale viene prodotto mediante una serie di raffinamenti successivi a partire da uno schema iniziale che descrive tutte le specifiche con pochi concetti molto astratti. Lo schema viene poi via via raffinato mediante opportune trasformazioni che aumentano il dettaglio dei vari concetti presenti.\newline
+	
+	\noindent
+	In sintesi:
+	
+	\begin{enumerate}
+		\item \textbf{Fase 1}, si considerano le \emph{specifiche globalmente} e si produce uno schema iniziale completo ma con \emph{pochi concetti} molto \emph{astratti};
+		
+		\item \textbf{Fase 2}, si esegue un \emph{raffinamento} dei concetti astratti fino ad arrivare allo schema concettuale \emph{completo} in ogni \emph{dettaglio}.
+	\end{enumerate}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Vantaggio:}}} il progettista può \textbf{descrivere inizialmente tutte le specifiche dei dati trascurandone i dettagli}, per \textbf{poi entrare nel merito} di un concetto alla volta.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{Svantaggio:}}} si deve \textbf{possedere} una \textbf{visione globale e astratta} di \emph{tutte} le componenti del sistema, ma solitamente è difficile.
+	
+	\newpage
+	
+	\subsubsection{Strategia bottom-up}
+	
+	Le specifiche iniziali sono suddivise in componenti via via sempre più piccole, fino a quando queste componenti descrivono un frammento elementare della realtà di interesse. A questo punto, le varie componenti vengono rappresentate da semplici schemi concettuali che possono consistere anche in singoli concetti. I vari schemi così ottenuti vengono poi fusi fino a giungere attraverso una completa integrazione di tutte le componenti, allo schema concettuale finale.
+	
+	La \textbf{differenza rispetto alla strategia top-down} è che i vari concetti presenti nello schema finale vengono via via introdotti durante le varie fasi.\newline
+	
+	\noindent
+	In sintesi:
+	
+	\begin{enumerate}
+		\item \textbf{Fase 1}, si \emph{decompongono} le specifiche iniziali in \emph{parti elementari}, ovvero in frasi che descrivono lo stesso concetto;
+		
+		\item \textbf{Fase 2}, si \emph{generano} gli schemi per tutte le parti elementari individuate;
+		
+		\item \textbf{Fase 3}, si \emph{fondono} gli schemi (introducendo altri costrutti del modello E-R) in modo da \emph{integrare} tutti gli schemi componenti e generare lo \emph{schema finale}.
+	\end{enumerate}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Vantaggio:}}} questa strategia si adatta a una \textbf{decomposizione del problema in componenti più semplici}, facilmente individuabili, il cui progetto può essere affrontato anche da progettisti diversi.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{Svantaggio:}}} vengono richieste delle operazioni di \textbf{integrazione di schemi concettuali diversi} che, nel caso di schemi complessi, presentano \textbf{quasi sempre grosse difficoltà}.
+	
+	\newpage
+	
+	\subsubsection{Strategia inside-out}
+	
+	Si individuano inizialmente solo alcuni concetti importanti e poi si procede, a partire da questi, a \dquotes{macchia d'olio}. Si rappresentano cioè prima i concetti in relazione con i concetti iniziali, per poi muoversi verso quelli più lontani attraverso una \dquotes{navigazione} tra le specifiche.\newline
+	
+	\noindent
+	In sintesi:
+	
+	\begin{enumerate}
+		\item \textbf{Fase 1}, si \emph{individua} nelle specifiche alcuni \emph{concetti importanti}, chiamati concetti guida;
+		
+		\item \textbf{Fase 2}, si \emph{generano} gli schemi per i concetti guida;
+		
+		\item \textbf{Fase 3}, si \emph{fondono} gli schemi precedenti e si genera lo \emph{schema finale}.
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Vantaggio:}}} \textbf{non sono richiesti passi di integrazione}.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{Svantaggio:}}} è necessario, di volta in volta, \textbf{esaminare tutte le specifiche} per \textbf{individuare concetti non ancora rappresentati} e \textbf{descrivere i nuovi concetti nel dettaglio}.
+	
+	\newpage
+	
+	\subsection{Qualità di uno schema concettuale}
+	
+	L'analisi della qualità dello schema concettuale prodotto può essere suddivisa in diverse fasi:
+	
+	\begin{itemize}
+		\item Correttezza
+		\item Completezza
+		\item Leggibilità
+		\item Minimalità
+	\end{itemize}
+
+	\subsubsection{Correttezza}\label{correttezza}
+
+	\textcolor{Red3}{\textbf{\emph{Definizione.}}} Uno schema concettuale è \textbf{corretto} quando \textbf{utilizza propriamente i costrutti} messi a disposizione dal modello concettuale di riferimento.\newline
+	
+	\noindent
+	Gli errori che si possono commettere nello schema concettuale sono principalmente due:
+	
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{\emph{Sintattici}}}. Vengono utilizzati costrutti non ammessi. \textcolor{Green4}{Per esempio}, una generalizzazione tra relazioni invece che tra entità.
+		
+		\item \textcolor{Red3}{\textbf{\emph{Semantici}}}. Vengono usati costrutti senza rispettare la loro definizione. \textcolor{Green4}{Per esempio}, l'uso di una relazione per descrivere il fatto che una entità è specializzazione di un'altra.
+	\end{itemize}
+	
+	\subsubsection{Completezza}\label{completezza}
+	
+	\textcolor{Red3}{\textbf{\emph{Definizione.}}} Uno schema concettuale è \textbf{completo} quando \textbf{rappresenta tutti i dati} di interesse e quando \textbf{tutte le operazioni possono essere eseguite} a partire dai concetti descritti nello schema.\newline
+	
+	\noindent
+	La completezza è \textbf{possibile verificarla} controllando che tutte le specifiche sui dati siano rappresentate da qualche concetto presente nello schema che stiamo costruendo, e che tutti i concetti coinvolti in un'operazione presente nelle specifiche siano raggiungibili \dquotes{navigando} attraverso lo schema.
+	
+	\subsubsection{Leggibilità}\label{leggibilità}
+	
+	\textcolor{Red3}{\textbf{\emph{Definizione.}}} Uno schema concettuale è \textbf{leggibile} quando rappresenta i requisiti in maniera naturale e facilmente comprensibile.\newline
+	
+	\noindent
+	Per garantire questa proprietà è necessario rendere lo schema autoesplicativo, \textcolor{Green4}{per esempio}, mediante una scelta opportuna dei nomi da dare ai concetti. La leggibilità dipende anche da criteri puramente estetici.
+	
+	\subsubsection{Minimalità}\label{minimalità}
+	
+	\textcolor{Red3}{\textbf{\emph{Definizione.}}} Uno schema concettuale è \textbf{minimale} quando tutte le specifiche sui dati sono rappresentate una sola volta nello schema.\newline
+	
+	\noindent
+	Uno schema quindi non è minimale quando esistono delle \textbf{ridondanze}, ovvero concetti che possono essere derivati da altri. La minimalità di uno schema si può \textbf{verificare} per ispezione, controllando se esistono concetti che possono essere eliminati dallo schema che stiamo costruendo senza inficiare la sua completezza.
 \end{document}
