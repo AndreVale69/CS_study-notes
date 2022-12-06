@@ -15,6 +15,7 @@
 \hypersetup{
 	colorlinks=true
 }
+\usepackage{svg}
 
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
@@ -709,4 +710,552 @@
 	
 	\noindent
 	Uno schema quindi non è minimale quando esistono delle \textbf{ridondanze}, ovvero concetti che possono essere derivati da altri. La minimalità di uno schema si può \textbf{verificare} per ispezione, controllando se esistono concetti che possono essere eliminati dallo schema che stiamo costruendo senza inficiare la sua completezza.
+	
+	\newpage
+	
+	\section{Progettazione logica}
+	
+	\subsection{Fasi della progettazione logica}
+	
+	L'\textcolor{Red3}{\textbf{obbiettivo}} della progettazione logica è \textbf{produrre uno schema logico che descriva in modo \underline{corretto} ed \underline{efficace} tutte le informazioni contenute nello schema concettuale}.
+	
+	Le attività principali della progettazione logica sono la riorganizzazione dello schema concettuale e la traduzione in un modello logico:
+	
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{\emph{Ristrutturazione dello schema Entità-Relazione}}}: è una fase indipendente dal modello logico scelto e si basa su \textbf{criteri di ottimizzazione} dello schema e di \textbf{semplificazione} della fase successiva. In particolare, le fasi sono:
+		\begin{itemize}
+			\item Analisi delle ridondanze dovute alla presenza di dati derivabili;
+			\item Eliminazione delle generalizzazioni;
+			\item Accorpamento/partizionamento di entità e relazioni;
+			\item Scelta degli identificatori principali.
+		\end{itemize}
+	
+		\item \textcolor{Red3}{\textbf{\emph{Traduzione verso il modello logico}}}: fa riferimento a uno specifico modello logico (nel nostro caso modello relazionale) e può includere una ulteriore ottimizzazione che si basa sulle caratteristiche del modello logico stesso.
+	\end{itemize}
+	
+	\newpage
+	
+	\subsection{Traduzione verso il modello logico}
+	
+	La seconda fase della progettazione logica corrisponde ad una traduzione tra modelli di dati diversi. Si parte da uno schema E-R ristrutturato e si costruisce uno schema logico equivalente, in grado cioè di rappresentare le medesime informazioni.
+	
+	Si affronta il problema della traduzione caso per caso, iniziando dal caso più generale che ci suggerisce l'idea generale su cui si basa la metodologia di traduzione.
+	
+	\subsubsection{Entità e attributo opzionale}
+	
+	L'\textcolor{Red3}{\textbf{\underline{entità}}} si rappresenta una relazione (lettera maiuscola) con lo stesso nome avente per attributi (lettere tra parentesi) i medesimi attributi dell'entità e per chiave il suo identificatore.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_entita.pdf}
+		\caption{Modello E-R di un'entità.}
+	\end{figure}
+
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{equation*}
+		\textbf{E}\left(a,b,c\right)
+	\end{equation*}
+
+	\noindent
+	Invece, un possibile \textcolor{Red3}{\textbf{\underline{attributo nullo}}} si rappresenta inserendo un asterisco.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_attributo_nullo.pdf}
+		\caption{Modello E-R di un possibile attributo nullo.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{equation*}
+		\textbf{E}\left(\underline{a,b},c^{*}\right)
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection{Relazione uno a molti}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione uno a molti}}} è caratterizzata dal fatto che un'entità è in relazione con un'altra con cardinalità $\left(1,1\right)$ e la corrispondente entità ha cardinalità $\left(x,N\right)$ ($x$ può essere qualsiasi valore minimo).
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/relazionale_uno_a_molti.pdf}
+		\caption{Modello E-R di una relazione uno a molti.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.3\textwidth]{img/relazionale_uno_a_molti2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione uno a uno}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione uno a uno}}} è caratterizzata dal fatto che entrambe le entità hanno cardinalità $\left(1,1\right)$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/relazionale_uno_a_uno.pdf}
+		\caption{Modello E-R di una relazione uno a uno.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_uno_a_uno2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione molti a molti}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione molti a molti}}} è caratterizzata dal fatto che entrambe le entità hanno cardinalità $\left(x,N\right)$ ($x$ può essere qualsiasi valore minimo).
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/relazionale_molti_a_molti.pdf}
+		\caption{Modello E-R di una relazione molti a molti.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.2\textwidth]{img/relazionale_molti_a_molti2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione uno a molti (identificatore esterno)}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione uno a molti con identificatore esterno}}} è caratterizzata dal fatto che un'entità ha cardinalità $\left(1,1\right)$ e l'altra entità ha $\left(x,N\right)$ ($x$ può essere qualsiasi valore minimo).
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/relazionale_uno_a_molti_id_esterno.pdf}
+		\caption{Modello E-R di una relazione molti a molti.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.2\textwidth]{img/relazionale_uno_a_molti_id_esterno2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione uno a molti (attributo sulla relazione)}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione uno a molti con un attributo sulla relazione}}} è caratterizzata dal fatto che un'entità ha cardinalità $\left(1,1\right)$, l'altra entità ha $\left(x,N\right)$ ($x$ può essere qualsiasi valore minimo) e un attributo è presente nella relazione.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_uno_a_molti_att_relazione.pdf}
+		\caption{Modello E-R di una relazione uno a molti con un attributo sulla relazione esterno.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.2\textwidth]{img/relazionale_uno_a_molti_att_relazione2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione uno a uno (una cardinalità minima a zero)}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione uno a uno con una cardinalità minima uguale a zero}}} è caratterizzata dal fatto che un'entità ha cardinalità $\left(0,1\right)$, l'altra entità ha $\left(1,1\right)$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_uno_a_uno_card_minima_0.pdf}
+		\caption{Modello E-R di una relazione uno a uno con una cardinalità minima uguale a zero.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.2\textwidth]{img/relazionale_uno_a_uno_card_minima_02.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione uno a uno (entrambe cardinalità minima a zero)}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione uno a uno con entrambe le cardinalità minima uguale a zero}}} è caratterizzata dal fatto che un'entità ha cardinalità $\left(0,1\right)$, l'altra entità ha $\left(0,1\right)$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_uno_a_uno_card_minime_0.pdf}
+		\caption{Modello E-R di una relazione uno a uno con entrambe le cardinalità minima uguale a zero.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_uno_a_uno_card_minime_02.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione molti a molti (attributo sulla relazione)}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione molti a molti con un attributo sulla relazione}}} è caratterizzata dal fatto che un'entità ha cardinalità $\left(x,N\right)$, l'altra entità ha $\left(x,N\right)$ ($x$ può essere qualsiasi valore minimo) e un attributo è presente nella relazione.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_molti_a_molti_att_relazione.pdf}
+		\caption{Modello E-R di una relazione molti a molti con un attributo sulla relazione esterno.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.25\textwidth]{img/relazionale_molti_a_molti_att_relazione2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione molti a molti (identificatori con più attributi)}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione molti a molti con identificatori con più attributi}}} è caratterizzata dal fatto che un'entità ha cardinalità $\left(x,N\right)$, l'altra entità ha $\left(x,N\right)$ ($x$ può essere qualsiasi valore minimo) e un attributo è presente nella relazione.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_molti_a_molti_attributi.pdf}
+		\caption{Modello E-R di una relazione molti a molti con identificatori con più attributi.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.25\textwidth]{img/relazionale_molti_a_molti_attributi2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione molti a molti (relazione ternaria)}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione molti a molti con relazione ternaria}}} è caratterizzata dal fatto che un'entità ha cardinalità $\left(x,N\right)$, l'altra entità ha $\left(x,N\right)$, l'altra entità ancora ha cardinalità $\left(x,N\right)$ ($x$ può essere qualsiasi valore minimo) e un attributo è presente nella relazione.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/relazionale_molti_a_molti_rel_ternaria.pdf}
+		\caption{Modello E-R di una relazione molti a molti con relazione ternaria.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.32\textwidth]{img/relazionale_molti_a_molti_rel_ternaria2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Relazione molti a molti (relazione ternaria e cardinalità uno a uno)}
+	
+	La \textcolor{Red3}{\textbf{\underline{relazione molti a molti con relazione ternaria e cardinalità uno a uno}}} è caratterizzata dal fatto che un'entità ha cardinalità $\left(1,N\right)$, l'altra entità ha $\left(x,N\right)$, l'altra entità ancora ha cardinalità $\left(x,N\right)$ ($x$ può essere qualsiasi valore minimo) e un attributo è presente nella relazione.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{img/relazionale_molti_a_molti_rel_ternaria_card.pdf}
+		\caption{Modello E-R di una relazione molti a molti con relazione ternaria.}
+	\end{figure}
+	
+	\noindent
+	Relativo modello relazionale:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.4\textwidth]{img/relazionale_molti_a_molti_rel_ternaria_card2.pdf}
+	\end{figure}
+	
+	\newpage
+	
+	\section{Algebra relazionale}
+	
+	L'\textcolor{Red3}{\textbf{\underline{algebra relazionale}}} è un linguaggio procedurale, basato su concetti di tipo algebrico. Esso è costituito da un insieme di operatori, definiti su relazioni e che producono ancora relazioni come risultati. I vari operatori sono:
+	
+	\begin{itemize}
+		\item \textbf{Insiemistici}
+		\begin{itemize}
+			\item \emph{Unione}
+			\item \emph{Intersezione}
+			\item \emph{Differenza}
+		\end{itemize}
+	
+		\item \textbf{Specifici}
+		\begin{itemize}
+			\item \emph{Ridenominazione}
+			\item \emph{Selezione}
+			\item \emph{Proiezione}
+		\end{itemize}
+		
+		\item \textbf{Più importante} \emph{join}
+		\begin{itemize}
+			\item \emph{Join naturale}
+			\item \emph{Prodotto}
+			\item \emph{Cartesiano}
+			\item \emph{Semijoin}
+			\item \emph{Theta-join}
+		\end{itemize}
+	\end{itemize}
+
+	\noindent
+	In altre parole, l'algebra relazione è un insieme di \textbf{operatori} su \textbf{relazioni}. Dato che le relazioni sono insiemi, ha senso definire su di esse gli operatori insiemistici come l'unione, la differenza e l'intersezione
+	
+	\newpage
+	
+	\subsection{Insiemistici}
+
+	\subsubsection{Unione}
+	
+	L'\textcolor{Red3}{\textbf{\underline{unione}}} di due relazioni $r_{1}$ e $r_{2}$ definite sullo stesso insieme di attributi $X$ è indicata con $r_{1} \cup r_{2}$ ed è una relazione ancora su $X$ contenente le tuple che appartengono a $r_{1}$ oppure a $r_{2}$, oppure a entrambe.\newline
+	
+	\noindent
+	La \textbf{cardinalità}, ovvero il numero di tuple contenute nella relazione del risultato:
+	
+	\begin{equation*}
+		\max\left(|r_{1}|, |r_{2}|\right) \le \left|r_{1} \cup r_{2}\right| \le |r_{1}| + |r_{2}|
+	\end{equation*}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/unione.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Intersezione}
+	
+	L'\textcolor{Red3}{\textbf{\underline{intersezione}}} di $r_{1}\left(X\right)$ e $r_{2}\left(X\right)$ è indicata con $r_{1} \cap r_{2}$ ed è una relazione su $X$ contenente le tuple che appartengono sia a $r_{1}$ sia a $r_{2}$.\newline
+	
+	\noindent
+	La \textbf{cardinalità}, ovvero il numero di tuple contenute nella relazione del risultato:
+	
+	\begin{equation*}
+		0 \le \left|r_{1} \cap r_{2}\right| \le \min\left(|r_{1}|, |r_{2}|\right)
+	\end{equation*}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/intersezione.pdf}
+	\end{figure}
+
+%	\newpage
+	
+	\subsubsection{Differenza}
+	
+	La \textcolor{Red3}{\textbf{\underline{differenza}}} di $r_{1}\left(X\right)$ e $r_{2}\left(X\right)$ è indicata con $r_{1} - r_{2}$ ed è una relazione su $X$ contenente le tuple che appartengono a $r_{1}$ e non appartengono a $r_{2}$.\newline
+	
+	\noindent
+	La \textbf{cardinalità}, ovvero il numero di tuple contenute nella relazione del risultato:
+	
+	\begin{equation*}
+		0 \le \left|r_{1} - r_{2}\right| \le |r_{1}|
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/differenza.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Specifici}
+	
+	\subsubsection{Ridenominazione}
+	
+	L'\textcolor{Red3}{\textbf{\underline{obbiettivo}}} di questo operatore è risolvere le limitazioni degli operatori insiemistici. Infatti, esso \textbf{adegua i nomi degli attributi}, a seconda delle necessità, in particolare alla fine di facilitare le operazioni insiemistiche. Ovviamente, la ridenominazione avviene solamente sugli attributi, il \textbf{contenuto} rimane \textbf{inalterato}.\newline
+	
+	\noindent
+	Il simbolo che lo rappresenta è la lettera greca rho $\rho$. \textbf{Al pedice viene inserita la ridenominazione, a destra il nome dell'attributo da rinominare e a sinistra il nuovo nome dell'attributo}. In generale, sia $r$ una relazione definita sull'insieme di attributi $X$ e sia $Y$ un (altro) insieme di attributi con la stessa cardinalità. Inoltre, siano $A_{1} A_{2} ... A_{k}$ e $B_{1} B_{2} ... B_{k}$ rispettivamente un ordinamento per gli attributi in $X$ e un ordinamento per quelli in $Y$. Allora la ridenominazione:
+	
+	\begin{equation*}
+		\rho_{B_{1}B_{2} ... B_{k} \leftarrow A_{1}A_{2} ... A_{k}} \left(r\right)
+	\end{equation*}
+
+	\noindent
+	Contiene una tupla $t'$ per ciascuna tupla $t$ in $r$, definita come segue: $t'$ è una tupla su $Y$ e $t\left[B_{i}\right] = t\left[A_{i}\right]$, per $i = 1, ..., k$.\newline
+	
+	\noindent
+	La definizione conferma che ciò che cambia sono i nomi degli attributi, mentre i valori rimangono inalterati e vengono associati ai nuovi attributi.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ridenominazione.pdf}
+	\end{figure}
+
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		\rho_{\text{ Sede, Retribuzione } \leftarrow \text{ Agenzia, Stipendio}} \left(\text{Impiegati}\right) \cup \rho_{\text{ Sede, Retribuzione } \leftarrow \text{ Fabbrica, Salario}}\left(\text{Operai}\right)
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection{Selezione}
+	
+	La selezione produce una porzione dell'operando. Più precisamente, la \textcolor{Red3}{\textbf{\underline{selezione}}} produce un sottoinsieme delle tuple su tutti gli attributi. Il \textbf{risultato contiene le tuple dell'operando che soddisfano la condizione di selezione}. Quest'ultima viene indicata nel pedice della notazione della selezione, ovvero sigma $\sigma$. Inoltre, le condizioni possono prevedere confronti fra attributi e confronti fra attributi e costanti, e possono essere complesse, ottenute combinando condizioni semplici con i connettivi logici $\lor$ (or), $\land$ (and) e $\lnot$ (not).\newline
+	
+	\noindent
+	In generale, data una relazione $r\left(X\right)$, una \emph{forma proposizionale} $F$ su $X$ è una formula ottenuta combinando, con i connettivi $\land, \lor, \lnot$, condizioni atomiche del tipo $A\theta B$ o $A\theta c$, dove:
+	
+	\begin{itemize}
+		\item $\theta$ è un \textbf{operatore di confronto}, il quale può essere:
+		\begin{itemize}
+			\item $=$
+			\item $\ne$
+			\item $>$
+			\item $<$
+			\item $\ge$
+			\item $\le$
+		\end{itemize}
+	
+		\item $A$ e $B$ sono \textbf{attributi} in $X$ sui cui valori il confronto $\theta$ abbia senso;
+		
+		\item $c$ è una \textbf{costante} \dquotes{compatibile} con il dominio di $A$ (cioè tale che il confronto $\theta$ sia definito).
+	\end{itemize}
+	
+	\noindent
+	Data una formula $F$ e una tupla $t$, è definito un valore di verità (cioè \dquotes{vero} o \dquotes{falso}) per $F$ su $t$:
+	
+	\begin{itemize}
+		\item $A \theta B$ è vera su $t$ se $t\left[A\right]$ è in relazione $\theta$ con $t\left[B\right]$, altrimenti è falsa (per esempio, $A = B$ è vera su $t$ se e solo se $t\left[A\right] = t\left[B\right]$);
+		
+		\item $A \theta c$ è vera su $t$ se $t\left[A\right]$ è in relazione $\theta$ con $c$, altrimenti è falsa;
+		
+		\item $F_{1} \lor F_{2}, F_{1} \land F_{2}$ e $\lnot F_{1}$ hanno l'usuale significato.
+	\end{itemize}
+
+	\noindent
+	La \textbf{\underline{definizione}}, in altre parole, è: la \textcolor{Red3}{\textbf{\underline{selezione}}} $\sigma_{F}\left(r\right)$, in cui $r$ è una relazione e $F$ una formula proposizionale, produce una relazione sugli stessi attributi di $r$ che contiene le tuple di $r$ su cui $F$ è vera.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 1}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/selezione1.pdf}
+	\end{figure}
+
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		\sigma_{\text{Eta } > 30 \land \text{ Stipendio } > 4.000,00}\left(\text{Impiegati}\right)
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 2}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/selezione2.pdf}
+	\end{figure}
+
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		\sigma_{\text{CittàDiNascita } = \text{ Residenza}}\left(\text{Cittadini}\right)
+	\end{equation*}
+	
+	\newpage
+	
+	\subsubsection{Proiezione}
+	
+	La \textcolor{Red3}{\textbf{\underline{proiezione}}} dà un risultato cui contribuiscono tutte le tuple, ma su un sottoinsieme degli attributi.
+	
+	Formalmente, dati una relazione $r\left(X\right)$ e un sottoinsieme $Y$ di $X$, la \textbf{proiezione} di $r$ su $Y$ (indicata con $\pi_{Y}\left(r\right)$) è l'insieme di tuple su $Y$ ottenute dalle tuple di $r$ considerando solo i valori su $Y$:
+	
+	\begin{equation*}
+		\pi_{Y}\left(r\right) = \left\{t\left[Y\right] \: | \: t \in r\right\}
+	\end{equation*}
+
+	\noindent
+	Dagli esempi è chiaro che la proiezione permette di decomporre verticalmente le relazioni.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 1}}}\newline
+	
+	\noindent
+	In questo caso, il risultato della proiezione contiene tante tuple quante l'operando, definite però solo su parte degli attributi.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/proiezione1.pdf}
+	\end{figure}
+	
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		\pi_{\text{Cognome, Nome }}\left(\text{Impiegati}\right)
+	\end{equation*}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 2}}}\newline
+	
+	\noindent
+	In questo caso, il risultato contiene un numero di tuple inferiore rispetto a quelle dell'operando, perché alcune tuple, avendo uguali valori su tutti gli attributi della proiezione, danno lo stesso contributo alla proiezione stessa. Essendo le relazioni definite come insieme, non possono, per definizione, in esse comparire più tuple uguale fra loro: i contributi \dquotes{collassano} in una sola tupla.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/proiezione2.pdf}
+	\end{figure}
+	
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		\pi_{\text{Reparto, Capo }}\left(\text{Impiegati}\right)
+	\end{equation*}
+	
+	\newpage
+	
+	\subsection{Join}
+	
+	\subsubsection{Join naturale}
 \end{document}
