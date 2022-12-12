@@ -1257,5 +1257,133 @@
 	
 	\subsection{Join}
 	
+	L'operatore di \emph{join} consente di correlare dati contenuti in relazioni diverse, confrontando i valori contenuti in esse e utilizzando quindi la caratteristica fondamentale del modello, ovvero quella di essere basta su valori.
+	
+	Formalmente, due relazione $r_{1}$ e $r_{2}$ di schema $X_{1}$ e $X_{2}$ rispettivamente, gli operatori di \emph{join} generano tuple $t$ nella relazione risultato a partire dalle coppie di tuple $\left(t_{1}, t_{2}\right) \in r_{1} \times r_{2}$ che soddisfano una certa condizione (chiamata \textbf{predicato di join}).
+	
 	\subsubsection{Join naturale}
+	
+	Il \textcolor{Red3}{\textbf{\underline{join naturale}}} è un operatore che correla dati in relazioni diverse, sulla base di valori uguali in attributi con lo stesso nome (si veda l'esempio come chiarificatore). Questa operazione viene denotata con il simbolo $\Join$.
+	
+	Il \textbf{risultato} dell'operatore è una relazione sull'unione degli insiemi di attributi degli operandi e le sue tuple sono ottenute combinando le tuple degli operandi con valori uguali sugli attributi comuni. Nel primo esempio sotto, la prima tupla del \emph{join} deriva dalla combinazione della prima tupla della relazione $r_{1}$ e dalla seconda tupla della relazione $r_{2}$.\newline
+	
+	\noindent
+	Formalmente, il \textbf{join naturale} $r_{1} \Join r_{2}$ di $r_{1}\left(X_{1}\right)$ e $r_{2}\left(X_{2}\right)$ è una relazione definita su $X_{1}X_{2}$ (cioè sull'unione degli insiemi $X_{1}$ e $X_{2}$), come segue:
+	
+	\begin{equation*}
+		r_{1} \Join r_{2} = \left\{t \text{ su } X_{1}X_{2} \:\: | \:\: t\left[X_{1}\right] \in r_{1}, t\left[X_{2}\right] \in r_{2}\right\}
+	\end{equation*}
+
+	\noindent
+	Si noti che è molto frequente eseguire \emph{join} sulla base di valori della chiave di una delle relazioni coinvolte, esplicitando i riferimenti fra tuple che sono realizzati per mezzo di valori soprattutto valori di chiavi. Osservando l'esempio 2, si vede che ciascuna delle tuple di \textsf{Infrazioni} è stata combinata con una e una sola delle tuple di \textsf{Auto}:
+	
+	\begin{itemize}
+		\item  Una sola perché \textsf{Prov} e \textsf{Numero} formano una chiave di \textsf{Auto};
+		\item Almeno una perché è definito il vincolo di integrità referenziale fra \textsf{Prov} e \textsf{Numero} in \textsf{Infrazioni} e (la chiave primaria di) \textsf{Auto}
+	\end{itemize}
+
+	\noindent
+	Dunque, il \emph{join} ha esattamente tante tuple quante la relazione \textsf{Infrazioni}.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 1}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.65\textwidth]{img/join_naturale1.pdf}
+	\end{figure}
+	
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		r_{1} \Join r_{2}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 2}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/join_naturale2.pdf}
+	\end{figure}
+	
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		\textsf{Infrazioni} \Join \textsf{Auto}
+	\end{equation*}
+
+	\newpage
+	
+	\subsubsection{Join completi e incompleti}
+	
+	Nell'esempio 1 nel paragrafo del \emph{join naturale}, si può dire che ciascuna tupla di ciascuno degli operandi contribuisce almeno una tupla del risultato (in questo caso il \emph{join} viene detto \textcolor{Red3}{\textbf{\underline{completo}}}): per ogni tupla $t_{1}$ di $r_{1}$, esiste una tupla $t$ in $r_{1} \Join r_{2}$ tale che $t\left[X_{1}\right] = t_{1}$ (e analogamente per $r_{2}$).
+	
+	L'esempio 1 a fine paragrafo, mostra un \emph{join} in cui alcune tuple degli operandi, in particolare la prima di $r_{1}$ e la seconda di $r_{2}$, non contribuiscono al risultato, perché l'altra relazione non contiene tuple con gli stessi valori sull'attributo comune. In questo caso il \emph{join} viene detto \textcolor{Red3}{\textbf{\underline{dangling}}}, ovvero \textbf{\emph{dondolante}}.
+	
+	Infine, come caso limite, è ovviamente possibile che nessuna delle tuple degli operandi sia combinabile, e allora il risultato del \emph{join} è la \textcolor{Red3}{\textbf{\underline{relazione vuota}}} (esempio 2 a fine paragrafo). All'estremo opposto, è possibile che ciascuna delle tuple di ciascuno degli operandi sia combinabile con tutte dell'altro, come mostrato nell'ultimo esempio del paragrafo, e in questo caso il risultato ha un numero di tuple pari al prodotto delle cardinalità degli operandi e cioè $|r_{1}| \times |r_{2}|$ (dove $|r|$ indica la cardinalità della relazione $r$).\newline
+	
+	\noindent
+	Alcune osservazioni finali:
+	
+	\begin{itemize}
+		\item Se il \emph{join} di $r_{1}$ e $r_{2}$ è completo, allora contiene almeno un numero di tuple pari al massimo fra $|r_{1}|$ e $|r_{2}|$;
+		
+		\item Se $X_{1} \cap X_{2}$ contiene una chiave per $r_{2}$, allora il \emph{join} di $r_{1}\left(X_{1}\right)$ e $r_{2}\left(X_{2}\right)$ contiene al più $|r_{1}|$ tuple;
+		
+		\item Se $X_{1} \cap X_{2}$ coincide con una chiave per $r_{2}$ e sussiste il vincolo di riferimento fra $X_{1} \cap X_{2}$ in $r_{1}$ e la chiave di $r_{2}$, allora il \emph{join} di $r_{1}\left(X_{1}\right)$ e $r_{2}\left(X_{2}\right)$ contiene esattamente $|r_{1}|$ tuple.
+	\end{itemize}
+
+	\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 1}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/join_dangling.pdf}
+	\end{figure}
+	
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		r_{1} \Join r_{2}
+	\end{equation*}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 2}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/join_vuoto.pdf}
+	\end{figure}
+	
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		r_{1} \Join r_{2}
+	\end{equation*}
+
+	\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 3}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/join_massimo.pdf}
+	\end{figure}
+	
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	
+	\begin{equation*}
+		r_{1} \Join r_{2}
+	\end{equation*}
 \end{document}
