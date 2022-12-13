@@ -1338,7 +1338,7 @@
 			Treno di impulsi:	& $S_{\Delta T}\left(t\right)$ 		& $\xrightarrow{\mathcal{F}}$ & $\displaystyle\sum_{n = -\infty}^{+\infty} \dfrac{1}{\Delta T} \cdot \delta \left(\mu - \dfrac{n}{\Delta T}\right)$ \\
 			\bottomrule
 		\end{tabular}
-		\caption{Trasformate di Fourier dei segnali pù importanti.}
+		\caption{Trasformate di Fourier continue.}
 	\end{table}
 
 	\newpage
@@ -1478,6 +1478,8 @@
 		\includegraphics[width=0.7\textwidth]{img/trasformata_fourier_discreta2.pdf}
 	\end{figure}
 
+	\newpage
+
 	\noindent
 	In cui:
 	
@@ -1504,6 +1506,58 @@
 	\subsection{Riassunto Trasformate}
 	
 	Qui di seguito vengono rappresentate le trasformate più importanti.
+	
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l l c l @{}}
+			\toprule
+			%Segnale & & & Trasformata di Fourier \\
+			Funzione & & & Serie di Fourier \\
+			\midrule
+			&&& \\
+			Funzione di sintesi: & $f(t)$ && $\sum_{n = -\infty}^{+\infty} c_{n} \underbrace{e^{j \frac{2\pi n}{T}t}}_{\text{fasore}} \hspace{2em} n\in\mathbb{Z}$ \\
+			&&& \\
+			Funzione di analisi: & $c_{n} \in \mathbb{C}$ && $\dfrac{1}{T} \int_{-\frac{T}{2}}^{+\frac{T}{2}} f\left(t\right) \underbrace{e^{-j \frac{2\pi n}{T}t}}_{\text{fasore}} \mathrm{d}t \hspace{2em} n \in \mathbb{Z}$ \\
+			&&& \\
+			\toprule
+			Segnale  & & & Trasformata di Fourier continua \\
+			\midrule
+			Box:				& $A\Pi\left(\dfrac{t}{w}\right)$	& $\xrightarrow{\mathcal{F}}$ & $Aw \cdot \mathrm{sinc}\left(\mu w\right)$ \\
+			&&&\\
+			Sinc:				& $\mathrm{sinc}\left(tw\right)$	& $\xrightarrow{\mathcal{F}}$ & $\dfrac{1}{w}\cdot\Pi \left(-\dfrac{\mu}{w}\right) = \dfrac{1}{w}\cdot \Pi\left(\dfrac{\mu}{w}\right)$ \\
+			&&&\\
+			Impulso:			& $\delta\left(t\right)$			& $\xrightarrow{\mathcal{F}}$ &
+			$\begin{cases}
+				1 						& \text{se valori reali}\\
+				e^{-j 2 \pi \mu t_{0}}	& \text{se valori complessi}
+			\end{cases}$ \\
+			&&& \\
+			Treno di impulsi:	& $S_{\Delta T}\left(t\right)$ 		& $\xrightarrow{\mathcal{F}}$ & $\displaystyle\sum_{n = -\infty}^{+\infty} \dfrac{1}{\Delta T} \cdot \delta \left(\mu - \dfrac{n}{\Delta T}\right)$ \\
+			&&& \\
+			\toprule
+			Funzione & & & Trasformata di Fourier a tempo discreto \\
+			\midrule
+			&&& \\
+			$F\left(\mu\right) * S_{\Delta T}\left(\mu\right)$ & & & $\dfrac{1}{\Delta T} \sum_{n = -\infty}^{+\infty} F \left(\mu - \dfrac{n}{\Delta T}\right)$ \\
+			&&& \\
+			\toprule
+			Funzione & & & Trasformata di Fourier discreta \\
+			\midrule
+			&&& \\
+			$\tilde{F}\left(\tilde{\mu}\right)$ &&& $\tilde{F}\left(\dfrac{m}{M} \cdot \dfrac{1}{\Delta T}\right) = \sum_{n = 0}^{M - 1} f_{n} e^{-j 2 \pi \frac{m}{M} n}$ \\
+			&&& \\
+			&&& $m = 0, ..., M - 1$ \\
+			&&& \\
+			\toprule
+			Funzione & & & Trasformata di Fourier discreta inversa \\
+			\midrule
+			&&& \\
+			$\tilde{f}\left(n \Delta T\right) = f\left(n \Delta T\right) = f_{n}$ &&& $\dfrac{1}{M} \sum_{m = 0}^{M - 1} F_{m} e^{j 2 \pi \frac{m}{M} n}$ \\
+			&&& \\
+			\bottomrule
+		\end{tabular}
+		\caption{Trasformate di Fourier.}
+	\end{table}
 	
 	% TODO: finire la creazione della tabella con le T.d.F. più importanti
 	
