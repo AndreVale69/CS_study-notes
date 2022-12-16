@@ -1559,8 +1559,6 @@
 		\caption{Trasformate di Fourier.}
 	\end{table}
 	
-	% TODO: finire la creazione della tabella con le T.d.F. più importanti
-	
 	\newpage
 	
 	\subsection{Domanda da esame}
@@ -1576,5 +1574,1067 @@
 		\item Trasformata di Fourier discreta (paragrafo~\ref{trasformata di fourier discreta})
 	\end{enumerate}
 
-	% TODO: ricordati il todo
+	\newpage
+	
+	\section{Elaborazione di immagini - Dominio spaziale}
+	
+	L'\textcolor{Red3}{\textbf{\underline{elaborazione delle immagini}}} consiste nel prendere come input un'immagine (segnale) e restituirne un'altra (sempre segnale) come output.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{\underline{rinforzo (\emph{enhancement}) di immagini}}} è un tipo di elaborazione delle immagini. Il suo \textbf{obbiettivo} è elaborare un'immagine in modo che il risultato sia più adatto alle esigenze soggettive dell'utente. La definizione è \emph{problem-oriented} poiché, per esempio, per visualizzare lo spettro di ampiezza di un'immagine, è necessario eseguire un'operazione di rinforzo (\emph{log-transformation}); oppure, per migliorare la visibilità dei dettagli di un'immagine, si effettua un'altra operazione di rinforzo (\emph{sharpening}).\newline
+	
+	\noindent
+	La \textcolor{Red3}{\textbf{\underline{qualità di un'immagine}}} è la combinazione pesata di tutti gli attributi significativi di un'immagine. Infatti, \emph{non} esiste una ricetta univoca per determinare quando un'immagine sia di qualità poiché è un'opinione soggettiva. Tuttavia, è più facile dire quando un'immagine \emph{non} è di qualità. In genere, un'\textcolor{Red3}{\textbf{\underline{immagine \emph{non} è di qualità}}} quando non viene interpretata facilmente da un operatore umano.\newline
+	
+	\noindent
+	A differenza del rinforzo, il \textcolor{Red3}{\textbf{\underline{restauro (\emph{restoration})}}} è un processo di ricostruzione dell'immagine a partire da un modello di degradazione noto.
+	
+	\newpage
+	
+	\subsection{Strumento per l'elaborazione: istogramma}
+	
+	I pixel di un'immagine sono una \dquotes{popolazione} sulla quale è possibile calcolare tutte le quantità statistiche descrittive che vengono usate normalmente come media, mediana, varianza, deviazione standard, quartili, percentili, etc. Uno \textbf{strumento fondamentale} per l'elaborazione delle immagini è l'\textcolor{Red3}{\textbf{\underline{istogramma}}}, il quale può essere visto come una funzione continua o discreta.\newline
+	
+	\noindent
+	Infatti, per ogni livello di grigio (in un'immagine solo a livelli di grigi) vengono riportati il numero di pixel. Per un'immagine $I\left[M,N\right]$ si identifica con $M,N$ il \textbf{numero di pixel righe per colonne} e con la funzione $H\left(r\right)$ il \textbf{numero di pixel di valore} $r$, quest'ultimo è definito nell'intervallo $0 \le r \le L-1$ con $r,L \in \mathbb{N}$ dove $L$ indica i livelli di grigio. Inoltre:
+	
+	\begin{equation*}
+		\sum_{r = 0}^{L - 1} H\left(r\right) = M \cdot N
+	\end{equation*}
+
+	\noindent
+	Grazie all'istogramma, è possibile comprendere immediatamente le caratteristiche dell'immagine (come in figura).
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/istogramma.pdf}
+		\caption{Esempio di istogramma.}
+	\end{figure}
+
+	\noindent
+	Un istogramma può essere anche visto come una distribuzione di probabilità:
+	
+	\begin{equation*}
+		p_{h}\left(r\right) = \dfrac{H\left(r\right)}{M \cdot N} \hspace{2.5em} \sum_{r} p_{h}\left(r\right) = 1
+	\end{equation*}
+
+	\noindent
+	Uno \textcolor{Red3}{\textbf{\underline{svantaggio}}} di questo strumento è che immagini diverse potrebbero avere istogrammi simili, questo perché l'istogramma non tiene conto della distribuzione spaziale dei pixel. Dunque, \textbf{utilizzando solo questo metodo è impossibile ricostruire un'immagine}.\newline
+	
+	\noindent
+	Al contrario, un \textcolor{Green4}{\textbf{\underline{vantaggio}}} dell'istogramma è la possibilità di identificare facilmente il \textcolor{Red3}{\textbf{contrasto}}: rapporto o differenza tra il valore più alto (punto più luminoso) e il valore più basso (punto più scuro) della luminosità (che corrisponde al livello di grigio per le immagini a livello di grigio).\newline
+	Un'immagine viene definita:
+	
+	\begin{itemize}
+		\item Valori più alti sulla destra:
+		\begin{itemize}
+			\item \textbf{chiara}, caratteristica dell'immagine;
+			\item \textbf{sovraesposta}, caratteristica di come è stata acquisita l'immagine.
+		\end{itemize}
+	
+		\item Valori più alti sulla sinistra:
+		\begin{itemize}
+			\item \textbf{scura}, caratteristica dell'immagine;
+			\item \textbf{sottoesposta}, caratteristica di come è stata acquisita l'immagine.
+		\end{itemize}
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Domini}
+	
+	L'elaborazione delle immagini può avvenire nel \textbf{dominio spaziale} o nel \textbf{dominio frequenziale} (dopo aver applicato la T.d.F. discreta 2D). Nel \textcolor{Red3}{\textbf{\underline{dominio spaziale}}}, l'elaborazione delle immagine può essere espressa come:
+	
+	\begin{equation*}
+		g\left(x,y\right) = T\left[f\left(x,y\right)\right]
+	\end{equation*}
+
+	\noindent
+	In cui:
+	
+	\begin{itemize}[label=-]
+		\item $f$ è l'immagine di ingresso (input) da elaborare;
+		\item $g$ è l'immagine d'uscita (output) elaborata;
+		\item $T$ è un operatore su $f$ definito in un intorno di $\left(x,y\right)$.
+	\end{itemize}
+
+	\noindent
+	L'\textcolor{Red3}{\textbf{\underline{operatore}}} definito in un intorno di $\left(x,y\right)$ può essere di tre tipi:
+	
+	\begin{itemize}
+		\item \textbf{Puntuale:} $\left[f\left(x,y\right)\right] = f\left(x,y\right)$, l'intorno coincide con il pixel stesso;
+		
+		\item \textbf{Locale:} $\left[f\left(x,y\right)\right]$ rappresenta una regione, per esempio quadrata, attorno al pixel di locazione $\left(x,y\right)$;
+		
+		\item \textbf{Globale:} $\left[f\left(x,y\right)\right]$ rappresenta l'intera immagine $f$.
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Operazioni puntuali}
+	
+	Si dice \textcolor{Red3}{\textbf{\underline{operatore puntuale}}}, un operatore che ha preso in input il valore di un pixel e ne restituisce uno cambiato, il quale dipende esclusivamente dal valore del pixel in ingresso.\newline
+	
+	\noindent
+	L'\textbf{\underline{obbiettivo}} è quello di variare il contrasto. Infatti, eseguendo questa operazione, si evidenziano le differenze strutturali dell'oggetto rappresentato. Per farlo, basta cambiare il valore di un pixel per renderlo più scuro o più chiaro.\newline
+	
+	\noindent
+	Un operatore puntuale può essere rappresentato tramite una \textbf{\underline{funzione}} che prende in input un valore $r$ e lo modifica in un valore $s = T\left(r\right)$ con $s,r$ appartenenti allo stesso campo di definizione (esempio tra 0 e 255). Più in generale viene definita come:
+	
+	\begin{equation*}
+		T: \left[0, L - 1\right] \subset \mathbb{R} \longrightarrow \left[0, L - 1\right] \subset \mathbb{R}
+	\end{equation*}
+
+	\noindent
+	Dato che un operatore puntuale dipende solo dal singolo valore del pixel, esso è dunque descritto da una tabella di questo tipo:
+	
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+			\hline
+			&&&&&&&& \\
+			r & 0 & 1 & 2 & 3 & 4 & 5 & 6 & $\cdots$ \\
+			&&&&&&&& \\
+			\hline
+			&&&&&&&& \\
+			s & $T\left(0\right)$ & $T\left(1\right)$ & $T\left(2\right)$ & $T\left(3\right)$ & $T\left(4\right)$ & $T\left(5\right)$ & $T\left(6\right)$ & $\cdots$ \\
+			&&&&&&&& \\
+			\hline
+		\end{tabular}
+	\end{center}
+
+	\newpage
+	
+	\subsubsection{Identità}
+	
+	È l'operazione più semplice e non fa nulla:
+	
+	\begin{equation*}
+		s = r
+	\end{equation*}
+
+	\subsubsection{Negativo}
+	
+	Rende l'immagine più scura:
+	
+	\begin{equation*}
+		s = L - 1 - r
+	\end{equation*}
+
+	\noindent
+	Nel caso dei livelli di grigio:
+	
+	\begin{equation*}
+		s = 255 - r
+	\end{equation*}
+
+	\noindent
+	Viene \textbf{utilizzata} quando si hanno dettagli grigi immersi in zone nere che si vogliono evidenziare.
+
+	\subsubsection{Clamping}
+	
+	Limita l'intensità ad un range definito $\left[a,b\right]$:
+	
+	\begin{equation*}
+		T\left(r\right) = \begin{cases}
+			a & \text{se } r < a \\
+			r & \text{se } a \le r \le b \\
+			b & \text{se } r > b \\
+		\end{cases}
+	\end{equation*}
+
+	\noindent
+	Viene \textbf{utilizzata} nel caso in cui ci siano dei pixel di rumore molto chiari o molto scuri che \emph{mascherano} l'immagine. Quindi, si pensi per esempio ad un'immagine con dei puntini bianchi al quale si applica il \emph{clamping} per rimuoverli.
+	
+	\subsubsection{Stretching/Shrinking}
+	
+	Stira/comprime le intensità di un range $\left[r_{\min}, r_{\max}\right]$ ad un range definito $\left[a,b\right]$:
+	
+	\begin{equation*}
+		s = \left[\dfrac{r - r_{\min}}{r_{\max} - r_{\min}}\right] \left[b - a\right] + a
+	\end{equation*}
+
+	\noindent
+	In cui:
+	
+	\begin{itemize}
+		\item $r_{\min / \max}$ sono il più piccolo/grande livello di grigio del range che si vuole trattare;
+		\item $a,b$ sono il minimo e il massimo \dquotes{stretchati}.
+	\end{itemize}
+
+	\noindent
+	\textbf{Nota bene:} l'operazione è seguita da \emph{rounging} (arrotondamento) nel caso di dominio di valori nei naturali (come in 0-255). Inoltre, lo \textbf{stretching \underline{non} risolve il problema del rumore impulsivo (puntini neri o bianchi)}, neanche se mascherato con il clamping.
+	
+	\newpage
+	
+	\subsubsection{Trasformazione logaritmica}\label{trasformazione logaritmica}
+	
+	La forma generale è:
+	
+	\begin{equation*}
+		s = c \cdot \log\left(1 + r\right) \hspace{2em} r \in \left[0, L - 1\right]
+	\end{equation*}
+
+	\noindent
+	Con $c$ che rappresenta la \textbf{costante di normalizzazione}:
+	
+	\begin{equation*}
+		c = \dfrac{L - 1}{\log\left(L\right)}
+	\end{equation*}
+	
+	\noindent
+	La quale assicura la mappatura in $\left[0, L - 1\right]$. Inoltre, l'aggiunta di $1$ permette di evitare il calcolo di quantità $\in\left[0,1\right[$ che generano valori minori di zero ed in particolare il calcolo di $\log\left(0\right) = -\infty$.\newline
+	
+	\noindent
+	Viene \textbf{utilizzata} quando si vuole mappare fasce strette di valori dell'immagine originale in fasce più ampie, aumentandone così il range del contrasto, rendendo inoltre l'interpretazione umana più informativa.
+	
+	\subsubsection{Trasformazione esponenziale}
+	
+	Al contrario della trasformazione logaritmica, la trasformazione esponenziale consente di aumentare il range di una fascia determinata di livelli di grigi chiari:
+	
+	\begin{equation*}
+		s = \left(e^{r}\right)^{\frac{1}{c}} - 1 \hspace{2em} r \in \left[0, L - 1\right]
+	\end{equation*}
+
+	\noindent
+	Con la \textbf{costante di normalizzazione}:
+	
+	\begin{equation*}
+		c = \dfrac{L - 1}{\log\left(L\right)}
+	\end{equation*}
+
+	\newpage
+
+	\subsubsection{Trasformazione di potenza}
+	
+	La trasformazione di potenza può essere espressa come:
+	
+	\begin{equation*}
+		s = cr^{\gamma} \hspace{2em} c,\gamma > 0 \in \mathbb{R}
+	\end{equation*}
+
+	\noindent
+	La costante $c$ è scelta \textbf{in dipendenza da} $\gamma$ in modo da normalizzare i valori di $s$ nell'intervallo $\left[0,255\right]$.
+	
+	\begin{itemize}[label=-]
+		\item $\gamma < 1$, la trasformazione ha effetti analoghi alla trasformazione logaritmica (\ref{trasformazione logaritmica}), cioè espansione della dinamica per bassi valori di $r$, mentre compressione della dinamica per alti valori di $r$;
+		
+		\item $\gamma > 1$, la trasformazione ha effetti opposti ai valori negativi di gamma.
+	\end{itemize}
+
+	\noindent
+	Nella pratica, il termine di normalizzazione $c$ è complicato da definire analiticamente, quindi si preferiscono due versioni di $s$:
+	
+	\begin{itemize}
+		\item \textbf{Non normalizzata:} $\tilde{s} = r^{\gamma}$;
+		
+		\item \textbf{Normalizzata} $s = cr^{\gamma}$
+	\end{itemize}
+
+	\noindent
+	Per passare dalla versione \textbf{non normalizzata alla versione normalizzata} si esegue lo \emph{stretching}:
+	
+	\begin{equation*}
+		s = \left[\dfrac{\tilde{s} - \tilde{s}_{\min}}{\tilde{s}_{\max}} - \tilde{s}_{\min}\right] \left[\max-\min\right]
+	\end{equation*}
+
+	\noindent
+	Dove $\tilde{s}_{\min / \max}$ sono il più piccolo/grande livello di grigio e $\max$ e $\min$ sono il massimo e il minimo livello di grigio possibile (255, 0).
+	
+	\subsubsection{Binarizzazione}
+	
+	Produce un'immagine che ha solo due livelli: nero e bianco. Si \textbf{ottiene} scegliendo una soglia $T$, si imposta a colore nero tutti i pixel il cui valore è minore a $T$ e si imposta a colore bianco tutti gli altri.\newline
+	
+	\noindent
+	Si \textbf{utilizza} la binarizzazione per discriminare un oggetto dalla scena.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.2\textwidth]{img/binarizzazione1.png}
+		\includegraphics[width=0.2\textwidth]{img/binarizzazione2.png}
+	\end{figure}
+
+	\noindent
+	Solitamente il suo utilizzo è prevalente nell'ambito delle immagini biomedicali e di videosorveglianza. La difficoltà maggiore di questa tecnica è il saper scegliere la soglia $T$ più ragionevole.
+	
+	\subsubsection{Binarizzazione attraverso il metodo di Otsu}
+	
+	Questo metodo assume che ci siano due regioni da scegliere, come nella seguente figura:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/binarizzazione_otsu.pdf}
+	\end{figure}
+
+	\noindent
+	Se l'immagine ha un \textbf{istogramma bimodale la binarizzazione è efficace}, altrimenti no. Le due regioni sono definite come:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			p_{0 \rightarrow T}\left(r\right) & = & \dfrac{H\left(r\right)}{\displaystyle\sum_{r = 0}^{T} H\left(r\right)} \\
+			&& \\
+			\sigma_{0 \rightarrow T}^{2} & = & \displaystyle\sum_{r = 0}^{T} p_{0 \rightarrow T}\left(r\right)\left(r - \mu_{0 \rightarrow T}\right)^{2} \\
+			&& \\
+			\mu_{0 \rightarrow T} & = & \displaystyle\sum_{r = 0}^{T}r \cdot p_{0 \rightarrow T}\left(r\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	La formula \textbf{da minimizzare su $T$} è la seguente:
+	
+	\begin{equation*}
+		\sigma_{w}^{2}\left(T\right) = W_{0}\left(T\right) \sigma_{0}^{2}\left(T\right) + W_{1}\left(T\right) \sigma_{1}^{2}\left(T\right)
+	\end{equation*}
+
+	\noindent
+	Dove si considera la versione probabilistica dell'istogramma, ovvero la sua versione normalizzata, e si ha:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			W_{0}\left(T\right) & = & \displaystyle\sum_{r=0}^{T-1} p\left(r\right) \\
+			&& \\
+			W_{1}\left(T\right) & = & \displaystyle\sum_{r=T}^{L-1} p\left(r\right) \\
+			&& \\
+			p\left(r\right) & = & \dfrac{1}{M \cdot N} \displaystyle\sum_{r=0}^{L-1} H\left(r\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Dove $W_{0}, W_{1}$ sono le probabilità che le due classi siano separate da $T$ e $\sigma_{0}^{2}$ e $\sigma_{1}^{2}$ sono le varianze sui valori di istogramma assunti dalle due classi. \textbf{L'approccio \dquotes{cicla} su tutti i possibili valori di $T$ e restituisce:}
+	
+	\begin{equation*}
+		T_{best} = \arg_{T} \min \left(\sigma_{w}^{2}\left(T\right)\right)
+	\end{equation*}
+
+	\subsubsection{Equalizzazione}
+	
+	Un'immagine si dice \textbf{equalizzata} quando il contributo di ogni differente tonalità di grigio è simile. L'istogramma tende ad essere uniforme o appiattito.\newline
+	
+	\noindent
+	L'\textbf{obbiettivo} è vedere l'istogramma come una distribuzione e di renderla il più simile a quella uniforme. Una \textbf{distribuzione uniforme} ha un'\textbf{entropia massima}\footnote{Secondo l'entropia, un sistema isolato si trasforma ed evolve nel tempo fino a raggiungere uno stato di equilibrio finale macroscopico in cui le differenze locali sono minime.}. Nelle immagini, ogni valore della distribuzione è un valore di grigio, per cui ogni valore di grigio appartiene all'entropia massima.\newline
+	
+	\noindent
+	Si \textbf{utilizza} questo operatore poiché un istogramma piatto assicura a livello percettivo una risposta del cervello migliore (in termini di numero di dettagli che si riesce a riconoscere), per cui l'immagine diventa più \dquotes{informativa} da osservare.\newline
+	
+	\noindent
+	Se $r_{k}$ è il $k$-esimo livello di grigio $k = 0, ..., L - 1$ e $H\left(r_{k}\right)$ è il conteggio dato dall'istogramma dell'immagine di dimensione $M \times N$, allora si può definire:
+	
+	\begin{equation*}
+		p_{r}\left(r_{k}\right) = \dfrac{H\left(r_{k}\right)}{M \cdot N}
+	\end{equation*}
+
+	\noindent
+	L'\textcolor{Red3}{\textbf{\underline{equalizzazione dell'istogramma}}} si basa sulla seguente funzione $T$, con $s_{k}$ che rappresenta il $k$-esimo valore di grigio in cui viene \dquotes{mappato} $r_{k}$:
+	
+	\begin{equation*}
+		s_{k} = T\left(r_{k}\right) = \left(L-1\right) \displaystyle\sum_{j=0}^{k} p_{r}\left(r_{k}\right) = \dfrac{\displaystyle\sum_{j=0}^{k} H\left(r_{j}\right)}{\dfrac{M \cdot N}{\left(L-1\right)}}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{\underline{Algoritmo}}}}
+	
+	\begin{enumerate}[label=\Roman*.]
+		\item Calcolare le $L$ somme cumulative $\displaystyle\sum_{j=0}^{k} p_{r}\left(r_{j}\right)$ dei valori dell'istogramma visto come distribuzione con $k = 0, ..., L-1$;
+		
+		\item Moltiplicare i valori del passo precedente per il massimo di livelli di grigio $L - 1$;
+		
+		\item Normalizzazione dei valori calcolati al primo passo, dividendo per il numero totale di pixel $M \cdot N$ e arrotondamento;
+		
+		\item Applicare il mapping $T$ ottenuto.
+	\end{enumerate}
+
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Esempio}}}}\newline
+	
+	\noindent
+	Sia data un'immagine con $L = 8, 64\times64$ pixel $\left(M \cdot N = 4096\right)$, con la seguente distribuzione d'intensità:
+	
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l c c @{}}
+			\toprule
+			$r_{k}$ & $H\left(r_{k}\right)$ & $p_{r}\left(r_{k}\right) = \dfrac{H\left(r_{k}\right)}{M \cdot N}$ \\
+			\midrule
+			$r_{0} = 0$	& $790$	& $0.19$ \\
+			&& \\
+			$r_{1} = 1$	& $1023$& $0.25$ \\
+			&& \\
+			$r_{2} = 2$	& $850$	& $0.21$ \\
+			&& \\
+			$r_{3} = 3$	& $656$	& $0.16$ \\
+			&& \\
+			$r_{4} = 4$	& $329$	& $0.08$ \\
+			&& \\
+			$r_{5} = 5$	& $245$	& $0.06$ \\
+			&& \\
+			$r_{6} = 6$	& $122$	& $0.03$ \\
+			&& \\
+			$r_{7} = 7$	& $81$	& $0.02$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/eg_equalizzazione.png}
+		\caption{Rappresentazione della distribuzione di intensità.}
+	\end{figure}
+	
+	\noindent
+	Si applica la formula di equalizzazione:
+	
+	\begin{equation*}
+		\begin{array}{lllllllll}
+			s_{0} & = & T\left(r_{0}\right) & = & 7\displaystyle\sum_{j=0}^{0} p_{r}\left(r_{j}\right) & = & 7p_{r}\left(r_{0}\right) & = & 1.33 \\
+			&&&&&&&&\\
+			s_{1} & = & T\left(r_{1}\right) & = & 7\displaystyle\sum_{j=0}^{1} p_{r}\left(r_{j}\right) & = & 7p_{r}\left(r_{0}\right) + 7p_{r}\left(r_{1}\right) & = & 3.08
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	Analogamente anche per gli altri valori si applica la formula e si trovano i seguenti valori:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			s_{2} & = & 4.55 \\
+			s_{3} & = & 5.67 \\
+			s_{4} & = & 6.23 \\
+			s_{5} & = & 6.65 \\
+			s_{6} & = & 6.86 \\
+			s_{7} & = & 7.00 \\
+		\end{array}
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/eg_equalizzazione.pdf}
+		\caption{LUT (\emph{Lookup Table})}
+	\end{figure}
+
+	\noindent
+	\textbf{LUT} (\emph{Lookup Table}) è un termine utilizzato per descrivere una predeterminata lista di numeri che offre una \dquotes{scorciatoia} per una specifica computazione. Nel contesto dei colori, una LUT trasforma i colori, ricevuti come input (camera), in un output desiderato (final footage).\newline
+	
+	\noindent
+	L'immagine è quantizzata, quindi si effettua l'arrotondamento dei valori ottenendo l'intero più vicino:
+	
+	\begin{equation*}
+		\begin{array}{lllll}
+			s_{0} & = & 1.33 & \longrightarrow & 1 \\
+			s_{1} & = & 3.08 & \longrightarrow & 3 \\
+			s_{2} & = & 4.55 & \longrightarrow & 5 \\
+			s_{3} & = & 5.67 & \longrightarrow & 6 \\
+			s_{4} & = & 6.23 & \longrightarrow & 6 \\
+			s_{5} & = & 6.65 & \longrightarrow & 7 \\
+			s_{6} & = & 6.86 & \longrightarrow & 7 \\
+			s_{7} & = & 7.00 & \longrightarrow & 7 \\
+		\end{array}
+	\end{equation*}
+
+	\newpage
+
+	\noindent
+	Dopo l'arrotondamento, si ottiene una nuova immagine e il suo relativo istogramma.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/eg_equalizzazione2.png}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Operazioni locali}
+	
+	Un'\textcolor{Red3}{\textbf{\underline{operazione locale}}} restituisce un pixel che dipende da un limitato intorno del corrispondente punto in input. Tali operazioni vengono \textbf{utilizzati} per migliorare la qualità delle immagini o per estrarre delle informazioni dall'immagine.\newline
+	
+	\noindent
+	Le operazioni locali sono come dei filtraggi spaziali dell'immagine. Il \textbf{\underline{filtraggio spaziale}} è un'elaborazione $T$ dell'immagine $f$ dove un pixel di locazione $\left(n,m\right)$, di intensità $f\left(n,m\right)$, viene cambiato in $g\left(n,m\right)$ da una funzione dei pixel in un intorno di $\left(n,m\right)$, ossia:
+	
+	\begin{equation*}
+		g\left(n,m\right) = T\left(\left[f\left(n,m\right)\right]\right)
+	\end{equation*}
+
+	\noindent
+	Dove le parentesi quadrate indicano che viene preso in considerazione un intorno di $n,m$. Ovviamente, il risultato dell'operazione, se applicato a tutti i pixel dell'immagine $f$, è una nuova immagine $g$.\newline
+	
+	\noindent
+	Gli intorni presi maggiormente in considerazione sono di grandezza $K \times K$, con $K$ dispari (per fare in modo di considerare uniformemente i pixel attorno al punto $\left(n,m\right)$ di applicazione), di solito $3 \times 3, 5 \times 5, 7 \times 7$. I pixel al di fuori dell'intorno non prendono parte alla funzione.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{\emph{Pseudocodice}}}}\newline
+	
+	\begin{itemize}
+		\item \textbf{Input:}
+		\begin{itemize}
+			\item Immagine $f$ definita con un suo valore di pixel generico $f\left(n,m\right) \in \left[0 ... L - 1\right] \subset \mathbb{N}$ con $\left(n,m\right) \in \left[1 ... \mathbb{N}\right] \times \left[1 ... M\right] \subset \mathbb{N} \times \mathbb{N}$;
+			
+			\item Intorno di valori di pixel $\left[f\left(n,m\right)\right]$ ossia $f\left(n-u, m-v\right)$ definita come:
+			\begin{equation*}
+				\left(u,v\right) \in \left[-\dfrac{K-1}{2} \cdots \dfrac{K-1}{2}\right] \times \left[-\dfrac{K-1}{2} \cdots \dfrac{K-1}{2}\right] \subset \mathbb{N} \times \mathbb{N} \hspace{2em} K \in \left\{3,5,7,...\right\}
+			\end{equation*}
+		\end{itemize}
+		
+		\item \textbf{Output:}
+		\begin{itemize}
+			\item Nuova immagine $g\left(n,m\right) \in \mathbb{R}$ che attraverso operazioni puntuali può essere riportata in $g\left(n,m\right) \in \left[0 ... L-1\right] \subset \mathbb{N}$
+		\end{itemize}
+	
+		\item \textbf{Procedimento:}
+		\begin{equation*}
+			\begin{array}{l}
+				\mathrm{for} \: n = 1 ... N \\
+				\hspace{2em} \mathrm{for} \: m = 1 ... M \\
+				\hspace{4em} g\left(n,m\right) = T\left(\left[f\left(n,m\right)\right]\right)
+			\end{array}
+		\end{equation*}
+	\end{itemize}
+
+	\newpage
+	
+	\subsubsection{Filtraggi spaziali: lineari e non lineari}
+	
+	Le due principali categorie di operazioni locali sono lineari e non lineari:
+	
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{\underline{Filtraggio lineare}}} se $T$ è una combinazione lineare dei valori di pixel nel vicinato. Quindi, la convoluzione di un'immagine con un kernel è una somma di fattori ognuno dei quali è una moltiplicazione di un valore dell'immagine per un coefficiente del filtro:
+		\begin{equation*}
+			g\left(n,m\right) = T\left(\left[f\left(n,m\right)\right]\right) = h * f\left(n,m\right) = \sum_{u=-k}^{+k} \sum_{v=-k}^{+k} h\left(u,v\right) f\left(n-u, m-v\right)
+		\end{equation*}
+		\begin{equation*}
+			k = \dfrac{K-1}{2}
+		\end{equation*}
+		Un esempio di operazione lineare è la convoluzione;
+		
+		\item \textcolor{Red3}{\textbf{\underline{Filtraggio non lineare}}} se $T$ contiene operazioni non lineari sulle variabili indipendenti. Un esempio di operazioni non lineari sono la mediana dei pixel nell'intorno e il valore massimo dei pixel nel vicinato.
+	\end{itemize}
+
+	\noindent
+	I filtraggi lineari \textbf{\underline{non}} presentano un \textbf{\underline{problema ai bordi}} nel momento in cui l'intorno è definito all'interno dell'immagine (cioè non cade fuori dall'immagine). Alcuni filtri lineari:
+	
+	\begin{itemize}[label=-]
+		\item \textbf{Cropping} è un filtro dove solo l'intorno cade all'interno dell'immagine, quindi il filtro viene applicato ad un'area ristretta e non a tutta l'immagine. Un esempio:
+		\begin{equation*}
+			\text{Input } = 
+			\begin{bmatrix}
+				1 & 2 & 2 & 3 & 1 \\
+				3 & 2 & 2 & 1 & 4 \\
+				2 & 5 & 2 & 7 & 1 \\
+				9 & 0 & 1 & 1 & 2 \\
+				3 & 1 & 2 & 4 & 1
+			\end{bmatrix}
+			\longrightarrow
+			\text{ Output } = 
+			\begin{bmatrix}
+				* & * & * & * & * \\
+				* & 30 & 45 & 30 & * \\
+				* & 46 & 27 & 37 & * \\
+				* & 34 & 41 & 28 & * \\
+				* & * & * & * & *
+			\end{bmatrix}
+		\end{equation*}
+		Le aree con un * non verranno calcolate;
+		
+		\item \textbf{Zero Padding} utilizzato per inserire degli zero che creano degli artefatti così da consentire il filtraggio. Un esempio:
+		\begin{equation*}
+			\text{Input } = 
+			\begin{bmatrix}
+				0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				0 & 1 & 2 & 2 & 3 & 1 & 0 \\
+				0 & 3 & 2 & 2 & 1 & 4 & 0 \\
+				0 & 2 & 5 & 2 & 7 & 1 & 0 \\
+				0 & 9 & 0 & 1 & 1 & 2 & 0 \\
+				0 & 3 & 1 & 2 & 4 & 1 & 0 \\
+				0 & 0 & 0 & 0 & 0 & 0 & 0
+			\end{bmatrix}
+			\longrightarrow
+			\text{ Output } = 
+			\begin{bmatrix}
+				\colorbox{gray}{11} & \colorbox{gray}{19} & \colorbox{gray}{17} & \colorbox{gray}{22} & \colorbox{gray}{11} \\
+				\colorbox{gray}{25} & 30 & 45 & 30 & \colorbox{gray}{31} \\
+				\colorbox{gray}{25} & 46 & 27 & 37 & \colorbox{gray}{19} \\
+				\colorbox{gray}{35} & 34 & 41 & 28 & \colorbox{gray}{29} \\
+				\colorbox{gray}{16} & \colorbox{gray}{27} & \colorbox{gray}{12} & \colorbox{gray}{18} & \colorbox{gray}{10}
+			\end{bmatrix}
+		\end{equation*}
+		Le aree in grigio non vengono calcolate.
+		
+		\newpage
+		
+		\item \textbf{Replicazione} utilizzata per creare artefatti, infatti l'immagine risultante non è realistica. Un esempio:
+		\begin{equation*}
+			\text{Input } = 
+			\begin{bmatrix}
+				1 & 1 & 2 & 2 & 3 & 1 & 1 \\
+				1 & 1 & 2 & 2 & 3 & 1 & 1 \\
+				3 & 3 & 2 & 2 & 1 & 4 & 4 \\
+				2 & 2 & 5 & 2 & 7 & 1 & 1 \\
+				9 & 9 & 0 & 1 & 1 & 2 & 2 \\
+				3 & 3 & 1 & 2 & 4 & 1 & 1 \\
+				3 & 3 & 1 & 2 & 4 & 1 & 1
+			\end{bmatrix}
+			\longrightarrow
+			\text{ Output } = 
+			\begin{bmatrix}
+				\colorbox{gray}{25} & \colorbox{gray}{27} & \colorbox{gray}{29} & \colorbox{gray}{31} & \colorbox{gray}{33} \\
+				\colorbox{gray}{34} & 30 & 45 & 30 & \colorbox{gray}{39} \\
+				\colorbox{gray}{51} & 46 & 27 & 37 & \colorbox{gray}{32} \\
+				\colorbox{gray}{54} & 34 & 41 & 28 & \colorbox{gray}{35} \\
+				\colorbox{gray}{48} & \colorbox{gray}{32} & \colorbox{gray}{24} & \colorbox{gray}{34} & \colorbox{gray}{26}
+			\end{bmatrix}
+		\end{equation*}
+		Le aree in grigio non vengono calcolate.
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Rumore nelle immagini}
+	
+	Il \textcolor{Red3}{\textbf{\underline{rumore nelle immagini}}} è un disturbo dell'immagine introdotto dal sistema di acquisizione (e.g. fotocamera) o dal mezzo di propagazione che ne degrada la qualità (e.g. Whatsapp). Il rumore è tipicamente \emph{modellato} come \textbf{additivo} e \textbf{casuale}:
+	
+	\begin{equation*}
+		\tilde{f}\left(n,m\right) = f\left(n,m\right) + \varepsilon\left(n,m\right)
+	\end{equation*}
+
+	\noindent
+	Dove $f$ è l'\textbf{immagine} priva di rumore e $\varepsilon$ è un processo aleatorio che genera delle quantità che seguono una distribuzione particolare, indipendentemente da dove il processo è collocato nell'immagine, ovvero indipendentemente da $n,m$.\newline
+	
+	\noindent
+	Esistono due \textbf{tipi di rumore}: gaussiano additivo bianco (rumore generato da una distribuzione gaussiana) e impulsivo (rumore generato da una distribuzione bernoulliana).\newline
+	
+	\noindent
+	La \textbf{quantità di rumore} può essere stimata attraverso la misura di $SNR$\label{SNR} (\emph{signal to noise ratio}), di cui esistono varie versioni. La più utilizzata è la \emph{\textbf{mean square, $SNR_{ms}$}}:
+	
+	\begin{equation*}
+		SNR_{ms} = \dfrac{
+		\displaystyle\sum_{n=1}^{N}\sum_{m=1}^{M} \tilde{f}\left(n,m\right)^{2}
+		}{
+		\displaystyle\sum_{n=1}^{N}\sum_{m=1}^{M} \left[\tilde{f}\left(n,m\right) - f\left(n,m\right)\right]^{2}
+		}
+	\end{equation*}
+
+	\noindent
+	Una forma alternativa della $SNR$ può essere stimata grazie alla varianza $\sigma_{n}^{2}$, o alla deviazione standard $\sigma_{n}$:
+	
+	\begin{equation*}
+		SNR = \dfrac{\sigma_{s}}{\sigma_{n}}
+	\end{equation*}
+
+	\noindent
+	Dove $\sigma_{s}$ è la deviazione standard del segnale e $\sigma_{n}$ è la deviazione standard dell'immagine affetta da rumore. Per questo motivo si utilizzano immagini ad alto contrasto, poiché $\sigma_{s}$ risulta maggiore!
+	
+	\newpage
+	
+	\subsubsection{Rumore gaussiano additivo bianco}
+	
+	Il \textcolor{Red3}{\textbf{\underline{rumore gaussiano additivo bianco}}} è un processo stocastico, ovvero una variabile aleatoria che emette valori casuali nel tempo $\varepsilon\left(t\right)$ o nello spazio $\varepsilon\left(n,m\right)$ con le seguenti caratteristiche:
+	
+	\begin{itemize}
+		\item Si somma al segnale pulito;
+		
+		\item Non è periodico nel tempo o nello spazio;
+		
+		\item I valori vengono prodotti con la seguente probabilità:
+		\begin{equation*}
+			P\left(\varepsilon\left(n,m\right) = l\right) = \dfrac{1}{\sqrt{2\pi\sigma^{2}}} \cdot \exp\left(-\dfrac{\left(l - 0\right)^{2}}{2\sigma^{2}}\right)
+		\end{equation*}
+		In cui $0$ è uguale a $\mu$, ovvero indica la media del rumore. Inoltre, data una distribuzione gaussiana $\mu$, $\sigma^{2}$ il $98\%$ di valori $l \in \left[\mu - 2.5\sigma, \mu + 2.5\sigma\right]$.
+		
+		\item I valori seguono una distribuzione gaussiana di media pari a zero, ed una particolare varianza $\sigma^{2}$ (o deviazione standard $\sigma$) dove più è alta la varianza, più distanti da zero saranno i numeri prodotti e sommati all'immagine pulita, più rumorosa l'immagine finale.
+	\end{itemize}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/rumore_gaussiano_additivo_bianco.pdf}
+		\caption{Esempio di rumore gaussiano a diversi valori di $\sigma$.}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Rumore impulsivo}
+	
+	Il \textcolor{Red3}{\textbf{\underline{rumore impulsivo}}} è causato da alterazione brusche nel segnale, viene parametrizzato da un fattore $D$ (una percentuale) che è la densità con cui esso si localizza su pixel dell'immagine: maggiore il valore di intensità $D$, maggiore sarà il numero di pixel affetti.\newline
+	
+	\noindent
+	Per esempio, il disturbo sale e pepe (\href{https://it.wikipedia.org/wiki/Rumore_sale_e_pepe}{\emph{salt-and-pepper noise}}) può essere utilizzato selezionando una percentuale $D$ di pixel, ovvero $D\%$, in maniera uniforme nell'immagine e per ogni pixel si assegna un valore minimo o massimo con probabilità uniforme pari a $p = 0.5$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/rumore_impulsivo.png}
+		\caption{Esempio di applicazione dell'effetto \emph{salt-and-pepper noise}.}
+	\end{figure}
+
+	\newpage
+	
+	\subsection{Altre operazioni locali: tipologie di filtraggio}
+	
+	Esistono altre $3$ tipologie principali di filtraggio:
+	
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{\emph{Smoothing}}}, utilizzato per aumentare il $SNR$ (pagina~\pageref{SNR}), ovvero per rimuovere il rumore.\newline
+		Per esempio, il filtro di media, mediano, gaussiano;
+
+		\item \textcolor{Red3}{\textbf{\emph{Sharpening}}}, utilizzato per aumentare il grado di dettaglio delle immagini.\newline
+		Per esempio, il filtro laplaciano;
+
+		\item \textcolor{Red3}{\textbf{\emph{Estrazione di caratteristiche}}}, utilizzato per estrarre rappresentazioni alternative alle immagini di partenza, che ne evidenzino aspetti particolari (edge, microstrutture, oggetti).\newline
+		Per esempio, il filtro prewitt, sobel, cenny.
+	\end{itemize}
+
+	\newpage
+
+	\subsubsection{Smoothing - Filtro media}
+	
+	Il \textcolor{Red3}{\textbf{\underline{filtro media}}} è utilizzato per \textbf{rimuovere il rumore gaussiano}. È un filtraggio $T$ lineare, si attua attraverso la convoluzione dell'immagine con la maschera media la quale ha le seguenti caratteristiche:
+	
+	\begin{itemize}[label=-]
+		\item Dimensioni $K \times K$ con $K$ dispari;
+		\item I suoi coefficienti sono tutti uguali e pari a $\dfrac{1}{K^{2}}$;
+		\item Il suo funzionamento è il seguente: dato un intorno di applicazione $\left[\left(n,m\right)\right]$, esso calcola la media dei valori vii compresi $\left[\tilde{f}\left(n,m\right)\right]$, e la sostituisce al posto del valore $\tilde{f}\left(n,m\right)$:
+		\begin{equation*}
+			g\left(n,m\right) = T\left(\left[\tilde{f}\left(n,m\right)\right]\right) = E\left(\left[f\left(n,m\right)\right]\right)
+		\end{equation*}
+		Dove $E$ è l'operatore di media, perché $T$ essenzialmente è l'operatore di media
+	\end{itemize}
+
+	\noindent
+	Si \textbf{osservi} che la somma dei valori del kernel è $1$:
+	
+	\begin{equation*}
+		\begin{bmatrix}
+			\frac{1}{9} & \frac{1}{9} & \frac{1}{9} \\
+			&& \\
+			\frac{1}{9} & \frac{1}{9} & \frac{1}{9} \\
+			&& \\
+			\frac{1}{9} & \frac{1}{9} & \frac{1}{9}
+		\end{bmatrix}
+	\end{equation*}
+
+	\noindent
+	Questo significa che il filtraggio in una locazione $\left(x,y\right)$ è una \textbf{combinazione lineare convessa}. In altre parole, la somma dei livelli di grigio dell'immagine originale $f$ e di quella processata $g$ sono uguali (a meno di padding!).\newline
+	\textbf{Maggiore è l'ampiezza} $K$ della maschera, \textbf{più severo è l'effetto della media} sulla struttura dell'immagine.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/filtro_media.png}
+		\caption{Esempio di filtro media all'aumentare di $K$, ovvero della grandezza.}
+	\end{figure}
+
+	\subsubsection{Smoothing - Filtro mediano}
+	
+	Il \textcolor{Red3}{\textbf{\underline{filtro mediano}}} è utilizzato per \textbf{rimuovere il rumore impulsivo}. È un filtraggio $T$ non lineare, che si realizza attraverso un algoritmo. Data la matrice dell'immagine:
+	
+	\begin{equation*}
+		\begin{bmatrix}
+			240 & 245 & 0   \\
+			247 & 0   & 244 \\
+			251 & 246 & 250
+		\end{bmatrix}
+	\end{equation*}
+
+	\begin{enumerate}
+		\item Si calcola la media di tutti i valori della matrice:
+		\begin{equation*}
+			\dfrac{240+245+0+247+0+244+251+246+250}{9} \approx 191
+		\end{equation*}
+	
+		\item Si inseriscono in un vettore riga i valori in ordine crescente:
+		\begin{equation*}
+			\begin{bmatrix}
+				0 & 0 & 240 & 244 & 245 & 246 & 247 & 250 & 251
+			\end{bmatrix}
+		\end{equation*}
+	
+		\item Si calcola la mediana del vettore:
+		\begin{equation*}
+			9 \div 2 = 4.5 \longrightarrow \begin{bmatrix}
+				0 & 0 & 240 & 244 & \underline{245} & 246 & 247 & 250 & 251
+			\end{bmatrix}
+		\end{equation*}
+	\end{enumerate}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/filtro_mediano.png}
+		\caption{Esempio di applicazione di filtro mediano.}
+	\end{figure}
+
+	\newpage
+	
+	\subsubsection{Smoothing - Filtro gaussiano}
+	
+	Il \textcolor{Red3}{\textbf{\underline{filtro gaussiano}}} è quello di rendere più \dquotes{lisica (\emph{smooth})} l'immagine, in modo simile al filtraggio di media, e come parametro l'operatore prende il valore $\sigma$ che rappresenta la \textbf{forza} (maggiore è il valore, più è forte lo \emph{smoothing}). La \textbf{differenza} sostanziale tra il filtraggio di media e il filtraggio gaussiano è che quest'ultimo è una media pesata, dove i pesi più vicini al centro della maschera hanno valori più alti. Così facendo si ha:
+	
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{\emph{Vantaggio}}}
+		\begin{itemize}
+			\item Il filtraggio gaussiano effettua uno \emph{smoothing} più lieve, \textbf{preservando i contorni meglio} di quanto faccia il filtraggio media. Quindi, la struttura viene preservata meglio.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{\emph{Svantaggio}}}
+		\begin{itemize}
+			\item Il rumore viene rimosso in maniera inferiore e questo provoca l'\textbf{impossibilità di applicare la formula di annullamento del rumore} visto per il filtro media.
+		\end{itemize}
+	\end{itemize}
+
+	\noindent
+	Questo filtro può essere \textbf{implementato in maniera efficiente} in quanto la maschera è separabile, ovvero è possibile eseguirlo facendo un filtraggio prima su tutte le $N$ righe dell'immagine come se fossero funzioni $1D$, e poi su tutte le $M$ colonne:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			I_{G}\left(i,j\right) & = & \displaystyle\sum_{h = -\frac{m}{2}}^{\frac{m}{2}} \displaystyle\sum_{k = -\frac{m}{2}}^{\frac{m}{2}} G\left(h,k\right) I\left(i+h, j+k\right) \\
+			&& \\
+			& = & \displaystyle\sum_{h = -\frac{m}{2}}^{\frac{m}{2}} \displaystyle\sum_{k = -\frac{m}{2}}^{\frac{m}{2}} \exp\left(-\dfrac{h^{2} + k^{2}}{2\sigma^{2}}\right) I\left(i+h, j+k\right) \\
+			&& \\
+			& = & \displaystyle\sum_{h = -\frac{m}{2}}^{\frac{m}{2}} \exp\left(-\dfrac{h^{2}}{2\sigma^{2}}\right) \displaystyle\sum_{k = - \frac{m}{2}}^{\frac{m}{2}} \exp\left(-\dfrac{k^{2}}{2\sigma^{2}}\right) I\left(i+h, j+k\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Dove le variabili $i,j,h,k,m$ sono indici per comprendere la \textbf{separabilità}. Quest'ultima consente di progettare manualmente un filtro gaussiano come segue nella prossima pagina.
+	
+	\newpage
+	
+	\noindent
+	Si definiscono i parametri $\sigma$ e $W$. Quindi, si fissi $\sigma$ e si trovi la dimensione della maschera $W$ sapendo che $W$ deve essere tale da contenere un'elevata percentuale di probabilità (uguale all'area della densità gaussiana, come in figura). In particolare, la statistica dice che con $W = 5\sigma$ si copre il $98.75\%$ dell'area della densità gaussiana. In altre parole, se si vuole $\sigma = 1$ allora $W = 5 \cdot 1 = 5$; se si vuole $\sigma = 0.6$ allora $W = 5 \cdot 0.6 = 3$.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/filtro_gaussiano.pdf}
+	\end{figure}
+
+	\subsubsection{Domanda da \textcolor{Red3}{esame}}
+	
+	\textcolor{Red3}{\textbf{\emph{Domanda}}}\newline
+	
+	\noindent
+	Il livello di noise gaussiano presente in un'immagine, se esso noto (e.g. $\sigma_{1} = 0.01$) può guidare la scelta del parametro $\sigma_{2}$ della maschera di filtro gaussiano?\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Risposta}}}\newline
+	
+	\noindent
+	No, perché il rumore gaussiano lavora su tutti i valori di grigio, mentre il filtro gaussiano sulle coordinate e non c'è correlazione. Invece, il filtro media è quello ideale.
+	
+	\newpage
+	
+	\subsubsection{Filtraggi di sharpening}
+	
+	I \textcolor{Red3}{\textbf{\underline{filtraggi di sharpening}}} servono per evidenziare i dettagli o come post processing dopo filtraggi di \emph{smoothing} (questo perché i filtraggi di \emph{smoothing} eliminano i dettagli). Per lo stesso motivo, i filtraggi di sharpening possono incrementare il rumore (un'immagine di rumore è un'immagine ad alta frequenza). Esistono due categorie: \textbf{\emph{basic highpass spatial filtering}} e \textbf{\emph{high boost filtering}}.\newline
+	
+	\noindent
+	I filtri di sharpening sono detti anche \textbf{filtri di derivata}, poiché calcolano numericamente nell'intorno in cui sono definiti la derivata locale (prima o seconda) dell'immagine.
+	
+	\begin{center}
+		\textcolor{Red3}{\textbf{\underline{Rispetto a $\boldsymbol{x}$}}}
+	\end{center}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Derivata asimmetrica}}
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			I_{x}\left(x,y\right) & = & \dfrac{\partial I}{\partial x}\left(x,y\right) = \lim_{h \rightarrow 0} \dfrac{I\left(x+h, y\right) - I\left(x,y\right)}{h} \\
+			&& \\
+			I_{x}\left[x,y\right] & = & \dfrac{\partial I}{\partial x}\left[x,y\right] = I\left[x+1, y\right] - I\left[x,y\right]
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Derivata simmetrica}}
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			I_{x}\left(x,y\right) & = & \dfrac{\partial I}{\partial x}\left(x,y\right) = \lim_{h \rightarrow 0} \dfrac{I\left(x+h, y\right) - I\left(x-h,y\right)}{2h} \\
+			&& \\
+			I_{x}\left[x,y\right] & = & \dfrac{\partial I}{\partial x}\left[x,y\right] = \dfrac{1}{2} \left(I\left[x+1, y\right] - I\left[x-1,y\right]\right)
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Filtro differenziale asimmetrico}}
+	
+	\begin{equation*}
+		\partial_{x} = \begin{bmatrix}
+			-1 & 1
+		\end{bmatrix}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Filtro differenziale simmetrico}}
+	
+	\begin{equation*}
+		\partial_{x} = \dfrac{1}{2} \begin{bmatrix}
+			-1 & 0 & 1
+		\end{bmatrix}
+	\end{equation*}
+
+	\newpage
+
+	\begin{center}
+		\textcolor{Red3}{\textbf{\underline{Rispetto a $\boldsymbol{y}$}}}
+	\end{center}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Derivata asimmetrica}}
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			I_{y}\left(x,y\right) & = & \dfrac{\partial I}{\partial y}\left(x,y\right) = \lim_{h \rightarrow 0} \dfrac{I\left(x, y+h\right) - I\left(x,y\right)}{h} \\
+			&& \\
+			I_{y}\left[x,y\right] & = & \dfrac{\partial I}{\partial y}\left[x,y\right] = I\left[x, y+1\right] - I\left[x,y\right]
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Derivata simmetrica}}
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			I_{y}\left(x,y\right) & = & \dfrac{\partial I}{\partial y}\left(x,y\right) = \lim_{h \rightarrow 0} \dfrac{I\left(x, y+h\right) - I\left(x,y-h\right)}{2h} \\
+			&& \\
+			I_{y}\left[x,y\right] & = & \dfrac{\partial I}{\partial y}\left[x,y\right] = \dfrac{1}{2} \left(I\left[x, y+1\right] - I\left[x,y-1\right]\right)
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Filtro differenziale asimmetrico}}
+	
+	\begin{equation*}
+		\partial_{y} = \begin{bmatrix}
+			-1 \\
+			1
+		\end{bmatrix}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Filtro differenziale simmetrico}}
+	
+	\begin{equation*}
+		\partial_{y} = \dfrac{1}{2} \begin{bmatrix}
+			-1 \\
+			0 \\
+			1
+		\end{bmatrix}
+	\end{equation*}
+	
+	\noindent
+	\textbf{Proprietà} della \textbf{derivata prima}:
+	
+	\begin{itemize}[label=-]
+		\item Nulla in regioni di intensità costante;
+		\item Non nulla in presenza di variazioni di intensità.
+	\end{itemize}
+	
+	\noindent
+	\textbf{Proprietà} della \textbf{derivata seconda}:
+	
+	\begin{itemize}[label=-]
+		\item Nulla in regioni di intensità costante;
+		\item Nulla in presenza di variazioni costanti di intensità (rampe);
+		\item Non nulla in presenza di variazioni non costanti (all'inizio e alla fine di rampe).
+	\end{itemize}
+
+	\newpage
+	
+	\subsubsection{Sharpening - Basic Highpass Spatial Filtering}
+	
+	Il filtraggio di sharpening chiamato \textcolor{Red3}{\textbf{\underline{basic highpass spatial filtering}}} è un \textbf{filtraggio lineare} con il laplaciano, con la maschera $H$ caratterizzata da coefficienti di un segno (e.g. positivo) vicino al centro e di segno opposto (e.g. negativo) nella periferia esterna.\newline
+	
+	\noindent
+	Una tipica maschera di filtraggio, chiamata laplaciana:
+	
+	\begin{equation*}
+		\dfrac{1}{9} \times \begin{bmatrix}
+			-1 & -1 & -1 \\
+			-1 & 8  & -1 \\
+			-1 & -1 & -1
+		\end{bmatrix}
+	\end{equation*}
+
+	\noindent
+	Altre maschere laplaciane:
+	
+	\begin{equation*}
+		\begin{bmatrix}
+			0 & 1  & 0 \\
+			1 & -4 & 1 \\
+			0 & 1  & 0
+		\end{bmatrix}
+		\hspace{2em}
+		\begin{bmatrix}
+			1 & 1  & 1 \\
+			1 & -8 & 1 \\
+			1 & 1  & 1
+		\end{bmatrix}
+	\end{equation*}
+	\begin{equation*}
+		\begin{bmatrix}
+			0  & -1 & 0 \\
+			-1 & 4  & -1 \\
+			0  & -1 & 0
+		\end{bmatrix}
+		\hspace{2em}
+		\begin{bmatrix}
+			-1 & -1 & -1 \\
+			-1 &  8 & -1 \\
+			-1 & -1 & -1
+		\end{bmatrix}
+	\end{equation*}
+
+	\noindent
+	Alcune caratteristiche:
+	
+	\begin{itemize}
+		\item La \textbf{somma dei coefficienti è zero}. Questo indica che quando il filtro passa su regioni con livelli di grigio quasi stabili, l'output della maschera è zero o molto piccolo;
+		
+		\item L'\textbf{uscita è alta} quando il valore centrale differisce dai valori periferici;
+		
+		\item L'\textbf{immagine di output non assomiglierà} a quella originale;
+		
+		\item L'\textbf{immagine di output mostra tutti i dettagli};
+		
+		\item Sono inclusi alcuni \textbf{ridimensionamenti} e/o \emph{\textbf{clipping}}, necessari per compensare eventuali livelli di grigio negativi dopo il filtraggio.
+	\end{itemize}
+
+	\noindent
+	Il filtraggio lineare utilizza il \emph{basic highpass spatial filtering} per \textbf{creare un'immagine realistica}, simile a quella di partenza, con gli edge amplificati:
+	
+	\begin{equation*}
+		g\left(n,m\right) = T\left(\left[f\left(n,m\right)\right]\right) = f\left(n,m\right) + c \cdot h * f\left(n,m\right)
+	\end{equation*}
+
+	\noindent
+	In cui $h$ indica la \textbf{maschera laplaciana}, $c$ è una \textbf{costante} pari a uno nel caso in cui il pixel centrale della maschera laplaciana sia positivo, altrimenti $-1$.
+	
+	\newpage
+	
+	\subsubsection{Sharpening - Filtro Laplaciano}
+	
+	La funzione \textcolor{Red3}{\textbf{\underline{laplaciana}}} prende in ingresso un parametro $\alpha$ il cui significato è legato all'importanza che si vuole dare agli edge verticali e orizzontali $\left(\alpha = 0\right)$, diagonali $\left(\alpha = 1\right)$, tutti gli edge $\left(\alpha = 0.5\right)$, attraverso questa formula:
+	
+	\begin{equation*}
+		h = \dfrac{1}{\alpha + 1} \begin{bmatrix}
+			-\alpha  & \alpha-1 & -\alpha  \\
+			\alpha-1 & \alpha+5 & \alpha-1 \\
+			-\alpha	 & \alpha-1 & -\alpha
+		\end{bmatrix}
+	\end{equation*}
+	
+	\subsubsection{Sharpening - High Boost Filtering}
+	
+	L'immagine filtrata dallo \emph{sharpening} si ottiene sottraendo l'immagine filtrata con \emph{smoothing} dall'immagine originale:
+	
+	\begin{equation*}
+		\textbf{Immagine filtrata dallo sharpening} = \text{Originale } - \text{ Im. filtrata con smoothing}
+	\end{equation*}
+
+	\noindent
+	Se la costante $A$ rappresenta un \textbf{fattore di amplificazione degli edge}, allora il filtro \textcolor{Red3}{\textbf{\underline{high boost filtering}}} è definito come:
+	
+	\begin{equation*}
+		\textbf{High-boost} = A \cdot \text{ Originale } + \text{ Im. filt. dallo sharpening}
+	\end{equation*}
+
+	\noindent
+	A differenza degli altri filtri, questo dà maggiore libertà al progettista. Infatti, il blur può avvenire attraverso una maschera di supporto arbitrariamente grande.
 \end{document}
