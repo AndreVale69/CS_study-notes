@@ -274,4 +274,77 @@
 
 	\noindent
 	Quindi, la connessione \emph{end-to-end} presenta criticità nel momento in cui più dispositivi dividono la strada tra sorgente e destinazione. Si parla, infatti, di \textcolor{Red3}{\textbf{\underline{collo di bottiglia}}} (\emph{bottleneck link}), nel momento in cui la velocità di trasferimento viene diminuita a causa di un canale più piccolo o a causa di un dispositivo con banda minore.
+	
+	\newpage
+	
+	\section{Architettura a livelli e incapsulamento}
+	
+	\subsection{Architettura a livelli}
+	
+	Un'\textcolor{Red3}{\textbf{architettura a livelli}} consente di manipolare una parte specifica e ben definita di un sistema articolato e complesso.\newline
+	
+	\noindent
+	Questa struttura è data dal fatto che fin quando ciascun \textbf{livello} (\emph{layer}, o strato) fornisce lo stesso servizio allo strato superiore e utilizza gli stessi servizi dello stato inferiore, la parte rimanente del sistema rimane invariata al variare dell'implementazione a quel livello.\newline
+	
+	\noindent
+	I \textbf{servizi} vengono offerti da un determinato livello a quello superiore, ovvero si tratta del \textbf{modello di servizio} (\emph{service model}) di un livello. Più in generale, \textbf{ogni livello fornisce il suo servizio} effettuando determinate azioni all'interno del livello stesso e utilizzando i servizi del livello immediatamente inferiore.\newline
+	
+	\noindent
+	Nel caso di sistemi grandi e complessi, che vengono costantemente aggiornati, la capacità di cambiare l'implementazione di un servizio senza coinvolgere altre componenti del sistema costituisce un ulteriore importante vantaggio legato alla stratificazione. Quindi, i pro e i contro di questa architettura sono:
+	
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{\underline{Vantaggio}}}
+		\begin{itemize}
+			\item Il sistema è strutturato e dunque permette il trattamento dei componenti senza stravolgere l'intera architettura o struttura.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{\underline{Svantaggi}}}
+		\begin{itemize}
+			\item Possibilità di duplicazione delle funzionalità tra due o più livelli, ovvero che un livello cloni le caratteristiche del livello inferiore;
+			
+			\item Possibilità che la funzionalità presente ad un livello possa richiedere informazioni presenti solo ad un altro livello.
+		\end{itemize}
+	\end{itemize}
+
+	\noindent
+	Ogni livello ha un \textbf{protocollo} e l’insieme dei protocolli vengono definiti \textbf{pila di protocolli} (\emph{protocol stack}). La pila di protocolli di Internet consiste di cinque livelli:
+	
+	\begin{enumerate}
+		\item Fisico
+		\item Collegamento
+		\item Rete
+		\item Trasporto
+		\item Applicazione
+	\end{enumerate}
+
+	\noindent
+	Un \textcolor{Red3}{\textbf{protocollo}} definisce il formato e l’ordine dei messaggi scambiati tra due o più entità in comunicazione, così come le azioni intraprese in fase di trasmissione e/o ricezione di un messaggio o di un altro evento.
+	
+	\newpage
+	
+	\subsection{Incapsulamento}
+	
+	L'\textcolor{Red3}{\textbf{incapsulamento}} (o imbustamento) è un modus operandi applicato nel momento in cui si deve inviare un messaggio.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/incapsulamento.pdf}
+	\end{figure}
+
+	La comunicazione avviene nel seguente modo:
+	
+	\begin{enumerate}
+		\item Parte nel \textbf{\underline{livello di applicazione}} del host mittente il quale crea un \textbf{messaggio a livello di applicazione} (\emph{application-layer message}) concatenando informazioni aggiuntive, o meglio le informazioni di intestazione. Alla fine del processo di creazione, il messaggio viene passato al livello inferiore, quello di trasporto;
+		
+		\item A \textbf{\underline{livello di trasporto}} vengono aggiunte altre informazioni di intestazione. Le intestazioni di applicazione e trasporto formano il \textbf{segmento a livello di trasporto} (\emph{transport-layer segment}) che incapsula il messaggio a livello di applicazione. Infine, il livello di trasporto passa il messaggio al livello di rete;
+		
+		\item A \textbf{\underline{livello di rete}} vengono aggiunte informazioni come gli indirizzi dei sistemi periferici di sorgente e di destinazione. Facendo così viene creato un \textbf{datagramma a livello di rete} (\emph{network-layer datagram}). Infine, il messaggio viene passato al livello collegamento (\emph{link});
+		
+		\item A \textbf{\underline{livello di collegamento}} le informazioni aggiuntive creano un \textbf{frame a livello di collegamento} (\emph{link-layer frame});
+		
+		\item A \textbf{\underline{livello fisico}} vengono inviati i dati al router e qui termina l'incapsulamento.
+	\end{enumerate}
+
+	\noindent
+	Per cui ad ogni livello, il pacchetto ha due tipi di campi: l’intestazione e \textbf{payload} (il carico utile trasportato). Il payload è tipicamente un pacchetto proveniente dal livello superiore.
 \end{document}
