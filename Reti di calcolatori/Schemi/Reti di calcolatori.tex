@@ -347,4 +347,121 @@
 
 	\noindent
 	Per cui ad ogni livello, il pacchetto ha due tipi di campi: l’intestazione e \textbf{payload} (il carico utile trasportato). Il payload è tipicamente un pacchetto proveniente dal livello superiore.
+	
+	\section{Indirizzi IP}
+	
+	\subsection{Indirizzi IP}
+	
+	Un indirizzo IP consente di rendere \textbf{identificativo} e \textbf{univoco} un host all'interno della rete. Gli indirizzi IP vengono \textbf{rappresentati} con 32 bit e utilizzando una \textbf{notazione decimale puntata}. Prendendo in considerazione l’architettura di rete spiegata nel capitolo precedente, l’\underline{IP si posiziona al livello di rete}, nel quale viene aggiunto al messaggio da inviare.\newline
+	
+	\noindent
+	La \textcolor{Red3}{\textbf{notazione decimale puntata}} è una rappresentazione degli indirizzi IP che facilita la lettura. Il modus operandi per ottenere tale notazione è il seguente:
+	
+	\begin{enumerate}
+		\item Dividere i bit in 4 gruppi, ovvero 8 bit per ciascun gruppo;
+		
+		\item Traduzione di ogni gruppo da binario a decimale;
+		
+		\item Divisione di ogni gruppo da un punto.
+	\end{enumerate}
+
+	\noindent
+	Negli indirizzi IP è importante dividere il prefisso dal suffisso poiché ogni parte ha un significato diverso:
+	
+	\begin{itemize}
+		\item \textbf{\underline{Prefisso}}, identifica una rete all'interno di Internet;
+		\item \textbf{\underline{Suffisso}}, identifica un host all'interno della rete.
+	\end{itemize}
+	
+	\noindent
+	Non esiste un numero specifico di indirizzi IP per il prefisso e per il suffisso. Questo perché dipendono entrambi dalla grandezza della rete; più è grande la rete e meno bit ha di prefisso.\newline
+	
+	\noindent
+	Un \textbf{\emph{esempio}}: $157.27.12.63/16$, dove $157.27$ identifica il prefisso e $12.63$ il suffisso.
+	
+	\subsection{Maschera e blocco CIDR}
+	
+	Per identificare il numero di bit presenti nel prefisso, il calcolatore utilizza una sequenza di 32 bit in cui i bit del prefisso sono posti tutti a uno e i restanti a zero. Questo metodo si chiama maschera e un esempio di \textcolor{Red3}{\textbf{maschera}} 16 (notazione: /16):
+	
+	\begin{equation*}
+		11111111111111110000000000000000
+	\end{equation*}
+
+	\noindent
+	Che rappresenta l'indirizzo: $255.255.0.0$\newline
+	
+	\noindent
+	Per cui si può affermare che la maschera \textbf{identifica} la grandezza della rete. Pensandoci, più è grande la maschera e più piccola è la rete visto che c’è una stretta relazione con il prefisso di un indirizzo IP.\newline
+	
+	\noindent
+	Un \textcolor{Red3}{\textbf{blocco CIDR}} (\emph{Classless Inter-Domain Routing}) è un intervallo di indirizzi IP che sono disponibili nella propria rete.
+	
+	\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio di traduzione e numero host}}
+	
+	Dato il seguente indirizzo in notazione binaria:
+	
+	\begin{equation*}
+		11100111 \hspace{1em} 11011011 \hspace{1em} 10001011 \hspace{1em} 01101111
+	\end{equation*}
+
+	\noindent
+	Si rappresenta in notazione decimale puntata.\newline
+	
+	\noindent
+	Per \textbf{prima cosa} si esegue la traduzione di ogni gruppo da binario a decimale:
+	
+	\begin{itemize}
+		\item $11100111 \longrightarrow 2^{7} \cdot 1 + 2^{6} \cdot 1 + 2^{5} \cdot 1 + 2^{4} \cdot 0 + 2^{3} \cdot 0 + 2^{2} \cdot 1 + 2^{1} \cdot 1 + 2^{0} \cdot 1 = 231$
+		
+		\item $11011011 \longrightarrow 2^{7} \cdot 1 + 2^{6} \cdot 1 + 2^{5} \cdot 0 + 2^{4} \cdot 1 + 2^{3} \cdot 1 + 2^{2} \cdot 0 + 2^{1} \cdot 1 + 2^{0} \cdot 1 = 219$
+		
+		\item $10001011 \longrightarrow 2^{7} \cdot 1 + 2^{6} \cdot 0 + 2^{5} \cdot 0 + 2^{4} \cdot 0 + 2^{3} \cdot 1 + 2^{2} \cdot 0 + 2^{1} \cdot 1 + 2^{0} \cdot 1 = 139$
+		
+		\item $01101111 \longrightarrow 2^{7} \cdot 0 + 2^{6} \cdot 1 + 2^{5} \cdot 1 + 2^{4} \cdot 0 + 2^{3} \cdot 1 + 2^{2} \cdot 1 + 2^{1} \cdot 1 + 2^{0} \cdot 1 = 111$
+	\end{itemize}
+
+	\noindent
+	E infine si riscrive la notazione in notazione decimale puntata:
+	
+	\begin{equation*}
+		231.219.139.111
+	\end{equation*}
+
+	\noindent
+	Adesso viene eseguita la conversione binaria della notazione decimale puntata del seguente indirizzo:
+	
+	\begin{equation*}
+		221.34.255.82
+	\end{equation*}
+
+	\noindent
+	Per \textbf{prima cosa} si esegue la traduzione di ogni gruppo. La traduzione non è banale, difatti si prenderà ciascun gruppo, si dividerà per due e nella colonna di destra verranno scritti i riporti. Infine, il numero binario sarà scritto dal numero di riporto del numero più basso, fino al numero più alto:
+	
+	\begin{center}
+		\begin{tabular}{r|c}
+			$221 \div 2$	&	1 \\
+			$110 \div 2$	&	0 \\
+			$55 \div 2$		&	1 \\
+			$27 \div 2$		&	1 \\
+			$13 \div 2$		&	1 \\
+			$6 \div 2$		&	0 \\
+			$3 \div 2$		&	1 \\
+			$1 \div 2$		&	1			
+		\end{tabular}
+	\end{center}
+
+	\noindent
+	E così via. Unica accortezza da \textbf{ricordare} che se il numero di bit fosse meno di 8, si aggiungono zeri nella parte più significativa.\newline
+	
+	\noindent
+	Dopo alcuni calcoli l’indirizzo IP in binario è:
+	
+	\begin{equation*}
+		11011101 \hspace{1em} 00100010 \hspace{1em} 11111111 \hspace{1em} 01010010
+	\end{equation*}
+
+	\noindent
+	Una rete con un suffisso di /20, quanti host contiene? Dato un indirizzo IP da 32 bit, se il suffisso ha 20 bit, allora: $2^{32} \div 2^{20} = 2^{12}$. Una rete con un suffisso di 20 bit, avrà un prefisso di 12 bit, ovvero $2^{12} \longrightarrow 4096$ indirizzi.
 \end{document}
