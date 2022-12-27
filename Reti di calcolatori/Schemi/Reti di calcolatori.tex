@@ -15,6 +15,9 @@
 	colorlinks=true
 }
 
+\newcommand{\dquotes}[1]{``#1''}
+\newcommand{\binaryaddress}[4]{#1 \hspace{1em} #2 \hspace{1em} #3 \hspace{1em} #4}
+
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
 
@@ -459,9 +462,365 @@
 	Dopo alcuni calcoli l’indirizzo IP in binario è:
 	
 	\begin{equation*}
-		11011101 \hspace{1em} 00100010 \hspace{1em} 11111111 \hspace{1em} 01010010
+		\binaryaddress{11011101}{00100010}{11111111}{01010010}
 	\end{equation*}
 
 	\noindent
 	Una rete con un suffisso di /20, quanti host contiene? Dato un indirizzo IP da 32 bit, se il suffisso ha 20 bit, allora: $2^{32} \div 2^{20} = 2^{12}$. Una rete con un suffisso di 20 bit, avrà un prefisso di 12 bit, ovvero $2^{12} \longrightarrow 4096$ indirizzi.
+	
+	\newpage
+	
+	\section{Indirizzi IP privati}
+	
+	\subsection{Indirizzi IP privati}
+	
+	Gli indirizzi IP riservati sono indirizzi IP che non possono essere assegnati a nessun host. In particolare, sono:
+	
+	\begin{itemize}
+		\item \textbf{Indirizzo di rete}: tutti i bit del suffisso sono posti a zero;
+		\item \textbf{Indirizzo di Direct Broadcast}: tutti i bit del suffisso sono posti a uno;
+		\item \textbf{Indirizzo con tutti i bit a zero};
+		\item \textbf{Indirizzo con tutti i bit a uno};
+	\end{itemize}
+
+	\subsection{\textcolor{Red3}{Esercizio subnetting, creazione sottoreti partendo da un blocco di indirizzi}}
+	
+	La tecnica di \textcolor{Red3}{\textbf{\emph{subnetting}}} consiste nel suddividere una rete in più rete, chiamate sottoreti. L'esercizio fornisce un indirizzo IP:
+	
+	\begin{equation*}
+		180.190.0.0/16
+	\end{equation*}
+
+	\noindent
+	E l'obbiettivo è quello di creare due sottoreti di grandezza identica.\newline
+	
+	\noindent
+	Per \textbf{prima cosa} si deve effettuare la conversione da notazione decimale puntata a notazione binaria:
+	
+	\begin{equation*}
+		\binaryaddress{10110100}{10111110}{00000000}{00000000}
+	\end{equation*}
+
+	\noindent
+	A questo punto è possibile creare due sottoreti come richiesto dall’esercizio.\newline
+	
+	\noindent
+	Per farlo si identifica il primo bit utile nell'indirizzo binario. Esso è possibile trovarlo escludendo il prefisso ($/16$). Quindi, si conta dal bit più significativo $16$ bit, escluso sé stesso, arrivando al bit numero 17, ovvero il più significativo del terzo gruppo:
+	
+	\begin{equation*}
+		\binaryaddress{10110100}{10111110}{\textcolor{Red3}{\boldsymbol{x}}0000000}{00000000}
+	\end{equation*}
+
+	\noindent
+	Al posto della $\textcolor{Red3}{\boldsymbol{x}}$ verrà sostituito lo zero per creare la prima rete e l’uno per creare la seconda rete. Gli indirizzi saranno:
+	
+	\begin{equation*}
+		\begin{array}{ll}
+			\text{Ind. bin. della \textbf{prima rete}:} 	& \binaryaddress{10110100}{10111110}{\textcolor{Red3}{\boldsymbol{0}}0000000}{00000000} \\
+			\text{Ind. bin. della \textbf{seconda rete}:} 	& \binaryaddress{10110100}{10111110}{\textcolor{Red3}{\boldsymbol{1}}0000000}{00000000}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Il \textbf{prefisso} delle sottoreti sarà aumentato di un solo bit, per cui saranno $/17$.\newline
+	
+	\noindent
+	La \textbf{traduzione in decimale} sarà:
+	
+	\begin{itemize}
+		\item \textbf{Prima rete:} $180.190.0.0/17$
+		\item \textbf{Seconda rete:} $180.190.128.0/17$
+	\end{itemize}
+
+	\noindent
+	La \textbf{maschera} delle sottoreti sarà formata da $17$ bit posti a $1$ partendo dal più significativo:
+	
+	\begin{equation*}
+		\binaryaddress{11111111}{11111111}{10000000}{00000000}
+	\end{equation*}
+
+	\noindent
+	E la \textbf{traduzione della maschera} in notazione decimale puntata sarà:
+	
+	\begin{equation*}
+		255.255.128.0
+	\end{equation*}
+
+	\noindent
+	Infine, la \textbf{dimensione dei blocchi} di rete:
+	
+	\begin{equation*}
+		\begin{array}{llll}
+			\textbf{Pre-subnetting}:	&	2^{32} \div 2^{16} = 2^{16}	&	\longrightarrow	&	65'536 \text{ indirizzi} \\
+			&&& \\
+			\textbf{Post-subnetting}: 	&	2^{32} \div 2^{17} = 2^{15}	&	\longrightarrow	&	32'768 \text{ indirizzi}
+		\end{array}
+	\end{equation*}
+
+	\newpage
+	
+	\section{Socket e protocolli a livello di trasporto: TCP e UDP}
+	
+	\subsection{Socket}
+	
+	I sistemi periferici collegati a Internet forniscono un'\textcolor{Red3}{\textbf{interfaccia socket}} (\emph{socket interface}), che specifica come un programma eseguito su un sistema periferico possa chiedere a Internet di recapitare dati a un programma eseguito su un altro sistema periferico.\newline
+	
+	\noindent
+	\emph{In altre parole}, l’interfaccia socket è un insieme di regole che il programma mittente deve seguire in modo che i dati siano recapitati al programma di destinazione.\newline
+	
+	\noindent
+	È importante anche sapere l’esistenza delle \textbf{API} (\emph{Application Programmin Interface}) tra l’applicazione e la rete, poiché l’interfaccia socket non è altro che un’interfaccia di programmazione con cui le applicazioni di rete vengono costruite.\newline
+	
+	\noindent
+	Infine, esistono due tipi di processi:
+	
+	\begin{itemize}
+		\item Il \textbf{client}, ovvero colui che avvia la comunicazione e ha un \underline{IP dinamico};
+		\item Il \textbf{server}, ovvero colui che attende di essere contattato per iniziare la sessione e ha un \underline{IP statico}.
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Protocolli nel livello di trasporto}
+	
+	Dopo il livello applicativo, si trova il livello di trasporto. Esso può utilizzare due possibili \textbf{protocolli} nelle reti TCP/IP: \textcolor{Red3}{\textbf{TCP}} e \textcolor{Red3}{\textbf{UDP}}.
+	
+	\subsubsection{Protocollo TCP}
+	
+	Il protocollo TCP prevede la fornitura di un servizio \textbf{orientato alla connessione} (\emph{Connection oriented communication}) e il \textbf{trasporto affidabile dei dati}.\newline
+	
+	\noindent
+	Le \textbf{caratteristiche} di questo protocollo sono:
+	
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{Servizio orientato alla connessione}}. Questa caratteristica deriva dal fatto che vengono scambiate delle informazioni di controllo prima che i messaggi veri e propri vengano processati dal livello applicativo. Questo \underline{scambio di messaggi} prende il nome di \textbf{handshaking}.\newline
+		Successivamente, \emph{se tutto è andato a buon fine}, si instaura una \textbf{connessione TCP} tra le socket dei due processi. La connessione viene chiamata \textbf{\emph{full-duplex}} ovvero i due processi possono scambiarsi i messaggi contemporaneamente sulla connessione.
+		Infine, per \underline{terminare la connessione}, il mittente e il destinatario si \textbf{scambiano} alcuni \textbf{messaggi}.
+		
+		\item \textcolor{Green4}{\textbf{Servizio di trasferimento affidabile}}. Il protocollo è affidabile poiché i vari controlli effettuati permettono di:
+		\begin{itemize}
+			\item Non perdere dati;
+			\item Inviarli nel giusto ordine;
+			\item Evitare duplicazioni.
+		\end{itemize}
+	\end{itemize}
+	
+	\noindent
+	Inoltre, questo protocollo implementa un meccanismo di \textbf{controllo della congestione}. Nel caso in cui si manifestasse, eseguirebbe una \dquotes{strozzatura} del processo d’invio.\newline
+	
+	\noindent
+	Infine, il protocollo negli ultimi anni implementa anche il \textbf{\emph{secure sockets layer}} (\textbf{SSL}). Ovvero un servizio aggiuntivo che consente la cifratura dei messaggi. Attenzione che questo servizio deve essere attivo sia lato client che lato server, altrimenti si rischia che una delle due parti non possa decifrare il messaggio ricevuto.
+	
+	\newpage
+		
+	\subsubsection{Protocollo UDP}
+	
+	Al contrario del protocollo TCP, UDP è un protocollo di trasporto \textbf{leggero}, \textbf{rapido} e \textbf{minimalista}. Esso \emph{\textbf{non}} necessita di connessione, per cui \underline{non esegue} \underline{alcun handshaking} e di conseguenza \textbf{non} fornisce neanche un \textbf{trasferimento dati affidabile}.\newline
+	
+	\noindent
+	Per cui, quando processo invia un messaggio tramite un socket, UDP \textbf{non garantisce la consegna del messaggio}. Inoltre, i messaggi potrebbero giungere a destinazione non in ordine.\newline
+	
+	\noindent
+	La \textbf{rapidità del protocollo} è dovuta anche al fatto che i pacchetti vengono inviati direttamente \textbf{senza} utilizzare un sistema di \textbf{controllo della congestione}. Tuttavia, il reale throughput end-to-end potrà essere inferiore a causa della banda limitata dei collegamenti coinvolti o a causa della congestione. Si ricorda che con il termine throughput ci si riferisce al tasso con quale il processo mittente può inviare i bit al processo ricevente.
+	
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{\underline{Vantaggi}}}
+		\begin{itemize}
+			\item \textbf{\underline{Leggero}} poiché non ha bisogno di controllare che la connessione sia instaurata, ovvero il fenomeno di \emph{handshaking} viene eliminato;
+			
+			\item \textbf{\underline{Rapido}} poiché non esiste nessun sistema di controllo della congestione, per cui i pacchetti vengono mandati uno dopo l'altro. Talvolta il throughput potrebbe essere minore a causa di eventuali colli di bottiglia;
+			
+			\item \textbf{\underline{Minimalista}} poiché non implementa tecniche particolari come detto in precedenza.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{\underline{Svantaggi}}}
+		\begin{itemize}
+			\item \textbf{\underline{Nessuna affidabilità}} a causa della mancanza del fenomeno di \emph{handshaking}. Quindi, \textbf{nessuna garanzia di consegna} del messaggio;
+			
+			\item \textbf{\underline{Alta probabilità di congestione}} dovuta alla mancanza di controllo di essa. Quindi, il buffer potrebbe riempirsi rapidamente;
+			
+			\item \textbf{\underline{Messaggi non in ordine}}.
+		\end{itemize}
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio sull'indirizzamento}}
+	
+	Dato il seguente IP:
+	
+	\begin{equation*}
+		140.120.84.20/20
+	\end{equation*}
+	
+	\noindent
+	Determinare l’indirizzo di rete.\newline
+	
+	\noindent
+	Il \textbf{primo passo} è la traduzione dell’IP da notazione decimale puntata a notazione binaria:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			140_{10}	& \longrightarrow & 10001100 \\
+			&& \\
+			120_{10}	& \longrightarrow & 01111000 \\
+			&& \\
+			84_{10}		& \longrightarrow & 01010100 \\
+			&& \\
+			20_{10}		& \longrightarrow & 00010100
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	Scrivendo l’indirizzo esteso:
+	
+	\begin{equation*}
+		\binaryaddress{10001100}{01111000}{01010100}{00010100}
+	\end{equation*}
+
+	\noindent
+	Il \textbf{secondo passo} è l’azzeramento del suffisso (bits in rosso) dato che l’indirizzo di rete ha il prefisso \emph{non} nullo e il suffisso con tutti i bit a zero. Il prefisso viene dato dall’ esercizio, ovvero $/20$:
+	
+	\begin{equation*}
+		\binaryaddress{10001100}{01111000}{0101\textcolor{Red3}{\boldsymbol{0000}}}{\textcolor{Red3}{\boldsymbol{00000000}}}
+	\end{equation*}
+
+	\noindent
+	Il \textbf{terzo} e ultimo \textbf{passo} è la conversione in decimale e scrivere l’indirizzo di rete in notazione decimale puntata:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			10001100_{2}	& \longrightarrow & 140_{10} \\
+			&& \\
+			01111000_{2}	& \longrightarrow & 120_{10} \\
+			&& \\
+			01010000_{2}	& \longrightarrow & 80_{10} \\
+			&& \\
+			00000000_{2}	& \longrightarrow & 0_{10}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	E l'indirizzo di rete sarà:
+	
+	\begin{equation*}
+		140.120.80.0/20
+	\end{equation*}
+
+	\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio subnetting - Avanzato}}
+	
+	Date 3 reti LAN, viene assegnato il blocco di rete 165.5.1.0/24. Creare 3 sottoreti per ogni rete LAN in modo da avere lo stesso numero di host.\newline
+	
+	Il \textbf{primo passo} è la classica traduzione in binaria. Si deve tradurre l’indirizzo da notazione decimale puntata a binario:
+	
+	\begin{equation*}
+		\begin{array}{lll}
+			165_{10}	& \longrightarrow & 10100101_{2} \\
+			5_{10}		& \longrightarrow & 00000101_{2} \\
+			1_{10}		& \longrightarrow & 00000001_{2} \\
+			0_{10}		& \longrightarrow & 00000000_{2}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Il \textbf{secondo passo} è quello di creare delle sottoreti. Per farlo si deve prendere in considerazione il suffisso. Prima di tutto, si scrive l’indirizzo in notazione binaria:
+	
+	\begin{equation*}
+		\binaryaddress{10100101}{00000101}{00000001}{00000000}
+	\end{equation*}
+
+	\noindent
+	La creazione di 3 sottoreti prevede almeno due bit. Difatti, se venisse scelto un bit, si potrebbe creare al massimo 2 sottoreti. Per cui, dall’indirizzo in notazione binaria, si riservano (x in rosso) due bit nel suffisso per creare le sottoreti:
+	
+	\begin{equation*}
+		\binaryaddress{10100101}{00000101}{00000001}{\textcolor{Red3}{\boldsymbol{xx}}000000}
+	\end{equation*}
+
+	\noindent
+	Riservando questi due bit, adesso si sono create quattro sottoreti:
+	
+	\begin{equation*}
+		\begin{array}{ll}
+			\textbf{LAN1.} & \binaryaddress{10100101}{00000101}{00000001}{\textcolor{Red3}{\boldsymbol{00}}000000} \\
+			\textbf{LAN2.} & \binaryaddress{10100101}{00000101}{00000001}{\textcolor{Red3}{\boldsymbol{01}}000000} \\
+			\textbf{LAN3.} & \binaryaddress{10100101}{00000101}{00000001}{\textcolor{Red3}{\boldsymbol{10}}000000} \\
+			\textbf{LAN4.} & \binaryaddress{10100101}{00000101}{00000001}{\textcolor{Red3}{\boldsymbol{11}}000000} \\
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	La prima sottorete è assegnata alla LAN1, la seconda alla LAN2, la terza alla LAN3 e la quarta è considerata libera. Essa potrà essere utilizzata in futuro.\newline
+	
+	\noindent
+	Il \textbf{terzo passo} è calcolare il nuovo prefisso delle sottoreti. Ogni sottorete è formata dal prefisso della rete originaria ($/24$), più due bit che sono serviti per creare le 3 reti. Quindi, il nuovo prefisso delle 3 reti è diventato $/26$.\newline
+	
+	\noindent
+	Infine, il \textbf{quarto passo} è la scrittura in notazione decimale puntata delle tre reti e il calcolo degli indirizzi disponibili.\newline
+	
+	\noindent
+	La conversione è semplice e si omettono i passaggi e le spiegazioni:
+	
+	\begin{equation*}
+		\begin{array}{ll}
+			\textbf{LAN1.} & 165.5.1.0/26 \\
+			\textbf{LAN2.} & 165.5.1.64/26 \\
+			\textbf{LAN3.} & 165.5.1.128/26 \\
+			\textbf{LAN4.} & 165.5.1.192/26 \\
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	E la rete è passata da avere ($2^{32} \div 2^{24} = 2^{8}$) 256 indirizzi disponibili a ($2^{32} \div 2^{26} = 2^{6}$) 64 indirizzi.
+	
+	\newpage
+	
+	\subsubsection{\textcolor{Red3}{Domanda bonus}}
+	
+	Se la LAN1 avesse dovuto avere il doppio degli indirizzi rispetto alla LAN2 e alla LAN3, l'esercizio come si sarebbe svolto?\newline
+	
+	\noindent
+	In questo caso specifico, partendo dal \textbf{passo numero due}, ovvero alla creazione delle sottoreti, si sarebbe proceduti in maniera diversa.\newline
+	
+	\noindent
+	Invece di prendere due bit, si prende un solo bit che ci permette di creare due sottoreti: nella prima sottorete si assegna la LAN1 e nella seconda sottorete si assegnano LAN2 e LAN3.
+	\begin{equation*}
+		\binaryaddress{10100101}{00000101}{00000001}{\textcolor{Red3}{\boldsymbol{x}}0000000}
+	\end{equation*}
+	
+	\noindent
+	Creando le due sottoreti:
+	\begin{gather*}
+		\binaryaddress{10100101}{00000101}{00000001}{\textcolor{Red3}{\boldsymbol{0}}0000000} \\
+		\binaryaddress{10100101}{00000101}{00000001}{\textcolor{Red3}{\boldsymbol{1}}0000000}
+	\end{gather*}
+	
+	\noindent
+	Il \textbf{terzo passo} è quello di creare le due sottoreti all’interno del secondo indirizzo. Due sottoreti necessitano di due bit, per cui la divisione sarà:
+	\begin{equation*}
+		\begin{array}{ll}
+			\textbf{LAN2.} & \binaryaddress{10100101}{00000101}{00000001}{1\textcolor{Red3}{\boldsymbol{0}}000000} \\
+			\textbf{LAN3.} & \binaryaddress{10100101}{00000101}{00000001}{1\textcolor{Red3}{\boldsymbol{1}}000000}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Infine, il \textbf{quarto passo} è quello di calcolare la maschera delle reti, riscrivere gli indirizzi in notazione decimale puntata e calcolare il numero di indirizzi possibili.\newline
+	
+	\noindent
+	La maschera per la LAN1 è aumentata di 1 dalla rete di partenza, per cui $/25$. Mentre per la LAN2 e LAN3 è aumentata di 2 bit, ovvero $/26$.\newline
+	
+	\noindent
+	La scrittura in notazione decimale puntata sarà:
+	\begin{equation*}
+		\begin{array}{ll}
+			\textbf{LAN1.} & 165.5.1.0/25 \\
+			\textbf{LAN2.} & 165.1.128/26 \\
+			\textbf{LAN3.} & 165.1.192/26
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	E il numero di indirizzi della LAN1 saranno ($2^{32} \div 2^{25} = 2^{7}$) 128, mentre quelli della LAN2 e della LAN3 rimarranno a 64 indirizzi.
 \end{document}
