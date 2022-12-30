@@ -969,4 +969,19 @@
 		
 		\item 505 HTTP Version Not Supported: il server non dispone della versione di protocollo HTTP richiesta.
 	\end{itemize}
+
+	\newpage
+	
+	\subsection{Cookie}
+	
+	I \textcolor{Red3}{\textbf{\emph{cookie}}} è un meccanismo utilizzato dal server per sapere se ha interagito precedentemente con un determinato client.\newline
+	
+	\noindent
+	La \textbf{prima volta} che il \emph{client} interagisce con un \emph{server}, inviando una richiesta GET, il server crea un identificativo (codice) associato all'utente (e.g. 1234).\newline
+	
+	\noindent
+	Il server \textbf{risponde} con una richiesta REPLY HTTP, impostando nell'intestazione il valore \emph{\textbf{set-cookie}} al valore impostato al passaggio prima. Alla ricezione della risposta, il \emph{client} memorizza l'indirizzo della pagina usato per fare la prima richiesta GET e il codice fornito dal server (\emph{set-cookie}).\newline
+	
+	\noindent
+	\textbf{Dopo una serie di interazioni}, quando il \emph{client} effettuerà di nuovo una richiesta GET al server specifico, esso dovrà indicare come codice \emph{cookie}, il codice salvato la prima volta. Invece, il server controllerà la storia associata all'utente con il codice fornito e restituisce una risposta specifica all'utente.
 \end{document}
