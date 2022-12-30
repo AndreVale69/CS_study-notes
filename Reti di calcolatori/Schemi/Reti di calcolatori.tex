@@ -823,4 +823,150 @@
 
 	\noindent
 	E il numero di indirizzi della LAN1 saranno ($2^{32} \div 2^{25} = 2^{7}$) 128, mentre quelli della LAN2 e della LAN3 rimarranno a 64 indirizzi.
+	
+	\newpage
+	
+	\section{Protocollo HTTP}
+	
+	\subsection{Protocollo HTTP}
+	
+	\textcolor{Red3}{\textbf{HTTP}} (\emph{Hypertext Transfer Protocol}), protocollo a livello di applicazione del Web, costituisce il cuore del Web. Questo \textbf{protocollo} è implementato nei programmi in esecuzione su sistemi periferici diversi che comunicano tra loro scambiandosi messaggi HTTP.\newline
+	
+	\noindent
+	Una \textbf{pagina web} (\emph{web page}), detta anche documento, è costituita da oggetti. Un \textbf{oggetto} è semplicemente un file indirizzabile tramite un URL. La maggioranza delle pagine web consiste di un \textbf{file HTML principale} e diversi oggetti referenziati da esso.\newline
+	
+	\noindent
+	Un \textbf{browser web} implementa il lato \emph{client} di HTTP, ovvero l’utente stesso. Mentre il \textbf{web server} implementa il lato server di HTTP, ospita oggetti web, indirizzabili tramite URL.\newline
+	
+	\noindent
+	HTTP utilizza il protocollo \textbf{TCP come protocollo di trasporto}. Il client HTTP per prima cosa inizia una connessione TCP con il server. Una volta stabilita, i processi client e server accedono a TCP attraverso le proprie socket.\newline
+	
+	\noindent
+	Dato che i server HTTP non mantengono informazioni sui client, HTTP è classificato come \textbf{protocollo senza memoria di stato} (\emph{stateless protocol}). Un \textbf{web server} è \textbf{sempre attivo}, ha un indirizzo IP fisso e risponde potenzialmente alle richieste provenienti da milioni di diversi browser.
+	
+	\subsection{HTTP con connessioni (non) persistenti}
+	
+	Sia i client che i server possono avere due diverse configurazioni: le connessioni persistenti e le connessioni non persistenti. Prima di iniziare la spiegazione, si introduce il concetto di \textcolor{Red3}{\textbf{round-trip time}} (\textbf{RTT}), che rappresenta il \textbf{tempo impiegato da un pacchetto per viaggiare dal client al server e poi tornare al client}. Esso include i \textbf{ritardi di propagazione}, di \textbf{accodamento} nei \textbf{router} e nei \textbf{commutatori intermedi} nonché di elaborazione del pacchetto.
+	
+	\newpage
+	
+	\subsubsection{Connessioni non persistenti}
+	
+	Per spiegare le connessioni non persistenti, si faccia riferimento ad un esempio in cui c’è il trasferimento di una pagina web dal server al client. Si supponga che la pagina consista di un file HTML principale e di 10 immagini, e tutti gli oggetti risiedano sullo stesso server.
+	
+	\begin{enumerate}
+		\item Il processo client HTTP inizializza una connessione di tipo TCP con il server sulla porta 80, ovvero la porta di default per HTTP.
+		
+		\item Il client HTTP, tramite la socket, invia al server un messaggio di richiesta del file principale.
+		
+		\item Il processo server HTTP riceve il messaggio di richiesta attraverso la socket, recupera l’oggetto richiesto dalla propria memoria, lo incapsula in un messaggio di risposta che viene inviato al client attraverso la socket.
+		
+		\item Il processo server HTTP comunica a TCP di concludere la connessione. Tuttavia, il protocollo TCP garantisce la consegna del messaggio, per cui non termina la connessione finché il client non ha ricevuto l’intero messaggio.
+		
+		\item Il client HTTP riceve il messaggio di risposta. La connessione TCP termina a questo punto e il messaggio ricevuto indica che l’oggetto incapsulato è un file HTML. Il client estrae il file del messaggio di risposta, esamina il file HTML e trova i riferimenti ai 10 oggetti.
+		
+		\item Infine, vengono ripetuti tutti i primi quattro passi per ciascuno degli oggetti referenziati.
+	\end{enumerate}
+
+	\noindent
+	Si conclude che l’utilizzo di connessione non persistenti, consente di chiudere ogni connessione aperta dopo l’invio dell’oggetto da parte del server e dopo aver ricevuto una conferma dal client.\newline
+	
+	\noindent
+	Nell’esempio vengono create 11 connessioni TCP, una per ogni oggetto richiesto.\newline
+	
+	\noindent
+	Come si può notare, queste connessioni presentano alcuni \textbf{limiti}:
+	
+	\begin{enumerate}
+		\item Per ogni oggetto richiesto occorre stabilire e mantenere una nuova connessione.
+		
+		\item Per ogni connessione si deve allocare buffer e mantenere variabili TCP sia nel client che nel server.
+		
+		\item Ciascun oggetto subisce un ritardo di consegna di due RTT: uno per stabilire la connessione TCP e uno per richiedere e ricevere un oggetto.
+	\end{enumerate}
+
+	\noindent
+	Questi limiti richiedono un grande onere sul web server che deve aprire nuove connessioni ogni qualvolta ci deve essere uno scambio di dati. Il grande onere riguarda soprattutto il momento in cui il server riceve centinaia di richieste da parte dei client.
+	
+	\newpage
+	
+	\subsubsection{Connessioni persistenti}
+	
+	La particolarità delle connessioni persistenti è la possibilità da parte del server di lasciare aperta la connessione TCP dopo l’invio di una risposta. Così facendo, le richieste/risposte future da parte degli stessi client e server potranno essere trasmesse sulla stessa connessione.\newline
+	
+	\noindent
+	Difatti, il server può inviare un’intera pagina web \textbf{sfruttando} solamente \textbf{una connessione} TCP permanente, oppure inviare più pagine web allo stesso client.\newline
+	
+	\noindent
+	Le \textbf{richieste} possono essere effettuate \textbf{una dopo l’altra senza attendere} le risposte delle eventuali richieste pendenti (\emph{pipelining}).\newline
+	
+	\noindent
+	In generale, il server HTTP \textbf{chiude la connessione} quando essa rimane inattiva per un lasso di tempo arbitrario.
+	
+	\newpage
+	
+	\subsection{Formato dei messaggi HTTP}
+	
+	Esistono due tipi di formati di questo protocollo: il messaggio di richiesta HTTP e messaggio di risposta HTTP.
+	
+	\subsubsection{Messaggio di richiesta HTTP}
+	
+	I messaggi di richiesta possono avere un numero indefinito di righe, anche una sola.\newline
+	
+	\noindent
+	Ogni riga alla fine ha un \textbf{carattere di ritorno a capo} (\emph{carriage return}) e un \textbf{carattere di nuova linea} (\emph{line feed}).\newline
+	
+	\noindent
+	L’ultima riga è seguita da una coppia di caratteri di ritorno a capo e nuova linea aggiuntivi.\newline
+	
+	\noindent
+	In generale, la \textbf{prima riga} è la \textbf{riga di richiesta} (\emph{request line}) e quelle successive si chiamano \textbf{righe di intestazione} (\emph{header lines}).\newline
+	
+	\noindent
+	La \textbf{riga di richiesta} è formata da tre campi:
+	
+	\begin{itemize}
+		\item Campo \textbf{metodo} (GET, POST, HEAD, PUT, DELETE)
+		\item Campo \textbf{URL}
+		\item Campo \textbf{versione HTTP}
+	\end{itemize}
+	
+	\noindent
+	Le \textbf{righe di intestazione} possono essere di molti tipi. La riga \textbf{Host} specifica l’host su cui risiede l’oggetto, la riga \textbf{Connection} indica se il server deve effettuare una connessione di tipo persistente o non persistente, la riga \textbf{User-agent} specifica il tipo di browser che sta effettuando la richiesta al server e, infine, la riga \textbf{Accept-language} indica se l’utente preferisce ricevere una versione dell’oggetto nella lingua specificata; in caso di mancanza, il server provvederà a fornire la versione di default.
+	
+	\newpage
+	
+	\subsubsection{Messaggio di risposta HTTP}
+	
+	Nei messaggi di risposta ci sono tre sezioni importanti: una \textbf{riga di stato iniziale}, le \textbf{righe di intestazione} e il \textbf{corpo}.\newline
+	
+	\noindent
+	La \textbf{riga di stato iniziale} presenta tre campi:
+	
+	\begin{itemize}
+		\item \textbf{Versione del protocollo}
+		\item \textbf{Codice di stato}
+		\item \textbf{Messaggio di stato} (approfondimento alla fine di questo paragrafo)
+	\end{itemize}
+
+	\noindent
+	Le \textbf{righe di intestazione} possono essere di tipo \textbf{Connection} per comunicare al client la gestione della connessione, per esempio “Connection: close” per indicare l’intenzione di chiudere la connessione TCP dopo l’invio del messaggio; di tipo \textbf{Date} per indicare l’ora e la data di creazione e invio, da parte del server, della risposta HTTP; di tipo \textbf{Server} per indicare che il messaggio è stato generato da un determinato tipo di web server, simile alla riga “User-agent” nel messaggio di richiesta; di tipo \textbf{Last-Modified} per indicare l’istante e la data in cui l’oggetto è stato creato o modificato per l’ultima volta; di tipo \textbf{Content-Length} per indicare il numero di byte dell’oggetto inviato; di tipo \textbf{Content-Type} per indicare il tipo di oggetto specificato nel corpo.\newline
+	
+	\noindent
+	Le \textbf{righe di corpo} sono il fulcro del messaggio. Esse contengono l’oggetto richiesto.\newline
+	
+	\noindent
+	Nella \textbf{riga di stato iniziale}, i due campi \textbf{codice} e \textbf{messaggio di stato} indicano operazioni importanti. Qui di seguito si elencano i codici con i relativi messaggi, sono riportati solo i più importanti:
+	
+	\begin{itemize}
+		\item 200 OK: la richiesta ha avuto successo e in risposta si invia l'informazione.
+		
+		\item 301 Moved Permanently: l’oggetto richiesto è stato trasferito in modo permanente; il nuovo URL viene specificato nell’intestazione, campo Location, del messaggio di risposta.
+		
+		\item 400 Bad Request: codice di errore generico che indica che la richiesta non è stata compresa dal server.
+		
+		\item 404 Not Found: il documento richiesto non esiste sul server.
+		
+		\item 505 HTTP Version Not Supported: il server non dispone della versione di protocollo HTTP richiesta.
+	\end{itemize}
 \end{document}
