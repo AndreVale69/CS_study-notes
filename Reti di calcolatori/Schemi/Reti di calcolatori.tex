@@ -17,6 +17,7 @@
 
 \newcommand{\dquotes}[1]{``#1''}
 \newcommand{\binaryaddress}[4]{#1 \hspace{1em} #2 \hspace{1em} #3 \hspace{1em} #4}
+\newcommand{\binaryaddresspointed}[4]{#1\:.\:#2\:.\:#3\:.\:#4}
 
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
@@ -984,4 +985,172 @@
 	
 	\noindent
 	\textbf{Dopo una serie di interazioni}, quando il \emph{client} effettuerà di nuovo una richiesta GET al server specifico, esso dovrà indicare come codice \emph{cookie}, il codice salvato la prima volta. Invece, il server controllerà la storia associata all'utente con il codice fornito e restituisce una risposta specifica all'utente.
+	
+	\subsection{Cache di rete}
+	
+	La \textcolor{Red3}{\textbf{cache di rete}} intercetta i messaggi e memorizza le risposte. I vantaggi riguardano principalmente la velocità. Il suo funzionamento è il seguente:
+	
+	\begin{enumerate}
+		\item Invio della richiesta di un determinato dato da parte del \emph{client};
+		
+		\item \textbf{Cache di rete} intercetta il messaggio e controlla se ha il dato richiesto:
+		\begin{itemize}
+			\item Se il \textbf{dato è presente}:
+			\begin{enumerate}
+				\item La cache di rete invia una richiesta di tipo \textcolor{Red3}{\textbf{GET condizionale}} per verificare che il contenuto del dato richiesto non sia stato modificato nel server (campo nell'intestazione: \emph{if-modified-since});
+				
+				\item Il server risponde inviando un messaggio con scritto nell'intestazione \emph{not modified};
+				
+				\item Cache di rete invia direttamente il dato al client diminuendo il tempo d'attesa del mittente (lo scambio di messaggi piccoli tra cache di rete e server è rapido!).
+			\end{enumerate}
+		
+			\item Se il \textbf{dato \underline{non} è presente}:
+			\begin{enumerate}
+				\item La cache di rete invia una richiesta di tipo \textcolor{Red3}{\textbf{GET condizionale}} per verificare che il contenuto del dato richiesto non sia stato modificato nel server (campo nell'intestazione: \emph{if-modified-since});
+				
+				\item Il server di destinazione risponde inviando i dati richiesti (operazione lenta);
+				
+				\item La cache di rete intercetta la risposta salvando una copia dei dati al suo interno. La risposta non viene bloccata, quindi arriva anche al client,
+			\end{enumerate}
+		\end{itemize}
+	\end{enumerate}
+
+	\newpage
+	
+	\section{DNS}
+	
+	\subsection{DNS}
+	
+	Gli host Internet possono essere identificati in vari modi. I \textbf{nomi degli host} (\emph{hostname}), per esempio \textsf{www.facebook.com} o \textsf{www.google.com}, risultano abbastanza appropriati per l’uomo, ma forniscono ben poca informazione sulla loro collocazione all’interno di Internet. Per cui, i nomi vengono utilizzati dagli utenti finali, mentre i calcolatori utilizzando gli \textbf{indirizzi IP} degli host.\newline
+	
+	\noindent
+	Gli utenti finali inseriscono i nomi degli host e il calcolatore riesce a ottenere l’indirizzo IP grazie ad un servizio in grado di tradurre i nomi in indirizzi IP. Il suo nome è \textcolor{Red3}{\textbf{Domain Name System}} (DNS).\newline
+	
+	\noindent
+	Il \textbf{DNS} è un \textbf{database} distribuito implementato in una \textbf{gerarchia} di \textbf{DNS server} e un protocollo a livello di applicazione che consente agli \textbf{host} di \textbf{interrogare} il \textbf{database}. Generalmente i DNS server sono macchine UNIX che eseguono un software chiamato BIND (\emph{Berkeley Internet name domain}). Il protocollo DNS utilizza \textbf{UDP} e la \textbf{porta 53}.\newline
+	
+	\noindent
+	Nel dettaglio quello che succede nel momento in cui un utente digita un host name:
+	
+	\begin{enumerate}
+		\item La macchina utente (\emph{client}) esegue l’applicazione DNS;
+
+		\item Il browser estrae il nome del host dall’URL inserito e lo passa all’applicazione DNS;
+
+		\item L’applicazione DNS esegue una interrogazione (\emph{query}), sul database di una DNS server, contenente l’hostname;
+
+		\item L’applicazione DNS prima o poi riceve una risposta che include l’indirizzo IP corrispondente al host dell’hostname fornito;
+
+		\item Una volta ricevuto l’indirizzo IP dal DNS, il browser può dare inizio a una connessione di tipo TCP verso il processo server HTTP collegato alla porta 80 di quell’indirizzo IP.
+	\end{enumerate}
+
+	\newpage
+	
+	\subsection{Approfondimento sul database distribuito e gerarchico}
+	
+	Il DNS utilizza un grande numero di server, organizzati in maniera gerarchica e distribuiti nel mondo. Nessun DNS server ha le corrispondenze per tutti gli host in Internet, che sono invece distribuite tra tutti i DNS server.\newline
+	
+	\noindent
+	Esistono \textbf{tre classi} di DNS server:
+	
+	\begin{itemize}
+		\item \textbf{Root server}. In Internet esistono 400 root server circa, dislocati in tutto il mondo. Essi sono gestiti da 13 diverse organizzazioni.\newline
+		I root server forniscono gli indirizzi IP dei server TLD.
+		
+		\item \textbf{Top-level domain (TLD) server}. Questi server si occupano dei domini di primo livello quali \emph{com}, \emph{org}, \emph{net}, \emph{edu} e \emph{gov}, e di tutti i domini di primo livello relativi ai vari paesi, come \emph{uk}, \emph{fr}, \emph{ca} e \emph{jp}. Per esempio, l’azienda “Verisign Global Registry Services” gestisce i TLD server per il dominio com.\newline
+		I server TLD forniscono gli indirizzi IP dei server autoritativi.
+		
+		\item \textbf{Server autoritativi}.	Ogni organizzazione dotata di host pubblicamente accessibili tramite Internet (quali web server e e-mail server) deve fornire record DNS pubblicamente accessibili che associno i nomi di tali host a indirizzi IP. Il DNS server autoritativo dell’organizzazione ospita questi record.\newline
+		Un’organizzazione può scegliere di implementare il proprio server autoritativo oppure di pagare un fornitore di servizi per ospitare questi record su un suo server.
+	\end{itemize}
+
+	\noindent
+	Un \textbf{esempio} riepilogativo può essere del tipo: si supponga che un client DNS voglia determinare l’indirizzo IP relativo all’hostname \textsf{www.amazon.com}.\newline
+	Per fare ciò, il client dapprima contatta uno dei root server che gli restituisce uno o più indirizzi IP relativi al server TLD per il dominio \emph{com} (dominio gestito dall’azienda Verisign Global Registry Services).\newline
+	Per cui, contatta uno di questi server TLD che gli restituisce uno o più indirizzi IP del server autoritativo per \textsf{amazon.com}.\newline
+	Infine, contatta uno dei server autoritativi per \textsf{amazon.com} che gli restituisce l’indirizzo IP dell’hostname \textsf{www.amazon.com}.
+	
+	\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio - Determinare CIDR e creare subnetting con condizioni}}
+	
+	Si consideri la seguente rete formata da 5 sottoreti. Due indirizzi sono già assegnati alla rete:
+	
+	\begin{equation*}
+		101.75.79.255 \hspace{3em} 101.75.80.0
+	\end{equation*}
+
+	\noindent
+	Determinare il blocco CIDR più piccolo che contiene tali indirizzi. Per “più piccolo” si intende con numero minore di indirizzi.\newline
+	
+	\noindent
+	Una volta trovato il blocco CIDR, creare 5 sottoreti con i seguenti vincoli:
+	
+	\begin{itemize}
+		\item LAN1: Deve avere un prefisso di /21
+		\item LAN2: Deve ospitare fino a 1000 host
+		\item LAN3: Deve avere un prefisso di /23
+		\item LAN4: Deve ospitare fino a 400 host
+		\item LAN5: Deve avere la metà degli indirizzi a disposizione del blocco di partenza
+	\end{itemize}
+
+	\noindent
+	Inizialmente si traducono gli indirizzi che si hanno in binario:
+	\begin{equation*}
+		\begin{array}{lll}
+			101.75.79.255	& \longrightarrow & \binaryaddresspointed{01100101}{01000011}{01001111}{11111111} \\
+			101.75.80.0		& \longrightarrow & \binaryaddresspointed{01100101}{01000011}{01010000}{00000000}
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Per \textbf{calcolare il prefisso} basta prendere in considerazione i bit identici nei due indirizzi. Il conteggio prosegue finché non si trova un bit che differisce. Per cui, in questo esercizio il bit numero 20 differisce, infatti nel primo indirizzo è 0, mentre nel secondo è 1. In conclusione, il prefisso è $/19$. Ponendo i restanti ($2^{32} \div 2^{19} = 2^{13}$) 13 bit a zero, si ottiene l’indirizzo di rete:
+	\begin{equation*}
+		101.75.64.0/19
+	\end{equation*}
+	Che avrà a disposizione $2^{13}$ indirizzi, ovvero 8192 il quale rappresenta il \textbf{blocco CIDR}.\newline
+	
+	\noindent
+	Adesso inizia il calcolo dei vari indirizzi delle LAN. La LAN numero 5 deve avere la metà degli indirizzi disponibili messi a disposizione dalla rete di partenza, ovvero quella appena trovata. Per cui si creano le prime sottoreti (\emph{subnetting}) assegnandone una alla LAN5 che avrà per cui il prefisso maggiorato di un bit e un numero di indirizzi disponibili pari a: $2^{32} \div 2^{20} = 2^{12} \rightarrow 4096$.\newline
+	
+	\noindent
+	Quindi si creano le due sottoreti:
+	\begin{equation*}
+		\begin{array}{lll}
+			\binaryaddresspointed{01100101}{01000011}{010\textcolor{Red3}{\boldsymbol{0}}0000}{00000000} & \longrightarrow & 101.75.64.0/20 \\
+			\binaryaddresspointed{01100101}{01000011}{010\textcolor{Red3}{\boldsymbol{1}}0000}{00000000} & \longrightarrow & 101.75.80.0/20
+		\end{array}
+	\end{equation*}
+	E si afferma che l’indirizzo $101.75.64.0/20$ è assegnato alla LAN5.\newline
+	
+	\noindent
+	Dal secondo indirizzo si creano altre sottoreti per soddisfare il criterio della prima LAN:
+	\begin{equation*}
+		\begin{array}{lll}
+			\binaryaddresspointed{01100101}{01000011}{0101\textcolor{Red3}{\boldsymbol{0}}000}{00000000} & \longrightarrow & 101.75.80.0/21 \\
+			\binaryaddresspointed{01100101}{01000011}{0101\textcolor{Red3}{\boldsymbol{1}}000}{00000000} & \longrightarrow & 101.75.88.0/21
+		\end{array}
+	\end{equation*}
+	E si afferma che l’indirizzo $101.75.80.0/21$ è assegnato alla LAN1.\newline
+	
+	\noindent
+	A questo punto si può notare che la seconda LAN richiede almeno 1000 host. Per soddisfare questa richiesta si può fare un calcolo rapido e confermare il fatto che se venissero create altre sottoreti dall’indirizzo disponibile qui sopra ($101.75.88.0/21$), si verrebbe a creare una rete con un prefisso di 22, un suffisso di $32-22=10$ bit, ovvero $2^{10} = 1024$ indirizzi. Quindi:
+	\begin{equation*}
+		\begin{array}{lll}
+			\binaryaddresspointed{01100101}{01000011}{01011\textcolor{Red3}{\boldsymbol{0}}00}{00000000} & \longrightarrow & 101.75.88.0/22 \\
+			\binaryaddresspointed{01100101}{01000011}{01011\textcolor{Red3}{\boldsymbol{1}}00}{00000000} & \longrightarrow & 101.75.92.0/22
+		\end{array}
+	\end{equation*}
+	E si afferma che l’indirizzo $101.75.88.0/22$ è assegnato alla LAN2.\newline
+	
+	\noindent
+	Infine, costruendo altre due sottoreti dall’indirizzo disponibile si troverebbe il nuovo indirizzo disponibile per la rete LAN numero 3 e 4. La numero 3 sarebbe rispettata perché il prefisso passerebbe da 22 a 23, mentre la numero 4 avrebbe $32-23=9$ bit di suffisso, ovvero $2^{9}=512$ indirizzi disponibili.\newline
+	Per concludere quindi:
+	\begin{equation*}
+		\begin{array}{lll}
+			\binaryaddresspointed{01100101}{01000011}{010111\textcolor{Red3}{\boldsymbol{0}}0}{00000000} & \longrightarrow & 101.75.92.0/23 \\
+			\binaryaddresspointed{01100101}{01000011}{010111\textcolor{Red3}{\boldsymbol{1}}0}{00000000} & \longrightarrow & 101.75.94.0/23
+		\end{array}
+	\end{equation*}
+	E si afferma che l’indirizzo $101.75.92.0/23$ è assegnato alla LAN3, mentre l’indirizzo $101.75.94.0/23$ è assegnato alla LAN4.
 \end{document}
