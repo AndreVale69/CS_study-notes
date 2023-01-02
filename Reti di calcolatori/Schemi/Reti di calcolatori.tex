@@ -586,7 +586,7 @@
 	
 	Dopo il livello applicativo, si trova il livello di trasporto. Esso può utilizzare due possibili \textbf{protocolli} nelle reti TCP/IP: \textcolor{Red3}{\textbf{TCP}} e \textcolor{Red3}{\textbf{UDP}}.
 	
-	\subsubsection{Protocollo TCP}
+	\subsubsection{Protocollo TCP}\label{protocollo TCP}
 	
 	Il protocollo TCP prevede la fornitura di un servizio \textbf{orientato alla connessione} (\emph{Connection oriented communication}) e il \textbf{trasporto affidabile dei dati}.\newline
 	
@@ -614,7 +614,7 @@
 	
 	\newpage
 		
-	\subsubsection{Protocollo UDP}
+	\subsubsection{Protocollo UDP}\label{protocollo UDP}
 	
 	Al contrario del protocollo TCP, UDP è un protocollo di trasporto \textbf{leggero}, \textbf{rapido} e \textbf{minimalista}. Esso \emph{\textbf{non}} necessita di connessione, per cui \underline{non esegue} \underline{alcun handshaking} e di conseguenza \textbf{non} fornisce neanche un \textbf{trasferimento dati affidabile}.\newline
 	
@@ -1153,4 +1153,166 @@
 		\end{array}
 	\end{equation*}
 	E si afferma che l’indirizzo $101.75.92.0/23$ è assegnato alla LAN3, mentre l’indirizzo $101.75.94.0/23$ è assegnato alla LAN4.
+	
+	\newpage
+	
+	\section{Posta elettronica SMTP e livello di trasporto}
+	
+	\subsection{Posta elettronica}
+	
+	L’e-mail rappresenta un mezzo di comunicazione asincrono: le persone inviano e leggono messaggi nel momento per loro più opportuno, senza doversi coordinare con altri utenti. I grandi vantaggi della posta elettronica sono la velocità, la facilità di distribuzione e il prezzo, ovvero gratuito.\newline
+	
+	\noindent
+	In questo argomento ci sono tre \textbf{componenti principali}:
+	\begin{enumerate}
+		\item \textbf{User agent} (o agenti utente) che sono per esempio Microsoft Outlook e Apple Mail, i quali consentono agli utenti di leggere, rispondere, inoltrare, salvare e comporre i messaggi.
+		
+		\item \textbf{Server di posta} (o \emph{mail server}) costituiscono la parte centrale dell’infrastruttura del servizio di posta elettronica. Ciascun destinatario ha una \textbf{casella di posta} (\emph{mailbox}) collocata in un mail server.\newline
+		Può capitare che una volta inviato il messaggio, il server non possa consegnare la posta. In tal caso esso la trattiene in una \textbf{coda di messaggi} e cerca di trasferirla in un secondo momento. In caso di mancata consegna dopo alcuni giorni dall’invio del messaggio, il server rimuove il messaggio e avvisa il mittente con un messaggio di posta elettronica.
+		
+		\item \textbf{Protocollo SMTP} (\emph{Simple Mail Transfer Protocol}) rappresenta il principale protocollo a livello di applicazione per la posta elettronica su Internet. Utilizza TCP, quindi viene considerato un servizio di trasferimento dati affidabile.\newline
+		Questo protocollo viene eseguito sia lato client, quando è in esecuzione sul server di posta del mittente, sia lato server, quando è in esecuzione sul server del destinatario.
+	\end{enumerate}
+
+	\newpage
+
+	\subsection{Protocollo SMTP}
+	
+	Il \textcolor{Red3}{\textbf{protocollo SMTP}} si occupa di \textbf{trasferire i messaggi dal mail server del mittente a quello del destinatario}. Nonostante la sua fama, SMTP rappresenta una tecnologia ereditata con caratteristiche \dquotes{arcaiche}.\newline
+	\textbf{Per esempio}, il corpo dei messaggi di posta li tratta come semplice codice ASCII a 7 bit. Questa restrizione aveva senso nei primi anni '80, quando la capacità trasmissiva era scarsa e nessuno inviava per posta elettronica grandi allegati quali immagini, audio o video, ma oggi la restrizione all’ASCII a 7 bit è piuttosto penalizzante, in quanto richiede che i dati multimediali binari vengano codificati in ASCII prima di essere inviati e che il messaggio venga nuovamente decodificato in binario dopo il trasporto.\newline
+	
+	\noindent
+	Il protocollo SMTP è uno dei protagonisti principali nella comunicazione tra client e server. Per esempio, supponiamo che Alice voglia inviare a Bob un semplice messaggio ASCII:
+	\begin{enumerate}
+		\item Alice invoca il proprio \emph{user agent} per la posta elettronica, fornisce l’indirizzo di posta di Bob, compone il messaggio e dà istruzione allo \emph{user agent} di inviarlo.
+		
+		\item Lo \emph{user agent} di Alice invia il messaggio al suo \emph{mail server}, il quale colloca esso in una coda di messaggi.
+		
+		\item Il lato client di SMTP, eseguito sul server del mittente (Alice), vede il messaggio nella coda dei messaggi e apre una connessione TCP verso un server SMTP in esecuzione sul \emph{mail server} del destinatario (Bob).
+		
+		\item Dopo un \emph{handshaking} SMTP, il client SMTP invia il messaggio di Alice sulla connessione TCP.
+		
+		\item Il \emph{mail server} di Bob, il lato server di SMTP riceve il messaggio, che viene posizionato nel \emph{mail server} della casella postale di Bob.
+		
+		\item Bob, quando ritiene opportuno, invoca il proprio user agent per leggere il messaggio.
+	\end{enumerate}
+	Si noti che solitamente SMTP non usa \emph{mail server} intermedi. Ovvero, se il server del mittente si trova a Hong Kong e quello del destinatario a St. Louis, la connessione TCP ha luogo direttamente tra le due città. In particolare, se il \emph{mail server} del destinatario è spento, il messaggio rimane nel \emph{mail server} del mittente e attende un nuovo tentativo. Questo è il significato dell’affermazione \textbf{\dquotes{il messaggio non viene posizionato in alcun \emph{mail server} intermedio}}.\newline
+	
+	\noindent
+	Nell’esempio si è visto come il \emph{client} SMTP (in esecuzione sul \emph{mail server} del mittente) fa stabilire a TCP una \textbf{connessione sulla porta 25} verso il server SMTP (in esecuzione sul \emph{mail server} del destinatario).\newline
+	Una volta stabilita la connessione, il \emph{server} e il \emph{client} effettuano una qualche forma di \emph{handshaking} a livello applicativo, ovvero il \emph{client} inizialmente invia prima l’e-mail del mittente e solo dopo aver ricevuto un messaggio di avvenuta ricezione invia il secondo messaggio contenente l’e-mail del destinatario.\newline
+	Dopo l’\emph{handshaking}, il \emph{client} invia il messaggio e ripete il processo sulla stessa connessione TCP se ha altri messaggi da inviare al \emph{server}, altrimenti ordina a TCP di chiudere la connessione.
+	
+	\subsection{Livello di trasporto}
+	
+	\subsubsection{Definizione}
+	
+	Un \textcolor{Red3}{\textbf{protocollo a livello}} di trasporto mette a disposizione una \textbf{comunicazione logica} tra processi applicativi di host differenti.\newline
+	
+	\noindent
+	Per \textbf{comunicazione logica} si intende che tutto procede come se gli host che eseguono i processi fossero direttamente connessi. In realtà, gli host si possono trovare agli antipodi del pianeta ed essere connessi da numerosi router e da svariati tipi di collegamenti. Infatti, i processi applicativi usano la comunicazione logica fornita dal livello di trasporto per scambiare messaggi, senza preoccuparsi dei dettagli dell’infrastruttura fisica utilizzata per trasportarli.\newline
+	
+	\noindent
+	Il \textbf{compito} del \textbf{livello di trasporto} è il seguente:
+	\begin{itemize}
+		\item \textbf{Lato \underline{mittente}:}
+		\begin{enumerate}[label=\alph*)]
+			\item Il livello di trasporto \textbf{converte i messaggi} che riceve da un processo applicativo in pacchetti a livello di trasporto, noti secondo la terminologia Internet come \textbf{segmenti} (\emph{transport-layer segment});
+			\item Successivamente il livello di trasporto passa il segmento al livello di rete, dove viene \textbf{incapsulato all’interno di un pacchetto} a livello di rete (si chiamerà datagramma);
+			\item Infine, il livello di rete lo invia a destinazione.
+		\end{enumerate}
+		
+		\item \textbf{Lato \underline{destinatario}:}
+		\begin{enumerate}[label=\alph*)]
+			\item Il livello di rete \textbf{estrae il segmento} dal datagramma e lo passa al livello superiore, quello di trasporto;
+			\item Il livello di trasporto \textbf{elabora il segmento} ricevuto, rendendo disponibili all'applicazione destinataria i dati del segmento.
+		\end{enumerate}
+	\end{itemize}
+
+	\subsubsection{Protocolli usati}
+	
+	I protocolli utilizzati a livello di trasporto sono i due modelli già visti in passato: \textbf{UDP} (\emph{user datagram protocol}, capitolo~\ref{protocollo UDP}), che fornisce un servizio non affidabile e non orientato alla connessione, e \textbf{TCP} (\emph{transmission control protocol}, capitolo~\ref{protocollo TCP}), che offre un servizio affidabile e orientato alla connessione.
+	
+	\newpage
+	
+	\subsubsection{Struttura dei segmenti nei protocolli}
+	
+	Al livello di trasporto i due protocolli hanno due strutture diverse.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Protocollo UDP}}}\newline
+	
+	\noindent
+	Nel protocollo UDP l'intestazione presenza solo quattro campi di due byte ciascuno, ovvero \textbf{16 bit ciascun campo}. L'intestazione occupa 8 byte.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/segmento_udp.pdf}
+		\caption{Struttura segmento nel protocollo UDP.}
+	\end{figure}
+
+	\noindent
+	I \textbf{numeri di porta} consentono all’host di destinazione di trasferire i dati applicativi al processo corretto.\newline
+
+	\noindent
+	Il \textbf{campo lunghezza} specifica il numero di byte del segmento UDP (intestazione più dati). Un valore esplicito di lunghezza è necessario perché la grandezza del campo dati può essere diversa tra un segmento e quello successivo.\newline
+	
+	\noindent
+	L'host ricevente utilizza il \textbf{checksum} per verificare se sono avvenuti errori nel segmento.
+	
+	\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Protocollo TCP}}}\newline
+	
+	\noindent
+	Nel protocollo TCP il segmento è formato da campi intestazione e di un campo contenente un blocco di dati proveniente dall’applicazione. I campi intestazione formano in totale 20 byte, ovvero 12 in più rispetto a UDP.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{img/segmento_tcp.pdf}
+		\caption{Struttura segmento nel protocollo TCP.}
+	\end{figure}
+
+	\noindent
+	L'\textbf{intestazione} include:
+	\begin{itemize}
+		\item \textbf{Numeri di porta di origine} e \textbf{di destinazione}, utilizzati per il \emph{multiplexing} (processo di costruzione del messaggio) e \emph{demultiplexing} (processo di scomposizione del messaggio).
+		
+		\item Il campo \textbf{numero di sequenza} (\emph{sequence number}) e il campo \textbf{numero di acknowledgement} (\emph{acknowledgment number}), entrambi di 32 bit, vengono utilizzati dal mittente e dal destinatario TCP per implementare il trasferimento dati affidabile.
+		
+		\item Il campo \textbf{lunghezza dell'intestazione} (\emph{header length}), di 4 bit, specifica la lunghezza dell’intestazione TCP in multipli di 32 bit. L’intestazione TCP ha lunghezza variabile a causa del tempo delle opzioni TCP. Generalmente, il campo delle opzioni è vuoto e, pertanto, la lunghezza consueta è di 20 byte.
+		
+		\item Il campo \textbf{flag} (indicato con le lettere F nella figura) è di 6 bit:
+		\begin{itemize}
+			\item \textbf{ACK} viene usato per indicare che il valore trasportato nel campo di acknowledgement è valido, ovvero il segmento contiene un acknowledgement per un segmento che è stato ricevuto con successo.
+			
+			\item \textbf{RST, SYN, FIN} vengono utilizzati per impostare e chiudere la connessione.
+			
+			\item \textbf{CWR, ECE} sono usati nel controllo di congestione esplicito.
+			
+			\item \textbf{PSH} se ha il valore 1 vuol dire che il destinatario dovrebbe inviare immediatamente i dati al livello superiore.
+			
+			\item \textbf{URG} indica che il segmento presenta dati che sono stati marcati \dquotes{urgenti} dal livello superiore (solo il mittente ha questa possibilità).
+		\end{itemize}
+	
+		\item Il campo \textbf{finestra di ricezione} (\emph{receive window}), di 16 bit, viene utilizzato per il controllo di flusso, ovvero per indicare il numero di byte che il destinatario è disposto ad accettare.
+		
+		\item Il campo \textbf{checksum} di 16 bit è utilizzato per rilevare errori sui bit in un pacchetto trasmesso.
+		
+		\item Il campo \textbf{puntatore ai dati urgenti} è di 16 bit. Quando ci sono dati urgenti, TCP deve informare l’entità destinataria al livello superiore e passarle un puntatore alla fine dei dati urgenti.
+		
+		\item Il campo \textbf{opzioni} (\emph{options}) è facoltativo e di lunghezza variabile. Viene utilizzato quando mittente e destinatario negoziano la dimensione massima del segmento (\emph{Maximum Segment Size}) o come fattore di scala per la finestra nelle reti ad alta velocità.
+	\end{itemize}
+	La massima quantità di dati prelevabili e posizionabili in un segmento viene limitata dalla \textcolor{Red3}{\textbf{dimensione massima di segmento}} (MSS, \emph{maximum segment size}). Questo valore viene generalmente impostato determinando prima la lunghezza del frame più grande che può essere inviato a livello di collegamento dall’host mittente locale, ovvero la cosiddetta \textcolor{Red3}{\textbf{unità trasmissiva massima}} (MTU, \emph{maximum transmission unit}).\newline
+	
+	\noindent
+	I \textbf{campi} presenti all’interno del TCP hanno delle porte. I numeri di porta sono di 16 bit e vanno da 0 a 65535, quelli che vanno da 0 a 1023 sono chiamati \textbf{numeri di porta noti} (\emph{well-know port number}) e sono riservati per essere usati da protocolli applicativi ben noti quali HTTP (porta 80) e FTP (porta 21). (l’elenco dei numeri di porta noti è fornito nell’RFC 1700, la sua versione aggiornata si trova al link: \href{http://www.iana.org}{iana.org})\newline
+	
+	\noindent
+	Il \textbf{numero di sequenza per un segmento} è il numero nel flusso di byte del primo byte di segmento. Per esempio, supponiamo che un processo nell’Host A voglia inviare un flusso di dati a un processo sull’Host B su una connessione TCP. TCP sull’Host A numera implicitamente ogni byte del flusso di dati. Ipotizziamo che il flusso di dati consista in un file da 500'000 byte, che la MSS valga 1000 byte e che il primo byte del flusso sia numerato con 0. TCP costruisce 500 segmenti per questo flusso di dati ($500'000 \div 1000$). Al primo segmento viene assegnato numero di sequenza 0, al secondo 1000, al terzo 2000 e così via. Ogni numero di sequenza viene inserito nel campo numero di sequenza dell’intestazione del segmento TCP appropriato. Il numero di acknowledgement che l’Host A scrive nei propri segmenti è il numero di sequenza del byte successivo che l’Host A attende dall’Host B. Facciamo alcuni esempi.\newline
+	
+	\noindent
+	Supponiamo che l’Host A abbia ricevuto da B tutti i byte numerati da 0 a 535 e che A stia per mandare un segmento all’Host B. L’Host A è in attesa del byte 536 e dei successivi byte nel flusso di dati di B. pertanto, l’Host A scrive 536 nel campo del numero di acknowledgement del segmento che spedisce a B.\newline
+	
+	\noindent
+	Un ulteriore esempio. Supponiamo che l’Host A abbia ricevuto un segmento dall’Host B contenente i byte da 0 a 535 e un altro segmento contenente i byte da 900 a 1000. Per qualche motivo l’Host A non ha ancora ricevuto i byte da 536 a 899. In questo esempio, l’Host A sta ancora attendendo il byte 536 (e i successivi) per ricreare il flusso di dati di B. perciò il prossimo segmento di A destinato a B conterrà 536 nel campo del numero di acknowledgement. Dato che TCP effettua l’acknowledgement solo dei byte fino al primo byte mancante nel flusso, si dice che tale protocollo offre \textbf{acknowledgement cumulativi} (\emph{cumulative acknowledgement}).
 \end{document}
