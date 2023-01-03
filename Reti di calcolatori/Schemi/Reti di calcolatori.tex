@@ -1475,4 +1475,94 @@
 	\end{gather*}
 	Il primo indirizzo rispetta i vincoli imposti dalla seconda LAN, per cui scrivendo l’indirizzo della \textbf{LAN2 in notazione decimale puntata}: $148.12.78.128/26$.\newline
 	Infine, il secondo indirizzo rimane libero per il futuro.
+	
+	\newpage
+	
+	\section{Controllo di flusso (TCP), finestra e ripetizione selettiva}
+	
+	\subsection{Controllo di flusso (TCP)}
+	
+	In una comunicazione con connessione di tipo TCP, gli host posseggono un buffer (registro temporaneo, chiamato anche \emph{buffer di ricezione}) in cui vengono salvati i \emph{byte} corretti e in sequenza. Ovviamente tale registro ha una capienza limitata e l’applicazione mittente potrebbe mandare in overflow il buffer di ricezione del destinatario inviando molti dati troppo rapidamente.\newline
+	
+	\noindent
+	\underline{Per risolvere l’overflow del buffer di ricezione}, il protocollo TCP offre un \textcolor{Red3}{\textbf{servizio di controllo di flusso}} (\emph{flow-control service}). Esso è un servizio di confronto sulla velocità poiché paragona la frequenza di invio del mittente con quella di lettura dell’applicazione ricevente.\newline
+	
+	\noindent
+	\fbox{%
+		\parbox{\textwidth}{%
+			\begin{center}
+				\textcolor{Red3}{\textbf{\emph{Attenzione!} Flusso vs Congestione}}
+			\end{center}
+			Esiste una sostanziale \textbf{differenza} tra il \textbf{controllo di flusso} e il \textbf{controllo di congestione}.\newline
+			Nel \textbf{controllo di flusso}, il protocollo evita che il buffer di ricezione del destinatario vada in overflow.\newline
+			Nel \textbf{controllo di congestione} (\emph{congestion control}), il protocollo evita che ci siano carichi troppi elevati e code troppo consistenti sui buffer, causa principale di rallentamenti nella rete.
+		}%
+	}\newline
+	\:\newline
+	
+	\noindent
+	TCP garantisce il controllo di flusso grazie all’obbligo di mantenimento di una variabile chiamata \textcolor{Red3}{\textbf{finestra di ricezione}} (\emph{receive window}) gestita dal mittente. Essa fornisce al mittente un’indicazione dello spazio libero disponibile nel buffer del destinatario. Per approfondire l’argomento e vedere la sua applicazione, nella prossima pagina verrà effettuato un esempio di trasferimento di file.
+	\newpage
+	
+	\begin{center}
+		\large
+		\textcolor{Green4}{\textbf{\emph{Esempio}}}
+	\end{center}
+
+	\noindent
+	Supponiamo che l’\textsf{Host A} stia inviando un file di grandi dimensioni all’\textsf{Host B} su una connessione di tipo TCP, quindi affidabile e con controllo di flusso.\newline
+	
+	\noindent
+	TCP obbliga l’\textsf{Host B} ad allocare un \textbf{buffer di ricezione} per la connessione, la dimensione di tale buffer sarà denotata con \textbf{\textsf{RcvBuffer}} (\emph{Receive Buffer}) ed ogni tanto il processo applicativo dell’\textsf{Host B} legge dal buffer.\newline
+	
+	\noindent
+	Si definiscono le seguenti variabili:
+	\begin{itemize}
+		\item \textbf{\textsf{LastByteRead}}: numero dell'\textbf{ultimo byte}, nel flusso di dati, che il processo applicativo in B ha \textbf{letto dal buffer}.
+
+		\item \textbf{\textsf{LastByteRcvd}}: numero dell'\textbf{ultimo byte}, nel flusso di dati, che proviene dalla rete e che è stato \textbf{copiato nel buffer di ricezione} di B.
+	\end{itemize}
+	Dato che il protocollo TCP \textbf{evita} che il buffer allocato vada in overflow, si può affermare con certezza la seguente disuguaglianza:
+	\begin{equation*}
+		LastByteRcvd - LastByteRead \le RcvBuffer
+	\end{equation*}
+	La \textbf{finestra di ricezione}, indicata con \textbf{\textsf{rwnd}}, viene impostata alla quantità di spazio disponibile nel buffer, ovvero:
+	\begin{equation*}
+		rwnd = RcvBuffer - \left[LastByteRcvd - LastByteRead\right]
+	\end{equation*}
+	Dato che lo spazio disponibile varia col tempo, \textsf{rwnd} è dinamica.\newline
+	
+	\noindent
+	Adesso che sono state definite le basi, come viene usata la variabile rwnd per offrire il servizio di controllo di flusso?\newline
+	
+	\noindent
+	L’\textsf{Host B} comunica all’\textsf{Host A} quanto spazio disponibile è presente nel buffer della connessione, scrivendo il valore corrente di \textsf{rwnd} nel campo apposito dei segmenti che manda ad A. L’\textsf{Host B} inizializza \textsf{rwnd} con il valore \textsf{RcvBuffer} e, ovviamente, deve tenere traccia di variabili specifiche per ogni connessione.\newline
+	
+	\noindent
+	A sua volta, l’\textsf{Host A} tiene traccia di due variabili, \textbf{\textsf{LastByteSent}} e \textbf{\textsf{LastByteAcked}}, il cui significato è rispettivamente \dquotes{\textbf{ultimo byte mandato}} e \dquotes{\textbf{ultimo byte per cui si è ricevuto acknowledgement}}.\newline
+	
+	\noindent
+	Si noti che la differenza tra i valori di queste due variabili esprime la \textbf{quantità di dati spediti da A per cui non si è ancora ricevuto un acknowledgement}. Mantenendo la quantità di dati senza acknowledgement sotto il valore di \textsf{rwnd}, si garantisce che l’\textsf{Host A} non mandi in overflow il buffer di ricezione dell’\textsf{Host B}. Quindi, l’\textsf{Host A} si assicura che per tutta la durata della connessione sia rispettata la disuguaglianza:
+	\begin{equation*}
+		LastByteSent - LastByteAcked \le rwnd
+	\end{equation*}\newpage
+
+	\noindent
+	Tuttavia, questo esempio presenta un problema. Si supponga che l’\textsf{Host B} si riempia, quindi con \textsf{rwnd} uguale a zero, notifichi l’\textsf{Host A} e, infine, non abbia più nulla da inviare ad A. Quello che succede è che TCP non invia nuovi segmenti con nuovi valori di \textsf{rwnd} poiché l’\textsf{Host B} non ha più dati da inviare o acknowledgement da mandare. Questo comporta che l’\textsf{Host A} non venga notificato nel momento in cui l’\textsf{Host B} svuoti il buffer. Quindi, si crea un’inabilitazione dell’\textsf{Host A}!\newline
+	
+	\noindent
+	Per \textbf{risolvere tale problema} basta che l’\textsf{Host A} continui a inviare periodicamente segmenti con un byte di dati quando la finestra di ricezione di B è zero. Il destinatario, ovvero l’\textsf{Host B}, risponderà a questi segmenti con un acknowledgement. Prima o poi il buffer inizierà a svuotarsi e i riscontri conteranno un valore non nullo per \textsf{rwnd}.\newline
+	
+	\noindent
+	In sintesi, c’è un continuo scambi di messaggi per controllare che la finestra sia sempre uguale a zero.
+	
+	\subsection{Ripetizione selettiva}
+	
+	I \textcolor{Red3}{\textbf{protocolli a ripetizione selettiva}} (SR, \emph{selection-repeat protocol}) \emph{evitano} le ritrasmissioni non necessarie facendo ritrasmettere al mittente solo quei pacchetti su cui esistono sospetti di errore, ovvero smarrimento o alterazione.\newline
+	
+	\noindent
+	Questo protocollo \textbf{obbliga} il destinatario ad inviare acknowledgement specifici per i pacchetti ricevuti in modo corretto.\newline
+	
+	\noindent
+	\textbf{Per esempio}, se un segmento non ricevesse l’acknowledgement relativo dal destinatario, allo scadere del RTO (\emph{Retrasmission Time-Out}) entrerebbe in gioco il protocollo di ripetizione selettiva, il quale invierebbe al destinatario solamente quel pacchetto che non ha ricevuto il suo acknowledgement.
 \end{document}
