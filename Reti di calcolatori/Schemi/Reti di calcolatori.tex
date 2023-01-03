@@ -1302,10 +1302,17 @@
 		
 		\item Il campo \textbf{opzioni} (\emph{options}) è facoltativo e di lunghezza variabile. Viene utilizzato quando mittente e destinatario negoziano la dimensione massima del segmento (\emph{Maximum Segment Size}) o come fattore di scala per la finestra nelle reti ad alta velocità.
 	\end{itemize}
-	La massima quantità di dati prelevabili e posizionabili in un segmento viene limitata dalla \textcolor{Red3}{\textbf{dimensione massima di segmento}} (MSS, \emph{maximum segment size}). Questo valore viene generalmente impostato determinando prima la lunghezza del frame più grande che può essere inviato a livello di collegamento dall’host mittente locale, ovvero la cosiddetta \textcolor{Red3}{\textbf{unità trasmissiva massima}} (MTU, \emph{maximum transmission unit}).\newline
+	\fbox{%
+		\parbox{\textwidth}{%
+			\textcolor{Red3}{\textbf{\emph{Cos'è MSS?}}}\newline
+			La massima quantità di dati prelevabili e posizionabili in un segmento viene limitata dalla \textcolor{Red3}{\textbf{dimensione massima di segmento}} (MSS, \emph{maximum segment size}). Questo valore viene generalmente impostato determinando prima la lunghezza del frame più grande che può essere inviato a livello di collegamento dall’host mittente locale, ovvero la cosiddetta \textcolor{Red3}{\textbf{unità trasmissiva massima}} (MTU, \emph{maximum transmission unit}).
+		}%
+	}\newline
 	
 	\noindent
-	I \textbf{campi} presenti all’interno del TCP hanno delle porte. I numeri di porta sono di 16 bit e vanno da 0 a 65535, quelli che vanno da 0 a 1023 sono chiamati \textbf{numeri di porta noti} (\emph{well-know port number}) e sono riservati per essere usati da protocolli applicativi ben noti quali HTTP (porta 80) e FTP (porta 21). (l’elenco dei numeri di porta noti è fornito nell’RFC 1700, la sua versione aggiornata si trova al link: \href{http://www.iana.org}{iana.org})\newline
+	I \textbf{campi} presenti all’interno del TCP hanno delle porte. I numeri di porta sono di 16 bit e vanno da 0 a 65535, quelli che vanno da 0 a 1023 sono chiamati \textbf{numeri di porta noti} (\emph{well-know port number}) e sono riservati per essere usati da protocolli applicativi ben noti quali HTTP (porta 80) e FTP (porta 21). (l’elenco dei numeri di porta noti è fornito nell’RFC 1700, la sua versione aggiornata si trova al link: \href{http://www.iana.org}{iana.org})
+	
+	\newpage
 	
 	\noindent
 	Il \textbf{numero di sequenza per un segmento} è il numero nel flusso di byte del primo byte di segmento. Per esempio, supponiamo che un processo nell’Host A voglia inviare un flusso di dati a un processo sull’Host B su una connessione TCP. TCP sull’Host A numera implicitamente ogni byte del flusso di dati. Ipotizziamo che il flusso di dati consista in un file da 500'000 byte, che la MSS valga 1000 byte e che il primo byte del flusso sia numerato con 0. TCP costruisce 500 segmenti per questo flusso di dati ($500'000 \div 1000$). Al primo segmento viene assegnato numero di sequenza 0, al secondo 1000, al terzo 2000 e così via. Ogni numero di sequenza viene inserito nel campo numero di sequenza dell’intestazione del segmento TCP appropriato. Il numero di acknowledgement che l’Host A scrive nei propri segmenti è il numero di sequenza del byte successivo che l’Host A attende dall’Host B. Facciamo alcuni esempi.\newline
@@ -1315,4 +1322,157 @@
 	
 	\noindent
 	Un ulteriore esempio. Supponiamo che l’Host A abbia ricevuto un segmento dall’Host B contenente i byte da 0 a 535 e un altro segmento contenente i byte da 900 a 1000. Per qualche motivo l’Host A non ha ancora ricevuto i byte da 536 a 899. In questo esempio, l’Host A sta ancora attendendo il byte 536 (e i successivi) per ricreare il flusso di dati di B. perciò il prossimo segmento di A destinato a B conterrà 536 nel campo del numero di acknowledgement. Dato che TCP effettua l’acknowledgement solo dei byte fino al primo byte mancante nel flusso, si dice che tale protocollo offre \textbf{acknowledgement cumulativi} (\emph{cumulative acknowledgement}).
+	
+	\newpage
+	
+	\section{Fasi di connessione TCP, RTO e RTT}
+	
+	\subsection{Fasi di connessione TCP}
+	
+	In questo capitolo si vedranno tre scenari: l’instaurazione di una connessione TCP, quindi la fase iniziale, la chiusura di una connessione TCP, quindi la fase finale, e la perdita di un pacchetto.\newline
+	
+	\noindent
+	Nella \textcolor{Red3}{\textbf{fase iniziale}} (\textbf{handshake a tre vie}), ovvero nella fase di instaurazione della comunicazione, c’è uno scambio di messaggi:
+	\begin{enumerate}
+		\item \textbf{\underline{[Segmento SYN]}} TCP lato client invia uno speciale segmento al TCP del server.\newline
+		Tale segmento è privo di dati, quindi è in \textbf{assenza} del campo \textbf{Dati}.\newline
+		Esso contiene solamente il bit \textbf{SYN} a 1 e un \textbf{numero di sequenza iniziale} (\emph{client initial sequence number}). Quest'ultimo valore viene generato casualmente dal client e posto nel campo \textbf{numero di sequenza} (\emph{sequence number}).\newline
+		Infine, viene incapsulato in un datagramma IP e inviato al server.
+		
+		\item \textbf{\underline{[Segmento SYNACK]}} Una volta che il datagramma IP arriva all’host server (ipotizzando che arrivi), il server estrae il segmento dal datagramma, alloca i buffer e le variabili TCP alla connessione e invia un segmento di connessione approvata al client TCP.\newline
+		Il segmento è privo di dati, quindi anch’esso è in \textbf{assenza} del campo \textbf{Dati}.\newline
+		Esso contiene il campo \textbf{SYN} a 1, il campo \textbf{ACK} e un \textbf{numero di sequenza iniziale} (\emph{server initial sequence number}).\newline
+		\textbf{SYN} indica che il segmento è ancora nella fase iniziale.\newline
+		\textbf{Numero di acknowledgement} acquisisce il valore del \emph{client initial sequence number} incrementandolo di 1.\newline
+		Nel campo \textbf{numero di sequenza} viene inserito il numero di sequenza iniziale generato casualmente dal server (\emph{server initial sequence number}).
+		
+		\item \textbf{\underline{[Segmento ACK]}} All’arrivo del segmento SYNACK, anche il client alloca buffer e variabili alla connessione. L’host client invia quindi al server un altro segmento in risposta al segmento di connessione approvata dal server.\newline
+		Il segmento questa volta \textbf{può} contenere informazioni che vanno dal client verso il server.\newline
+		Esso contiene solamente il campo \textbf{numero di acknowledgement} con valore \emph{server initial sequence number} incrementato di 1.\newline
+		Il bit \textbf{SYN} è posto a zero poiché la connessione è stata stabilita.
+	\end{enumerate}
+	Una volta completati i tre passi, gli host client e server possono scambiarsi segmenti contenenti i dati con bit \textbf{SYN} a zero.
+	
+	\newpage
+	
+	\noindent
+	Nella \textcolor{Red3}{\textbf{fase finale}}, ovvero nella fase di conclusione e chiusura della connessione, supponendo che il client voglia chiudere la connessione, i messaggi sono:
+	\begin{enumerate}
+		\item Il processo applicativo client invia un comando di chiusura, che forza il client TCP a inviare un segmento TCP speciale al processo server.\newline
+		L’intestazione presenta solo il campo \textbf{FIN} ad 1.
+		
+		\item Quando il server riceve il segmento di chiusura, risponde inviando un acknowledgement al client. Quindi il server invia un vero e proprio segmento di shutdown.\newline
+		Ancora una volta, l'intestazione presenta solamente il campo \textbf{FIN} ad 1.
+		
+		\item Infine, come accade nella fase iniziale, il client conclude la fase finale inviando un ultimo messaggio di acknowledgement come risposta.
+	\end{enumerate}
+	Alla fine di questo scambio, tutte le risorse degli host risultano deallocate.
+	
+	\newpage
+	
+	\subsection{Caso di perdita: RTO e calcolo RTT}
+	
+	Prima di parlare del caso in cui un pacchetto viene perso nella connessione di tipo TCP, è doveroso introdurre l’indice RTO e RTT.\newline
+	
+	\noindent
+	L’\textcolor{Red3}{\textbf{indice RTT}} (\emph{Round Trip Time}) è la quantità di tempo che intercorre tra l’istante di invio del segmento (ossia quando viene passato a IP) e quello di ricezione dell’acknowledgement del segmento.\newline
+	
+	\noindent
+	Invece di misurare per ogni segmento il suo RTT, il protocollo TCP valuta il \emph{round trip time} solo per uno dei segmenti trasmessi e per cui non si è ancora ricevuto acknowledgement. Questo comporta la misurazione di un nuovo valore a ogni RTT, circa.\newline
+	
+	\noindent
+	Ovviamente, tali valori variano a seconda del segmento, a seconda della congestione nei router e a seconda del carico sui sistemi periferici. A causa di questa fluttuazione, ogni valore RTT può essere atipico. Per effettuare una stima naturale, si calcola una media di valori del RTT, ovvero \emph{\textbf{Estimated}} RTT. Tale valore è una media ponderata dei valori del RTT ed attribuisce maggiore importanza ai valori recenti rispetto a quelli vecchi. Tuttavia, è del tutto normale questa valutazione poiché i primi riflettono meglio la congestione attuale della rete.\newline
+	
+	\noindent
+	L'\textcolor{Red3}{\textbf{indice RTO}} (\emph{Retrasmission Time-Out}) è il tempo di ritrasmissione di un pacchetto. All’invio di un pacchetto, parte un timer che indica il range di tempo in cui il server deve rispondere. Nel caso in cui il server non riesca a rispondere entro questo intervallo, viene inviato nuovamente lo stesso pacchetto al server.\newline
+	
+	\noindent
+	Questo indice viene impostato prendendo il \emph{Estimated} RTT e aggiungendo un certo margine che dovrebbe essere grande quando c’è molta fluttuazione dei valori RTT e piccolo in caso contrario. Inizialmente il valore è pari a 1 secondo.\newline
+	
+	\noindent
+	\textbf{In caso di perdita}, TCP \textbf{ritrasmette il segmento con il più basso numero di sequenza che non abbia ancora ricevuto acknowledgement}. Tuttavia, ogni volta che questo si verifica, TCP imposta il successivo RTO al doppio del valore precedente. In caso di perdite continue, RTO continua a raddoppiare.\newline
+	
+	\noindent
+	Uno dei casi in cui RTO aumenta è dovuto al fatto che la rete potrebbe essere congestionata, ovvero troppi pacchetti arrivano presso una (o più) code dei router nel percorso tra l’origine e la destinazione, provocando l’eliminazione dei pacchetti e/o lunghi ritardi di accodamento.
+	
+	\newpage
+	
+	\subsection{\textcolor{Red3}{Esame - Blocco CIDR, subnetting e broadcast}}
+	
+	\begin{center}
+		\large
+		\textcolor{Green4}{\textbf{Tema d'esame - 05/07/2013, esercizio 2}}
+	\end{center}
+	
+	\noindent
+	Si determini il blocco CIDR più piccolo della rete sapendo che si devono creare 3 reti LAN con i seguenti vincoli:
+	\begin{itemize}
+		\item LAN1 con 300 host
+		\item LAN2 con 40 host
+		\item LAN3 con 90 host
+	\end{itemize}
+	Sapendo che l'indirizzo di broadcast della LAN3 è: $148.12.79.255$.\newline
+	
+	\noindent
+	\textbf{Prima di tutto}, si ricorda che l’indirizzo broadcast è un indirizzo in cui il suffisso, nella forma binaria, è formato da soli bit posti a 1.\newline
+	
+	\noindent
+	Il \textbf{primo passo} degli esercizi con il blocco CIDR e il \emph{subnetting} è stabilire il numero di bit da assegnare a ciascuna rete seguendo i vincoli imposti:
+	\begin{itemize}
+		\item LAN1 necessita di 300 host e l'unica potenza del 2 che copre tale numero è $2^{9} = 512$;
+		\item LAN2 necessita di 40 host e l'unica potenza del 2 che copre tale numero è $2^{6} = 64$;
+		\item LAN3 necessita di 90 host e l'unica potenza del 2 che copre tale numero è $2^{7} = 128$.
+	\end{itemize}
+	La somma dei risultati delle potenze, ovvero il numero di indirizzi che dovrà almeno avere questa rete è:
+	\begin{equation*}
+		512 + 64 + 128 = 704
+	\end{equation*}
+	L'unica potenza del 2 che riesce a coprire tale valore è $2^{10}$. Per cui servono 10 bit di suffisso per ricoprire almeno 704 host.\newline
+	
+	\noindent
+	Grazie a questo dato si può ricavare il prefisso di rete: $2^{32} \div 2^{10}=2^{22}$. A questo punto ci sono tutti i dati per costruire l’indirizzo di rete partendo dall’unico indirizzo derivato da esso, ovvero l’indirizzo di broadcast.\newline
+	
+	\noindent
+	Si effettua la traduzione dell’indirizzo di broadcast ($148.12.79.255$) in binario:
+	\begin{equation*}
+		\binaryaddresspointed{10010100}{00001100}{01001111}{11111111}
+	\end{equation*}
+	Sapendo che i primi 22 bit sono di prefisso, poniamo i restanti bit di suffisso a zero e otteniamo il blocco di rete CIDR più piccolo:
+	\begin{equation*}
+		\binaryaddresspointed{10010100}{00001100}{01001100}{00000000}
+	\end{equation*}
+	Convertendo nuovamente l’indirizzo in notazione decimale puntata, il \textbf{blocco CIDR più piccolo} è: $148.12.76.0/22$.\newline
+	
+	\noindent
+	Per trovare le 3 LAN si procede con la creazione di sottoreti partendo dall’indirizzo di rete appena trovato e aumentando il prefisso:
+	\begin{gather*}
+		\binaryaddresspointed{10010100}{00001100}{010011\textcolor{Red3}{\boldsymbol{0}}0}{00000000}/23 \\
+		\binaryaddresspointed{10010100}{00001100}{010011\textcolor{Red3}{\boldsymbol{1}}0}{00000000}/23
+	\end{gather*}
+	Il primo indirizzo trovato si può subito assegnare alla LAN1 che richiedeva almeno 300 host e con un indirizzo del genere ne vengono messi a disposizione massimo ($2^{9}$) 512. Quindi, l’indirizzo della \textbf{LAN1 in notazione decimale puntata}: $148.12.76.0/23$.\newline
+	
+	\noindent
+	Con il secondo indirizzo si costruiscono nuovamente altre due sottoreti per cercare di rispettare i vincoli imposti:
+	\begin{gather*}
+		\binaryaddresspointed{10010100}{00001100}{0100111\textcolor{Red3}{\boldsymbol{0}}}{00000000}/24 \\
+		\binaryaddresspointed{10010100}{00001100}{0100111\textcolor{Red3}{\boldsymbol{1}}}{00000000}/24
+	\end{gather*}
+	Gli indirizzi trovati non soddisfano nessun vincolo. Precisamente entrambi potrebbero contenere sia la LAN numero 2 e 3, ma non sarebbero ottimizzate perché con il suffisso di 7 bit si avrebbero 128 indirizzi contro gli 8 bit con 256 indirizzi.\newline
+	
+	\noindent
+	Per cui, si utilizza il primo indirizzo per suddividere ancora la rete e il secondo indirizzo si lascia libero per operazioni future. Quindi, un’altra suddivisione utilizzando solamente il primo indirizzo porterebbe a:
+	\begin{gather*}
+		\binaryaddresspointed{10010100}{00001100}{01001110}{\textcolor{Red3}{\boldsymbol{0}}0000000}/25 \\
+		\binaryaddresspointed{10010100}{00001100}{01001110}{\textcolor{Red3}{\boldsymbol{1}}0000000}/25
+	\end{gather*}
+	Il primo indirizzo soddisfa il vincolo imposto dalla terza LAN, per cui scrivendo l’indirizzo della \textbf{LAN3 in notazione decimale puntata}: $148.12.78.0/25$.\newline
+	
+	\noindent
+	Per l’ultima LAN serve creare un’altra sottorete partendo dal secondo indirizzo, quindi:
+	\begin{gather*}
+		\binaryaddresspointed{10010100}{00001100}{01001110}{1\textcolor{Red3}{\boldsymbol{0}}000000}/26 \\
+		\binaryaddresspointed{10010100}{00001100}{01001110}{1\textcolor{Red3}{\boldsymbol{1}}000000}/26
+	\end{gather*}
+	Il primo indirizzo rispetta i vincoli imposti dalla seconda LAN, per cui scrivendo l’indirizzo della \textbf{LAN2 in notazione decimale puntata}: $148.12.78.128/26$.\newline
+	Infine, il secondo indirizzo rimane libero per il futuro.
 \end{document}
