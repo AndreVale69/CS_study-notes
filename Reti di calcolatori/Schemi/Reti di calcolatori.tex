@@ -1277,13 +1277,13 @@
 	\noindent
 	L'\textbf{intestazione} include:
 	\begin{itemize}
-		\item \textbf{Numeri di porta di origine} e \textbf{di destinazione}, utilizzati per il \emph{multiplexing} (processo di costruzione del messaggio) e \emph{demultiplexing} (processo di scomposizione del messaggio).
+		\item \textbf{\underline{Numeri di porta di origine}} e \textbf{\underline{di destinazione}}, utilizzati per il \emph{multiplexing} (processo di costruzione del messaggio) e \emph{demultiplexing} (processo di scomposizione del messaggio).
 		
-		\item Il campo \textbf{numero di sequenza} (\emph{sequence number}) e il campo \textbf{numero di acknowledgement} (\emph{acknowledgment number}), entrambi di 32 bit, vengono utilizzati dal mittente e dal destinatario TCP per implementare il trasferimento dati affidabile.
+		\item Il campo \textbf{\underline{numero di sequenza}} (\emph{sequence number}) e il campo \textbf{numero di acknowledgement} (\emph{acknowledgment number}), entrambi di 32 bit, vengono utilizzati dal mittente e dal destinatario TCP per implementare il trasferimento dati affidabile.
 		
-		\item Il campo \textbf{lunghezza dell'intestazione} (\emph{header length}), di 4 bit, specifica la lunghezza dell’intestazione TCP in multipli di 32 bit. L’intestazione TCP ha lunghezza variabile a causa del tempo delle opzioni TCP. Generalmente, il campo delle opzioni è vuoto e, pertanto, la lunghezza consueta è di 20 byte.
+		\item Il campo \textbf{\underline{lunghezza dell'intestazione}} (\emph{header length}), di 4 bit, specifica la lunghezza dell’intestazione TCP in multipli di 32 bit. L’intestazione TCP ha lunghezza variabile a causa del tempo delle opzioni TCP. Generalmente, il campo delle opzioni è vuoto e, pertanto, la lunghezza consueta è di 20 byte.
 		
-		\item Il campo \textbf{flag} (indicato con le lettere F nella figura) è di 6 bit:
+		\item Il campo \textbf{\underline{flag}} (indicato con le lettere F nella figura) è di 6 bit:
 		\begin{itemize}
 			\item \textbf{ACK} viene usato per indicare che il valore trasportato nel campo di acknowledgement è valido, ovvero il segmento contiene un acknowledgement per un segmento che è stato ricevuto con successo.
 			
@@ -1296,13 +1296,13 @@
 			\item \textbf{URG} indica che il segmento presenta dati che sono stati marcati \dquotes{urgenti} dal livello superiore (solo il mittente ha questa possibilità).
 		\end{itemize}
 	
-		\item Il campo \textbf{finestra di ricezione} (\emph{receive window}), di 16 bit, viene utilizzato per il controllo di flusso, ovvero per indicare il numero di byte che il destinatario è disposto ad accettare.
+		\item Il campo \textbf{\underline{finestra di ricezione}} (\emph{receive window}), di 16 bit, viene utilizzato per il controllo di flusso, ovvero per indicare il numero di byte che il destinatario è disposto ad accettare.
 		
-		\item Il campo \textbf{checksum} di 16 bit è utilizzato per rilevare errori sui bit in un pacchetto trasmesso.
+		\item Il campo \textbf{\underline{checksum}} di 16 bit è utilizzato per rilevare errori sui bit in un pacchetto trasmesso.
 		
-		\item Il campo \textbf{puntatore ai dati urgenti} è di 16 bit. Quando ci sono dati urgenti, TCP deve informare l’entità destinataria al livello superiore e passarle un puntatore alla fine dei dati urgenti.
+		\item Il campo \textbf{\underline{puntatore ai dati urgenti}} è di 16 bit. Quando ci sono dati urgenti, TCP deve informare l’entità destinataria al livello superiore e passarle un puntatore alla fine dei dati urgenti.
 		
-		\item Il campo \textbf{opzioni} (\emph{options}) è facoltativo e di lunghezza variabile. Viene utilizzato quando mittente e destinatario negoziano la dimensione massima del segmento (\emph{Maximum Segment Size}) o come fattore di scala per la finestra nelle reti ad alta velocità.
+		\item Il campo \textbf{\underline{opzioni}} (\emph{options}) è facoltativo e di lunghezza variabile. Viene utilizzato quando mittente e destinatario negoziano la dimensione massima del segmento (\emph{Maximum Segment Size}) o come fattore di scala per la finestra nelle reti ad alta velocità.
 	\end{itemize}
 	\fbox{%
 		\parbox{\textwidth}{%
@@ -1863,5 +1863,60 @@
 	A questo punto inizia l’algoritmo di \emph{slow start} e l’invio dei pacchetti.\newline
 	
 	\noindent
-	La \underline{seconda osservazione} riguarda la chiusura della connessione che non necessita di commenti particolari ma di una piccola precisazione per comprendere meglio. Al tempo $t_{9,5}$ vengono inviati 3 segmenti nonostante la \textsf{CWND} sia di 4. Questo accade poiché ne mancavano soltanto 3 al conteggio finale.
+	La \underline{seconda osservazione} riguarda la chiusura della connessione che non necessita di commenti particolari ma di una piccola precisazione per comprendere meglio. Al tempo $t_{9,5}$ vengono inviati 3 segmenti nonostante la \textsf{CWND} sia di 4. Questo accade poiché ne mancavano soltanto 3 al conteggio finale.\newpage
+	
+	\section{Protocollo IP}
+	
+	\subsection{Definizione}
+	
+	A \textbf{livello di rete} esiste un altro protocollo, chiamato \textcolor{Red3}{\textbf{protocollo IP}} (\emph{Internet Protocol}). Esso fornisce una comunicazione logica tra gli host.\newline
+	
+	\noindent
+	Il protocollo IP non fornisce \textbf{nessuna garanzia di consegna del messaggio} e per questo motivo il servizio viene chiamato \emph{best-effort delivery service}, o abbreviato in \textbf{\emph{best-effort}} (tradotto in \dquotes{massimo sforzo}). In partole povere, il protocollo IP si impegna a finché il messaggio venga consegnato, ma non offre garanzie sulla buona riuscita. Quindi \textbf{non vengono garantiti}:
+	\begin{itemize}
+		\item Consegna dei segmenti;
+		\item Rispetto dell'ordine originario;
+		\item Integrità dei dati all'interno dei segmenti.
+	\end{itemize}
+	Per cui, si conclude che il \textbf{protocollo IP} è un \underline{\textbf{servizio \emph{non} affidabile}}. Nonostante l'inaffidabilità del protocollo, quest'ultimo ha una motivazione solida per essere tale: il protocollo di trasporto, TCP o UDP, si occupa dell'affidabilità. Per cui sarebbe ridondante avere due livelli che si preoccupano di questa caratteristica.\newpage
+	
+	\subsection{Formato dei datagrammi (IPv4)}
+	
+	Come detto nei capitoli precedenti, il pacchetto a livello di rete viene chiamato \textcolor{Red3}{\textbf{datagramma}}. Il formato dei datagrammi IPv4 è mostrato qui di seguito:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.85\textwidth]{img/datagrammi_ipv4.pdf}
+		\caption{Formato dei datagrammi nella versione IPv4.}
+	\end{figure}
+
+	\newpage\noindent
+	L'\textbf{intestazione} (\emph{header}) è formato da 20 byte (escluso \dquotes{Opzioni}) e include:
+	\begin{itemize}
+		\item $\left[4\text{ bit}\right]$ \underline{\textbf{Numero di versione}} (\emph{version}). Questo campo specifica la versione del protocollo IP del datagramma, consentendo al router la corretta interpretazione del datagramma. È importante la sua presenza poiché esistono un po' di versioni del protocollo IP, la più famosa è IPv4 (attualmente la più usata) e IPv6 (ancora semi-inutilizzata).
+		
+		\item $\left[4\text{ bit}\right]$ \underline{\textbf{Lunghezza dell'intestazione}} (\emph{header length}). Il campo \dquotes{Opzioni} può contenere un numero non definito a priori di informazioni. Questo campo indica dove iniziano effettivamente i dati del datagramma. Nel caso in cui \dquotes{Opzioni} non fosse presente, come nella maggior parte dei casi, l’intestazione avrà una lunghezza di 20 byte.
+		
+		\item $\left[8\text{ bit}\right]$ \underline{\textbf{Tipo di servizio}} (\emph{type of service}, TOS). Questo campo indica i diversi tipi di datagrammi. Per esempio, datagrammi in tempo reale (usati nella telefonia), datagrammi da altro traffico (per esempio, FTP).
+		
+		\item $\left[16\text{ bit}\right]$ \underline{\textbf{Lunghezza del datagramma}} (\emph{total length}, TL). Rappresenta la lunghezza totale del datagramma, quindi intestazione più dati, misurata in byte. Dato che la massima lunghezza di questo campo è 16 bit, la massima dimensione dei datagrammi IP è $65'535$ byte.
+		
+		\item $\left[16\text{ bit}, 3\text{ bit}, 13\text{ bit}\right]$ \underline{\textbf{Identificatore}}, \underline{\textbf{flag}}, \underline{\textbf{offset di frammentazione}} (\emph{identification, flag, fragment offset}). Questi tre campi vengono impiegati nella frammentazione (trattato nei prossimi capitoli). Attenzione! La versione IPv6 non consente frammentazione sui router.
+		
+		\item $\left[8\text{ bit}\right]$ \underline{\textbf{Tempo di vita}} (\emph{time-to-live}, TLL). Questo campo è incluso poiché ha l’obbiettivo di assicurare che i \textbf{datagrammi non restino in circolazione per sempre nella rete} a causa, per esempio, di un instradamento ciclico. Per evitare ciò, viene decrementato il tempo di vita di un’unità ogni volta che il datagramma è elaborato da un router; quando viene raggiunto il valore 0, il datagramma viene scartato.
+		
+		\item $\left[8\text{ bit}\right]$ \underline{\textbf{Protocollo}} (\emph{protocol}). Questo campo viene utilizzato solitamente dal destinatario ed indica lo specifico protocollo a livello di trasporto al quale vanno passati i dati del datagramma. Per esempio, il valore 6 indica che i dati sono destinati a TCP, mentre il valore 17 indica che i dati sono destinati a UDP. In altre parole, il numero di protocollo è l’anello di collegamento tra i livelli di rete e di trasporto, mentre il numero di porta è il \dquotes{collante} che lega i livelli di trasporto e di applicazione.
+		
+		\item $\left[16\text{ bit}\right]$ \underline{\textbf{Checksum dell'intestazione}} (\emph{header checksum}). Il checksum viene calcolato dal mittente, ricalcolato e aggiornato ad ogni router (come anche il campo TTL e i campi \dquotes{Opzione}) e ricalcolato dal destinatario per verificare che non si siano manifestati errori. Il calcolo viene effettuato tramite alcuni algoritmi.
+		
+		\item $\left[32\text{ bit}, 32\text{ bit}\right]$ \underline{\textbf{Indirizzo IP sorgente e destinazione}} (\emph{source address, destination address}). L'indirizzo IP sorgente e destinazione vengono inseriti dal mittente nel momento in cui viene creato il datagramma.
+		
+		\item $\left[\text{undefined bit}\right]$ \underline{\textbf{Opzioni}} (\emph{option}). I bit di opzioni formano più campi e variano a seconda delle necessità. L’obbiettivo è quello di estendere l’intestazione IP, tuttavia questo insieme di campi crea svariati problemi. A causa dei seguenti ostacoli, nella nuova versione IPv6 si è deciso di rimuoverlo:
+		\begin{itemize}
+			\item A causa della \textbf{lunghezza variabile} non è possibile determinare a priori dove comincerà il campo dati;
+			
+			\item Nel caso in cui il datagramma abbia bisogno di \textbf{elaborare} i campi opzioni, il \textbf{tempo necessario} per questa operazione su un router \textbf{può variare} in modo significativo.
+		\end{itemize}
+	\end{itemize}
+	Invece, il campo \textbf{dati} (\emph{payload}) contiene il segmento a livello di trasporto (TCP o UDP) da consegnare alla destinazione. Tuttavia, può trasportare anche altri tipi di dati, quali i messaggi ICMP (\href{https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol}{\emph{Internet Control Message Protocol}}).
 \end{document}
