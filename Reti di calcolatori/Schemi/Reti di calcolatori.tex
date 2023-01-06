@@ -2,9 +2,11 @@
 \usepackage[italian]{babel}
 \usepackage[italian]{isodate}  		% formato delle date in italiano
 \usepackage{graphicx}				% gestione delle immagini
+\usepackage{wrapfig}				% gestione dell'incorporamento delle immagini
 \usepackage{amsfonts}
 \usepackage{booktabs}				% tabelle di qualità superiore
 \usepackage{amsmath}				% pacchetto matematica
+\usepackage{cancel}					% per barrare le equazioni (semplificazioni)
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
 \usepackage[x11names]{xcolor}		% colori aggiuntivi
@@ -1383,7 +1385,7 @@
 	\noindent
 	Ovviamente, tali valori variano a seconda del segmento, a seconda della congestione nei router e a seconda del carico sui sistemi periferici. A causa di questa fluttuazione, ogni valore RTT può essere atipico. Per effettuare una stima naturale, si calcola una media di valori del RTT, ovvero \emph{\textbf{Estimated}} RTT. Tale valore è una media ponderata dei valori del RTT ed attribuisce maggiore importanza ai valori recenti rispetto a quelli vecchi. Tuttavia, è del tutto normale questa valutazione poiché i primi riflettono meglio la congestione attuale della rete.\newline
 	
-	\noindent
+	\label{RTO}\noindent
 	L'\textcolor{Red3}{\textbf{indice RTO}} (\emph{Retrasmission Time-Out}) è il tempo di ritrasmissione di un pacchetto. All’invio di un pacchetto, parte un timer che indica il range di tempo in cui il server deve rispondere. Nel caso in cui il server non riesca a rispondere entro questo intervallo, viene inviato nuovamente lo stesso pacchetto al server.\newline
 	
 	\noindent
@@ -1564,5 +1566,302 @@
 	Questo protocollo \textbf{obbliga} il destinatario ad inviare acknowledgement specifici per i pacchetti ricevuti in modo corretto.\newline
 	
 	\noindent
-	\textbf{Per esempio}, se un segmento non ricevesse l’acknowledgement relativo dal destinatario, allo scadere del RTO (\emph{Retrasmission Time-Out}) entrerebbe in gioco il protocollo di ripetizione selettiva, il quale invierebbe al destinatario solamente quel pacchetto che non ha ricevuto il suo acknowledgement.
+	\textbf{Per esempio}, se un segmento non ricevesse l’acknowledgement relativo dal destinatario, allo scadere del RTO (\emph{Retrasmission Time-Out}) entrerebbe in gioco il protocollo di ripetizione selettiva, il quale invierebbe al destinatario solamente quel pacchetto che non ha ricevuto il suo acknowledgement.\newpage
+	
+	\section{Algoritmo di controllo di congestione di TCP}
+	
+	Generalmente TCP capisce quando aumentare e diminuire la velocità di trasmissione dei dati da parte del mittente grazie ad alcune linee guida:
+	\begin{itemize}
+		\item Un segmento perso implica congestione, quindi i tassi di trasmissione del mittente TCP dovrebbero essere decrementati quando un segmento viene perso.
+		\item Un acknowledgement indica che la rete sta consegnando i segmenti del mittente al ricevente e quindi il tasso di trasmissione del mittente può essere aumentato quando arriva un acknowledgement non duplicato.
+		\item Rilevamento della larghezza di banda tramite alcune tecniche.
+	\end{itemize}
+	Nonostante tali linee guida, esiste un \textcolor{Red3}{\textbf{algoritmo di congestione di TCP}} per controllare la congestione. Esso presenta tre componenti o fasi principali: \textbf{\emph{slow start}}, \textbf{\emph{congestion avoidance}} e \textbf{\emph{fast recovery}}. I primi due componenti sono obbligatori di TCP e differiscono nel modo in cui aumentano la grandezza di \textsf{cwnd}\footnote{\emph{congestion window}, finestra di congestione, ovvero la finestra di dati trasmessi e non ancora riscontrati dal mittente poiché risposta acknowledgement mancante} in risposta agli acknowledgement ricevuti.  Al contrario, la \emph{fast recovery} è suggerita, ma non obbligatoria, per i mittenti TCP.\newpage
+	
+	\subsection{Slow start}
+	Quando si stabilisce una connessione TCP, il valore di \textsf{cwnd} viene in genere inizializzato a 1 MSS (\emph{Maximum Segment Size}). Questo comporta una velocità di invio iniziale di circa MSS/RTT.\newline
+	
+	\noindent
+	Per esempio, se $MSS = 500$ Byte e $RTT = 200$ ms, la velocità iniziale è solo di circa $20$ kbps. Tuttavia, la banda disponibile inizialmente potrebbe essere molto più grande. Per questo motivo, durante la fase iniziale, il valore della \textbf{\emph{congestion window}} (\textsf{cwnd}) \textbf{parte da 1 MSS e si incrementa di 1 MSS ogni volta che un segmento trasmesso riceve un acknowledgement} (detta \textcolor{Red3}{\textbf{\emph{slow start}}} per l’inizio adagio).\newline
+	
+	\noindent
+	\textbf{Per esempio}, nel momento di scambio di dati tra due host dopo l'handshaking, accade che:
+	\begin{enumerate}
+		\item Il mittente invia il \textbf{primo segmento} nella rete e attende un riscontro:
+		\begin{enumerate}[label=\alph*.]
+			\item Se il mittente riceve un acknowledgement del segmento, quindi \textbf{senza} avere nessuna \textbf{perdita}, esso incrementa la finestra di congestione di 1 MSS.\newline
+			Adesso il mittente ne potrà inviare due di segmenti poiché la sua \textsf{cwnd} sarà di 2 MSS.\newline
+			Assumendo che vengano inviati i due segmenti e si ricevano i due acknowledgement rispettivi, il destinatario, come risposta, comunica la grandezza della \textsf{cwnd} a 4 poiché per ogni segmento ricevuto correttamente ha incrementato la finestra di 1.\newline
+			E così via.
+			
+			\item Se il mittente non riceve un acknowledgement del segmento appena inviato, si manifesta un evento di \textbf{perdita} (e quindi di congestione).\newline
+			In questo caso, il mittente pone il valore della \textsf{cwnd} pari a 1 e inizia nuovamente il processo di \emph{slow start} (punto a).\newline
+			Oltre ad iniziare da capo, \textbf{modifica il valore della variabile \textsf{ssthresh}} (\emph{slow start threshold}, in italiano \dquotes{soglia di \emph{slow start}}) a $\textbf{cwnd} \div 2$: ovvero metà del valore che aveva la finestra di congestione quando è stata rilevata una perdita, o meglio una congestione.
+		\end{enumerate}
+	\end{enumerate}
+	La conseguenza dell’evento \dquotes{1.\emph{a}}, cioè senza perdita, ha come effetto il raddoppio della velocità trasmissiva a ogni RTT. È possibile affermare che nel protocollo TCP, la \textbf{velocità di trasmissione parte lentamente, ma cresce in modo esponenziale} durante la fase di \emph{slow start}.\newline
+	
+	\noindent
+	La fase di \emph{slow start} può \textbf{terminare} con una perdita: come spiegato al punto \emph{b}, oppure quando il valore della \textsf{cwnd} raggiunge o supera il valore della \textsf{ssthresh}. Il motivo è dovuto al fatto che \textsf{ssthresh} è il limite e il suo superamento aumenta le probabilità di congestione, ovvero di perdita.\newline
+	
+	\noindent
+	Una volta terminata la \emph{slow start}, TCP entra nella fase di \textbf{\emph{congestion avoidance}}.\newpage
+	
+	\subsection{Congestion avoidance}
+	
+	Quando TCP entra nello stato di \textcolor{Red3}{\textbf{\emph{congestion avoidance}}} adotta un approccio più conservativo. Invece di raddoppiare il valore di \textsf{cwnd} ogni RTT come nello \emph{slow start}, l’aumento della \textsf{cwnd} avviene di 1 MSS ogni RTT.\newline
+	
+	\noindent
+	L'\textbf{aumento} può avvenire tramite il seguente metodo (più comune).\newline
+	Il mittente incrementa la propria \textbf{cwnd} di $MSS \times \left(\frac{MSS}{\textsf{cwnd}}\right)$ byte ogni qualvolta riceva un nuovo acknowledgement.\newline
+	\textcolor{Green4}{\textbf{Per esempio}}, supponendo che MSS vale $1'460$ byte e \textsf{cwnd} $14'600$ byte, allora in un RTT vengono spediti dieci segmenti. Questo calcolo è possibile eseguirlo mentalmente poiché se i dati da trasmettere devono essere $14'600$, ma ogni segmento può avere al massimo una grandezza di $1'460$, allora considerando un segmento come $1'460$ byte, si dovranno inviare 10 segmenti per avere il pacchetto completo.\newline
+	In questo esempio, la \textsf{cwnd} aumenterà di $1/10$ della MSS ogni qualvolta riceverà 1 acknowledgement di un segmento inviato. Quindi una volta ricevuti tutti i 10 acknowledgement dei 10 segmenti inviati, la \textsf{cwnd} sarà aumentata di 1 MSS, ovvero di $1460$ byte.\newline
+	
+	\noindent
+	Al contrario, la fase di incremento si \textbf{interrompe} quando si esaurisce il tempo del RTO (\emph{Retrasmission Time-Out}). Il comportamento successivo all’interruzione è identico a quello dello \emph{slow start}:
+	\begin{itemize}
+		\item Il valore di \textsf{\textbf{cwnd}} è posto uguale a 1 MSS;
+		\item Il valore di \textsf{\textbf{ssthresh}} viene impostato alla metà del valore di \textsf{cwnd} al momento del time-out.
+	\end{itemize}
+	Infine, TCP entra nella fase di \emph{fast recovery}.
+	
+	\subsection{Fast recovery}
+	
+	Una volta terminato il periodo di attesa del RTO si passa dallo stato di \textcolor{Red3}{\textbf{\emph{fast recovery}}} a quello di \emph{slow start} dopo avere effettuato le stesse azioni presenti sia in \emph{slow start} che in \emph{congestion avoidance}. Queste azioni sono: il valore di \textsf{cwnd} posto a 1 MSS e il valore di \textsf{ssthresh} è impostato a metà del valore di \textsf{cwnd} nel momento in cui si è riscontrato l’evento di perdita.\newline
+	
+	\noindent
+	\textbf{Attenzione!} Questo metodo \textbf{non} è obbligatorio, viene solo raccomandato. Una prima versione di TCP, nota come \textbf{TCP Tahoe}, portava la finestra di congestione a 1 MSS ed entrava nella fase di \emph{slow start} dopo qualsiasi tipo di evento di perdita. La versione più recente, \textbf{TCP Reno}, adotta invece \emph{fast recovery}.\newpage
+	
+	\section{Dettaglio dell'algoritmo di controllo di congestione di TCP}
+	
+	\subsection{Algoritmo}
+	
+	Nello scorso capitolo è stato introdotto l'algoritmo di controllo di congestione del protocollo TCP. Al contrario, in questo capitolo l'algoritmo verrà approfondito e utilizzato per svolgere esercizi.\newline
+	
+	\noindent
+	Prima di iniziare la descrizione dell'algoritmo, è necessario tenere in \textbf{considerazione quattro variabili}:
+	\begin{itemize}
+		\item \textbf{\textsf{CWND}} (\emph{Congestion Window}), ovvero la dimensione della finestra della trasmissione.
+		
+		\item \textbf{\textsf{RTO}} (\emph{Retrasmission Time-Out}), calcolato dinamicamente, è il tempo che intercorre dall'invio del segmento al momento in cui il protocollo realizza che c'è un evento di congestione (paragrafo~\ref{RTO}).
+		
+		\item \textbf{\textsf{RCV WND}} (\emph{Receive Window}), ovvero la dimensione massima della finestra di ricezione.
+		
+		\item \textbf{\textsf{SSTHRESH}} (\emph{Slow Start Threshold}), ovvero la soglia per capire se utilizzare l'algoritmo \emph{slow start} o passare all'algoritmo \emph{congestione avoidance}.
+	\end{itemize}
+	E nella fase di \textbf{inizializzazione}:
+	\begin{itemize}[label=-]
+		\item $\textsf{CWND} = 1$;
+
+		\item $\textsf{RCV WND} = $ comunicato dalla destinazione la quale inserisce il valore di tale finestra nel header TCP, precisamente il campo \emph{window};
+		
+		\item $\textsf{SSTHRESH} = RCV\:WND$ oppure $RCV\:WND \div 2$.
+	\end{itemize}
+	\newpage\noindent
+	Ora che sono state effettuate delle doverose spiegazioni delle variabili necessarie e sono state inizializzate, è possibile \textcolor{Red3}{\textbf{descrivere l'algoritmo di controllo della congestione}}:
+	\begin{enumerate}
+		\item \textbf{Effettuare la numerazione dei segmenti} finché non si raggiunge la dimensione delle \textsf{CWND} (\emph{congestion window}) ed \textbf{inviare i segmenti} al destinatario;
+		
+		\item \textbf{Quando arrivano tutti i riscontri} relativi ai segmenti inviati al punto precedente, si controlla \textbf{se il valore della \textsf{CWND} è minore} al valore del limite, ovvero \textbf{della \textsf{SSTHRESH}}:
+		\begin{enumerate}
+			\item Se \textsf{CWND} è minore della \textsf{SSTHRESH} allora si avvia la fase di \emph{slow start} e la \textsf{CWND} diventa uguale al valore \textbf{minimo} tra:
+			\begin{enumerate}
+				\item $\textsf{CWND}_{old} + \text{numero di ACK ricevuti}$
+				\item \textsf{SSTHRESH}
+				\item \textsf{RCV WND}
+			\end{enumerate}
+			
+			\item Se \textsf{CWND} è maggiore della \textsf{SSTHRESH} allora si avvia la fase di \emph{congestion avoidance} e il valore della \textsf{CWND} diventa uguale al valore \textbf{minimo} tra:
+			\begin{enumerate}
+				\item $\textsf{CWND}_{old} + \frac{\text{numero di ACK ricevuti}}{\textsf{CWND}_{old}}$
+				\item \textsf{RCV WND}
+			\end{enumerate}
+		\end{enumerate}
+		
+		\item Al contrario, in caso di \textbf{mancanza di un riscontro} di un segmento inviato al punto uno:
+		\begin{enumerate}
+			\item Si aspetta la fine del tempo di \emph{time-out} scandito dal RTO;
+			
+			\item Una volta finito il tempo della RTO, la SSTHRESH acquisisce il valore della CWND diviso 2 al momento esatto della perdita;
+			
+			\item Il nuovo valore della CWND assumerà un valore diverso a seconda dell'algoritmo applicato:
+			\begin{enumerate}
+				\item Con la versione \textbf{TCP Tahoe}, ovvero la meno recente e quella utilizzata durante il corso, il nuovo valore sarà:
+				\begin{equation*}
+					\textsf{CWND} = 1
+				\end{equation*}
+				
+				\item Con la versione \textbf{TCP Reno}, ovvero la più recente che utilizza la \emph{fast recovery}:
+				\begin{equation*}
+					\textsf{CWND} = \textsf{SSTHRESH}
+				\end{equation*}
+			\end{enumerate}
+			
+			\item Una volta cambiati i valori necessari, i segmenti vengono ritrasmessi e il nuovo valore RTO diventa il valore precedente moltiplicato per due:
+			\begin{equation*}
+				\textsf{RTO}_{new} = \textsf{RTO} \times 2
+			\end{equation*}
+			
+			\item Infine, si torna al punto \emph{a}.
+		\end{enumerate}
+	\end{enumerate}
+	\newpage
+	
+	\subsection{Sintesi algoritmo}
+	
+	Data l'eventuale difficoltà nel leggere lo schema, si lascia qui di seguito un diagramma di flusso:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/algoritmo_congestione_TCP.pdf}
+		\caption{Algoritmo di congestione del protocollo TCP.}
+	\end{figure}
+	
+	\noindent	
+	E uno aggiuntivo che si riferisce alle scelte da applicare nel momento in cui vengano persi dei segmenti:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/algoritmo_congestione_TCP_perdita.pdf}
+		\caption{Algoritmo di congestione del protocollo TCP in \textbf{caso di perdita}.}
+	\end{figure}
+	\newpage
+	
+	\subsection{Esempio di congestione}
+	
+	In questo esempio, si simula l’invio di una serie di pacchetti per studiare lo \emph{slow start} e la \emph{congestion avoidance}. Il mittente A invia dei segmenti al destinatario B; il protocollo TCP inizia con l’algoritmo \emph{slow start}. La \textsf{RCV WND} viene posta e rimane a 16 durante tutto l’esempio, mentre la \textsf{SSTHRESH} parte con il valore 8.
+	
+	\begin{wrapfigure}{R}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/esempio_congestione.pdf}
+	\end{wrapfigure}
+
+	\noindent
+	Al tempo $t_{0}$ viene inviato il primo segmento dato che la \textsf{CWND} è posta a 1.\newline
+	
+	\noindent
+	All’arrivo del primo \textsf{ACK}, tempo $t_{1}$, l’algoritmo confronta i valori della \textsf{CWND} e della \textsf{SSTHRESH}: la prima è minore della seconda poiché $1 < 8$; per cui si confrontano i tre valori scegliendo il minore. Tra 2 ($\textsf{CWND} + \text{\#ack ricevuti}$), 8 (\textsf{SSTHRESH}) e 16 (\textsf{RCV WND}), il valore più piccolo è 2. Quest’ultimo valore diventerà il nuovo valore della \emph{congestion window}: $\textsf{CWND}_{new} = 2$.\newline
+	
+	\noindent
+	Al tempo $t_{2}$, vengono inviati due segmenti e il processo spiegato precedentemente si ripete.\newline
+	
+	\noindent
+	Il cambiamento degno di nota è al tempo $t_{4}$ quando la \textsf{CWND} passa dal valore 8 al valore 9. Questo accade poiché al tempo $t_{4}$ la \textsf{CWND} è uguale alla \textsf{SSTHRESH} e, seguendo l’algoritmo, si dovrà quindi scegliere il valore minimo tra: 9 ($\frac{\textsf{CWND}_{old} + \left(\text{\#ack ricevuti}\right)}{\textsf{CWND}_{old}}$) e 16 (\textsf{RCV WND}). Il valore minimo è 9, la $\textsf{CWND}_{new}$ diventa 9 e vengono trasmessi i segmenti.\newline
+	
+	\noindent
+	Un’altra osservazione doverosa è quello che succede al tempo $t_{5}$. Il TCP rileva una perdita poiché alla fine del \textsf{RTO} non sono stati ancora ricevuti gli \textsf{ACK}. In quel momento entra in gioco la fase di \dquotes{mancanza di riscontro}, ovvero: il valore della \textsf{SSTHRES} diventa il valore della \textsf{CWND}, al momento della perdita, diviso 2; la $\textsf{CWND}_{new}$ diventa pari a 1 (uso del TCP Tahoe o Vanilla); \textsf{RTO} dei pacchetti ritrasmessi diventa $\textsf{RTO} \times 2$.\newline
+	
+	\noindent
+	Infine, al tempo $t_{7}$ si inizia nuovamente con lo \emph{slow start}.\newpage
+	
+	\noindent
+	Qui di seguito si lascia lo schema utilizzato anche per la risoluzione degli esercizi di questo tipo. Esso presenta sull’asse delle ordinate ($y$) il valore della \textsf{CWND}, mentre sull’asse delle ascisse ($x$) il tempo. Con la linea blu viene rappresentato lo \textsf{SSTHRESH}, mentre con il rosso la \textsf{RCV WND} costante per tutto l’esempio.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/congestione_eg_esercizio.pdf}
+	\end{figure}
+	
+	\noindent
+	È interessante notare la differenza nel caso in cui si utilizzi la versione di TCP Reno, ovvero la più recente. Essa utilizza la \emph{Fast Recovery}, una tecnica spiegata nel capitolo precedente. L’andamento è molto variabile e qui di seguito si rappresenta con un grafico approssimativo.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/andamento.pdf}
+	\end{figure}\newpage
+
+	\subsection{\textcolor{Red3}{Esercizio sul controllo della congestione TCP}}
+	
+	\subsubsection{\textcolor{Red3}{Esercizio 1}}
+	
+	L’applicazione A deve trasferire all’applicazione B $96'000$ Byte. La connessione è già stata instaurata. I dati disponibili sono:
+	\begin{itemize}
+		\item $\textsf{MSS} = 1'000$ Byte
+		\item $\textsf{RCV WND} = 32'000$ Byte costante
+		\item $\textsf{SSTHRESH} = \textsf{RCV WND} \div 2$
+		\item $\textsf{RTT} = 0,50$ secondi costante
+		\item $\textsf{RTO} = \textsf{RTT} \times 2$ e raddoppia in caso di perdite sequenziali
+	\end{itemize}
+	Infine, negli intervalli aperti $3 - 3.5$ e $7 - 7.5$ è presente un down di rete.\newline
+	
+	\noindent
+	Il \textbf{primo passo} per risolvere l’esercizio è la numerazione dei segmenti. Per farlo basta prendere il numero dei Byte da trasferire e dividere il valore per la \textsf{MSS}:
+	\begin{equation*}
+		\textbf{Numero di segmenti da inviare } \longrightarrow 96'000 \div 1'000 = 96 \text{ segmenti}
+	\end{equation*}
+	Prima di passare al secondo passaggio e osservare il numero di segmenti da inviare, è necessario ottenere il valore della \textsf{RCV WND} (finestra massima di ricezione) per avere conseguentemente anche la \textsf{CWND}. Essa è possibile calcolarla facendo una semplice divisione tra il numero di Byte della \textsf{RCV WND} e della \textsf{MSS}:
+	\begin{equation*}
+		\textbf{\textsf{RCV WND} } \longrightarrow 32'000 \div 1'000 = 32 \text{ segmenti}
+	\end{equation*}
+	E la \textsf{SSTHRESH}, come scritto nei dati del testo dell’esercizio, è ottenibile dividendo per due la \emph{receive window}:
+	\begin{equation*}
+		\textbf{\textsf{SSTHRESH} } \longrightarrow 32 \div 2 = 16 \text{ segmenti}
+	\end{equation*}\newpage
+	\noindent
+	Il \textbf{secondo passo} necessita di uno schema. Esso ha nell'asse delle ascisse ($x$) il tempo e nell'asse delle ordinate ($y$) la \textsf{CWND}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex1_congestione.pdf}
+	\end{figure}
+	
+	\noindent
+	All’inizio i pacchetti trasmessi seguono l’algoritmo slow start e c’è poco da dire. La somma dinamica, ovvero la somma dei segmenti inviati con successo necessaria per capire quando concludere la connessione, al tempo $t_{1,5}:1+2+4+8=15$.\newline
+	
+	\noindent
+	Successivamente la \textsf{CWND} diventa come la \textsf{SSTHRESH} e l’avanzata diventa più cauta, notabile all’aumento di 1 valore per volta dal tempo $t_{2}$ fino al tempo $t_{3}$.\newline
+	
+	\noindent
+	A questo punto, l’\textbf{evento down} non permette ai 18 \emph{segmenti} di giungere correttamente a destinazione. Il protocollo TCP, alla fine del RTO entra nella fase di recupero del segmento perso: la \textsf{SSTHRESH} viene posta a 9 ($\textsf{CWND} \div 2 \rightarrow 18 \div 2$), la nuova $\textsf{CWND}_{new} = 1$ e il nuovo $\textsf{RTO}_{new} = \textsf{RTO} \times 2$. Dato che l’\textsf{RTO} è ad 1 perché $0,5 \cdot \left(\textsf{RTT}\right) \times 2$, all’incirca al tempo $t_{4}$ riparte la fase di \emph{slow start}.\newline
+	
+	\noindent
+	\textbf{Attenzione!} Nella somma dinamica, i 18 \emph{segmenti} persi non vengono contati e quindi il risultato fino al tempo $t_{3}$ è $1+2+4+8+16+17\cancel{+18}=48$.\newline
+	
+	\noindent
+	Questo evento di \emph{down} si ripete anche al tempo $t_{7}$.\newline
+	
+	\noindent
+	L'\textbf{ultimo passo} è la fase di chiusura della connessione. Al tempo $t_{10}$ la \textsf{CWND} viene posta a 6 come impone l'algoritmo. Effettuando la somma dinamica si ha come risultato:
+	\begin{equation*}
+		1+2+4+8+16+17+1+2+4+8+9+10+1+2+4+5=94
+	\end{equation*}
+	Se i segmenti inviati sono 94, ne servono 2 per giungere a 96, ovvero all’obbiettivo dell’esercizio. Quindi, al tempo $t_{10}$ vengono inviati 2 segmenti nonostante la grandezza della \textsf{CWND} è posta a 6. A questo punto, una volta ricevuti gli ultimi \textsf{ACK} dei segmenti inviati, al tempo $t_{10,5}$ (dopo mezzo secondo perché \textsf{RTT} è di $0,50$ secondi) è possibile chiudere la connessione.\newline
+	
+	\noindent
+	La chiusura avviene dunque al tempo $t_{10,5}$ con l’aggiornamento della \textsf{CWND}: la \textsf{CWND} è maggiore della \textsf{SSTHRESH}, il valore minimo da scegliere sarà $\frac{\textsf{CWND}_{old} + \left(\text{\#ack ricevuti}\right)}{\textsf{CWND}_{old}}$  (e non la \textsf{RCV WND}), ovvero $6+\frac{2}{6}$. \textbf{Solo dopo aver aggiornato la \textsf{CWND}, la connessione si può dire conclusa}.\newpage
+	
+	\subsubsection{\textcolor{Red3}{Esercizio 2}}
+	
+	L’applicazione A trasferisce $46'500$ Byte all’applicazione B. I dati sono:
+	\begin{itemize}
+		\item $\textsf{MSS} = 1'500$ Byte
+		\item $\textsf{RCV WND} = 24'000$ Byte costante
+		\item $\textsf{SSTHRESH}_{iniziale} = \textsf{RCV WND}_{iniziale} \div 2$
+		\item $\textsf{RTT} = 0,50$ secondi costante
+		\item $\textsf{RTO} = \textsf{RTT} \times 2$ e raddoppia in caso di perdite consecutive
+	\end{itemize}
+	Infine, gli eventi che si manifestano sono due \emph{down} di rete al tempo $1,5 - 3,5$ e $7 - 7,5$.\newline
+	
+	\noindent
+	Il \textbf{primo passo} è l'enumerazione dei segmenti da inviare:
+	\begin{equation*}
+		\text{dati da inviare} \div \textsf{MSS} = 46'500 \div 1'500 = 31 \text{ segmenti}
+	\end{equation*}
+	E il calcolo della \textbf{SSTHRESH} partendo dalla \textsf{RCV WND}:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textbf{\textsf{RCV WND}} 	& = & 24'000 \div 1'500 = 16 \text{ segmenti} \\
+			\textbf{\textsf{SSTHRESH}} 	& = & \textsf{RCV WND} \div 2 = 16 \div 2 = 8 \text{ segmenti}
+		\end{array}
+	\end{equation*}\newpage
+	\noindent
+	E adesso si lascia qui di seguito il grafico contenente l’andamento della CWND e del resto:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex2_congestione.pdf}
+	\end{figure}
+
+	\noindent
+	Ci sono solo due osservazioni importanti degne di nota. La \underline{prima} riguarda il primo down di rete. Al tempo $t_{2,5}$, il TCP del mittente A non riceve i riscontri dei segmenti inviati e viene dunque dimezzata la \textsf{SSTHRESH} ($\textsf{CWND} \div 2$), la \textsf{CWND} riparte da 1 e \textsf{RTO} diventa il doppio, quindi da 1 passa a 2. La parte interessante è questa: alla fine del secondo \textsf{RTO} (tempo $t_{4,5}$), il TCP del mittente non ha ancora ricevuto i pacchetti, per cui dovrebbe diminuire \emph{di nuovo} la \textsf{SSTHRESH} dividendo la \textsf{CWND} per due. Tuttavia, dato che la \textsf{CWND} è al valore minimo, non avrebbe senso portare la \textsf{SSTHRESH} a $0,5$, per cui si imposta il \textbf{valore minimo} della \textsf{SSTHRESH} che corrisponde a 2.\newline
+	
+	\noindent
+	A questo punto inizia l’algoritmo di \emph{slow start} e l’invio dei pacchetti.\newline
+	
+	\noindent
+	La \underline{seconda osservazione} riguarda la chiusura della connessione che non necessita di commenti particolari ma di una piccola precisazione per comprendere meglio. Al tempo $t_{9,5}$ vengono inviati 3 segmenti nonostante la \textsf{CWND} sia di 4. Questo accade poiché ne mancavano soltanto 3 al conteggio finale.
 \end{document}
