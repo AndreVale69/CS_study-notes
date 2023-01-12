@@ -1918,5 +1918,230 @@
 			\item Nel caso in cui il datagramma abbia bisogno di \textbf{elaborare} i campi opzioni, il \textbf{tempo necessario} per questa operazione su un router \textbf{può variare} in modo significativo.
 		\end{itemize}
 	\end{itemize}
-	Invece, il campo \textbf{dati} (\emph{payload}) contiene il segmento a livello di trasporto (TCP o UDP) da consegnare alla destinazione. Tuttavia, può trasportare anche altri tipi di dati, quali i messaggi ICMP (\href{https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol}{\emph{Internet Control Message Protocol}}).
+	Invece, il campo \textbf{dati} (\emph{payload}) contiene il segmento a livello di trasporto (TCP o UDP) da consegnare alla destinazione. Tuttavia, può trasportare anche altri tipi di dati, quali i messaggi ICMP (\href{https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol}{\emph{Internet Control Message Protocol}}).\newpage
+	
+	\section{Frammentazione dei datagrammi IPv4}
+	
+	\subsection{Definizione}
+	
+	Non tutti i protocolli possono trasportare pacchetti della stessa dimensione a livello di rete. Per esempio, i frame Ethernet possono trasportare fino a $1500$ byte di dati, mentre i frame di alcuni collegamenti su grandi distanze non possono trasportare più di $576$ byte.\newline
+	
+	\noindent
+	Per usare una terminologia corretta, si definisce \textcolor{Red3}{\textbf{unità massima di trasmissione}} (MTU, \emph{maximum transmission unit}) la \textbf{massima quantità di dati} che un frame a livello di collegamento può trasportare. La MTU può essere diversa a seconda della tratta, o percorso, che percorrono i frame e dunque diventa un limite legato ai differenti protocolli utilizzati a livello di collegamento.\newline
+	
+	\noindent
+	La soluzione a questo limite è la tecnica della \textcolor{Red3}{\textbf{frammentazione dei pacchetti}}. Quindi, frammentare letteralmente i dati del datagramma IP in due o più datagrammi IP più piccoli, chiamati \textbf{frammenti}, e quindi trasferiti sul collegamento di uscita.
+	
+	\subsection{Fasi della frammentazione}
+	
+	Le fasi della frammentazione sono 5:
+	\begin{enumerate}[label=\Roman*.]
+		\item \textbf{\underline{Creazione datagramma}}. Durante la creazione, l’host contrassegna il datagramma con un numero identificativo e con gli indirizzi di sorgente e destinazione.
+		
+		\item \textbf{\underline{Frammentazione datagramma}}. Il router frammenta il datagramma, contrassegna i frammenti con gli indirizzi di sorgente e di destinazione e con l’identificatore numerico del datagramma originario.
+		
+		\item \textbf{\underline{Ricezione datagrammi}}. Una volta che il destinatario riceve una serie di datagrammi dello stesso host mittente, può esaminare gli identificatori per individuare i frammenti di uno stesso datagramma.
+		
+		\item \textbf{\underline{Flag di terminazione}}. Per far sì che il destinatario riesca a riassemblare i frammenti, si utilizza il campo flag \textsf{M} per indicare con 0 l’ultimo frammento di un frame e 1 un frammento intermedio di un frame.
+		
+		\item \textbf{\underline{Campo di offset}}. Il campo di offset viene utilizzato per specificare l’esatto ordine che i frammenti avevano originariamente all’interno del datagramma IP e per determinare se un frammento è stato perduto.
+	\end{enumerate}
+	Quindi, i \textbf{campi utilizzati} durante la frammentazione sono: \textbf{Identificatore} (\emph{Identification}), \textbf{Offset di frammentazione} (\emph{Fragment Offset}) e \textbf{Flag M}. Il primo è un numero progressivo dato dalla sorgente ad ogni pacchetto, il secondo identifica la posizione del pacchetto rispetto a quello originale (di default il valore è $000$ e solitamente viene diviso per $8$) e l'ultimo, come dice il punto 4, indicare se il frammento è l'ultimo o l'intermedio.
+	\newpage
+
+	\subsection{\textcolor{Red3}{Esercizio sul controllo della congestione TCP}}
+	
+	L’applicazione A deve trasferire all'applicazione B $104'000$ Byte. La connessione è già stata instaurata. I dati disponibili sono:
+	\begin{itemize}
+		\item $\textsf{MSS} = 1'200$ Byte
+		\item $\textsf{RCV WND} = 24'000$ Byte costante
+		\item $\textsf{SSTHRESH} = \textsf{RCV WND}$
+		\item $\textsf{RTT} = 0,50$ secondi costante
+		\item $\textsf{RTO} = \textsf{RTT} \times 2$ e raddoppia in caso di ritrasmissioni
+	\end{itemize}
+	Infine, negli intervalli $3.5 - 4$ e $6.5 - 10.5$ è presente un \emph{down} di rete.\newline
+	
+	\noindent
+	Il \textbf{primo passo} per risolvere l'esercizio è la numerazione dei segmenti da inviare. Per farlo basta prendere il numero dei \emph{Byte} da trasferire e dividere il valore per la \textsf{MSS}:
+	\begin{equation*}
+		\textbf{Numero di segmenti da inviare } \rightarrow 104'000 \div 1'200 = 87 \emph{ segmenti}
+	\end{equation*}
+	Prima di passare al secondo passaggio e osservare il numero di segmenti da inviare, è necessario ottenere il valore della \textsf{RCV WND} (finestra massima di ricezione) per avere conseguentemente anche la \textsf{CWND}. Essa è possibile calcolarla facendo una semplice divisione tra il numero di Byte della \textsf{RCV WND} e della \textsf{MSS}:
+	\begin{equation*}
+		\textbf{\textsf{RCV WND}} \rightarrow 24'000 \div 1'200 = 20 \emph{ segmenti}
+	\end{equation*}
+	E la \textsf{SSTHRESH}, come scritto nei dati del testo dell'esercizio, è uguale alla \emph{receive window}:
+	\begin{equation*}
+		\textsf{\textbf{SSTHRESH}} \rightarrow 20 \emph{ segmenti}
+	\end{equation*}\newpage
+
+	\noindent
+	Il \textbf{secondo passo} necessita di uno schema. Esso ha nell'asse delle ascisse ($x$) il tempo e nell'asse delle ordinate ($y$) la \textsf{CWND}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex3_congestione.pdf}
+	\end{figure}
+
+	\noindent
+	All’inizio i pacchetti trasmessi seguono l’algoritmo \emph{slow start} e c’è poco da dire. La somma dinamica, ovvero la somma dei segmenti inviati con successo, è necessaria per capire quando concludere la connessione. Al tempo $t_{2}$ la situazione è la seguente: $t_{2} : 1+2+4+8+16 = 31$.\newline
+	
+	\noindent
+	Successivamente la \textsf{CWND} diventa come la \textsf{SSTHRESH} e la \textsf{RCVWND}, quindi fermo al valore $20$ dal tempo $2,5$ al tempo $3,5$ (tempo in cui si manifesta il \emph{down} di rete tra l’altro).\newline
+	
+	\noindent
+	A questo punto, l’\textbf{evento \emph{down}} non consente ai $20$ \emph{segmenti} di giungere correttamente a destinazione. Il protocollo TCP, alla fine del \textsf{RTO} \textbf{entra nella fase di recupero del segmento perso}: la \textsf{SSTHRESH} viene posta a $10$ ($\textsf{CWND} \div 2 \rightarrow 20 \div 2$), la nuova $\textsf{CWND}_{new} = 1$ e il nuovo $\textsf{RTO}_{new} = \textsf{RTO} \times 2$. Dato che l’\textsf{RTO} è ad $1$ poiché $0,5 \cdot \left(\textsf{RTT}\right) \cdot 2$, all’incirca al tempo $t_{4,5}$ riparte la fase di \emph{slow start}.\newline
+	
+	\noindent
+	\textbf{\underline{Attenzione!}} Nella somma dinamica, i $20$ segmenti persi non vengono contati e quindi il risultato fino al tempo $t_{3,5}$ è $1+2+4+8+16+20+20\cancel{+20}=71$.\newline
+	
+	\noindent
+	Questo evento di \emph{down} si ripete anche al tempo $t_{6,5}$. In questo caso, l’\textsf{RTO} scade e il mittente ritenta un nuovo tentativo impostando la nuova $\textsf{CWND}_{new} = 1$, la \textsf{SSTHRESH} alla metà, cioè $5$, e il nuovo $\textsf{RTO}_{new} = \textsf{RTO} \times 2$, cioè $\textsf{RTO}_{new} = 1 \times 2 = 2$. Ancora una volta, \textbf{il mittente non riesce a consegnare il pacchetto}, per cui: la \textsf{CWND} diminuisce nuovamente ma dato che era a $1$, rimane tale $\textsf{CWND}_{new}=1$; la \textsf{SSTHRESH} diminuisce della metà $5 \div 2 = 2,5$ (ignorando il resto nella divisione, quindi si considera \textbf{sempre} l'approssimazione per difetto). Infine, viene eseguito un altro tentativo, ma a questo punto l’\textsf{RTO} è talmente ampio che per vedere un nuovo tentativo è necessario andare al tempo $t_{13,5}$, ovvero la fine del \textsf{RTO}.\newpage
+	
+	\noindent
+	L’\textbf{ultimo passo} è la fase di chiusura della connessione. Al tempo $t_{13,5}$ viene inviato l’ultimo segmento che viene confermato con il relativo \textsf{ACK} al tempo $14$:
+	\begin{equation*}
+		1+2+4+8+16+20+20+1+2+4+8+1=87
+	\end{equation*}
+	La chiusura avviene dunque al tempo $14$ con l’aggiornamento della \textsf{CWND}: la \textsf{CWND} è maggiore della \textsf{SSTHRESH}, il valore minimo da scegliere sarà dunque $\textsf{CWND}_{old} + \frac{\left(\text{\#ack ricevuti}\right)}{\textsf{CWND}_{old}}$ (e non la \textsf{RCV WND}), ovvero $1+1$. \textbf{Solo dopo aver aggiornato la \textsf{CWND}, la connessione si può dire conclusa}.\newpage
+	
+	\section{Algoritmi di instradamento}
+	
+	\subsection{Approccio al problema}
+	
+	A livello di rete esistono \textbf{due possibili} approcci per affrontare il problema dell'instradamento:
+	\begin{enumerate}
+		\item \textcolor{Red3}{\textbf{\underline{Controllo locale}}}. Come si vede in figura~\ref{controllo_locale}, l’\textbf{algoritmo di instradamento viene eseguito su ogni singolo router}, all’interno del quale vengono effettuate sia le funzioni di inoltro (piano dei dati, \emph{data plane}) che quelle di instradamento (piano di controllo, \emph{control plane}). Ogni router ha una componente di instradamento che comunica con le componenti di instradamento degli altri router per calcolare la propria tabella di inoltro. Questo approccio di controllo locale per router è stato usato in internet per decenni.
+		
+		\item \textbf{\underline{Controllo logicamente centralizzato}}. Come si vede nella figura~\ref{controllo_logicamente_centralizzato}, il controller logicamente centralizzato (\emph{logically centralized routing controller}) calcola e distribuisce le tabelle di inoltro che devono essere utilizzate da ogni router.
+	\end{enumerate}
+	\textbf{\underline{Attenzione!}} Al contrario degli algoritmi di instradamento, gli agenti di controllo \textbf{non interagiscono direttamente tra di loro} e \textbf{non partecipano attivamente all’elaborazione della tabella di inoltro}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/controllo_locale.pdf}\label{controllo_locale}
+		\caption{Controllo locale.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/controllo_logicamente_centralizzato.pdf}\label{controllo_logicamente_centralizzato}
+		\caption{Controllo logicamente centralizzato.}
+	\end{figure}\newpage
+	
+	\subsection{Algoritmi di instradamento}
+	
+	Gli \textcolor{Red3}{\textbf{algoritmi di instradamento}} (\emph{routing algorithm}), il cui scopo è determinare i percorsi, o cammini, tra le sorgenti e i destinatari, attraverso la rete di router. Il \underline{percorso migliore} è quello che ha costo minimo, anche se esistono delle problematiche di interesse concreto quali la \emph{policy} (per esempio il router $x$, appartenente all’organizzazione $Y$, non debba inoltrare pacchetti che abbiano come sorgente la rete appartenente all’organizzazione $Z$).\newline
+	
+	\noindent
+	Per \textbf{formulare i problemi di instradamento} si utilizza un \textbf{grafo} $G=\left(N,E\right)$ in cui $N$ rappresentano i nodi ed $E$ rappresentano gli archi (\emph{edge}). Ciascun arco collega una coppia di nodi di $N$. La formulazione prevede:
+	\begin{itemize}
+		\item I \textbf{nodi} del grafo rappresentano i \emph{router} che prendono decisioni sull’inoltro dei pacchetti;
+		
+		\item Gli \textbf{archi} che connettono i nodi rappresentano i collegamenti fisici tra i router.
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/eg_grafo_instradamento.pdf}
+		\caption{Esempio di grafo.}
+	\end{figure}
+
+	\noindent
+	Le sue \textbf{proprietà} sono:
+	\begin{itemize}
+		\item Ad \textbf{ogni arco viene associato un valore che indica il costo}. Quest’ultimo può riflettere la lunghezza fisica del collegamento corrispondente, la velocità del collegamento oppure il suo prezzo;
+		\item Si considerano solo \textbf{grafi non orientati}, ovvero con archi bidirezionali;
+		\item Un \textbf{nodo} $y$ viene detto \textbf{adiacente o vicino a un altro nodo} $x$ se $\left(x,y\right)$ è un arco in $E$.
+	\end{itemize}\newpage
+
+	\noindent
+	Le \textbf{notazioni} utilizzate sono:
+	\begin{itemize}
+		\item Per ogni arco $\left(x,y\right)$ tra i nodi $x$ e $y$ si denota con $c\left(x,y\right)$;
+		\item Se la coppia $\left(x,y\right)$ non appartiene a $E$, si denota con $c\left(x,y\right) = +\infty$;
+		\item Un \textbf{percorso} in un grafo $G=\left(N,E\right)$ è una sequenza di nodi $\left(x_{1},x_{2},\cdots,x_{n}\right)$ tali che ciascuna delle coppie $\left(x_{1},x_{2}\right)$, $\left(x_{2},x_{3}\right)$, $\cdots$, $\left(x_{p-1},x_{p}\right)$ sia un arco appartenente a $E$.
+	\end{itemize}
+	
+	\noindent
+	In generale, gli \textbf{algoritmi di instradamento} sono \textbf{classificati} in due categorie:
+	\begin{itemize}
+		\item \textbf{Algoritmo di instradamento \underline{centralizzato}} calcola il percorso a costo minimo tra una sorgente e una destinazione avendo una conoscenza globale e completa della rete.\newline
+		In altre parole, l’algoritmo riceve in ingresso tutti i collegamenti tra i nodi e i loro costi. Gli algoritmi con informazioni di stato globali sono detti anche \textbf{algoritmi \emph{link-state}} (LS, o con stato del collegamento), dato che l’algoritmo deve essere conscio del costo di ciascun collegamento della rete;
+		
+		\item \textbf{Algoritmo di instradamento \underline{decentralizzato}}, il percorso a costo minimo viene calcolato in modo distribuito e iterativo. Nessun nodo possiede informazioni complete sul costo di tutti i collegamenti di rete. In questo caso viene studiato l’\textbf{algoritmo \emph{distance-vector}} (DV, o con vettore delle distanze), poiché ogni nodo elabora un vettore di stima dei costi (distanze) verso tutti gli altri nodi n-ella rete.
+	\end{itemize}
+	
+	\noindent
+	C’è un \textbf{ulteriore criterio di classificazione}:
+	\begin{itemize}
+		\item \textbf{Algoritmi di instradamento \underline{statici}} i percorsi vengono cambiati molto raramente, spesso come risultato di un intervento umano (per esempio, la modifica manuale di una tabella di inoltro di un router);
+		
+		\item \textbf{Algoritmi di instradamento \underline{dinamici}} determinano gli instradamenti al variare del volume di traffico o della topologia della rete.
+	\end{itemize}
+	
+	\noindent
+	Un ultimo metodo di classificazione riguardo la \textbf{sensibilità al carico della rete}:
+	\begin{itemize}
+		\item \textbf{Algoritmo \underline{sensibile al carico}} (\emph{load-sensitive}) i costi dei collegamenti variano dinamicamente per riflettere il livello corrente di congestione;
+		
+		\item \textbf{Algoritmo \underline{insensibile al carico}} (\emph{load-insensitive}) il costo di un collegamento non riflette esplicitamente il suo attuale (o recente) livello di congestione, per cui non tiene conto di questa sensibilità. Gli algoritmi di instradamento attuali di Internet funzionano in tale modo.
+	\end{itemize}
+	Infine, esistono \textbf{due tipi di consegne}: \textbf{diretta}, se i due host appartengono alla stessa rete, \textbf{indiretta}. Nel primo caso l'host mittente controlla la propria maschera e i bit del suo prefisso con quello del destinatario. Nel caso in cui sono uguali, allora l'host di destinazione si trova nella stessa rete. Per la consegna indiretta, semplicemente l'host consegna il pacchetto al router.\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio sul controllo della congestione TCP}}
+	
+	L’applicazione A deve trasferire all'applicazione B $104'000$ Byte. La connessione è già stata instaurata. I dati disponibili sono:
+	\begin{itemize}
+		\item $\textsf{MSS} = 1'200$ Byte
+		\item $\textsf{RCV WND} = 9'600$ Byte costante
+		\item $\textsf{SSTHRESH} = \textsf{RCV WND}$ iniziale
+		\item $\textsf{RTT} = 1$ secondo costante
+		\item $\textsf{RTO} = \textsf{RTT} \times 2$ e raddoppia in caso di perdite consecutive
+	\end{itemize}
+	Infine, nell'intervallo aperto $11.5 - 12.5$ è presente un \emph{down} di rete. Inoltre:
+	\begin{itemize}
+		\item A partire da $t_{A} > 4.0$ la destinazione annuncia una $\textsf{RCV WND} = 14'400$ Byte;
+		\item A partire da $t_{B} > 9.0$ la destinazione annuncia una $\textsf{RCV WND} =  7'200$ Byte.
+	\end{itemize}
+	
+	\noindent
+	Il \textbf{primo passo} per risolvere l'esercizio è la numerazione dei segmenti. Per farlo basta prendere il numero dei Byte da trasferire e dividere il valore per la \textsf{MSS}:
+	\begin{equation*}
+		\textbf{Numero di segmenti da inviare } \rightarrow 104'400 \div 1'200 = 87 \emph{ segmenti}
+	\end{equation*}
+	Prima di passare al secondo passaggio e osservare il numero di segmenti da inviare, è necessario ottenere il valore della \textsf{RCV WND} (finestra massima di ricezione) per avere conseguentemente anche la \textsf{CWND}. Essa è possibile calcolarla facendo una semplice divisione tra il numero di Byte della \textsf{RCV WND} e della \textsf{MSS}:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textbf{\textsf{RCV WND}} & \rightarrow & 9'600 \div 1'200 = 8 \emph{ segmenti} \\
+			\textbf{\textsf{RCV WND}}\text{ al tempo }t_{4} & \rightarrow & 14'400 \div 1'200 = 12 \emph{ segmenti} \\
+			\textbf{\textsf{RCV WND}}\text{ al tempo }t_{9} & \rightarrow & 7'200 \div 1'200 = 6 \emph{ segmenti}
+		\end{array}
+	\end{equation*}
+	E la \textsf{SSTHRESH}, come scritto nei dati del testo dell'esercizio, è uguale alla \emph{receive window}:
+	\begin{equation*}
+		\textsf{\textbf{SSTHRESH}} \rightarrow 8 \emph{ segmenti}
+	\end{equation*}\newpage
+
+	\noindent
+	Il \textbf{secondo passo} necessita di uno schema. Esso ha nell’asse delle ascisse ($x$) il tempo e nell’asse delle ordinate ($y$) la \textsf{CWND}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex4_congestione.pdf}
+	\end{figure}
+
+	\noindent
+	L’unica osservazione degna di nota riguarda il cambio di \textsf{RCV WND} durante l’invio di pacchetti. Infatti, al tempo $t_{4}$ la destinazione cambia la \textsf{RCV WND} da $8$ a $12$. Questo cambiamento ha effetto solamente una volta ricevuti gli \textsf{ACK} del pacchetto inviato al tempo $t_{4}$. In altre parole, al tempo $t_{4}$ vengono inviati i pacchetti ($8$) e al tempo $t_{5}$ la sorgente viene a conoscenza del cambiamento della \textsf{RCV WND}. A questo punto, seguendo l’algoritmo, i pacchetti da inviare aumentano di $1$ nel tempo finché a $t_{8}$ non raggiungono il massimo.\newline
+	
+	\noindent
+	Ancora una volta, al tempo $t_{9}$ avviene una diminuzione della \textsf{RCV WND}, il mittente si adegua di conseguenza al momento della ricezione dei pacchetti ($12$) inviati.\newline
+	
+	\noindent
+	Il \textbf{\emph{down} di rete} provoca una perdita di pacchetti e la \textsf{SSTHRESH} diventa la metà della \textsf{CWND} precedente, ovvero $6$, diventando quindi $3$.\newline
+	
+	\noindent
+	Infine, la chiusura avviene in modo classico, ovvero:
+	\begin{equation*}
+		\textsf{CWND}_{old} + \dfrac{\text{\#ack ricevuti}}{\textsf{CWND}_{old}} = 3 + \dfrac{1}{3}
+	\end{equation*}
+	Il conteggio progressivo:
+	\begin{equation*}
+		1+2+4+8+8+9+10+11+12+12+6+\cancel{6}+1+2+\cancelto{1}{3}=87
+	\end{equation*}
 \end{document}
