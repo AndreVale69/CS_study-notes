@@ -1880,7 +1880,7 @@
 	\end{itemize}
 	Per cui, si conclude che il \textbf{protocollo IP} è un \underline{\textbf{servizio \emph{non} affidabile}}. Nonostante l'inaffidabilità del protocollo, quest'ultimo ha una motivazione solida per essere tale: il protocollo di trasporto, TCP o UDP, si occupa dell'affidabilità. Per cui sarebbe ridondante avere due livelli che si preoccupano di questa caratteristica.\newpage
 	
-	\subsection{Formato dei datagrammi (IPv4)}
+	\subsection{Formato dei datagrammi (IPv4)}\label{ipv4}
 	
 	Come detto nei capitoli precedenti, il pacchetto a livello di rete viene chiamato \textcolor{Red3}{\textbf{datagramma}}. Il formato dei datagrammi IPv4 è mostrato qui di seguito:
 	
@@ -2456,5 +2456,114 @@
 	Se tutti i datagrammi in arrivo al router \textsf{NAT} della rete geografica hanno lo stesso indirizzo IP di destinazione, allora come capisce il router ha quale host interno inoltrare il datagramma? Viene \textbf{utilizza una tabella di traduzione \textsf{NAT}} (\textsf{NAT} \emph{translation table}) nel router \textsf{NAT} e vengono incluse delle righe nella tabella contenenti il numero di porta oltre che gli indirizzi IP.\newline
 	
 	\noindent
-	Quindi, il router scrive l’indirizzo di destinazione del datagramma e il suo numero di porta di destinazione e inoltra il datagramma nella rete domestica.
+	Quindi, il router scrive l’indirizzo di destinazione del datagramma e il suo numero di porta di destinazione e inoltra il datagramma nella rete domestica.\newpage
+	
+	\section{Formato dei datagrammi IPv6}
+	
+	\subsection{Datagramma IPv6}
+	
+	Qui di seguito viene riportato il formato di un \textcolor{Red3}{\textbf{datagramma di un protocollo IP versione 6}} (IPv6). La mancata descrizione di alcuni campi non è un errore. Data la somiglianza con la versione 4, si rimanda al capitolo~\ref{ipv4} a pagina~\pageref{ipv4}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.85\textwidth]{img/datagrammi_ipv6.pdf}
+		\caption{Formato dei datagrammi nella versione IPv6.}
+	\end{figure}
+
+	\noindent
+	I \textbf{\underline{cambiamenti} più significativi} e i campi identici sono:
+	\begin{itemize}[label=\ding{51}]
+		\item \textbf{Indirizzamento esteso}. La dimensione dell'indirizzo IP passa da 32 bit a 128 bit, così che gli indirizzi IP diventino praticamente inesauribili ($2^{128} = 340$ undecillion, $340$ trilioni di trilioni di trilioni).
+		
+		\item \textbf{Intestazione ottimizzata di 40 byte}. L'intestazione pari a 40 byte, lunghezza fissa, consente una più rapida elaborazione dei datagrammi IP, mentre una nuova codifica delle opzioni ne consente l’elaborazione più flessibile.
+		
+		\item \textbf{Etichettatura dei flussi}. Un \textbf{flusso} in un IPv6 è una sorta di \textbf{etichettatura effettuata ai pacchetti per i quali il mittente richiede una gestione speciale}, come una qualità di servizio diversa da quella di default o un servizio in tempo reale.
+	\end{itemize}
+	Le \textbf{\underline{principali differenze} con la versione 4} (IPv4) sono:
+	\begin{itemize}
+		\item \textbf{Versione}. Campo da 4 bit che identifica il numero di versione IP, che per IPv6 è uguale a 6.
+		
+		\item \textbf{Classe di traffico}. Campo da 8 bit, simile al campo \textsf{TOS} in IPv4. Viene usato per attribuire proprietà a determinati datagrammi all'interno di un flusso.
+		
+		\item \textbf{Etichetta di flusso}. Campo da 20 bit utilizzato per identificare un flusso di datagrammi.
+		
+		\item \textbf{Lunghezza del payload}. Questo valore a 16 bit viene considerato senza segno e indica il numero di byte nel datagramma IPv6 che seguono l'intestazione a lunghezza fissa di 40 byte.
+		
+		\item \textbf{Intestazione successiva}. Campo che identifica il protocollo a cui verranno consegnati i contenuti (campo dati) del datagramma, per esempio \textsf{UDP} o \textsf{TCP}.
+		
+		\item \textbf{Limite di hop}. Viene decrementato di 1 da ogni router che inoltra il datagramma. Una volta a zero viene eliminato il datagramma.
+		
+		\item \textbf{Indirizzi sorgente e destinazione}. I diversi formati degli indirizzi IPv6 a 128 bit sono descritti nell'RFC 4291.
+		
+		\item \textbf{Dati}. È il \emph{payload} che viene passato al protocollo specificato nel campo di \dquotes{intestazione successiva} quando il datagramma IPv6 raggiunge una destinazione.
+	\end{itemize}
+	Inoltre, rispetto alla versione IPv4 sono stati \textbf{\underline{eliminati}}:
+	\begin{itemize}[label=\ding{55}]
+		\item \textbf{Frammentazione/riassemblaggio}. IPv6 non consente queste operazioni ai router intermedi, ma le effettuano solamente la sorgente o destinazione, quindi le periferiche che sono \underline{molto più rapide} più rapide. Nel caso di una dimensione eccessiva, viene inviato un errore al mittente.
+		
+		\item \textbf{Checksum dell’intestazione}. I protocolli Internet a livello di trasporto (\textsf{UDP} e \textsf{TCP}) e di collegamento (Ethernet) calcolano un loro \emph{checksum}. I progettisti hanno dunque pensato che fosse una funzionalità ridondante. Infatti, nel IPv4, ogni router deve ricalcolare il \emph{checksum} dell’intestazione.
+		
+		\item \textbf{Opzioni}. Grazie all’eliminazione di questo campo, la lunghezza dell’intestazione IP è fissata a 40 byte.
+	\end{itemize}
+	Infine, per rappresentare gli indirizzi con la versione IPv6 si utilizza la \textbf{notazione esadecimale}, la quale è molto più compatta della decimale. Quindi, dato che ci sono 128 bit, vengono formati 8 gruppi da 16 bit. Ogni gruppo viene rappresentato con 4 semplici cifre esadecimali ($4$ bit $\times 4$ cifre $ = 16$ bit). Per esempio $69\mathrm{DC} : 8864 : \mathrm{FFFF} : 0000 : \cdots$.\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio sul controllo della congestione TCP}}
+	
+	L’applicazione A deve trasferire all'applicazione B $77'500$ Byte. La connessione è già stata instaurata. I dati disponibili sono:
+	\begin{itemize}
+		\item $\textsf{MSS} = 1'250$ Byte
+		\item $\textsf{RCV WND} = 10'000$ Byte costante
+		\item $\textsf{SSTHRESH} = \textsf{RCV WND}$ iniziale
+		\item $\textsf{RTT} = 1$ secondo costante
+		\item $\textsf{RTO} = \textsf{RTT} \times 2$ e raddoppia in caso di perdite consecutive
+	\end{itemize}
+	Infine, negli intervalli aperti $8.00 - 10.00$ e $13.5 - 14.5$ è presente un \emph{down} di rete. Inoltre:
+	\begin{itemize}
+		\item A partire da $t_{A} > 4.0$ la destinazione annuncia una $\textsf{RCV WND} = 17'500$ Byte;
+		\item A partire da $t_{B} > 8.0$ la destinazione annuncia una $\textsf{RCV WND} = 12'500$ Byte.
+	\end{itemize}
+	
+	\noindent
+	Il \textbf{primo passo} per risolvere l'esercizio è la numerazione dei segmenti. Per farlo basta prendere il numero dei Byte da trasferire e dividere il valore per la \textsf{MSS}:
+	\begin{equation*}
+		\textbf{Numero di segmenti da inviare } \rightarrow 77'500 \div 1'250 = 62 \emph{ segmenti}
+	\end{equation*}
+	Prima di passare al secondo passaggio e osservare il numero di segmenti da inviare, è necessario ottenere il valore della \textsf{RCV WND} (finestra massima di ricezione) per avere conseguentemente anche la \textsf{CWND}. Essa è possibile calcolarla facendo una semplice divisione tra il numero di Byte della \textsf{RCV WND} e della \textsf{MSS}:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textbf{\textsf{RCV WND}} & \rightarrow & 10'000 \div 1'250 = 8 \emph{ segmenti} \\
+			\textbf{\textsf{RCV WND}}\text{ al tempo }t_{4} & \rightarrow & 17'500 \div 1'250 = 14 \emph{ segmenti} \\
+			\textbf{\textsf{RCV WND}}\text{ al tempo }t_{8} & \rightarrow & 12'500 \div 1'250 = 10 \emph{ segmenti}
+		\end{array}
+	\end{equation*}
+	E la \textsf{SSTHRESH}, come scritto nei dati del testo dell'esercizio, è uguale alla \emph{receive window}:
+	\begin{equation*}
+		\textsf{\textbf{SSTHRESH}} \rightarrow 8 \emph{ segmenti}
+	\end{equation*}\newpage
+	
+	\noindent
+	Il \textbf{secondo passo} necessita di uno schema. Esso ha nell’asse delle ascisse ($x$) il tempo e nell’asse delle ordinate ($y$) la \textsf{CWND}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex5_congestione.pdf}
+	\end{figure}
+	
+	\noindent
+	L’unica osservazione da effettuare è il cambiamento della \textsf{RCV WND}. Infatti, quest’ultima, al tempo $t_{8}$ sarebbe dovuta diventare uguale a $10$. Tuttavia, a causa del down di rete, il destinatario non è riuscito a comunicare il cambio di \textsf{RCV WND} al mittente.\newline
+	
+	\noindent
+	La comunicazione è dunque avvenuta solamente quando il mittente, allo scadere del \textsf{RTO} al tempo $t_{10}$, ha inviato $1$ segmento al destinatario, ricevendo sia il relativo \textsf{ACK} che l’aggiornamento.\newline
+	
+	\noindent
+	La chiusura avviene con il valore $3$ poiché viene effettuato il confronto del valore minimo tra:
+	\begin{equation*}
+		\min\left\{\textsf{CWND}_{old} + \text{\#ack ricevuti}, \textsf{RCV WND}, \textsf{SSTHRESH}\right\}
+	\end{equation*}
+	Quindi:
+	\begin{equation*}
+		\min\left\{2+1,10,3\right\}
+	\end{equation*}
+	Il conteggio progressivo è il seguente:
+	\begin{equation*}
+		1+2+4+8+8+9+10+11+ \cancel{12} +1+2+4+ \cancel{6} +1+ \cancelto{1}{2} =62
+	\end{equation*}
 \end{document}
