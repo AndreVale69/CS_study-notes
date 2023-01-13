@@ -2143,5 +2143,140 @@
 	Il conteggio progressivo:
 	\begin{equation*}
 		1+2+4+8+8+9+10+11+12+12+6+\cancel{6}+1+2+\cancelto{1}{3}=87
+	\end{equation*}\newpage
+
+	\section{Algoritmo di instradamento decentralizzato: \emph{distance-vector}}
+	
+	\subsection{Definizione}
+	
+	L'algoritmo \textcolor{Red3}{\textbf{\emph{distance-vector}}} è iterativo, asincrono e distributivo:
+	\begin{itemize}
+		\item \textbf{Distribuito}. Ciascun nodo riceve parte dell’informazione da uno o più dei suoi vicini direttamente connessi, a cui, dopo aver effettuato il calcolo, restituisce i risultati.
+		\item \textbf{Iterativo}. Questo processo si ripete fino a quando non avviene ulteriore scambio informativo tra vicini.
+		\item \textbf{Asincrono}. Non richiede che tutti i nodi operino al passo con gli altri.
+		\item \textbf{(bonus) Auto-terminante}. Non c’è alcun segnale che il calcolo debba fermarsi, semplicemente si blocca.
+	\end{itemize}
+	Aspetto interessante, i \textbf{costi minimi} sono correlati dalla nota \textbf{formula di Bellman-Ford}:
+	\begin{equation*}
+		d_{x}\left(y\right) = \min_{v}\left\{c\left(x,v\right) + d_{v}\left(y\right)\right\}
 	\end{equation*}
+	In cui $\min_{v}$ riguarda tutti i vicini di $x$.
+	
+	\subsection{Applicazione}
+	
+	\textbf{Per applicare l’algoritmo}, viene utilizzata una tabella chiamata \textbf{tabella di routing} in cui vengono mostrate per ogni destinazione: il prossimo salto (\emph{next hop}) e il costo di raggiungimento della destinazione.
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c c c @{}}
+			\toprule
+			Destinazione	& Prossimo salto (\emph{next hop})	& Costo \\
+			\midrule
+			$k$				& $R_{a}$							& $D\left(i,k\right)$ \\
+			$w$				& $R_{c}$							& $D\left(i,w\right)$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	Inizialmente, per ogni destinazione se si tratta di un vicino diretto, si utilizza la notazione $D\left(i,v\right) = c\left(i,v\right)$, altrimenti si utilizza la notazione $D\left(i,v\right) = \infty$.\newline
+	
+	\noindent
+	\textbf{Periodicamente} si effettuano cronologicamente queste \textbf{due operazioni}:
+	\begin{enumerate}
+		\item Il nodo manda ai propri vicini il risultato dell'applicazione dell'algoritmo \emph{Distance Vector};
+		\item Grazie ai risultati ottenuti dai vicini al punto precedente, viene aggiornata la tabella di \emph{routing}.
+	\end{enumerate}\newpage
+
+	\subsection[Esempio]{\textcolor{Green4}{Esempio}}
+	
+	Dato il seguente grafo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/eg_grafo.pdf}
+	\end{figure}
+	
+	\noindent
+	Si costruiscono le tabelle di \emph{routing} del nodo $A, E$ e $B$.
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c c c @{}}
+			\toprule
+			Destinazione	& Prossimo salto (\emph{next hop})	& Costo \\
+			\midrule
+			$A$				& $-$								& $0$ \\
+			$B$				& $B$								& $7$ \\
+			$C$				& $-$								& $\infty$ \\
+			$D$				& $-$								& $\infty$ \\
+			$E$				& $E$								& $1$ \\
+			\bottomrule
+		\end{tabular}
+		\caption{Tabella di \emph{routing} del nodo $A$.}
+	\end{table}
+
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c c c @{}}
+			\toprule
+			Destinazione	& Prossimo salto (\emph{next hop})	& Costo \\
+			\midrule
+			$A$				& $A$								& $1$ \\
+			$B$				& $B$								& $5$ \\
+			$C$				& $-$								& $\infty$ \\
+			$D$				& $D$								& $2$ \\
+			$E$				& $-$								& $0$ \\
+			\bottomrule
+		\end{tabular}
+		\caption{Tabella di \emph{routing} del nodo $E$.}
+	\end{table}
+
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c c c @{}}
+			\toprule
+			Destinazione	& Prossimo salto (\emph{next hop})	& Costo \\
+			\midrule
+			$A$				& $A$								& $7$ \\
+			$B$				& $-$								& $0$ \\
+			$C$				& $C$								& $1$ \\
+			$D$				& $-$								& $\infty$ \\
+			$E$				& $E$								& $5$ \\
+			\bottomrule
+		\end{tabular}
+		\caption{Tabella di \emph{routing} del nodo $B$.}
+	\end{table}\newpage
+	
+	\noindent
+	Nel momento in cui il nodo $A$ riceve il \emph{distance vector} da $B$:
+	\begin{gather*}
+		D\left(A,B\right) = costo \left(A, \begin{matrix}
+			B \\
+			E
+		\end{matrix}\right) + distanza \left(\begin{matrix}
+			B \\
+			E
+	\end{matrix}, B\right)\\
+	\begin{array}{lll}
+		\text{Considerando } B & \longrightarrow & C\left(A,B\right) + D\left(B,B\right) = 7 + 0 = 7 \\
+		\text{Considerando } E & \longrightarrow & C\left(A,E\right) + D\left(E,B\right) = 1 + \infty = \infty
+	\end{array}
+	\end{gather*}
+	L'equazione scritta viene tradotta nel seguente modo: la distanza dal nodo $A$ al nodo $B$ è data dal costo da $A$ verso il nodo $B$ o il nodo $E$, più la distanza che è stata comunicata dal nodo $B$ o dal nodo $E$, verso $B$. Quindi, sotto l'equazione vengono scritte le casistiche in cui si consideri $B$ o $E$.\newline
+	
+	\noindent
+	Una volta comunicato il \emph{distance vector} ed eseguiti i calcoli, il nodo $A$ \textbf{aggiorna la sua tabella di \emph{routing} inserendo il \underline{valore più piccolo}}. Quindi, in questo caso, $6$ inserendolo nella riga corrispondente a $B$ con relativo \emph{next hop} uguale a $E$.\newline
+	
+	\noindent
+	Nel momento in cui il nodo $A$ riceve il \emph{distance vector} da $C$:
+	\begin{gather*}
+		D\left(A,C\right) = costo \left(A, \begin{matrix}
+			B \\
+			E
+		\end{matrix}\right) + distanza \left(\begin{matrix}
+			B \\
+			E
+		\end{matrix}, C\right)\\
+		\begin{array}{lll}
+			\text{Considerando } B & \longrightarrow & C\left(A,B\right) + D\left(B,C\right) = 7 + 1 = 8 \\
+			\text{Considerando } E & \longrightarrow & C\left(A,E\right) + D\left(E,C\right) = 1 + \infty = \infty
+		\end{array}
+	\end{gather*}
+	In questo caso, il nodo $A$ aggiornerà la sua tabella di \emph{routing} con il valore $8$ (minimo), inserendolo nella riga corrispondente alla destinazione $C$ e relativo \emph{next hop} pari a $B$.
 \end{document}
