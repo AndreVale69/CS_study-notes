@@ -2278,5 +2278,183 @@
 			\text{Considerando } E & \longrightarrow & C\left(A,E\right) + D\left(E,C\right) = 1 + \infty = \infty
 		\end{array}
 	\end{gather*}
-	In questo caso, il nodo $A$ aggiornerà la sua tabella di \emph{routing} con il valore $8$ (minimo), inserendolo nella riga corrispondente alla destinazione $C$ e relativo \emph{next hop} pari a $B$.
+	In questo caso, il nodo $A$ aggiornerà la sua tabella di \emph{routing} con il valore $8$ (minimo), inserendolo nella riga corrispondente alla destinazione $C$ e relativo \emph{next hop} pari a $B$.\newpage
+	
+	\section{Instradamento tra ISP: protocollo BGP}
+	
+	\subsection{Protocollo BGP}
+
+	Gli \textcolor{Red3}{\textbf{ISP} (\emph{Internet Service Protocol})} utilizzano \textbf{due protocolli} importanti:
+	\begin{itemize}
+		\item \textbf{Protocollo \underline{OSPF}} (\emph{Open Shortest Path First}), viene utilizzato per \textbf{determinare i percorsi ottimali} per le coppie sorgente-destinazione \textbf{interne ad un sistema autonomo} (utilizzato soprattutto nelle grandi aziende\footnote{Fonte: \href{https://it.wikipedia.org/wiki/Open_Shortest_Path_First}{Wikipedia}}).
+		
+		\item \textbf{Protocollo \textcolor{Red3}{\textbf{\emph{border gateway protocol}}}} (BGP) è un prtocollo che riesce a determinare i percorsi per le coppie sorgente-destinazione che interessano più sistemi autonomi.
+	\end{itemize}
+	Attualmente, il protocollo BGP rappresenta l'\textbf{attuale standard dei protocolli di instradamento} dei sistemi autonomi in Internet.\newline
+	
+	\noindent
+	Questo protocollo forse è il più importante dei protocolli di Internet, al pari di IP, in quanto è la colla che tiene insieme le migliaia di ISP che formano Internet. È un \textbf{protocollo} di tipo \textbf{\emph{distance-vector} decentralizzato e asincrono}.\newline
+	
+	\noindent
+	Inoltre, il funzionamento di tale protocollo è molto complesso.\newline
+	
+	\noindent
+	Considerando un Router-Actuator\footnote{È un dispositivo I/O che funge da modulo attuatore che include una funzione di termostato programmabile caldo-freddo} di un ISP, la tabella di routing sarà formata dalle destinazioni che si trovano all'interno dell'ISP, e altre che si trovano all'esterno. Quindi, il protocollo di instradamento inter-AS, che coordina più AS (\emph{autonomous system}\footnote{Fonte: \href{https://it.wikipedia.org/wiki/Sistema_autonomo}{WikipediaIT}, \href{https://en.wikipedia.org/wiki/Autonomous_system_(Internet)}{WikipediaENG}}), gestisce/mantiene le prime, mentre il protocollo BGP le seconde.\newline
+	
+	\noindent
+	Si deduce che il \textbf{\emph{next hop} di una destinazione esterna} sarà il \emph{next hop} che corrisponde al cammino minimo per raggiungere il router di bordo per arrivare a tale rete esterna.\newline
+	
+	\noindent
+	Nel caso in cui \textbf{una destinazione esterna è raggiungibile da più router di bordo}, viene utilizzato il sistema \dquotes{\emph{hot potato routing}}, ovvero viene scelto il gateway più vicino al router che deve instradare il pacchetto.\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio - Determinare CIDR e creare subnetting trovando anche indirizzi di broadcast}}
+	
+	Determinare il blocco \textsf{CIDR} totale sapendo che ci sono 4 reti \textsf{LAN} con i seguenti vincoli::
+	\begin{itemize}
+		\item \textsf{LAN1} $\longrightarrow 130$ host
+		\item \textsf{LAN2} $\longrightarrow 270$ host
+		\item \textsf{LAN3} $\longrightarrow 65$ host
+		\item \textsf{LAN4} $\longrightarrow 35$ host
+	\end{itemize}
+	Sapendo che la \textsf{LAN1} contiene l'indirizzo: $46.144.141.41$.\newline
+	
+	\noindent
+	Prima di qualsiasi operazione, si controlla quanti indirizzi necessita ogni \textsf{LAN} e si stabilisce quanti bit servono per raggiungere la richiesta:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textsf{LAN1} & \longrightarrow & 2^{8} = 256 \\
+			\textsf{LAN2} & \longrightarrow & 2^{9} = 512 \\
+			\textsf{LAN3} & \longrightarrow & 2^{7} = 128 \\
+			\textsf{LAN4} & \longrightarrow & 2^{6} = 64
+		\end{array}
+	\end{equation*}
+	Da questi valori si ottiene quanti indirizzi sono necessari per soddisfare tutte le richieste:
+	\begin{equation*}
+		256 + 512 + 128 + 64 = 960 \approx 2^{10} \emph{ indirizzi}
+	\end{equation*}
+	Adesso è possibile ottenere il numero di bit che possiede l'indirizzo:
+	\begin{equation*}
+		2^{32} \div 2^{10} = 2^{22}
+	\end{equation*}
+	Viene costruito il blocco \textsf{CIDR} della rete partendo dall'indirizzo della \textsf{LAN1} fornito dal testo.\newline
+	Per farlo, viene tradotto l'indirizzo in binario:
+	\begin{equation*}
+		\binaryaddresspointed{00001110}{00010000}{00001101}{00001001}
+	\end{equation*}
+	Messi a zero i bit del suffisso:
+	\begin{equation*}
+		\binaryaddress{00001110}{00010000}{000011\boldsymbol{00}}{\boldsymbol{00000000}}
+	\end{equation*}
+	E ritradotto in decimale per ottenere il blocco \textsf{CIDR}:
+	\begin{equation*}
+		46.144.140.0/22
+	\end{equation*}
+	Adesso è possibile creare le sottoreti, quindi si parte diminuendo il suffisso da 10 a 9 ottenendo due indirizzi da assegnare o da scomporre nuovamente:
+	\begin{gather*}
+		\binaryaddresspointed{00001110}{00010000}{000011\textcolor{Red3}{\boldsymbol{1}}0}{00000000}/23 \rightarrow \textsf{LAN2} \rightarrow 46.144.142.0/23 \\
+		\binaryaddress{00001110}{00010000}{000011\textcolor{Red3}{\boldsymbol{0}}0}{00000000}/23
+	\end{gather*}
+	Si esegue la scomposizione nuovamente, notando che la scelta appena scritta non è stata casuale.\newline
+	Infatti, dato che l'indirizzo della \textsf{LAN1} deve essere:
+	\begin{equation*}
+		\binaryaddresspointed{00001110}{00010000}{00001101}{00001001}
+	\end{equation*}
+	Il bit non poteva essere 1, perché altrimenti sarebbe stato sbagliato.
+	\begin{gather*}
+		\binaryaddresspointed{00001110}{00010000}{0000110\textcolor{Red3}{\boldsymbol{1}}}{00000000}/24 \rightarrow \textsf{LAN1} \rightarrow 46.144.141.0/24 \\
+		\binaryaddresspointed{00001110}{00010000}{0000110\textcolor{Red3}{\boldsymbol{0}}}{00000000}/24
+	\end{gather*}
+	Assegnato l'indirizzo alla \textsf{LAN1}, si continua:
+	\begin{gather*}
+		\binaryaddresspointed{00001110}{00010000}{00001100}{\textcolor{Red3}{\boldsymbol{0}}0000000}/25 \rightarrow \textsf{LAN3} \rightarrow 46.144.140.0/25 \\
+		\binaryaddresspointed{00001110}{00010000}{00001100}{\textcolor{Red3}{\boldsymbol{1}}0000000}/25
+	\end{gather*}
+	Un'ultima volta:
+	\begin{gather*}
+		\binaryaddresspointed{00001110}{00010000}{00001100}{1\textcolor{Red3}{\boldsymbol{0}}000000}/26 \rightarrow \textsf{LAN4} \rightarrow 46.144.140.128/26 \\
+		\binaryaddresspointed{00001110}{00010000}{00001100}{1\textcolor{Red3}{\boldsymbol{1}}000000}/26
+	\end{gather*}
+	Infine, si ottengono gli indirizzi broadcast mettendo tutti i bit del suffisso ad $1$ e ritraducendo l'indirizzo da binario a decimale. Si omettono i passaggi perché identici a esercizi svolti nei capitoli precedenti:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textsf{LAN1} & \longrightarrow & 46.144.141.255/24 \\
+			\textsf{LAN2} & \longrightarrow & 46.144.143.255/23 \\
+			\textsf{LAN3} & \longrightarrow & 46.144.140.127/25 \\
+			\textsf{LAN4} & \longrightarrow & 46.144.140.191/26
+		\end{array}
+	\end{equation*}\newpage
+	
+	\section{DHCP, problema di carenza IP e NAT}
+	
+	\subsection{DHCP}
+	
+	Gli indirizzi degli host possono essere configurati manualmente, ma spesso questo compito è svolto utilizzando il \textcolor{Red3}{\textbf{\emph{dynamic host configuration protocol}}} (\textbf{DHCP}). Quest’ultimo \textbf{consente a un host di ottenere un indirizzo IP in modo automatico}, così come di apprendere informazioni aggiuntive, quali la maschera di sottorete, l’indirizzo del router per uscire dalla sottorete (spesso detto router di default o gateway) e l’indirizzo del suo DNS server locale.\newline
+	
+	\noindent
+	Inoltre, il DHCP viene chiamato anche protocollo \textbf{\emph{plug-and-play}} o \textbf{\emph{zero-conf}} (\emph{zero configuration}) grazie alla sua capacità di automatizzare la connessione degli host alla rete.\newline
+	
+	\noindent
+	Per i nuovi host, il protocollo DHCP si articola in quattro punti rappresenta in figura~\ref{DHCP immagine}. Il nome \emph{yiaddrr} (\emph{your Internet address}, il tuo indirizzo Internet) indica l'indirizzo assegnato al client connesso.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/DHCP.pdf}
+		\caption{Interazione \emph{client-server} tramite il protocollo DHCP.}\label{DHCP immagine}
+	\end{figure}\newpage
+	
+	\noindent
+	I passi eseguiti sono i seguenti:
+	\begin{enumerate}
+		\item \underline{\textbf{Individuazione del server DHCP (\textcolor{Red3}{DHCP \emph{discover}})}}. L’host collegato ha il compito di trovare il server \textsf{DHCP} con cui interagire. Per farlo \textbf{invia un pacchetto} \textsf{UDP} in modalità \textbf{\emph{broadcast}} a tutti i membri della rete con il messaggio \textsf{DHCP} \emph{discover}, attraverso la porta $67$. Al momento del collegamento, l’host ha un indirizzo IP speciale, cioè $0.0.0.0$ e l’indirizzo \emph{broadcast} che utilizza è $255.255.255.255$
+		
+		\item \underline{\textbf{Offerta del server DHCP (\textcolor{Red3}{DHCP \emph{offer}})}}. I server interessati (plurale perché in una rete ci possono essere più server!) \textbf{rispondono al messaggio del host} tramite un messaggio di tipo \textsf{DHCP} \emph{offer}, il quale viene \textbf{inviato in \emph{broadcast}} a tutti i nodi della sottorete utilizzando sempre l’indirizzo IP \emph{broadcast} dato che l’host ancora non ha alcun indirizzo IP!\newline
+		Il \textbf{server} quando effettua la \textbf{risposta in \emph{broadcast}}, invia:
+		\begin{itemize}[label=-]
+			\item \textbf{ID} di transazione del messaggio di identificazione ricevuto;
+			\item \textbf{Indirizzo IP} proposto al client;
+			\item \textbf{Maschera di sottorete};
+			\item \textbf{Durata di connessione} (\emph{lease time}) dell'indirizzo IP, cioè il tasso di tempo durante il quale l'indirizzo IP sarà valido.
+		\end{itemize}
+		
+		\item \underline{\textbf{Richiesta DHCP (\textcolor{Red3}{DHCP \emph{request}})}}. L’\textbf{host sceglie} tra le varie offerte dei \textbf{server} e \textbf{risponderà} con un messaggio \textsf{DHCP} \emph{request}, il quale riporta i parametri di configurazione.
+		
+		\item \underline{\textbf{Conferma DHCP (\textcolor{Red3}{DHCP ACK})}}. Il \textbf{server risponde} al messaggio di richiesta \textsf{DHCP} con un messaggio \textsf{DHCP ACK}, che conferma i parametri richiesti.
+	\end{enumerate}
+
+	\subsection{Carenza degli indirizzi IP}
+	
+	Con gli IP a $32$ bit è possibile creare al massimo 4 miliardi di indirizzi IP. È evidente come sia un problema ai giorni nostri, dato che nel mondo siamo più di 8 miliardi. Esistono due possibili soluzioni a questa carenza:
+	\begin{enumerate}
+		\item Cambiare il protocollo IP da IPv4 al protocollo IPv6;
+		\item Introdurre classi di indirizzi privati.
+	\end{enumerate}
+	La prima soluzione è un po' utopistica ora come ora poiché cambiare il protocollo vorrebbe dire cambiare le infrastrutture di programmazione create molti anni fa e attualmente funzionanti. La seconda, invece, è quella attuale.\newline
+	
+	\noindent
+	Quindi, attualmente esistono \textbf{due tipi di indirizzi IP}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Pubblici}}, sono unici, quindi non esistono doppioni;
+		\item \textcolor{Red3}{\textbf{Privati}}, usati nelle rete locali, unici quindi all'interno di una rete locale. Tuttavia, non hanno la possibilità di essere esposti al mondo di Internet (indirizzi più comuni: $10.0.0.0/8$, $172.16.0.0/12$, $192.168.0.0/16$, $169.254.0.0/16$).
+	\end{itemize}
+	
+	\subsection{NAT}
+	
+	Pensandoci bene, gli indirizzi IP privati \textbf{non possono comunicare all'esterno di una rete locale}. Dunque, sorge spontanea una domanda: qual è il loro scopo?\newline
+	Per rispondere, si introduce il \textcolor{Red3}{\textbf{\emph{Network Address Translation}}}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/NAT.pdf}
+		\caption{Funzionamento di \textsf{NAT} (\emph{Network Address Translation}).}
+	\end{figure}
+
+	\noindent
+	L’\underline{\textbf{obbiettivo}} del \textsf{NAT} è quello di \textbf{consentire a gli indirizzi IP privati di comunicare tramite Internet}. Ovviamente, questo sistema consente di risparmiare moltissimi indirizzi IP e di salvaguardare anche la sicurezza.\newline
+	
+	\noindent
+	I router abilitati al \textsf{NAT} non appaiono come \textbf{router} al mondo esterno, ma si \textbf{comportano come un \underline{unico} dispositivo con un \underline{unico} indirizzo IP}. In figura tutto il traffico che lascia il router domestico verso Internet ha l’indirizzo IP di origine $138.76.29.7$ e tutto il traffico in entrata deve avere lo stesso indirizzo come destinazione.\newline
+	
+	\noindent
+	Se tutti i datagrammi in arrivo al router \textsf{NAT} della rete geografica hanno lo stesso indirizzo IP di destinazione, allora come capisce il router ha quale host interno inoltrare il datagramma? Viene \textbf{utilizza una tabella di traduzione \textsf{NAT}} (\textsf{NAT} \emph{translation table}) nel router \textsf{NAT} e vengono incluse delle righe nella tabella contenenti il numero di porta oltre che gli indirizzi IP.\newline
+	
+	\noindent
+	Quindi, il router scrive l’indirizzo di destinazione del datagramma e il suo numero di porta di destinazione e inoltra il datagramma nella rete domestica.
 \end{document}
