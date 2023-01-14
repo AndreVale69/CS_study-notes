@@ -2591,7 +2591,7 @@
 	\begin{itemize}
 		\item \textcolor{Red3}{\textbf{Framing}}. Quasi tutti i protocolli incapsulano i datagrammi del livello di rete all'interno di un frame a livello logico (o di collegamento), prima di trasmetterlo;
 		
-		\item \textcolor{Red3}{\textbf{Accesso al collegamento}}. Un protocollo che controlla l'accesso al mezzo trasmittivo (MAC, \emph{medium access control}) e specifica le regole con cui immette i frame nel collegamento. Esistono dei casi in cui vari nodi condividono un singolo canale broadcast e qui nasce il \textbf{problema degli accessi multipli} trattato nel prossimo capitolo.
+		\item \textcolor{Red3}{\textbf{Accesso al collegamento}}. Un protocollo che controlla l'accesso al mezzo trasmittivo (MAC, \emph{medium access control}) e specifica le regole con cui immettere i frame nel collegamento. Esistono dei casi in cui vari nodi condividono un singolo canale broadcast e qui nasce il \textbf{problema degli accessi multipli} trattato nel prossimo capitolo.
 		
 		\item \textcolor{Red3}{\textbf{Consegna affidabile}}. I protocolli a livello logico (o di collegamento) che forniscono un servizio di consegna affidabile garantiscono il trasporto senza errori di ciascun datagramma.
 		
@@ -2669,5 +2669,108 @@
 			\binaryaddresspointed{10110010}{11110010}{010101\textcolor{Red3}{\boldsymbol{0}}0}{00000000}/23 & \rightarrow & \textsf{LAN1} & \rightarrow & 178.242.84.0/23 \\
 			\binaryaddresspointed{10110010}{11110010}{010101\textcolor{Red3}{\boldsymbol{1}}0}{00000000}/23 & \rightarrow & \textsf{LAN2} & \rightarrow & 178.242.86.0/23
 		\end{array}
-	\end{equation*}
+	\end{equation*}\newpage
+
+	\section{Problema dell'accesso multiplo, protocollo ALOHA e slotted ALOHA}
+	
+	\subsection{Problema dell'accesso multiplo}
+	
+	Nel precedente capitolo è stato introdotto il livello logico e le sue varie caratteristiche. Tra queste è stato menzionato anche l'\textbf{accesso al collegamento}. Ovvero, un protocollo che controlla l'accesso al mezzo trasmittivo (MAC, \emph{medium access control}) e specifica le regole con cui immettere i frame nel collegamento. Tuttavia, in alcuni casi in cui vari nodi condividono un canale \emph{broadcast}, nascono problemi.\newline
+	
+	\noindent
+	Un \textbf{collegamento \emph{broadcast}} può avere più nodi trasmittenti e riceventi connessi allo stesso canale broadcast condiviso. Il termine \textbf{\emph{broadcast} indica che, quando un nodo trasmette un frame, il canale lo diffonde e tutti gli altri nodi ne ricevono una copia}. Ethernet e Wireless LAN sono esempi.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{problema}} principale riguarda l'\textcolor{Red3}{\textbf{accesso multiplo}}: come coordinare l'accesso di più nodi trasmittenti e riceventi in un canale \emph{broadcast} condiviso.\newline
+	Dato che tutti i nodi sono in grado di trasmettere frame, è possibile che due o più lo facciano nello stesso istante, per cui tutti i nodi riceveranno contemporaneamente più frame. Tra questi \textbf{si genera una collisione} a causa della quale nessuno dei nodi riceventi riuscirà a interpretare i frame che, in un certo senso, risultano ingarbugliati tra loro. Quindi, \textbf{con la collisione si verifica una perdita di frame}.\newline
+	
+	\noindent
+	Solitamente, per risolvere tale problema le reti di calcolatori utilizzano i \textbf{protocolli di accesso multiplo} che fissano le modalità con cui i nodi regolano le loro trasmissioni sul canale condiviso. Si classificano in tre categorie:
+	\begin{enumerate}
+		\item \textbf{Protocolli a suddivisione del canale} (\emph{channel partitioning protocol});
+		\item \textbf{Protocolli ad accesso casuale} (\emph{random access protocol});
+		\item \textbf{Protocolli a rotazione} (taking-turn protocol).
+	\end{enumerate}
+	Tuttavia, solitamente si effettuano solo due categorizzazioni:
+	\begin{itemize}
+		\item \textbf{Protocolli d'allocazione del canale di trasmissione \underline{statica}} (\emph{Time Division Multiplexing, Frequency Division Multiplexing});
+		\item \textbf{Protocolli d'allocazione del canale di trasmissione \underline{dinamica}} (\emph{ALOHA, slotted ALOHA}).
+	\end{itemize}
+	I \underline{protocolli d’allocazione del canale di trasmissione dinamici} sono i \textbf{più interessanti}. In particolare, un \textbf{nodo trasmette sempre alla massima velocità consentita dal canale}. Quando si manifesta una \textbf{collisione}, i \textbf{nodi} coinvolti \textbf{ritrasmettono} ripetutamente i loro \textbf{frame} (cioè i pacchetti) fino a quando raggiungono la destinazione, senza collisioni. La \textbf{ritrasmissione} del frame \textbf{non è immediata}, ma il nodo \textbf{attende per un periodo di tempo casuale} (\emph{random delay}); ogni nodo coinvolto in una collisione seleziona un ritardo casuale indipendente da quello degli altri nodi. Le differenti scelte arbitrarie del tempo di attesa operate dai diversi nodi, possono consentire ai frame di attraversare il canale senza ulteriori collisioni.
+	
+	\subsection{Protocollo \emph{Slotted} ALOHA}
+	
+	Si ipotizzi che:
+	\begin{itemize}[label=-]
+		\item Tutti i frame sono esattamente $L$ bit;
+
+		\item Il tempo viene suddiviso in slot da $\frac{L}{R}$ secondi, cioè uno slot equivale al tempo di trasmissione di un pacchetto;
+
+		\item I nodi cominciano la trasmissione dei frame solo all’inizio degli slot;
+
+		\item I nodi sono sincronizzati in modo che tutti sappiano quando iniziano gli slot;
+
+		\item Se si manifesta una collisione, tutti i nodi della rete rilevano l’evento prima del termine dello slot.
+	\end{itemize}
+	Inoltre, si chiama \textbf{una probabilità} $p$ che è un numero compreso tra 0 e 1.\newline
+
+	\noindent
+	Quindi, le operazioni dei nodi \textcolor{Red3}{\textbf{\emph{slotted} ALOHA}} sono semplici:
+	\begin{itemize}
+		\item \textbf{Se un nodo ha un nuovo frame da spedire}, attende fino all'inizio dello slot successivo e poi trasmette l'intero frame;
+		
+		\item \textbf{Se non si verifica una collisione}, l'operazione ha avuto successo! Il nodo può predisporre l'invio di un nuovo frame;
+		
+		\item \textbf{Se si verifica una collisione}, il nodo rileva prima del termine dello slot e ritrasmette con probabilità $p$ il suo frame durante gli slot successivi, fino a quando l'operazione non ha successo.
+	\end{itemize}
+	Per \dquotes{ritrasmissione con probabilità $p$} si intende la scelta di un valore casuale.\newline
+	
+	\noindent
+	Quindi, \emph{slotted} ALOHA consente a un singolo nodo di \textbf{trasmettere continuamente pacchetti alla massima velocità del canale}, quando è il solo nodo attivo. Un nodo si dice attivo se ha un frame da trasmettere. \emph{Slotted} ALOHA è anche \textbf{fortemente decentralizzato}, in quanto ciascun nodo rileva le collisioni e decide indipendentemente quando ritrasmettere, anche se è comunque necessario che gli slot siano sincronizzati ai nodi.
+	
+	\subsection{ALOHA}
+	
+	\textcolor{Red3}{\textbf{ALOHA}} è un protocollo privo di slot, completamente decentralizzato.\newline
+	
+	\noindent
+	Appena \textbf{arriva un frame}, il nodo lo trasmette immediatamente e integralmente nel canale \emph{broadcast}. Se un \textbf{frame va in collisione}, allora il \textbf{nodo lo ritrasmette immediatamente} (dopo aver completato la trasmissione del frame) \textbf{con probabilità $p$}, quindi dopo un tempo casuale.\newline
+	
+	\noindent
+	Nel caso in cui \textbf{non ci sia collisione}, si attende il tempo di trasmissione del frame. Una volta trascorso quel tempo, il nodo ritrasmetterà il frame con probabilità $p$ o aspetterà, restando inattivo per un altro periodo di tempo, con probabilità $1-p$.\newpage
+	
+	\subsection{Efficienza ALOHA vs \emph{slotted} ALOHA}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/efficienza_aloha_vs_slotted.pdf}
+		\caption{Efficienza a confronto tra il protocollo ALOHA e \emph{slotted} ALOHA. È ovvio che lo \emph{slotted} ALOHA è il migliore.}
+	\end{figure}
+
+	\subsection{\textcolor{Red3}{Esercizio - Creare una tabella di routing}}
+	
+	Dato il seguente schema, calcolare la tabella di routing del router $A$ considerando come metrica il numero di \emph{hop} e assumendo che il router $x$ abbia comunicato di poter raggiungere tutte le destinazioni di internet con 5 \emph{hop}.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.88\textwidth]{img/tab_routing.pdf}
+	\end{figure}
+
+	\noindent
+	Ogni \emph{router} è connesso alle \textsf{LAN} vicine, quindi il \emph{router} $A$ alla \textsf{LAN1} e \textsf{LAN2}, il \emph{router} $B$ alla \textsf{LAN2} e \textsf{LAN3}, il \emph{router} $C$ alla \textsf{LAN3} e al \emph{router} $X$, infine il \emph{router} $X$ alla \textsf{LAN1} e ad Internet.\newline
+	
+	\noindent
+	La tabella di routing $A$ è la seguente:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c c c @{}}
+			\toprule
+			Destinazione	& Costo	& \emph{Next Hop} \\
+			\midrule
+			\textsf{LAN1}		& $1$	& Diretta \\
+			\textsf{LAN2}		& $1$	& Diretta \\
+			\textsf{LAN3}		& $2$	& $B$ \\
+			\textsf{Internet}	& $1+5$	& $X$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
 \end{document}
