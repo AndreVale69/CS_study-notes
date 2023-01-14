@@ -2488,14 +2488,19 @@
 		
 		\item \textbf{Lunghezza del payload}. Questo valore a 16 bit viene considerato senza segno e indica il numero di byte nel datagramma IPv6 che seguono l'intestazione a lunghezza fissa di 40 byte.
 		
-		\item \textbf{Intestazione successiva}. Campo che identifica il protocollo a cui verranno consegnati i contenuti (campo dati) del datagramma, per esempio \textsf{UDP} o \textsf{TCP}.
+		\item \textbf{Intestazione successiva}. L'intestazione del datagramma è formato da 40 byte. Tuttavia, è possibile aggiungere altre informazioni utilizzando il campo \emph{next header} (intestazione successiva). Esso ha un doppio significato:
+		\begin{enumerate}
+			\item Se non è presente un'estensione e l'intestazione rimane a 40 byte, allora il campo identifica il protocollo a cui verranno consegnati i contenuti (campo dati) del datagramma, per esempio \textsf{UDP} o \textsf{TCP}.
+			
+			\item Se è presente un'estensione (\emph{extension header}) e l'intestazione supera i 40 byte, allora il campo identifica il tipo di \textbf{\emph{extension header}}\footnote{L'\emph{extension header} è formato da due campi obbligatori ed i restanti liberi. Il primo campo (8 bit) rappresenta \emph{next header} che ha lo stesso funzionamento già descritto e il secondo (8 bit) rappresenta \emph{header length} che identifica (valore) quanto è lunga l'estensione.}
+		\end{enumerate}
 		
 		\item \textbf{Limite di hop}. Viene decrementato di 1 da ogni router che inoltra il datagramma. Una volta a zero viene eliminato il datagramma.
 		
 		\item \textbf{Indirizzi sorgente e destinazione}. I diversi formati degli indirizzi IPv6 a 128 bit sono descritti nell'RFC 4291.
 		
 		\item \textbf{Dati}. È il \emph{payload} che viene passato al protocollo specificato nel campo di \dquotes{intestazione successiva} quando il datagramma IPv6 raggiunge una destinazione.
-	\end{itemize}
+	\end{itemize}\newpage
 	Inoltre, rispetto alla versione IPv4 sono stati \textbf{\underline{eliminati}}:
 	\begin{itemize}[label=\ding{55}]
 		\item \textbf{Frammentazione/riassemblaggio}. IPv6 non consente queste operazioni ai router intermedi, ma le effettuano solamente la sorgente o destinazione, quindi le periferiche che sono \underline{molto più rapide} più rapide. Nel caso di una dimensione eccessiva, viene inviato un errore al mittente.
@@ -2565,5 +2570,104 @@
 	Il conteggio progressivo è il seguente:
 	\begin{equation*}
 		1+2+4+8+8+9+10+11+ \cancel{12} +1+2+4+ \cancel{6} +1+ \cancelto{1}{2} =62
+	\end{equation*}\newpage
+	
+	\section{Livello logico (o di collegamento)}
+	
+	\subsection{Premessa}
+	
+	Prima di introdurre questo nuovo livello, è necessario conoscere dei termini utili:
+	\begin{itemize}[label=-]
+		\item Un \textbf{nodo} è qualunque dispositivo che opera a livello logico, o di collegamento (livello 2);
+		
+		\item I \textbf{collegamenti} (\emph{link}) sono canali di comunicazione, che collegano nodi adiacenti lungo un cammino. Quindi, i datagrammi che devono essere trasferiti da un host sorgente a un host di destinazione, devono essere trasportati lungo ciascun collegamento nel percorso da un estremo all’altro.
+		
+		\item Un \textbf{frame del livello di collegamento} (\emph{link-layer frame}) viene creato da un nodo trasmittente quando incapsula il datagramma. Questo accade su ogni collegamento e successivamente lo trasmette lungo il collegamento stesso.
+	\end{itemize}
+
+	\subsection{Definizione}
+
+	Al \textcolor{Red3}{\textbf{livello logico}} l'\textbf{obbiettivo principale} è quello di gestire le problematiche associate alla trasmissione sul singolo \emph{hop}. Inoltre, Esistono altri tipi di servizi che vengono offerti dai vari protocolli:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Framing}}. Quasi tutti i protocolli incapsulano i datagrammi del livello di rete all'interno di un frame a livello logico (o di collegamento), prima di trasmetterlo;
+		
+		\item \textcolor{Red3}{\textbf{Accesso al collegamento}}. Un protocollo che controlla l'accesso al mezzo trasmittivo (MAC, \emph{medium access control}) e specifica le regole con cui immette i frame nel collegamento. Esistono dei casi in cui vari nodi condividono un singolo canale broadcast e qui nasce il \textbf{problema degli accessi multipli} trattato nel prossimo capitolo.
+		
+		\item \textcolor{Red3}{\textbf{Consegna affidabile}}. I protocolli a livello logico (o di collegamento) che forniscono un servizio di consegna affidabile garantiscono il trasporto senza errori di ciascun datagramma.
+		
+		\item \textcolor{Red3}{\textbf{Rilevazione e correzione degli errori}}. Il nodo ricevente può decidere, erroneamente, che un bit in un frame sia $0$ quando questo era stato trasmesso come $1$, e viceversa. Gli errori di bit sono causati dall’attenuazione di segnale e dai disturbi elettromagnetici. Quindi, molti protocolli del livello logico (o di collegamento), forniscono un meccanismo per rivelarne la presenza.
+	\end{itemize}
+	Infine, il livello logico (o di collegamento) viene implementato fisicamente, cioè \emph{hardware}, e logicamente, cioè \emph{software}. La figura mostra una tipica architettura di un host.\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/architettura_host.pdf}
+		\caption{Tipica architettura di un host. A fianco si possono vedere i vari livelli.}
+	\end{figure}
+	
+	\noindent
+	Per un dato collegamento, il protocollo del livello logico (o di collegamento) è sostanzialmente realizzato da un \textbf{adattatore di rete} (\emph{network adapter}), noto anche come scheda di rete (NIC, \emph{network interface card}).\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio - Determinare CIDR e creare subnetting}}
+	
+	Determinare il blocco \textsf{CIDR} totale sapendo che ci sono 3 reti \textsf{LAN} con i seguenti vincoli::
+	\begin{itemize}
+		\item \textsf{LAN1} $\longrightarrow 400$ host
+		\item \textsf{LAN2} $\longrightarrow 300$ host
+		\item \textsf{LAN3} $\longrightarrow 1200$ host
+	\end{itemize}
+	Sapendo che la \textsf{LAN1} contiene l'indirizzo: $178.242.85.168$.\newline
+	
+	\noindent
+	Prima di qualsiasi operazione, si controlla quanti indirizzi necessita ogni \textsf{LAN} e si stabilisce quanti bit servono per raggiungere la richiesta:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textsf{LAN1} & \longrightarrow & 2^{9} = 512 \\
+			\textsf{LAN2} & \longrightarrow & 2^{9} = 512 \\
+			\textsf{LAN3} & \longrightarrow & 2^{11} = 2048 
+		\end{array}
+	\end{equation*}
+	Da questi valori si ottiene quanti indirizzi sono necessari per soddisfare tutte le richieste:
+	\begin{equation*}
+		512 + 512 + 2048 = 3072 \approx 2^{12} \emph{ indirizzi}
+	\end{equation*}
+	Adesso è possibile ottenere il numero di bit che possiede l'indirizzo:
+	\begin{equation*}
+		2^{32} \div 2^{12} = 2^{20}
+	\end{equation*}
+	Viene costruito il blocco \textsf{CIDR} della rete partendo dall'indirizzo della \textsf{LAN1} fornito dal testo.\newline
+	Per farlo, viene tradotto l'indirizzo in binario:
+	\begin{equation*}
+		\binaryaddresspointed{10110010}{11110010}{01010101}{10101000}
+	\end{equation*}
+	Messi a zero i bit del suffisso:
+	\begin{equation*}
+		\binaryaddress{10110010}{11110010}{0101\boldsymbol{0000}}{\boldsymbol{00000000}}
+	\end{equation*}
+	E ritradotto in decimale per ottenere il blocco \textsf{CIDR}:
+	\begin{equation*}
+		178.242.80.0/20
+	\end{equation*}
+	Adesso è possibile creare le sottoreti, quindi si parte diminuendo il suffisso da $12$ a $11$ ottenendo due indirizzi da assegnare o da scomporre nuovamente:
+	\begin{gather*}
+		\binaryaddresspointed{10110010}{11110010}{0101\textcolor{Red3}{\boldsymbol{0}}000}{00000000}/21 \\
+		\binaryaddress{10110010}{11110010}{0101\textcolor{Red3}{\boldsymbol{1}}000}{00000000}/21 \rightarrow \textsf{LAN3} \rightarrow 178.242.88.0/21
+	\end{gather*}
+	Si esegue la scomposizione nuovamente, notando che la scelta appena scritta non è stata casuale.\newline
+	Infatti, dato che l'indirizzo della \textsf{LAN1} deve essere:
+	\begin{equation*}
+		\binaryaddresspointed{10110010}{11110010}{01010101}{10101000}
+	\end{equation*}
+	Il bit non poteva essere $1$, perché altrimenti sarebbe stato sbagliato.
+	\begin{gather*}
+		\binaryaddresspointed{10110010}{11110010}{01010\textcolor{Red3}{\boldsymbol{0}}00}{00000000}/22 \\
+		\binaryaddresspointed{10110010}{11110010}{01010\textcolor{Red3}{\boldsymbol{1}}00}{00000000}/22
+	\end{gather*}
+	Il primo indirizzo viene lasciato libero e si continua dunque con il \emph{subnetting} sfruttando il secondo indirizzo:
+	\begin{equation*}
+		\begin{array}{lllll}
+			\binaryaddresspointed{10110010}{11110010}{010101\textcolor{Red3}{\boldsymbol{0}}0}{00000000}/23 & \rightarrow & \textsf{LAN1} & \rightarrow & 178.242.84.0/23 \\
+			\binaryaddresspointed{10110010}{11110010}{010101\textcolor{Red3}{\boldsymbol{1}}0}{00000000}/23 & \rightarrow & \textsf{LAN2} & \rightarrow & 178.242.86.0/23
+		\end{array}
 	\end{equation*}
 \end{document}
