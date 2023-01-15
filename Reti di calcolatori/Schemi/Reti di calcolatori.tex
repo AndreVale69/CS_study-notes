@@ -3034,4 +3034,52 @@
 			Z_{B}		& = & \left(2+3+9\right) \cdot 1 + 12 = 26 \emph{ ms}
 		\end{array}
 	\end{equation*}\newpage
+
+	\section{\textcolor{Red3}{Esercizio}}
+	
+	\subsection{\textcolor{Red3}{Bridge e protocollo ALOHA}}
+	
+	Quando in un esercizio è presente anche un \emph{bridge} (ponte), l'esercizio non varia troppo dai precedenti.\newline
+	
+	\noindent
+	L'esercizio prevedere $3$ stazioni $A,B,C$ e la presenza di un \emph{bridge}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/eg_bridge.pdf}
+	\end{figure}
+	
+	\noindent
+	Il \textbf{funzionamento} del \emph{bridge} è il seguente:
+	\begin{enumerate}
+		\item Memorizza le trame in ingresso;
+		\item Controlla la destinazione;
+		\item Se la destinazione appartiene all'altro segmento, lo trasmette al destinatario.
+	\end{enumerate}
+	L'esercizio ha la velocità pari a $1,6$ Mbit/s (in entrambi i segmenti), la lunghezza è pari a 800 Byte e il ritardo di propagazione è inesistente, quindi $\tau = 0$. Le trame generate sono le seguenti:
+	\begin{itemize}[label=-]
+		\item $A: t_{A1} = 216 \: ms, t_{A2} = 256 \: ms$ il destinatario è la stazione $B$
+		\item $B: t_{B1} = 233 \: ms$ il destinatario è la stazione $A$
+		\item $C: t_{C1} = 219 \: ms$ il destinatario è la stazione $A$
+	\end{itemize}\newpage
+	Il \textbf{secondo passo è l'evoluzione nel tempo}. I passaggi si omettono perché identici al paragrafo precedente.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex1_bridge-ALOHA.pdf}
+	\end{figure}
+	
+	\noindent
+	Come si può osservare, il \emph{bridge} estende la propagazione della trama, non ha altre funzioni. Una \textbf{nota importante} da menzionare riguarda l'acquisizione della trama da parte del \emph{bridge} solamente alla fine del tempo di propagazione. Quindi, con la trama $A1$, il \emph{bridge} riceve la trama al tempo $220$ nonostante la trasmissione, sulla stazione $A$, sia iniziata al tempo $216$.\newline
+	
+	\noindent
+	Qui di seguito si riportano i calcoli eseguiti per calcolare i vari ritardi:
+	\begin{equation*}
+		\begin{array}{lll}
+			Z_{\text{bridge }A1}	& = & \left(2+2+0\right) \cdot 1 + 4 = 8 \emph{ ms} \\
+			Z_{\text{bridge }A1}	& = & \left(2+3+2\right) \cdot 2 + 4 = 18 \emph{ ms} \\
+			Z_{\text{bridge }B}		& = & \left(2+5+3\right) \cdot 1 + 4 = 14 \emph{ ms} \\
+			Z_{C}					& = & \left(2+1+9\right) \cdot 1 + 4 = 16 \emph{ ms} \\
+			Z_{B}					& = & \left(2+3+3\right) \cdot 1 + 4 = 12 \emph{ ms} \\
+			Z_{A2}					& = & \left(2+5+6\right) \cdot 1 + 4 = 17 \emph{ ms}
+		\end{array}
+	\end{equation*}\newpage
 \end{document}
