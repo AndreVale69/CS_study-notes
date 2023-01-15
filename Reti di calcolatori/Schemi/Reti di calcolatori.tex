@@ -2843,5 +2843,105 @@
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/ex6_congestione.pdf}
+	\end{figure}\newpage
+
+	\section{Protocollo ARP, indirizzi MAC, Ethernet e Switch}
+	
+	\subsection{Indirizzi MAC}
+	
+	I nodi, cioè \textbf{host e router}, \textbf{non hanno indirizzi a livello logico} (o di collegamento), ma sono le loro \textbf{schede di rete ad averli}.\newline
+	
+	\noindent
+	Gli switch a livello logico (o di collegamento) non hanno indirizzi associati alle loro interfacce che connettono a host e router. Gli \textbf{indirizzi a livello logico sono indicati con varie terminologie}:
+	\begin{itemize}
+		\item \textbf{Indirizzo fisico}
+		\item \textbf{Indirizzo LAN}
+		\item \textbf{Indirizzo MAC}
+	\end{itemize}
+	Gli \textbf{\textcolor{Red3}{indirizzi MAC} sono univoci} e \underline{non} esistono al mondo due schede di rete con lo stesso indirizzo. Questo perché la IEEE sovrintende alla gestione di questi indirizzi. In particolare, quando una società vuole costruire schede di rete, compra un blocco di spazio di indirizzi, costituito da $2^{24}$, a un prezzo simbolico.\newline
+	
+	\noindent
+	Questo indirizzo esiste poiché all'interno di una rete, un indirizzo MAC identifica \underline{univocamente} una macchina.
+	
+	\subsection{Protoccolo ARP - Risoluzione degli indirizzi}
+	
+	Esistono sia indirizzi a livello di rete (indirizzi IP) sia indirizzi del livello di collegamento (indirizzi MAC). Per cui esiste la necessità di eseguire una loro conversione tramite il \textcolor{Red3}{\textbf{protocollo di risoluzione degli indirizzi}} (ARP, \emph{address resolution preotocol}).\newline
+	
+	\noindent
+	Nella RAM di ogni nodo vi è una \textbf{tabella ARP} che contiene la corrispondenza tra indirizzi IP e MAC. Qui di seguito viene mostrata una tipica tabella ARP.
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c c c @{}}
+			\toprule
+			IP Address	& MAC Address	& TTL \\
+			\midrule
+			$222.222.222.221$	& $\mathrm{88\text{-}B2\text{-}2F\text{-}54\text{-}1A\text{-}0F}$	& $13:45:00$ \\
+			$222.222.222.223$	& $\mathrm{5C\text{-}66\text{-}AB\text{-}90\text{-}75\text{-}B1}$	& $13:52:00$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+
+	\noindent
+	Si può osservare che la tabella contiene anche un valore relativo al TTL (\emph{time to live}), che indica quando bisognerà eliminare una data voce dalla tabella.\newline
+	
+	\noindent
+	Il nodo trasmittente costruisce uno speciale pacchetto, chiamato \textbf{pacchetto ARP}, che ha molti campi, compresi quelli per gli indirizzi IP e MAC di chi spedisce e di chi riceve. I pacchetti ARP di richiesta e di risposta hanno lo stesso formato.\newline
+	L’\underline{\textbf{obbiettivo}} di un \textbf{pacchetto ARP} di richiesta è interrogare tutti gli altri nodi della sottorete riguardo all’indirizzo MAC corrispondente all’indirizzo IP da risolvere.\newpage
+	
+	\subsection{Struttura dei frame Ethernet}
+	
+	La \textcolor{Red3}{\textbf{struttura dei frame Ethernet}} è così composta:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/struttura_frame_ethernet.pdf}
+		\caption{Struttura di un tipico frame Ethernet.}
 	\end{figure}
+
+	\noindent
+	I campi sono i seguenti:
+	\begin{itemize}
+		\item $\left[\text{da } 46 \text{ a } 1500 \emph{ byte}\right]$ \textbf{Campo dati}. Contiene il datagramma IP. Questo campo è variabile perché al massimo può essere $1500$ byte, ovvero l’\textbf{unità massima di trasmissione} (\textsf{MTU}), e $46$ byte che è il minimo. Nel caso in cui il datagramma sia fuori dal range:
+		\begin{itemize}
+			\item Nel caso sia superiore a $1500$, il datagramma deve essere frammentato;
+			\item Nel caso sia inferiore a $46$, il frame viene riempito (\emph{stuffed}) fino a raggiungere il valore minimo ($46$).
+		\end{itemize}
+		
+		\item $\left[6 \emph{ byte}\right]$ \textbf{Indirizzo di destinazione}. Campo che contiene l’indirizzo MAC della scheda di rete di destinazione.
+		
+		\item $\left[6 \emph{ byte}\right]$ \textbf{Indirizzo sorgente}. Campo che contiene l’indirizzo MAC della scheda di rete della sorgente.
+		
+		\item $\left[2 \emph{ byte}\right]$ \textbf{Tipo}. Consente a Ethernet di supportare vari protocolli di rete.
+		
+		\item $\left[4 \emph{ byte}\right]$ \textbf{Controllo a ridondanza ciclica (CRC)}. Questo campo consente alla scheda di rete ricevente di rilevare la presenza di un errore nei bit del frame.
+		
+		\item $\left[8 \emph{ byte}\right]$ \textbf{Preambolo}. I primi sette byte del preambolo servono per \dquotes{risvegliare} le schede di rete dei riceventi e sincronizzare i loro \emph{clock} con quello del trasmittente. Invece, gli ultimi due bit avvisano la scheda di rete del destinatario che sono in arrivo \dquotes{dati importanti}.
+	\end{itemize}\newpage
+
+	\subsection{Switch}
+	
+	Il \textcolor{Red3}{\textbf{filtraggio}} (\emph{filtering}) è la funzionalità dello switch che determina se un \textbf{frame debba essere inoltrato a una qualche interfaccia o scartato}.\newline
+	
+	\noindent
+	L’\textcolor{Red3}{\textbf{inoltro}} (\emph{forwarding}) consiste nell’\textbf{individuazione dell’interfaccia verso cui il frame deve essere diretto} e, quindi, nell’inviarlo a quell’interfaccia.\newline
+	
+	\noindent
+	Le operazioni avvengono mediante una \textbf{tabella di comunicazione} (\emph{switch table}) composta da tre voci:
+	\begin{enumerate}
+		\item \textbf{Indirizzo MAC del nodo};
+		\item \textbf{Interfaccia dello switch che conduce al nodo};
+		\item \textbf{Momento in cui la voce per quel nodo è stata inserita nella tabella}.
+	\end{enumerate}
+	Qui di seguito un esempio di tabella di comunicazione.
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c c c @{}}
+			\toprule
+			Address	& Interface	& Time \\
+			\midrule
+			$\mathrm{62\text{-}FE\text{-}F7\text{-}11\text{-}89\text{-}A3}$	& $1$ 		& $9:32$ \\
+			$\mathrm{7C\text{-}BA\text{-}B2\text{-}B4\text{-}91\text{-}10}$	& $3$ 		& $9:36$ \\
+			$\cdots$														& $\cdots$ 	& $\cdots$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
 \end{document}
