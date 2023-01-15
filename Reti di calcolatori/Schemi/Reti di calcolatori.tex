@@ -2772,5 +2772,76 @@
 			\textsf{Internet}	& $1+5$	& $X$ \\
 			\bottomrule
 		\end{tabular}
-	\end{table}
+	\end{table}\newpage
+
+	\section{Protocollo CSMA e CSMA/CD}
+	
+	\subsection{Protocollo CSMA}
+	
+	Il \textcolor{Red3}{\textbf{protocollo CSMA}} (\emph{carrier sense multiple access}, accesso multiplo con rilevamento della portante), e la sua \textbf{importante variante CSMA/CD} (CSMA \emph{with collision detection}, CSMA con rilevamento della collisione), nasce per dei motivi abbastanza chiari. Come visto nel capitolo precedente, ai protocolli ALOHA e \emph{slotted} ALOHA \textbf{mancava una rilevazione di trasmissione di un determinato frame sul canale}. Per questo motivo, i protocolli CSMA e CSMA/CD implementano due fondamentali caratteristiche:
+	\begin{enumerate}
+		\item \textcolor{Red3}{\textbf{Rilevamento della portante}} (\emph{carrier sensing}), un \textbf{nodo ascolta il canale prima di trasmettere}. Se il canale sta già trasmettendo un frame, il nodo aspetta finché rileva che il canale è libero per un intervallo di tempo e quindi inizia la trasmissione.
+		
+		\item \textcolor{Red3}{\textbf{Rilevamento della collisione}} (\emph{collision detection}), il \textbf{nodo che sta trasmettendo rimane contemporaneamente in ascolto del canale}. Se osserva che un altro nodo sta trasmettendo un frame che interferisce col suo, arresta la propria trasmissione, aspetta un intervallo di tempo casuale e poi ripete il processo.
+	\end{enumerate}
+
+	\subsection{Variante CSMA - Protocollo CSMA/CD}
+	
+	La \textbf{differenza sostanziale} consiste nelle due caratteristiche presentate nel paragrafo precedente. Il \textbf{protocollo CSMA non tiene in considerazione il rivelamento della collisione}; quindi, continua a trasmettere il suo frame nonostante ci sia un eventuale collisione. Questo comporta la trasmissione di frame errati e quindi ad una perdita di tempo.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{CSMA/CD}} consente invece di \textbf{rilevare la collisione}. Quindi, i suoi passaggi sono:
+	\begin{enumerate}
+		\item La scheda ottiene direttamente un datagramma dal livello di rete, prepara un frame a livello di collegamento e lo sistema in un suo buffer.
+
+		\item Ascolta il canale e se sente che è libero, inizia a trasmettere il frame. Al contrario, nel caso in cui sia occupato, resta in attesa finché non si libera.
+		
+		\item Durante la trasmissione rimane in ascolta e verifica l’assegnazione di segnali da parte di altre schede di rete sul canale broadcast.
+		
+		\item Se non ci sono stati segnali d’interferenza, la trasmissione si conclude con successo; altrimenti, in caso ci sia un altro segnale, interrompe subito la trasmissione del frame.
+		
+		\item Nel caso in cui è stata annullata la trasmissione del frame, la scheda di rete aspetta un tempo casuale chiamato \textbf{tempo di backoff}. Alla fine, ritorna al passo 2.
+	\end{enumerate}
+	L'\textbf{efficienza} del CSMA è del 58\% circa, mentre quello della sua \textbf{variante} è pressoché \textbf{perfetto}.\newpage
+	
+	\subsection{\textcolor{Red3}{Esercizio sul controllo della congestione TCP}}
+	
+	L’applicazione A deve trasferire all'applicazione B $73'200$ Byte. La connessione è già stata instaurata. I dati disponibili sono:
+	\begin{itemize}
+		\item $\textsf{MSS} = 1'200$ Byte
+		\item $\textsf{RCV WND} = 19'200$ Byte costante
+		\item $\textsf{SSTHRESH} = \textsf{RCV WND}$ iniziale
+		\item $\textsf{RTT} = 1$ secondo costante
+		\item $\textsf{RTO} = \textsf{RTT} \times 2$ e raddoppia in caso di perdite consecutive
+	\end{itemize}
+	Infine, negli intervalli aperti $5.50 - 8.00$ e $18.5 - 19.5$ è presente un \emph{down} di rete. Inoltre:
+	\begin{itemize}
+		\item A partire da $t_{A} > 5.0$ la destinazione annuncia una $\textsf{RCV WND} = 24'000$ Byte;
+		\item A partire da $t_{B} > 10.0$ la destinazione annuncia una $\textsf{RCV WND} = 19'200$ Byte.
+	\end{itemize}
+	
+	\noindent
+	Il \textbf{primo passo} per risolvere l'esercizio è la numerazione dei segmenti. Per farlo basta prendere il numero dei Byte da trasferire e dividere il valore per la \textsf{MSS}:
+	\begin{equation*}
+		\textbf{Numero di segmenti da inviare } \rightarrow 73'200 \div 1'200 = 61 \emph{ segmenti}
+	\end{equation*}
+	Prima di passare al secondo passaggio e osservare il numero di segmenti da inviare, è necessario ottenere il valore della \textsf{RCV WND} (finestra massima di ricezione) per avere conseguentemente anche la \textsf{CWND}. Essa è possibile calcolarla facendo una semplice divisione tra il numero di Byte della \textsf{RCV WND} e della \textsf{MSS}:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textbf{\textsf{RCV WND}} & \rightarrow & 19'200 \div 1'200 = 16 \emph{ segmenti} \\
+			\textbf{\textsf{RCV WND}}\text{ al tempo }t_{4} & \rightarrow & 24'000 \div 1'200 = 20 \emph{ segmenti} \\
+			\textbf{\textsf{RCV WND}}\text{ al tempo }t_{8} & \rightarrow & 19'200 \div 1'200 = 16 \emph{ segmenti}
+		\end{array}
+	\end{equation*}
+	E la \textsf{SSTHRESH}, come scritto nei dati del testo dell'esercizio, è uguale alla \emph{receive window}:
+	\begin{equation*}
+		\textsf{\textbf{SSTHRESH}} \rightarrow 16 \emph{ segmenti}
+	\end{equation*}\newpage
+	
+	\noindent
+	Il \textbf{secondo passo} necessita di uno schema. Esso ha nell’asse delle ascisse ($x$) il tempo e nell’asse delle ordinate ($y$) la \textsf{CWND}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex6_congestione.pdf}
+	\end{figure}
 \end{document}
