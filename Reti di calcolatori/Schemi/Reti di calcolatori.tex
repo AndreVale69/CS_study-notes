@@ -2943,5 +2943,95 @@
 			$\cdots$														& $\cdots$ 	& $\cdots$ \\
 			\bottomrule
 		\end{tabular}
-	\end{table}
+	\end{table}\newpage
+
+	\section{\textcolor{Red3}{Esercizi}}
+	
+	\subsection{\textcolor{Red3}{ALOHA}}
+	
+	Ci sono $3$ stazioni $A,B,C$ collegate tramite un mezzo condiviso, che generano le seguenti trame:
+	\begin{itemize}[label=-]
+		\item $A: t_{A} = 410 \: ms$
+		\item $B: t_{B} = 418 \: ms$
+		\item $C: t_{C} = 454 \: ms$
+	\end{itemize}
+	La velocità tra le stazioni è pari a $2.5$ Mbit/s e la lunghezza delle trame è pari a $3750$ Byte.\newline
+	
+	\noindent
+	Il \textbf{primo passo è calcolare il tempo di trasmissione della trama}. Per farlo, si utilizza una formula banale, ovvero lunghezza diviso velocità:
+	\begin{equation*}
+		\text{tempo} = \dfrac{\text{lunghezza}}{\text{velocità}} = \dfrac{3750 \cdot 8 \emph{ bit}}{2.5 \cdot 10^{6} \emph{ bit/s}} = 12 \emph{ ms}
+	\end{equation*}
+	Viene moltiplicata la lunghezza delle trame per $8$ poiché è espresso in Byte ($= 8$). La velocità corrisponde a $2,5$ Mbit/s, ovvero alla velocità moltiplicata per $10^{6}$ che corrisponde alla conversione da Megabit a bit ($1 \: Kbit = 1000 \: bit$).\newline
+	
+	\noindent
+	Il \textbf{secondo passo è l'evoluzione nel tempo}. Ovvero, si disegnano tante righe quanti sono le stazioni e si inizia a disegnare le trame partendo dalla trasmissione della trama con tempo minore.\newline
+	In questo caso, partirà con la trasmissione la stazione $A$ al tempo $410$, poi la $B$ al tempo $418$ e infine la $C$ al tempo $454$.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex1_ALOHA.pdf}
+	\end{figure}
+	
+	\noindent
+	Con la $x$ in blu si identificano gli eventi di collisione. Con le linee tratteggiate in rosso si identifica: in verticale la destinazione della trama (stazione $A$ al tempo $410$ inizia la trasmissione sulla stazione di destinazione $C$), in orizzontale il ritardo (\emph{delay}) di ritrasmissione.\newpage
+	
+	\noindent
+	Ogniqualvolta una trama incontra un evento di collisione, deve aspettare un determinato tempo per poter ritrasmettere la stessa trama. \textbf{Per calcolare il tempo di ritrasmissione} si utilizza la seguente formula:
+	\begin{gather*}
+		\left(\alpha\right) \cdot \beta + (\underbrace{\gamma - \delta}_{\pi}) \\
+		\begin{array}{lll}
+			\alpha 	& \longrightarrow & \text{Somma delle cifre del valore del tempo all'inizio della trasmissione} \\
+			&& \\
+			\beta 	& \longrightarrow & \text{Numero collisioni} \\
+			&& \\
+			\gamma 	& \longrightarrow & \text{Tempo alla fine della trasmissione} \\
+			&& \\
+			\delta  & \longrightarrow & \text{Tempo all'inizio della trasmissione} \\
+			&& \\
+			\pi     & \longrightarrow & \text{Durata della trasmissione}
+		\end{array}
+	\end{gather*}
+	Quindi, le varie $Z_{\cdots}$ con sotto le linee tratteggiate, simboleggiano tale ritardo. Qui di seguito si riportano i calcoli eseguiti per calcolare i vari ritardi:
+	\begin{equation*}
+		\begin{array}{lll}
+			Z_{A}		& = & \left(4+1+0\right) \cdot 1 + 12 = 17 \emph{ ms} \\
+			Z_{B}		& = & \left(4+1+8\right) \cdot 1 + 12 = 25 \emph{ ms} \\
+			Z_{C}		& = & \left(4+5+4\right) \cdot 1 + 12 = 25 \emph{ ms} \\
+			Z_{B_{1}}	& = & \left(4+5+5\right) \cdot 2 + 12 = 40 \emph{ ms}
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsection{\textcolor{Red3}{CSMA \emph{persistent}}}
+	
+	L'esercizio con la variante del CSMA, ovvero \emph{persistent}, ha un'unica differenza: controllo di eventuali conflitti.\newline
+	
+	\noindent
+	La stazione $A$ e la stazione $B$ si inviano delle trame. La velocità di propagazione è $2,5$ Mbit/s, la lunghezza delle trame è $3750$ Byte, il ritardo di propagazione tra la stazione $A$ e la stazione $B$ è pari a $2$ \emph{ms} e viene rappresentata con la lettera $\tau$. Le trame generate sono:
+	\begin{itemize}[label=-]
+		\item $A: t_{A1} = 225 \: ms, t_{A2} = 240 \: ms$
+		\item $B: t_{B} = 228 \: ms$
+	\end{itemize}
+
+	\noindent
+	Il \textbf{primo passo è calcolare il tempo di trasmissione della trama}. Il calcolo è identico al paragrafo precedente:
+	\begin{equation*}
+	\text{tempo} = \dfrac{\text{lunghezza}}{\text{velocità}} = \dfrac{3750 \cdot 8 \emph{ bit}}{2.5 \cdot 10^{6} \emph{ bit/s}} = 12 \emph{ ms}
+	\end{equation*}
+
+	\noindent
+	Il \textbf{secondo passo è l'evoluzione nel tempo}. I passaggi si omettono perché identici al paragrafo precedente. L'\textbf{unica differenza} è che la CSMA \emph{slotted} prima di iniziare a trasmettere, verifica che sul canale non ci sia già una trasmissione.\newline
+	Per esempio, la trama $A1$ viene trasmessa alla stazione $B$ (non al tempo $225$ a causa del ritardo di propagazione $\tau$), e al tempo $228$, la stazione $B$ attende che la stazione $A$ abbia completamente trasmesso la propria trama. Una volta finita la trasmissione ($t = 239$), la stazione $B$ inizia la trasmissione della sua trama. Casualmente, si verifica una collisione, ma questo non poteva essere preveduto a causa del ritardo di trasmissione.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex1_CSMA-slotted.pdf}
+	\end{figure}
+	
+	\noindent
+	Qui di seguito si riportano i calcoli eseguiti per calcolare i vari ritardi:
+	\begin{equation*}
+		\begin{array}{lll}
+			Z_{A}		& = & \left(2+4+0\right) \cdot 1 + 12 = 18 \emph{ ms} \\
+			Z_{B}		& = & \left(2+3+9\right) \cdot 1 + 12 = 26 \emph{ ms}
+		\end{array}
+	\end{equation*}\newpage
 \end{document}
