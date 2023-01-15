@@ -3082,4 +3082,78 @@
 			Z_{A2}					& = & \left(2+5+6\right) \cdot 1 + 4 = 17 \emph{ ms}
 		\end{array}
 	\end{equation*}\newpage
+
+	\section{Rete Wireless (IEEE 802.11) e protocollo CSMA/CA}
+	
+	\subsection{Rete Wireless (IEEE 802.11)}
+	
+	In una rete wireless è possibile identificare molteplici soggetti:
+	\begin{itemize}
+		\item Host wireless. Gli host sono dispositivi periferici che eseguono applicazioni. L’host wireless può essere un portatile, un tablet, un telefono o un computer desktop.
+		
+		\item Collegamenti wireless. L’host si connette alla stazione base o ad un altro host attraverso un canale di comunicazione wireless. La figura sottostante mostra le due caratteristiche principali (area di copertura e frequenza del collegamento) dei più diffusi standard per collegamenti wireless.
+		
+		\item Stazione base (base station). Una stazione base è responsabile dell’invio e della ricezione dei dati (pacchetti) tra gli host wireless a essa associati. Quandi si dice che un host wireless è “associato” a una stazione base, si intende che:
+		\begin{itemize}
+			\item L’host si trova nell’area di copertura della stazione base;
+			\item L’host utilizza la stazione base per trasmettere dati verso il resto della rete.
+		\end{itemize}
+		Un esempio di queste stazioni base: i ripetitori di cella (cell tower) nelle reti cellulari e gli access point (punti di accesso) nelle LAN 802.11.
+		Gli host associati a una stazione base sono considerati come operanti in modalità infrastruttura (infrastructure mode), poiché tutti i tradizionali servizi di rete (come l’assegnamento di indirizzi) sono forniti dalla rete attraverso la stazione base.
+		Invece, nelle reti ad hoc, gli host wireless non hanno alcuna infrastruttura cui connettersi. In sua assenza, essi stessi devono provvedere ai servizi di instradamento, di assegnazione degli indirizzi, di DNS e altri.
+		
+		
+		\item Infrastruttura di rete. È la rete più ampia alla quale l’host wireless potrebbe volersi connettere.
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/paragoni_velocita.pdf}
+		\caption{Caratteristiche dei collegamenti di alcuni standard per reti wireless.}
+	\end{figure}
+
+	\subsection{Protocollo MAC di 802.11 e CSMA/CA}
+	
+	Nel momento in cui una stazione wireless è associata ad un Access Point (AP), può iniziare a trasmettere e a ricevere frame dati da e verso l’AP. Tuttavia, poiché stazioni multiple potrebbero voler trasmettere frame di dati contemporaneamente sullo stesso canale, è necessario un protocollo ad accesso multiplo per coordinare le trasmissioni. Per \textbf{stazione} si intende sia la stazione wireless che l’AP.\newline
+	
+	\noindent
+	Da questo problema, nasce la scelta da parte dei progettisti di 802.11 di utilizzare il \textbf{protocollo CSMA con prevenzione di collisioni} o più sinteticamente \textbf{CSMA/CA} (CA, \emph{collision avoidance}). Come specificato nei paragrafi precedenti, CSMA indica accesso multiplo con rilevazione della portante, ovvero ciascuna stazione ascolta il canale prima di trasmettere e si astiene dal farlo se rileva che il canale è occupato.\newline
+
+	\noindent
+	Il CSMA/CA e il CSMA utilizzato per Ethernet 802.11, ci sono\textbf{ due importanti differenze}:
+	\begin{enumerate}
+		\item \textbf{Prevenzione delle collisioni} da parte del CSMA/CA;
+		\item Schema \textbf{avvenuta ricezione - avvenuta ritrasmissione} a livello logico (o di collegamento).
+	\end{enumerate}
+	Lo schema di \textbf{avvenuta ricezione} (\emph{acknowledgment scheme}) a livello logico, viene mostrato in figura.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/avvenuta_ricezione.pdf}
+		\caption{IEEE 802.11 usa acknowledgment a livello di collegamento.}
+	\end{figure}
+	
+	\noindent
+	Quando la stazione di destinazione riceve un frame che passa il controllo CRC, attende per un breve periodo di tempo, noto come \textbf{SIFS} (\emph{short inter-frame space}, spazio breve inter-frame), dopo il quale invia al mittente un frame di conferma di avvenuta ricezione.\newline
+	
+	\noindent
+	Se la stazione:
+	\begin{itemize}
+		\item Non riceve questo riscontro entro un arco di tempo stabilito, presuppone un errore e ritrasmette il frame, utilizzando il protocollo CSMA/CA per accedere al canale.
+	\end{itemize}
+	Se il frame di conferma non viene ricevuto dopo un numero prefissato di ritrasmissioni, la stazione trasmittente passa oltre e scarta il frame.\newline
+	
+	\noindent
+	Una stazione wireless o un AP quando deve \textbf{trasmettere un frame} (figura pagina precedente):
+	\begin{enumerate}
+		\item Se il canale viene percepito come in \textbf{inattivo}, allora trasmette il suo frame dopo un breve periodo di tempo chiamato \textbf{DIFS} (\emph{distributed inter-frame space}, spazio distribuito inter-frame);
+		
+		\item Altrimenti, se il \textbf{canale è attivo}, la stazione sceglie un valore casuale di ritardo usano una attesa binaria esponenziale e decrementa questo valore dopo DIFS \underline{solo quando il canale viene percepito come inattivo}. Se il canale è occupato, il contatore rimane fermo.
+		
+		\item Quando il \textbf{contatore arriva a zero}, ovvero solamente quando il canale rimane inattivo, la stazione trasmette l’intero frame e aspettare il frame di conferma.
+		
+		\item Quando \textbf{riceve la conferma}, la stazione sa che il frame è stato ricevuto correttamente e riattiva il protocollo CSMA/CA dal passo 2.
+		
+		\item \textbf{Se non riceve la conferma}, la stazione trasmittente ritorna al passo 2, ma con un valore di ritardo maggiore.
+	\end{enumerate}
+
+	\subsection{\textcolor{Red3}{Esercizio - Bridge e protocollo ALOHA}}
 \end{document}
