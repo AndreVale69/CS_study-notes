@@ -191,7 +191,7 @@
 	Esistono diversi \textbf{strumenti per misurare il ritardo}:
 	
 	\begin{itemize}
-		\item \textbf{PING.} Dato un indirizzo di destinazione, il calcolatore manda una serie di messaggi e misura il tempo che intercorre tra l'invio e la ricezione della risposta, chiamato anche \emph{Rount Trip Time} (RTT).
+		\item \textbf{PING.} Dato un indirizzo di destinazione, il calcolatore manda una serie di messaggi e misura il tempo che intercorre tra l'invio e la ricezione della risposta, chiamato anche \textbf{\emph{Rount Trip Time}} (\textbf{RTT}). Il \textbf{\emph{Smoothed} RTT} (SRTT) rappresenta una stima del valore medio di RTT.
 		
 		\item \textbf{TRACEROUTE.} Misura il \emph{Round Trip Time} tra la sorgente e \textbf{tutti} gli apparati di rete intermedi.
 	\end{itemize}
@@ -2572,7 +2572,7 @@
 		1+2+4+8+8+9+10+11+ \cancel{12} +1+2+4+ \cancel{6} +1+ \cancelto{1}{2} =62
 	\end{equation*}\newpage
 	
-	\section{Livello logico (o di collegamento)}
+	\section{Livello logico (o di collegamento)}\label{livello logico}
 	
 	\subsection{Premessa}
 	
@@ -2671,9 +2671,9 @@
 		\end{array}
 	\end{equation*}\newpage
 
-	\section{Problema dell'accesso multiplo, protocollo ALOHA e slotted ALOHA}
+	\section{Problema dell'accesso multiplo, protocollo ALOHA e \emph{slotted} ALOHA}
 	
-	\subsection{Problema dell'accesso multiplo}
+	\subsection{Problema dell'accesso multiplo}\label{problema accesso multiplo}
 	
 	Nel precedente capitolo è stato introdotto il livello logico e le sue varie caratteristiche. Tra queste è stato menzionato anche l'\textbf{accesso al collegamento}. Ovvero, un protocollo che controlla l'accesso al mezzo trasmittivo (MAC, \emph{medium access control}) e specifica le regole con cui immettere i frame nel collegamento. Tuttavia, in alcuni casi in cui vari nodi condividono un canale \emph{broadcast}, nascono problemi.\newline
 	
@@ -2912,7 +2912,7 @@
 		
 		\item $\left[2 \emph{ byte}\right]$ \textbf{Tipo}. Consente a Ethernet di supportare vari protocolli di rete.
 		
-		\item $\left[4 \emph{ byte}\right]$ \textbf{Controllo a ridondanza ciclica (CRC)}. Questo campo consente alla scheda di rete ricevente di rilevare la presenza di un errore nei bit del frame.
+		\item $\left[4 \emph{ byte}\right]$ \textbf{Controllo a ridondanza ciclica (CRC)}. Questo campo consente alla scheda di rete ricevente di rilevare la presenza di un errore nei bit del frame (\href{https://it.wikipedia.org/wiki/Cyclic_redundancy_check}{approfondimento}).\label{CRC}
 		
 		\item $\left[8 \emph{ byte}\right]$ \textbf{Preambolo}. I primi sette byte del preambolo servono per \dquotes{risvegliare} le schede di rete dei riceventi e sincronizzare i loro \emph{clock} con quello del trasmittente. Invece, gli ultimi due bit avvisano la scheda di rete del destinatario che sono in arrivo \dquotes{dati importanti}.
 	\end{itemize}\newpage
@@ -3061,6 +3061,8 @@
 		\item $B: t_{B1} = 233 \: ms$ il destinatario è la stazione $A$
 		\item $C: t_{C1} = 219 \: ms$ il destinatario è la stazione $A$
 	\end{itemize}\newpage
+
+	\noindent
 	Il \textbf{secondo passo è l'evoluzione nel tempo}. I passaggi si omettono perché identici al paragrafo precedente.
 	\begin{figure}[!htp]
 		\centering
@@ -3087,73 +3089,213 @@
 	
 	\subsection{Rete Wireless (IEEE 802.11)}
 	
-	In una rete wireless è possibile identificare molteplici soggetti:
+	In una rete wireless è possibile identificare molteplici \underline{soggetti}:
 	\begin{itemize}
-		\item Host wireless. Gli host sono dispositivi periferici che eseguono applicazioni. L’host wireless può essere un portatile, un tablet, un telefono o un computer desktop.
+		\item \textcolor{Red3}{\textbf{Host wireless}}. Gli \textbf{host sono dispositivi} periferici che eseguono applicazioni. L’host wireless può essere un portatile, un tablet, un telefono o un computer desktop.
 		
-		\item Collegamenti wireless. L’host si connette alla stazione base o ad un altro host attraverso un canale di comunicazione wireless. La figura sottostante mostra le due caratteristiche principali (area di copertura e frequenza del collegamento) dei più diffusi standard per collegamenti wireless.
+		\item \textcolor{Red3}{\textbf{Collegamenti wireless}}. L’\textbf{host si connette} alla stazione base o ad un altro host \textbf{attraverso un canale di comunicazione wireless}. La figura \ref{velocità collegamenti} mostra le due caratteristiche principali (area di copertura e frequenza del collegamento) dei più diffusi standard per collegamenti wireless.
 		
-		\item Stazione base (base station). Una stazione base è responsabile dell’invio e della ricezione dei dati (pacchetti) tra gli host wireless a essa associati. Quandi si dice che un host wireless è “associato” a una stazione base, si intende che:
+		\item \textcolor{Red3}{\textbf{Stazione base} (\emph{base station})}. Una \textbf{stazione base} è responsabile dell’\textbf{invio} e della \textbf{ricezione dei dati} (pacchetti) tra gli host wireless a essa associati. Quando si dice che un \textbf{host wireless è “associato” a una stazione base}, si intende che:
 		\begin{itemize}
-			\item L’host si trova nell’area di copertura della stazione base;
-			\item L’host utilizza la stazione base per trasmettere dati verso il resto della rete.
+			\item L’\textbf{host} si trova nell’\textbf{area di copertura} della stazione base;
+			\item L’\textbf{host} utilizza la stazione base per \textbf{trasmettere dati} verso il resto della rete.
 		\end{itemize}
-		Un esempio di queste stazioni base: i ripetitori di cella (cell tower) nelle reti cellulari e gli access point (punti di accesso) nelle LAN 802.11.
-		Gli host associati a una stazione base sono considerati come operanti in modalità infrastruttura (infrastructure mode), poiché tutti i tradizionali servizi di rete (come l’assegnamento di indirizzi) sono forniti dalla rete attraverso la stazione base.
+		Un \emph{esempio} di queste stazioni base: i ripetitori di cella (\emph{cell tower}) nelle reti cellulari e gli \emph{access point} (punti di accesso) nelle LAN $802.11$.\newline
+		Gli host associati a una stazione base sono considerati come operanti in \textbf{modalità infrastruttura} (\emph{infrastructure mode}), poiché tutti i tradizionali servizi di rete (come l’assegnamento di indirizzi) sono forniti dalla rete attraverso la stazione base.\newline
 		Invece, nelle reti ad hoc, gli host wireless non hanno alcuna infrastruttura cui connettersi. In sua assenza, essi stessi devono provvedere ai servizi di instradamento, di assegnazione degli indirizzi, di DNS e altri.
 		
 		
-		\item Infrastruttura di rete. È la rete più ampia alla quale l’host wireless potrebbe volersi connettere.
+		\item \textcolor{Red3}{\textbf{Infrastruttura di rete}}. È la \textbf{rete più ampia alla quale l’host wireless potrebbe volersi connettere}.
 	\end{itemize}
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/paragoni_velocita.pdf}
 		\caption{Caratteristiche dei collegamenti di alcuni standard per reti wireless.}
-	\end{figure}
+		\label{velocità collegamenti}
+	\end{figure}\newpage
 
 	\subsection{Protocollo MAC di 802.11 e CSMA/CA}
 	
-	Nel momento in cui una stazione wireless è associata ad un Access Point (AP), può iniziare a trasmettere e a ricevere frame dati da e verso l’AP. Tuttavia, poiché stazioni multiple potrebbero voler trasmettere frame di dati contemporaneamente sullo stesso canale, è necessario un protocollo ad accesso multiplo per coordinare le trasmissioni. Per \textbf{stazione} si intende sia la stazione wireless che l’AP.\newline
+	Nel momento in cui una stazione wireless è associata ad un \emph{Access Point} (AP), può iniziare a trasmettere e a ricevere frame dati da e verso l’AP. Tuttavia, poiché stazioni multiple potrebbero voler trasmettere frame di dati contemporaneamente sullo stesso canale, è \textbf{necessario un protocollo ad accesso multiplo per coordinare le trasmissioni}. Per \emph{stazione} si intende sia la stazione wireless che l’AP.\newline
 	
 	\noindent
-	Da questo problema, nasce la scelta da parte dei progettisti di 802.11 di utilizzare il \textbf{protocollo CSMA con prevenzione di collisioni} o più sinteticamente \textbf{CSMA/CA} (CA, \emph{collision avoidance}). Come specificato nei paragrafi precedenti, CSMA indica accesso multiplo con rilevazione della portante, ovvero ciascuna stazione ascolta il canale prima di trasmettere e si astiene dal farlo se rileva che il canale è occupato.\newline
+	Da questo problema, nasce la scelta da parte dei progettisti di 802.11 di utilizzare il \textcolor{Red3}{\textbf{protocollo CSMA con prevenzione di collisioni}} o più sinteticamente \textcolor{Red3}{\textbf{CSMA/CA}} (CA, \textbf{\emph{collision avoidance}}). Come specificato nei paragrafi precedenti, \textbf{CSMA indica} accesso multiplo con rilevazione della portante, ovvero \textbf{ciascuna stazione ascolta il canale prima di trasmettere e si astiene dal farlo se rileva che il canale è occupato}.\newline
 
 	\noindent
-	Il CSMA/CA e il CSMA utilizzato per Ethernet 802.11, ci sono\textbf{ due importanti differenze}:
+	Il CSMA/CA e il CSMA utilizzato per Ethernet 802.11, ci sono\textbf{ due importanti \underline{differenze}}:
 	\begin{enumerate}
-		\item \textbf{Prevenzione delle collisioni} da parte del CSMA/CA;
-		\item Schema \textbf{avvenuta ricezione - avvenuta ritrasmissione} a livello logico (o di collegamento).
+		\item \underline{\textbf{Prevenzione delle collisioni}} da parte del CSMA/CA;
+		\item Schema \underline{\textbf{avvenuta ricezione - avvenuta ritrasmissione}} a livello logico (o di collegamento).
 	\end{enumerate}
-	Lo schema di \textbf{avvenuta ricezione} (\emph{acknowledgment scheme}) a livello logico, viene mostrato in figura.
+	Lo schema di \textbf{avvenuta ricezione} (\emph{acknowledgment scheme}) a livello logico, viene mostrato in figura \ref{avvenuta ricezione}.\newpage
 	\begin{figure}[!htp]
 		\centering
-		\includegraphics[width=\textwidth]{img/avvenuta_ricezione.pdf}
+		\includegraphics[width=.5\textwidth]{img/avvenuta_ricezione.pdf}
 		\caption{IEEE 802.11 usa acknowledgment a livello di collegamento.}
+		\label{avvenuta ricezione}
 	\end{figure}
 	
 	\noindent
-	Quando la stazione di destinazione riceve un frame che passa il controllo CRC, attende per un breve periodo di tempo, noto come \textbf{SIFS} (\emph{short inter-frame space}, spazio breve inter-frame), dopo il quale invia al mittente un frame di conferma di avvenuta ricezione.\newline
+	Quando la stazione di destinazione riceve un frame che passa il controllo CRC (paragrafo \ref{CRC}), \textbf{attende per un breve periodo di tempo}, noto come \textbf{SIFS} (\emph{short inter-frame space}, spazio breve inter-frame), dopo il quale invia al mittente un frame di conferma di avvenuta ricezione.\newline
 	
 	\noindent
-	Se la stazione:
+	A questo punto la stazione del mittente può ricevere o non ricevere il riscontro:
 	\begin{itemize}
-		\item Non riceve questo riscontro entro un arco di tempo stabilito, presuppone un errore e ritrasmette il frame, utilizzando il protocollo CSMA/CA per accedere al canale.
-	\end{itemize}
-	Se il frame di conferma non viene ricevuto dopo un numero prefissato di ritrasmissioni, la stazione trasmittente passa oltre e scarta il frame.\newline
+		\item Se \textbf{riceve un \emph{ack}}, allora la trasmissione è andata a buon fine;
+		\item Se \textbf{\underline{non} riceve un \emph{ack} entro un arco di tempo stabilito}, presuppone un errore e ritrasmette il frame, utilizzando il protocollo CSMA/CA per accedere al canale.
+		\begin{itemize}
+			\item Se il frame di conferma \textbf{non viene ricevuto dopo un numero prefissato di ritrasmissioni}, la stazione trasmittente passa oltre e \textbf{scarta il frame}.
+		\end{itemize}
+	\end{itemize}\newpage
 	
 	\noindent
-	Una stazione wireless o un AP quando deve \textbf{trasmettere un frame} (figura pagina precedente):
+	Una stazione wireless o un AP quando deve \textbf{trasmettere un frame} (figura \ref{avvenuta ricezione}) esegue i seguenti passaggi:
 	\begin{enumerate}
-		\item Se il canale viene percepito come in \textbf{inattivo}, allora trasmette il suo frame dopo un breve periodo di tempo chiamato \textbf{DIFS} (\emph{distributed inter-frame space}, spazio distribuito inter-frame);
+		\item Viene controllato il canale dal mittente:
+		\begin{itemize}
+			\item Se il \textbf{canale è inattivo}, allora trasmette il suo frame dopo un breve periodo di tempo chiamato \textbf{DIFS} (\emph{distributed inter-frame space}, spazio distribuito inter-frame);
+			
+			\item Se il \textbf{canale è attivo}, la stazione:
+			\begin{enumerate}
+				\item Sceglie un valore casuale di ritardo usando un'attesa binaria esponenziale;
+				\item Attende che il canale sia inattivo (\underline{condizione necessaria});
+				\item Appena il canale è inattivo, inizia ad attendere il tempo DIFS;
+				\item Terminato il tempo DIFS, inizia a decrementare il valore calcolato al punto $a$.
+			\end{enumerate}
+			
+			\item Se il \textbf{canale è occupato}, il contatore rimane fermo.
+		\end{itemize}
 		
-		\item Altrimenti, se il \textbf{canale è attivo}, la stazione sceglie un valore casuale di ritardo usano una attesa binaria esponenziale e decrementa questo valore dopo DIFS \underline{solo quando il canale viene percepito come inattivo}. Se il canale è occupato, il contatore rimane fermo.
+		\item Quando il \textbf{contatore arriva a zero}, ovvero solamente quando il \underline{canale} rimane \underline{inattivo}, la \textbf{stazione trasmette} l’intero \textbf{frame} e \textbf{aspettare} il frame di \textbf{conferma}.
 		
-		\item Quando il \textbf{contatore arriva a zero}, ovvero solamente quando il canale rimane inattivo, la stazione trasmette l’intero frame e aspettare il frame di conferma.
+		\item Quando \textbf{riceve la conferma}, la stazione sa che il frame è stato ricevuto correttamente e riattiva il protocollo CSMA/CA dal passo 1. Ma dato che il canale è attivo, la stazione inizierà tutto il procedimento di attesa binaria.
 		
-		\item Quando \textbf{riceve la conferma}, la stazione sa che il frame è stato ricevuto correttamente e riattiva il protocollo CSMA/CA dal passo 2.
-		
-		\item \textbf{Se non riceve la conferma}, la stazione trasmittente ritorna al passo 2, ma con un valore di ritardo maggiore.
-	\end{enumerate}
+		\item \textbf{Se non riceve la conferma}, la stazione trasmittente ritorna al passo 1. Ma dato che il canale è attivo, la stazione inizierà tutto il procedimento di attesa binaria con un \underline{valore di ritardo maggiore}.
+	\end{enumerate}\newpage
 
-	\subsection{\textcolor{Red3}{Esercizio - Bridge e protocollo ALOHA}}
+	\subsection{\textcolor{Red3}{Esame - Bridge e protocollo ALOHA}}
+	
+	\begin{center}
+		\large
+		\textcolor{Green4}{\textbf{Tema d'esame - 24/06/2010, esercizio 1}}
+	\end{center}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/ex2_bridge-ALOHA.pdf}
+	\end{figure}
+
+	\noindent
+	L'esercizio prevedere $3$ stazioni $A,B,C$ e la presenza di un \emph{bridge}. Le velocità sono diverse, nella parte di sinistra (stazioni $A$ e $B$) hanno una velocità $v_{1}$ di $600$ Kbit/s, mentre nella parte di destra (stazione $C$) hanno una velocità $v_{2}$ di $1200$ Kbit/s. La lunghezza è pari a $900$ Byte e il ritardo di propagazione è scritto all'interno dello schema, quindi $\tau = 1$ per arrivare alla stazione $C$ e $B$; $\tau = 1 + 1$ per arrivare alla stazione $A$. Le trame generate sono le seguenti:
+	\begin{itemize}[label=-]
+		\item $A: t_{A1} = 511 \: ms$ destinazione $C$, $t_{A2} = 531 \: ms$ destinazione $B$
+		\item $B: t_{B1} = 545 \: ms$ destinazione $C$
+		\item $C: t_{C1} = 514 \: ms$ destinazione $B$, $t_{C2} = 533 \: ms$ destinazione $A$
+	\end{itemize}
+	Il \textbf{primo passo} è il calcolo del tempo delle trame:
+	\begin{equation*}
+		\begin{array}{ll}
+			T_{1} &= \dfrac{L}{v_{1}} = \dfrac{900 \cdot 8 \: bit}{600 \cdot 10^{3} \: bit/s} = 0,012 \: s \equiv 12 \: ms \\
+			& \\
+			T_{2} &= \dfrac{L}{v_{2}} = \dfrac{900 \cdot 8 \: bit}{1200 \cdot 10^{3} \: bit/s} = 0,006 \: s \equiv 6 \: ms
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Il \textbf{secondo passo è l'evoluzione nel tempo}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex3_bridge-ALOHA.pdf}
+	\end{figure}
+
+	\noindent
+	Qui di seguito si riportano i calcoli eseguiti per calcolare i vari ritardi:
+	\begin{equation*}
+		\begin{array}{lll}
+			Z_{A2}					& = & \left(5+3+9\right) \cdot 1 + 12 = 29 \emph{ ms} \\
+			Z_{\text{bridge }C2}	& = & \left(5+4+0\right) \cdot 1 + 12 = 21 \emph{ ms}
+		\end{array}
+	\end{equation*}\newpage
+
+	\section{Terminali nascosti, RTS e CTS e \emph{framing}}
+	
+	\subsection{Terminali nascosti}
+	
+	Si supponga che le stazioni A e C stiano trasmettendo alla stazione B. Il \textcolor{Red3}{\textbf{problema del terminale nascosto}} (\emph{hidden terminal problem}) \textbf{nasce per due motivi}:
+	\begin{itemize}
+		\item \textbf{Ostacoli fisici} presenti nell’ambiente (montagne o palazzi) potrebbero impedire ad A e C di sentirsi l’uno l’altro, anche se le loro trasmissioni interferiscono presso la destinazione B.
+		
+		\item Si crea una \textbf{collisione non rilevabile} dalla stazione ricevente a causa del \textbf{\underline{fading}} (evanescenza) del segnale che si propaga nell’ambiente.
+	\end{itemize}
+	Il \textbf{protocollo MAC} 802.11 include uno schema di prenotazione che \textbf{aiuta a evitare collisioni anche in presenza di terminali nascosti}.\newline
+	
+	\noindent
+	Si supponga di essere nella seguente situazione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/terminali_nascosti_situazione.pdf}
+	\end{figure}
+
+	\noindent
+	Le due stazioni sono collegate nel raggio dell’AP al quale sono associate.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{problema del terminale nascosto}} si evidenzia nella figura. Si supponga che la stazione $H1$ stia trasmettendo un frame e, a  metà della trasmissione di $H1$, la stazione $H2$ voglia trasmettere un frame all'AP. $H2$, non rilevando la trasmissione di $H1$, attenderà un intervallo di tempo DIFS per poi trasmettere il frame, causando una collisione.\newpage
+	
+	\subsection{RTS e CTS}
+	
+	La \textcolor{Green4}{\textbf{soluzione}} viene presentata dal protocollo IEEE $802.11$ che prevede due frame di controllo per riservare l'accesso al canale:
+	\begin{itemize}[label=-]
+		\item \textbf{RTS}, \emph{request to send} (richiesta di invio)
+		\item \textbf{CTS}, \emph{clear to send} (abilitazione a trasmettere)
+	\end{itemize}
+	Il loro \textbf{utilizzo} è il seguente:
+	\begin{itemize}
+		\item Il \textbf{trasmittente (mittente) invia il frame RTS all’AP}, indicando il tempo totale richiesto per la trasmissione del frame DATI e del frame di conferma ACK.
+		\item L’AP quando \textbf{riceve il frame RTS}, \textbf{risponde diffondendo in broadcast il frame CTS}.
+	\end{itemize}
+	\textbf{\emph{Perché in broadcast}?} Poiché \textbf{comunica al trasmittente il permesso} esplicito di \textbf{inviare} e \textbf{comunica alle altre stazioni di non trasmettere durante il periodo di tempo riservato}.\newline
+	
+	\noindent
+	Quindi, come viene mostrato in figura \ref{evitare collisioni RTS/CTS}, prima di trasmettere il frame DATI, H1 diffonde in broadcast un frame RTS che sarà ricevuto da tutte le stazioni alla sua portata, incluso l’AP. Questo risponderà con un frame CTS, che a sua volta sarà ricevuto da tutte le stazioni nel suo raggio d’azione, incluse H1 e H2.\newline
+
+	\noindent
+	La stazione H2, avendo ricevuto il frame CTS, si asterrà dal trasmettere per il tempo indicato. I frame RTS, CTS, DATI e ACK sono illustrati in figura.\newline
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/RTS_e_CTS.pdf}
+		\caption{Evitare le collisioni usando RTS e CTS.}
+		\label{evitare collisioni RTS/CTS}
+	\end{figure}
+
+	\noindent
+	L’utilizzo di \underline{\textbf{questa tecnica incrementa le prestazioni}} per due motivi:
+	\begin{enumerate}
+		\item \textbf{Risolve il problema del terminale nascosto}, poiché il frame DATI viene trasmesso solamente dopo che il canale è stato prenotato.
+		
+		\item Dato che i frame \textbf{RTS e CTS sono piccoli}, \textbf{una collisione} che li coinvolgesse sarebbe di \textbf{breve durata}. Una volta che questi sono stati trasmessi con successo, i successivi frame DATI e ACK dovrebbero essere trasmessi senza collisioni.
+	\end{enumerate}\newpage
+
+	\subsection{\emph{Framing}}
+	
+	Durante la spiegazione del livello logico (capitolo \ref{livello logico}) è stato introdotto il problema della gestione degli accessi multipli (ampiamente spiegato nel capitolo \ref{problema accesso multiplo}). Tuttavia, questo livello presenta un'altra criticità: \textcolor{Red3}{\textbf{delimitazione delle trame} (\emph{framing})}.\newline
+	
+	\noindent
+	\textbf{Spiegazione del problema}: il livello logico, una volta create le trame, invia i dati al destinatario passando il contenuto al livello più basso della struttura, ovvero il livello fisico. Quest'ultimo, per inviare i dati, traduce tutte le informazioni in binario e comunica con il destinatario tramite onde elettromagnetiche (e non solo). Il problema che nasce dunque è: come è possibile distinguere quanti bit appartengono ad un pacchetto (o meglio, frame) piuttosto che ad un altro?\newline
+	
+	\noindent
+	Possibili \textbf{soluzioni}:
+	\begin{itemize}
+		\item \underline{\textbf{Intervalli temporali}} tra una trama e la successiva. Quindi, viene trasmessa una trama, poi silenzio, poi la trama successiva, di nuovo silenzio e così avanti.\newline
+		\textbf{Problema}: il segnale trasmesso si distorce a causa di fenomeni fisici.
+		
+		\item \underline{\textbf{Contatore di caratteri (\emph{character count})}}. Nell'\emph{header} viene introdotto un campo che indica il numero di Byte da inviare/ricevere.\newline
+		\textbf{Problema}: un errore nel campo porta ad una propagazione a cascata.
+		
+		\item \underline{\textbf{Byte di flag e bit \emph{stuffing}}}. Viene stabilito un valore fisso e aggiunto tale byte all'inizio e alla fine della trama. In questo modo è possibile fare un confronto e ottenere il risultato voluto (\emph{Byte flag}). Un eventuale errore si ripercuote solo tra due trame e non a cascata poiché l'algoritmo si accorge di una coppia errata.\newline
+		Nel caso in cui all'interno del frame è presente la \textbf{stessa sequenza scelta per il \emph{byte flag}}, si utilizza il \textbf{\emph{bit stuffing}}. Questo algoritmo esegue:
+		\begin{itemize}
+			\item Un'\textbf{aggiunta di uno zero in trasmissione}. Così facendo, le sequenze saranno diverse (lo zero viene aggiunto alla fine);
+			\item Una \textbf{rimozione di uno zero in ricezione}. Ovviamente, lo zero verrà rimosso solamente dalla stringa identica al \emph{byte flag}.
+		\end{itemize}
+	\end{itemize}
 \end{document}
