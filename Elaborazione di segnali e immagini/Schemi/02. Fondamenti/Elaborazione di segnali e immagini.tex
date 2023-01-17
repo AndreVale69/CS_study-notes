@@ -9,7 +9,8 @@
 \usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
 \usepackage{amsthm}					% teoremi migliorati
 \usepackage{enumitem}				% gestione delle liste
-\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{pifont}					% elenchi carini
+\usepackage[mathcal]{eucal}			% cambia font di mathcal per fare la F di Fourier
 
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 % Link ipertestuali per l'indice
@@ -817,7 +818,7 @@
 	\end{equation*}
 
 	\noindent
-	Con $t in \mathbb{R}$. Si ricordi che se i \textbf{segnali non sono né di energia né di potenza, l'integrale \underline{converge}}.\newline
+	Con $t \in \mathbb{R}$. Si ricordi che se i \textbf{segnali non sono né di energia né di potenza, l'integrale \underline{converge}}.\newline
 	
 	\noindent
 	Nel caso in cui i \textbf{segnali} siano \textbf{discreti}, dati $x_{1}\left(n\right)$, $x_{1}\left(n\right)$:
@@ -1561,7 +1562,7 @@
 	
 	\newpage
 	
-	\subsection{Domanda da esame}
+	\subsection{Domanda da \textcolor{Red3}{esame}}
 	
 	All'esame è possibile che sia richiesto come domanda: \dquotes{quali sono le trasformate di Fourier studiate durante il corso?}
 	
@@ -2637,4 +2638,346 @@
 
 	\noindent
 	A differenza degli altri filtri, questo dà maggiore libertà al progettista. Infatti, il blur può avvenire attraverso una maschera di supporto arbitrariamente grande.
+	
+	\newpage
+	
+	\section{Elaborazione di immagini - Rinforzo del dominio delle frequenze}
+	
+	\subsection{Ripasso formule utili}
+	
+	Si ricorda la trasformata di Fourier discreta a una dimensione (1D) che si rappresenta con la seguente equazione:
+	
+	\begin{equation*}
+		\tilde{F}\left(\dfrac{m}{M} \dfrac{1}{\Delta T}\right) = F\left(\dfrac{m}{M} \dfrac{1}{\Delta T}\right) = F_{m} = \sum_{n=0}^{M-1} f_{n} e^{-j 2 \pi \frac{m}{M} n}
+	\end{equation*}
+
+	\noindent
+	Mentre la trasformata di Fourier discreta inversa (o antitrasformata), corrisponde a:
+	
+	\begin{equation*}
+		\tilde{f}\left(n \Delta T\right) = f\left(n \Delta T\right) = f_{n} = \dfrac{1}{M} \sum_{m=0}^{M-1} F_{m} e^{j 2 \pi \frac{m}{M} n}
+	\end{equation*}
+
+	\noindent
+	È possibile fare alcune osservazioni riguardo le trasformate di fourier in una e due dimensioni. Partendo dalla definizione:
+	
+	\begin{equation*}
+		F_{m} = \sum_{n=o}^{M-1} f_{n}e^{- j 2 \pi \frac{m}{M} n}
+	\end{equation*}
+
+	\noindent
+	Si intende la trasformata di Fourier discreta come la moltiplicazione del segnale per delle funzioni sinusoidali 1D. Più il segnale \dquotes{assomiglia} alla sinusoide di frequenza specifica con cui si moltiplica, più il valore di ampiezza della trasformata di Fourier discreta è alto per quella frequenza.\newline
+	
+	\noindent
+	Si esegue un cambio di variabile, quindi $\mu$ diventa la \textbf{variabile delle frequenze} e $x$ quella dello \textbf{spazio}. Entrambe rappresentano una quantità campionata e 1D è:
+	
+	\begin{equation*}
+		F_{m} = \sum_{n=0}^{M-1} f_{n} e^{- j 2 \pi \frac{m}{M} n} \longrightarrow F_{u} = F\left(u\right) = \sum_{x=0}^{M-1} f\left(x\right) e^{- j 2 \pi \frac{u}{M} x}
+	\end{equation*}
+
+	\noindent
+	Si passa alla seconda dimensione aggiungendo $y$ e $v$ per l'\textbf{analisi verticale}:	
+	\begin{equation*}
+		F\left(u,v\right) = \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f\left(x,y\right) e^{- j 2 \pi \left(\frac{u}{M} x + \frac{v}{N} y\right)}
+	\end{equation*}
+	In cui $F\left(u,v\right)$ rappresenta la \textbf{risposta} di $I$ all'immagine (complessa) di base $\left(u,v\right) e^{\cdots}$, invece l'esponenziale rappresenta l'\textbf{immagine} (complessa) base che è funzione di $\left(u,v\right)$.\newpage
+	
+	\noindent
+	Si elencano un paio di \textbf{proprietà della trasformata di Fourier discreta 2D}, utili per questo capitolo:
+	\begin{itemize}
+		\item \textbf{Traslazione}:
+		\begin{equation*}
+			\begin{array}{llll}
+				\text{Segnale: } & g\left(x,y\right) & = & f\left(x-x_{0}, y-y_{0}\right) \\
+				&&& \\
+				\text{T.d.F.:}   & G\left(u,v\right) & = & F\left(u,v\right) e^{-j 2 \pi \left(\frac{u}{M}x_{0} + \frac{v}{N}y_{0}\right)} \\
+				&&& \\
+				\text{Segnale: } & g\left(x,y\right) & = & f\left(x,y\right)e^{j2\pi \left(\frac{u}{M}x_{0} + \frac{v}{N}y_{0}\right)} \\
+				&&& \\
+				\text{T.d.F.:}   & G\left(u,v\right) & = & f\left(u-u_{0}, v-v_{0}\right)
+			\end{array}
+		\end{equation*}
+		
+		\item \textbf{Rotazione}: la trasformata di Fourier di un'immagine a cui è stata applicata una rotazione $\theta$, porterà ad un'immagine di trasformata ruotata di angolo $\theta$:
+		\begin{equation*}
+			\mathcal{F}\left(f_{\theta}\right)\left(u,v\right) = \mathcal{F}\left(f\right)_{\theta}\left(u,v\right)
+		\end{equation*}
+	\end{itemize}
+
+	\noindent
+	Si richiama anche il \textbf{teorema di convoluzione}, ovvero la convoluzione nel tempo tra due segnali corrisponde alla moltiplicazione nel dominio delle frequenze. Ovviamente per cambiare dominio è necessario applicare Fourier:
+	\begin{equation*}
+		\begin{array}{lll}
+			\mathcal{F}\left(f * h\right) & = & \mathcal{F}\left(f\right) \cdot \mathcal{F}\left(h\right) \\
+			&& \\
+			\mathcal{F}\left(f \cdot h\right) & = & \mathcal{F}\left(f\right) * \mathcal{F}\left(h\right)
+		\end{array}
+	\end{equation*}
+	Questo teorema è la base del filtraggio in frequenza.\newpage
+	
+	\subsection{Rumore nel dominio delle frequenze}
+	
+	Il \textcolor{Red3}{\textbf{rumore}} porta ad un aumento delle alte frequenze. Infatti, eseguendo una riduzione delle alte frequenze, si riduce sia il rumore (aspetto \emph{positivo}) sia il livello di dettaglio (aspetto \emph{negativo}).\newline
+	
+	\noindent
+	Qui di seguito, vengono lasciate tre immagini per eseguire un confronto. L'immagine originale presenta certe frequenze, ma applicando il rumore gaussiano, o sale e pepe (\href{https://it.wikipedia.org/wiki/Rumore_sale_e_pepe}{\emph{salt-and-pepper noise}}), viene ridotto sensibilmente sia il rumore che il livello di dettaglio.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/rumore_dominio_frequenze.jpg}
+	\end{figure}\newpage
+
+	\subsection{Panoramica su filtri passa alto (\emph{high-pass}) e passa basso (\emph{low-pass})}
+	
+	I filtri passo alto (\emph{high-pass}) e passa basso (\emph{low-pass}) sono identici a quelli visti durante il corso di Sistemi. L'obbiettivo di questo paragrafo è introdurre qualche definizione e dare una panoramica generale dei due filtri approfonditi nei prossimi paragrafi.\newline
+	
+	\noindent
+	In un immagine, le \textbf{frequenze basse} rappresentano informazioni con variazioni di intensità \dquotes{lente}. Per esempio, le gradazioni di colore su un muro illuminato, o la nuvolosità nel cielo.\newline
+	
+	\noindent
+	Al contrario, le informazioni ad \textbf{alte frequenze} indicano informazioni con variazioni di intensità \dquotes{repentine}. Per esempio, spigoli, angoli e rumore.\newline
+	
+	\noindent
+	Per lavorare sulle frequenze esistono due filtri importanti:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Filtro passa basso}} \emph{(low-pass filter)} rimuove dall'immagine le informazioni ad alte frequenze e mantiene quelle a basse frequenze.
+		
+		\item \textcolor{Red3}{\textbf{Filtro passa alto}} \emph{(high-pass filter)} rimuove dall'immagine le informazioni a basse frequenze e mantiene quelle ad alte frequenze.
+	\end{itemize}
+	Dato che ogni filtro è il contrario dell'altro, da ciascuno è possibile derivare il suo opposto:
+	\begin{equation*}
+		H_{PA} = 1 - H_{PB}
+	\end{equation*}
+	In cui $PA$ indica passa alto e $PB$ passa basso.\newpage
+	
+	\subsection{Filtri passa basso (\emph{low-pass})}
+	
+	\subsubsection{Filtri passa basso ideale}
+	
+	Il \textcolor{Red3}{\textbf{filtro passa basso ideale}} viene usato per ottenere: lo sfocamento e lo \emph{smoothing}. Solitamente, per ottenere questi risultati si attenuano le alte frequenze, ma facendo così si ottiene anche una riduzione inevitabile del rumore.\newline
+	
+	\noindent
+	Matematicamente parlando, un filtro passa basso ideale è una funzione di trasferimento (uguale alla sua trasformata nel dominio delle frequenze) di una box.\newline
+	
+	\noindent
+	Viene detta \textbf{ideale} perché come si vede in figura, una transizione così netta in corrispondenza alla \emph{frequenza di taglio} non è analogicamente realizzabile. In parole povere, è ideale poiché nell'elettronica non può fisicamente avvenire un calo di energia così repentino.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/box_filtro_passa_bassa_ideale.pdf}
+		\caption{Funzione di trasferimento di un filtro passa basso ideale.}
+	\end{figure}
+
+	\noindent
+	Dato che i filtri studiati sono solamente digitali, teoricamente potremmo tralasciare questo taglio repentino. Purtroppo, esso provoca un effetto visivo indesiderato chiamato \textbf{ringing}.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{ringing}} (o effetto di Gibbs) è dovuto al fatto eseguire un filtraggio passa basso ideale (in frequenza) equivale ad eseguire una convoluzione con l'operatore $\mathrm{sinc}$ (nello spazio). Ne consegue che la risposta all'impulso del passa basso ideale è ancora un $\mathrm{sinc}$ e l'\textbf{immagine visivamente risulta increspata vicino ai bordi taglienti}\footnote{Fonte: \href{https://imaging.cs.msu.ru/en/research/ringing}{\emph{Faculty of Computational Mathematics and Cybernetics, Lomonosov Moscow State University}}}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/ringing_example.png}
+		\caption{Effetto ringing su un'immagine.}
+	\end{figure}\newpage
+
+	\noindent
+	Segnale $H$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/filtro_passa_basso_ideale.pdf}
+	\end{figure}
+
+	\noindent
+	Le formule da applicare per il filtro basso ideale sono:
+	\begin{equation*}
+		H\left(u,v\right) = \begin{cases}
+			1 & \text{se } D\left(u,v\right) \le D_{0} \\
+			0 & \text{se } D\left(u,v\right) > D_{0}
+		\end{cases}
+	\end{equation*}
+	In cui $D_{0}$ è uguale a $\mu_{\text{thresh}}$ che indica la soglia e $D\left(u,v\right)$ è il raggio del cerchio:
+	\begin{equation*}
+		D\left(u,v\right) = \sqrt{\left(u - \dfrac{M}{2}\right)^{2} + \left(v - \dfrac{N}{2}\right)^{2}}
+	\end{equation*}
+	Da notare che solo le frequenze nel cerchio di raggio $D_{0}$ vengono mantenute.\newpage
+	
+	\subsubsection{Filtri passa basso di Butterworth}
+	
+	Il \textcolor{Red3}{\textbf{filtro passa basso di Butterworth}} è un filtro con attenuazione dolce in prossimità della frequenza di taglio.	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/filtro_passa_basso_butterworth.png}
+		\caption{Filtro passa basso di Butterworth.}
+	\end{figure}
+	La \textbf{proprietà caratterizzante} di questo filtro è la \textbf{risposta molto ripida nella banda passante}.\newline
+	
+	\noindent
+	L'ordine è $n$ e la frequenza di taglio $D_{0} = \mu_{\text{thresh}}$:
+	\begin{equation*}
+		H\left(u,v\right) = \dfrac{1}{1 + \left(\dfrac{D\left(u,v\right)}{D_{0}}\right)^{2n}}
+	\end{equation*}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/filtro_passa_basso_butterworth-ordine.png}
+		\caption{Applicazione dell'ordine e della frequenza di taglio.}
+	\end{figure}
+
+	\noindent
+	Le formule da applicare:
+	\begin{equation*}
+		\begin{array}{lll}
+			H\left(u,v\right) & = & \dfrac{1}{1 + \left[\dfrac{D\left(u,v\right)}{D_{0}}\right]^{2n}} \\
+			&& \\
+			D\left(u,v\right) & = & \sqrt{\left(u - \dfrac{M}{2}\right)^{2} + \left(v - \dfrac{N}{2}\right)^{2}}
+		\end{array}
+	\end{equation*}
+	
+	\noindent
+	È interessante notare che facendo tendere $n$ all'infinito, si ottiene il filtro passa basso ideale:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/filtro_passa_basso_butterworth-ideale.png}
+	\end{figure}\newpage
+
+	\subsubsection{Filtri passa basso Gaussiano}
+	
+	La trasformata di Fourier di una funzione Gaussiana è anch'essa Gaussiana:
+	\begin{equation*}
+		\begin{array}{lll}
+			F\left(u\right) & = & Ae^{-\frac{u}{2\sigma^{2}}} \\
+			&& \\
+			f\left(t\right) & = & \sqrt{2 \pi} \sigma A e^{-2 \pi^{2} \sigma^{2} t^{2}}
+		\end{array}
+	\end{equation*}
+	Oppure allo stesso identico modo:
+	\begin{equation*}
+		\begin{array}{lll}
+			f\left(t\right) & = & Ae^{-\frac{t}{2\sigma^{2}}} \\
+			&& \\
+			F\left(u\right) & = & \sqrt{2 \pi} \sigma A e^{-2 \pi^{2} \sigma^{2} u^{2}}
+		\end{array}
+	\end{equation*}
+	Le equazioni di questa operazione sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			H\left(u,v\right) & = & e^{-\dfrac{D^{2}\left(u,v\right)}{2 D_{0}^{2}}} \\
+			&& \\
+			D\left(u,v\right) & = & \sqrt{\left(u - \dfrac{M}{2}\right)^{2} + \left(v - \dfrac{N}{2}\right)^{2}}
+		\end{array}
+	\end{equation*}
+	In cui la costante $D_{0}$ può essere sostituita con $\sigma$, ovvero l'effettiva deviazione standard della distribuzione Gaussiana. In questo caso, la frequenza di taglio $D_{0}$ corrisponde alla deviazione standard $\sigma$. In altre parole, quando $D\left(u,v\right) = \sigma$, allora l'intensità di taglio è $0.607$ e il filtraggio crea un attenuamento di quella frequenza pari al $60.7\%$.\newline
+	
+	\noindent
+	Un'\textbf{osservazione} interessante è la seguente. Un filtro gaussiano con una certa scala nel dominio delle frequenze, corrisponde ad un filtro gaussiano con scala inversa nel dominio dello spazio.
+	
+	\subsubsection{Sintesi}
+	
+	Qui di seguito si elencano i filtri passa basso più importanti:
+	\begin{itemize}
+		\item \textbf{Ideale}: è una brusca transizione in corrispondenza della frequenza di \emph{cut-off}. Questo causa un fenomeno di Gibbs o di \emph{ringing};
+		
+		\item \textbf{Gaussiano}: transizione di \emph{cut-off} dolce. Il parametro $\sigma$ determina la frequenza di \emph{cut-off};
+		
+		\item \textbf{Butterworth}: ha una rapidità variabile e transizione \emph{smooth}. La ripidità viene modellata dall'ordine del filtro. La frequenza di \emph{cut-off} viene selezionata indipendentemente dall'ordine del filtro. Si può avere \emph{ringing} per ordini elevati.
+	\end{itemize}\newpage
+	
+	\subsection{Filtri passa alto (\emph{high-pass})}
+	
+	Un \textcolor{Red3}{\textbf{filtro passa alto}} sopprime (blocca) le basse frequenze e lascia passare le alte frequenze. La costruzione di un filtro passa alto può essere eseguita come:
+	\begin{equation*}
+		H_{PA} = 1 - H_{PB}
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/filtri_passa_alto.png}
+		\caption{Filtri passa alto, dall'alto: ideale, di Butterworth, Gaussiano.}
+	\end{figure}\newpage
+	
+	\subsubsection{Filtri passa alto ideale}
+	
+	Dato il segnale $H$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/filtro_passa_alto_ideale.pdf}
+	\end{figure}
+	
+	\noindent
+	Le formule da applicare per il \textcolor{Red3}{\textbf{filtro passa alto ideale}} sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			H\left(u,v\right) & = & \begin{cases}
+				0 & \text{se} D\left(u,v\right) \le D_{0} \\
+				1 & \text{se} D\left(u,v\right) > D_{0}
+			\end{cases} \\
+			&& \\
+			D\left(u,v\right) & = & \sqrt{\left(u - \dfrac{M}{2}\right)^{2} + \left(v - \dfrac{N}{2}\right)^{2}}
+		\end{array}
+	\end{equation*}
+	Solamente le frequenze fuori dal cerchio di raggio $D_{0}$ vengono mantenute.
+	
+	\subsubsection{Filtri passa alto di Butterworth}
+	
+	Dato il segnale $H$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/filtro_passa_alto_butterworth.png}
+	\end{figure}
+	
+	\noindent
+	Le formule da applicare per il \textcolor{Red3}{\textbf{filtro passa alto di Butterworth}} sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			H\left(u,v\right) & = & \dfrac{1}{1 + \left[\dfrac{D\left(u,v\right)}{D_{0}}\right]^{-2n}} \\
+			&& \\
+			D\left(u,v\right) & = & \sqrt{\left(u - \dfrac{M}{2}\right)^{2} + \left(v - \dfrac{N}{2}\right)^{2}}
+		\end{array}
+	\end{equation*}
+	Per $n$ tendente ad infinito si ha il filtro passa alto ideale.\newpage
+	
+	\subsubsection{Filtri passa alto Gaussiano}
+	
+	Dato il segnale $H$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/filtro_passa_alto_gaussiano.png}
+	\end{figure}
+	
+	\noindent
+	Le formule da applicare per il \textcolor{Red3}{\textbf{filtro passa alto Gaussiano}} sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			H\left(u,v\right) & = & 1 - e^{- \dfrac{D^{2}\left(u,v\right)}{2 D^{2}_{0}}} \\
+			&& \\
+			D\left(u,v\right) & = & \sqrt{\left(u - \dfrac{M}{2}\right)^{2} + \left(v - \dfrac{N}{2}\right)^{2}}
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsection{Filtri per enfatizzare le alte frequenze}
+	
+	Esiste anche il \textcolor{Red3}{\textbf{filtro omeomorfo}} che attenua le basse frequenze e aumenta quelle delle alte:
+	\begin{equation*}
+		H\left(u,v\right) = \left(\gamma_{H} - \gamma_{L}\right)\left[1 - e^{- \frac{c D^{2}\left[u,v\right]}{D_{0}^{2}}}\right] + \gamma_{L}
+	\end{equation*}
+
+	\noindent
+	Invece, usando il \textbf{filtro passa alto}, è possibile enfatizza aumentando la variabile $k$:
+	\begin{equation*}
+		H\left(u,v\right) = \left(1 + k \cdot H_{PA}\left(u,v\right)\right) \cdot H
+	\end{equation*}
+	Dove $k$ è il contributo delle alte frequenze, $H$ lo spettro dell'immagine e $H_{PA}$ il filtro passa alto
+	
+	\subsection{Filtri passa banda e ferma banda}
+	
+	I seguenti filtri operano su una banda di frequenze, al contrario i precedenti filtri lavoravano su alte o basse frequenze.\newline
+	
+	\noindent
+	Un \textcolor{Red3}{\textbf{filtro passa banda}} sopprime tutte le frequenze al di fuori di un intervallo di frequenze specificato.\newline
+	
+	\noindent
+	Un \textcolor{Red3}{\textbf{filtro ferma banda}} sopprime tutte le frequenze nell'intervallo specificato.\newline
+	
+	\noindent
+	Analogamente ai filtri passa basso e alto, anche qui è possibile derivare uno dei due filtri avendo solamente l'altro:
+	\begin{equation*}
+		H_{PBn} = 1 - H_{FBn}
+	\end{equation*}
+	Dove $PB$ indica passa banda e $FB$ ferma banda.
 \end{document}
