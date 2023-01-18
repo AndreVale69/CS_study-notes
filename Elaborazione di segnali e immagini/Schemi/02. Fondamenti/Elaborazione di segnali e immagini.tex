@@ -24,6 +24,7 @@
 %\usepackage{showkeys}				% visualizzazione etichetta
 
 \newcommand{\dquotes}[1]{``#1''}
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 
 \begin{document}
 	\author{VR443470}
@@ -2979,5 +2980,445 @@
 	\begin{equation*}
 		H_{PBn} = 1 - H_{FBn}
 	\end{equation*}
-	Dove $PB$ indica passa banda e $FB$ ferma banda.
+	Dove $PB$ indica passa banda e $FB$ ferma banda.\newpage
+	
+	\section{Elaborazione di immagini - Estrazione di edge robusta}
+	
+	\subsection{Estrazione di contorni (\emph{edge})}
+	
+	Si definisce come \textbf{\emph{feature}} una proprietà dell'immagine. Quest'ultima può essere:
+	\begin{itemize}
+		\item \textbf{Globale}, ovvero dell'intera immagine;
+		\item \textbf{Locale}, ovvero di una parte dell'immagine con speciali proprietà.
+	\end{itemize}
+	
+	\noindent
+	Con il termine \textcolor{Red3}{\textbf{edge}} si indica una forte variazione locale dei livelli di grigio, tipicamente associata ad un contorno o ad una separazione tra regioni.\newline
+	
+	\noindent
+	Il fenomeno dell'\emph{edge} provoca una serie di complicazioni. Si definisce il \textcolor{Red3}{\textbf{problema dell'estrazione}}: data un'immagine, la \textbf{rilevazione} (\emph{detection}) e la \textbf{localizzazione} degli edge derivati dalla scena e non dal rumore.\newline
+	
+	\noindent
+	La soluzione al problema non è affatto banale perché: il rumore può mascherare gli \emph{edge} e possono esistere falsi \emph{edge} positivi dovuti a ombre e variazioni di luminosità.\newline
+	
+	\noindent
+	Esistono varie \textbf{tipologie di livello di grigio}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/tipologie_ldg.pdf}
+	\end{figure}
+
+	\longline\vspace{1em}
+	
+	\noindent
+	Si definisce un \textcolor{Red3}{\textbf{punto di edge}}, un punto dell'immagine con coordinate $\left(i,j\right)$ in cui è presente una variazione significativa locale dell'intensità.\newline
+	
+	\noindent
+	Si definisce un \textcolor{Red3}{\textbf{contorno}}, una lista di punti di \emph{edge} o un'altra struttura dati che modella i punti di \emph{edge}, ordinandoli dal primo all'ultimo. In altre parole, è l'\emph{edge} vero e proprio.\newline
+	
+	\noindent
+	Ancora una volta, nasce una complicazione: il \textcolor{Red3}{\textbf{problema della localizzazione}}. Infatti, nonostante la posizione di un punto di \emph{edge} si identifica tramite le coordinate $\left(i,j\right)$, le costanti $i,j$ potrebbero non essere indici di pixel.\newline
+	
+	\noindent
+	Inoltre, la localizzazione può richiedere anche l'\textbf{orientazione} di un punto d'\emph{edge}. Questo implica l'introduzione del \textbf{gradiente}.\newline
+	
+	\longline\vspace{1em}
+	
+	\noindent
+	Per concludere, si \textbf{classificano gli \emph{edge}}:
+	\begin{itemize}
+		\item \textbf{Corretti}: \emph{edge} della scena;
+		\item \textbf{Falsi}: non esistono nella scena (\emph{false positives});
+		\item \textbf{Mancanti}: presenti nella scena, ma non rilevanti (\emph{false negatives}).
+	\end{itemize}\newpage
+
+	\subsection{Criteri per \emph{edge detector} ottimi}
+	
+	Esistono $3$ criteri per ottenere un \emph{edge detector} ottimo:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Buon rilevamento (\emph{detection})}}. Deve minimizzare la probabilità di presenza di falsi positivi e la probabilità di presenza di falsi negativi.\newline
+		La massimizzazione del SNR (\emph{Signal to Noise Ratio}, rapporto segnale-rumore; è una grandezza numerica che mette in relazione la potenza del segnale utile rispetto a quella del rumore\footnote{Fonte: \href{https://it.wikipedia.org/wiki/Rapporto_segnale/rumore}{WikipediaIT}}) definito come il rapporto tra la risposta quadratica media (RMS) del filtro agli \emph{step edge} ideali e il rumore;
+		
+		\item \textcolor{Red3}{\textbf{Buona localizzazione}}. Gli \emph{edge} rilevati devono essere più vicino possibile agli \emph{edge} reali;
+		
+		\item \textcolor{Red3}{\textbf{Vincolo di singola risposta}}. Per ogni punto di \emph{edge} reale, il filtro deve rilevare \underline{un solo} punto di \emph{edge}. Ossia, minimizzare il numero di massimi locali creati dal rumore intorno all'\emph{edge}.
+	\end{itemize}
+	I criteri di buon rilevamento e di buona localizzazione, identificano due modi di valutazione per l'estrazione di \emph{edge} indipendentemente dalla lunghezza dell'\emph{edge} e dalla potenza del rumore.\newpage
+	
+	\subsection{Il gradiente}
+	
+	Il \textcolor{Red3}{\textbf{gradiente}} è una misura della variazione in una funzione. Nel caso monodimensionale, corrisponde al picco della derivata prima:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/gradiente.pdf}
+	\end{figure}
+	
+	\noindent
+	Assumendo una funzione $f\left(x,y\right)$, allora:
+	\begin{equation*}
+		\boldsymbol{G}\left[f\left(x,y\right)\right] = \begin{bmatrix}
+			G_{x} \\
+			G_{y}
+		\end{bmatrix} = \begin{bmatrix}
+		\dfrac{\partial f}{\partial x} \\
+		\\
+		\dfrac{\partial f}{\partial y}
+	\end{bmatrix}
+	\end{equation*}
+	Il modulo è pari alla lunghezza del vettore $G$ localizzato su $x$ e $y$:
+	\begin{equation*}
+		\left\| \boldsymbol{G} \right\| = G = \sqrt{G_{x}^{2} + G_{y}^{2}}
+	\end{equation*}
+	Approssimazioni del modulo:
+	\begin{equation*}
+		\begin{array}{lll}
+			G & \cong & \left| G_{x} \right| + \left| G_{y} \right| \\
+			G & \cong & \max\left(\left| G_{x} \right|, \left| G_{y} \right|\right)
+		\end{array}	
+	\end{equation*}
+	L'orientazione, misurata rispetto all'asse $x$, è data da:
+	\begin{equation*}
+		\alpha\left(x,y\right) = \arctan\dfrac{G_{y}}{G_{x}}
+	\end{equation*}
+	In pratica, il vettore $\boldsymbol{G}$ punta nella direzione di massimo scarto della funzione $f$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/gradiente_direzione.pdf}
+	\end{figure}\newpage
+	
+	\subsection{Estrazione dell'edge}
+	
+	\subsubsection{Il gradiente discreto}
+	
+	Per differenziare un'immagine digitale $F\left[x,y\right]$ è possibile seguire due strade:
+	\begin{enumerate}
+		\item Ricostruire un'immagine continua, quindi prendere il gradiente analitico;
+		\item Prendere la derivata discreta, tramite \dquotes{differenze finite}, come visto nei capitoli precedenti.
+	\end{enumerate}
+	Il \textbf{gradiente discreto} è approssimativamente la differenza tra pixel adiacenti:
+	\begin{equation*}
+		\dfrac{\partial f}{\partial x}\left[x,y\right] \approx F\left[x + 1, y\right] - F\left[x,y\right]
+	\end{equation*}
+	E le approssimazioni numeriche, invece, sono:
+	\begin{equation*}
+		\begin{array}{lllll}
+			f_{x} & \approx & f\left[i, j+1\right] - f\left[i,j\right] \longrightarrow \begin{bmatrix}
+				-1 & 1
+			\end{bmatrix} & \longrightarrow & S_{x} = \begin{bmatrix}
+			-1 & 1 \\
+			0 & 0
+		\end{bmatrix} \\
+			f_{y} & \approx & f\left[i,j\right] - f\left[i+1, j\right] \longrightarrow \begin{bmatrix}
+				1 \\
+				-1
+			\end{bmatrix} & \longrightarrow & S_{y} = \begin{bmatrix}
+			1 & 0 \\
+			-1 & 0
+		\end{bmatrix}
+		\end{array}
+	\end{equation*}\label{gradiente discreto}
+
+	\longline
+	
+	\subsubsection{Operatore di Roberts}
+	
+	L'\textcolor{Red3}{\textbf{operatore di Roberts}} è un'approssimazione con differenze incrociate:
+	\begin{equation*}
+		\left|d\left[f\left(i,j\right)\right]\right| = \left|f\left(i,j\right) - f\left(i+1, j+1\right)\right| + \left|f\left(i, j+1\right) - f\left(i+1, j\right)\right|
+	\end{equation*}
+	La convoluzione dell'immagine (guardare le due matrici $S_{x}$ e $S_{y}$ nel paragrafo~\ref{gradiente discreto}) con $2$ maschere del tipo:
+	\begin{equation*}
+		S_{1} = \begin{bmatrix}
+			1 & 0 \\
+			0 & -1
+		\end{bmatrix} \hspace{2em} S_{2} = \begin{bmatrix}
+			0 & 1 \\
+			-1 & 0
+	\end{bmatrix}
+	\end{equation*}
+
+	\longline
+	
+	\subsubsection{Operatore di Prewitt}
+	
+	Data l'approssimazione con vicinato $3\times3$:
+	\begin{equation*}
+		\begin{bmatrix}
+			a_{0} & a_{1} & a_{2} \\
+			a_{7} & \left(i,j\right) & a_{3} \\
+			a_{6} & a_{5} & a_{4}
+		\end{bmatrix}
+	\end{equation*}
+	L'\textcolor{Red3}{\textbf{operatore di Prewitt}} è un'approssimazione del tipo:
+	\begin{equation*}
+		\left|r\left[f\left(i,j\right)\right]\right| = \underbrace{\left|\left(a_{2}+a_{3}+a_{4}\right) - \left(a_{0}+a_{7}+a_{6}\right)\right|}_{S_{x}} + \underbrace{\left|\left(a_{0}+a_{1}+a_{2}\right) - \left(a_{6}+a_{5}+a_{4}\right)\right|}_{S_{y}}
+	\end{equation*}
+	Il risultato:
+	\begin{equation*}
+		S_{x} = \begin{bmatrix}
+			-1 & 0 & 1 \\
+			-1 & 0 & 1 \\
+			-1 & 0 & 1
+		\end{bmatrix} \hspace{2em}
+		S_{y} = \begin{bmatrix}
+			1  & 1  & 1 \\
+			0  & 0  & 0 \\
+			-1 & -1 & -1
+		\end{bmatrix}
+	\end{equation*}\newpage
+	
+	\subsubsection{Operatore di Sobel}
+	
+	L'\textcolor{Red3}{\textbf{operatore di Sobel}} ha molte matrici predefinite, tra le più famose:
+	\begin{equation*}
+		S_{x} = \begin{bmatrix}
+			-1 & 0 & 1 \\
+			-2 & 0 & 2 \\
+			-1 & 0 & 1
+		\end{bmatrix} \hspace{2em}
+		S_{y} = \begin{bmatrix}
+			1  & 2  & 1 \\
+			0  & 0  & 0 \\
+			-1 & -2 & -1
+		\end{bmatrix}
+	\end{equation*}
+	
+	\longline
+	
+	\subsubsection{Operatore di Kirsch}
+	
+	L'\textcolor{Red3}{\textbf{operatore di Roberts}} ha $8$ maschere direzionali, ognuna delle quali risponde massimamente per ciascun \emph{edge} in una determinata direzione. Il \textbf{valore massimo} tra gli $8$ valori stimati è il valore di output del gradiente in quel punto, mentre l'indice della maschera codifica le direzioni dell'\emph{edge}.\newline
+	
+	\noindent
+	Un \textbf{esempio di maschere direzionali}:
+	\begin{equation*}
+		\begin{array}{lllc}
+			\textbf{Horizontal line: } & D_{0} & = & \begin{bmatrix}
+				-1 & -1  & -1 \\
+				2 & 2 & 2 \\
+				-1 & -1 & -1
+			\end{bmatrix} \\
+			&&& \\
+			\boldsymbol{45°}\textbf{ line: } & D_{45} & = & \begin{bmatrix}
+				-1 & -1  & 2 \\
+				-1 & 2 & -1 \\
+				2 & -1 & -1
+			\end{bmatrix} \\
+			&&& \\
+			\textbf{Vertical line: } & D_{90} & = & \begin{bmatrix}
+				-1 & 2  & -1 \\
+				-1 & 2 & -1 \\
+				-1 & 2 & -1
+			\end{bmatrix} \\
+			&&& \\
+			\boldsymbol{135°}\textbf{ line: } & D_{135} & = & \begin{bmatrix}
+				2 & -1  & -1 \\
+				-1 & 2 & -1 \\
+				-1 & -1 & 2
+			\end{bmatrix} \\
+		\end{array}
+	\end{equation*}
+	
+	\longline
+	
+	\subsubsection{Operatore di Robinson}
+	
+	L'\textcolor{Red3}{\textbf{operatore di Roberts}} ha $8$ maschere direzionali, simili a quelle di Kirsch.\newpage
+	
+	\subsubsection{Confronto tra operatori}
+	
+	Dati gli operatori per estrarre l'\emph{edge}:
+	\begin{enumerate}
+		\item Gradiente
+		\item Roberts
+		\item Prewitt
+		\item Sobel
+	\end{enumerate}
+	È possibile osservare come più si è \textbf{vicini al gradiente}, più:
+	\begin{itemize}
+		\item La localizzazione è buona;
+		\item Aumenta la sensibilità al rumore;
+		\item Diminuisce la rilevazione, diventa scarsa con il gradiente.
+	\end{itemize}
+	Al contrario, \textbf{vicino all'operazione di Sobel}:
+	\begin{itemize}
+		\item Diminuisce la localizzazione;
+		\item Diminuisce la sensibilità al rumore;
+		\item Aumenta la rilevazione.
+	\end{itemize}
+	Un esempio di applicazione dei vari operatori:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.65\textwidth]{img/confronto_tra_operatori.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	Invece, l'applicazione del gradiente è visibile nella seguente figura. Interessante notare le singoli applicazioni, ovvero solo lungo $x$ o $y$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/gradiente_examples.png}
+	\end{figure}\newpage
+
+	\subsection{Derivata prima}
+	
+	\subsubsection{Problemi}
+	
+	Gli operatori di \textbf{derivata prima} vanno applicati per ottenere il gradiente. Tuttavia, presentano dei problemi poiché \textbf{estraggono troppi punti di \emph{edge}}.
+	
+	\longline
+	
+	\subsubsection{Effetti del rumore}
+	
+	Si consideri una singola riga o colonna dell'immagine. Si traccia l'intensità in funzione della posizione del segnale. Si può vedere come la \textbf{derivata prima amplifichi il rumore}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/derivata_prima.pdf}
+	\end{figure}
+
+	\noindent
+	Per \textbf{risolvere} questo problema, si applica uno \textbf{\emph{smoothing} preliminare}.
+
+	\longline
+	
+	\subsubsection{Rilevazione di edge o detection robusta}
+	
+	Per rilevare l'\emph{edge} o eseguire una detection robusta, si eseguono tre fasi fondamentali:
+	\begin{itemize}
+		\item \textbf{Filtraggio} (\emph{noise smoothing}): si vuole ridurre il rumore preservando gli \emph{edge} reali;
+		
+		\item \textbf{Rinforzo} (\emph{enhancement, sharpening}): facilita il rilevamento dell'\emph{edge}, evidenziando le variazioni locali;
+		
+		\item \textbf{Rilevamento} (\emph{detection}): decisione sulla presenza o meno dei punti di \emph{edge}.
+	\end{itemize}
+	Tuttavia, si tenga in considerazione che:
+	\begin{itemize}[label=\ding{42}]
+		\item Non tutti i punti aventi gradiente diverso da zero sono \emph{edge};
+		\item È richiesto tipicamente una fase di sogliatura;
+		\item È richiesto talvolta una fase di localizzazione a risoluzione \emph{subpixel} e una fase di assottigliamento (\emph{thinning})
+	\end{itemize}\newpage
+
+	\subsubsection{Teorema di convoluzione}
+	
+	Applicando il \textbf{teorema di convoluzione}:
+	\begin{equation*}
+		\dfrac{\partial}{\partial x}\left(h * f\right) = \left(\dfrac{\partial}{\partial x}\right) * f
+	\end{equation*}
+	In questo modo, si risparmia un'operazione di filtraggio. Esempio:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/convoluzione_derivata_prima.pdf}
+	\end{figure}\newpage
+
+	\subsection{Derivata seconda}
+	
+	\subsubsection{Operatori di derivata seconda}
+	
+	Gli \textcolor{Red3}{\textbf{operatori di derivata seconda}} rilevano il punto di \emph{edge} mediante il passaggio per lo zero (\emph{zero crossing}) del valore calcolato, e per questo motivo sono \textbf{più precisi} (non necessitano di stabilire una soglia).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/derivata_seconda.pdf}
+	\end{figure}
+	
+	\noindent
+	Nell'immagine è visibile l'applicazione delle varie derivate. Con la derivata prima si evidenzia la massima discontinuità tra i pixel antistanti, mentre con la derivata seconda c'è la massima variazone, ovvero il valore è prossimo allo zero.
+	
+	\longline
+	
+	\subsubsection{Operatore Laplaciano}
+	
+	L'\textcolor{Red3}{\textbf{operatore Laplaciano}} equivale alla derivata seconda in $2$ dimensioni:
+	\begin{equation*}
+		\nabla^{2} f = \dfrac{\partial^{2} f}{\partial x^{2}} + \dfrac{\partial^{2} f}{\partial y^{2}}
+	\end{equation*}
+	Approssimando con l'equazione alle differenze e centrando la stima nel pixel $\left(i,j\right)$ si ha:
+	\begin{equation*}
+		\begin{array}{lll}
+			\dfrac{\partial^{2} f}{\partial x^{2}} & = & f\left(i, j+1\right) - 2f\left(i,j\right) + f\left(i,j-1\right) \\
+			&& \\
+			\dfrac{\partial^{2} f}{\partial y^{2}} & = & f\left(i+1, j\right) - 2f\left(i,j\right) + f\left(i-1,j\right)
+		\end{array}
+	\end{equation*}
+	Combinando in un singolo operatore, si nota che è isotropico:
+	\begin{equation*}
+		\begin{array}{lll}
+			\nabla^{2} & = & \begin{bmatrix}
+				0 & 1 & 0 \\
+				1 & -4 & 1 \\
+				0 & 1 & 0
+			\end{bmatrix} \\
+			&& \\
+			\nabla^{2} & = & \begin{bmatrix}
+				1 & 4 & 1 \\
+				4 & -20 & 4 \\
+				1 & 4 & 1
+			\end{bmatrix} \\
+			&& \\
+			\nabla^{2} & = & \begin{bmatrix}
+				0 & -1 & 0 \\
+				-1 & 4 & -1 \\
+				0 & -1 & 0
+			\end{bmatrix} \\
+			&& \\
+			\nabla^{2} & = & \begin{bmatrix}
+				-1 & -1 & -1 \\
+				-1 & 8 & -1 \\
+				-1 & -1 & -1
+			\end{bmatrix}
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsection{Laplaciano di Gaussiana}
+	
+	L'\textcolor{Red3}{\textbf{operatore Laplaciano  di Gaussiana}} consiste in un filtraggio Gaussiano e Laplaciano. \textbf{È il metodo migliore per estrarre gli \emph{edge}}. Con questo operatore si può osservare che:
+	\begin{itemize}[label=-]
+		\item Il filtro di \emph{smoothing} è Gaussiano;
+		\item La fase di rinforzo è la derivata seconda, cioè Laplaciano;
+		\item Il rilevamento è la fase di attraversamento per lo zero;
+		\item La localizzazione è fatta mediante interpolazione lineare.
+	\end{itemize}
+	L'\textbf{applicazione} di questo filtro Gaussiano ha i seguenti fini:
+	\begin{itemize}
+		\item \textbf{Riduzione del rumore} per punti isolati e piccole configurazioni;
+		\item \dquotes{\textbf{Addolcimento} degli \emph{step edge}};
+		\item \dquotes{\textbf{Diffondere (\emph{blur}) gli edge}}.
+	\end{itemize}
+	Considerando:
+	\begin{equation*}
+		\dfrac{\partial^{2}}{\partial x^{2}}\left(h*f\right)
+	\end{equation*}
+	I grafici sono:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/laplaciano_gaussiana.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	L'\textbf{operatore laplaciano} viene indicato con la lettera nabla al quadrato $\nabla^{2}$:
+	\begin{equation*}
+		\nabla^{2}f = \dfrac{\partial^{2} f}{\partial x^{2}} + \dfrac{\partial^{2}f}{\partial y^{2}}
+	\end{equation*}
+	Considerando \emph{edge} soltanto i punti in cui:
+	\begin{itemize}
+		\item Laplaciano passa per lo zero;
+		\item Gradiente locale è massimo (maggiore di una soglia quindi).
+	\end{itemize}
+	Allora l'uscita dell'operatore Laplaciano di Guassiana è $h\left(x,y\right)$:
+	\begin{equation*}
+		h\left(x,y\right) = \nabla^{2}\left[g\left(x,y\right) * f\left(x,y\right)\right] = \left[\nabla^{2}g\left(x,y\right)\right] * f\left(x,y\right)
+	\end{equation*}
+	Dove:
+	\begin{equation*}
+		\nabla^{2}g\left(x,y\right) = \dfrac{x^{2}+y^{2}-2\sigma^{2}}{2\sigma^{4}} \cdot \exp\left[-\dfrac{x^{2}y^{2}}{2\sigma^{2}}\right]
+	\end{equation*}
+	Quest'ultimo viene chiamato \textbf{\emph{mexican hat}} poiché ha la forma di cappello messicano:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/mexican_hat.pdf}
+	\end{figure}
+	
+	%          %
+	%		   %
+	% SLIDE 40 %
+	%          %
+	%          %
 \end{document}
