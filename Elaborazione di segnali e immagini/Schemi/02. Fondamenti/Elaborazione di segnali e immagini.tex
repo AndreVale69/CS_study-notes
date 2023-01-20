@@ -3522,5 +3522,97 @@
 		\item Si applica l'algoritmo \textbf{Non-Maxima Suppression} all'output del passaggio precedente;
 		\item Si applica la \textbf{Sogliatura ad Isteresi} all'output del passaggio precedente.
 	\end{enumerate}
+	Il filtro di rinforzo, la non-maxima suppression e la sogliatura ad isteresi, saranno argomenti trattati nei prossimi paragrafi.
+	
+	\subsubsection{Filtro di Rinforzo}
+	
+	Il \textcolor{Red3}{\textbf{filtro di rinforzo}} per essere applicato necessita di una serie di passaggi:
+	\begin{enumerate}
+		\item Si applica all'immagine $I$ il filtro di \emph{smoothing} Gaussiano:
+		\begin{equation*}
+			J = G * I
+		\end{equation*}
+		Ovvero la convoluzione, con $G$ che è la Gaussiana con media nulla e varianza $\sigma$.
+		
+		\item Si calcola il gradiente $\mathrm{d}J = \left[J_{x}, J_{y}\right]$ e se ne stima il modulo e direzione:
+		\begin{equation*}
+			\begin{array}{lllll}
+				e_{s}\left(i,j\right) & = & \sqrt{J^{2}_{x}\left(i,j\right) + J^{2}_{y}\left(i,j\right)} & \Longrightarrow & \text{ img } e_{s} \\
+				&&&& \\
+				e_{o}\left(i,j\right) & = & \arctan\dfrac{J_{y}\left(i,j\right)}{J_{x}\left(i,j\right)} & \Longrightarrow & \text{ img } e_{o}
+			\end{array}
+		\end{equation*}
+	\end{enumerate}
+	Il valore della varianza $\sigma$ da utilizzare, dipende dalla lunghezza dei contorni, dal livello di rumore e dal compromesso tra localizzazione e rilevamento.\newline
+	
+	\noindent
+	Esempio di immagine con $\sigma = 1$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/filtro_di_rinforzo_1.png}
+	\end{figure}
 
+	\noindent
+	Esempio di immagine con $\sigma = 1.3$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/filtro_di_rinforzo_2.pdf}
+	\end{figure}\newpage
+
+	\subsubsection{Non-Maxima Suppression}
+	
+	Il \textcolor{Red3}{\textbf{filtro Non-Maxima Suppression}} produce \emph{edge} di un solo pixel scartando i massimi locali.\newline
+	
+	\noindent
+	Il suo \textbf{\underline{algoritmo}} è così strutturato:
+	\begin{itemize}
+		\item Riceve in input:
+		\begin{itemize}
+			\item $e_{s}$, ovvero l'immagine della forza degli \emph{edge};
+			\item $e_{o}$, ovvero l'immagine con il gradiente orientato;
+			\item $d_{1}, d_{2}, d_{3}, d_{4}$, che rappresentano le direzioni degli \emph{edge} (per esempio, $0°, 45°, 90°, 135°$).
+		\end{itemize}
+		
+		\item Per tutti i pixel con coordinate $\left(i,j\right)$:
+		\begin{itemize}
+			\item Trovare la direzione $d_{k}$ che approssima meglio la direzione del gradiente in quella posizione $e_{o}\left(i,j\right)$;
+
+			\item Se $e_{i,j}$ è minore di almeno uno dei suoi due vicini lungo $d_{k}$, allora assegna al risultato $I_{N}\left(i,j\right) = 0$, altrimenti $I_{N}\left(i,j\right) = e_{s}\left(i,j\right)$.
+		\end{itemize}
+		
+		\item Il risultato (output) è $I_{N}\left(i,j\right)$, ovvero l'immagine con \emph{edge} più sottili (così da evitare \emph{edge} troppo vicini o antistanti).
+	\end{itemize}
+	Un esempio di applicazione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=1\textwidth]{img/Non-Maxima_Suppression.png}
+	\end{figure}
+	
+	\noindent
+	Partendo dall'immagine di sinistra e andando verso l'immagine di destra, viene eseguita un'eliminazione dei valori più piccoli (spiegato in modo approssimativo, si guardi l'algoritmo per capire meglio).\newpage
+	
+	\subsubsection{Sogliatura ad isteresi}
+	
+	La \textcolor{Red3}{\textbf{sogliatura ad isteresi}} non è altro che un confronto tra diverse soglie. Tuttavia, questa operazione nasce da un problema.\newline
+	
+	\noindent
+	Il \textbf{problema della sogliatura}: l'immagine creata dalla soppressione dei non massimi (Non-Maxima Suppression, paragrafo precedente), contiene ancora punti spuri creati dal rumore.\newline
+	Solitamente, viene definita una soglia $TH$ (\emph{threshold high}) e si scartano i pixel la cui forza è minore di $TH$, ma questo comporta degli svantaggi a seconda della soglia:
+	\begin{itemize}
+		\item Con \textbf{soglia piccola}, vengono rilevati anche gli \emph{edge} deboli e di conseguenza si \underline{ottengono anche massimi spuri} (falsi contorni);
+		
+		\item Con \textbf{soglia grande}, i valori dei veri massimi lungo i contorni possono fluttuare intorno alla soglia, \underline{frammentando} così il \underline{contorno}.
+	\end{itemize}
+	Ecco che la \textbf{\underline{soluzione}} che si applica è la \textbf{soglia ad isteresi}.\newline
+	
+	\noindent
+	L'\textbf{\underline{algoritmo}} è il seguente:
+	\begin{itemize}
+		\item Riceve in input:
+		\begin{itemize}
+			\item $I_{N}$, ovvero l'immagine di uscita dell'algoritmo di Non-Maxima Suppression (paragrafo precedente).
+		\end{itemize}
+	
+		\item Vengono scelti due valori: soglia forte (TH, \emph{threshold high}) e soglia debole (TL, \emph{threshold low})
+	\end{itemize}
 \end{document}
