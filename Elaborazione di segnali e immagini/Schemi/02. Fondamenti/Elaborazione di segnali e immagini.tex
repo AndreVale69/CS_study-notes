@@ -3416,9 +3416,111 @@
 		\includegraphics[width=.4\textwidth]{img/mexican_hat.pdf}
 	\end{figure}
 	
-	%          %
-	%		   %
-	% SLIDE 40 %
-	%          %
-	%          %
+	\noindent
+	Adesso, grazie all'introduzione di questo operatore, le due seguenti operazioni sono \textbf{equivalenti}:
+	\begin{enumerate}
+		\item Eseguire la convoluzione dell'immagine con un filtro Gaussiano di \emph{smoothing} e calcolare il Laplaciano del risultato;
+		\item Eseguire la convoluzione dell'immagine con un filtro lineare, ovvero il filtro Laplaciano di Guassiana.
+	\end{enumerate}
+	Si introduce un \textbf{esempio} di maschera $5\times5$:
+	\begin{equation*}
+		\begin{bmatrix}
+			\phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}0 & \phantom{-}0 \\
+			\phantom{-}0 & -1 			& -2 & -1 			& \phantom{-}0 \\
+			-1 			 & -2 			& 16 & -2 			& -1 \\
+			\phantom{-}0 & -1 			& -2 & -1 			& \phantom{-}0 \\
+			\phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}0 & \phantom{-}0
+		\end{bmatrix}
+	\end{equation*}\newpage
+
+	\noindent
+	Data la formula del filtro, con diversi valori della varianza $\sigma$, si ottengono diversi risultati:
+	\begin{itemize}
+		\item $\boldsymbol{\sigma}$ \textbf{grande}:
+		\begin{itemize}
+			\item[\ding{51}] Riduzione del rumore migliore;
+			\item[\ding{55}] Perdita notevole di informazioni utili
+			\item[\ding{61}] Esempi: fusione di edge vicini, presenza di edge falsi, localizzazione imprecisa
+		\end{itemize}
+	
+		\item $\boldsymbol{\sigma}$ \textbf{piccolo}:
+		\begin{itemize}
+			\item[\ding{51}] Riduzione del rumore minore;
+			\item[\ding{55}] Riduzione di perdita di informazioni utili
+			\item[\ding{61}] Esempio: molti edge spuri
+		\end{itemize}
+	\end{itemize}
+	Per attenuare i difetti e cercare di ottenere un risultato ottimale, una \textbf{soluzione} comune è il \textbf{filtraggio a diversa scala} (diverse varianze):
+	\begin{itemize}
+		\item $\boldsymbol{\sigma}$ \textbf{grande}: pochi edge robusti, ma mal localizzati;
+		\item $\boldsymbol{\sigma}$ \textbf{piccolo}: miglior localizzazione degli edge robusti.
+	\end{itemize}
+	Al \textbf{termine di un'applicazione di filtro Laplaciano di Gaussiana}, è necessario fondere i risultati delle varie scale ottenute, secondo alcuni criteri. Per esempio:
+	\begin{itemize}
+		\item Se ci sono \emph{edge} in tutte le scale;
+		\item Se ci sono \emph{edge} almeno su $K$ scale;
+		\item E così via.
+	\end{itemize}
+	L'esempio nella prossima pagina, dovrebbe chiarire maggiormente la teoria di questo filtro:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/filtro_laplaciano_gaussiana.png}
+	\end{figure}\newpage
+	
+	\subsection{Gradiente e Laplaciano di Gaussiana a confronto}
+	
+	L'operatore \textbf{gradiente} è efficace nel caso di immagini con poco rumore e transizioni nette.\newline
+	
+	\noindent
+	Al contrario, l'operatore \textbf{Laplaciano di Gaussiana}, insieme allo \emph{zero crossing}, offre un'alternativa quando il rumore è elevato e le transizioni non sono nette.\newline
+	Infatti, lo \emph{zero crossing} viene aggiunto poiché offre un modo affidabile per localizzare l'edge. Mentre le proprietà di \emph{smoothing} del Laplaciano di Gaussiana riducono gli effetti del rumore.\newpage
+	
+	\subsection{Filtro di Canny}
+	
+	\subsubsection{Definizione}
+	
+	Il \textcolor{Red3}{\textbf{filtro di Canny}} è uno degli strumenti più efficienti. È il contrapposto all'operazione di Laplaciano di Gaussiana e viene considerato il \dquotes{più esoso computazionalmente}. L'\textbf{algoritmo} consiste in $3$ passi:
+	\begin{enumerate}
+		\item Blur, ovvero il filtro di rinforzo;
+		\item Edge thinning, ovvero non \emph{maxima suppression};
+		\item Sogliatura ad isteresi + edge linking.
+	\end{enumerate}
+	
+	\longline
+	
+	\subsubsection{Modello di edge per Canny}
+	
+	Il \textcolor{Red3}{\textbf{modello di \emph{edge} per Canny}} è lo \emph{step edge}, i cui descrittori sono:
+	\begin{itemize}
+		\item \textbf{Posizione o centro}, la posizione in cui l'\emph{edge} è rilevato lungo la perpendicolare all'\emph{edge} (solitamente memorizzata come un'immagine binaria);
+		
+		\item \textbf{Normale o orientazione o direzione}, versore della massima variazione di intensità nel punto di \emph{edge} (perpendicolare al contorno di cui l'\emph{edge} fa parte);
+		
+		\item \textbf{Forza}, modulo gradiente.
+	\end{itemize}
+	Il \textbf{modello di \emph{step edge}} è il seguente:
+	\begin{equation*}
+		G\left(x\right) = \begin{cases}
+			0 & x < 0 \\
+			A & x \ge 0
+		\end{cases}
+	\end{equation*}
+	Le ipotesi di base sono tre:
+	\begin{itemize}[label=-]
+		\item Il filtro di rinforzo è lineare;
+		\item Il filtro deve essere ottimo per gli \emph{edge} con rumore;
+		\item Il rumore è additivo, bianco e Gaussiano.
+	\end{itemize}
+
+	\longline
+
+	\subsubsection{Algoritmo di Canny}
+	
+	L'\textcolor{Red3}{\textbf{algoritmo di Canny}} si divide in tre passaggi. Dato in ingresso l'immagine $I$:
+	\begin{enumerate}
+		\item Si applica il \textbf{filtro di rinforzo} ad $I$;
+		\item Si applica l'algoritmo \textbf{Non-Maxima Suppression} all'output del passaggio precedente;
+		\item Si applica la \textbf{Sogliatura ad Isteresi} all'output del passaggio precedente.
+	\end{enumerate}
+
 \end{document}
