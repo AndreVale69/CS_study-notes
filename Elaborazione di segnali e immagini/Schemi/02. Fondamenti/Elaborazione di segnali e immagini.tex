@@ -3086,7 +3086,7 @@
 		\includegraphics[width=.3\textwidth]{img/gradiente_direzione.pdf}
 	\end{figure}\newpage
 	
-	\subsection{Estrazione dell'edge}
+	\subsection{Estrazione dell'\emph{edge}}
 	
 	\subsubsection{Il gradiente discreto}
 	
@@ -3280,7 +3280,7 @@
 
 	\longline
 	
-	\subsubsection{Rilevazione di edge o detection robusta}
+	\subsubsection{Rilevazione di \emph{edge} o \emph{detection} robusta}
 	
 	Per rilevare l'\emph{edge} o eseguire una detection robusta, si eseguono tre fasi fondamentali:
 	\begin{itemize}
@@ -3481,14 +3481,14 @@
 	
 	Il \textcolor{Red3}{\textbf{filtro di Canny}} è uno degli strumenti più efficienti. È il contrapposto all'operazione di Laplaciano di Gaussiana e viene considerato il \dquotes{più esoso computazionalmente}. L'\textbf{algoritmo} consiste in $3$ passi:
 	\begin{enumerate}
-		\item Blur, ovvero il filtro di rinforzo;
-		\item Edge thinning, ovvero non \emph{maxima suppression};
-		\item Sogliatura ad isteresi + edge linking.
+		\item \textbf{Blur}, ovvero il filtro di rinforzo;
+		\item \textbf{Edge thinning}, ovvero \emph{non maxima suppression};
+		\item \textbf{Sogliatura ad isteresi} + \textbf{edge linking}.
 	\end{enumerate}
 	
 	\longline
 	
-	\subsubsection{Modello di edge per Canny}
+	\subsubsection{Modello di \emph{edge} per Canny}
 	
 	Il \textcolor{Red3}{\textbf{modello di \emph{edge} per Canny}} è lo \emph{step edge}, i cui descrittori sono:
 	\begin{itemize}
@@ -3614,5 +3614,241 @@
 		\end{itemize}
 	
 		\item Vengono scelti due valori: soglia forte (TH, \emph{threshold high}) e soglia debole (TL, \emph{threshold low})
+		
+		\item Viene analizzato ogni punto di \emph{edge} a seconda che esso sia:
+		\begin{itemize}
+			\item $> TH$, che corrisponde ad un punto di \emph{edge} forte;
+			\item $\ge TL$ and $\le TH$, che corrisponde ad un punto di \emph{edge} debole;
+			\item $< TL$, che corrisponde ad un punto di \emph{edge} ininfluente e da non considerare.
+		\end{itemize}
+	
+		\item Il risultato (output) è l'immagine $I_{I}$.
+	\end{itemize}\newpage
+
+	\subsubsection{Edge linking}
+	
+	L'operatore \textcolor{Red3}{\textbf{edge linking}} viene utilizzato nell'algoritmo di Canny e ha il seguente \textbf{\underline{algoritmo}}:
+	\begin{itemize}
+		\item Per tutti i punti di \emph{edge} ottenuti dalla sogliatura ad isteresi, quindi dall'immagine $I_{I}$:
+		\begin{itemize}
+			\item Si localizza il prossimo punto di \emph{edge} $I_{I}\left(i,j\right)$ tale che $I_{I}\left(i,j\right) > TH$;
+			\item Partendo da $I_{I}\left(i,j\right)$ si segue la catena di massimi locali connessi nelle due direzioni perpendicolari alla normale dell'\emph{edge} finché $I_{I}\left(i,j\right) > TL$ (memorizzando i risultati).
+		\end{itemize}
+	
+		\item Il risultato finale è l'immagine $I_{OUT}$ e un insieme di liste, ognuna descrivente la posizione degli \emph{edge}, la forza e l'orientazione dell'\emph{edge linkato} a cui si fa riferimento.
 	\end{itemize}
+	Un \textbf{esempio} di \emph{edge linking} con delle piccole frecce rosse per indicare gli effetti. A sinistra, l'immagine dopo la sogliatura ad isteresi e a destra l'immagine dopo l'\emph{edge linking}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/edge_linking_1.pdf}
+	\end{figure}\newpage
+
+	\subsection{Prestazioni di un \emph{edge detector}}
+	
+	Per misurare le \textcolor{Red3}{\textbf{prestazioni di un edge detector}}, si seguono alcuni \textbf{criteri}:
+	\begin{itemize}
+		\item Probabilità di falsi \emph{edge} (\emph{false positives});
+		\item Probabilità di \emph{edge} mancanti (\emph{false negatives});
+		\item Errore nella stima dell'orientazione;
+		\item Distanza media al quadrato della stima dal vero \emph{edge}.
+	\end{itemize}
+	I \textbf{metodi} di valutazione sono principalmente due: (1) si eseguono delle prove sulle immagini sintetiche e sul rumore noto, (2) molti parametri da considerare.
+	
+	\longline
+	
+	\subsection{Figura di merito per gli \emph{edge}}
+	
+	Inoltre, si esegue una \textbf{misura quantitativa e oggettiva}, valida per ogni \emph{edge detector}, così da ottenere una \textcolor{Red3}{\textbf{figura di merito per gli \emph{edge}}}.\newline
+	
+	\noindent
+	Infine, esistono tre \textbf{tipi di errore}:
+	\begin{itemize}
+		\item \emph{Edge} validi mancanti;
+		\item Errore nella localizzazione;
+		\item Classificazione di rumore come \emph{edge}.
+	\end{itemize}
+	La \textbf{formula} della figura di merito è:
+	\begin{equation*}
+		F_{M} = \dfrac{1}{\max\left(I_{A}, I_{I}\right)} \sum_{i=1}^{I_{A}}\dfrac{1}{1+d_{i}\alpha^{2}}
+	\end{equation*}
+	Con:
+	\begin{itemize}[label=-]
+		\item $I_{A}$, \emph{edge} rilevati
+		\item $I_{I}$, \emph{edge} ideali
+		\item $d$, distanza minima tra rilevati e ideali
+		\item $\alpha$, costante di penalizzazione
+	\end{itemize}\newpage
+
+	\subsection{Trasformata di Hough}
+	
+	\subsubsection{Definizione}
+	
+	La \textcolor{Red3}{\textbf{trasformata di Hough}} viene utilizzata \textbf{\underline{dopo}} aver estratto gli \emph{edge} da un'immagine ed è conosciuta come una tecnica di \textbf{\emph{object detection}}\footnote{Per \emph{object detection si intende l'individuazione precisa della classe di un oggetto in un'immagine}}, basata su criteri geometrici.\newline
+	
+	\noindent
+	Dato che l'individuazione di un oggetto è difficile per vari motivi, questa trasformata propone una soluzione. Infatti, trasforma il problema dalla ricerca di una curva, ad una banale \textbf{ricerca di massimi}.\newline
+	
+	\noindent
+	In generale, una curva piana è definita in forma analitica tramite un insieme di parametri. Un'equazione lega tale parametri alle coordinate cartesiane con la seguente relazione: 
+	\begin{equation*}
+		f\left(\left(x,y\right), \left(a_{1}, a_{2}, \cdots, a_{n}\right)\right) = 0
+	\end{equation*}
+	In cui $\left(x,y\right)$ è un punto della curva nello \textbf{spazio immagine} (SI), e $\left(a_{1}, a_{2}, \cdots, a_{n}\right)$ è una $n$-upla di valori che individuano un punto nello \textbf{spazio dei parametri} (SP). Un punto nello spazio dei parametri individua univocamente una curva analitica.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, la \textbf{retta} $y = mx + q$ può essere riscritta come:
+	\begin{equation*}
+		f\left(\left(x,y\right), \left(m,q\right)\right) = y - mx - q = 0
+	\end{equation*}
+	Quindi, fissato un punto $\left(x_{i},y_{i}\right)$ nello spazio immagine SI, l'equazione $q = y_{i} - mx_{i}$ descrive un insieme di curve (che rimangono ancora una retta) nello spazio dei parametri SP. Graficamente:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_si-sp.png}
+	\end{figure}\newpage
+	
+	\noindent
+	I \textbf{cerchi di raggio noto}, generano uno spazio dei parametri SP bidimensionale e la curva generata da ogni punto nello spazio immagine è essa stessa un cerchio:
+	\begin{equation*}
+		\left(y-y_{c}\right)^{2} + \left(x-x_{c}\right)^{2} = r^{2}
+	\end{equation*}
+	Lo spazio dei parametri SP è generato dalle coordinate del centro $\left(x_{c},y_{c}\right)$.\newline
+	
+	\noindent
+	Nel caso in cui il \textbf{raggio è incognito}, lo spazio dei parametri SP è tridimensionale:
+	\begin{equation*}
+		f\left(\left(c,r\right), \left(c_{c},r_{c}\right), \rho\right) = \left(r-r_{c}\right)^{2} + \left(c-c_{c}\right)^{2} - \rho^{2} = 0
+	\end{equation*}
+	In questo caso, la figura generata è un cono:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/cono.png}
+	\end{figure}
+	
+	\noindent
+	\textbf{\underline{\emph{Ricapitolando}}}:
+	\begin{itemize}[label=\ding{51}]
+		\item Ogni punto nello spazio immagine SP genera una curva o superficie nello spazio dei parametri SP;
+		
+		\item Nello spazio immagine SP, un'intersezione di molte curve o superfici è l'indizio della presenza di una particolare istanza della curva analitica cercata;
+		
+		\item In generale, occorre un numero di punti almeno pari al numero dei parametri per individuare una curva, cioè le sue caratteristiche;
+		
+		\item La soglia alta $HT$ permette quindi di convertire un problema di ricerca di curve in quello più semplice di ricerca di intersezioni.
+	\end{itemize}\newpage
+
+	\subsubsection{Trasformata per le rette}
+	
+	Un punto $P$ vota per il fascio di rette che passano per $P$. Due punti $P$ e $Q$ votano ciascuno per un fascio diverso, e vi è una sola retta in comune ai due fasci (che prende due voti): quella passante per $P$ e $Q$.\newline
+	
+	\noindent
+	I parametri che identificano una retta sono $m$ e $q$ nell'equazione $y = mx + q$ e un fascio è individuato da un \underline{insieme} di valori $m$ e $q$. Dunque, un punto $P = \left(x,y\right)$ vota per un insieme di valori $m,q$ che rappresentano il fascio di rete passanti per $P$.\newline
+	
+	\noindent
+	Il punto $P$ vota per tutti i valori di $p$ e $q$ che soddisfano la solita equazione della retta $y = mx+q$ con $x,y$ fissati. Il punto $P$ vota per la retta nello spazio $m,q$ dove il coefficiente angolare e il termine noto sono dati da $x$ e $y$. Quindi, si passa da una rappresentazione nello spazio cartesiano $x,y$ ad un'altra rappresentazione nello spazio dei parametri $m,q$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/trasformata_hough_rette.pdf}
+	\end{figure}
+	
+	\noindent
+	Nel caso $n$ punti giacenti su una retta, tutti vengono mappati in un insieme di rette nello spazio dei parametri, tutte passanti per il punto $\left(m,c\right)$ che quindi sarà maggiormente votato. A questo punto, il \textbf{problema si trasforma da \emph{line detection} a \emph{peak detection} nello spazio dei parametri}.\newline
+	Tuttavia, questo implica:
+	\begin{itemize}
+		\item Delimitazione e discretizzazione dello spazio dei parametri;
+		\item La ricerca di massimi assoluti per trovare le rette;
+		\item Soppressione dei massimi locali per far fronte a picchi spuri nell'intorno di quelli veri.
+	\end{itemize}\newpage
+	
+	\noindent
+	In parole povere, viene \textbf{utilizzata la forma polare} perché più comoda, dato che: $\theta$ è delimitato, $\rho$ si può delimitare specificando una regione circolare attorno all'origine.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/trasformata_hough_rette_polare.pdf}
+	\end{figure}
+
+	\noindent
+	Quindi, ad un fascio di rette passante per $x,y$, corrisponde una curva sinusoidale nello spazio dei parametri SP.\newline
+	
+	\noindent
+	Per concludere, l'\textbf{\underline{algoritmo}} corrisponde a:
+	\begin{itemize}
+		\item In input riceve l'immagine binaria $M \times N$;
+
+		\item Viene definito lo spazio dei parametri SP ($1$ \emph{edge} e $0$ no \emph{edge}):
+		\begin{equation*}
+			\rho \in \left[0, \sqrt{M^{2} + N^{2}}\right], \hspace{1.5em} \theta \in \left[0, \pi\right] \rightarrow 0°, 180°
+		\end{equation*}
+	
+		\item Viene eseguita la discretizzazione di $\left(\rho, \theta\right)$ in $\left(\rho_{d}, \theta_{d}\right)$ usando come \dquotes{passo} un valore accettabile a seconda del problema da risolvere (più precisione o più computazione);
+		
+		\item Sia $A$ la matrice $R \times T$ risultante, inizializzata a zero;
+		
+		\item Allora, per ogni pixel $I\left(x,y\right) = 1$ e per $h = 1, \cdots, T$:
+		\begin{itemize}
+			\item Sia $\rho = x \cos\left(\theta_{d}\left(h\right)\right) + y \sin\left(\theta_{d}\left(h\right)\right)$
+			\item Si trova l'indice $k$ tale che $\rho_{d}\left(k\right)$ è l'elemento più vicino a $\rho$;
+			\item Viene incrementato $A\left(k,h\right)$ di un'unità.
+		\end{itemize}
+	
+		\item Infine, vengono trovati tutti i massimi locali $\left(k_{\rho}, h_{\rho}\right)$ tale che $A\left(k_{\rho}, h_{\rho}\right) > \tau$ soglia.
+	\end{itemize}
+	L'output finale è un insieme di coppie $\left[\rho_{d}\left(k_{\rho}\right), \theta_{d}\left(h_{\rho}\right)\right]$ che identifica le rette.\newline
+	
+	\noindent
+	Alcune \textbf{considerazioni}:
+	\begin{itemize}
+		\item[\textcolor{Green4}{\ding{51}}] La $HT$ (\emph{high threshold}) non richiede una fase di \emph{linking} o raggruppamento preliminare;
+		
+		\item[\textcolor{Green4}{\ding{51}}] È robusta al rumore;
+		
+		\item[\textcolor{Red3}{\ding{55}}] Data la presenza del rumore e dell'inesistenza della discretizzazione, non esiste un picco ben marcato. Di conseguenza, è necessario un piccolo insieme di accumulatori con valore elevato e viene usato il calcolo del centroide;
+		
+		\item[\textcolor{Red3}{\ding{55}}] Lo spazio dei parametri SP cresce col numero dei parametri, quindi computazionalmente oneroso per modelli complessi (risolvibile parzialmente con l'uso del gradiente).
+	\end{itemize}\newpage
+
+	\subsubsection{Trasformata per i cerchi}
+	
+	L'equazione del cerchio in forma implicita è:
+	\begin{equation*}
+		\left(x-a\right)^{2} + \left(y-b\right)^{2} = r^{2}
+	\end{equation*}
+	Con $a,b$ coordinate del centro e $r$ il raggio.\newline
+	
+	\noindent
+	Lo \textbf{spazio dei parametri} SP è \textbf{multidimensionale}.\newline
+	
+	\noindent
+	\underline{Talvolta}, l'\textbf{equazione parametrica} del cerchio attraverso seni e coseni permette di rendere la trasformata \textbf{più semplice} da trattare:
+	\begin{equation*}
+		\begin{cases}
+			r =\dfrac{x-a}{\cos\theta} \\
+			\\
+			b = y - \left(x-a\right) \tan\theta
+		\end{cases}
+	\end{equation*}
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, se \textbf{si è a conoscenza del raggio del cerchio} $r$ con $a,b$ coordinate del centro:
+	\begin{equation*}
+		\left(x-a\right)^{2} + \left(y-b\right)^{2} = r^{2}
+	\end{equation*}
+	Ogni punto genera un cerchio e intersezioni tra cerchi nello spazio dei parametri SP indicando il probabile centro.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/trasformata_hough_cerchio.png}
+	\end{figure}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Attenzione!}} Se non si è a conoscenza del raggio del cerchio $r$, ma si è in grado di \textbf{calcolare il gradiente del cerchio} nel punto:
+	\begin{equation*}
+		b = a \tan\theta - x \tan\theta + y
+	\end{equation*}
+	Che costituisce una linea nello spazio dei parametri. Inoltre, le intersezioni tra rette negli spazi dei parametri, indicano il probabile centro.\newpage
+	
+	\noindent
+	Infine, se \textbf{non si è a conoscenza del cerchio e non è possibile calcolare gli angoli} rispetto alla circonferenza, si utilizza l'\textbf{intersezione di coni}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/trasformata_hough_coni.png}
+	\end{figure}
 \end{document}
