@@ -1,0 +1,119 @@
+\documentclass[a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{cancel}					% cancellare per approssimare matematicamente
+\usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
+\usepackage{amsthm}					% teoremi migliorati
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% elenchi carini
+\usepackage[mathcal]{eucal}			% cambia font di mathcal per fare la F di Fourier
+
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\newcommand{\dquotes}[1]{``#1''}
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+
+\begin{document}
+	\author{VR443470}
+	\title{Eserciziario - Reti di calcolatori}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	% indice
+	\tableofcontents
+	\newpage
+	
+	\section*{\emph{Prefazione}}
+	\addcontentsline{toc}{section}{\emph{Prefazione}}
+	Questo eserciziario è stato creato con il solo scopo di ripassare i concetti principali, attraverso i temi d'esame presentati durante gli anni accademici. Il documento è scritto da uno studente universitario. Di conseguenza, qualsiasi concetto proposto \emph{\textbf{potrebbe}} essere errato. Si consiglia al lettore, di far riferimento al libro di testo e al professore per avere informazioni dettagliate e attendibili.
+	
+	Il testo propone diversi temi d'esame con le classiche 3 domande di teoria iniziali e 3 esercizi. Ad ogni quesito teorico viene fornita una risposta completa, cercando di esporre i concetti in maniera chiara. Allo stesso modo, gli esercizi pratici presentano dei grafici e i vari calcoli per cercare di essere i più delucidanti possibili.
+	
+	Infine, il documento presenta anche una serie di riferimenti agli esercizi affrontati e una tabella contenente le domande proposte nei temi d'esame. In questo modo, il lettore avrà un riferimento ordinato nel caso in cui, per esempio, voglia rivedere un argomento specifico.\newline
+	
+	\noindent
+	Fonti delle informazioni presentate nel documento:
+	\begin{itemize}
+		\item Docente del corso di \textsf{Reti di calcolatori} - UniVR: Carra Damiano
+		
+		\item Libri del corso consigliati dal docente:
+		\begin{enumerate}
+			\item Libro utilizzato dal sottoscritto:
+			\begin{itemize}
+				\item Autori: \emph{James F. Kurose, Keith W. Ross}
+				\item A cura di: \emph{Antonio Capone, Sabrina Gaito}
+				\item Titolo: \textsf{Reti di calcolatori e internet. Un approccio top-down. (7$^{a}$ edizione)}
+				\item ISBN-13: 978-8891902542
+				\item \href{https://amzn.eu/d/aVADZYD}{Link Amazon} (no ref)
+			\end{itemize}
+		
+			\item Altro libro consigliato:
+			\begin{itemize}
+				\item Autori: \emph{Andrew S. Tanenbaum, David J. Wetherall}
+				\item Traduttore: \emph{Dario Maggiorini, Sabrina Gaito}
+				\item Titolo: \textsf{Reti di calcolatori. (5$^{a}$ edizione)}
+				\item ISBN-13: 978-8891908254
+				\item \href{https://amzn.eu/d/fC9FpsB}{Link Amazon} (no ref)
+			\end{itemize}
+		\end{enumerate}
+	\end{itemize}\newpage
+	
+	\section{Temi d'esame}
+	
+	\subsection{Esame - 05/02/2013}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si descriva il problema del \dquotes{terminale nascosto} (\emph{hidden terminal problem}) nelle Wireless LAN e la soluzione adottata dallo standard 802.11.
+		
+		\item In riferimento al livello di rete, si spieghi che cosa succede quando un host si connette ad una rete ed ha bisogno di ricevere un indirizzo IP (non è necessario andare nei dettagli dei protocolli, è sufficiente descrivere a grandi linee i messaggi scambiati).
+		
+		\item L'header del protocollo UDP contiene solo 4 campi: Source Port, Destination Port, Length e Checksum. Si spieghi brevemente a cosa servono tali campi.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}	
+	\begin{enumerate}
+		\item Si supponga esistano tre stazioni A, B e C. La stazione A e C stanno trasmettendo certi dati alla stazione B. In questo scenario, si introduce il problema del terminale nascosto, il quale nasce per \textbf{due motivi}:
+		\begin{itemize}
+			\item Gli \textbf{Ostacoli fisici}. Potrebbero essere presenti nell'ambiente impedimenti fisici che non consentono alle due stazioni trasmettenti (A, C) di sentirsi a vicenda, nonostante la destinazione sia la medesima.
+			
+			\item \textbf{Fading (evanescenza)}. Potrebbe manifestarsi un fenomeno fisico, appunto l'evanescenza, che crea una collisione. Questo problema non viene rilevato dalla stazione ricevente.\newline
+			In altre parole, il trasmittente invia il segnale, ma a causa di una continua variazione d'intensità del segnale tra il valore massimo e quello minimo (\emph{fading}), il destinatario riceve un segnale compromesso pensando che sia corretto. Questo accade perché il destinatario non può rilevare la collisione.
+		\end{itemize}
+		La \textbf{soluzione} presentata dal \textbf{protocollo MAC 802.11} è quella di includere uno schema di prenotazione. Vengono creati due frame di controllo chiamati: RTS (\emph{request to send}) e CTS (\emph{clear to send}). Il primo viene inviato dal mittente al destinatario, indicando il tempo di connessione nel campo DATI; il secondo viene inviato dal destinatario una volta ricevuto l'RTS. Il \emph{clear to send} viene \textbf{inviato in broadcast}, in questo modo viene comunicato a ciascun host collegato di non disturbare la comunicazione.\newline
+		Tale soluzione risolve il problema poiché il frame DATI viene trasmesso solamente una volta prenotato il canale tramite il frame RTS.\newpage
+		
+		\item I messaggi scambiati durante l'assegnazione dell'indirizzo IP ad un host, sono 4: DHCP discover, DHCP offer, DHCP request, DHCP ACK:
+		\begin{enumerate}
+			\item \textbf{DHCP discover}, ovvero individuazione del server. Il mittente si collega alla rete e cerca di individuare un server. Per farlo, invia un segmento UDP, chiamato DHCP discover, in broadcast a tutti i server presenti nella rete. Al momento della connessione, il mittente ha come indirizzo IP speciale $0.0.0.0$ e come indirizzo IP destinatario $255.255.255.255$ (\emph{broadcast address}).
+			
+			\item \textbf{DHCP offer}, ovvero offerta del server. Qualsiasi server presente all'interno della rete, che è interessato a fornire un indirizzo IP al mittente, risponde al segmento precedente inviando un DHCP offer. Anche in questo caso, il destinatario invia il messaggio in broadcast specificando inoltre:
+			\begin{itemize}
+				\item ID univoco rappresentante l'identificativo del messaggio ricevuto;
+				\item Indirizzo IP offerto al mittente;
+				\item Maschera della sottorete;
+				\item Durata di connessione (\emph{lease time}), ovvero la durata di tempo in cui l'indirizzo IP offerto sarà valido.
+			\end{itemize}
+			
+			\item \textbf{DHCP request}, ovvero richiesta. Una volta che il mittente ha valutato tutte le offerte, risponde al server inviando un segmento DHCP request. Da adesso, i messaggi non saranno più in broadcast ma \emph{end-to-end}.
+			
+			\item \textbf{DHCP AKC}, ovvero conferma. Il destinatario riceve la richiesta del mittente e risponde con un messaggio di conferma (ACK). Con quest'ultimo messaggio viene convalidato l'indirizzo IP, e gli altri campi, proposti al mittente.
+		\end{enumerate}
+		
+		\item Il protocollo UDP ha come intestazione solo quattro campi tutti da 16 bit. Il campo \textbf{porta di origine} (\emph{Source Port}) e \textbf{porta di destinazione} (\emph{Destination Port}), vengono utilizzati principalmente dal destinatario. In particolare, il \emph{socket} del destinatario, utilizzando questi due campi, saprà a quale processo passare i dati presenti nel segmento UDP. Il campo \emph{\textbf{Checksum}} viene inserito dal mittente per consentire al destinatario di verificare l'integrità del pacchetto. Dato che esso è una sequenza di bit calcolata tramite un algoritmo, il destinatario calcola questo valore e verifica che il pacchetto non sia stato compromesso. Infine, la \textbf{lunghezza} (\emph{Length}) rappresenta la somma dell'intestazione (\emph{header}) e il campo DATI. Dato che quest'ultimo è variabile, grazie a questo campo si è a conoscenza della lunghezza ed è possibile distinguere un segmento UDP dal successivo.
+	\end{enumerate}
+\end{document}
