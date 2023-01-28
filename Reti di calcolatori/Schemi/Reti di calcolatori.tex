@@ -1361,14 +1361,17 @@
 	Nella \textcolor{Red3}{\textbf{fase finale}}, ovvero nella fase di conclusione e chiusura della connessione, supponendo che il client voglia chiudere la connessione, i messaggi sono:
 	\begin{enumerate}
 		\item Il processo applicativo client invia un comando di chiusura, che forza il client TCP a inviare un segmento TCP speciale al processo server.\newline
-		L’intestazione presenta solo il campo \textbf{FIN} ad 1.
+		L’intestazione presenta solo il campo \textbf{flag FIN} ad 1.
 		
-		\item Quando il server riceve il segmento di chiusura, risponde inviando un acknowledgement al client. Quindi il server invia un vero e proprio segmento di shutdown.\newline
-		Ancora una volta, l'intestazione presenta solamente il campo \textbf{FIN} ad 1.
+		\item Quando il server riceve il segmento di chiusura, risponde inviando un acknowledgement al client. Quindi il server invia un vero e proprio segmento di shutdown.
+		\begin{itemize}
+			\item Se non ci sono altri dati da inviare al client, l'intestazione presenta solamente il campo \textbf{flag FIN} ad 1;
+			\item Se ci sono altri dati da inviare al client, viene inviato l'ACK come conferma della chiusura, ma prima di concludere vengono inviati tutti i dati richiesti dal client.
+		\end{itemize}
 		
 		\item Infine, come accade nella fase iniziale, il client conclude la fase finale inviando un ultimo messaggio di acknowledgement come risposta.
 	\end{enumerate}
-	Alla fine di questo scambio, tutte le risorse degli host risultano deallocate.
+	Alla fine di questo scambio, tutte le risorse degli host risultano deallocate. La fase di chiusura \textbf{può partire sia dal destinatario che dal mittente}. In questo caso è partito dal mittente.
 	
 	\newpage
 	
