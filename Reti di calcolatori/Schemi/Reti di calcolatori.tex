@@ -1233,9 +1233,20 @@
 
 	\subsubsection{Protocolli usati}
 	
-	I protocolli utilizzati a livello di trasporto sono i due modelli già visti in passato: \textbf{UDP} (\emph{user datagram protocol}, capitolo~\ref{protocollo UDP}), che fornisce un servizio non affidabile e non orientato alla connessione, e \textbf{TCP} (\emph{transmission control protocol}, capitolo~\ref{protocollo TCP}), che offre un servizio affidabile e orientato alla connessione.
+	I protocolli utilizzati a livello di trasporto sono i due modelli già visti in passato: \textbf{UDP} (\emph{user datagram protocol}, capitolo~\ref{protocollo UDP}), che fornisce un servizio non affidabile e non orientato alla connessione, e \textbf{TCP} (\emph{transmission control protocol}, capitolo~\ref{protocollo TCP}), che offre un servizio affidabile e orientato alla connessione.\newpage
 	
-	\newpage
+	\subsubsection{Porte statiche (Well-Know Ports) e dinamiche (Ephemeral Ports)}
+	
+	Esistono due tipi di porte:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Porte statiche (\emph{Well-Know Ports})}}. Sono identificatori associati ad applicazioni \underline{lato server} definito dal protocollo. Il range è $\left[0 - 1023\right]$.
+		
+		\item \textcolor{Red3}{\textbf{Porte dinamiche (\emph{Ephemeral Ports})}}. Sono identificatori assegnati dal sistema operativo \underline{lato client} quando viene instaurata una comunicazione. Il range è $\left[1024 - 65535\right]$.
+	\end{itemize}
+	È importante conoscere il numero di porta lato server, poiché al momento dell'invio di un messaggio da parte del client, quest'ultimo non è a conoscenza del numero di porta del server.\newline
+	
+	\noindent
+	Grazie all'esistenza delle \textbf{porte statiche}, il client riesce a scrivere il numero della porta del server, in base al protocollo. Per esempio, con il protocollo HTTP, la porta del server da utilizzare è la 80.\newpage
 	
 	\subsubsection{Struttura dei segmenti nei protocolli}
 	
