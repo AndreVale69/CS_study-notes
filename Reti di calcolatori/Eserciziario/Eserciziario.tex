@@ -74,7 +74,7 @@
 	
 	\section{Temi d'esame}
 	
-	\subsection{Esame - 05/02/2013}
+	\subsection[\textbf{Esame - 05/02/2013}]{Esame - 05/02/2013}
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
@@ -115,5 +115,263 @@
 		\end{enumerate}
 		
 		\item Il protocollo UDP ha come intestazione solo quattro campi tutti da 16 bit. Il campo \textbf{porta di origine} (\emph{Source Port}) e \textbf{porta di destinazione} (\emph{Destination Port}), vengono utilizzati principalmente dal destinatario. In particolare, il \emph{socket} del destinatario, utilizzando questi due campi, saprà a quale processo passare i dati presenti nel segmento UDP. Il campo \emph{\textbf{Checksum}} viene inserito dal mittente per consentire al destinatario di verificare l'integrità del pacchetto. Dato che esso è una sequenza di bit calcolata tramite un algoritmo, il destinatario calcola questo valore e verifica che il pacchetto non sia stato compromesso. Infine, la \textbf{lunghezza} (\emph{Length}) rappresenta la somma dell'intestazione (\emph{header}) e il campo DATI. Dato che quest'ultimo è variabile, grazie a questo campo si è a conoscenza della lunghezza ed è possibile distinguere un segmento UDP dal successivo.
+	\end{enumerate}\newpage
+
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\subsection[\textbf{Esame - 05/07/2013}]{Esame - 05/07/2013}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si descriva l'algoritmo CSMA nella sua variante Collision Detection (CSMA-CD), indicando il motivo che ha portato all'introduzione di tale variante.
+		
+		\item L'header del protocollo IP contiene un campo chiamato \dquotes{Time to live} (TTL): si spieghi come viene utilizzato tale campo e perché è stato introdotto.
+		
+		\item Si descriva la fase di chiusura della connessione nel TCP, indicando i messaggi scambiati e i principali campi dell'header utilizzati durante tale fase.
 	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}	
+	\begin{enumerate}
+		\item L'algoritmo CSMA-CD (\emph{Carrier Sense Multiple Access - Collision Detection}), come dice il nome, è un algoritmo utilizzato al livello logico per gestire il problema dell'accesso multiplo. Esso consente di evitare collisioni e di conseguenza, non incorrere in perdite di frame.\newline
+		Nonostante l'esistenza di altri algoritmi, questo risulta il migliore, con un'efficienza quasi perfetta. La \textbf{differenza sostanziale} tra l'algoritmo CSMA e la variante CSMA-CD, riguarda la rilevazione della collisione. Nonostante entrambi condividano il principio di rilevamento della portante, ovvero il controllo del canale prima della trasmissione, soltanto la variante implementa anche la \emph{collision detection}. L'\textbf{algoritmo} è così strutturato:
+		\begin{enumerate}
+			\item Il datagramma proveniente dal livello di rete viene elaborato dal livello di collegamento. Si ottiene così il frame che viene successivamente allocato nel buffer pronto per procedere all'invio.
+			
+			\item L'host si mette in ascolto del canale:
+			\begin{itemize}
+				\item Se è libero, inizia la trasmissione del frame;
+				\item Se è occupato, si mette in attesa finché non viene liberato il canale.
+			\end{itemize}
+			
+			\item Durante la trasmissione del frame, l'host mittente rimane in ascolto e verifica che sul canale non ci siano altre trasmissioni da parte di altri host:
+			\begin{itemize}
+				\item Se non ci sono segnali d'interferenza, la trasmissione si conclude con successo;
+				\item Se uno o più host prova ad occupare il canale, l'host mittente interrompe \emph{immediatamente} la trasmissione del frame.
+			\end{itemize}
+			
+			\item Questo passaggio viene eseguito solamente se la trasmissione è stata interrotta. Quindi, l'host mittente attende un tempo casuale, chiamato \emph{backoff time}, e alla fine si rimette in ascolto del canale (punto b).
+		\end{enumerate}
+		
+		\item Nell'header del protocollo IP è presente un campo chiamato \dquotes{Time to live} che indica il tempo di vita di tale datagramma. La sua \textbf{introduzione} è stata necessaria per evitare che un datagramma, non rimanga per sempre in circolo all'interno di una rete.\newline
+		Il suo \textbf{utilizzo} è il seguente. Il mittente, al momento della creazione del datagramma, inserisce nell'header IP, nel campo TTL, un numero indicante il tempo di vita massimo. Successivamente all'invio, qualsiasi router elabori quel preciso datagramma, effettuerà un decremento di un'unità nel campo TTL. Se il valore di quest'ultimo dovesse raggiungere il valore zero, allora il datagramma verrà scartato.
+		
+		\item La fase di chiusura di una connessione TCP è strutturata in tre fasi (si assume che il client voglia comunicare la chiusura al server, ma può accadere anche il contrario):
+		\begin{enumerate}
+			\item Il client invia un segmento contenente nell'header il campo FIN, che si trova nei campi di flag, posto ad 1.
+			
+			\item Il server risponderà con un ACK e aggiungerà anch'esso il campo FIN ad 1 solamente se non dovrà inviare altri dati al client.\newline
+			Nel caso in cui dovesse trasmettere altri dati, risponderà con un ACK, invierà i dati richiesti e concluderà la connessione, inviando un segmento con il campo FIN ad 1.
+			
+			\item Il client, risponderà con una conferma, inviando un ACK al server.
+		\end{enumerate}
+	\end{enumerate}
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 25/02/2014}]{Esame - 25/02/2014}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Per consentire il risparmio di energia nelle Wireless LAN (WLAN), le stazioni utilizzano il cosiddetto \dquotes{Network Allocation Vector} (NAV): si spieghi che cos'è il NAV e come viene utilizzato.
+		
+		\item In riferimento al livello di rete, si spieghi, anche attraverso un esempio, che cos'è il Network Address Translation (NAT), specificando per quale motivo tale funzionalità è stata introdotta.
+		
+		\item In riferimento al livello di trasporto, si spieghi che cosa sono le \dquotes{porte note} (Well-Known Ports) e il motivo per cui sono state introdotte.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item Il NAV (Network Address Vector) è un meccanismo utilizzato principalmente nel protocollo 802.11. Il \textbf{vantaggio principale} è il risparmio di energia da parte degli host all'interno di una WLAN. Il motivo è spiegato qui di seguito.\newline
+		Quando un host vuole comunicare con il destinatario (Access Point), invia una richiesta di invio (RTS, \emph{request to send}) dopo aver attesto un tempo breve chiamato DIFS (\emph{Distributed Inter-Frame Space}). Se il canale è inattivo, il destinatario risponde con un messaggio di conferma di invio (CTS, \emph{clear to send}), solamente dopo aver atteso un breve periodo di tempo chiamato SIFS (\emph{Short Inter-Frame Space}). A questo punto, il destinatario crea un'allocazione in cui imposta il valore di NAV, che corrisponderà al tempo totale di trasmissione del frame. Una volta terminata la trasmissione, il valore di NAV sarà a zero e dunque, il destinatario sarà di nuovo disponibile a ricevere dati (dopo ovviamente, l'invio dell'ACK di ricezione del datagramma al mittente).\newline
+		Ogniqualvolta un host vuole comunicare con l'Access Point, viene verificato se il canale è attivo o meno. Per cui, vi è un dispendio di energia e per tal motivo, il NAV evita di far effettuare una serie ripetitiva di richieste da parte degli host. Questo perché il destinatario (AP) comunica il valore di NAV ad ogni richiesta, così che il mittente possa aspettare ed evitare molteplici richieste.\newline
+		Quindi, valore di NAV diverso da zero, vuol dire canale occupato. Mentre, NAV uguale a zero, vuol dire canale libero.\newpage
+		
+		\item All'interno di una rete locale, spesso vengono utilizzati degli indirizzi IP privati (il motivo esula dalla domanda, per cui non verrà esposto). Ma quest'ultimi non possono comunicare direttamente su Internet. Quindi, il \textbf{problema} che nasce riguarda la comunicazione al di fuori della rete locale.\newline
+		La \textbf{soluzione} è la NAT (\emph{Network Address Translation}). Il router, abilitato al NAT, ha il compito di rappresentare la rete con un unico indirizzo IP, quindi, come se la rete locale fosse un unico dispositivo. Tuttavia, nel caso della ricezione di un pacchetto dal mondo esterno (fuori dalla rete locale), com'è possibile capire chi è il destinatario all'interno della rete?\newline
+		In questo caso, la \textbf{soluzione} prevede il salvataggio di una tabella all'interno del router, chiamata NAT \emph{translation table}. Essa è composta da una colonna indicante l'indirizzo IP utilizzato su Internet con il numero di porta e l'indirizzo IP utilizzato nella rete locale con il numero di porta. Quindi, ogni riga avrà due indirizzi IP (privato e pubblico) con ogni numero di porta di ogni host.
+		
+		\item Per porte note si intende un insieme di porte (range di valori $0-1023$) che sono associate ad applicazioni \underline{lato server}. Questo bisogno nasce dal seguente \textbf{problema}.\newline
+		Nel momento in cui un client dovrà inviare un pacchetto ad un server, sarà sicuramente a conoscenza del suo numero di porta (sorgente) poiché assegnato dal sistema operativo, ma non sarà a conoscenza della porta del server.\newline
+		La \textbf{soluzione} è stata l'introduzione delle Well-Know Ports. Quindi, in base al protocollo utilizzato, il client inserirà un determinato valore nel campo \dquotes{porta di destinazione}. Per esempio, con il protocollo HTTP, il client inserirà il valore 80.
+	\end{enumerate}
+	
+	\subsubsection{Esercizio 1 - ALOHA}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP + variante}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 07/01/2019}]{Esame - 07/01/2019}
+
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 07/01/2019}]{Esame - 07/01/2019}
+
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 05/02/2019}]{Esame - 05/02/2019}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 18/02/2020}]{Esame - 18/02/2020}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 10/01/2022}]{Esame - 10/01/2022}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 01/02/2022}]{Esame - 01/02/2022}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 22/02/2022}]{Esame - 22/02/2022}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 18/07/2022}]{Esame - 18/07/2022}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 27/09/2022}]{Esame - 27/09/2022}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection[\textbf{Esame - 09/01/2023}]{Esame - 09/01/2023}
+	
+	\subsubsection{Domande sulla teoria}
+	Le domande di teoria sono le seguenti:
+	
+	\subsubsection{Esercizio 1 - CSMA persistent}
+	
+	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
+	
+	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Indice per ogni tipologia di domanda}
+
+	\section{Indice per ogni tipologia d'esercizio}
 \end{document}
