@@ -3117,7 +3117,7 @@
 		\label{velocità collegamenti}
 	\end{figure}\newpage
 
-	\subsection{Protocollo MAC di 802.11 e CSMA/CA}
+	\subsection{Protocollo MAC di 802.11, CSMA/CA, NAV}
 	
 	Nel momento in cui una stazione wireless è associata ad un \emph{Access Point} (AP), può iniziare a trasmettere e a ricevere frame dati da e verso l’AP. Tuttavia, poiché stazioni multiple potrebbero voler trasmettere frame di dati contemporaneamente sullo stesso canale, è \textbf{necessario un protocollo ad accesso multiplo per coordinare le trasmissioni}. Per \emph{stazione} si intende sia la stazione wireless che l’AP.\newline
 	
@@ -3174,7 +3174,16 @@
 		\item Quando \textbf{riceve la conferma}, la stazione sa che il frame è stato ricevuto correttamente e riattiva il protocollo CSMA/CA dal passo 1. Ma dato che il canale è attivo, la stazione inizierà tutto il procedimento di attesa binaria.
 		
 		\item \textbf{Se non riceve la conferma}, la stazione trasmittente ritorna al passo 1. Ma dato che il canale è attivo, la stazione inizierà tutto il procedimento di attesa binaria con un \underline{valore di ritardo maggiore}.
-	\end{enumerate}\newpage
+	\end{enumerate}
+	\noindent
+	Il protocollo 802.11 implementa un'importante meccanismo, ovvero il \textcolor{Red3}{\textbf{Network Allocation Vector}} (NAV). Esso viene solitamente implementato insieme all'algoritmo di CSMA/CA e il suo \textbf{vantaggio principale} riguarda il \textbf{risparmio energetico}.
+	
+	Come si è visto durante le spiegazioni, nel momento in cui un canale era attivo, tutti gli host dovevano effettuare delle richieste all'Access Point per capire quando iniziare a trasmettere, quindi il momento in cui il canale diventava inattivo. Le richieste di aggiornamento erano un \textbf{dispendio di energia notevole}, ma grazie all'introduzione del NAV, questo problema scompare.
+	
+	Il suo \textbf{funzionamento} è il seguente. Una volta che il destinatario risponde al mittente con un messaggio di CTS (\emph{clear to send}), all'interno del destinatario viene impostato il valore del NAT che corrisponderà al tempo di trasmissione del frame da parte del mittente. Così facendo, qualsiasi dispositivo esegua un controllo del canale, acquisirà il valore NAT e attenderà tale periodo. Chiaramente, un NAT maggiore di zero corrisponde ad un canale occupato, mentre un NAT a zero corrisponde ad un canale inattivo e quindi libero.
+	
+	È ovvio, che in questo modo le richieste da parte degli host sia molto minore e il consumo energetico è inferiore.
+	\newpage
 
 	\subsection{\textcolor{Red3}{Esame - Bridge e protocollo ALOHA}}
 	
