@@ -2508,6 +2508,7 @@
 			
 			\item Se è presente un'estensione (\emph{extension header}) e l'intestazione supera i 40 byte, allora il campo identifica il tipo di \textbf{\emph{extension header}}\footnote{L'\emph{extension header} è formato da due campi obbligatori ed i restanti liberi. Il primo campo (8 bit) rappresenta \emph{next header} che ha lo stesso funzionamento già descritto e il secondo (8 bit) rappresenta \emph{header length} che identifica (valore) quanto è lunga l'estensione.}
 		\end{enumerate}
+		Il \textbf{motivo} dell'introduzione di questo campo è strettamente legata all'estensibilità del protocollo. Se in futuro venisse deciso di introdurre uno o più campi, grazie all'\emph{extension header}, sarà possibile aggiungere i nuovi valori senza cambiare drasticamente l'intero protocollo.
 		
 		\item \textbf{Limite di hop}. Viene decrementato di 1 da ogni router che inoltra il datagramma. Una volta a zero viene eliminato il datagramma.
 		
