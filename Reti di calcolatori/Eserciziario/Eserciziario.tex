@@ -79,7 +79,7 @@
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
 	\begin{enumerate}
-		\item Si descriva il problema del \dquotes{terminale nascosto} (\emph{hidden terminal problem}) nelle Wireless LAN e la soluzione adottata dallo standard 802.11.
+		\item Si descriva il problema del \dquotes{terminale nascosto} (\emph{hidden terminal problem}) nelle Wireless LAN e la soluzione adottata dallo standard 802.11.\label{hidden terminal problem}
 		
 		\item In riferimento al livello di rete, si spieghi che cosa succede quando un host si connette ad una rete ed ha bisogno di ricevere un indirizzo IP (non è necessario andare nei dettagli dei protocolli, è sufficiente descrivere a grandi linee i messaggi scambiati).
 		
@@ -134,7 +134,7 @@
 	\begin{enumerate}
 		\item Si descriva l'algoritmo CSMA nella sua variante Collision Detection (CSMA-CD), indicando il motivo che ha portato all'introduzione di tale variante.\label{CSMA/CD}
 		
-		\item L'header del protocollo IP contiene un campo chiamato \dquotes{Time to live} (TTL): si spieghi come viene utilizzato tale campo e perché è stato introdotto.
+		\item L'header del protocollo IP contiene un campo chiamato \dquotes{Time to live} (TTL): si spieghi come viene utilizzato tale campo e perché è stato introdotto.\label{TTL}
 		
 		\item Si descriva la fase di chiusura della connessione nel TCP, indicando i messaggi scambiati e i principali campi dell'header utilizzati durante tale fase.
 	\end{enumerate}
@@ -208,7 +208,7 @@
 		
 		\item Per porte note si intende un insieme di porte (range di valori $0-1023$) che sono associate ad applicazioni \underline{lato server}. Questo bisogno nasce dal seguente \textbf{problema}.\newline
 		Nel momento in cui un client dovrà inviare un pacchetto ad un server, sarà sicuramente a conoscenza del suo numero di porta (sorgente) poiché assegnato dal sistema operativo, ma non sarà a conoscenza della porta del server.\newline
-		La \textbf{soluzione} è stata l'introduzione delle Well-Know Ports. Quindi, in base al protocollo utilizzato, il client inserirà un determinato valore nel campo \dquotes{porta di destinazione}. Per esempio, con il protocollo HTTP, il client inserirà il valore 80.
+		La \textbf{soluzione} è stata l'introduzione delle Well-Know Ports. Quindi, in base al protocollo utilizzato, il client inserirà un determinato valore nel campo \dquotes{porta di destinazione}. Per esempio, con il protocollo HTTP, il client inserirà il valore 80.\label{Well-Known Ports}
 	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - ALOHA}
@@ -258,21 +258,6 @@
 	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-	\subsection[\textbf{Esame - 07/01/2019}]{Esame - 07/01/2019}
-
-	\subsubsection{Domande sulla teoria}
-	Le domande di teoria sono le seguenti:
-	
-	\subsubsection{Esercizio 1 - CSMA persistent}
-	
-	\subsubsection{Esercizio 2 - Subnetting e tabella di routing}
-	
-	\subsubsection{Esercizio 3 - Controllo della congestione TCP}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -280,6 +265,55 @@
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si spieghi il funzionamento del protocollo ARP (Address Resolution Protocol), senza necessariamente entrare nei dettagli del protocollo stesso, specificando il motivo per cui è stato introdotto tale protocollo.
+		
+		\item L'header del protocollo IPv6 contiene il campo \dquotes{extension header}: si spieghi come viene utilizzato e perché è stato introdotto.
+		
+		\item Si descriva la modalità di instaurazione di una connessione TCP, specificando i messaggi scambiati e i campi più significativi dell'header utilizzati durante tale fase.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item Il protocollo ARP (Address Resolution Protocol) è stato introdotto per un \textbf{motivo} semplice. A livello di rete, ogni host viene identificato tramite il proprio indirizzo IP. Invece, a livello di collegamento, vi è un identificativo chiamato indirizzo MAC (Media Access Control) univoco (grazie allo standard IEEE, non possono esistere due schede di rete con lo stesso indirizzo). Sorge spontaneo il \textbf{problema}, ovvero come è possibile effettuare la risoluzione degli indirizzi da IP a MAC o viceversa.\newline
+		La \textbf{soluzione} proposta dal protocollo ARP, è quella di inserire all'interno della RAM di ogni nodo una tabella chiamata tabella ARP. Il suo contenuto è formato da tre colonne contenenti l'indirizzo IP, l'indirizzo MAC e il Time to live (TTL). Quest'ultimo campo, è stato introdotto per evitare che una riga rimanga all'interno della tabella per sempre. Quindi, una volta finito il tempo di vita (TTL), la voce viene eliminata dalla tabella.\newline
+		Inoltre, il protocollo ARP fornisce un pacchetto ARP, costruito dal trasmittente, che include vari campi inclusi l'indirizzo IP e MAC del mittente e destinatario. Questi pacchetti hanno lo stesso formato sia per quanto riguarda la richiesta che la risposta. Il motivo dell'introduzione di tale pacchetto, è dovuta al fatto che ogni nodo trasmittente interroga tutti gli altri nodi per ottenere l'indirizzo MAC corretto.\label{ARP}\newpage
+		
+		\item Nel protocollo IPv6 è presente un campo chiamato \emph{next header}. Il suo compito è quello di indicare se è presente o meno un'intestazione successiva. Più precisamente, ha un doppio ruolo:
+		\begin{enumerate}
+			\item Se non è presente un'intestazione successiva, questo campo indica il protocollo utilizzato per trasportare il campo dati (\emph{payload}). Per esempio TCP o UDP.
+			
+			\item Se è presente un'intestazione successiva, allora il valore rappresenta il tipo di \emph{extension header}.
+		\end{enumerate}
+		L'\emph{extension header} è composto da due campi obbligatori: \emph{next header} (8 bit) e \emph{header length} (8 bit). Gli altri campi sono lasciati liberi. Il campo:
+		\begin{itemize}
+			\item \emph{Next header} ha lo stesso compito descritto sopra.
+			\item \emph{Header length} identifica la lunghezza dell'estensione.
+		\end{itemize}
+		Il \textbf{motivo} dell'introduzione di questo campo è strettamente legata all'estensibilità del protocollo. Se in futuro venisse deciso di introdurre uno o più campi, grazie all'\emph{extension header}, sarà possibile aggiungere i nuovi valori senza cambiare drasticamente l'intero protocollo.
+		
+		\item L'instaurazione di una connessione TCP viene chiamata \emph{handshaking} a tre vie poiché vengono scambiati tre pacchetti. I \textbf{messaggi inviati e ricevuti} sono i seguenti:
+		\begin{itemize}
+			\item Il \textbf{client} invia al server un \textbf{segmento SYN}. Tale pacchetto è speciale, perché privo del campo Dati. Presenta inoltre il campo SYN ad uno e un valore, chiamato numero di sequenza iniziale (\emph{client initial sequence number}), generato dal client e posto nel campo numero di sequenza (\emph{sequence number}).
+			
+			\item Il \textbf{server} risponde al client con un \textbf{segmento SYNACK}. All'arrivo del pacchetto, il server inoltre alloca le varie risorse per essere pronto a scambiare i dati con il client.\newline
+			Ancora una volta, il pacchetto costruito è speciale poiché presenta solo tre valori significativi:
+			\begin{itemize}
+				\item \textbf{SYN} a uno per comunicare che si è in una fase iniziale.
+				
+				\item \textbf{ACK number} uguale al valore del numero di sequenza iniziale del client (\emph{client initial sequence number}), più uno.
+				
+				\item \textbf{Numero di sequenza} che è analogo a quanto è stato fatto per il client. Quindi, il server genera un numero iniziale di sequenza (\emph{server initial sequence number}) e lo inserisce nel campo.
+			\end{itemize}
+			
+			\item Il \textbf{client} conferma la ricezione del messaggio del server con un \textbf{segmento ACK}. A questo punto anche il client alloca le varie risorse per essere pronto a scambiare i dati con il server.\newline
+			Inoltre, il client può decidere se inviare il pacchetto di conferma o inviare il pacchetto contenente sia la conferma che le informazioni da inviare al server. Qualsiasi scelta prenda il client, è certo che i seguenti campi sono così definiti:
+			\begin{itemize}
+				\item \textbf{SYN} a zero per comunicare che la connessione è stata stabilita.
+				
+				\item \textbf{ACK number} uguale al valore del numero di sequenza iniziale del server (\emph{server initial sequence number}), più uno.
+			\end{itemize}
+		\end{itemize}\label{TCP instaurazione connessione}
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
@@ -295,6 +329,37 @@
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si descriva (ad esempio in pseudo-codice, corredato da commenti) l'algoritmo CSMA nella sua variante Collision Detection (CSMA-CD), indicando il motivo che ha portato all'introduzione di tale variante.
+		
+		\item L'header del protocollo IP contiene un campo chiamato \dquotes{Time to live} (TLL): si spieghi come viene utilizzato tale campo e il perché è stato introdotto.
+		
+		\item L'header TCP contiene un campo chiamato \dquotes{Sequence Number} (SN) e \dquotes{Acknowledge Number} (AckN): spiegare il loro significato (Che cosa contengono tali campi?) e come vengono utilizzati (Chi imposta il loro valore? I campi vengono impostati in ogni segmento?).
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item La risposta è stata data a pagina \pageref{CSMA/CD} poiché è identica.
+		
+		\item La risposta è stata data a pagina \pageref{TTL} poiché è identica.
+		
+		\item Questi due campi sono stati implementati per rendere affidabile la trasmissione dei dati.\newline
+		Durante l'\textbf{instaurazione di una connessione} tra client e server, entrambi i campi vengono utilizzati:
+		\begin{itemize}
+			\item Inizialmente il client utilizza il SN per inserire il proprio numero di sequenza iniziale (\emph{client initial sequence number}).
+			
+			\item Successivamente, il server risponde al client e inserisce in SN il suo proprio numero di sequenza iniziale (\emph{server initial sequence number}), e in AckN il valore del numero di sequenza iniziale del client incrementato di uno.
+			
+			\item Infine, il client risponde al server inserendo nel campo AckN il numero di sequenza iniziale del server incrementato di uno.
+		\end{itemize}\newpage
+		Invece, \textbf{durante la comunicazione} di informazioni tra client e server:
+		\begin{itemize}
+			\item Nel campo Sequence Number viene inserito il numero presente nel flusso di byte del primo byte di segmento (si veda esempio sotto).
+			
+			\item Nel campo AckN viene inserito il valore del numero di sequenza del byte successivo che l'host mittente aspetta dal destinatario (si veda esempio sotto).
+		\end{itemize}
+		\textbf{Esempio SN}: Host A vuole inviare $500'000$ byte all'Host B. Si ipotizzi che la MSS (\emph{Maximum Segment Size}) sia pari a $1'000$ byte e che il primo byte del flusso abbia come SN il valore $0$. Dunque, i pacchetti vengono frammentati in $500$ frame ($500'000 \div 1'000$) e inviati all'Host B. La numerazione dei pacchetti sarà: il primo $SN = 0$, il secondo $SN = 1000$, il terzo $SN = 2000$ e così via.\newline
+		\textbf{Esempio AckN}: Host A ha ricevuto un segmento dall'Host B contenente i byte da $0$ a $535$ e un altro segmento contenente i byte da $900$ a $1000$. Per qualche motivo, l'Host A è ancora in attesa del segmento contenente i byte da $536$ a $899$. Il prossimo segmento inviato dall'Host A, avrà come AckN il valore $536$. In questo modo, l'Host A sta comunicando all'Host B il flusso di dati mancante ($536 - 899$).
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
@@ -310,6 +375,21 @@
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si descriva il problema del \dquotes{terminale nascosto} (hidden terminal problem) nelle Wireless LAN e la soluzione adottata dallo standard 802.11.
+		
+		\item L'header del protocollo IP contiene un campo chiamato \dquotes{Time to live} (TLL): si spieghi come viene utilizzato tale campo e il perché è stato introdotto.
+		
+		\item Si descriva la modalità di instaurazione di una connessione TCP, specificando i messaggi scambiati e i campi più significativi dell'header utilizzati durante tale fase.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item La risposta è stata data a pagina \pageref{hidden terminal problem} poiché è identica.
+		
+		\item La risposta è stata data a pagina \pageref{TTL} poiché è identica.
+		
+		\item La risposta è stata data a pagina \pageref{TCP instaurazione connessione} poiché è identica.
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
@@ -325,6 +405,30 @@
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si spieghi il funzionamento del protocollo ARP (Address Resolution Protocol), senza necessariamente entrare nei dettagli del protocollo stesso, specificando il motivo per cui è stato introdotto tale protocollo.
+		
+		\item Non tutti gli indirizzi IP possono essere assegnati agli host: ve ne sono alcuni, definiti \dquotes{indirizzi speciali} che hanno un particolare utilizzo. Tra questi, vi sono: l'indirizzo composto da tutti \dquotes{1}, l'indirizzo composto da tutti \dquotes{0}, l'indirizzo in cui l'host ID è composto da tutti \dquotes{1}, l'indirizzo in cui l'host ID è composto da tutti \dquotes{0}. Per ciascuno dei 4 indirizzi si spieghi il loro utilizzo.
+		
+		\item In riferimento al livello di trasporto, si spieghi che cosa sono le \dquotes{porte note} (Well Known Ports) e il motivo per cui sono state introdotte.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item La risposta è stata data a pagina \pageref{ARP} poiché è identica.
+		
+		\item Questi indirizzi IP speciali, vengono chiamati indirizzi IP privati, cioè non possono essere assegnati a nessun host:
+		\begin{itemize}
+			\item Indirizzo con tutti \dquotes{1}, utilizzato, per esempio, nel protocollo DHCP. Rappresenta un indirizzo di broadcast in cui il client, non conoscendo l'indirizzo della rete e non potendo dunque utilizzare il Direct Broadcast, invia il segmento di DHCP discover a tutti gli host della rete con l'indirizzo $255.255.255.255$.
+			
+			\item Indirizzo con tutti \dquotes{0}, utilizzato nel protocollo DHCP. Viene impiegato nel momento della prima connessione di un client in una rete. All'inizio, esso non ha un indirizzo IP e durante la prima fase di DHCP discover, gli viene assegnato un indirizzo IP speciale: $\left(0.0.0.0\right)_{10}$.
+			
+			\item Indirizzo host ID con tutti \dquotes{1}, rappresenta un indirizzo di Direct Broadcast. Ovvero, un indirizzo di rete del genere ha lo scopo di far ricevere il messaggio inviato a tutti gli host della rete. I bit appartenenti al suffisso sono a uno.
+			
+			\item Indirizzo host ID con tutti \dquotes{0}, rappresenta un indirizzo di rete. Ovvero, i bit del suffisso sono impostati a zero e non possono essere utilizzati da un host poiché identificano la rete stessa.
+		\end{itemize}
+		
+		\item La risposta è stata data a pagina \pageref{Well-Known Ports} poiché è identica.
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
