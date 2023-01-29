@@ -83,7 +83,7 @@
 		
 		\item In riferimento al livello di rete, si spieghi che cosa succede quando un host si connette ad una rete ed ha bisogno di ricevere un indirizzo IP (non è necessario andare nei dettagli dei protocolli, è sufficiente descrivere a grandi linee i messaggi scambiati).
 		
-		\item L'header del protocollo UDP contiene solo 4 campi: Source Port, Destination Port, Length e Checksum. Si spieghi brevemente a cosa servono tali campi.
+		\item L'header del protocollo UDP contiene solo 4 campi: Source Port, Destination Port, Length e Checksum. Si spieghi brevemente a cosa servono tali campi.\label{header UDP}
 	\end{enumerate}
 	\textcolor{Green4}{\textbf{\emph{Risposte}}}	
 	\begin{enumerate}
@@ -132,7 +132,7 @@
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
 	\begin{enumerate}
-		\item Si descriva l'algoritmo CSMA nella sua variante Collision Detection (CSMA-CD), indicando il motivo che ha portato all'introduzione di tale variante.
+		\item Si descriva l'algoritmo CSMA nella sua variante Collision Detection (CSMA-CD), indicando il motivo che ha portato all'introduzione di tale variante.\label{CSMA/CD}
 		
 		\item L'header del protocollo IP contiene un campo chiamato \dquotes{Time to live} (TTL): si spieghi come viene utilizzato tale campo e perché è stato introdotto.
 		
@@ -225,6 +225,31 @@
 
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si descriva (ad esempio in pseudo-codice, corredato da commenti) l'algoritmo CSMA nella sua variante Collision Detection (CSMA-CD), indicando il motivo che ha portato all'introduzione di tale variante.
+		
+		\item Si spieghi brevemente la funzionalità di frammentazione dei pacchetti IP, incluso le motivazioni e gli apparati che effettuano la frammentazione / deframmentazione.
+		
+		\item L'header del protocollo UDP contiene solo 4 campi: Source Port, Destination Port, Length e Checksum. Si spieghi brevemente a cosa servono tali campi.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item La risposta è stata data a pagina \pageref{CSMA/CD} poiché è identica.
+		
+		\item Si definisce l'unità massima di trasmissione (MTU), la massima quantità di dati che un frame a livello di collegamento può trasportare. Viene introdotto questo concetto per motivare il fatto che, a causa di limitazioni del collegamento, o a causa dei diversi protocolli utilizzati, il datagramma deve essere frammentato in più frame. Ecco il \textbf{motivo} della nascita di questa tecnica.\newline
+		Le sue \textbf{fasi} sono le seguenti:
+		\begin{enumerate}
+			\item \textbf{Creazione del datagramma} da parte dell'host. All'interno di esso vengono inseriti gli indirizzi sorgente e destinazione, e anche un numero identificativo (campo \emph{Identification}). Il motivo di quest'ultimo, è la possibilità di rappresentare, con un codice univoco, ogni datagramma e quindi l'appartenenza allo stesso insieme da parte di più frame frammentati.
+			
+			\item \textbf{Frammentazione datagramma} da parte del router. Nel farlo, esso contrassegna i frammenti con gli indirizzi di sorgente e destinazione, e con il valore del campo \emph{Identification}.
+			
+			\item \textbf{Deframmentazione datagramma} da parte del destinatario. Una volta ricevuto il pacchetto, il destinatario esamina il campo \emph{Identification} per raggruppare tutti i frame appartenenti allo stesso datagramma frammentato. Inoltre, viene utilizzato il flag M per capire se il frame preso in considerazione è un pezzo intermedio (valore 1), oppure se è il frame finale (valore 0).\newline
+			Infine, per comprendere l'ordine corretto dei vari frame, viene utilizzato il campo offset. Quest'ultimo indica la distanza dal primo frame, il quale solitamente ha un identificativo pari a $000$. Il campo offset viene utilizzato anche per capire se un frame è stato perso durante la comunicazione.
+		\end{enumerate}
+		Possibile \textbf{esempio}: \href{https://packetpushers.net/ip-fragmentation-in-detail/#:~:text=Worked%20Example&text=1104%20%2B%20316%20%3D%201420.,1480%20%E2%80%93%2060%20%3D%201420.}{link}
+		
+		\item La risposta è stata data a pagina \pageref{header UDP} poiché è identica.
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
