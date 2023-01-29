@@ -480,10 +480,10 @@
 	Gli indirizzi IP riservati sono indirizzi IP che non possono essere assegnati a nessun host. In particolare, sono:
 	
 	\begin{itemize}
-		\item \textbf{Indirizzo di rete}: tutti i bit del suffisso sono posti a zero;
-		\item \textbf{Indirizzo di Direct Broadcast}: tutti i bit del suffisso sono posti a uno;
-		\item \textbf{Indirizzo con tutti i bit a zero};
-		\item \textbf{Indirizzo con tutti i bit a uno};
+		\item \textbf{Indirizzo di rete}: i bit del suffisso sono posti a zero e non possono essere utilizzati da un host poiché identificano la rete stessa;
+		\item \textbf{Indirizzo di Direct Broadcast}: questo indirizzo ha lo scopo di far ricevere il messaggio inviato a tutti gli host della rete. I bit appartenenti al suffisso sono a uno;
+		\item \textbf{Indirizzo con tutti i bit a zero}: utilizzato nel protocollo DHCP. Viene impiegato nel momento della prima connessione di un client in una rete. All'inizio, esso non ha un indirizzo IP e durante la prima fase di DHCP discover, gli viene assegnato un indirizzo IP speciale: $\left(0.0.0.0\right)_{10}$ (si veda il capitolo~\ref{DHCP});
+		\item \textbf{Indirizzo con tutti i bit a uno}: utilizzato, per esempio, nel protocollo DHCP. Rappresenta un indirizzo di broadcast in cui il client, non conoscendo l'indirizzo della rete e non potendo dunque utilizzare il Direct Broadcast, invia il segmento di DHCP discover a tutti gli host della rete con l'indirizzo $255.255.255.255$ (si veda il capitolo~\ref{DHCP}).
 	\end{itemize}
 
 	\subsection{\textcolor{Red3}{Esercizio subnetting, creazione sottoreti partendo da un blocco di indirizzi}}
@@ -2398,7 +2398,7 @@
 		\end{array}
 	\end{equation*}\newpage
 	
-	\section{DHCP, problema di carenza IP e NAT}
+	\section{DHCP, problema di carenza IP e NAT}\label{DHCP}
 	
 	\subsection{DHCP, ottenimento indirizzo IP}
 	
