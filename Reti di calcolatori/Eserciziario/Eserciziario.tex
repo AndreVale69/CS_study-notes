@@ -81,7 +81,7 @@
 	\begin{enumerate}
 		\item Si descriva il problema del \dquotes{terminale nascosto} (\emph{hidden terminal problem}) nelle Wireless LAN e la soluzione adottata dallo standard 802.11.\label{hidden terminal problem}
 		
-		\item In riferimento al livello di rete, si spieghi che cosa succede quando un host si connette ad una rete ed ha bisogno di ricevere un indirizzo IP (non è necessario andare nei dettagli dei protocolli, è sufficiente descrivere a grandi linee i messaggi scambiati).
+		\item In riferimento al livello di rete, si spieghi che cosa succede quando un host si connette ad una rete ed ha bisogno di ricevere un indirizzo IP (non è necessario andare nei dettagli dei protocolli, è sufficiente descrivere a grandi linee i messaggi scambiati).\label{DHCP}
 		
 		\item L'header del protocollo UDP contiene solo 4 campi: Source Port, Destination Port, Length e Checksum. Si spieghi brevemente a cosa servono tali campi.\label{header UDP}
 	\end{enumerate}
@@ -136,7 +136,7 @@
 		
 		\item L'header del protocollo IP contiene un campo chiamato \dquotes{Time to live} (TTL): si spieghi come viene utilizzato tale campo e perché è stato introdotto.\label{TTL}
 		
-		\item Si descriva la fase di chiusura della connessione nel TCP, indicando i messaggi scambiati e i principali campi dell'header utilizzati durante tale fase.
+		\item Si descriva la fase di chiusura della connessione nel TCP, indicando i messaggi scambiati e i principali campi dell'header utilizzati durante tale fase.\label{TCP chiusura connessione}
 	\end{enumerate}
 	\textcolor{Green4}{\textbf{\emph{Risposte}}}	
 	\begin{enumerate}
@@ -228,7 +228,7 @@
 	\begin{enumerate}
 		\item Si descriva (ad esempio in pseudo-codice, corredato da commenti) l'algoritmo CSMA nella sua variante Collision Detection (CSMA-CD), indicando il motivo che ha portato all'introduzione di tale variante.
 		
-		\item Si spieghi brevemente la funzionalità di frammentazione dei pacchetti IP, incluso le motivazioni e gli apparati che effettuano la frammentazione / deframmentazione.
+		\item Si spieghi brevemente la funzionalità di frammentazione dei pacchetti IP, incluso le motivazioni e gli apparati che effettuano la frammentazione / deframmentazione.\label{frammentazione IP}
 		
 		\item L'header del protocollo UDP contiene solo 4 campi: Source Port, Destination Port, Length e Checksum. Si spieghi brevemente a cosa servono tali campi.
 	\end{enumerate}
@@ -268,7 +268,7 @@
 	\begin{enumerate}
 		\item Si spieghi il funzionamento del protocollo ARP (Address Resolution Protocol), senza necessariamente entrare nei dettagli del protocollo stesso, specificando il motivo per cui è stato introdotto tale protocollo.
 		
-		\item L'header del protocollo IPv6 contiene il campo \dquotes{extension header}: si spieghi come viene utilizzato e perché è stato introdotto.
+		\item L'header del protocollo IPv6 contiene il campo \dquotes{extension header}: si spieghi come viene utilizzato e perché è stato introdotto.\label{IPv6 extension header}
 		
 		\item Si descriva la modalità di instaurazione di una connessione TCP, specificando i messaggi scambiati e i campi più significativi dell'header utilizzati durante tale fase.
 	\end{enumerate}
@@ -444,6 +444,21 @@
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si spieghi che cosa si intende, quando si parla della funzionalità del livello 2, per \emph{framing} e si descriva una delle possibili tecniche con un semplice esempio.
+		
+		\item In riferimento al livello di rete, si spieghi che cosa succede quando un host si connette ad una rete ed ha bisogno di ricevere un indirizzo IP (non è necessario andare nei dettagli dei protocolli, è sufficiente descrivere a grandi linee i messaggi scambiati).
+		
+		\item Si descriva la fase di chiusura della connessione nel TCP, indicando i messaggi scambiati e i principali campi dell'header utilizzati durante tale fase.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item 
+		
+		\item La risposta è stata data a pagina \pageref{DHCP} poiché è identica.
+		
+		\item La risposta è stata data a pagina \pageref{TCP chiusura connessione} poiché è identica.
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
@@ -459,6 +474,21 @@
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si scriva lo pseudo-codice, corredato da commenti, dell'algoritmo CSMA nella variante Collision Detection (CSMA-CD). Si indichi inoltre il motivo che ha portato all'introduzione di tale variante.
+		
+		\item L'header IP contiene un campo di 16 bit denominato \dquotes{Identification}: si spieghi che cosa contiene tale campo e come viene utilizzato.
+		
+		\item In riferimento a livello di trasporto, si spieghi la differenza tra Smoothed Round Trip Time (SRTT) e Round Trip Time (RTT), e come ciascuno di questi viene calcolato. Infine, si indichi come viene calcolato il Retransmission Timeout (RTO).
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item La risposta è stata data a pagina \pageref{CSMA/CD} poiché è identica.
+		
+		\item 
+		
+		\item 
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
@@ -474,6 +504,21 @@
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si spieghi la differenza tra commutazione di circuito e commutazione di pacchetto.
+		
+		\item Nel protocollo IPv6 c'è un campo denominato \dquotes{extension header}, che a sua volta contiene altri sotto-campi. Si spieghi quali sono tali sotto-campi, come vengono utilizzati e perché il campo \dquotes{extension header} è stato introdotto.
+		
+		\item Si consideri una connessione TCP già instaurata e lo scambio di segmenti dovuti ad una HTTP GET. Si indichi il valore assunto dai campi dell'header TCP \dquotes{Sequence Number} (SN) e \dquotes{Acknowledge Number} (AckN) in entrambe le direzioni, spiegando le ragioni dei valori indicati.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item 
+		
+		\item La risposta è stata data a pagina \pageref{IPv6 extension header} poiché è identica.
+		
+		\item 
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
@@ -489,6 +534,21 @@
 	
 	\subsubsection{Domande sulla teoria}
 	Le domande di teoria sono le seguenti:
+	\begin{enumerate}
+		\item Si spieghi lo scopo e il funzionamento del protocollo ARP (Address Resolution Protocol), e in particolare i messaggi trasmessi dalle stazioni, specificando gli indirizzi usati.
+		
+		\item Si spieghi brevemente la funzionalità di frammentazione dei pacchetti IP, mostrando un caso in cui essa è necessaria, gli apprati coinvolti sia nella frammentazione che nel riassemblaggio e i principali campi dell'header coinvolti.
+		
+		\item L'header del protocollo UDP contiene solo 4 campi: Source Port, Destination Port, Length e Checksum. Si spieghi brevemente a cosa servono tali campi.
+	\end{enumerate}
+	\textcolor{Green4}{\textbf{\emph{Risposte}}}
+	\begin{enumerate}
+		\item La risposta è stata data a pagina \pageref{ARP} poiché è identica.
+		
+		\item La risposta è stata data a pagina \pageref{frammentazione IP} poiché è identica.
+		
+		\item La risposta è stata data a pagina \pageref{header UDP} poiché è identica.
+	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
 	
