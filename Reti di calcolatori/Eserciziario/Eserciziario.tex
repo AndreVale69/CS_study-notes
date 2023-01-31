@@ -11,6 +11,7 @@
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% elenchi carini
 \usepackage[mathcal]{eucal}			% cambia font di mathcal per fare la F di Fourier
+\usepackage{listings}				% implementa codice di programmazione
 
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 % Link ipertestuali per l'indice
@@ -19,6 +20,32 @@
 \hypersetup{
 	colorlinks=true
 }
+
+% Colour code style
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{Cstyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=Cstyle}
 
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
@@ -334,7 +361,7 @@
 		
 		\item L'header del protocollo IP contiene un campo chiamato \dquotes{Time to live} (TLL): si spieghi come viene utilizzato tale campo e il perché è stato introdotto.
 		
-		\item L'header TCP contiene un campo chiamato \dquotes{Sequence Number} (SN) e \dquotes{Acknowledge Number} (AckN): spiegare il loro significato (Che cosa contengono tali campi?) e come vengono utilizzati (Chi imposta il loro valore? I campi vengono impostati in ogni segmento?).
+		\item L'header TCP contiene un campo chiamato \dquotes{Sequence Number} (SN) e \dquotes{Acknowledge Number} (AckN): spiegare il loro significato (Che cosa contengono tali campi?) e come vengono utilizzati (Chi imposta il loro valore? I campi vengono impostati in ogni segmento?).\label{TCP SN e AckN}
 	\end{enumerate}
 	\textcolor{Green4}{\textbf{\emph{Risposte}}}
 	\begin{enumerate}
@@ -453,7 +480,17 @@
 	\end{enumerate}
 	\textcolor{Green4}{\textbf{\emph{Risposte}}}
 	\begin{enumerate}
-		\item 
+		\item Al livello di collegamento, o logico, esiste un \textbf{problema} chiamato \emph{framing} (in italiano, delimitazione delle trame): quando il mittente finisce la fase del livello di collegamento (livello 2), passa il risultato al livello fisico. A questo strato, tutti i dati vengono rappresentati con dei bit e l'invio avviene tramite onde elettromagnetiche (e non solo). Il destinatario, riceve tali segnali e deve essere in grado di distinguere ogni frame per ricostruire i dati inviati dal mittente. Quindi, come è possibile distinguere un frame dagli altri?\newline
+		Esistono tre \textbf{soluzioni}:
+		\begin{enumerate}
+			\item \textbf{Intervalli temporali} è una soluzione banale che presenta una criticità. Innanzitutto, il suo funzionamento è elementare: viene inviato una trama, viene attesto un intervallo temporale, viene inviata la trama successiva, viene atteso un intervallo temporale e così via. La criticità di questa tecnica è che a causa di fenomeni fisici, i segnali vengono distorti con la conseguente perdita o cambiamento di informazioni.
+			
+			\item \textbf{Contatore di caratteri (\emph{character count})} è una soluzione che modifica l'header. Infatti, viene inserito un nuovo campo nell'header in cui viene specificato il numero di Byte da inviare/ricevere. La criticità presente in questo caso, riguarda eventuali errori del valore del campo da parte del mittente. Quindi, un banale errore di programmazione potrebbe causare un'alterazione delle informazioni con questa soluzione.
+			
+			\item \textbf{Byte di flag e \emph{bit stuffing}} è una delle soluzioni migliori. Viene scelta una sequenza di bit (byte) da inserire all'inizio e alla fine della trama. Così facendo il destinatario può eseguire un banale controllo all'inizio e alla fine per capire la delimitazione di ogni trama. Inoltre, nel caso in cui ci fosse un errore durante l'inserimento della sequenza, il problema si ripercuote solo sue due trame e non a cascata.\newpage
+			Chiaramente, è possibile, per caso, che all'interno della trama sia presente una sequenza identica. In questo caso, la situazione viene gestita utilizzando un valore, chiamato \emph{bit stuffing}. Quindi, viene aggiunto uno zero alla fine del byte flag al momento della trasmissione, mentre viene rimosso uno zero alla fine del byte di flag al momento della ricezione.
+		\end{enumerate}
+		Non viene presentato nessun esempio poiché la spiegazione risulta ampiamente chiara.
 		
 		\item La risposta è stata data a pagina \pageref{DHCP} poiché è identica.
 		
@@ -483,11 +520,16 @@
 	\end{enumerate}
 	\textcolor{Green4}{\textbf{\emph{Risposte}}}
 	\begin{enumerate}
-		\item La risposta è stata data a pagina \pageref{CSMA/CD} poiché è identica.
+		\item Lo pseudo-codice dell'algoritmo CSMA-CD è stato implementato utilizzando il linguaggio di programmazione C. Prima di vedere l'algoritmo si espone il \textbf{motivo} che ha portato a tale variante. Nel livello di collegamento è necessario gestire multipli accessi ad un canale. Oltre ad altri algoritmi esistenti, venne creato il CSMA che aveva una caratteristica principale: il rilevamento della portante. Ovvero, quando il mittente doveva trasmettere informazioni sul canale, prima di trasmettere verificava che non ci fossero altri segnali già in trasmissione.\newline
+		Nonostante ciò, venne creata una sua variante ancora più precisa, addirittura con un tasso d'efficienza praticamente perfetto. La caratteristica implementata dal CSMA-CD è il rilevamento della collisione, oltre a quello della portante. Quindi, il mittente prima di inviare il segmento, controlla il canale per vedere se è libero (rilevamento della portante). Se è disponibile, invia il segmento e rimane in ascolto: nel caso in cui riceva un segnale da parte di un altro host, interrompe immediatamente l'invio di informazioni sul canale (rilevamento delle collisioni).\newpage
+		L'algoritmo è il seguente:
+		\lstinputlisting[language=C]{code/CSMA-CD_algorithm.c	}
 		
-		\item 
+		\item Al livello 2 (di collegamento o logico) il protocollo IP provvede a eseguire l'inserimento di un valore nel campo \emph{Identification}. Tale valore è indispensabile al destinatario. Infatti, nel momento in cui il router esegue la frammentazione del pacchetto ricevuto, inserisce in ogni frame il valore identificativo del pacchetto originario.\newline
+		Così facendo il destinatario, al livello 2, è in grado di ricostruire il pacchetto originario, raggruppando tutti i frame utilizzando il campo \emph{Identification}.
 		
-		\item 
+		\item Con \textbf{RTT} si indica il \emph{Round Trip Time}, ovvero il tempo impiegato da un pacchetto per viaggiare dal client al server e poi tornare indietro. In altre parole è il tempo che intercorre tra l'invio del pacchetto e la ricezione della risposta. Invece, il \textbf{\emph{Smoothed} RTT} rappresenta una stima del valore medio del RTT. Dunque, per ottenere è necessario eseguire una stima prendendo in considerazione il valore medio del \emph{round trip time}.\newline
+		Infine, l'\textbf{RTO} (\emph{retrasmission time-out}) è il tempo impiegato prima di ritrasmettere un pacchetto. All'invio di un pacchetto da parte del mittente, parte in parallelo un timer che indica il range di tempo entro quando il server deve rispondere. Quando scade tale tempo, il pacchetto viene inviato nuovamente. Inizialmente il valore è ad 1, dopo ogni perdita incrementa l'RTO per due rispetto all'RTO precedente ($\mathrm{RTO}_{new} = \mathrm{RTO}_{old} \times 2$).
 	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
@@ -513,11 +555,28 @@
 	\end{enumerate}
 	\textcolor{Green4}{\textbf{\emph{Risposte}}}
 	\begin{enumerate}
-		\item 
+		\item Nella \textbf{commutazione di circuito}, le risorse richieste lungo il percorso (buffer, ecc.) vengono riservate per l'intera durata della comunicazione.\newline
+		Al contrario, nella \textbf{commutazione di pacchetto}, la sorgente divide i messaggi in parti più piccole (pacchetti con \emph{header}) ed essi viaggiano lungo il percorso attraversando collegamenti e commutatori di pacchetti. Quindi non hanno una corsia dedicata a loro.\newline
+		Le differenze principali è che la prima (circuito) ha una comunicazione riservata che garantisce velocità costante, ma un grande spreco di risorse e altre complicazioni riguardo la larghezza di banda \emph{end-to-end}. Al contrario, la seconda condivide il suo percorso riuscendo ad ottimizzare al meglio le risorse, ma aumentando le possibilità di un'eventuale perdita (buffer overflow di un nodo intermedio per esempio) e incremento del ritardo a seconda del numero dei nodi intermedi e dello \emph{store and forward} (ovvero attesa dell'intero pacchetto prima di inviarlo ad un altro nodo).
 		
 		\item La risposta è stata data a pagina \pageref{IPv6 extension header} poiché è identica.
 		
-		\item 
+		\item Durante l'instaurazione di una connessione tra client e server, il protocollo TCP utilizza la tecnica handshaking a tre vie e i campi hanno i seguenti valori:
+		\begin{itemize}
+			\item Il client imposta il valore del SN al suo valore iniziale, quindi al numero di sequenza iniziale del client (\emph{client initial sequence number}).
+			
+			\item Il server come risposta, imposta il valore del SN al suo valore iniziale, quindi al numero di sequenza iniziale del server (\emph{server initial sequence number}). Inoltre, nel valore di ack (AckN) inserisce il valore passatogli dal client incrementato di 1.
+			
+			\item Il client risponde confermando la ricezione del messaggio inviando un pacchetto in cui come AckN è presente il valore passatogli dal server incrementato di 1.
+		\end{itemize}
+		Invece, durante una richiesta HTTP GET inviata dal client, il server risponde al messaggio inviando l'informazione richiesta. In questo caso, il messaggio inviato è un HTTP REPLY. Il protocollo HTTP delega il controllo dell'affidabilità al protocollo TCP.\newline
+		Quindi, durante l'invio di una richiesta GET e la risposta REPLY, i campi hanno i seguenti valori:
+		\begin{itemize}
+			\item Nel campo SN viene inserito il numero presente nel flusso di byte del primo byte di segmento (per esempio, $0, 1000, 2000, 3000$).
+			
+			\item Nel campo AckN viene inserito il valore del numero di sequenza del byte successivo che l'host mittente aspetta dal destinatario.
+		\end{itemize}
+		Si veda la terza domanda a pagina \pageref{TCP SN e AckN} per capire meglio gli esempi.
 	\end{enumerate}
 	
 	\subsubsection{Esercizio 1 - CSMA persistent}
