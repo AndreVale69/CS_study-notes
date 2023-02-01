@@ -31,6 +31,7 @@
 \renewcommand{\qedsymbol}{QED}
 \newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
 \newcommand{\dquotes}[1]{``#1''}
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 
 \begin{document}
 	\author{VR443470}
@@ -3052,6 +3053,8 @@
 		Esiste una funzione ricorsiva $g$ in due argomenti tale che per ogni $x$ e $y$: $\varphi_{g\left(x,y\right)} = \varphi_{x} \circ \varphi_{y}$
 	\end{theorem}
 
+	\longline
+
 	\subsection{Problemi insolubili}
 	
 	Esistono molti problemi insolubili, ma uno dei più classici è il \textcolor{Red3}{\textbf{problema della terminazione}} posto da Turing: esiste una procedura effettiva tale che dati $x$ e $y$ determina se $\varphi_{x}\left(y\right)$ è definita o no?\newline
@@ -3156,4 +3159,52 @@
 	\begin{theorem}
 		Si afferma che: $A \in \mathrm{REC} \iff A=\emptyset$ oppure $A = \mathrm{range}\left(f_{P}\right)$ con $f_{P}$ totale ricorsiva non decrescente.
 	\end{theorem}
+	\begin{theorem}
+		$A \in \mathrm{REC},\left|A\right| = W \iff A = \mathrm{range}\left(f\right)$ con $f$, allora è \textcolor{Red3}{\textbf{totale ricorsiva crescente}}.
+	\end{theorem}
+	\begin{theorem}
+		$A$ è r.e. e $\left|A\right| = W \Longrightarrow \exists B \in \mathrm{REC}$ tale che $\left|B\right| = W$ e $B \le A$.
+	\end{theorem}\newpage
+	
+	\section{Teoremi di Ricorsione e Teorema di Rice}
+	
+	\subsection{Primo teorema di ricorsione}
+	
+	\begin{theorem}[\textbf{I Teorema di ricorsione di S.C. Kleene}]
+		Sia $t$ una funzione ricorsiva totale. Allora esiste $n \in \mathbb{N}$ tale che $\varphi_{n} = \varphi_{t\left(n\right)}$, dove la $t$ rappresenta la trasformata.
+	\end{theorem}	
+	\noindent
+	Per esempio un compilatore.
+	
+	\longline
+	
+	\subsection{Secondo teorema di ricorsione}
+	
+	\begin{theorem}[\textbf{II Teorema di ricorsione di S.C. Kleene}]
+		Se la funzione $f$ è ricorsiva totale, allora esiste una funzione $v: \mathbb{N} \rightarrow \mathbb{N}$ ricorsiva totale tale che: $\forall y \in \mathbb{N}: \varphi_{f\left(v\left(y\right), y\right)} = \varphi_{v\left(y\right)}$.
+	\end{theorem}
+
+	\longline
+
+	\subsection{Teorema di Rice}
+	
+	Il \textcolor{Red3}{\textbf{Teorema di Rice}} afferma che ogni proprietà non banale che rappresenti ciò che viene calcolato dalla MdT non è ricorsiva. Si definisce il termine \emph{proprietà}: una \textcolor{Red3}{\textbf{proprietà}} sulle MdT è un qualsiasi sottoinsieme di $\left\{\varphi_{i}\right\}_{i \in \mathbb{N}}$. Dove quest'ultimo termine indica una enumerazione delle MdT.\newline
+	
+	\noindent
+	Sia $\Pi$ una proprietà sulle MdT, $\Pi\subseteq\mathbb{N}$. Allora $\Pi$ è \textcolor{Red3}{\textbf{estensionale}} se per ogni $x, y \in \mathbb{N}$ è vero:
+	\begin{equation*}
+		\left(x \in \Pi \land \varphi_{x} = \varphi_{y}\right) \Longrightarrow y \in \Pi
+	\end{equation*}
+	In altre parole, una proprietà è estensionale quando questa \dquotes{parla} di cosa calcolano le MdT in essa contenute, e non di come queste macchine sono \dquotes{fatte}.\newline
+	
+	\noindent
+	La \textbf{tecnica del Padding} afferma che:
+	\begin{equation*}
+		\forall i, k. \: \exists j: \:\left(\varphi_{j} = \varphi_{i} \land j > k\right)
+	\end{equation*}
+	\begin{theorem}[\textbf{Teorema di Rice}]
+		Sia $\Pi$ una proprietà estensionale. $\Pi$ è ricorsiva se e soltanto se è banale, ovvero $\Pi = \emptyset$ oppure $\Pi = \mathbb{N}$.
+	\end{theorem}
+	\noindent
+	Il teorema di Rice dunque afferma che ogni funzione parziale ricorsiva o MdT ammette un insieme infinito non ricorsivo di indici di funzioni o macchine equivalenti.
 \end{document}
