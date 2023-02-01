@@ -1830,7 +1830,7 @@
 		Si ipotizzi una $i$ per rendere l'espressione più semplice da manipolare. Quindi, con $i = 2$ l'espressione diventa:
 		
 		\begin{equation*}
-			z^{'} = u v^{i} w = 1^{n + |v|\left(i - 1\right)} \: 0^{n} = u v^{i} w = 1^{n + |v|\left(2 - 1\right)} \: 0^{n} = u v^{i} w = 1^{n + |v|} \: 0^{n}
+			z^{'} = u v^{i} w = 1^{n + |v|\left(i - 1\right)} \: 0^{n} =1^{n + |v|\left(2 - 1\right)} \: 0^{n} = 1^{n + |v|} \: 0^{n}
 		\end{equation*}
 	
 		\noindent
@@ -2820,14 +2820,12 @@
 	
 	\noindent
 	Dato il seguente linguaggio:
-	
 	\begin{equation*}
 		L = \left\{\sigma \in \left\{0,1\right\}^{*} \: \left| \: \sigma \text{ è polindroma} \right.\right\}
 	\end{equation*}
 
 	\noindent
 	La grammatica che genera il linguaggio è:
-	
 	\begin{equation*}
 		\begin{array}{lll}
 			S & \longrightarrow & 0 \: | \: 1 \: | \: \varepsilon \\
@@ -2841,15 +2839,321 @@
 	
 	\noindent
 	Dato il seguente linguaggio:
-	
 	\begin{equation*}
 		L = \left\{w \in \left\{a,b\right\}^{+} \: \left| \: |w|_{a} = |w|_{b} \right.\right\}
 	\end{equation*}
 
 	\noindent
 	La grammatica che genera il linguaggio è:
-	
 	\begin{equation*}
 		S \longrightarrow a \: b \: | \: b \: a \: | \: a \: S \: b \: | \: b \: S \: a \: | \: S \: S
+	\end{equation*}\newpage
+	
+	\section{Funzioni parziali ricorsive di S.C. Kleene}
+	
+	\subsection{Funzioni primitive ricorsive}
+	
+	Una funzione ricorsiva è una funzione dove il suo valore per un dato argomento è direttamente correlato al valore della medesima funzione su argomenti \dquotes{più semplici} o al valore di funzioni \dquotes{più semplici}.\newline
+	Per esempio, la funzione definisce ricorsivamente la successione di Fibonacci: $1, 1, 2, 3, 5, 8, 13, \cdots$
+	\begin{equation*}
+		\begin{array}{lll}
+			f\left(0\right) 	& = & 1 \\
+			f\left(1\right) 	& = & 1 \\
+			f\left(x+2\right) 	& = & f\left(x+1\right) + f\left(x\right)
+		\end{array}
 	\end{equation*}
+	Quindi, per \textcolor{Red3}{\textbf{funzioni ricorsive di base}} si intende le seguenti funzioni:
+	\begin{itemize}
+		\item La funzione \textbf{costante} $0: \lambda x. 0$;
+		\item La funzione \textbf{successore} $S: \lambda x. x+1$;
+		\item La funzione \textbf{identità}, o \emph{i}-esima proiezione, $\pi_{i}: \lambda x_{1} \cdots x_{n}. x_{1}$ con $1~\le~i~\le~n$.
+	\end{itemize}
+	Con la lettera greca lambda $\lambda$, si parla di funzione che ha come argomento la funzione accanto e restituisce il valore dopo il punto (\textbf{\emph{lambda notation}}). Per esempio, con l'espressione $\lambda x. 0$, si intende che la funzione lambda prende la funzione $x$ come argomento e restituisce il valore $0$ come output.\newline
+	
+	\noindent
+	Inoltre, si definisce anche una funzione $f: \mathbb{N}^{n} \longrightarrow \mathbb{N}$ che viene definita:
+	\begin{itemize}
+		\item Per \textbf{composizione} da $g_{1}, \cdots, g_{k}: \mathbb{N}^{n} \longrightarrow \mathbb{N}$ e $h: \mathbb{N}^{k} \longrightarrow \mathbb{N}$ se:
+		\begin{equation*}
+			f\left(x_{1}, \cdots, x_{n}\right) = h\left(g_{1}\left(x_{1}, \cdots, x_{n}\right), \cdots, g_{k}\left(x_{1}, \cdots, x_{n}\right)\right)
+		\end{equation*}
+		
+		\item Per \textbf{ricorsione primitiva} da $g:\mathbb{N}^{n-1} \longrightarrow \mathbb{N}$ e $h:\mathbb{N}^{n+1} \longrightarrow \mathbb{N}$ se:
+		\begin{equation*}
+			\begin{cases}
+				f\left(x_{1}, \cdots, x_{n-1}, 0\right) = g\left(x_{1}, \cdots, x_{n-1}\right) \\
+				f\left(x_{1}, \cdots, x_{n-1}, y+1\right) = h\left(x_{1}, \cdots, x_{n-1}, y, f\left(x_{1}, \cdots, x_{n-1}, y\right)\right)
+			\end{cases}
+		\end{equation*}
+	\end{itemize}
+	Tutte e solo le funzioni definibili a partire dalle precedenti funzioni ricorsive di base mediante composizione e ricorsione primitiva definiscono l'\textbf{insieme} delle \textcolor{Red3}{\textbf{funzioni primitive ricorsive}}. In altre parole, l'idea è costruire via via funzioni effettivamente calcolabili a partire dalle funzioni di base, come $0$, costruendo da queste, per composizione e ricorsione primitiva, funzioni via via più complesse.\newline
+	
+	\noindent
+	Si definisce la \textbf{classe $\mathcal{P}$} come la \textbf{classe delle funzioni primitive ricorsive}. Essa corrisponde alla più piccola classe, ovvero l'intersezione di tutte le classi, di funzioni contenenti le funzioni ricorsive di base e chiuse per composizione e ricorsione primitiva.\newpage
+	
+	\begin{theorem}
+		Le funzioni primitive ricorsive sono \textbf{totali}.
+	\end{theorem}
+	\noindent
+	Questo teorema pone una limitazione sulle funzioni primitive. una funzione calcolabile può essere indefinita su alcuni, o tutti, i valori di input. Le funzioni primitive ricorsive hanno inoltre un'ulteriore limitazione anche all'interno delle funzioni calcolabili e totali sui naturali. Per dimostrare questo fatto, si utilizza una funzione evidentemente calcolabile e totale, ma non appartenente a $\mathcal{P}$, ovvero la \textbf{funzione di Ackermann}:
+	\begin{equation*}
+		\begin{cases}
+			\begin{array}{lll}
+				\mathrm{ack}\left(0, y\right) 	& = & y+1 \\
+				\mathrm{ack}\left(x+1, 0\right) & = & \mathrm{ack}\left(x+1\right) \\
+				\mathrm{ack}\left(x+1, y+1\right) & = & \mathrm{ack}\left(x, \mathrm{ack}\left(x+1, y\right)\right)
+			\end{array}
+		\end{cases}
+	\end{equation*}
+	Alcuni esempi:
+	\begin{equation*}
+		\begin{array}{lll}
+			\mathrm{ack}\left(0,y\right) & = & y+1 \\
+			&& \\
+			\mathrm{ack}\left(1,y\right) & = & 2+\left(y+3\right)-3 \\
+			&& \\
+			\mathrm{ack}\left(2,y\right) & = & 2\left(y+3\right)-3 \\
+			&& \\
+			\mathrm{ack}\left(3,y\right) & = & 2^{y+3} - 3 \\
+			&& \\
+			\mathrm{ack}\left(4,y\right) & = & 2^{\overbrace{{2^{.. 2}}}^{y+3}} - 3
+		\end{array}
+	\end{equation*}
+	La funzione ack cresce più velocemente di qualunque funzione ricorsiva primitiva. Questa funzione, universalmente accettata come funzione calcolabile, non può essere quindi primitiva ricorsiva pur essendo totale.
+	\begin{theorem}
+		La funzione di Ackermann $\mathrm{ack}$ non è ricorsiva primitiva.
+	\end{theorem}\newpage
+	
+	\subsection{Macchina di Turing}
+	
+	Indipendentemente dal problema che si intende risolvere, gli algoritmi hanno alcune caratteristiche comuni. Si elencano qui di seguito per comprendere meglio la macchina di Turing:
+	\begin{enumerate}
+		\item Un algoritmo è di lunghezza finita.
+		
+		\item Esiste un agente di calcolo che porta avanti il calcolo eseguendo le istruzioni dell'algoritmo.
+		
+		\item L'agente di calcolo ha a disposizione una memoria dove vengono immagazzinati i risultati intermedi del calcolo.
+		
+		\item Il calcolo avviene per passi discreti.
+		
+		\item Il calcolo non è probabilistico.
+		
+		\item Non deve esserci alcun limite finito alla lunghezza dei dati di ingresso.
+		
+		\item Non deve esserci alcun limite alla quantità di memoria disponibile.
+		
+		\item Sono ammesse esecuzioni con un numero di passi finito ma illimitato.
+	\end{enumerate}
+	I primi tre punti (1,2,3) sono ovvi.\newline
+	Il punto 4 afferma che il calcolo non avviene mediante dispositivi analogici.\newline
+	Il punto 5 afferma che il calcolo non obbedisce a nessuna legge di probabilità.\newline
+	Il punto 6 è ragionevole poiché, per esempio, dato un algoritmo di somma, esso deve poter funzionare per ogni possibile addendo, ovvero qualsiasi numero naturale.\newline
+	Il punto 7 si assume corretto poiché limitandola, alcuni algoritmi noti per calcolare semplici funzioni non potrebbero funzionare.\newline
+	Il punto 8 afferma che non essendo limitabile il numero di passi richiesti per eseguire un generico algoritmo, allora non è possibile stabilire a priori un limite massimo sul numero di passi nell'esecuzione di un algoritmo.\newline
+	
+	\noindent
+	L'idea di A.M. Turing fu quella di creare matematicamente la \textcolor{Red3}{\textbf{Macchina di Turing}} (MdT). L'idea è quella di pensare ad una semplice macchina in grado di scrivere simboli su un nastro potenzialmente infinito, rappresentando il fatto, anche espresso nel punto 7, che nei calcoli abbiamo a disposizione una quantità illimitata di carta dove registrare i risultati parziali del calcolo.\newline
+	Il nastro è fatto di celle che rappresentano la quantità di memoria unitaria. La macchina utilizzerà un alfabeto finito, col quale possiamo rappresentare una infinità (numerabile) di dati. Il corpo pesante della macchina (detto controllo) sarà realizzato mediante un automa a stati finiti deterministico (DFA).
+	
+	Una MdT è quindi un dispositivo di calcolo rappresentabile con un nastro di lunghezza illimitata nel quale vengono immagazzinati i dati o sequenze di simboli del calcolo. Uno di questi simboli è \$ rappresentante l'assenza di simboli (spazio bianco). Il controllo MdT ha accesso al nastro attraverso una testina di lettura e scrittura che permette di leggere o scrivere un simbolo alla volta.\newline
+	Ad ogni istante nel calcolo, il simbolo presente nella casella esaminata dalla testina rappresentata l'input alla macchina, in figura il simbolo $s$. In risposta la macchina può decidere di modificare il simbolo e/o spostare il nastro a sinistra o a destra della casella esaminata.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/MdT.pdf}
+		\caption{Il modello meccanico della Macchina di Turing.}
+	\end{figure}
+
+	\noindent
+	\begin{theorem}
+		Una \textcolor{Red3}{\textbf{descrizione istantanea}} (ID, Instant Description) di una MdT è una quadrupla:
+		\begin{equation*}
+			\left\langle q,v,s,w \right\rangle
+		\end{equation*}
+		dove $v,w \in \Sigma^{*}$ rappresentano i caratteri significativi (cioè escludendo la sequenza illimitata di \$ sempre presenti a desta e a sinistra) presenti sul nastro a sinistra ed a destra della testina, $s$ è il simbolo letto dalla testina, essendo la macchina nello stato $q$.
+	\end{theorem}
+	\noindent
+	Ad esempio, nella MdT in figura, la ID corrispondente è $\left\langle q, l_{3}, l_{2}, l_{1}, s, r_{1}, r_{2}, r_{3} \right\rangle$.\newline
+	
+	\noindent
+	Una MdT così descritta soddisfa pienamente i requisiti per la definizione ragionevole di algoritmo:
+	\begin{enumerate}
+		\item Le istruzioni della MdT sono finite.
+		\item La MdT è l'agente di calcolo che esegue l'algoritmo.
+		\item Il nastro rappresenta la memoria della macchina.
+		\item La MdT opera in modo discreto.
+		\item Ad ogni ID corrisponde una sola azione (determinismo della MdT).
+		\item Non esiste alcun limite all'input, essendo il nastro illimitato.
+		\item La capacità della memoria (nastro) è illimitata.
+		\item Le operazioni eseguibili sono semplici e quindi di complessità limitata.
+		\item Non esiste alcun limite al numero di istruzioni eseguite in quanto la medesima quintupla può essere usata più volte.
+		\item Possono esistere MdT che non calcolano nulla generando una sequenza infinita di ID.
+	\end{enumerate}
+	Una funzione viene $f: \mathbb{N}^{n} \longrightarrow \mathbb{N}$ è \textcolor{Red3}{\textbf{Turing calcolabile}} se esiste una MdT M tale che, partendo dalla configurazione iniziale:
+	\begin{equation*}
+		\cdots \$\$\$ \underbrace{\$}_{q_{0}} \underline{x_{1}} \$ \cdots \$ \underline{x_{n}} \$\$\$\cdots
+	\end{equation*}
+	se $f\left(x_{1}, \cdots, x_{n}\right)$ è definita allora M termina nella configurazione:
+	\begin{equation*}
+		\cdots \$\$\$ \cdots \underbrace{\$}_{q_{f}} \underline{f\left(x_{1}, \cdots, x_{n}\right)} \$ \cdots
+	\end{equation*}
+	si assume che a sinistra e a destra dell'input nella configurazione iniziale ci siano solo \$.\newpage
+	
+	\subsection{Funzioni parziali ricorsive di S.C. Kleene}
+	
+	Esiste un metodo generale per costruire funzioni parziali a partire da funzioni totali, ad esempio le primitive ricorsive.\newline
+	
+	\noindent
+	Sia $f$ una funzione \underline{totale} $n+1$ aria, allora si definisce la funzione:
+	\begin{equation*}
+		\begin{array}{lll}
+			\varphi\left(x_{1}, \cdots, x_{n}\right) & = & \mu z. \left(f\left(x_{1}, \cdots, x_{n}, z\right) = 0\right) \\
+			&& \\
+			& = & \begin{cases}
+				\text{il più piccolo } z: f\left(x_{1}, \cdots, x_{n}, z\right) = 0		& \text{se } z \text{ esiste} \\
+				\uparrow																& \text{altrimenti}
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Tale operatore tra funzioni è detto $\mu$-operatore ed una funzione così definita è detta definita per minimizzazione o \textcolor{Red3}{$\boldsymbol{\mu}$\textbf{-ricorsione}} da $f$. Chiaramente una funzione definita per minimizzazione è in generale, per definizione, parziale. In altre parole, si cerca lo $z$ più piccolo che azzeri la funzione.\newline
+	
+	\noindent
+	La classe delle funzioni \textcolor{Red3}{\textbf{parziali ricorsive}} è la minima classe $\mathcal{P}_{\mu}$ di funzioni contenente $\mathcal{P}$ e chiusa per $\mu$-ricorsione.\newline
+	
+	\noindent
+	Il seguente risultato dimostra l'equivalenza delle funzioni calcolabili da MdT e le funzioni parziali ricorsive di S.C. Kleene $\mathcal{P}_{\mu}$.
+	\begin{theorem}
+		$\varphi \in \mathcal{P}_{\mu}$ se e solo se $\phi$ è Turing-calcolabile.
+	\end{theorem}
+	
+	\noindent
+	Si definisce la \textcolor{Red3}{\textbf{tesi di Church-Turing}} come la classe delle funzioni \dquotes{intuitivamente calcolabili} coincide con la classe delle funzioni Turing calcolabili.\newline
+	\begin{theorem}
+		Esiste un programma chiamato \textcolor{Red3}{\textbf{interprete}} tale che INT: $\mathbb{N} \times \mathbb{N}^{n} \rightarrow \mathbb{N}$:
+		\begin{equation*}
+			\varphi_{int}\left(x,y\right) = \begin{cases}
+				\varphi_{x}\left(y\right)	& \text{se } \varphi_{x}\left(y\right)\downarrow \\
+				\uparrow					& \text{altrimenti}
+			\end{cases}
+		\end{equation*}
+	\end{theorem}\newpage
+
+	\subsection{Il teorema s-m-n}
+	
+	Il \textcolor{Red3}{\textbf{teorema s-m-n}} è dovuto a S.C. Kleene ed è fondamentale. Anch'esso rappresenta un esempio di dimostrazione basata sulla Tesi di Church-Turing.
+	\begin{theorem}[\textbf{s-m-n}]
+		Per ogni coppia di interi $m,n \ge 1$ esiste una funzione ricorsiva totale $s_{n}^{m}$ di $m+1$ variabili tale che per ogni $x, y_{1}, \cdots, y_{m}$ si ha che:
+		\begin{equation*}
+			\forall z_{1} \cdots z_{n}. \varphi_{x}\left(y_{1}, \cdots, y_{m}, z_{1}, \cdots, z_{n}\right) = \varphi_{s_{n}^{m}\left(x,y_{1}, \cdots, y_{m}\right)} \left(z_{1}, \cdots, z_{n}\right)
+		\end{equation*}
+	\end{theorem}
+	\noindent
+	Il teorema s-m-n gioca un ruolo essenziale nello sviluppo della teoria della ricorsività. Il significato è più o meno il seguente: se avete scritto un programma che implementa un certo algoritmo su $m+n$ dati in input e da un certo momento in poi $m$ di questi sono fissati, allora sapete ottenere un programma \dquotes{\textbf{specializzato}} che accetta solo $n$ parametri in input e che calcola la stessa funzione per questi $n$ parametri.
+	\begin{theorem}
+		Esiste una funzione ricorsiva $g$ in due argomenti tale che per ogni $x$ e $y$: $\varphi_{g\left(x,y\right)} = \varphi_{x} \circ \varphi_{y}$
+	\end{theorem}
+
+	\subsection{Problemi insolubili}
+	
+	Esistono molti problemi insolubili, ma uno dei più classici è il \textcolor{Red3}{\textbf{problema della terminazione}} posto da Turing: esiste una procedura effettiva tale che dati $x$ e $y$ determina se $\varphi_{x}\left(y\right)$ è definita o no?\newline
+	
+	\noindent
+	Più formalmente, non esiste una funzione ricorsiva $g$ tale che per ogni $x$:
+	\begin{equation*}
+		g\left(x\right) = \begin{cases}
+			1 & \text{se } \varphi_{x}\left(x\right) \downarrow \\
+			0 & \text{se } \varphi_{x}\left(x\right) \uparrow
+		\end{cases}
+	\end{equation*}
+	\begin{theorem}
+		Non esiste una funzione ricorsiva $\varphi$ tale che per ogni $x$ e $y$:
+		\begin{equation*}
+			\varphi\left(x,y\right) = \begin{cases}
+				1 & \text{se } \varphi_{x}\left(y\right) \downarrow \\
+				0 & \text{se } \varphi_{x}\left(y\right) \uparrow
+			\end{cases}
+		\end{equation*}
+	\end{theorem}
+	\noindent
+	Non esiste una funzione ricorsiva $f$ tale che per ogni $x$:
+	\begin{equation*}
+		f\left(x\right) = \begin{cases}
+			1 & \text{se } \varphi_{x} \text{ è totale} \\
+			0 & \text{se } \varphi_{x} \text{ non è totale}
+		\end{cases}
+	\end{equation*}\newpage
+	
+	\section{Insiemi ricorsivi e ricorsivamente enumerabili}
+	
+	\subsection{Insiemi ricorsivi e ricorsivamente enumerabili}
+	
+	Un insieme $I \subseteq \mathbb{N}$ è detto \textcolor{Red3}{\textbf{ricorsivamente enumerabile}} (r.e.) se esiste una funzione ricorsiva (parziale o totale) $\varphi$ tale che $I = \mathrm{dom}\left(\varphi\right)$.\newline
+	
+	\noindent
+	Inoltre, nel seguito indicheremo con:
+	\begin{itemize}
+		\item $W_{x}$ l'insieme r.e. associato al dominio della funzione $\varphi_{x}$:
+		\begin{equation*}
+			W_{x} = \mathrm{dom}\left(\varphi_{x}\right) = \left\{y \: | \: \varphi_{x}\left(y\right) \downarrow\right\}
+		\end{equation*}
+		essendo $\varphi_{x}$ l'$x$-esima MdT nella numerazione fissata.
+		
+		\item $\mathrm{range}_{x}$ l'insieme $\mathrm{range}_{x} = \left\{y \: | \: \exists z \varphi_{x}\left(z\right)\downarrow \land \varphi_{x}\left(z\right) = y\right\}$ ovvero il codominio della funzione parziale ricorsiva $\varphi_{x}$.
+	\end{itemize}
+	Sia $A \in RE$. La funzione parziale:
+	\begin{equation*}
+		\varphi_{A}\left(x\right) = \begin{cases}
+			1			& \text{se } x \in A \\
+			\uparrow	& \text{se } x \notin A
+		\end{cases}
+	\end{equation*}
+	è detta \textbf{funzione semicaratteristica} dell'insieme $A$. È chiaro che $A = \mathrm{dom}\left(\varphi_{A}\right)$.\newline
+	
+	\noindent
+	Un insieme $I \subseteq \mathbb{N}$ è detto \textcolor{Red3}{\textbf{ricorsivo}} (REC) se esiste una funzione ricorsiva (totale) $f_{1}$ tale che:
+	\begin{equation*}
+		f_{1}\left(x\right) = \begin{cases}
+			1 & \text{se } x \in I \\
+			0 & \text{se } x \notin I
+		\end{cases}
+	\end{equation*}
+	I seguenti esempi sono insiemi ricorsivi:
+	\begin{itemize}
+		\item L'insieme $\left\{0,2,4,6,...\right\}$ dei numeri pari;
+		\item $\mathbb{N}$ e $\emptyset$;
+		\item Ogni insieme finito;
+		\item Ogni insieme $A$ tale che $\overline{A}$ è finito.
+	\end{itemize}
+	Dato $A$ insieme ricorsivo, si definisce la funzione parziale e chiaramente ricorsiva:
+	\begin{equation*}
+		\varphi\left(x\right) = \begin{cases}
+			1 & \text{se } f_{A}\left(x\right) = 1 \\
+			\uparrow & \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	Se un \textbf{insieme è ricorsivo allora è anche ricorsivamente enumerabile}:
+	\begin{equation*}
+		A \in \mathrm{REC} \Longrightarrow A \in \mathrm{r.e.}
+	\end{equation*}
+	\begin{theorem}[\textbf{Teorema di Post}]
+		Un insieme $A$ è ricorsivo se e solo se $A$ e $\overline{A}$ sono r.e.
+		\begin{equation*}
+			A \in \mathrm{REC} \iff A, \overline{A} \in \mathrm{r.e.}
+		\end{equation*}
+	\end{theorem}
+	\noindent
+	Si definisce \textbf{la funzione} $K = \left\{x \: | \: \varphi_{x}\left(x\right) \downarrow\right\}$. È chiaro per la definizione che $K = \left\{x \: | \: x \in W_{x}\right\}$.
+	\begin{theorem}
+		K è r.e. ma non ricorsivo.
+	\end{theorem}
+
+	\noindent
+	Esiste una \textcolor{Red3}{\textbf{caratterizzazione degli insiemi}} r.e. per cui le seguenti affermazioni sono equivalenti:
+	\begin{itemize}
+		\item $A \in \mathrm{RE}$;
+		\item $A = \mathrm{range}\left(\varphi_{p}\right)$ con $p$ parziale ricorsiva;
+		\item $A = \emptyset$ oppure $A = \mathrm{range}\left(\varphi_{p}\right)$ con $p$ totale ricorsiva.
+	\end{itemize}
+	\begin{theorem}
+		Si afferma che: $A \in \mathrm{REC} \iff A=\emptyset$ oppure $A = \mathrm{range}\left(f_{P}\right)$ con $f_{P}$ totale ricorsiva non decrescente.
+	\end{theorem}
 \end{document}
