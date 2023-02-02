@@ -3206,5 +3206,115 @@
 		Sia $\Pi$ una proprietà estensionale. $\Pi$ è ricorsiva se e soltanto se è banale, ovvero $\Pi = \emptyset$ oppure $\Pi = \mathbb{N}$.
 	\end{theorem}
 	\noindent
-	Il teorema di Rice dunque afferma che ogni funzione parziale ricorsiva o MdT ammette un insieme infinito non ricorsivo di indici di funzioni o macchine equivalenti.
+	Il teorema di Rice dunque afferma che ogni funzione parziale ricorsiva o MdT ammette un insieme infinito non ricorsivo di indici di funzioni o macchine equivalenti.\newpage
+	
+	\section{Riducibilità funzionale e gradi di risolvibilità}
+	
+	L'inclusione insiemistica, intesa come relazione tra insiemi, non dà nessuna informazione circa la ricorsività di un insieme. In particolare, il fatto che un insieme sia contenuto in un dato insieme ricorsivo non implica in alcun modo la ricorsività del primo: la ricorsività di $\mathbb{N}$ non implica la ricorsività di ogni suo sottoinsieme (e.g. $K \subset \mathbb{N}$), né la ricorsiva enumerabilità ad esempio $\overline{K} \subset \mathbb{N}$.
+	
+	In questa sezione si introduce il concetto di \emph{riducibilità funzionale}. Questo concetto permette di correlare tra loro insiemi in modo tale che la ricorsività (o la non ricorsività) di un insieme possa essere propagata agli insiemi ad esso correlati mediante riduzione funzionale.\newline
+
+	\noindent
+	Si consideri l'insieme:
+	\begin{equation*}
+		K_{2} = \left\{\left\langle x,y \right\rangle \: | \: y \in W_{x}\right\}
+	\end{equation*}
+	Con $\left\langle x,y \right\rangle$ si intende una possibile codifica delle coppie di naturali in numero naturale (ad esempio $2^{x} \cdot 3^{y}$). In questo modo, si considerano solo di relazioni tra insiemi di numeri naturali e non di insiemi di tuple generiche di numeri naturali. Inoltre, $K_{2}$ è ricorsivamente enumerabile.\newline
+	
+	\noindent
+	Siano $A,B \subseteq \mathbb{N}$. L'insieme $A$ è funzionalmente \textcolor{Red3}{\textbf{riducibile}} a $B \left(A \preceq B\right)$ se esiste una funzione totale ricorsiva $f$ tale che per ogni $x \in \mathbb{N}$:
+	\begin{equation*}
+		x \in A \iff f\left(x\right) \in B
+	\end{equation*}
+	Nel caso $A \preceq B$ con funzione ricorsiva $f$, diremo che $A$ si riduce a $B$ via $f$, spesso denotato con $A \preceq_{f} B$. L'ordine $A \preceq B$ fa pensare che $A$ non sia più difficile di $B$. La relazione $\preceq$ è denominata anche $<_{m}$, \emph{many-one reducibility}.
+	
+	\subsection{La relazione di riducibilità $\preceq$}
+	
+	La \textbf{relazione di riducibilità} è \underline{riflessiva} e \underline{transitiva}.\newline
+	
+	\noindent
+	Si espongono alcune \textcolor{Red3}{\textbf{proprietà fondamentali della notazione di riduzione funzionale}}:
+	\begin{enumerate}
+		\item $A \preceq B \Longrightarrow \overline{A} \preceq \overline{B}$
+		\item $A \preceq B, B \in r.e. \Longrightarrow A \in r.e.$
+		\item $A \preceq B, B \text{ ricorsivo } \Longrightarrow A \text{ ricorsivo}$
+	\end{enumerate}
+	Inoltre, per ogni $A \in r.e., A \preceq K_{2}$.\newline
+	
+	\noindent
+	Un insieme $C \in r.e.$ viene definito (r.e.) \textcolor{Red3}{\textbf{completo}} se per ogni $A \in r.e.: A \preceq C$. Quindi, l'insieme $K$ è completo.\newpage
+	
+	\subsection{Insiemi creativi e produttivi}
+	
+	All'interno degli insiemi r.e., esistono insiemi (e.g. $K$) che hanno proprietà per cui ogni altro insieme r.e. è ad essi riducibile. Questi insiemi vengono chiamati \textbf{completi} e rappresentano in modo canonico la classe r.e.
+	
+	Per definizione è noto che $\overline{K} \notin r.e.$. Questa proprietà può essere mostrata anche in modo costruttivo e convincente: ogni volta che un insieme r.e. $W_{x}$ è incluso in $\overline{K}$ siamo in grado di trovare un elemento che appartiene a $\overline{K} \setminus W_{x}$, ovvero che sfugge all'enumerazione operata da $x$. Tale elemento, in questo caso è proprio $x$. La seguente definizione generalizza questa proprietà.\newline
+	
+	\noindent
+	Un insieme $A \subseteq \mathbb{N}$ è detto \textcolor{Red3}{\textbf{produttivo}} se esiste una funzione (totale) ricorsiva $f$, detta funzione produttiva di $A$, tale che:
+	\begin{equation*}
+		\forall x \in \mathbb{N}. \: \left(W_{x} \subseteq A \Longrightarrow f\left(x\right) \in A \setminus W_{x}\right)
+	\end{equation*}
+	Un insieme $A$ è detto \textcolor{Red3}{\textbf{creativo}} se $A$ è r.e. ed il suo complemento è produttivo, ovvero se:
+	\begin{equation*}
+		A \in r.e., \forall x \in \mathbb{N}. \: \left(W_{x} \subseteq \overline{A} \Longrightarrow f\left(x\right) \in \overline{A} \setminus W_{x}\right)
+	\end{equation*}
+	
+	Intuitivamente un insieme è \textbf{produttivo} se per ogni tentativo di enumerarlo in modo effettivo mediante un algoritmo di indice $x$ (ovvero per ogni $W_{x} \subseteq A$), esiste una trasformazione effettiva di $x$ in un punto di $A$ che sfugge all'enumerazione. È evidente che un insieme produttivo \underline{non} può essere r.e., altrimenti avremmo l'assurdo che $A = W_{x_{0}}$, per un certo $x_{0}$, e al tempo stesso $A \setminus W_{x_{0}} \ne \emptyset$, poiché $f\left(x_{0}\right) \in A \setminus W_{x_{0}}$.
+	
+	Al contrario, un insieme \textbf{creativo} è sempre, per definizione, r.e., ma il suo complemento non lo può essere.\newline
+	
+	\begin{theorem}
+		Sia $A \subseteq \mathbb{N}$:
+		\begin{enumerate}
+			\item $A$ produttivo $\Longrightarrow A$ non r.e.
+			\item $A$ creativo $\Longrightarrow A$ non ricorsivo
+		\end{enumerate}
+	\end{theorem}
+	\noindent
+	L'insieme $K = \left\{x \: | \: x \in W_{x}\right\}$ ancora una volta è rappresentativo per la classe degli insiemi creativi. Infatti, il seguente teorema è immediato.
+	\begin{theorem}
+		$K$ è creativo e il suo complemento $\overline{K}$ è produttivo.
+	\end{theorem}
+	\begin{theorem}
+		Siano $A,B \subseteq \mathbb{N}$:
+		\begin{enumerate}
+			\item $A$ produttivo, $A \preceq B \Longrightarrow B$ produttivo
+			\item $A$ creativo, $A \preceq B, B \in r.e. \Longrightarrow B$ creativo
+		\end{enumerate}
+	\end{theorem}
+	\begin{theorem}[\textbf{Myhill}]
+		Sia $A \subseteq \mathbb{N}$, allora $A$ r.e. completo $\iff A$ creativo.
+	\end{theorem}\newpage
+
+	\subsection{Quadro riassuntivo}
+	\begin{itemize}
+		\item $A$ produttivo $\iff \forall x. \: W_{x} \subseteq A \Longrightarrow f_{A}\left(x\right) \in A \setminus W_{x}$
+		
+		\item $A$ creativo $\iff A$ r.e., $\overline{A}$ produttivo $\iff A$ completo
+		
+		\item $A$ produttivo $\Longrightarrow A$ non è r.e.
+		
+		\item $A$ creativo $\Longrightarrow A \notin REC$
+		
+		\item $A$ completo $\iff \forall B$ r.e.: $B \preceq A$
+		
+		\item $A,B$ creativi $\Longrightarrow A \equiv B$
+		
+		\item $B$ r.e., $A \preceq B \Longrightarrow A$ r.e.
+		
+		\item $B \in REC, A \preceq B \Longrightarrow A \in REC$
+		
+		\item $A$ produttivo, $A \preceq B \Longrightarrow B$ produttivo
+		
+		\item $A \preceq B \iff \overline{A} \preceq \overline{B}$
+		
+		\item $K$ è creativo (completo) e $\overline{K}$ è produttivo
+		
+		\item $A$ creativo, $A \preceq B \Longrightarrow \left(\text{se } B \: r.e. \Longrightarrow B \text{ creativo}\right)$
+		
+		\item $A$ estensionale ricorsivo $\iff A = \emptyset \lor A = \mathbb{N}$
+		
+		\item $A \in REC \iff A,\overline{A} \in r.e.$ 
+	\end{itemize}
 \end{document}
