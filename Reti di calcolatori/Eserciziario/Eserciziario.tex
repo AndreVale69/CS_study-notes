@@ -526,7 +526,7 @@
 		\lstinputlisting[language=C]{code/CSMA-CD_algorithm.c	}
 		
 		\item Al livello 2 (di collegamento o logico) il protocollo IP provvede a eseguire l'inserimento di un valore nel campo \emph{Identification}. Tale valore è indispensabile al destinatario. Infatti, nel momento in cui il router esegue la frammentazione del pacchetto ricevuto, inserisce in ogni frame il valore identificativo del pacchetto originario.\newline
-		Così facendo il destinatario, al livello 2, è in grado di ricostruire il pacchetto originario, raggruppando tutti i frame utilizzando il campo \emph{Identification}.
+		Così facendo il destinatario, al livello 2, è in grado di ricostruire il pacchetto originario, raggruppando tutti i frame utilizzando il campo \emph{Identification}.\newpage
 		
 		\item Con \textbf{RTT} si indica il \emph{Round Trip Time}, ovvero il tempo impiegato da un pacchetto per viaggiare dal client al server e poi tornare indietro. In altre parole è il tempo che intercorre tra l'invio del pacchetto e la ricezione della risposta. Invece, il \textbf{\emph{Smoothed} RTT} rappresenta una stima del valore medio del RTT. Dunque, per ottenere è necessario eseguire una stima prendendo in considerazione il valore medio del \emph{round trip time}.\newline
 		Infine, l'\textbf{RTO} (\emph{retrasmission time-out}) è il tempo impiegato prima di ritrasmettere un pacchetto. All'invio di un pacchetto da parte del mittente, parte in parallelo un timer che indica il range di tempo entro quando il server deve rispondere. Quando scade tale tempo, il pacchetto viene inviato nuovamente. Inizialmente il valore è ad 1, dopo ogni perdita incrementa l'RTO per due rispetto all'RTO precedente ($\mathrm{RTO}_{new} = \mathrm{RTO}_{old} \times 2$).

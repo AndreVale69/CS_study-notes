@@ -1,6 +1,6 @@
-bool is_free = false, result = false;
+bool result = false;
 int backoff_time = randInt()
-// Finche' non sono stati trasmetti i dati, si rimane nel loop
+// finche' non sono stati trasmetti i dati, si rimane nel loop
 while (not (result))
 {
     // si controlla se il canale e' libero (true se libero, alt. false)
@@ -15,9 +15,11 @@ while (not (result))
         // vuol dire che un altro host ha provato a comunicare, altrimenti terminano insieme.
         // Si assume che send_data() possa far terminare il processo listen_channel() tramite
         // un segnale. In tal caso, la funzione listen_channel() ritorna true
-        if result == False
-            timeout(random_time)
-        else
-            output("Tutto corretto")
     }
+    // result uguale a false solo se il canale non e' libero oppure se l'invio dei dati e'
+    // stato disturbato da un altro host (quindi listen_channel() ha bloccato l'esecuzione tornando false)
+    if result == False
+        timeout(random_time)
+    else
+        output("Tutto corretto")
 }
