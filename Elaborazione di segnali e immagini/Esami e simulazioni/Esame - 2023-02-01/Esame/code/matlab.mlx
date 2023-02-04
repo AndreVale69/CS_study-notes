@@ -1,0 +1,18 @@
+%I: una matrice che rappresenta un'immagine a toni di grigio
+%Inew: l'immagine dopo l'operazione di filtraggio puntuale
+I = imread('cameraman.tif');
+a = 100;
+b = 200;
+LUT = zeros(1,256)
+for i = 1:256
+    r = i;
+    if r<a
+        LUT(i) = a;
+    elseif r<=b & r>=a
+        LUT(i) = r;
+    elseif r>b
+        LUT(i) = b;
+    end
+end
+Inew = uint8(LUT(I+1));
+figure, imshow(Inew);
