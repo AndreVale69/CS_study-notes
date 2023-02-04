@@ -1,0 +1,25 @@
+%I: una matrice che rappresenta un'immagine a toni di grigio
+%Inew: l'immagine dopo l'operazione di filtraggio puntuale
+
+% Carico l'immagine di cameraman
+I = imread('cameraman.tif');
+
+% Creo una LUT per operazione di clamping
+a = 110; % NO 100!
+b = 190; % NO 200!
+LUT = []
+for i = 0:255
+    r = i;
+    if r<a
+        % MATLAB inizia l'indicizzazione a 1,
+        % mentre le intensita' iniziano da 0
+        LUT(i+1) = a; 
+    elseif r<=b & r>=a
+        LUT(i+1) = r;
+    elseif r>b
+        LUT(i+1) = b;
+    end
+end
+% Applico la LUT e visualizzo l'immagine finale
+Inew = uint8(LUT(I+1));
+figure, imshow(Inew);

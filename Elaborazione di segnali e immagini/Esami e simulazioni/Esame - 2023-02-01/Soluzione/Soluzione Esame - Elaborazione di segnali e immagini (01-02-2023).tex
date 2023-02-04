@@ -285,7 +285,28 @@
 			
 		\noindent
 		Si rappresenta graficamente un filtro passa basso ideale con frequenze $15$ e $25$ Hz:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.8\textwidth]{img/filtro_passa_basso_ideale_ex.pdf}
+		\end{figure}
+		
+		\noindent
+		E analiticamente:
+		\begin{equation*}
+			\begin{array}{lll}
+				\text{Dominio delle frequenze } & \longrightarrow & G\left(\mu\right) = \Pi\left(\dfrac{\mu - 20}{10}\right) \\
+				&& \\
+				\text{Dominio del tempo } & \longrightarrow & g\left(t\right) = 10\mathrm{sinc}\left(10t\right) \cdot e^{j 2 \pi t 45}
+			\end{array}
+		\end{equation*}
 	\end{itemize}\newpage
 	
 	\section{Soluzione Esercizio (6 punti)}
+	\subsection*{Fonte: Lezione 6 di laboratorio}
+	
+	Il codice implementa l'operazione puntuale di clamping. Essa viene utilizzata nel caso in cui ci siano dei pixel di rumore molto chiari o molto scuri che mascherano l'immagine. Per esempio, un'immagine con dei puntini bianchi può essere migliorata utilizzando questa operazione puntuale.\newline
+	
+	\noindent
+	Il codice MATLAB presenta degli errori con gli indici. Qui di seguito viene implementato il codice corretto:
+	\lstinputlisting[language=MATLAB]{code/matlab.mlx}
 \end{document}
