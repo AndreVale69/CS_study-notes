@@ -1,0 +1,1 @@
+Le definizioni etichettate con "[ESAME]" indicano che tali definizioni potranno essere, con alta probabilità, all'esame.
