@@ -15,7 +15,6 @@
 \hypersetup{
 	colorlinks=true
 }
-\usepackage{svg}
 
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
@@ -1329,16 +1328,13 @@
 	
 	\noindent
 	Alcune osservazioni finali:
-	
 	\begin{itemize}
 		\item Se il \emph{join} di $r_{1}$ e $r_{2}$ è completo, allora contiene almeno un numero di tuple pari al massimo fra $|r_{1}|$ e $|r_{2}|$;
 		
 		\item Se $X_{1} \cap X_{2}$ contiene una chiave per $r_{2}$, allora il \emph{join} di $r_{1}\left(X_{1}\right)$ e $r_{2}\left(X_{2}\right)$ contiene al più $|r_{1}|$ tuple;
 		
 		\item Se $X_{1} \cap X_{2}$ coincide con una chiave per $r_{2}$ e sussiste il vincolo di riferimento fra $X_{1} \cap X_{2}$ in $r_{1}$ e la chiave di $r_{2}$, allora il \emph{join} di $r_{1}\left(X_{1}\right)$ e $r_{2}\left(X_{2}\right)$ contiene esattamente $|r_{1}|$ tuple.
-	\end{itemize}
-
-	\newpage
+	\end{itemize}\newpage
 
 	\noindent
 	\textcolor{Green4}{\textbf{\emph{Esempio 1}}}
@@ -1350,7 +1346,6 @@
 	
 	\noindent
 	Il risultato è ottenuto con la seguente operazione:
-	
 	\begin{equation*}
 		r_{1} \Join r_{2}
 	\end{equation*}
@@ -1365,7 +1360,6 @@
 	
 	\noindent
 	Il risultato è ottenuto con la seguente operazione:
-	
 	\begin{equation*}
 		r_{1} \Join r_{2}
 	\end{equation*}
@@ -1374,7 +1368,7 @@
 
 	\noindent
 	\textcolor{Green4}{\textbf{\emph{Esempio 3}}}
-	
+
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=0.9\textwidth]{img/join_massimo.pdf}
@@ -1382,8 +1376,79 @@
 	
 	\noindent
 	Il risultato è ottenuto con la seguente operazione:
-	
 	\begin{equation*}
 		r_{1} \Join r_{2}
+	\end{equation*}\newpage
+
+	\subsubsection{Theta-join ed equi-join}
+	
+	Osservando l'esempio 1 a fine paragrafo, è possibile notare come un prodotto cartesiano ha di solito ben poca utilità, in quanto concatena tuple non necessariamente correlate dal punto di vista semantico. Infatti, il \textbf{prodotto cartesiano viene spesso seguito da una selezione}, la quale centra l'attenzione su tuple correlate secondo le esigenze.\newline
+	\textcolor{Green4}{\textbf{Per esempio}}, nell'esempio 2 a fine paragrafo, sulle relazione \textsf{Impiegati} e \textsf{Progetti} ha senso definire un prodotto cartesiano seguito dalla selezione che mantiene solo le tuple con valori uguali sull'attributo \textsf{\emph{Progetto}} di \textsf{Impiegati} e su \textsf{\emph{Codice}} di \textsf{Progetti}.
+	
+	Per questo motivo, viene definito un operatore derivato (cioè per mezzo di altri operatori), chiamato \textcolor{Red3}{\textbf{\underline{theta-join}}}. Esso è considerato come un \textbf{prodotto cartesiano seguito da una selezione}, nel modo seguente:
+	\begin{equation*}
+		r_{1} \underset{F}{\Join} r_{2} = \sigma_{F}\left(r_{1} \Join r_{2}\right)
 	\end{equation*}
+	\textbf{\underline{Attenzione!}} Gli schemi $r_{1}$ e $r_{2}$ devono essere \textbf{disgiunti}, cioè:
+	\begin{equation*}
+		r_{1} \cap r_{2} = \emptyset
+	\end{equation*}
+	\textcolor{Green4}{\textbf{Per esempio}}, nell'esempio 2 a fine paragrafo, la relazione può essere ottenuta per mezzo del \emph{theta-join}:
+	\begin{equation*}
+		\textsf{Impiegati } \underset{\textsf{\emph{Progetto}} = \textsf{\emph{Codice}}}{\Join} \textsf{Progetti}
+	\end{equation*}
+	Un \emph{theta-join} in cui la condizione di selezione $F$ sia una congiunzione di atomi di uguaglianza, con un attributo della prima relazione e uno della seconda, viene chiamato \textcolor{Red3}{\textbf{\underline{equi-join}}}. Quindi, la relazione scritta qua sopra è un \emph{equi-join}.
+	
+	Infine, il \textbf{join naturale è possibile simularlo} tramite la ridenominazione, l'\emph{equi-join} e la proiezione. Date due relazioni $r_{1}\left(ABC\right)$ e $r_{2}\left(BCD\right)$, il join naturale di $r_{1}$ e $r_{2}$ può essere espresso per mezzo degli altri operatori, in tre passi:
+	\begin{enumerate}
+		\item \textbf{Ridenominando} gli attributi così da ottenere relazioni su schemi disgiunti:
+		\begin{equation*}
+			\rho_{B'C' \leftarrow BC} \left(r_{2}\right)
+		\end{equation*}
+		
+		\item Effettuando l'\textbf{\emph{equi-join}}, con condizioni di uguaglianza sugli attributi corrispondenti:
+		\begin{equation*}
+			r_{1} \underset{B = B' \land C = C'}{\Join} \rho_{B'C' \leftarrow BC} \left(r_{2}\right)
+		\end{equation*}
+		
+		\item Concludendo con una \textbf{proiezione} che elimina gli attributi \dquotes{doppioni}, che presentano valori identici a quelli di altri attributi:
+		\begin{equation*}
+			\pi_{ABCD}\left(r_{1} \underset{B = B' \land C = C'}{\Join} \rho_{B'C' \leftarrow BC} \left(r_{2}\right)\right)
+		\end{equation*}
+	\end{enumerate}\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 1}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/join_theta.pdf}
+	\end{figure}
+
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	\begin{equation*}
+		\textsf{Impiegati} \Join \textsf{Progetti}
+	\end{equation*}\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio 2}}}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/join_theta2.pdf}
+	\end{figure}
+	
+	\noindent
+	Il risultato è ottenuto con la seguente operazione:
+	\begin{equation*}
+		\sigma_{\textsf{Progetto} = \textsf{Codice}}\left(\textsf{Impiegati} \Join \textsf{Progetti}\right)
+	\end{equation*}
+
+
+
+	\newpage
+	\subsection{Algebra con valori nulli}
+	
+	\subsection{Equivalenza di espressioni algebriche}
 \end{document}
