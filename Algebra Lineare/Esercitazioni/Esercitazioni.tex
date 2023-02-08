@@ -33,6 +33,9 @@
 \newcommand{\dquotes}[1]{``#1''}
 \newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 
+\newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
+\newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
+
 \begin{document}
 	\author{VR443470}
 	\title{Esercitazioni Algebra Lineare}
@@ -193,7 +196,7 @@
 			-A = A^{T} \Longrightarrow \text{ anti-simmetrica}
 		\end{equation*}
 	\end{itemize}
-	Prendendo come esempio le tre matrici $A,B,C$:
+	Prendendo come \textcolor{Green4}{\textbf{esempio}} le tre matrici $A,B,C$:
 	\begin{equation*}
 		A = \begin{bmatrix}
 			2i 	& 3		\\
@@ -270,5 +273,289 @@
 			i3	& -1
 		\end{bmatrix}
 	\end{equation*}
-	Da questi risultati è possibile notare come $B,C$ \underline{non} siano anti-hermitiane, mentre $A$ lo sia. Inoltre, osservando nuovamente le trasposte, è possibile osservare come $A, B$ e $C$ \underline{non} siano anti-simmetriche
+	Da questi risultati è possibile notare come $B,C$ \underline{non} siano anti-hermitiane, mentre $A$ lo sia. Inoltre, osservando nuovamente le trasposte, è possibile osservare come $A, B$ e $C$ \underline{non} siano anti-simmetriche.\newpage
+	
+	\subsection{Prodotto tra matrici righe per colonne}
+	
+	La \textcolor{Red3}{prima operazione} da eseguire per la moltiplicazione tra matrici righe per colonne è la verifica delle righe e delle colonne. Il prodotto tra matrici è ammesso solo se il numero delle colonne del primo operando è uguale al numero delle righe del secondo operando. Per esempio, la seguente operazione è ammessa:
+	\begin{equation*}
+		A_{m \times n} \cdot B_{n \times l}
+	\end{equation*}
+	Inoltre, la matrice risultante avrà come dimensione le righe del primo operando e le colonne del secondo. Quindi:
+	\begin{equation*}
+		C_{m \times l} = A_{m \times n} \cdot B_{n \times l}
+	\end{equation*}
+	La \textcolor{Red3}{seconda operazione} è la moltiplicazione vera e propria. Per farla, si prende ogni riga del primo operando e si moltiplica per ogni colonna del secondo operando. Dopo la moltiplicazione di una riga per una colonna, si sommano i risultati. Quindi:
+	\begin{gather*}
+		A_{m,n} = \begin{bmatrix}
+			1,1 	& \cdots & 1,n 		\\
+			\cdots 	& \cdots & \cdots	\\
+			m,1		& \cdots & m,n
+		\end{bmatrix} \times
+		B_{n,l} = \begin{bmatrix}
+			1,1 	& \cdots & 1,l 		\\
+			\cdots 	& \cdots & \cdots	\\
+			n,1		& \cdots & n,l
+		\end{bmatrix} \\
+		\\
+		C_{1,1} = A_{1,1} \cdot B_{1,1} + \cdots + A_{1,n} \cdot B_{n,1} \\
+		\cdots
+	\end{gather*}
+	Si presenta un \textcolor{Green4}{\textbf{esempio}}. Date due matrici $A,B$:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			1 & 0 &  2 \\
+			0 & 3 & -1
+		\end{bmatrix} \hspace{2em}
+		B = \begin{bmatrix}
+			4  	& 1 \\
+			-2 	& 2 \\
+			0 	& 3
+		\end{bmatrix}
+	\end{equation*}
+	L'operazione di moltiplicazione di righe per colonne è ammessa poiché le righe di $A$ ($2$) sono lo stesso numero delle colonne di $B$ ($2$):
+	\begin{equation*}
+		C = A \cdot B = \begin{bmatrix}
+			4  & 7 \\
+			-6 & 3
+		\end{bmatrix}
+	\end{equation*}
+	I calcoli sono banali. Si lasciano qua di seguito i passaggi:
+	\begin{equation*}
+		\begin{array}{lllllllll}
+			C_{1,1} & = & 1 \cdot 4 & + & 0 \cdot -2 & + & 2 \cdot 0 & = & 4	\\
+			C_{1,2} & = & 1 \cdot 1 & + & 0 \cdot 2 & + & 2 \cdot 3 & = & 7		\\
+			C_{2,1} & = & 0 \cdot 4 & + & 3 \cdot -2 & + & -1 \cdot 0 & = & -6	\\
+			C_{2,2} & = & 0 \cdot 1 & + & 3 \cdot 2 & + & -1 \cdot 3 & = & 3
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Si presenta un altro \textcolor{Green4}{\textbf{esempio}} ma con i numeri complessi. Date le due matrici $A, B$:
+	\begin{equation*}
+		A_{2,4} = \begin{bmatrix}
+			1+i	& i					& 0		& \overline{3+2i} \\
+			-i 	& \overline{-1-3i} 	& 7i	& 6i
+		\end{bmatrix} \times
+		B_{4,2} = \begin{bmatrix}
+			2  				& 4i 	\\
+			-3i				& 0 	\\
+			\overline{1-i} 	& -2i	\\
+			5-i				& \overline{2+i}
+		\end{bmatrix}
+	\end{equation*}
+	Prima di eseguire la moltiplicazione tra righe e colonne si risolvono i coniugati, due nella matrice $A$ e due nella matrice $B$:
+	\begin{equation*}
+		A_{2,4} = \begin{bmatrix}
+			1+i	& i			& 0		& 3-2i \\
+			-i 	& -1+3i 	& 7i	& 6i
+		\end{bmatrix} \times
+		B_{4,2} = \begin{bmatrix}
+			2  	& 4i 	\\
+			-3i	& 0 	\\
+			1+i	& -2i	\\
+			5-i	& 2-i
+		\end{bmatrix}
+	\end{equation*}
+	L'operazione di moltiplicazione di righe per colonne è ammessa. Quindi si presenta qui di seguito i calcoli eseguiti (attenzione alle parti immaginarie, si ricorda che $i^{2} = -1$):
+	\begin{gather*}
+		\begin{array}{llllllllllll}
+			C_{1,1} & = & \left(1+i\right) \cdot 2 	& + & i \cdot \left(-3i\right) 		& + & 0 \cdot \left(1+i\right) 	& + & \left(3-2i\right) \cdot \left(5-i\right) 	& = & 18-11i \\
+			C_{1,2} & = & \left(1+i\right) \cdot 4i 	& + & i \cdot 0 		& + & 0 \cdot -2i	& + & \left(3-2i\right) \cdot \left(2-i\right)	& = & -3i  \\
+			C_{2,1} & = & -i \cdot 2	& + & \left(-1+3i\right) \cdot -3i 	& + & 7i \cdot \left(1+i\right) 	& + & 6i \cdot \left(5-i\right) 		& = & 8 + 38i \\
+			C_{2,2} & = & -i \cdot 4i 	& + & \left(-1+3i\right) \cdot 0 	& + & 7i \cdot -2i 	& + & 6i \cdot \left(2-i\right) 		& = & 24 + 12i
+		\end{array}\\
+		\\
+		C = \begin{bmatrix}
+			18-11i & -3i \\
+			8+38i & 24+12i
+		\end{bmatrix}
+	\end{gather*}\newpage
+
+	\subsection{Prodotto tra matrici - Casi particolari}
+	
+	Esistono alcuni casi particolari quando vengono eseguite le moltiplicazioni tra matrici:
+	\begin{enumerate}
+		\item La \textbf{moltiplicazione tra un vettore riga e un vettore colonna} (\underline{non} viceversa) restituisce solamente un valore, chiamato \textbf{prodotto scalare}. Ovviamente, il numero delle colonne del vettore riga e il numero di righe del vettore colonna devono essere identici:
+		\begin{equation*}
+			A_{1,n} = \begin{bmatrix}
+				\cdots & \cdots & \cdots
+			\end{bmatrix} \times
+			B_{n,1} = \begin{bmatrix}
+				\cdots \\
+				\cdots \\
+				\cdots
+			\end{bmatrix} \rightarrow
+			C
+		\end{equation*}
+	
+		\item La \textbf{moltiplicazione tra un vettore colonna e un vettore riga} restituisce una matrice avente il numero di righe pari al vettore colonna e il numero di colonne pari al vettore riga:
+		\begin{equation*}
+			B_{n,1} = \begin{bmatrix}
+				\cdots \\
+				\cdots \\
+				\cdots
+			\end{bmatrix} \times
+			A_{1,n} = \begin{bmatrix}
+				\cdots & \cdots & \cdots
+			\end{bmatrix} \rightarrow
+			C_{n, n}
+		\end{equation*}
+	
+		\item La \textbf{moltiplicazione tra una matrice e un vettore colonna} restituisce un vettore colonna. Ovviamente, per applicare questa operazione è necessario che il numero delle colonne della matrice sia uguale al numero di righe del vettore:
+		\begin{equation*}
+			A_{m,n} = \begin{bmatrix}
+				\cdots & \cdots & \cdots \\
+				\cdots & \cdots & \cdots \\
+				\cdots & \cdots & \cdots
+			\end{bmatrix} \times
+			B_{n, 1} = \begin{bmatrix}
+				\cdots \\
+				\cdots \\
+				\cdots
+			\end{bmatrix} \rightarrow
+			C_{m, 1}
+		\end{equation*}
+	\end{enumerate}\newpage
+
+	\section{Eliminazione di Gauss}
+	
+	\subsection{Le 3 operazioni}
+	
+	L'eliminazione di Gauss prevede 3 operazioni principali da applicare per ottenere la forma ridotta (forma finale):
+	\begin{enumerate}
+		\item Un'equazione può essere moltiplicata per uno scalare non nullo;
+		
+		\item Un'equazione viene sostituita con la somma tra lei e un'altra equazione, in cui quest'ultima è stata prima moltiplicata per uno scalare non nullo. Quindi, viene scelta un'equazione da moltiplicare per uno scalare non nullo e successivamente viene effettuata la somma tra il risultato della moltiplicazione e l'equazione interessata;
+		
+		\item Scambio di due equazioni.
+	\end{enumerate}
+
+	\subsection{Esercizio tipo}
+	
+	Un esercizio classico d'esame è quello di applicare l'eliminazione di Gauss ad un sistema. Dato il seguente sistema:
+	\begin{equation*}
+		\begin{cases}
+			2x + 4y + 4z = 4 \\
+			x - z = 1 \\
+			-x + 3y + 4z = 2
+		\end{cases}
+	\end{equation*}
+	Si calcola la matrice risultante dopo l'eliminazione di Gauss.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{primo passo} è scrivere la matrice aumentata. Essa è banale da comporre, consiste nello scrivere i coefficienti di ogni variabile ($x,y,z$) in una matrice e aggiungere una colonna sulla destra in cui ci sono i valori risultanti. Si passa all'atto pratico:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			2  & 4 &  4 & 4 \\
+			1  & 0 & -1 & 1 \\
+			-1 & 3 &  4 & 2
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è eseguire alcune considerazioni sulla forma che si vuole ottenere e procedere con le varie operazioni. L'obbiettivo è quello di ottenere una matrice uni-triangolare superiore\footnote{Una matrice uni-triangolare superiore è una forma particolare in cui i valori sotto alla diagonale principale sono nulli, cioè uguale a zero}. In questo caso, si inizia con lo \textbf{scambio della prima riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			2  & 4 &  4 & 4 \\
+			1  & 0 & -1 & 1 \\
+			-1 & 3 &  4 & 2
+		\end{rowequmatbra} \xlongrightarrow{E_{1,2}}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			2  & 4 &  4 & 4 \\
+			-1 & 3 &  4 & 2
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per lo scalare} $\frac{1}{2}$:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			2  & 4 &  4 & 4 \\
+			-1 & 3 &  4 & 2
+		\end{rowequmatbra} \xlongrightarrow{E_{2}\left(\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			1  & 2 &  2 & 2 \\
+			-1 & 3 &  4 & 2
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la prima riga per -1 e successivamente si somma la prima riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			1  & 2 &  2 & 2 \\
+			-1 & 3 &  4 & 2
+		\end{rowequmatbra} \xlongrightarrow{E_{2,1}\left(-1\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 2 &  3 & 1 \\
+			-1 & 3 &  4 & 2
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la prima riga per 1 e successivamente si somma la prima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 2 &  3 & 1 \\
+			-1 & 3 &  4 & 2
+		\end{rowequmatbra} \xlongrightarrow{E_{3,1}\left(1\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 2 &  3 & 1 \\
+			0  & 3 &  3 & 3
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per lo scalare} $\frac{1}{2}$:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 2 &  3 & 1 \\
+			0  & 3 &  3 & 3
+		\end{rowequmatbra} \xlongrightarrow{E_{2}\left(\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 1 &  \frac{3}{2} & \frac{1}{2} \\
+			0  & 3 &  3 & 3
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-3$ e successivamente si somma la terza riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 1 &  \frac{3}{2} & \frac{1}{2} \\
+			0  & 3 &  3 & 3
+		\end{rowequmatbra} \xlongrightarrow{E_{3,2}\left(-3\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 1 &  \frac{3}{2} & \frac{1}{2} \\
+			0  & 0 &  -\frac{3}{2} & \frac{3}{2}
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la terza riga per lo scalare} $-\frac{2}{3}$:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 1 &  \frac{3}{2} & \frac{1}{2} \\
+			0  & 0 &  -\frac{3}{2} & \frac{3}{2}
+		\end{rowequmatbra} \xlongrightarrow{E_{3,2}\left(-3\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 0 & -1 & 1 \\
+			0  & 1 &  \frac{3}{2} & \frac{1}{2} \\
+			0  & 0 &  1 & -1
+		\end{rowequmatbra}
+	\end{equation*}
+	Si ottiene così la forma ridotta di Gauss.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{terzo passo} è classificare la forma ottenuta. Possono esistere tre casistiche: di tipo uno (una sola soluzione), di tipo zero (non esistono soluzioni per il sistema) oppure infinito (le soluzioni del sistema sono infinite). Dalla forma ridotta è possibile dedurre che si è di fronte al tipo uno, ovvero esiste una sola soluzione per il sistema. Questo è intuibile grazie al fatto che se la colonna dominante di ogni riga (primo valore non nullo della riga), \underline{non} è l'ultimo, allora il sistema è di tipo uno.
+	
+	Adesso è possibile ricostruire il vettore delle soluzioni andando al contrario. Quindi, si parte dall'ultima riga e sostituendo si va fino all'inizio:
+	\begin{gather*}
+		\begin{array}{rll}
+			z & = & -1 \\
+			\\
+			y + \frac{3}{2}\left(-1\right) = \frac{1}{2} \rightarrow y & = & \phantom{-}2 \\
+			\\
+			x + -1\left(-1\right) = 1 \rightarrow x & = & \phantom{-}0
+		\end{array}
+	\end{gather*}
 \end{document}
