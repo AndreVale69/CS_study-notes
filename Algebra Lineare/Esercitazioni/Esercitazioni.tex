@@ -431,9 +431,23 @@
 		\item Scambio di due equazioni.
 	\end{enumerate}
 
-	\subsection{Esercizio tipo}
+	\subsection{Tipi di soluzione}
 	
-	Un esercizio classico d'esame è quello di applicare l'eliminazione di Gauss ad un sistema. Dato il seguente sistema:
+	Possono esistere tre tipi di soluzione:
+	\begin{itemize}
+		\item Tipo uno (una sola soluzione). Intuibile dalla forma ridotta (finale) di Gauss poiché l'ultima riga ha solo una variabile con valore positivo;
+		
+		\item Tipo zero (non esistono soluzioni per il sistema). Intuibile dalla forma ridotta (finale) di Gauss poiché l'ultima riga ha solo variabili nulle;
+		
+		\item Infinito (le soluzioni del sistema sono infinite). Intuibile dalla forma ridotta (finale) di Gauss poiché l'ultima riga presenta più di una variabile con valore positivo.
+	\end{itemize}
+	I prossimi paragrafi mostreranno tutte e tre le casistiche.\newpage
+
+	\subsection{Esercizi}
+	
+	\subsubsection{Tipo uno - Una soluzione}
+	
+	Dato il seguente sistema:
 	\begin{equation*}
 		\begin{cases}
 			2x + 4y + 4z = 4 \\
@@ -546,7 +560,7 @@
 	Si ottiene così la forma ridotta di Gauss.\newline
 	
 	\noindent
-	Il \textcolor{Red3}{terzo passo} è classificare la forma ottenuta. Possono esistere tre casistiche: di tipo uno (una sola soluzione), di tipo zero (non esistono soluzioni per il sistema) oppure infinito (le soluzioni del sistema sono infinite). Dalla forma ridotta è possibile dedurre che si è di fronte al tipo uno, ovvero esiste una sola soluzione per il sistema. Questo è intuibile grazie al fatto che se la colonna dominante di ogni riga (primo valore non nullo della riga), \underline{non} è l'ultimo, allora il sistema è di tipo uno.
+	Il \textcolor{Red3}{terzo passo} è classificare la forma ottenuta. Dalla forma ridotta è possibile dedurre che si è di fronte al tipo uno, ovvero esiste una sola soluzione per il sistema.
 	
 	Adesso è possibile ricostruire il vettore delle soluzioni andando al contrario. Quindi, si parte dall'ultima riga e sostituendo si va fino all'inizio:
 	\begin{gather*}
@@ -557,5 +571,228 @@
 			\\
 			x + -1\left(-1\right) = 1 \rightarrow x & = & \phantom{-}0
 		\end{array}
-	\end{gather*}
+	\end{gather*}\newpage
+
+	\subsubsection{Tipo zero}
+	
+	Dato il seguente sistema:
+	\begin{equation*}
+		\begin{cases}
+			x + 2y - z = 1 	\\
+			-x - y + 2z = 1 \\
+			x + 3y + z = 4 	\\
+			2x + 4y -2z = -1
+		\end{cases}
+	\end{equation*}
+	Si calcola la matrice risultante dopo l'eliminazione di Gauss.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{primo passo} è scrivere la matrice aumentata. Essa è banale da comporre, consiste nello scrivere i coefficienti di ogni variabile ($x,y,z$) in una matrice e aggiungere una colonna sulla destra in cui ci sono i valori risultanti. Si passa all'atto pratico:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			 1  &  2 & -1 &  1 \\
+			-1  & -1 &  2 &  1 \\
+			 1  &  3 &  1 &  4 \\
+			 2  &  4 & -2 & -1
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è eseguire alcune considerazioni sulla forma che si vuole ottenere e procedere con le varie operazioni. L'obbiettivo è quello di ottenere una matrice uni-triangolare superiore\footnote{Una matrice uni-triangolare superiore è una forma particolare in cui i valori sotto alla diagonale principale sono nulli, cioè uguale a zero}. In questo caso, si inizia \textbf{moltiplicando la prima riga per 1 e successivamente si somma la prima riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1  &  2 & -1 &  1 \\
+			-1  & -1 &  2 &  1 \\
+			1  &  3 &  1 &  4 \\
+			2  &  4 & -2 & -1
+		\end{rowequmatbra} \xlongrightarrow{E_{2,1}\left(1\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 2 & -1 &  1 \\
+			0  & 1 &  1 &  2 \\
+			1  & 3 &  1 &  4 \\
+			2  & 4 & -2 & -1
+		\end{rowequmatbra}
+	\end{equation*}
+	Per rapidità, si eseguono in ordine le due operazioni seguenti. Si \textbf{moltiplica la prima riga per -1 e successivamente si somma la prima riga con la terza}, e poi si \textbf{moltiplica la prima riga per -2 e successivamente si somma la prima riga con la quarta}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 2 & -1 &  1 \\
+			0  & 1 &  1 &  2 \\
+			1  & 3 &  1 &  4 \\
+			2  & 4 & -2 & -1
+		\end{rowequmatbra} \xlongrightarrow[E_{4,1}\left(-2\right)]{E_{3,1}\left(-1\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  & 2 & -1 &  1 \\
+			0  & 1 &  1 &  2 \\
+			0  & 1 &  2 &  3 \\
+			0  & 0 &  0 & -3
+		\end{rowequmatbra}
+	\end{equation*}
+	Si ottiene così la forma ridotta di Gauss.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{terzo passo} è classificare la forma ottenuta. Dalla forma ridotta è possibile dedurre che si è di fronte al tipo zero, ovvero non esiste nessuna soluzione per il sistema. L'esercizio è concluso:
+	\begin{equation*}
+		\cancel{\exists} z : 0 \cdot z = -3
+	\end{equation*}\newpage
+
+	\subsubsection{Infinito}
+	
+	Dato il seguente sistema:
+	\begin{equation*}
+		\begin{cases}
+			x + 2y + w = 0 	\\
+			2x + 5y + 4z + 4w = 0 \\
+			3x + 5y - 6z + 4w = 0
+		\end{cases}
+	\end{equation*}
+	Si calcola la matrice risultante dopo l'eliminazione di Gauss.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{primo passo} è scrivere la matrice aumentata. Essa è banale da comporre, consiste nello scrivere i coefficienti di ogni variabile ($x,y,z,w$) in una matrice e aggiungere una colonna sulla destra in cui ci sono i valori risultanti. Si passa all'atto pratico:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  2 &  0 &  1 & 0 	\\
+			2  &  5 &  4 &  4 & 0	\\
+			3  &  5 & -6 &  4 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è eseguire alcune considerazioni sulla forma che si vuole ottenere e procedere con le varie operazioni. L'obbiettivo è quello di ottenere una matrice uni-triangolare superiore\footnote{Una matrice uni-triangolare superiore è una forma particolare in cui i valori sotto alla diagonale principale sono nulli, cioè uguale a zero}. In questo caso, si inizia con due operazioni per velocizzare i calcoli. Si \textbf{moltiplica la prima riga per -2 e successivamente si somma la prima riga con la seconda}, e poi si \textbf{moltiplica la prima riga per -3 e successivamente si somma la prima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  2 &  0 &  1 & 0 	\\
+			2  &  5 &  4 &  4 & 0	\\
+			3  &  5 & -6 &  4 & 0
+		\end{rowequmatbra} \xlongrightarrow[E_{3,1}\left(-3\right)]{E_{2,1}\left(-2\right)}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  2 &  0 &  1 & 0 	\\
+			0  &  1 &  4 &  2 & 0	\\
+			0  & -1 & -6 &  1 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per 1 e successivamente si somma la seconda riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  2 &  0 &  1 & 0 	\\
+			0  &  1 &  4 &  2 & 0	\\
+			0  & -1 & -6 &  1 & 0
+		\end{rowequmatbra} \xlongrightarrow{E_{3,2}\left(1\right)}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  2 &  0 &  1 & 0 	\\
+			0  &  1 &  4 &  2 & 0	\\
+			0  &  0 & -2 &  3 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la terza riga per uno scalare $\frac{1}{2}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  2 &  0 &  1 & 0 	\\
+			0  &  1 &  4 &  2 & 0	\\
+			0  &  0 & -2 &  3 & 0
+		\end{rowequmatbra} \xlongrightarrow{E_{3}\left(-\frac{1}{2}\right)}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  2 &  0 &  1 & 0 	\\
+			0  &  1 &  4 &  2 & 0	\\
+			0  &  0 &  1 &  -\frac{3}{2} & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si ottiene così la forma ridotta di Gauss.\newpage
+	
+	\noindent
+	Il \textcolor{Red3}{terzo passo} è classificare la forma ottenuta. Dalla forma ridotta è possibile dedurre che si è di fronte all'infinito, ovvero esistono un'infinità di soluzioni che dipendono da, in questo caso, un parametro:
+	\begin{equation*}
+		\begin{array}{rll}
+			z - \dfrac{3}{2} w = 0 & \longrightarrow & z = \dfrac{3}{2} w \\
+			\\
+			y + 4\left(\dfrac{3}{2}w\right) + 2w = 0 & \longrightarrow & y = -8w \\
+			\\
+			x + 2\left(-8w\right) + 1w = 0 & \longrightarrow & x = 15w
+		\end{array}
+	\end{equation*}
+	Quindi il vettore soluzione sarà composto in questo modo:
+	\begin{equation*}
+		soluzione = \begin{bmatrix}
+			15w \\
+			\\
+			-8w \\
+			\\
+			\dfrac{3}{2}w \\
+			\\
+			w
+		\end{bmatrix} = w \cdot \begin{bmatrix}
+			15 \\
+			\\
+			-8 \\
+			\\
+			\dfrac{3}{2} \\
+			\\
+			1
+		\end{bmatrix}
+	\end{equation*}\newpage
+
+	\subsubsection{Infinito - Caso particolare}
+	
+	Dato il seguente sistema:
+	\begin{equation*}
+		\begin{cases}
+			x + y + z + w = -1 	 \\
+			x + 2y + z + 2w = -1 \\
+			2x + 3y + 2z + 3w = -2
+		\end{cases}
+	\end{equation*}
+	Si calcola la matrice risultante dopo l'eliminazione di Gauss.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{primo passo} è scrivere la matrice aumentata. Essa è banale da comporre, consiste nello scrivere i coefficienti di ogni variabile ($x,y,z,w$) in una matrice e aggiungere una colonna sulla destra in cui ci sono i valori risultanti. Si passa all'atto pratico:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  1 &  1 &  1 & -1 	\\
+			1  &  2 &  1 &  2 & -1	\\
+			2  &  3 &  2 &  3 & -2
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è eseguire alcune considerazioni sulla forma che si vuole ottenere e procedere con le varie operazioni. L'obbiettivo è quello di ottenere una matrice uni-triangolare superiore\footnote{Una matrice uni-triangolare superiore è una forma particolare in cui i valori sotto alla diagonale principale sono nulli, cioè uguale a zero}. In questo caso, si inizia con due operazioni per velocizzare i calcoli. Si \textbf{moltiplica la prima riga per -1 e successivamente si somma la prima riga con la seconda}, e poi si \textbf{moltiplica la prima riga per -2 e successivamente si somma la prima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  1 &  1 &  1 & -1 	\\
+			1  &  2 &  1 &  2 & -1	\\
+			2  &  3 &  2 &  3 & -2
+		\end{rowequmatbra} \xlongrightarrow[E_{2,1}\left(-1\right)]{E_{3,1}\left(-2\right)}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  1 &  1 &  1 & -1 	\\
+			0  &  1 &  0 &  1 &  0	\\
+			0  &  1 &  0 &  1 &  0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per -1 e successivamente si somma la seconda riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  1 &  1 &  1 & -1 	\\
+			0  &  1 &  0 &  1 &  0	\\
+			0  &  1 &  0 &  1 &  0
+		\end{rowequmatbra} \xlongrightarrow{E_{3,2}\left(-1\right)}
+		\begin{rowequmatbra}{cccc|c}
+			1  &  1 &  1 &  1 & -1 	\\
+			0  &  1 &  0 &  1 &  0	\\
+			0  &  0 &  0 &  0 &  0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si ottiene così la forma ridotta di Gauss.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{terzo passo} è classificare la forma ottenuta. Dalla forma ridotta è possibile dedurre che si è di fronte all'infinito, ovvero esistono un'infinità di soluzioni che dipendono da, in questo caso, due parametri. Le variabili $z$ e $w$ sono libere:
+	\begin{equation*}
+		\begin{array}{rll}
+			1y + 1w = 0 & \longrightarrow & y = -w \\
+			\\
+			x - w = -1 & \longrightarrow & x = w - 1
+		\end{array}
+	\end{equation*}
+	Quindi il vettore soluzione sarà composto in questo modo:
+	\begin{equation*}
+		soluzione = \begin{bmatrix}
+			w-1 \\
+			-w 	\\
+			w	\\
+			z
+		\end{bmatrix}
+	\end{equation*}
 \end{document}
