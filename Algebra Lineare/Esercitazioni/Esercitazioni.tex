@@ -420,7 +420,7 @@
 
 	\section{Eliminazione di Gauss}
 	
-	\subsection{Le 3 operazioni}
+	\subsection{Le 3 operazioni}\label{EG: 3 operazioni}
 	
 	L'eliminazione di Gauss prevede 3 operazioni principali da applicare per ottenere la forma ridotta (forma finale):
 	\begin{enumerate}
@@ -573,7 +573,7 @@
 		\end{array}
 	\end{gather*}\newpage
 
-	\subsubsection{Tipo zero}
+	\subsubsection{Tipo zero - Nessuna soluzione}
 	
 	Dato il seguente sistema:
 	\begin{equation*}
@@ -710,20 +710,14 @@
 	Quindi il vettore soluzione sarà composto in questo modo:
 	\begin{equation*}
 		soluzione = \begin{bmatrix}
-			15w \\
-			\\
-			-8w \\
-			\\
-			\dfrac{3}{2}w \\
-			\\
+			15w \\[0.3em]
+			-8w \\[0.3em]
+			\frac{3}{2}w \\[0.3em]
 			w
 		\end{bmatrix} = w \cdot \begin{bmatrix}
-			15 \\
-			\\
-			-8 \\
-			\\
-			\dfrac{3}{2} \\
-			\\
+			15 \\[0.3em]
+			-8 \\[0.3em]
+			\frac{3}{2} \\[0.3em]
 			1
 		\end{bmatrix}
 	\end{equation*}\newpage
@@ -794,5 +788,566 @@
 			w	\\
 			z
 		\end{bmatrix}
+	\end{equation*}\newpage
+
+	\subsection{Sistemi con parametri}\label{Sistemi con parametri}
+	
+	Può accadere che l'eliminazione di Gauss si complichi tramite l'inserimento di un parametro. Niente panico, l'esercizio rimane identico, si esegue una classica eliminazione di Gauss con le operazioni elementari. L'unica differenza è un parametro che deve essere considerato come un'incognita. Infine, si esplicita quali valori può (o non può) assumere il parametro.
+	
+	\subsubsection{Esercizio}
+	
+	Dato il sistema:
+	\begin{equation*}
+		\begin{cases}
+			ty = 1 \\
+			x + y + tz = 2 \\
+			2x + ty + z = 0
+		\end{cases}
 	\end{equation*}
+	Sapendo che il parametro $t \in \mathbb{R}$, si risolva l'esercizio con l'eliminazione di Gauss, determinando per quali parametri $t$ non esiste soluzione.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{primo passo} è scrivere la matrice aumentata. Essa è banale da comporre, consiste nello scrivere i coefficienti di ogni variabile ($x,y,z$) in una matrice e aggiungere una colonna sulla destra in cui ci sono i valori risultanti. Si passa all'atto pratico:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			0  &  t &  0 &  1 \\
+			1  &  1 &  t &  2 \\
+			2  &  t &  1 &  0
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è eseguire alcune considerazioni sulla forma che si vuole ottenere e procedere con le varie operazioni. L'obbiettivo è quello di ottenere una matrice uni-triangolare superiore\footnote{Una matrice uni-triangolare superiore è una forma particolare in cui i valori sotto alla diagonale principale sono nulli, cioè uguale a zero}. L'obbiettivo di questo paragrafo è evidenziare le differenze con gli altri tipi di esercizi, quindi non si mostrano i passaggi specifici. Le operazioni eseguite sono: la \textbf{moltiplicazione della seconda riga per $\frac{2-t}{t}$ e somma della seconda riga con la terza}; la \textbf{moltiplicazione della seconda riga per $\frac{1}{t}$}; la \textbf{moltiplicazione della terza riga per $\frac{1}{1-2t}$}.
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			0  &  t &  0 &  1 \\
+			1  &  1 &  t &  2 \\
+			2  &  t &  1 &  0
+		\end{rowequmatbra} \xlongrightarrow{E_{3,2}\left(\frac{2-t}{t}\right)} \left[...\right] \xlongrightarrow{E_{2}\left(\frac{1}{t}\right)} \left[...\right] \xlongrightarrow{E_{3}\left(\frac{1}{1-2t}\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1  &  1 &  t &  2 			\\ [0.3em]
+			0  &  1 &  0 &  \frac{1}{t} \\ [0.3em]
+			0  &  0 &  1 &  \frac{2-5t}{t\left(1-2t\right)} 
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{terzo passo} è capire quali soluzioni non sono ammesse. Per farlo, basta guardare le operazioni elementari applicate e, considerando le frazioni, cercare di escludere quei valori di $t$ che renderebbero impossibile la risoluzione. In questo caso, la $t$ non può essere zero poiché le frazioni sarebbero impossibili da risolvere e non può essere $\frac{1}{2}$ perché la frazione $\frac{2-5t}{t\left(1-2t\right)}$ sarebbe impossibile da risolvere. Guardando le operazioni elementari, non può essere zero a causa della prima e seconda operazione elementare, e non può essere $\frac{1}{2}$ a causa della terza operazione elementare. Più formalmente, è possibile scrivere:
+	\begin{equation*}
+		t \in \mathbb{R} \setminus \left\{0, \dfrac{1}{2}\right\}
+	\end{equation*}
+	
+	\newpage
+
+	\section{Eliminazione di Gauss-Jordan}\label{Eliminazione di Gauss-Jordan}
+	
+	\subsection{Algoritmo matrici quadrate}
+	
+	L'eliminazione di Gauss-Jordan mira ad \textcolor{Red3}{\textbf{ottenere}}, tramite le classiche tre operazioni elementari dell'EG (paragrafo~\ref{EG: 3 operazioni}), la corrispondente \textcolor{Red3}{\textbf{matrice inversa}}.\newline
+	
+	\noindent
+	Per ottenerla, si affianca a destra una matrice identità\footnote{Matrice identità: matrice con valori pari ad 1 sulla diagonale principale e valori nulli nelle altre posizioni}, si applicano le operazioni elementare dell'EG così da ottenere una forma ridotta a sinistra e infine si esegue un'eliminazione all'indietro così da ottenere a sinistra una matrice identità e a destra la matrice inversa dell'originaria.
+	
+	\subsection{Algoritmo matrici con numero di righe e colonne diverso}
+	
+	Nel caso in cui la matrice non sia quadrata, al fianco della matrice originaria si affianca a destra sempre una matrice identità ma in questo caso il numero di colonne sarà diverso da quella originaria. A questo punto si procede con la classica EG. Una volta ottenuta la forma ridotta di Gauss, si utilizzano le matrici ridotte per ottenere $n$ sistemi da risolvere con l'eliminazione di Gauss. In cui $n$ indica il numero di colonne nella (ex) matrice identità a destra. Si veda l'esercizio per comprendere meglio.
+	
+	\subsection{Esercizi}
+	
+	\subsubsection{Matrice quadrata}
+	
+	Data la matrice quadrata:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			1 & -1 & 3 \\
+			1 &  1 & 2 \\
+			2 &  0 & 7
+		\end{bmatrix}
+	\end{equation*}
+	La \textcolor{Red3}{prima operazione} è aumentare la matrice scrivendo l'identità a destra:
+	\begin{equation*}
+		\left[A | I_{3}\right] = \begin{rowequmatbra}{ccc|ccc}
+			1 & -1 & 3 & 1 & 0 & 0 \\
+			1 &  1 & 2 & 0 & 1 & 0 \\
+			2 &  0 & 7 & 0 & 0 & 1
+		\end{rowequmatbra}
+	\end{equation*}
+	La \textcolor{Red3}{seconda operazione} è applicare il classico algoritmo dell'eliminazione di Gauss, ma considerando tre colonne a destra, invece di una. Quindi, effettivamente vi è il calcolo di tre sistemi contemporaneamente! La prima operazione che viene eseguita è la \textbf{moltiplicazione della prima riga per -1 e la somma della prima riga con la seconda}. Successivamente, viene \textbf{moltiplicata la prima riga per -2 e sommata la prima riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 & 3 & 1 & 0 & 0 \\
+			1 &  1 & 2 & 0 & 1 & 0 \\
+			2 &  0 & 7 & 0 & 0 & 1
+		\end{rowequmatbra} \xlongrightarrow[E_{2,1}\left(-1\right)]{E_{3,1}\left(-2\right)}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 &  3 &  1 & 0 & 0 \\
+			0 &  2 & -1 & -1 & 1 & 0 \\
+			0 &  2 &  1 & -2 & 0 & 1
+		\end{rowequmatbra}
+	\end{equation*}
+	Adesso si \textbf{moltiplica la seconda riga per $\frac{1}{2}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 &  3 &  1 & 0 & 0 \\[0.3em]
+			0 &  2 & -1 & -1 & 1 & 0 \\[0.3em]
+			0 &  2 &  1 & -2 & 0 & 1
+		\end{rowequmatbra} \xlongrightarrow{E_{2}\left(-\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 &  3 &  1 & 0 & 0 \\[0.3em]
+			0 &  1 & -\frac{1}{2} & -\frac{1}{2} & \frac{1}{2} & 0 \\[0.3em]
+			0 &  2 &  1 & -2 & 0 & 1
+		\end{rowequmatbra}
+	\end{equation*}
+	Poi si \textbf{moltiplica la seconda riga per -2 e si somma la seconda riga con la terza} e successivamente si \textbf{moltiplica la terza riga per $\frac{1}{2}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 &  3 &  1 & 0 & 0 \\[0.3em]
+			0 &  1 & -\frac{1}{2} & -\frac{1}{2} & \frac{1}{2} & 0 \\[0.3em]
+			0 &  2 &  1 & -2 & 0 & 1
+		\end{rowequmatbra} \xlongrightarrow[E_{3}\left(\frac{1}{2}\right)]{E_{3,2}\left(-2\right)}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 &  3 &  1 & 0 & 0 \\[0.3em]
+			0 &  1 & -\frac{1}{2} & -\frac{1}{2} & \frac{1}{2} & 0 \\[0.3em]
+			0 &  0 &  1 & -\frac{1}{2} & -\frac{1}{2} & \frac{1}{2}
+		\end{rowequmatbra}
+	\end{equation*}
+	La \textcolor{Red3}{terza operazione} si raggiunge quando l'eliminazione di Gauss porta ad avere la matrice ridotta a sinistra. A questo punto, si cerca di avere una matrice identità a sinistra. Quindi, si inizia ad azzerare i valori sopra la diagonale applicando sempre l'EG.\newline
+	\textbf{Attenzione!} Si capisce che una matrice è invertibile quando nella forma ridotta di Gauss, i pivot\footnote{I \textbf{pivot} sono i primi elementi diversi da zero a partire da sinistra che hanno tutti zeri sottostanti.} corrispondono al rango massimo di una matrice.
+	
+	Si \textbf{moltiplica la terza riga per $\frac{1}{2}$ e successivamente si somma la terza riga con la seconda}. Dopodiché si \textbf{moltiplica la terza riga per -3 e poi si somma la terza riga con la prima}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 &  3 &  1 & 0 & 0 \\[0.3em]
+			0 &  1 & -\frac{1}{2} & -\frac{1}{2} & \frac{1}{2} & 0 \\[0.3em]
+			0 &  0 &  1 & -\frac{1}{2} & -\frac{1}{2} & \frac{1}{2}
+		\end{rowequmatbra} \xlongrightarrow[E_{1,3}\left(-3\right)]{E_{2,3}\left(\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 &  0 &  \frac{5}{2} &  \frac{3}{2} & -\frac{3}{2} \\[0.3em]
+			0 &  1 &  0 & -\frac{3}{4} &  \frac{1}{4} &  \frac{1}{4} \\[0.3em]
+			0 &  0 &  1 & -\frac{1}{2} & -\frac{1}{2} &  \frac{1}{2}
+		\end{rowequmatbra}
+	\end{equation*}
+	Si vuole togliere l'ultimo -1 e quindi si \textbf{moltiplica la seconda riga per 1 e si somma la seconda riga con la prima}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & -1 &  0 &  \frac{5}{2} &  \frac{3}{2} & -\frac{3}{2} \\[0.3em]
+			0 &  1 &  0 & -\frac{3}{4} &  \frac{1}{4} &  \frac{1}{4} \\[0.3em]
+			0 &  0 &  1 & -\frac{1}{2} & -\frac{1}{2} &  \frac{1}{2}
+		\end{rowequmatbra} \xlongrightarrow[E_{1,3}\left(-3\right)]{E_{2,3}\left(\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 &  0 &  0 &  \frac{7}{4} &  \frac{7}{4} & -\frac{5}{4} \\[0.3em]
+			0 &  1 &  0 & -\frac{3}{4} &  \frac{1}{4} &  \frac{1}{4} \\[0.3em]
+			0 &  0 &  1 & -\frac{1}{2} & -\frac{1}{2} &  \frac{1}{2}
+		\end{rowequmatbra}
+	\end{equation*}
+	L'esercizio termina qui poiché a sinistra si ha la matrice identità e a destra la matrice inversa di $A$. Inoltre, in questo caso, la matrice inversa è bilatera, ovvero che se viene moltiplicata per $A$, il risultato è una matrice identità. Quindi, supponendo che la matrice inversa sia identificata con la lettera $B$:
+	\begin{equation*}
+		A \cdot B = B \cdot A = I_{3}
+	\end{equation*}\newpage
+
+	\subsubsection{Matrice con numero di righe e colonne diverso}
+	
+	Nelle matrici non quadrate, l'inversa può essere soltanto destra o sinistra. Nel caso in cui la matrice abbia il \textbf{numero di colonne maggiore al numero di righe}, allora si cerca l'\textbf{inversa destra}. Al contrario, se la matrice ha il numero di \textbf{righe maggiore al numero di colonne}, allora si cerca l'\textbf{inversa sinistra}.\newline
+	
+	\noindent
+	Data la matrice:
+	\begin{equation*}
+		B = \begin{bmatrix}
+			3 & 6 & -3 \\
+			2 & 5 &  1
+		\end{bmatrix}
+	\end{equation*}
+	Il \textcolor{Red3}{primo passo} è affiancare la matrice identità:
+	\begin{equation*}
+		\left[B | I_{2}\right] = \begin{rowequmatbra}{ccc|cc}
+			3 & 6 & -3 & 1 & 0 \\
+			2 & 5 &  1 & 0 & 1 
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è procedere con l'eliminazione di Gauss. Si \textbf{moltiplica la prima riga per $\frac{1}{3}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|cc}
+			3 & 6 & -3 & 1 & 0 \\ [0.3em]
+			2 & 5 &  1 & 0 & 1
+		\end{rowequmatbra} \xlongrightarrow{E_{1}\left(\frac{1}{3}\right)}
+		\begin{rowequmatbra}{ccc|cc}
+			1 & 2 & -1 & \frac{1}{3} & 0 \\ [0.3em]
+			2 & 5 &  1 &           0 & 1
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la prima riga per -2 e si somma la prima riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|cc}
+			1 & 2 & -1 & \frac{1}{3} & 0 \\ [0.3em]
+			2 & 5 &  1 &           0 & 1
+		\end{rowequmatbra} \xlongrightarrow{E_{2,1}\left(-2\right)}
+		\begin{rowequmatbra}{ccc|cc}
+			1 & 2 & -1 & \frac{1}{3} & 0 \\ [0.3em]
+			0 & 1 &  3 &           0 & 1
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{terzo passo} è utilizzare le forme ridotta per scrivere i due sistemi e risolverli. Quindi:
+	\begin{gather*}
+		\begin{rowequmatbra}{ccc|cc}
+			1 & 2 & -1 & \frac{1}{3} & 0 \\ [0.3em]
+			0 & 1 &  3 &           0 & 1
+		\end{rowequmatbra} \\
+		\\
+		\begin{array}{lllll}
+			\text{Primo sistema}	& \rightarrow & \begin{rowequmatbra}{ccc}
+				1 & 2 & -1 \\ [0.3em]
+				0 & 1 &  3
+			\end{rowequmatbra} \begin{rowequmatbra}{c}
+				\frac{1}{3}  \\ [0.3em]
+				-\frac{2}{3}
+			\end{rowequmatbra} & \rightarrow & \begin{cases}
+				a_{1} + 2b_{1} - c_{1} = \frac{1}{3} \\
+				b_{1} + 3c_{1} = -\frac{2}{3}
+			\end{cases} \\
+			&&&& \\
+			\text{Secondo sistema}	& \rightarrow & \begin{rowequmatbra}{ccc}
+				1 & 2 & -1 \\
+				0 & 1 &  3
+			\end{rowequmatbra} \begin{rowequmatbra}{c}
+				0 \\
+				1
+			\end{rowequmatbra} & \rightarrow & \begin{cases}
+				a_{2} + 2b_{2} - c_{2} = 0 \\
+				b_{2} + 3c_{2} = 1
+			\end{cases}
+		\end{array}
+	\end{gather*}
+	Adesso si risolvono i sistemi, notando subito che sia $c_{1}$ che $c_{2}$ sono uguali a zero. Infatti, applicando Gauss ci si accorgerebbe che entrambi i sistemi hanno infinite soluzioni, ovvero dipendono dal parametro $c$. Quindi:
+	\begin{equation*}
+		\begin{array}{lllll}
+			\text{Primo sistema}	& \rightarrow & \begin{cases}
+				a_{1} = \frac{5}{3}  \\
+				b_{1} = -\frac{2}{3} \\
+				c_{1} = 0
+			\end{cases} & \rightarrow & \begin{rowequmatbra}{c}
+				\frac{5}{3}  \\ [0.3em]
+				-\frac{2}{3} \\ [0.3em]
+				0
+			\end{rowequmatbra} \\
+			\\
+			\text{Secondo sistema}	& \rightarrow & \begin{cases}
+				a_{2} = -2 \\
+				b_{2} =  1  \\
+				c_{2} =  0
+			\end{cases} & \rightarrow & \begin{rowequmatbra}{c}
+				-2 \\ [0.3em]
+				 1 \\ [0.3em]
+				 0
+			\end{rowequmatbra}
+		\end{array}
+	\end{equation*}
+	Il \textcolor{Red3}{quarto passo} è scrivere la matrice inversa, in questo caso la matrice inversa destra:
+	\begin{equation*}
+		R = \begin{rowequmatbra}{cc}
+			\frac{5}{3}	 & -2 \\ [0.3em]
+			-\frac{2}{3} &  1 \\ [0.3em]
+			0			 &  0
+		\end{rowequmatbra}
+	\end{equation*}
+	Quindi, la soluzione è:
+	\begin{equation*}
+		B \cdot R = I_{2}
+	\end{equation*}\newpage
+
+	\subsection{Sistemi con parametri}
+	
+	Lo svolgimento di questa tipologia di esercizi è identica al paragrafo~\ref{Sistemi con parametri}. L'unica differenza è alla fine, quando è necessario verificare se la matrice è invertibile:
+	\begin{itemize}
+		\item Se il rango massimo della matrice corrisponde al numero di colonne dominanti (primo esercizio), allora è invertibile;
+		\item Grazie al determinante, ma verrà introdotto più avanti;	
+		\item Altri modi, ma sono troppo laboriosi.
+	\end{itemize}	
+
+	\subsubsection{Esercizio}
+	
+	Data la matrice:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			k &  k-1 &   k \\
+			0 & 2k-2 &   0 \\
+			1 &  k-1 & 2-k
+		\end{bmatrix}
+	\end{equation*}
+	Per quali valori di $k$ la matrice $A$ ammette l'inversa.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{primo passo} è l'esecuzione dell'eliminazione di Gauss. Quindi, si \textbf{moltiplica la prima riga per $-\frac{1}{k}$ e poi si somma la prima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			k &  k-1 &   k \\ [0.3em]
+			0 & 2k-2 &   0 \\ [0.3em]
+			1 &  k-1 & 2-k
+		\end{rowequmatbra} \xlongrightarrow{E_{3,1}\left(-\frac{1}{k}\right)}
+		\begin{rowequmatbra}{ccc}
+			k &  k-1 &   k \\ [0.3em]
+			0 & 2k-2 &   0 \\ [0.3em]
+			0 &  \frac{\left(k-1\right)^{2}}{k} & 1-k
+		\end{rowequmatbra}
+	\end{equation*}
+	Poi si \textbf{moltiplica la seconda riga per $\frac{\left(k-1\right)^{2}}{k\left(2-2k\right)}$ e poi si moltiplica la seconda riga per la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			k &  k-1 &   k \\ [0.3em]
+			0 & 2k-2 &   0 \\ [0.3em]
+			1 &  \frac{\left(k-1\right)^{2}}{k} & 1-k
+		\end{rowequmatbra} \xlongrightarrow{E_{3,2}\left(\frac{\left(k-1\right)^{2}}{k\left(2-2k\right)}\right)}
+		\begin{rowequmatbra}{ccc}
+			k &  k-1 &   k \\ [0.3em]
+			0 & 2k-2 &   0 \\ [0.3em]
+			0 &    0 & 1-k
+		\end{rowequmatbra}
+	\end{equation*}
+	Poi si \textbf{moltiplica la prima riga per $\frac{1}{k}$}, si \textbf{moltiplica la seconda riga per $\frac{1}{2k-2}$} e infine si \textbf{moltiplica la terza riga per $\frac{1}{1-k}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			k &  k-1 &   k \\ [0.3em]
+			0 & 2k-2 &   0 \\ [0.3em]
+			0 &    0 & 1-k
+		\end{rowequmatbra} \xlongrightarrow{E_{1}\left(\frac{1}{k}\right)} \left[...\right]
+		\xlongrightarrow{E_{2}\left(\frac{1}{2k-2}\right)} \left[...\right]
+		\xlongrightarrow{E_{3}\left(\frac{1}{1-k}\right)}
+		\begin{rowequmatbra}{ccc}
+			1 &  \frac{k-1}{k} 	&   1 \\ [0.3em]
+			0 &    			1	&   0 \\ [0.3em]
+			0 &    			0	&   1
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è verificare per quali valori la matrice non è risolvibile. In questo caso per $0$ e per $1$ perché nelle operazioni elementari (la seconda) si avrebbe una frazione impossibile da risolvere (zero al denominatore):
+	\begin{equation*}
+		k \in \mathbb{R} \setminus \left\{0,1\right\}
+	\end{equation*}
+	Dato che il rango della matrice è uguale a $3$, allora la matrice è invertibile per ogni valore di $k$ escluso lo zero e l'uno. Infatti, grazie all'algoritmo di Gauss-Jordan è possibile ottenere la matrice originaria.\newpage
+	
+	\section{Decomposizione LU}
+	
+	\subsection{Algoritmo}
+	
+	Una matrice $A$, in generale $n \times m$, è possibile riscriverla come il prodotto tra due matrici:
+	\begin{equation*}
+		A = L U
+	\end{equation*}
+	In cui $L$ è una matrice triangolare inferiore invertibile e $U$ la matrice in forma ridotta (grazie a EG) di $A$.\newline
+	
+	\noindent
+	La decomposizione LU classica lavora \textbf{senza scambi di righe}. In questo caso, data una matrice, si inizia con la classica eliminazione di Gauss. La forma ridotta corrisponderà ad $U$. A quel punto, si moltiplicheranno tutte le operazioni elementari eseguite mettendole in ordine decrescente, quindi dalla più recente alla più vecchia, e così facendo si otterrà una matrice. Quest'ultima, dovrà essere invertita così da ottenere la matrice $L$. Per farlo si utilizza ovviamente Gauss-Jordan.
+	
+	\subsection{Parametrizzazione}
+	
+	Nel caso della parametrizzazione di una matrice, l'esercizio non si discosta molto da quelli classici. Viene fornita una matrice che presenta al suo interno un parametro. L'esercizio si svolge come una decomposizione LU normale ma contando il parametro come un numero reale.
+	
+	\subsection{Esercizi}
+	
+	\subsubsection{Decomposizione LU}\label{Decomposizione LU ex}
+	
+	Data la matrice:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			1 & -4 & 1 \\
+			2 & -6 & 5 \\
+			1 & -2 & 5
+		\end{bmatrix}
+	\end{equation*}
+	Il \textcolor{Red3}{primo passo} è eseguire l'eliminazione di Gauss. Quindi, la prima operazione $OP_{1}$ è la \textbf{moltiplicazione della prima riga per -2 e si somma la prima riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\
+			2 & -6 & 5 \\
+			1 & -2 & 5
+		\end{rowequmatbra} \xlongrightarrow{E_{2,1}\left(-2\right)}
+		\begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\
+			0 &  2 & 3 \\
+			1 & -2 & 5
+		\end{rowequmatbra}
+	\end{equation*}
+	Poi la seconda operazione $OP_{2}$ è la \textbf{moltiplicazione della prima riga per -1 e la somma della rima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\
+			0 &  2 & 3 \\
+			1 & -2 & 5
+		\end{rowequmatbra} \xlongrightarrow{E_{3,1}\left(-1\right)}
+		\begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\
+			0 &  2 & 3 \\
+			0 &  2 & 4
+		\end{rowequmatbra}
+	\end{equation*}
+	Poi la terza operazione $OP_{3}$ è la \textbf{moltiplicazione della seconda riga per $\frac{1}{2}$ e la somma della rima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\
+			0 &  2 & 3 \\
+			0 &  2 & 4
+		\end{rowequmatbra} \xlongrightarrow{E_{2}\left(\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\ [0.3em]
+			0 &  1 & \frac{3}{2} \\ [0.3em]
+			0 &  2 & 4
+		\end{rowequmatbra}
+	\end{equation*}
+	Poi la quarta operazione $OP_{4}$ è la \textbf{moltiplicazione della seconda riga per $-2$ e la somma della seconda riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\
+			0 &  1 & \frac{3}{2} \\
+			0 &  2 & 4
+		\end{rowequmatbra} \xlongrightarrow{E_{2}\left(\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\ [0.3em]
+			0 &  1 & \frac{3}{2} \\ [0.3em]
+			0 &  0 & 1
+		\end{rowequmatbra} = U
+	\end{equation*}
+	La forma ridotta di Gauss corrisponde alla matrice $U$. Il \textcolor{Red3}{secondo passo} è moltiplicare \textbf{in ordine decrescente d'esecuzione} (dalla più recente alla più vecchia) tutte le matrici ottenute con le operazioni elementari. Quindi si riprendono le matrici $OP$:
+	\begin{equation*}
+		\begin{array}{lllll}
+			OP_{1} & = & \begin{rowequmatbra}{ccc}
+				1 & -4 & 1 \\
+				0 &  2 & 3 \\
+				1 & -2 & 5
+			\end{rowequmatbra} \hspace{2em} OP_{2} & = & \begin{rowequmatbra}{ccc}
+				1 & -4 & 1 \\
+				0 &  2 & 3 \\
+				0 &  2 & 4
+			\end{rowequmatbra} \\
+			\\
+			OP_{3} & = & \begin{rowequmatbra}{ccc}
+				1 & -4 & 1 \\
+				0 &  1 & \frac{3}{2} \\
+				0 &  2 & 4
+			\end{rowequmatbra} \hspace{2em}	OP_{4} & = & \begin{rowequmatbra}{ccc}
+				1 & -4 & 1 \\
+				0 &  1 & \frac{3}{2} \\
+				0 &  0 & 1
+			\end{rowequmatbra}
+		\end{array}
+	\end{equation*}
+	Adesso si moltiplicano le matrici e si ottiene la matrice risultante $B$ che corrisponde alla matrice $L^{-1}$, cioè invertita:
+	\begin{equation*}
+		L^{-1} = B = OP_{4} \times OP_{3} \times OP_{2} \times OP_{1} =
+		\begin{rowequmatbra}{ccc}
+			 1 &  		   0  & 0 \\ [0.3em]
+			-1 &  \frac{1}{2} & 0 \\ [0.3em]
+			 1 & 		  -1  & 1
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{terzo passo} è applicare l'algoritmo di Gauss-Jordan per ottenere la matrice inversa e avere la corrispondente matrice $L$. Si saltano i passaggi poiché concettualmente identici al paragrafo~\ref{Eliminazione di Gauss-Jordan}:
+	\begin{equation*}
+		L^{-1} = B \xlongrightarrow{\text{Gauss-Jordan}} B^{-1} = L = \begin{bmatrix}
+			1 & 0 & 0 \\
+			2 & 2 & 0 \\
+			1 & 2 & 0
+		\end{bmatrix}
+	\end{equation*}
+	Quindi, il risultato è il seguente:
+	\begin{equation*}
+		A = LU \longrightarrow \begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\ [0.3em]
+			2 & -6 & 5 \\ [0.3em]
+			1 & -2 & 5
+		\end{rowequmatbra} = \begin{rowequmatbra}{ccc}
+			1 & 0 & 0 \\ [0.3em]
+			2 & 2 & 0 \\ [0.3em]
+			1 & 2 & 0
+		\end{rowequmatbra} \times \begin{rowequmatbra}{ccc}
+			1 & -4 & 1 \\ [0.3em]
+			0 &  1 & \frac{3}{2} \\ [0.3em]
+			0 &  0 & 1
+		\end{rowequmatbra}
+	\end{equation*}
+	N.B. c'è un possibile errore di calcolo poiché verificando la moltiplicazione, nella posizione $\left(3,3\right)$ si ottiene il valore $4$ invece del valore $5$.\newpage
+	
+	\subsubsection{Decomposizione LU con parametrizzazione}
+	
+	Data la matrice:
+	\begin{equation*}
+		A_{\alpha} = \begin{bmatrix}
+			-1		& 0 	& 1			& -\alpha		& 0				\\
+			\alpha 	& 2 	& 4-\alpha	& \alpha^{2}-2	& 0				\\
+			0 		& -1	& -2		& \alpha+1		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{bmatrix}
+	\end{equation*}
+	Il \textcolor{Red3}{primo passo} è calcolare la forma ridotta di Gauss. Quindi, la prima operazione $OP_{1}$ è la \textbf{moltiplicazione della prima riga per -1}:
+	\begin{equation*}
+		\begin{bmatrix}
+			-1		& 0 	& 1			& -\alpha		& 0				\\
+			\alpha 	& 2 	& 4-\alpha	& \alpha^{2}-2	& 0				\\
+			0 		& -1	& -2		& \alpha+1		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{bmatrix} \xlongrightarrow{E_{1}\left(-1\right)}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			\alpha 	& 2 	& 4-\alpha	& \alpha^{2}-2	& 0				\\
+			0 		& -1	& -2		& \alpha+1		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{rowequmatbra}
+	\end{equation*}
+	La seconda operazione $OP_{2}$ è la \textbf{moltiplicazione della prima riga per $-\alpha$ e la somma della prima riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			\alpha 	& 2 	& 4-\alpha	& \alpha^{2}-2	& 0				\\
+			0 		& -1	& -2		& \alpha+1		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{rowequmatbra} \xlongrightarrow{E_{1}\left(-1\right)}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			0		& 2 	& 4			& -2			& 0				\\
+			0 		& -1	& -2		& \alpha+1		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{rowequmatbra}
+	\end{equation*}
+	La terza operazione $OP_{3}$ è la \textbf{moltiplicazione della seconda riga per $\frac{1}{2}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			0		& 2 	& 4			& -2			& 0				\\
+			0 		& -1	& -2		& \alpha+1		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{rowequmatbra} \xlongrightarrow{E_{1}\left(-1\right)}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			0		& 1 	& 2			& -1			& 0				\\
+			0 		& -1	& -2		& \alpha+1		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{rowequmatbra}
+	\end{equation*}
+	La quarta operazione $OP_{4}$ è la \textbf{moltiplicazione della seconda riga per $1$ e la somma della seconda riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			0		& 1 	& 2			& -1			& 0				\\
+			0 		& -1	& -2		& \alpha+1		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{rowequmatbra} \xlongrightarrow{E_{1}\left(-1\right)}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			0		& 1 	& 2			& -1			& 0				\\
+			0 		& 0		& 0			& \alpha		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{rowequmatbra}
+	\end{equation*}
+	La quinta operazione $OP_{5}$ è la \textbf{moltiplicazione della terza riga per $\frac{1}{\alpha}$}. La sesta operazione $OP_{6}$ è la \textbf{moltiplicazione della terza riga per $-1$ e la somma della terza riga con la quarta}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			0		& 1 	& 2			& -1			& 0				\\
+			0 		& 0		& 0			& \alpha		& -\alpha^{2}	\\
+			0		& 0		& 0			& 1				& -\alpha
+		\end{rowequmatbra} \xlongrightarrow[E_{4,3}\left(-1\right)]{E_{3}\left(\frac{1}{\alpha}\right)}
+		\begin{rowequmatbra}{ccccc}
+			1		& 0 	& -1		& \alpha		& 0				\\
+			0		& 1 	& 2			& -1			& 0				\\
+			0 		& 0		& 0			& 1				& -\alpha		\\
+			0		& 0		& 0			& 0				& 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si ottiene così la forma ridotta di Gauss. Guardando le operazioni, si può affermare che la matrice può essere risolta solamente se $\alpha$ non è uguale a zero:
+	\begin{equation*}
+		\alpha \in \mathbb{R} \setminus \left\{0\right\}
+	\end{equation*}
+	Da adesso in poi l'esercizio diventa come nel precedente paragrafo (\ref{Decomposizione LU ex}).
 \end{document}
