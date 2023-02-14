@@ -1349,5 +1349,400 @@
 	\begin{equation*}
 		\alpha \in \mathbb{R} \setminus \left\{0\right\}
 	\end{equation*}
-	Da adesso in poi l'esercizio diventa come nel precedente paragrafo (\ref{Decomposizione LU ex}).
+	Da adesso in poi l'esercizio diventa come nel precedente paragrafo (\ref{Decomposizione LU ex}).\newpage
+	
+	\section{Indipendenza lineare}
+	
+	\subsection{Definizione}
+	
+	L'\textbf{indipendenza lineare} si manifesta quando la somma dei vettori moltiplicati ciascuno per uno scalare, è uguale a zero. Quindi, dati due vettori $v_{1}, v_{2}$, essi si dicono linearmente indipendenti se:
+	\begin{equation*}
+		x \cdot v_{1} + y \cdot v_{2} = 0
+	\end{equation*}
+	Se questa uguaglianza è falsa, i vettori sono \textbf{linearmente dipendenti}.
+	
+	\subsection{Esercizi}
+	
+	\subsubsection{Determinare indipendenza lineare}
+	
+	Dati tre vettori:
+	\begin{equation*}
+		v_{1} = \begin{bmatrix}
+			1  \\
+			-1 \\
+			2
+		\end{bmatrix} \hspace{2em}
+		v_{2} = \begin{bmatrix}
+			5 \\
+			2 \\
+			0
+		\end{bmatrix} \hspace{2em}
+		v_{3} = \begin{bmatrix}
+			3 \\
+			4 \\
+			-4
+		\end{bmatrix}
+	\end{equation*}
+	Tutti in $\mathbb{R}^{3}$. Si determini se sono linearmente indipendenti.\newline
+	
+	\noindent
+	Per definizione, i tre vettori sono linearmente indipendenti se, moltiplicando ogni vettore per uno scalare e successivamente sommando le matrici risultati tra di loro, si ottiene zero come risultato:
+	\begin{equation*}
+		xv_{1} + yv_{2} + zv_{3} = 0
+	\end{equation*}
+	Il \textcolor{Red3}{primo passo} è scrivere la somma tra vettori e moltiplicazione tra scalari. Dopodiché si esegue la somma e moltiplicazione così da ottenere la matrice su cui lavorare:
+	\begin{gather*}
+		xv_{1} + yv_{2} + zv_{3} \\
+		\\
+		\begin{array}{lll}
+			x\begin{bmatrix}
+				1  \\
+				-1 \\
+				2
+			\end{bmatrix} +
+			y\begin{bmatrix}
+				5 \\
+				2 \\
+				0
+			\end{bmatrix} +
+			z\begin{bmatrix}
+				3 \\
+				4 \\
+				-4
+			\end{bmatrix} & = &
+			\begin{bmatrix}
+				x  \\
+				-x \\
+				2x
+			\end{bmatrix} +
+			\begin{bmatrix}
+				5y \\
+				2y
+			\end{bmatrix} +
+			\begin{bmatrix}
+				3z \\
+				4z \\
+				-4z
+			\end{bmatrix} \\
+			\\
+			& = &
+			\begin{bmatrix}
+				x + 5y + 3z  \\
+				-x + 2y + 4z \\
+				2x - 4z
+			\end{bmatrix} \longrightarrow
+			\begin{cases}
+				x + 5y + 3z = 0  \\
+				-x + 2y + 4z = 0 \\
+				2x - 4z = 0
+			\end{cases}
+		\end{array}
+	\end{gather*}
+	Il \textcolor{Red3}{secondo passo} è eseguire la classica eliminazione di Gauss. si scrive la matrice aumentata e si \textbf{moltiplica la prima riga per 1 e si somma la prima riga con la seconda}. Poi si \textbf{moltiplica la prima riga per $-2$ e si somma la prima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			 1		& 5		&  3	& 0 \\
+			-1 		& 2		&  4 	& 0 \\
+			 2		& 0		& -4	& 0			
+		\end{rowequmatbra} \xlongrightarrow[E_{3,1}\left(-2\right)]{E_{2,1}\left(1\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1		& 5		&  3	& 0 \\
+			0 		& 7		&  7 	& 0 \\
+			0		& -10	& -10	& 0			
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $\frac{1}{7}$}, poi si \textbf{moltiplica la seconda riga per 10 e si somma la seconda riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1		& 5		&  3	& 0 \\
+			0 		& 7		&  7 	& 0 \\
+			0		& -10	& -10	& 0			
+		\end{rowequmatbra} \xlongrightarrow[E_{3,2}\left(10\right)]{E_{2}\left(\frac{1}{7}\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1		& 5		&  3	& 0 \\
+			0 		& 1		&  1 	& 0 \\
+			0		& 0		&  0	& 0			
+		\end{rowequmatbra}
+	\end{equation*}
+	Si ottiene la forma ridotta e si evidenzia che tipo è. In questo caso, la soluzione dipende dal parametro $z$, per cui ha infinite soluzioni. Partendo dalla forma ridotta e riscrivendo il sistema si ha:
+	\begin{equation*}
+		\begin{cases}
+			x + 5y + 3z = 0 \\
+			y + z = 0		\\
+			0 = 0
+		\end{cases}
+	\end{equation*}
+	Il \textcolor{Red3}{terzo passo} è risolvere il sistema:
+	\begin{equation*}
+		\begin{cases}
+			x + 5y + 3z = 0 \\
+			y + z = 0		\\
+			0 = 0
+		\end{cases} \Rightarrow
+		\begin{cases}
+			x + 5y - 3y = 0 \\
+			z = -y
+		\end{cases} \Rightarrow
+		\begin{cases}
+			x = - 5y + 3y = -2y \\
+			z = -y
+		\end{cases} \Rightarrow
+		\begin{cases}
+			x = 2z \\
+			z = -y
+		\end{cases}
+	\end{equation*}
+	Ed evidenziare il vettore soluzione. In questo caso, dato che la soluzione dipende dal parametro $z$, sarà:
+	\begin{equation*}
+		soluzione = \begin{bmatrix}
+			2z \\
+			-z
+			z
+		\end{bmatrix}
+	\end{equation*}
+	Con $z \in \mathbb{R}$. \textbf{Per esempio}, con il parametro $z = 1$ il vettore soluzione sarebbe:
+	\begin{equation*}
+		\begin{bmatrix}
+			2 \\
+			-1\\
+			1
+		\end{bmatrix}
+	\end{equation*}
+	E l'equazione diventerebbe:
+	\begin{equation*}
+		2v_{1} - v_{2} + v_{3} = 0
+	\end{equation*}
+	In ogni caso, l'\textbf{esercizio si conclude} dicendo che i tre vettori $v_{1}, v_{2}, v_{3}$ sono linearmente dipendenti a causa del parametro $z$.\newpage
+	
+	\section{Sottospazio}
+	
+	\subsection{Definizione}
+	
+	Un \textbf{sottospazio} $V$ è tale quando esiste un sottoinsieme $U$ tale per cui:
+	\begin{equation*}
+		U \subseteq V \iff \begin{cases}
+			u,v \in U 				& \Longrightarrow u+v \in U \\
+			\alpha \in \mathbb{K} 	& \Longrightarrow \alpha v \in U
+		\end{cases}
+	\end{equation*}
+	Si ricorda che l'insieme $\mathbb{K}$ indica un numero qualsiasi. Quindi, se dati due valori appartenenti all'insieme $U$, il risultato della somma tra di loro è ancora nell'insieme e se dato un numero, la moltiplicazione tra esso e un valore in $U$ è ancora nell'insieme $U$.
+	
+	\subsection{Esercizi}
+	
+	\subsubsection{Determinare se è un sottospazio}
+	
+	Dato l'insieme $W$ composto da vettori $\mathbb{R}^{3}$ di forma:
+	\begin{equation*}
+		\begin{bmatrix}
+			5b + 2c \\
+			b \\
+			c
+		\end{bmatrix} \hspace{2em} \text{con } b,c \in \mathbb{R}
+	\end{equation*}
+	E dato l'insieme $H$ composto da vettori $\mathbb{R}^{2}$ di forma:
+	\begin{equation*}
+		\begin{bmatrix}
+			3s \\
+			2 + 5s
+		\end{bmatrix} \hspace{2em} \text{con } s \in \mathbb{R}
+	\end{equation*}
+	Determinare se sono sottospazi.\newline
+	
+	\noindent
+	Non esiste un unico modo di procedere per questi esercizi. È possibile fare alcune considerazioni. Dato l'insieme $W$ il \textcolor{Red3}{primo passo} è supporre di dare il valore $1$ alle incognite. In questo caso $b = 1, c = 1$ e la matrice risultante sarà:
+	\begin{equation*}
+		\begin{bmatrix}
+			7 \\
+			1 \\
+			1
+		\end{bmatrix} \in W
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} utilizza la definizione di sottospazio. Infatti, moltiplicando un elemento dell'insieme per un numero (nella definizione è stata utilizzata la lettera $\alpha$), si dovrebbe ricadere ancora nell'insieme $W$ se esso è un sottospazio. Si verifica:
+	\begin{equation*}
+		2 \times \begin{bmatrix}
+			7 \\
+			1 \\
+			1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			14 \\
+			2  \\
+			2
+		\end{bmatrix}
+	\end{equation*}
+	Per verificare se l'elemento appartiene all'insieme, basta vedere se rispetta la forma imposta dall'insieme. Ovvero:
+	\begin{equation*}
+		\begin{cases}
+			5b + 2c = 14 \\
+			b = 2 \\
+			c = 2
+		\end{cases}
+	\end{equation*}
+	Andando a sostituire il $2$ al posto della $b$ e della $c$, si avrà l'uguaglianza $14=14$. Questa verifica dimostra che $W$ \textbf{è un sottospazio vettoriale}. Il \textcolor{Red3}{terzo passo} è scrivere il sottospazio sottoforma di combinazione lineare di vettori:
+	\begin{equation*}
+		\begin{bmatrix}
+			5b + 2c \\
+			b \\
+			c
+		\end{bmatrix} =
+		b \begin{bmatrix}
+			5 \\
+			1 \\
+			0
+		\end{bmatrix} +
+		c \begin{bmatrix}
+			2 \\
+			0 \\
+			1
+		\end{bmatrix}
+	\end{equation*}
+	Allora il sottospazio è:
+	\begin{equation*}
+		W = \left\langle a_{1}, a_{2} \right\rangle \text{ con } a_{1} = \begin{bmatrix}
+			5 \\
+			1 \\
+			0
+		\end{bmatrix} \text{ e } a_{2} = \begin{bmatrix}
+			2 \\
+			0 \\
+			1
+		\end{bmatrix}
+	\end{equation*}
+	
+	\noindent
+	Con lo stesso metodo si verifica anche l'insieme $H$. Dato l'insieme $H$ il \textcolor{Red3}{primo passo} è supporre di dare il valore $1$ alle incognite. In questo caso $s = 1$ e la matrice risultante sarà:
+	\begin{equation*}
+		\begin{bmatrix}
+			3 \\
+			7
+		\end{bmatrix} \in H
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} utilizza la definizione di sottospazio. Infatti, moltiplicando un elemento dell'insieme per un numero (nella definizione è stata utilizzata la lettera $\alpha$), si dovrebbe ricadere ancora nell'insieme $H$ se esso è un sottospazio. Si verifica:
+	\begin{equation*}
+		2 \times \begin{bmatrix}
+			3 \\
+			7
+		\end{bmatrix} =
+		\begin{bmatrix}
+			6 \\
+			14
+		\end{bmatrix}
+	\end{equation*}
+	Per verificare se l'elemento appartiene all'insieme, basta vedere se rispetta la forma imposta dall'insieme. Ovvero:
+	\begin{equation*}
+		\begin{cases}
+			3s = 6 \\
+			2 + 5s = 14
+		\end{cases} \Longrightarrow
+		\begin{cases}
+			s = 2 \\
+			12 = 14
+		\end{cases}
+	\end{equation*}
+	Andando a sostituire il $2$ al posto della $s$ alla fine, si avrà l'uguaglianza $12=14$. Chiaramente è falso e questa verifica dimostra che $H$ \textbf{non è un sottospazio vettoriale}.\newpage
+	
+	\subsubsection{Determinare quali numeri naturali}
+	
+	Si determini quali numeri reali $h \in \mathbb{R}$ tali che:
+	\begin{equation*}
+		b = \begin{bmatrix}
+			4 \\
+			1 \\
+			h
+		\end{bmatrix}
+	\end{equation*}
+	Sia contenuto nel sottospazio $\left\langle a_{1}, a_{2} \right\rangle$ di $\mathbb{R}^{3}$ dove:
+	\begin{equation*}
+		a_{1} = \begin{bmatrix}
+			1 \\
+			4 \\
+			-2
+		\end{bmatrix} \hspace{2em}
+		a_{2} = \begin{bmatrix}
+			-2 \\
+			-3 \\
+			7
+		\end{bmatrix}
+	\end{equation*}
+	Il \textcolor{Red3}{primo passo} è dire che il vettore $b$ appartiene al sottospazio $\left\langle a_{1}, a_{2} \right\rangle$ se e solo se esiste una $x$ e una $y$ appartenenti all'insieme dei numeri naturali tali che $b = xa_{1} + ya_{2}$. Più formalmente:
+	\begin{equation*}
+		b \in \left\langle a_{1}, a_{2} \right\rangle \iff \exists x,y \in \mathbb{R} : b = xa_{1} + ya_{2}
+	\end{equation*}
+	Questo è possibile dirlo grazie alla definizione. Il \textcolor{Red3}{secondo passo} è riscrivere l'equazione sostituendo i dati noti:
+	\begin{gather*}
+		b = xa_{1} + ya_{2} \\
+		\downarrow \\
+		\begin{bmatrix}
+			4 \\
+			1 \\
+			h
+		\end{bmatrix} =
+		x \begin{bmatrix}
+			1 \\
+			4 \\
+			-2
+		\end{bmatrix} +
+		y \begin{bmatrix}
+			-2 \\
+			-3 \\
+			7
+		\end{bmatrix} =
+		\begin{bmatrix}
+			x - 2y  \\
+			4x - 3y \\
+			-2x + 7y
+		\end{bmatrix}
+	\end{gather*}
+	Il \textcolor{Red3}{terzo passo} è trovare la forma ridotta della matrice risultante. Quindi, si scrive il sistema, poi la matrice aumentata, si applica l'eliminazione di Gauss e si ottiene la forma ridotta.\newline
+	\textbf{Attenzione!} Il sistema deve essere uguale al vettore $b$, ovvero:
+	\begin{equation*}
+		\begin{cases}
+			x-2y = 4 	\\
+			4x - 3y = 1 \\
+			-2x + 7y = h
+		\end{cases} \xlongrightarrow{\text{matrice aumentata}}
+		\begin{rowequmatbra}{cc|c}
+			1		& -2	&  4 \\
+			4 		& -3	&  1 \\
+			-2		&  7	&  h
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la prima riga per $-4$ e poi si somma la prima riga con la seconda}. Successivamente si \textbf{moltiplica la prima riga per 2 e poi si somma la prima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cc|c}
+			1		& -2	&  4 \\
+			4 		& -3	&  1 \\
+			-2		&  7	&  h			
+		\end{rowequmatbra} \xlongrightarrow[E_{3,1}\left(2\right)]{E_{2,1}\left(-4\right)}
+		\begin{rowequmatbra}{cc|c}
+			1		& -2	&  4 \\
+			0 		&  5	&  -15 \\
+			0		&  3	&  h+8			
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $\frac{1}{5}$} e successivamente si \textbf{moltiplica la seconda riga per $-3$ e poi si somma la seconda riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cc|c}
+			1		& -2	&  4 \\
+			0 		&  5	&  -15 \\
+			0		&  3	&  h+8			
+		\end{rowequmatbra} \xlongrightarrow[E_{3,2}\left(-3\right)]{E_{2}\left(\frac{1}{5}\right)}
+		\begin{rowequmatbra}{cc|c}
+			1		& -2	&  4 \\
+			0 		&  1	&  -3 \\
+			0		&  0	&  h + 17			
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{quarto passo} è riscrivere il sistema una volta ottenuta la forma ridotta e fare alcune considerazioni:
+	\begin{equation*}
+		\begin{cases}
+			x - 2y = 4  \\
+			y = -3		\\
+			0 = h + 17
+		\end{cases}
+	\end{equation*}
+	Già dalla forma ridotta è possibile notare che esiste un'unica soluzione. Ovvero, il sistema è possibile risolverlo solamente se $h = -17$ e dunque l'unico valore reale ammesso tale per cui il vettore $b$ sia contenuto nel sottospazio è $-17$. Più formalmente:
+	\begin{equation*}
+		b \in \left\langle a_{1}, a_{2} \right\rangle \iff h = -17
+	\end{equation*}
 \end{document}
