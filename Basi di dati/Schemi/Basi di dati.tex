@@ -1443,12 +1443,90 @@
 	Il risultato è ottenuto con la seguente operazione:
 	\begin{equation*}
 		\sigma_{\textsf{Progetto} = \textsf{Codice}}\left(\textsf{Impiegati} \Join \textsf{Progetti}\right)
-	\end{equation*}
-
-
-
-	\newpage
+	\end{equation*}\newpage
+	
 	\subsection{Algebra con valori nulli}
 	
+	È necessario introdurre la possibilità di avere dei valori nulli nell'algebra relazionale. Un \textcolor{Red3}{\textbf{\underline{valore nullo}}} (\emph{unknown}) viene rappresentato con il simbolo U e un \textbf{predicato prende tale valore quando almeno uno dei termini del confronto è \emph{sconosciuto}}. Considerando l'esempio a fine paragrafo, data la seguente selezione:
+	\begin{equation*}
+		\sigma_{\textsf{Eta} > 30}\left(\textsf{Persone}\right)
+	\end{equation*}
+	La prima tupla certamente appartiene al risultato (appartenenza \textbf{vera}), la seconda certamente non appartiene (appartenenza \textbf{falsa}), la terza forse appartiene e forse no (appartenenza \textbf{sconosciuta}).\newline
+	
+	\noindent
+	Le \textbf{tabella di verità} dei connettivi \emph{not, and, or} tenendo conto del nuovo valore logico, si estendono nel seguente modo:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c | c @{}}
+			\toprule
+			\emph{not} & \phantom{\emph{not}} \\
+			\midrule
+			F & V \\
+			U & U \\
+			V & F \\
+			\bottomrule
+		\end{tabular}
+		\hspace{3em}
+		\begin{tabular}{@{} c | c c c @{}}
+			\toprule
+			\emph{and} & V & U & F \\
+			\midrule
+			V & V & U & F \\
+			U & U & U & F \\
+			F & F & F & F \\
+			\bottomrule
+		\end{tabular}
+		\hspace{3em}
+		\begin{tabular}{@{} c | c c c @{}}
+			\toprule
+			\emph{or} & V & U & F \\
+			\midrule
+			V & V & V & V \\
+			U & V & U & U \\
+			F & V & U & F \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	Il valore nullo rappresenta un valore di verità intermedio tra vero e falso, e il significato dei tre connettivi in questo contesto diventa il seguente:
+	\begin{itemize}
+		\item Il \textbf{\emph{not}} è vero solo se il valore di partenza è falso;
+		
+		\item L'\textbf{\emph{and}} è vero solo se tutti i termini sono veri;
+		
+		\item L'\textbf{\emph{or}} è vero se almeno uno dei termini è vero.
+	\end{itemize}
+	Considerando ancora l'esempio a fine paragrafo, data la seguente espressione:
+	\begin{equation*}
+		\sigma_{\textsf{Eta} > 30}\left(\textsf{Persone}\right) \cup \sigma_{\textsf{Eta} \le 30}\left(\textsf{Persone}\right)
+	\end{equation*}
+	Logicamente si potrebbe pensare che il risultato sia esattamente la relazione \textsf{Persone}. Questo è \textbf{sbagliato} poiché la terza tupla, quella con il valore \textsf{NULL}, ha un'appartenenza sconosciuta a ciascuna sottoespressione e dunque anche all'unione. Questo discorso vale anche per la seguente espressione:
+	\begin{equation*}
+		\sigma_{\textsf{Eta} > 30 \lor \textsf{Eta} \le 30}\left(\textsf{Persone}\right)
+	\end{equation*}
+	In cui la disgiunzione viene valutata secondo la logica a tre valori.\newline
+	
+	\noindent
+	Da questo problema nasce l'esigenza di esplicitare due nuove condizioni: \textcolor{Red3}{\textbf{IS NULL}} e \textcolor{Red3}{\textbf{IS NOT NULL}}. Il loro significato:
+	\begin{itemize}
+		\item $A$ \textsf{IS NULL} assume un valore vero su una tupla $t$ se il valore di $t$ su $A$ è nullo e falso (altrimenti) se esso è specificato;
+		
+		\item $A$ \textsf{IS NOT NULL} assume un valore vero su una tupla $t$ se il valore di $t$ su $A$ è specificato e falso (altrimenti) se esso è nullo;
+	\end{itemize}
+	Considerando l'esempio a fine paragrafo, data l'espressione:
+	\begin{equation*}
+		\sigma_{\textsf{Eta} > 30 \lor \textsf{Eta IS NULL}}\left(Persone\right)
+	\end{equation*}
+	Si ottiene le persone che hanno o potrebbero avere più di trent'anni (quindi età nota e maggiore di 30 oppure non nota). Invece, per ottenere tutte le tuple:
+	\begin{equation*}
+		\sigma_{\textsf{Eta} > 30 \lor \textsf{Eta} \le 30 \lor \textsf{Eta IS NULL}}\left(Persone\right)
+	\end{equation*}\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio}}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/valori_nulli.pdf}
+	\end{figure}\newpage
+
 	\subsection{Equivalenza di espressioni algebriche}
 \end{document}
