@@ -5,8 +5,8 @@
 I = imread('cameraman.tif');
 
 % Creo una LUT per operazione di clamping
-a = 110; % NO 100!
-b = 190; % NO 200!
+a = 100;
+b = 200;
 LUT = []
 for i = 0:255
     r = i;
