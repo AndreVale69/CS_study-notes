@@ -2963,24 +2963,94 @@
 	\begin{equation*}
 		H\left(u,v\right) = \left(1 + k \cdot H_{PA}\left(u,v\right)\right) \cdot H
 	\end{equation*}
-	Dove $k$ è il contributo delle alte frequenze, $H$ lo spettro dell'immagine e $H_{PA}$ il filtro passa alto
+	Dove $k$ è il contributo delle alte frequenze, $H$ lo spettro dell'immagine e $H_{PA}$ il filtro passa alto\newpage
 	
-	\subsection{Filtri passa banda e ferma banda}
+	\subsection{Filtri passa banda ideale 1D e ferma banda ideale}
 	
 	I seguenti filtri operano su una banda di frequenze, al contrario i precedenti filtri lavoravano su alte o basse frequenze.\newline
-	
-	\noindent
-	Un \textcolor{Red3}{\textbf{filtro passa banda}} sopprime tutte le frequenze al di fuori di un intervallo di frequenze specificato.\newline
-	
-	\noindent
-	Un \textcolor{Red3}{\textbf{filtro ferma banda}} sopprime tutte le frequenze nell'intervallo specificato.\newline
 	
 	\noindent
 	Analogamente ai filtri passa basso e alto, anche qui è possibile derivare uno dei due filtri avendo solamente l'altro:
 	\begin{equation*}
 		H_{PBn} = 1 - H_{FBn}
 	\end{equation*}
-	Dove $PB$ indica passa banda e $FB$ ferma banda.\newpage
+	Dove $PB$ indica passa banda e $FB$ ferma banda.\newline
+	
+	\noindent
+	Un \textcolor{Red3}{\textbf{filtro passa banda ideale 1D}} sopprime tutte le frequenze al di fuori di un intervallo di frequenze specificato. Più formalmente, esso è rappresentato con la seguente funzione:
+	\begin{equation*}
+		G\left(\mu\right) = \begin{cases}
+			1	& \text{se } u_{1} < \left|u\right| < u_{2} \\
+			0	& \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	Le variabili $u$ rappresentano l'intervallo (come si vede in figura) e al di fuori di esso il valore è zero.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/filtro_passa_banda_ideale.pdf}
+		\caption{Rappresentazione grafica del filtro passa banda ideale 1D nel \textbf{dominio delle frequenze}.}
+	\end{figure}
+	
+	\noindent
+	Dalla rappresentazione grafica si ricava anche la relativa \textbf{funzione di trasferimento nel dominio delle \underline{frequenze}}, ovvero la somma di due box traslate nel tempo ottenibili eseguendo la convoluzione di una box per due impulsi unitari (Dirac):
+	\begin{equation*}
+		G\left(u\right) = \Pi\left(\dfrac{u}{\Delta u}\right) * \left[\delta\left(u-u_{0}\right) + \delta\left(u+u_{0}\right)\right]
+	\end{equation*}
+	Dove i termini $u_{0}$ e $\Delta u$ indicano:
+	\begin{itemize}
+		\item $u_{0}$ indica dov'è centrata la box ed è ottenibile in questo modo:
+		\begin{equation*}
+			u_{0} = \dfrac{\left(u_{1} + u_{2}\right)}{2}
+		\end{equation*}
+		
+		\item $\Delta u$ indica la larghezza della box ed è ottenibile in questo modo:
+		\begin{equation*}
+			\Delta u = u_{2} - u_{1}
+		\end{equation*}
+	\end{itemize}\newpage
+	
+	\noindent
+	Invece, la \textbf{funzione di trasferimento nel dominio del \underline{tempo}} è la seguente:
+	\begin{equation*}
+		g\left(t\right) = 2\Delta u \cdot \dfrac{\sin\left(\pi t \Delta u\right)}{\pi t \Delta u} \cdot \cos\left(2 \pi u_{0} t\right)
+	\end{equation*}
+	Dato che $\Delta u < u_{0}$, allora la funzione $g\left(t\right)$ è un coseno modulato dal $\mathrm{sinc}$. Pensandoci bene, la box viene rappresentata dalla funzione $\mathrm{sinc}$\footnote{Si ricorda che la funzione $\mathrm{sinc}$ è così formata: $\mathrm{sinc}\left(x\right) = \dfrac{\sin\left(\pi x\right)}{\pi x}$} e i due impulsi possono essere rappresentati, ricordando il corso di sistemi, dalla funzione coseno. Se $u_{0}$ è costante e $\Delta u_{0}$ tende a zero, allora si ha un coseno.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/filtro_passa_banda_ideale_grafico_tempo.pdf}
+		\caption{Rappresentazione grafica del filtro passa banda ideale 1D nel \textbf{dominio del tempo}.}
+	\end{figure}\newpage
+	
+	\noindent
+	Un \textcolor{Red3}{\textbf{filtro ferma banda ideale}} sopprime tutte le frequenze nell'intervallo specificato. Più formalmente, esso è rappresentato con la seguente funzione:
+	\begin{equation*}
+		G\left(\mu\right) = \begin{cases}
+			0	& \text{se } u_{1} < \left|u\right| < u_{2} \\
+			1	& \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	Le variabili $u$ rappresentano l'intervallo (come si vede in figura) e al di fuori di esso il valore è uno. Quindi, al contrario del filtro passa banda ideale, il ferma banda non consente al segnale di esistere nelle frequenze specificate.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/filtro_ferma_banda_ideale.pdf}
+		\caption{Rappresentazione grafica del filtro ferma banda ideale nel \textbf{dominio delle frequenze}.}
+	\end{figure}
+
+	\noindent
+	Dalla rappresentazione grafica si ricava anche la relativa \textbf{funzione di trasferimento nel dominio delle \underline{frequenze}}, ovvero la rimozione (segno meno) di due box traslate nel tempo ottenibili eseguendo la convoluzione di una box per due impulsi unitari (Dirac):
+	\begin{equation*}
+		G\left(u\right) = 1 - \Pi\left(\dfrac{u}{\Delta u}\right) * \left[\delta\left(u-u_{0}\right) + \delta\left(u+u_{0}\right)\right]
+	\end{equation*}
+	I valori $u_{0}, \Delta u$ hanno lo stesso significato del filtro passa banda ideale. Invece, la \textbf{funzione di trasferimento nel dominio del \underline{tempo}} è la seguente:
+	\begin{equation*}
+		g\left(t\right) = \delta\left(t\right) - 2\Delta u \cdot \dfrac{\sin\left(\pi t \Delta u\right)}{\pi t \Delta u} \cdot \cos\left(2 \pi u_{0} t\right)
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/filtro_ferma_banda_ideale_grafico_tempo.pdf}
+		\caption{Rappresentazione grafica del filtro ferma banda ideale nel \textbf{dominio del tempo}.}
+	\end{figure}\newpage
 	
 	\section{Elaborazione di immagini - Estrazione di edge robusta}
 	
