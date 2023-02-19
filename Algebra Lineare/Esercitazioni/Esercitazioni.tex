@@ -2100,7 +2100,7 @@
 	
 	\subsubsection{Esercizio 1}
 	
-	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	\textcolor{Red3}{\textbf{Esercizio (\emph{4 punti})}}\newline
 	
 	\noindent
 	In $\mathbb{R}^{3}$ si considerino i vettori $v_{1} = \begin{pmatrix}
@@ -2185,7 +2185,7 @@
 
 	\subsubsection{Esercizio 2}
 
-	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	\textcolor{Red3}{\textbf{Esercizio (\emph{6 punti})}}\newline
 	
 	\noindent
 	Siano $v_{1} = \begin{pmatrix}
@@ -2318,7 +2318,7 @@
 	
 	\subsubsection{Esercizio 3}
 	
-	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	\textcolor{Red3}{\textbf{Esercizio (\emph{18 punti})}}\newline
 	
 	\noindent
 	Si consideri l'applicazione lineare $f:\mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$, $
@@ -2334,13 +2334,13 @@
 		x_{1} + 2x_{2} + 5x_{3}
 	\end{pmatrix}$.
 	\begin{enumerate}[label=(\alph*)]
-		\item Si trovi la matrice $A$ associata a $f$ rispetto alla base canonica sul dominio e sul codominio. Inoltre si calcolino il rango e il determinante della matrice $A$.
+		\item (\textbf{\emph{6 punti}}) Si trovi la matrice $A$ associata a $f$ rispetto alla base canonica sul dominio e sul codominio. Inoltre si calcolino il rango e il determinante della matrice $A$.
 		
-		\item Si trovi una base dello spazio nullo di $f$.
+		\item (\textbf{\emph{4 punti}}) Si trovi una base dello spazio nullo di $f$.
 		
-		\item Si trovi la matrice $B$ associata a $f$ rispetto alla base $\mathcal{B} = \left\{v_{1}, v_{2}, v_{3}\right\}$ dell'esercizio 2 sul domino e sul codominio.
+		\item (\textbf{\emph{4 punti}}) Si trovi la matrice $B$ associata a $f$ rispetto alla base $\mathcal{B} = \left\{v_{1}, v_{2}, v_{3}\right\}$ dell'esercizio 2 sul domino e sul codominio.
 		
-		\item Il vettore $u = 2v_{1} + v_{2} - v_{3}$ appartiene all'immagine di $f$? Se sì, si determini l'insieme $L$ dato da tutti i vettori $v \in \mathbb{R}^{3}$ tali che $f\left(v\right) = u$.
+		\item (\textbf{\emph{4 punti}}) Il vettore $u = 2v_{1} + v_{2} - v_{3}$ appartiene all'immagine di $f$? Se sì, si determini l'insieme $L$ dato da tutti i vettori $v \in \mathbb{R}^{3}$ tali che $f\left(v\right) = u$.
 	\end{enumerate}
 	
 	\noindent
@@ -2947,7 +2947,7 @@
 
 	\subsubsection{Esercizio 4}
 	
-	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	\textcolor{Red3}{\textbf{Esercizio (\emph{2 punti})}}\newline
 	
 	\noindent
 	Vero o falso? Si motivi la risposta!
@@ -2976,4 +2976,803 @@
 	
 	\noindent
 	La risposta è falso. Infatti, la matrice non possiede un'inversa sinistra poiché il numero di righe non è maggiore o uguale al numero di colonne.
+	
+	\longline
+	
+	\subsubsection{Esercizio bonus}
+	
+	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	
+	\noindent
+	Sia $f: V \mapsto U$ un'applicazione lineare. Data una base $\mathcal{D} = \left\{v_{1}, ..., v_{n}\right\}$ di $V$ e una base $\mathcal{B} = \left\{u_{1}, u_{n}\right\}$ di $U$, si dimostri che esiste una sola matrice $A \in M_{m \times n}\left(\mathbb{K}\right)$ tale che $C_{\mathcal{B}}\left(f\left(v\right)\right) = AC_{\mathcal{D}}\left(v\right)$ per ogni $v \in V$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione}}\newline
+	
+	\noindent
+	Sia $A$ una matrice $M_{m \times n}\left(\mathbb{K}\right)$. Si ha che la colonna $i$-esima di $A$ è uguale a $Ae_{i}$. Allora, si ha che:
+	\begin{equation*}
+		C_{\mathcal{D}}\left(v_{i}\right) = e_{i}
+	\end{equation*}
+	La colonna $i$ di $A$ è:
+	\begin{equation*}
+		Ae_{i} = AC_{\mathcal{D}}\left(v_{i}\right) = C_{\mathcal{B}}\left(f\left(v_{i}\right)\right)
+	\end{equation*}
+	Dunque $A$ ha le colonne:
+	\begin{equation*}
+		C_{\mathcal{B}}\left(f\left(v_{1}\right)\right), ..., C_{\mathcal{B}}\left(f\left(v_{n}\right)\right)
+	\end{equation*}\newpage
+
+	\subsection{Tema d'esame informatica - 20/06/2022}
+	
+	\subsubsection{Esercizio 1}
+	
+	\textcolor{Red3}{\textbf{Esercizio (\emph{6 punti})}}\newline
+	
+	\noindent
+	Si consideri la seguente matrice:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			1 & 0 & 0 & 2 \\
+			-2 & -1 & 1 & -5 \\
+			1 & -a & 2+a & 2-a \\
+			1+a & 0 & 2 & \left(1+a\right)\left(-1+a\right)
+		\end{bmatrix}
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Si calcoli, al variare di $a \in \mathbb{R}$, il rango $\mathrm{rk}\left(A\right)$ di $A$.
+		\item Si calcoli il determinante $\det\left(A\right)$ di $A$.
+		\item Si determinino i valori di $a \in \mathbb{R}$ tali che $A$ possiede una inversa.
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{a}}}\newline
+	
+	\noindent
+	Per calcolare il rango è necessario ottenere la forma ridotta. Grazie ad essa è possibile calcolare il rango considerando il numero di colonne dominanti. Quindi, si inizia con tre operazioni in ordine: si moltiplica la prima riga per $2$ e poi si somma la prima riga con la seconda; si moltiplica la prima per $-1$ e poi si somma la prima riga con la terza; si moltiplica la prima riga per $-1-a$ e poi si somma la prima riga con la terza:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			1 & 0 & 0 & 2 \\
+			-2 & -1 & 1 & -5 \\
+			1 & -a & 2+a & 2-a \\
+			1+a & 0 & 2 & \left(1+a\right)\left(-1+a\right)
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{3,1}\left(-1-a\right)]{E_{2,1}\left(2\right), \: E_{3,1}\left(-1\right)}
+		\begin{rowequmatbra}{cccc}
+			1 & 0 & 0 & 2 		\\
+			0 & -1 & 1 & -1 	\\
+			0 & -a & 2+a & -a 	\\
+			0 & 0 & 2 & a^{2}-2a-3
+		\end{rowequmatbra}
+	\end{equation*}
+	Si moltiplica la seconda riga per $-1$. Successivamente, si moltiplica la seconda riga per $a$ e poi si somma la seconda riga con la terza:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			1 & 0 & 0 & 2 		\\
+			0 & -1 & 1 & -1 	\\
+			0 & -a & 2+a & -a 	\\
+			0 & 0 & 2 & a^{2}-2a-3
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{3,2}\left(a\right)]{E_{2}\left(-1\right)}
+		\begin{rowequmatbra}{cccc}
+			1 & 0 & 0 & 2 	\\
+			0 & 1 & -1 & 1 	\\
+			0 & 0 & 2 & 0 	\\
+			0 & 0 & 2 & a^{2}-2a-3
+		\end{rowequmatbra}
+	\end{equation*}
+	Si moltiplica la terza riga per $\frac{1}{2}$. Successivamente, si moltiplica la terza riga per $-2$ e poi si somma la terza riga con la quarta:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			1 & 0 & 0 & 2 	\\
+			0 & 1 & -1 & 1 	\\
+			0 & 0 & 2 & 0 	\\
+			0 & 0 & 2 & a^{2}-2a-3
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{4,3}\left(-2\right)]{E_{3}\left(\frac{1}{2}\right)}
+		\begin{rowequmatbra}{cccc}
+			1 & 0 & 0 & 2 	\\
+			0 & 1 & -1 & 1 	\\
+			0 & 0 & 1 & 0 	\\
+			0 & 0 & 0 & a^{2}-2a-3
+		\end{rowequmatbra}
+	\end{equation*}
+	Questa è la forma ridotta della matrice $A$. Dunque, il rango si ottiene contando il numero di colonne dominanti. In questo caso, ci sono due opzioni: se l'equazione $a^{2}-2a-3$ si annulla il rango è $3$, altrimenti è $4$. Per esprimere formalmente questa casistica, si scrive:
+	\begin{equation*}
+		\mathrm{rk}\left(A\right) = \begin{cases}
+			3 & \text{se } a=3 \lor a=-1 \\
+			4 & \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	Dove le condizioni del valore $3$ sono le soluzioni dell'equazione $a^{2}-2a-3$.\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{b}}}\newline
+	
+	\noindent
+	Il determinante è possibile calcolarlo guardando direttamente la forma ridotta di $A$ calcolata nell'esercizio precedente:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			1 & 0 & 0 & 2 	\\
+			0 & 1 & -1 & 1 	\\
+			0 & 0 & 1 & 0 	\\
+			0 & 0 & 0 & a^{2}-2a-3
+		\end{rowequmatbra}
+	\end{equation*}
+	Oltre a moltiplicare i coefficienti sulla diagonale principale, si deve rivedere le operazioni elementari di Gauss. In particolare, le eliminazioni $E_{2}\left(-1\right)$, $E_{3}\left(\frac{1}{2}\right)$ modificano il determinante. La prima crea il coefficiente $-\frac{1}{1} = -1$ e il secondo $\frac{1}{\frac{1}{2}} = 2$. Quindi il determinante è:
+	\begin{equation*}
+		\det\left(A\right) = \underbrace{1 \cdot 1 \cdot 1 \cdot \left(a^{2}-2a-3\right)}_{\text{Diagonale principale}} \cdot \left(-1\right) \cdot 2 = -2a^{2} -4a -6 = -2\left(a-3\right)\left(a+1\right)
+	\end{equation*}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{c}}}\newline
+	
+	\noindent
+	La matrice $A$ possiede un'inversa:
+	\begin{itemize}
+		\item Se e solo se il suo rango è uguale al numero di righe, cioè $4$. Quindi, $a$ può essere qualsiasi valore ma \underline{non} può essere $3$ o $-1$ (si guardi il rango della soluzione \emph{a}).
+		\item Se e solo se il determinante è diverso da zero.
+	\end{itemize}\newpage
+
+	\subsubsection{Esercizio 2}
+	
+	\textcolor{Red3}{\textbf{Esercizio (\emph{12 punti})}}\newline
+	
+	\noindent
+	Si consideri la seguente matrice:
+	\begin{equation*}
+		B = \begin{bmatrix}
+			-1 & 0 & 0 & 0 	\\
+			 0 & 2 & -3 & 0 	\\
+			 0 & 0 & -1 & 0 	\\
+			 0 & 0 & 5 & 2
+		\end{bmatrix}
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Si calcolino tutti gli autovalori di $B$ su $\mathbb{R}$ e si trovino delle basi dei loro autospazi.
+		
+		\item Si verifichi che la matrice $B$ è diagonalizzabile e si scrivano la matrice diagonale $D$ e la matrice invertibile $S$ tali che $B = SDS^{-1}$.
+		
+		\item Utilizzando la diagonalizzazione, si calcoli il prodotto $B^{5}$.
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{a}}}\newline
+	
+	\noindent
+	Il vettore $\lambda \in \mathbb{R}$ è un autovalore della matrice $B$ se e solo se $\lambda$ è una radice di $P_{B} = \det\left(B - xI_{4}\right)$. Quindi, si deve determinare il determinante della matrice $B-xI_{4}$:
+	\begin{equation*}
+		B-xI_{4} = \begin{bmatrix}
+			-1 & 0 & 0 & 0 	\\
+			0 & 2 & -3 & 0 	\\
+			0 & 0 & -1 & 0 	\\
+			0 & 0 & 5 & 2
+		\end{bmatrix} - \begin{bmatrix}
+			x & 0 & 0 & 0 	\\
+			0 & x & 0 & 0 	\\
+			0 & 0 & x & 0 	\\
+			0 & 0 & 0 & x
+		\end{bmatrix} = \begin{bmatrix}
+			-1-x & 0 & 0 & 0 	\\
+			0 & 2-x & -3 & 0 	\\
+			0 & 0 & -1-x & 0 	\\
+			0 & 0 & 5 & 2-x
+		\end{bmatrix}
+	\end{equation*}
+	Il determinante si calcola tramite Laplace. Si inizia eliminando il valore $2-x$ in posizione $\left(2,2\right)$:
+	\begin{gather*}
+		\begin{rowequmatbra}{cccc}
+			-1-x & \MyTikzmark{s_col}{0} & 0 & 0 \\
+			\MyTikzmark{s_row}{0} & 2-x & -3 & \MyTikzmark{e_row}{0} \\
+			0 & 0 & -1-x & 0 \\
+			0 & \MyTikzmark{e_col}{0} & 5 & 2-x
+		\end{rowequmatbra} \\
+		\DrawHLine{s_row}{e_row}
+		\DrawVLine{s_col}{e_col}
+		\\
+		\det\left(A\right) = \left(-1\right)^{2+2} \cdot \left(2-x\right) \cdot \det\left(
+		\begin{rowequmatbra}{ccc}
+			-1-x & 0 & 0 	\\
+			0 & -1-x & 0 	\\
+			0 & 5 & 2-x
+		\end{rowequmatbra}\right)
+	\end{gather*}
+	Dato che si tratta di una matrice triangola inferiore, adesso è possibile calcolare il determinante direttamente moltiplicando i coefficienti della diagonale:
+	\begin{equation*}
+		\det\left(A\right) = \left(-1\right)^{2+2} \cdot \left(2-x\right) \cdot \left(-1-x\right) \cdot \left(-1-x\right) \cdot \left(2-x\right) = \left(2-x\right)^{2}\left(-1-x\right)^{2}
+	\end{equation*}
+	L'equazione viene annullata dai valori $\lambda = 2 \land \lambda = -1$. Quindi, gli autovalori di $B$ sono questi due valori.\newline
+	
+	\noindent
+	Adesso si trovano le basi sfruttando lo spazio nullo. Quindi, per il primo autovalore $\lambda_{1} = -1$ si ha:
+	\begin{equation*}
+		\begin{array}{lll}
+			E_{B}\left(\lambda_{1}\right) = N\left(B - \lambda_{1}I_{4}\right) & = & N\left(
+			\begin{bmatrix}
+				-1 & 0 & 0 & 0 	\\
+				0 & 2 & -3 & 0 	\\
+				0 & 0 & -1 & 0 	\\
+				0 & 0 & 5 & 2
+			\end{bmatrix} - \begin{bmatrix}
+				-1 & 0 & 0 & 0 	\\
+				0 & -1 & 0 & 0 	\\
+				0 & 0 & -1 & 0 	\\
+				0 & 0 & 0 & -1
+			\end{bmatrix}\right) \\
+			\\
+			& = & N\left(
+			\begin{bmatrix}
+				0 & 0 & 0 & 0 	\\
+				0 & 3 & -3 & 0 	\\
+				0 & 0 & 0 & 0 	\\
+				0 & 0 & 5 & 3
+			\end{bmatrix}\right)
+		\end{array}
+	\end{equation*}
+	Lo spazio nullo ha le soluzioni:
+	\begin{equation*}
+		\begin{bmatrix}
+			0 & 0 & 0 & 0 	\\
+			0 & 3 & -3 & 0 	\\
+			0 & 0 & 0 & 0 	\\
+			0 & 0 & 5 & 3
+		\end{bmatrix} \begin{bmatrix}
+			x_{1} \\
+			x_{2} \\
+			x_{3} \\
+			x_{4}
+		\end{bmatrix} = \begin{bmatrix}
+			0 \\
+			0 \\
+			0 \\
+			0
+		\end{bmatrix}
+	\end{equation*}
+	Quindi, si esegue l'EG per ottenere la forma ridotta e risolvere il sistema. Le operazioni eseguite sono: lo scambio di righe prima e seconda; scambio di righe seconda e quarta; moltiplicazione della prima riga per $\frac{1}{3}$; moltiplicazione della seconda riga per $\frac{1}{5}$.
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			0 & 0 & 0 & 0 	\\ [0.3em]
+			0 & 3 & -3 & 0 	\\ [0.3em]
+			0 & 0 & 0 & 0 	\\ [0.3em]
+			0 & 0 & 5 & 3
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{1}\left(\frac{1}{3}\right),\: E_{2}\left(\frac{1}{5}\right)]{E_{1,2},\: E_{2,4}}
+		\begin{rowequmatbra}{cccc}
+			0 & 1 & -1 & 0 	\\ [0.3em]
+			0 & 0 & 1 & \frac{3}{5} \\ [0.3em]
+			0 & 0 & 0 & 0 	\\ [0.3em]
+			0 & 0 & 0 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Dalla forma ridotta si scrive il sistema e il vettore soluzione:
+	\begin{equation*}
+		\begin{cases}
+			x_{2}-x_{3} = 0 \\
+			x_{3} + \frac{3}{5}x_{4} = 0
+		\end{cases} \Longrightarrow
+		\begin{cases}
+			x_{3} = x_{2} \\
+			x_{4} = -\frac{5}{3}x_{2}
+		\end{cases} \Longrightarrow
+		\begin{rowequmatbra}{c}
+			0 \\ [0.3em]
+			x_{2} \\ [0.3em]
+			x_{2} \\ [0.3em]
+			-\frac{5}{3}x_{2}
+		\end{rowequmatbra}
+	\end{equation*}
+	Il seguente insieme è la base di $E_{B}\left(\lambda_{1}\right)$:
+	\begin{equation*}
+		\left\{
+		\left.
+		\begin{rowequmatbra}{c}
+			x_{1} \\ [0.3em]
+			x_{2} \\ [0.3em]
+			x_{2} \\ [0.3em]
+			-\frac{5}{3}x_{2}
+		\end{rowequmatbra}
+		\right| x_{1}, x_{2} \in \mathbb{R}
+		\right\}
+	\end{equation*}
+	Una possibile base:
+	\begin{equation*}
+		\left\{
+		\begin{rowequmatbra}{c}
+			1 \\ [0.3em]
+			0 \\ [0.3em]
+			0 \\ [0.3em]
+			0
+		\end{rowequmatbra}, \begin{rowequmatbra}{c}
+			0 \\ [0.3em]
+			1 \\ [0.3em]
+			1 \\ [0.3em]
+			-\frac{5}{3}
+		\end{rowequmatbra}
+		\right\}
+	\end{equation*}
+	\newpage
+	
+	\noindent
+	Per il secondo autovalore $\lambda_{2} = 2$ si ha:
+	\begin{equation*}
+		\begin{array}{lll}
+			E_{B}\left(\lambda_{2}\right) = N\left(B - \lambda_{2}I_{4}\right) & = & N\left(
+			\begin{bmatrix}
+				-1 & 0 & 0 & 0 	\\
+				0 & 2 & -3 & 0 	\\
+				0 & 0 & -1 & 0 	\\
+				0 & 0 & 5 & 2
+			\end{bmatrix} - \begin{bmatrix}
+				2 & 0 & 0 & 0 	\\
+				0 & 2 & 0 & 0 	\\
+				0 & 0 & 2 & 0 	\\
+				0 & 0 & 0 & 2
+			\end{bmatrix}\right) \\
+			\\
+			& = & N\left(
+			\begin{bmatrix}
+				-3 & 0 & 0 & 0 	\\
+				0 & 0 & -3 & 0 	\\
+				0 & 0 & -3 & 0 	\\
+				0 & 0 & 5 & 0
+			\end{bmatrix}\right)
+		\end{array}
+	\end{equation*}
+	Lo spazio nullo ha le soluzioni:
+	\begin{equation*}
+		\begin{bmatrix}
+			-3 & 0 & 0 & 0 	\\
+			0 & 0 & -3 & 0 	\\
+			0 & 0 & -3 & 0 	\\
+			0 & 0 & 5 & 0
+		\end{bmatrix} \begin{bmatrix}
+			x_{1} \\
+			x_{2} \\
+			x_{3} \\
+			x_{4}
+		\end{bmatrix} = \begin{bmatrix}
+			0 \\
+			0 \\
+			0 \\
+			0
+		\end{bmatrix}
+	\end{equation*}
+	Quindi, si esegue l'EG per ottenere la forma ridotta e risolvere il sistema. Le operazioni eseguite sono: la moltiplicazione della prima riga per $-\frac{1}{3}$; la moltiplicazione della seconda riga per $-\frac{1}{3}$; la moltiplicazione della seconda riga per $3$ e poi la somma della seconda riga con la terza; la moltiplicazione della seconda riga per $-5$ e poi la somma della seconda riga con la quarta.
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			-3 & 0 & 0 & 0 	\\
+			0 & 0 & -3 & 0 	\\
+			0 & 0 & -3 & 0 	\\
+			0 & 0 & 5 & 0
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{3,2}\left(3\right),\: E_{4,2}\left(-5\right)]{E_{1}\left(-\frac{1}{3}\right),\: E_{2}\left(-\frac{1}{3}\right)}
+		\begin{rowequmatbra}{cccc}
+			1 & 0 & 0 & 0 	\\
+			0 & 0 & 1 & 0 	\\
+			0 & 0 & 0 & 0 	\\
+			0 & 0 & 0 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Dalla forma ridotta si scrive il sistema e il vettore soluzione:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = 0 \\
+			x_{3} = 0
+		\end{cases}
+		\Longrightarrow
+		\begin{rowequmatbra}{c}
+			0 \\ [0.3em]
+			x_{2} \\ [0.3em]
+			0 \\ [0.3em]
+			x_{4}
+		\end{rowequmatbra}
+	\end{equation*}
+	Il seguente insieme è la base di $E_{B}\left(\lambda_{2}\right)$:
+	\begin{equation*}
+		\left\{
+		\left.
+		\begin{rowequmatbra}{c}
+			0 \\ [0.3em]
+			x_{2} \\ [0.3em]
+			0 \\ [0.3em]
+			x_{4}
+		\end{rowequmatbra}
+		\right| x_{2},x_{4} \in \mathbb{R}
+		\right\}
+	\end{equation*}
+	Una possibile base:
+	\begin{equation*}
+		\left\{
+		\begin{rowequmatbra}{c}
+			0 \\ [0.3em]
+			1 \\ [0.3em]
+			0 \\ [0.3em]
+			0
+		\end{rowequmatbra}, 	\begin{rowequmatbra}{c}
+			0 \\ [0.3em]
+			0 \\ [0.3em]
+			0 \\ [0.3em]
+			1
+		\end{rowequmatbra}
+		\right\}
+	\end{equation*}
+	\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{b}}}\newline
+	
+	\noindent
+	Una matrice per essere diagonalizzabile deve seguire due regole fondamentali:
+	\begin{itemize}
+		\item La somma delle molteplicità algebriche $m_{a}$ deve essere uguale all'ordine della matrice;
+		\item Ogni molteplicità geometrica $m_{g}$ deve essere uguale alla corrispettiva molteplicità algebrica.
+	\end{itemize}
+	Quindi, osservando il determinante della matrice caratteristica ottenuta nel primo punto:
+	\begin{equation*}
+		\det\left(A\right) = \left(2-x\right)^{2}\left(-1-x\right)^{2}
+	\end{equation*}
+	Si nota che le uniche soluzioni sono $\lambda_{1} = 2 \land \lambda_{2} = -1$. La molteplicità algebrica per entrambe le soluzioni è pari a due. Infatti, il valore $2$ annulla esattamente due soluzioni su quattro e anche il valore $-1$ fa la stessa cosa:
+	\begin{equation*}
+		\begin{array}{lllll}
+			\lambda_{1} = 2 & \longrightarrow & \cancel{\left(2-x\right)} \cancel{\left(2-x\right)} \left(-1-x\right) \left(-1-x\right) & \longrightarrow & m_{a1} = 2 \\
+			\\
+			\lambda_{2} = -1 & \longrightarrow & \left(2-x\right) \left(2-x\right) \cancel{\left(-1-x\right)} \cancel{\left(-1-x\right)} & \longrightarrow & m_{a2} = 2
+		\end{array}
+	\end{equation*}
+	Quindi, sommando le molteplicità algebriche, viene soddisfatta la prima condizione del teorema di diagonalizzazione:
+	\begin{equation*}
+		m_{a1} + m_{a2} = 4 = \text{ ordine matrice \checkmark}
+	\end{equation*}
+	Adesso, per verificare le molteplicità geometriche è necessario seguire questa formula e verificare che la molteplicità geometrica sia uguale alla molteplicità algebrica:
+	\begin{equation*}
+		m_{g} = n - \mathrm{rk}\left(A - \lambda_{i}I_{n}\right)
+	\end{equation*}
+	Dove $n$ indica l'ordine della matrice $A$. Quindi, è necessario calcolare il rango della matrice calcolata al punto \emph{a} per ogni $\lambda$. In questo caso, si verifica il rango della matrice per $\lambda_{1}$ e $\lambda_{2}$:
+	\begin{equation*}
+		\begin{array}{lll}
+			m_{g1} &=& 4 - 2 \\
+			m_{g2} &=& 4 - 2
+		\end{array}
+	\end{equation*}
+	Il rango di entrambe le matrici è $2$ perché corrisponde al numero delle colonne dominanti. La seconda condizione del teorema è soddisfatta:
+	\begin{equation*}
+		m_{g1} = m_{a1} \land m_{g2} = m_{a2} \text{ \checkmark}
+	\end{equation*}
+	Quindi, la matrice $A$ è diagonalizzabile.\newpage
+	
+	\noindent
+	La matrice diagonale si trova inserendo le soluzioni dell'equazione caratteristica:
+	\begin{equation*}
+		D = \begin{bmatrix}
+			2 & 0 & 0 & 0 \\
+			0 & 2 & 0 & 0 \\
+			0 & 0 & -1 & 0 \\
+			0 & 0 & 0 & -1
+		\end{bmatrix}
+	\end{equation*}
+	E la matrice $S$ si trova combinando le basi trovate precedentemente:
+	\begin{equation*}
+		S = \begin{rowequmatbra}{cccc}
+			0 & 0 & 1 & 0 \\ [0.3em]
+			1 & 0 & 0 & 1 \\ [0.3em]
+			0 & 0 & 0 & 1 \\ [0.3em]
+			0 & 1 & 0 & -\frac{5}{3}
+		\end{rowequmatbra}
+	\end{equation*}
+	Adesso si cerca la matrice invertita di $S$. Per farlo, si crea una matrice aumentata contenente a sinistra la matrice $S$ e a destra la matrice identità $I_{4}$. Si applica l'eliminazione di Gauss e si cerca di ottenere a sinistra una matrice identità così da avere a destra l'inversa. Quindi, si inizia con quattro scambi di righe: la prima riga con la terza, la seconda riga con la prima, la terza riga con la quarta e la quarta con la seconda.
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|cccc}
+			0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\ [0.3em]
+			1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\ [0.3em]
+			0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\ [0.3em]
+			0 & 1 & 0 & -\frac{5}{3} & 0 & 0 & 0 & 1 
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{3,4}, \: E_{4,2}]{E_{1,3}, \: E_{2,1}}
+		\begin{rowequmatbra}{cccc|cccc}
+			1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\ [0.3em]
+			0 & 1 & 0 & -\frac{5}{3} & 0 & 0 & 0 & 1 \\ [0.3em]
+			0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\ [0.3em]
+			0 & 0 & 0 & 1 & 0 & 0 & 1 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si moltiplica la quarta riga per $-1$ e poi si somma la quarta riga con la prima. Successivamente, si moltiplica la quarta riga per $-\frac{5}{3}$ e poi si somma la quarta riga con la seconda:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc|cccc}
+			1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\ [0.3em]
+			0 & 1 & 0 & -\frac{5}{3} & 0 & 0 & 0 & 1 \\ [0.3em]
+			0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\ [0.3em]
+			0 & 0 & 0 & 1 & 0 & 0 & 1 & 0
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{2,4}\left(-\frac{5}{3}\right)] {E_{1,4}\left(-1\right)}
+		\begin{rowequmatbra}{cccc|cccc}
+			1 & 0 & 0 & 0 & 0 & 1 & -1 & 0 \\ [0.3em]
+			0 & 1 & 0 & 0 & 0 & 0 & \frac{5}{3} & 1 \\ [0.3em]
+			0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\ [0.3em]
+			0 & 0 & 0 & 1 & 0 & 0 & 1 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	A sinistra si ha la matrice identità, quindi a destra si ha la matrice invertita:
+	\begin{equation*}
+		S^{-1} = \begin{rowequmatbra}{cccc}
+			0 & 1 & -1 & 0 \\ [0.3em]
+			0 & 0 & \frac{5}{3} & 1 \\ [0.3em]
+			1 & 0 & 0 & 0 \\ [0.3em]
+			0 & 0 & 1 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{c}}}\newline
+	
+	\noindent
+	Per calcolare il prodotto $B^{5}$ utilizzando la diagonalizzazione, banalmente si eleva alla $5$ la diagonalizzazione $\left(B^{5} = SD^{5}S^{-1}\right)$ e si ottiene la matrice:
+	\begin{equation*}
+		D = \begin{rowequmatbra}{cccc}
+			2 & 0 & 0 & 0 \\ [0.3em]
+			0 & 2 & 0 & 0 \\ [0.3em]
+			0 & 0 & -1 & 0 \\ [0.3em]
+			0 & 0 & 0 & -1
+		\end{rowequmatbra}
+		D^{5} = \begin{rowequmatbra}{cccc}
+			32 & 0 & 0 & 0 \\ [0.3em]
+			0 & 32 & 0 & 0 \\ [0.3em]
+			0 & 0 & -1 & 0 \\ [0.3em]
+			0 & 0 & 0 & -1
+		\end{rowequmatbra}
+	\end{equation*}\newpage
+	
+	\subsubsection{Esercizio 3}
+	
+	\textcolor{Red3}{\textbf{Esercizio (\emph{8 punti})}}\newline
+	
+	\noindent
+	Si consideri la seguente matrice:
+	\begin{equation*}
+		M = \begin{bmatrix}
+			i & 2i+1 	\\
+			-1 & 2		\\
+			-i & 2i
+		\end{bmatrix}
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Si calcoli la H-trasposta $M^{H}$ di $M$.
+		
+		\item Si determinino una base di $C\left(M\right)$ e una base di $N\left(M^{H}\right)$ su $\mathbb{C}$.
+		
+		\item Si scriva una base di $\mathbb{C}^{3}$ che contiene le colonne di $M$.
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{a}}}\newline
+	
+	\noindent
+	La matrice H-trasposta si calcola eseguendo la trasposizione (cambio di righe e colonne) e la coniugazione dei valori complessi:
+	\begin{equation*}
+		M = \begin{bmatrix}
+			i & 2i+1 	\\
+			-1 & 2		\\
+			-i & 2i
+		\end{bmatrix} \longrightarrow M^{H} = \begin{bmatrix}
+			-i		& -1	& i		\\
+			-2i+1	&  2	& -2i
+		\end{bmatrix}
+	\end{equation*}
+
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{b}}}\newline
+	
+	\noindent
+	Data la base $C\left(M\right) = \left\langle \begin{pmatrix}
+		i \\
+		-1 \\
+		-i
+	\end{pmatrix}, \begin{pmatrix}
+		2i+1 \\
+		2 \\
+		2i
+	\end{pmatrix} \right\rangle$ si cerca una base definita. Quindi, si calcola la forma ridotta della matrice $M$ con Gauss poiché il rango della matrice è uguale alla dimensione di una qualunque base. Si moltiplica la prima riga per $\frac{1}{2}$:
+	\begin{equation*}
+		\begin{rowequmatbra}{cc}
+			i & 2i+1 	\\
+			-1 & 2		\\
+			-i & 2i
+		\end{rowequmatbra}{cc}
+		\xlongrightarrow{E_{1}\left(\frac{1}{i}\right)}
+		\begin{rowequmatbra}{cc}
+			1 & 2-i 	\\
+			-1 & 2		\\
+			-i & 2i
+		\end{rowequmatbra}
+	\end{equation*}
+	Si moltiplica la prima riga per $1$ e poi si somma la prima riga con la seconda. Successivamente, si moltiplica la prima riga con $i$ e poi si somma la prima riga con la terza:
+	\begin{equation*}
+		\begin{rowequmatbra}{cc}
+			1 & 2-i 	\\
+			-1 & 2		\\
+			-i & 2i
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{3,1}\left(i\right)]{E_{2,1}\left(1\right)}
+		\begin{rowequmatbra}{cc}
+			1 & 2-i 	\\
+			0 & 4-i		\\
+			0 & 4i+1
+		\end{rowequmatbra}
+	\end{equation*}
+	Si moltiplica la seconda riga per $\frac{1}{4-i}$. Successivamente, si moltiplica la seconda riga per $-4i-1$ e poi si somma la seconda riga con la terza:
+	\begin{equation*}
+		\begin{rowequmatbra}{cc}
+			1 & 2-i 	\\
+			0 & 4-i		\\
+			0 & 4i+1
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{3,2}\left(-4i-1\right)]{E_{2}\left(\frac{1}{4-i}\right)}
+		\begin{rowequmatbra}{cc}
+			1 & 2-i 	\\
+			0 & 1		\\
+			0 & 0
+		\end{rowequmatbra}
+	\end{equation*}\newpage
+
+	\noindent
+	Le colonne dominanti della matrice ridotta sono $2$, quindi il suo rango è $2$ e la dimensione dello spazio vettoriale finalmente generato è pari a $2$. Si conclude dicendo che l'insieme è una base di $C\left(M\right)$:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			i \\
+			-1 \\
+			-i
+		\end{pmatrix}, \begin{pmatrix}
+			2i+1 \\
+			2 \\
+			2i
+		\end{pmatrix}\right\}
+	\end{equation*}
+	Inoltre, viene richiesta una base del sottospazio nullo. Quindi, sapendo che:
+	\begin{equation*}
+		N\left(M^{H}\right) = \left\{v \in \mathbb{C}^{3} \: | \: M^{H}v = 0\right\}
+	\end{equation*}
+	Per trovare una base si cerca una forma ridotta con Gauss e si inizia moltiplicando la prima riga per $-\frac{1}{i}$:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			-i		& -1	& i		\\
+			-2i+1	&  2	& -2i
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{1}\left(-\frac{1}{i}\right)}
+		\begin{rowequmatbra}{ccc}
+			1		& -i	& -1		\\
+			-2i+1	&  2	& -2i
+		\end{rowequmatbra}
+	\end{equation*}
+	Si moltiplica la prima riga per $-1+2i$ e poi si somma la prima riga con la seconda:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			1		& -i	& -1		\\
+			-2i+1	&  2	& -2i
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{2,1}\left(-1+2i\right)}
+		\begin{rowequmatbra}{ccc}
+			1	& -i	& -1		\\
+			0	&  4i+4	& 1-4i
+		\end{rowequmatbra}
+	\end{equation*}
+	Infine, si moltiplica la seconda riga per $\frac{1}{i+4}$:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc}
+			1	& -i	& -1		\\
+			0	&  4i+4	& 1-4i
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{2}\left(\frac{1}{i+4}\right)}
+		\begin{rowequmatbra}{ccc}
+			1	& -i	& -1		\\
+			0	&  1	& -i
+		\end{rowequmatbra}
+	\end{equation*}
+	Il sistema lineare equivalente e il vettore risultante sono:
+	\begin{equation*}
+		\begin{cases}
+			x - iy - z = 0 \\
+			y - iz = 0
+		\end{cases} \Longrightarrow
+		\begin{cases}
+			x = i\left(iz\right) + z = 0
+			y = iz \\
+		\end{cases} = \begin{bmatrix}
+			0 \\
+			iz \\
+			z
+		\end{bmatrix}
+	\end{equation*}
+	Quindi, l'insieme nullo:
+	\begin{equation*}
+		N\left(M^{H}\right) = \left\{\left.\begin{pmatrix}
+			0 \\
+			iz \\
+			z
+		\end{pmatrix} \: \right| \: z \in \mathbb{C}\right\}
+	\end{equation*}
+	Una base di $N\left(M^{H}\right)$ è:
+	\begin{equation*}
+		\begin{pmatrix}
+			0 \\
+			i \\
+			1
+		\end{pmatrix}
+	\end{equation*}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{c}}}\newline
+	
+	\noindent
+	Data che $\mathbb{C}^{3}$ è composto da $\mathbb{C}^{3} = C\left(M\right) \bigoplus N\left(M^{H}\right)$ allora l'insieme:
+	\begin{equation*}
+		\left\{
+		\begin{pmatrix}
+			i \\
+			-1 \\
+			-i
+		\end{pmatrix}, \begin{pmatrix}
+			2i+1 \\
+			2 \\
+			2i
+		\end{pmatrix}, \begin{pmatrix}
+			0 \\
+			i \\
+			1
+		\end{pmatrix}
+		\right\} \text{ è una base di } \mathbb{C}^{3}
+	\end{equation*}\newpage
+
+	\subsubsection{Esercizio 4}
+	
+	\textcolor{Red3}{\textbf{Esercizio (\emph{4 punti})}}\newline
+	
+	\noindent
+	Vero o falso? Si motivi la risposta!
+	\begin{enumerate}[label=(\alph*)]
+		\item Il sistema lineare omogeneo $Ax = 0$ ammette soltanto la soluzione banale $x = \begin{pmatrix}
+			0 \\
+			0 \\
+			0
+		\end{pmatrix}$ dove $A = \begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & 0
+		\end{pmatrix}$
+		
+		\item L'insieme $\left\{\begin{pmatrix}
+			-1 \\
+			0
+		\end{pmatrix}, \begin{pmatrix}
+			2 \\
+			1
+		\end{pmatrix}, \begin{pmatrix}
+			1 \\
+			2
+		\end{pmatrix}\right\}$ è linearmente dipendente.
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{a}}}\newline
+	
+	\noindent
+	Falso, poiché eseguendo la moltiplicazione con un vettore $\begin{pmatrix}
+		0 \\
+		0 \\
+		2
+	\end{pmatrix}$ il risultato è comunque $0$.\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{b}}}\newline
+	
+	\noindent
+	Vero, risolvendo il sistema:
+	\begin{equation*}
+		\begin{cases}
+			-x + 2y + z = 0 \\
+			y + 2z = 0
+		\end{cases} \Longrightarrow
+		\begin{cases}
+			x = -3z \\
+			y = -2z
+		\end{cases}
+	\end{equation*}
+	La soluzione dipende dal parametro $z$, quindi sono linearmente dipendenti.
 \end{document}
