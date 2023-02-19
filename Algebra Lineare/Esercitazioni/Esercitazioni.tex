@@ -15,6 +15,7 @@
 \usepackage{cancel}					% per cancellare delle espressioni matematiche
 
 
+
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 % Link ipertestuali per l'indice
 \usepackage{xcolor}
@@ -22,6 +23,22 @@
 \hypersetup{
 	colorlinks=true
 }
+
+\usepackage{tikz}
+\newcommand{\MyTikzmark}[2]{%
+	\tikz[overlay,remember picture,baseline] \node [anchor=base] (#1) {#2};%
+}
+\newcommand{\DrawVLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.3ex, #1] (#2.north) -- (#3.south);
+	\end{tikzpicture}
+}
+\newcommand{\DrawHLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.2em, #1] (#2.west) -- (#3.east);
+	\end{tikzpicture}
+}
+
 
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
@@ -32,6 +49,7 @@
 \newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
 \newcommand{\dquotes}[1]{``#1''}
 \newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+\newcommand{\circledtext}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
 
 \newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
 \newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
@@ -1744,5 +1762,1218 @@
 	Già dalla forma ridotta è possibile notare che esiste un'unica soluzione. Ovvero, il sistema è possibile risolverlo solamente se $h = -17$ e dunque l'unico valore reale ammesso tale per cui il vettore $b$ sia contenuto nel sottospazio è $-17$. Più formalmente:
 	\begin{equation*}
 		b \in \left\langle a_{1}, a_{2} \right\rangle \iff h = -17
+	\end{equation*}\newpage
+
+	\section{Determinante}
+	
+	\subsection{Come calcolarlo}\label{Determinante}
+	
+	Per calcolare il \textbf{determinante} di una matrice esistono due metodi:
+	\begin{enumerate}
+		\item Si esegue l'\textbf{eliminazione di Gauss} così da ottenere una matrice triangolare superiore o inferiore. Grazie alle operazioni elementari effettuate, si ottiene il determinante considerando:
+		\begin{itemize}
+			\item L'operazione di scambio di righe $E_{i,j}$, moltiplica il determinante per $-1$;
+			\item L'operazione di moltiplicazione di una riga per uno scalare $E_{i}\left(\alpha\right)$, moltiplica il determinante per $\frac{1}{\alpha}$;
+			\item L'operazione di moltiplicazione di una riga con un'altra e la relativa somma $E_{i,j}\left(\alpha\right)$ (e anche la trasposta), non cambia il determinante.
+		\end{itemize}
+		E moltiplicando il risultato per ogni elemento della diagonale principale.
+		
+		\item Si utilizza il \textbf{teorema di Laplace} che consiste nel scegliere una riga o una colonna con tutti zeri e un valore non nullo (condizione non necessaria ma consigliata) e successivamente si applica la formula:
+		\begin{equation*}
+			\det\left(M\right) = \left(-1\right)^{i+j} \cdot n_{i,j} \cdot \det\left(L\right) \cdots
+		\end{equation*}
+		Dove $M$ indica la matrice dalla quale si vuole ottenere il determinante, $i,j$ sono il numero di riga e colonna (coordinate) in cui è posizionato il valore non nullo, $n$ è il valore non nullo e $L$ è la matrice risultante dalla rimozione della riga e della colonna del valore non nullo $n$ scelto.\footnote{\href{https://www.youmath.it/forum/algebra-lineare/27516-calcolo-del-determinante-di-una-matrice-con-laplace.html}{Approfondimento determinante con Laplace}}
+		
+		\item In caso di una \textbf{matrice} $\boldsymbol{2 \times 2}$, si utilizza una formula banale:
+		\begin{equation*}
+			A = \begin{bmatrix}
+				a & b \\
+				c & d
+			\end{bmatrix} \longrightarrow \det\left(A\right) = \left(a \cdot d\right) - \left(b \cdot c\right)
+		\end{equation*}
+	\end{enumerate}\newpage
+
+	\subsection{Esercizi}
+	
+	\subsubsection{Eliminazione di Gauss}
+	
+	Data la matrice:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			5 & 1 & 7 & 0 \\
+			2 & 0 & 0 & 0 \\
+			3 & 6 & 1 & 4 \\
+			2 & 0 & 1 & 0
+		\end{bmatrix}
 	\end{equation*}
+	Si calcola il determinante.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{primo passo} è eseguire l'eliminazione di Gauss tenendo conto delle operazioni effettuate. Si \textbf{moltiplica la prima riga per $\frac{1}{5}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			5	&  1	& 7		& 0 \\ [0.3em]
+			2 	&  0	& 0 	& 0 \\ [0.3em]
+			3	&  6	& 1 	& 4 \\ [0.3em]
+			2	&  0	& 1		& 0
+		\end{rowequmatbra} \xlongrightarrow{E_{1}\left(\frac{1}{5}\right)}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			2 	&  0			& 0 			& 0 \\ [0.3em]
+			3	&  6			& 1 			& 4 \\ [0.3em]
+			2	&  0			& 1				& 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la prima riga per $-2$ e poi si somma la prima riga con la seconda riga}. Successivamente, si \textbf{moltiplica la prima riga per $-3$ e poi si somma la prima riga con la terza riga}. Infine, si \textbf{moltiplica la prima riga per $-2$ e poi si somma la prima riga con la quarta riga}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			2 	&  0			& 0 			& 0 \\ [0.3em]
+			3	&  6			& 1 			& 4 \\ [0.3em]
+			2	&  0			& 1				& 0
+		\end{rowequmatbra} \xlongrightarrow[E_{3,1}\left(-3\right) \: E_{4,1}\left(-2\right)]{E_{2,1}\left(-2\right)}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			0 	&  -\frac{2}{5}	& -\frac{14}{5}	& 0 \\ [0.3em]
+			0	&  \frac{27}{5}	& -\frac{16}{5}	& 4 \\ [0.3em]
+			0	&  -\frac{2}{5}	& -\frac{9}{5}	& 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-\frac{5}{2}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			0 	&  -\frac{2}{5}	& -\frac{14}{5}	& 0 \\ [0.3em]
+			0	&  \frac{27}{5}	& -\frac{16}{5}	& 4 \\ [0.3em]
+			0	&  -\frac{2}{5}	& -\frac{9}{5}	& 0
+		\end{rowequmatbra} \xlongrightarrow{E_{2}\left(-\frac{5}{2}\right)}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			0 	&  1			& 7				& 0 \\ [0.3em]
+			0	&  \frac{27}{5}	& -\frac{16}{5}	& 4 \\ [0.3em]
+			0	&  -\frac{2}{5}	& -\frac{9}{5}	& 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-\frac{27}{5}$ e poi si somma la seconda riga con la terza riga}. Successivamente, si \textbf{moltiplica la seconda riga per $\frac{2}{5}$ e poi si somma la seconda riga con la quarta riga}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			0 	&  1			& 7				& 0 \\ [0.3em]
+			0	&  \frac{27}{5}	& -\frac{16}{5}	& 4 \\ [0.3em]
+			0	&  -\frac{2}{5}	& -\frac{9}{5}	& 0
+		\end{rowequmatbra} \xlongrightarrow[E_{4,2}\left(\frac{2}{5}\right)]{E_{3,2}\left(-\frac{27}{5}\right)}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			0 	&  1			& 7				& 0 \\ [0.3em]
+			0	&  0			& 41			& 4 \\ [0.3em]
+			0	&  0			& 1				& 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Infine, si \textbf{moltiplica la terza riga per $-\frac{1}{41}$ e si somma la terza riga con la quarta riga}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			0 	&  1			& 7				& 0 \\ [0.3em]
+			0	&  0			& 41			& 4 \\ [0.3em]
+			0	&  0			& 1				& 0
+		\end{rowequmatbra} \xlongrightarrow{E_{4,3}\left(-\frac{1}{41}\right)}
+		\begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			0 	&  1			& 7				& 0 \\ [0.3em]
+			0	&  0			& 41			& 4 \\ [0.3em]
+			0	&  0			& 0				& -\frac{4}{41}
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è stabilire il determinante. Per farlo, si seguono le regole definite nel paragrafo~\ref{Determinante}. Quindi, per ogni scambio di righe si moltiplica il determinante per $-1$; per ogni moltiplicazione di una riga per uno scalare $\alpha$ si moltiplica il determinante per lo scalare $\frac{1}{\alpha}$; l'altra operazione elementare non influisce sul determinante.\newline
+	
+	\noindent
+	In questo caso, la prima operazione $E_{1}\left(\frac{1}{5}\right)$ e la quarta operazione $E_{2}\left(-\frac{5}{2}\right)$ influiscono sul determinante (si ricorda di prendere l'inverso, quindi $5$ e $-\frac{2}{5}$). Quindi il calcolo sarà:
+	\begin{gather*}
+		\text{Matrice ridotta di } A = \begin{rowequmatbra}{cccc}
+			1	&  \frac{1}{5}	& \frac{7}{5}	& 0 \\ [0.3em]
+			0 	&  1			& 7				& 0 \\ [0.3em]
+			0	&  0			& 41			& 4 \\ [0.3em]
+			0	&  0			& 0				& -\frac{4}{41}
+		\end{rowequmatbra} \\
+		\\
+		\det\left(A\right) = 5 \cdot \left(-\dfrac{2}{5}\right) \cdot \underbrace{1 \cdot 1 \cdot 41 \cdot \left(-\dfrac{4}{41}\right)}_{\text{Diagonale principale}} = 8
+	\end{gather*}\newpage
+	
+	\subsubsection{Teorema di Laplace}
+	
+	Data la matrice:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			5 & 1 & 7 & 0 \\
+			2 & 0 & 0 & 0 \\
+			3 & 6 & 1 & 4 \\
+			2 & 0 & 1 & 0
+		\end{bmatrix}
+	\end{equation*}
+	Si calcola il determinante.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{primo passo} è scegliere un valore non nullo che ha sulla stessa riga o colonna soltanto valori nulli. In questo caso viene scelto il valore $2$ con coordinate $\left(2,1\right)$ (seconda riga, prima colonna).\newline
+	
+	\noindent
+	Il \textcolor{Red3}{secondo passo} è iniziare a scrivere la formula eliminando dalla matrice originaria il valore scelto, eliminando opportunamente anche la rispettiva riga e colonna:
+	\begin{gather*}
+		A = \begin{bmatrix}
+			5 & 1 & 7 & 0 \\
+			\circledtext{2} & 0 & 0 & 0 \\
+			3 & 6 & 1 & 4 \\
+			2 & 0 & 1 & 0
+		\end{bmatrix} \longrightarrow
+		\begin{rowequmatbra}{cccc}
+			\phantom{0}\MyTikzmark{s_col}{5} & 1 & 7 & 0\phantom{0} \\
+			\phantom{0}\MyTikzmark{s_row}{2} & 0 & 0 & \MyTikzmark{f_row}{0}\phantom{0} \\
+			\phantom{0}3 & 6 & 1 & 4\phantom{0} \\
+			\phantom{0}\MyTikzmark{f_col}{2} & 0 & 1 & 0\phantom{0}
+		\end{rowequmatbra} \\
+		\\
+		\det\left(A\right) = \left(-1\right)^{2+1} \cdot 2 \det\left(\begin{bmatrix}
+			1 & 7 & 0 \\
+			6 & 1 & 4 \\
+			0 & 1 & 0
+		\end{bmatrix}\right)
+		\DrawHLine{s_row}{f_row}
+		\DrawVLine{s_col}{f_col}
+	\end{gather*}
+	Dove il valore $-1$ è stato elevato alla somma delle coordinate del valore scelto, poi moltiplicato per il valore scelto ($2$) e moltiplicato per il determinante della nuova matrice ottenuta. Quindi, ora si calcola il nuovo determinante, scegliendo come nuovo valore $4$ con coordinate $\left(2,3\right)$:
+	\begin{gather*}
+		\begin{bmatrix}
+			1 & 7 & 0 \\
+			6 & 1 & \circledtext{4} \\
+			0 & 1 & 0
+		\end{bmatrix} \longrightarrow
+		\begin{rowequmatbra}{ccc}
+			\phantom{0}1 & 7 & \MyTikzmark{s_col}{0}\phantom{0} \\
+			\phantom{0}\MyTikzmark{s_row}{6} & 1 & \MyTikzmark{f_row}{4}\phantom{0} \\
+			\phantom{0}0 & 1 & \MyTikzmark{f_col}{0}\phantom{0}
+		\end{rowequmatbra} \\
+		\\
+		\det\left(A\right) = \left(-1\right)^{2+1} \cdot 2 \cdot \left(-1\right)^{2+3} \cdot 4 \cdot \det\left(\begin{bmatrix}
+			1 & 7 \\
+			0 & 1
+		\end{bmatrix}\right)
+		\DrawHLine{s_row}{f_row}
+		\DrawVLine{s_col}{f_col}
+	\end{gather*}
+	Per calcolare il determinante della matrice $2 \times 2$ si utilizza l'EG, notando che essa è già in forma ridotta. Quindi, si moltiplicano i valori sulla diagonale:
+	\begin{equation*}
+		\det\left(A\right) = \left(-1\right)^{2+1} \cdot 2 \cdot \left(-1\right)^{2+3} \cdot 4 \cdot 1 \cdot 1 = 8
+	\end{equation*}\newpage
+
+	\subsubsection{Spazio nullo}\label{Spazio nullo}
+	
+	Data la matrice:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			8k+1	& k+4	& 0		& k+8 	\\
+			2k 		& 0 	& 1 	& 2k+2 	\\
+			0		& 0 	& k+4 	& 0 	\\
+			k		& 0 	& k+2 	& k+3
+		\end{bmatrix}
+	\end{equation*}
+	Si determini per quali $k \in \mathbb{R}$ lo spazio nullo $N\left(A\right)$ è nullo.\newline
+	
+	\noindent
+	Lo spazio nullo è rappresentato in questo modo:
+	\begin{equation*}
+		N\left(A\right) = \left\{\begin{bmatrix}
+			0 \\
+			0 \\
+			0 \\
+			0
+		\end{bmatrix}\right\}
+	\end{equation*}
+	Le soluzioni dell'insieme $N\left(A\right)$ sono le soluzioni del sistema lineare $Ax = 0$, ma questo è vero se e solo se il rango della matrice è massimo, in questo caso $4$. Il rango massimo si ha solamente se il determinante è diverso da zero.\newline
+	
+	\noindent
+	Quindi, il \textcolor{Red3}{primo passo} è il calcolo del determinante utilizzando il teorema di Laplace. Si prende in considerazione il valore $k+4$ (in verde) con coordinate $\left(1,2\right)$:
+	\begin{gather*}
+		A = \begin{bmatrix}
+			8k+1	& \textcolor{Green4}{\boldsymbol{k+4}}	& 0		& k+8 	\\
+			2k 		& 0 	& 1 	& 2k+2 	\\
+			0		& 0 	& k+4 	& 0 	\\
+			k		& 0 	& k+2 	& k+3
+		\end{bmatrix} \longrightarrow
+		\begin{rowequmatbra}{cccc}
+			\phantom{000}\MyTikzmark{s_row}{8k+1}\phantom{000}	& \MyTikzmark{s_col}{k+4}	& 0		& \MyTikzmark{f_row}{k+8} 	\\
+			\phantom{0}2k 		& 0 	& 1 	& 2k+2 	\\
+			\phantom{0}0		& 0 	& k+4 	& 0 	\\
+			\phantom{0}k		& \MyTikzmark{f_col}{0} 	& k+2 	& k+3
+		\end{rowequmatbra} \\
+		\\
+		\det\left(A\right) = \left(-1\right)^{1+2} \cdot \left(k+4\right) \cdot \det\left(\begin{bmatrix}
+			2k 	& 1 	& 2k+2	\\
+			0 	& k+4 	& 0 	\\
+			k 	& k+2 	& k+3
+		\end{bmatrix}\right)
+		\DrawHLine{s_row}{f_row}
+		\DrawVLine{s_col}{f_col}
+	\end{gather*}
+	Continuando i calcoli si ottiene la seguente forma:
+	\begin{equation*}
+		\det\left(A\right) = -\left(k+4\right)^{2}\left(4k\right) = -4k^{3} - 32k^{2} - 64k
+	\end{equation*}
+	Dall'equazione è evidente che essa si annulla solamente per valori di $k$ pari a $-4$ o $0$. Dunque, con tali valori lo spazio nullo $N\left(A\right)$ è nullo.\newpage
+	
+	\subsubsection{Base di un insieme}
+	
+	Data la matrice dell'esercizio precedente (\ref{Spazio nullo}), si sostituisce il valore zero e poi $-4$ per trovare almeno una base per ciascuno. Si mostra qua di seguito la \textbf{variante con $k = -4$}:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			8k+1	& k+4	& 0		& k+8 	\\
+			2k 		& 0 	& 1 	& 2k+2 	\\
+			0		& 0 	& k+4 	& 0 	\\
+			k		& 0 	& k+2 	& k+3
+		\end{bmatrix} \xlongrightarrow{k = -4}
+		\begin{bmatrix}
+			-31		& 0		& 0		& 4 	\\
+			-8 		& 0 	& 1 	& -6 	\\
+			0		& 0 	& 0 	& 0 	\\
+			-4		& 0 	& -2 	& -1
+		\end{bmatrix}
+	\end{equation*}
+	Il \textcolor{Red3}{primo passo} è calcolare l'EG così da avere una forma ridotta. Quindi, si \textbf{moltiplica la prima per $-\frac{8}{31}$ e poi si somma la prima riga con la seconda riga}. Successivamente, si \textbf{moltiplica la prima riga per $-\frac{4}{31}$ e poi si somma la prima riga con la quarta}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			-31		& 0		& 0		& 4 	\\
+			-8 		& 0 	& 1 	& -6 	\\
+			0		& 0 	& 0 	& 0 	\\
+			-4		& 0 	& -2 	& -1
+		\end{rowequmatbra} \xlongrightarrow[E_{4,1}\left(-\frac{4}{31}\right)]{E_{2,1}\left(-\frac{8}{31}\right)}
+		\begin{rowequmatbra}{cccc}
+			-31		& 0		& 0		& 4 				\\ [0.3em]
+			0 		& 0 	& 1 	& -\frac{218}{31} 	\\ [0.3em]
+			0		& 0 	& 0 	& 0 				\\ [0.3em]
+			0		& 0 	& -2 	& -\frac{47}{31}
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $2$ e poi si somma la seconda riga con la quarta riga}:
+	\begin{equation*}
+		\begin{rowequmatbra}{cccc}
+			-31		& 0		& 0		& 4 				\\ [0.3em]
+			0 		& 0 	& 1 	& -\frac{218}{31} 	\\ [0.3em]
+			0		& 0 	& 0 	& 0 				\\ [0.3em]
+			0		& 0 	& -2 	& -\frac{47}{31}
+		\end{rowequmatbra} \xlongrightarrow{E_{4,2}\left(2\right)}
+		\begin{rowequmatbra}{cccc}
+			-31		& 0		& 0		& 4 				\\ [0.3em]
+			0 		& 0 	& 1 	& -\frac{218}{31} 	\\ [0.3em]
+			0		& 0 	& 0 	& 0 				\\ [0.3em]
+			0		& 0 	& 0 	& -\frac{483}{31}
+		\end{rowequmatbra}
+	\end{equation*}
+	Il \textcolor{Red3}{secondo passo} è scrivere la forma ridotta come un sistema:
+	\begin{equation*}
+		\begin{cases}
+			-31x_{1} + 4x_{4} = 0 \\
+			x_{3} -\frac{218}{31} x_{4} = 0 \\
+			0 = 0 \\
+			-\frac{483}{31}x_{4} = 0
+		\end{cases}
+	\end{equation*}
+	Si deduce che $x_{4} = x_{3} = x_{1} = 0$ e l'unica incognita rimane $x_{2}$. Infatti, la soluzione è il vettore:
+	\begin{equation*}
+		\begin{bmatrix}
+			0 \\
+			x_{2} \\
+			0 \\
+			0
+		\end{bmatrix}
+	\end{equation*}
+	Ed esso è una base di $N\left(A\right)$:
+	\begin{equation*}
+		N\left(A\right) = \left\{\left.\begin{bmatrix}
+			0 \\
+			1 \\
+			0 \\
+			0
+		\end{bmatrix} t \: \right| \: t \in \mathbb{R} \right\}
+	\end{equation*}\newpage
+
+	\section{Esercizi d'esame}
+	
+	\subsection{Tema d'esame bioinformatica - 09/02/2022}
+	
+	\subsubsection{Esercizio 1}
+	
+	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	
+	\noindent
+	In $\mathbb{R}^{3}$ si considerino i vettori $v_{1} = \begin{pmatrix}
+		1 \\
+		2 \\
+		0
+	\end{pmatrix}, v_{2} = \begin{pmatrix}
+		1 \\
+		0 \\
+		5
+	\end{pmatrix}$ e $w = \begin{pmatrix}
+		3 \\
+		4 \\
+		5
+	\end{pmatrix}$ con i sottospazi $U = \left\langle v_{1}, v_{2} \right\rangle$ e $W = \left\langle w \right\rangle$. Si calcolino $\dim\left(U+W\right)$ e $\dim\left(U \cap W\right)$.\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione}}\newline
+	
+	\noindent
+	La richiesta è quella di trovare la somma della dimensione dei due sottospazi e la loro intersezione. Per farlo, si applica la formula di Grassman:
+	\begin{equation*}
+		\dim\left(W + U\right) = \dim\left(W\right) + \dim\left(U\right) - \dim\left(W \cap U\right)
+	\end{equation*}
+	Ovviamente se l'intersezione è nulla, la formula si riduce alla seguente forma:
+	\begin{equation*}
+		\dim\left(W + U\right) = \dim\left(W\right) + \dim\left(U\right) \iff W \cap U = {0}
+	\end{equation*}
+	Si procede con l'analisi dei sottospazi.\newline
+	
+	\noindent
+	È evidente che $\left\{w\right\}$ è un insieme di generatori di $W$. Quindi, è anche linearmente indipendente poiché se un unico vettore forma il sottospazio dei generatori, allora esso è per definizione anche linearmente indipendente. Inoltre, si afferma che l'unico vettore del sottospazio è una base, dato che è linearmente indipendente, e la dimensione del suo sottospazio è pari a uno:
+	\begin{equation*}
+		\dim\left(W\right) = 1
+	\end{equation*}\newline
+	
+	\noindent
+	Analizzando il sottospazio $\left\{v_{1},v_{2}\right\}$, è possibile notare come non esista nessun scalare non nullo appartenente all'insieme dei reali tale che il primo (o secondo) vettore sia uguale al secondo (o primo) moltiplicato per lo scalare. Più formalmente:
+	\begin{equation*}
+		\cancel{\exists} \alpha \in \mathbb{R}, \alpha \ne 0: \: v_{1} = \alpha v_{2} \lor v_{2} = \alpha v_{1}
+	\end{equation*}
+	Questo perché è impossibile ottenere il valore zero se non moltiplicando un elemento per zero. Grazie a questa intuizione è possibile affermare che il sottospazio è linearmente indipendente. Analogamente a quanto è successo per il sottospazio $W$, anche in questo caso i due vettori sono una base del sottospazio $U$ e di conseguenza la dimensione è pari a due:
+	\begin{equation*}
+		\dim\left(U\right) = 2
+	\end{equation*}\newline
+
+	\noindent
+	Adesso manca da analizzare l'intersezione. Guardando i tre vettori è interessante notare come:
+	\begin{equation*}
+		w = v_{2} + 2v_{1} = \begin{pmatrix}
+			1 \\
+			0 \\
+			5
+		\end{pmatrix} + 2\begin{pmatrix}
+			1 \\
+			2 \\
+			0
+		\end{pmatrix} = \begin{pmatrix}
+			3 \\
+			4 \\
+			5
+		\end{pmatrix}
+	\end{equation*}
+	Per cui, si può affermare che se il vettore $w$ ha un pattern che è ammesso dal sottoinsieme $U$, allora esso è membro di quel sottoinsieme $w \in U$. E dall'intersezione dei due sottospazi si ha $U \cap W = W$, quindi la dimensione dell'intersezione corrisponderà alla dimensione del sottospazio $W$:
+	\begin{equation*}
+		\dim\left(U \cap W\right) = \dim\left(W\right) = 1
+	\end{equation*}
+	Potrebbe essere poco intuitivo inizialmente, ma graficamente forse si potrebbe capire meglio:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/exams/2022-02-09/insiemi.pdf}
+	\end{figure}
+	
+	\noindent
+	Risulta evidente che se combinando gli elementi di $U$ si ottiene $W$, allora vuol dire che $U$ è un sottoinsieme di $W$. Dunque, per definizione della teoria degli insiemi, l'intersezione tra un insieme e il suo sottoinsieme ritorna l'insieme più grande.\newline
+	
+	\noindent
+	Quindi, applicando la formula di Grassman, la dimensione è:
+	\begin{equation*}
+		\dim\left(W+U\right) = \dim\left(W\right) + \dim\left(U\right) - \dim\left(W \cap U\right) = 1 + 2 - 1 = 2
+	\end{equation*}\newpage
+
+	\subsubsection{Esercizio 2}
+
+	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	
+	\noindent
+	Siano $v_{1} = \begin{pmatrix}
+		1 \\
+		2 \\
+		0
+	\end{pmatrix}, v_{2} = \begin{pmatrix}
+		1 \\
+		0 \\
+		5
+	\end{pmatrix}$ come nell'esercizio 1 e sia $S$ la matrice con le colonne $v_{1}, v_{2}$ e $v_{3} = \begin{pmatrix}
+		2 \\
+		2 \\
+		0
+	\end{pmatrix}$. Si dimostri che $\mathcal{B} = \left\{v_{1}, v_{2}, v_{3}\right\}$ è una base di $\mathbb{R}^{3}$ e si calcoli la matrice inversa $S^{-1}$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione}}\newline
+	
+	\noindent
+	Il sottospazio $\mathcal{B}$ è una base di $\mathbb{R}^{3}$ se $v_{1}, v_{2}, v_{3}$ sono linearmente indipendenti. Quindi, si costruisce una matrice $S$ avente come colonne i vettori del sottospazio:
+	\begin{equation*}
+		S = \begin{bmatrix}
+			1 & 1 & 2 \\
+			2 & 0 & 2 \\
+			0 & 5 & 0
+		\end{bmatrix}
+	\end{equation*}
+	Per verificare che le colonne siano linearmente indipendenti, si sceglie una delle seguenti opzioni:
+	\begin{enumerate}
+		\item Il determinante della matrice deve essere diverso da zero;
+		
+		\item Il rango deve essere uguale al numero di righe;
+		
+		\item Il sistema aumentato $Ax = 0$ possiede solo la soluzione $x = 0$.
+	\end{enumerate}
+	Dato che dopo è necessario calcolare la matrice inversa, si opta per seguire la strada del rango. Infatti, il rango corrisponde al numero di colonne dominanti nella forma ridotta. Per ottenere quest'ultima è necessario applicare l'eliminazione di Gauss. Si inizia con la moltiplicazione della prima riga per $-2$ e poi si somma la prima riga con la seconda:
+	\begin{equation*}
+		S = \begin{bmatrix}
+			1 & 1 & 2 \\
+			2 & 0 & 2 \\
+			0 & 5 & 0
+		\end{bmatrix} \xlongrightarrow{E_{2,1}\left(-2\right)} \begin{bmatrix}
+			1 & 1 & 2 \\
+			0 & -2 & -2 \\
+			0 & 5 & 0
+		\end{bmatrix}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-\frac{1}{2}$}. Successivamente, si \textbf{moltiplica la seconda riga per $-5$ e poi si somma la seconda riga con la terza}:
+	\begin{equation*}
+		\begin{bmatrix}
+			1 & 1 & 2 \\
+			0 & -2 & -2 \\
+			0 & 5 & 0
+		\end{bmatrix} \xlongrightarrow[E_{3,2}\left(-5\right)]{E_{2}\left(-\frac{1}{2}\right)} \begin{bmatrix}
+			1 & 1 & 2 \\
+			0 & 1 & 1 \\
+			0 & 0 & -5
+		\end{bmatrix}
+	\end{equation*}
+	Si \textbf{moltiplica la terza riga per $-\frac{1}{5}$}:
+	\begin{equation*}
+		\begin{bmatrix}
+			1 & 1 & 2 \\
+			0 & 1 & 1 \\
+			0 & 0 & -5
+		\end{bmatrix} \xlongrightarrow{E_{3}\left(-\frac{1}{5}\right)} \begin{bmatrix}
+			1 & 1 & 2 \\
+			0 & 1 & 1 \\
+			0 & 0 & 1
+		\end{bmatrix}
+	\end{equation*}
+	Dalla forma ridotta è possibile calcolare il rango grazie al numero di colonne dominante. Quindi:
+	\begin{equation*}
+		\mathrm{rk}\left(S\right) = 3
+	\end{equation*}
+	Dato che il rango corrisponde al numero di righe della matrice $S$, allora le colonne sono linearmente indipendenti. Questo comporta che il sottospazio $\mathcal{B}$ è una base di $\mathbb{R}^{3}$.\newline
+	
+	\noindent
+	Adesso si calcola la matrice inversa e per farlo si utilizza la matrice aumentata aggiungendo la matrice identità e poi si esegue l'eliminazione di Gauss. Grazie alla forma ridotta calcolata precedentemente si arriva già ad un buon punto:
+	\begin{equation*}
+		\left[S | I_{3}\right] = \begin{rowequmatbra}{ccc|ccc}
+			1 & 1 & 2 & 1 & 0 & 0 \\ [0.3em]
+			2 & 0 & 2 & 0 & 1 & 0 \\ [0.3em]
+			0 & 5 & 0 & 0 & 0 & 1
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{3,2}\left(-5\right), E_{3}\left(-\frac{1}{5}\right)]{E_{2,1}\left(-2\right), E_{2}\left(-\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & 1 & 2 & 1 & 0 & 0 \\ [0.3em]
+			0 & 1 & 1 & 1 & -\frac{1}{2} & 0 \\ [0.3em]
+			0 & 0 & 1 & 1 & -\frac{1}{2} & -\frac{1}{5}
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la terza riga per $-1$ e poi si somma la terza riga con la seconda}. Successivamente si \textbf{moltiplica la terza riga per $-2$ e poi si somma la terza riga con la prima}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & 1 & 2 & 1 & 0 & 0 \\ [0.3em]
+			0 & 1 & 1 & 1 & -\frac{1}{2} & 0 \\ [0.3em]
+			0 & 0 & 1 & 1 & -\frac{1}{2} & -\frac{1}{5}
+		\end{rowequmatbra}
+		\xlongrightarrow[E_{1,3}\left(-2\right)]{E_{2,3}\left(-1\right)}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & 1 & 0 & -1 & 1 & \frac{2}{5} \\ [0.3em]
+			0 & 1 & 0 &  0 & 0 & \frac{1}{5} \\ [0.3em]
+			0 & 0 & 1 &  1 & -\frac{1}{2} & -\frac{1}{5}
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-1$ e poi si somma la seconda riga con la prima}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & 1 & 0 & -1 & 1 & \frac{2}{5} \\ [0.3em]
+			0 & 1 & 0 &  0 & 0 & \frac{1}{5} \\ [0.3em]
+			0 & 0 & 1 &  1 & -\frac{1}{2} & -\frac{1}{5}
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{1,2}\left(-1\right)}
+		\begin{rowequmatbra}{ccc|ccc}
+			1 & 0 & 0 & -1 & 1 & \frac{1}{5} \\ [0.3em]
+			0 & 1 & 0 &  0 & 0 & \frac{1}{5} \\ [0.3em]
+			0 & 0 & 1 &  1 & -\frac{1}{2} & -\frac{1}{5}
+		\end{rowequmatbra}
+	\end{equation*}
+	A sinistra è stata ottenuta la matrice identità, dunque a destra si può osservare la matrice invertita:
+	\begin{equation*}
+		S^{-1} = \begin{rowequmatbra}{ccc}
+			-1 & 1 & \frac{1}{5} \\ [0.3em]
+			0 & 0 & \frac{1}{5} \\ [0.3em]
+			 1 & -\frac{1}{2} & -\frac{1}{5}
+		\end{rowequmatbra}
+	\end{equation*}\newpage
+	
+	\subsubsection{Esercizio 3}
+	
+	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	
+	\noindent
+	Si consideri l'applicazione lineare $f:\mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$, $
+	\begin{pmatrix}
+		x_{1} \\
+		x_{2} \\
+		x_{3}
+	\end{pmatrix}
+	\mapsto
+	\begin{pmatrix}
+		x_{1} + x_{3} 	\\
+		x_{2} + 2x_{3} 	\\
+		x_{1} + 2x_{2} + 5x_{3}
+	\end{pmatrix}$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Si trovi la matrice $A$ associata a $f$ rispetto alla base canonica sul dominio e sul codominio. Inoltre si calcolino il rango e il determinante della matrice $A$.
+		
+		\item Si trovi una base dello spazio nullo di $f$.
+		
+		\item Si trovi la matrice $B$ associata a $f$ rispetto alla base $\mathcal{B} = \left\{v_{1}, v_{2}, v_{3}\right\}$ dell'esercizio 2 sul domino e sul codominio.
+		
+		\item Il vettore $u = 2v_{1} + v_{2} - v_{3}$ appartiene all'immagine di $f$? Se sì, si determini l'insieme $L$ dato da tutti i vettori $v \in \mathbb{R}^{3}$ tali che $f\left(v\right) = u$.
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{a}}}\newline
+	
+	\noindent
+	La matrice $A$ associata a $f$ rispetto alla base canonica ha come colonne $f\left(e_{1}\right), f\left(e_{2}\right), f\left(e_{3}\right)$. Quindi, si scrive la matrice $A$ come la composizione di $f$:
+	\begin{equation*}
+		A = \left( f\left(\begin{bmatrix}
+			1 \\
+			0 \\
+			0
+		\end{bmatrix}\right) \: f\left(\begin{bmatrix}
+			0 \\
+			1 \\
+			0
+		\end{bmatrix}\right) \: f\left(\begin{bmatrix}
+			0 \\
+			0 \\
+			1
+		\end{bmatrix}\right)\right)
+	\end{equation*}
+	Quindi, per ogni colonna si calcola la colonna risultante. Per farlo, si sostituiscono i valori di ogni colonna nell'applicazione lineare $\begin{pmatrix}
+		x_{1} + x_{3} 	\\
+		x_{2} + 2x_{3} 	\\
+		x_{1} + 2x_{2} + 5x_{3}
+	\end{pmatrix}$:
+	\begin{equation*}
+		\begin{array}{lllll}
+			f\left(\begin{bmatrix}
+				1 \\
+				0 \\
+				0
+			\end{bmatrix}\right) & = & \begin{pmatrix}
+				1 + 0 	\\
+				0 + 2 \cdot 0 	\\
+				1 + 2 \cdot 0 + 5 \cdot 0
+			\end{pmatrix} & = & \begin{pmatrix}
+				1 \\
+				0 \\
+				1
+			\end{pmatrix} \\
+			%
+			\\
+			%
+			f\left(\begin{bmatrix}
+				0 \\
+				1 \\
+				0
+			\end{bmatrix}\right) & = & \begin{pmatrix}
+				0 + 0 	\\
+				1 + 2 \cdot 0 	\\
+				0 + 2 \cdot 1 + 5 \cdot 0
+			\end{pmatrix} & = & \begin{pmatrix}
+				0 \\
+				1 \\
+				2
+			\end{pmatrix} \\
+			%
+			\\
+			%
+			f\left(\begin{bmatrix}
+				0 \\
+				0 \\
+				1
+			\end{bmatrix}\right) & = & \begin{pmatrix}
+				0 + 1 	\\
+				0 + 2 \cdot 1 	\\
+				0 + 2 \cdot 0 + 5 \cdot 1
+			\end{pmatrix} & = & \begin{pmatrix}
+				1 \\
+				2 \\
+				5
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}
+	La matrice risultante si ottiene combinando tutti i vettori:
+	\begin{equation*}
+		A = \begin{bmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & 2 \\
+			1 & 2 & 5
+		\end{bmatrix}
+	\end{equation*}\newpage
+	
+	\noindent
+	Inoltre l'esercizio richiede sia il determinante che il rango. Per quest'ultimo si esegue l'eliminazione di Gauss e si ottiene la forma ridotta. Quindi, si \textbf{moltiplica la prima riga per $-1$}:
+	\begin{equation*}
+		\begin{bmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & 2 \\
+			1 & 2 & 5
+		\end{bmatrix}
+		\xlongrightarrow{E_{3,1}\left(-1\right)}
+		\begin{bmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & 2 \\
+			0 & 2 & 4
+		\end{bmatrix}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-2$ e poi si somma la seconda riga con la terza}:
+	\begin{equation*}
+		\begin{bmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & 2 \\
+			0 & 2 & 4
+		\end{bmatrix}
+		\xlongrightarrow{E_{3,2}\left(-2\right)}
+		\begin{bmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & 2 \\
+			0 & 0 & 0
+		\end{bmatrix}
+	\end{equation*}
+	Data la forma ridotta, il rango corrisponde al numero di colonne dominanti, cioè $2$:
+	\begin{equation*}
+		\mathrm{rk}\left(A\right) = 2
+	\end{equation*}
+	Infine, il determinante viene calcolato (come calcolarlo, paragrafo \ref{Determinante}) tenendo in considerazione anche le operazioni di EG eseguite. In questo caso, le operazioni sono identiche e non hanno influenza sul determinante poiché sono le uniche operazioni elementari ininfluenti. Quindi, il determinante viene calcolato banalmente moltiplicando tra di loro i coefficienti posti sulla diagonale principale:
+	\begin{equation*}
+		\det\left(A\right) = \det\left(U\right) = 1 \cdot 1 \cdot 0 = 0
+	\end{equation*}
+	Dove $U$ è la forma ridotta ottenuta con l'eliminazione di Gauss.\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{b}}}\newline
+	
+	\noindent
+	Lo spazio nullo di $f$ non è altro che:
+	\begin{equation*}
+		N\left(f\right) = \left\{v \in \mathbb{R}^{3} \: \left| f\left(v\right) = 0 \right.\right\} = \left\{v \in \mathbb{R}^{3} \: \left| Av = 0 \right.\right\}
+	\end{equation*}
+	Ovvero tutti quei vettori appartenenti all'insieme $\mathbb{R}^{3}$ tale per cui data la matrice associata e moltiplicata per il vettore, il risultato è zero. Quindi, gli elementi dello spazio nullo $N\left(f\right)$ sono le soluzioni:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} + x_{3} = 0 	\\
+			x_{2} + 2x_{3} = 0 	\\
+			x_{1} + 2x_{2} + 5x_{3} = 0
+		\end{cases}
+	\end{equation*}
+	Andando a sostituire le variabili $x_{1} = x, x_{2} = y, x_{3} = z$:
+	\begin{equation*}
+		\begin{cases}
+			x + z = 0 	\\
+			y + 2z = 0 	\\
+			x + 2y + 5z = 0
+		\end{cases}
+	\end{equation*}
+	Grazie all'applicazione dell'eliminazione di Gauss eseguita al passo \emph{a}, si è già in possesso della forma ridotta della matrice associata $A$:
+	\begin{equation*}
+		\begin{bmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & 2 \\
+			0 & 0 & 0
+		\end{bmatrix}
+	\end{equation*}
+	Da essa si ricava il sistema da porre uguale a zero:
+	\begin{equation*}
+		\begin{cases}
+			x + z = 0 	\\
+			y + 2z = 0
+		\end{cases}
+	\end{equation*}
+	Adesso si risolve banalmente il sistema:
+	\begin{equation*}
+		\begin{cases}
+			x + z = 0 	\\
+			y + 2z = 0
+		\end{cases} \Rightarrow \begin{cases}
+			x = -z \\
+			y = -2z
+		\end{cases}
+	\end{equation*}
+	Quindi, si ottiene il vettore risultante composto come:
+	\begin{equation*}
+		\begin{bmatrix}
+			-z \\
+			-2z \\
+			z
+		\end{bmatrix}
+	\end{equation*}
+	E lo spazio nullo dunque sarà formato:
+	\begin{equation*}
+		N\left(f\right) = \left\{\left. \begin{bmatrix}
+			-z \\
+			-2z \\
+			z
+		\end{bmatrix} \: \right| \: z \in \mathbb{R}\right\}
+	\end{equation*}
+	Dove il vettore $\left\langle \begin{pmatrix}
+		-1 \\
+		-2 \\
+		1
+	\end{pmatrix}\right\rangle$ è una base dello spazio nullo.\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{c}}}\newline
+	
+	\noindent
+	Nell'esercizio 2, la base era:
+	\begin{equation*}
+		\mathcal{B} = \left\{v_{1}, v_{2}, v_{3}\right\} = \left\{
+		\begin{pmatrix}
+			1 \\
+			2 \\
+			0
+		\end{pmatrix},
+		\begin{pmatrix}
+			1 \\
+			0 \\
+			5
+		\end{pmatrix},
+		\begin{pmatrix}
+			2 \\
+			2 \\
+			0
+		\end{pmatrix}
+		\right\}
+	\end{equation*}
+	Per trovare la matrice $B$ associata a $f$ rispetto alla base $\mathcal{B}$, è necessario prima di tutto calcolare l'applicazione lineare. Per definizione del teorema, la matrice $B$ è composta dalle colonne:
+	\begin{equation*}
+		B = \begin{bmatrix}
+			C_{B}\left(f\left(v_{1}\right)\right) & C_{B}\left(f\left(v_{2}\right)\right) & C_{B}\left(f\left(v_{3}\right)\right)
+		\end{bmatrix}
+	\end{equation*}
+	Dove $C_{B}$ rappresenta l'applicazione lineare. Rispetto al caso \emph{a}, in questo caso è necessario qualche passaggio in più. Infatti, nel primo caso la base canonica è immediata da scrivere. Mentre in questo caso è necessario calcolare l'applicazione lineare:
+	\begin{equation*}
+		C_{B} : \mathbb{R}^{3} \longrightarrow \mathbb{R}^{3}
+	\end{equation*}
+	Data l'applicazione lineare in $\mathbb{R}^{3}$, si scrive l'applicazione lineare corrispettiva:
+	\begin{equation*}
+		\begin{bmatrix}
+			x \\
+			y \\
+			z
+		\end{bmatrix} = \alpha \begin{bmatrix}
+			1 \\
+			2 \\
+			0
+		\end{bmatrix} + \beta \begin{bmatrix}
+			1 \\
+			0 \\
+			5
+		\end{bmatrix} + \gamma \begin{bmatrix}
+			2 \\
+			2 \\
+			0
+		\end{bmatrix} = \begin{bmatrix}
+			1 & 1 & 2 \\
+			2 & 0 & 2 \\
+			0 & 5 & 0
+		\end{bmatrix} \begin{bmatrix}
+			\alpha \\
+			\beta \\
+			\gamma
+		\end{bmatrix}
+	\end{equation*}
+	Quindi, l'applicazione lineare corrispettiva è:
+	\begin{equation*}
+		C_{B}\left(\begin{bmatrix}
+			x \\
+			y \\
+			z
+		\end{bmatrix}\right) = \begin{bmatrix}
+			\alpha \\
+			\beta \\
+			\gamma
+		\end{bmatrix}
+	\end{equation*}
+	Per trovare le incognite $\alpha, \beta, \gamma$ si considera il sistema lineare:
+	\begin{equation*}
+		\begin{bmatrix}
+			1 & 1 & 2 \\
+			2 & 0 & 2 \\
+			0 & 5 & 0
+		\end{bmatrix} \begin{bmatrix}
+			\alpha \\
+			\beta \\
+			\gamma
+		\end{bmatrix} = \begin{bmatrix}
+			x \\
+			y \\
+			z
+		\end{bmatrix}
+	\end{equation*}
+	Quindi, si può applicare l'eliminazione di Gauss, considerando la matrice aumentata:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\
+			2 & 0 & 2 & y \\
+			0 & 5 & 0 & z
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la prima riga per $-2$ e poi si somma la prima riga con la seconda}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\
+			2 & 0 & 2 & y \\
+			0 & 5 & 0 & z
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{2,1}\left(-2\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\
+			0 & -2 & -2 & y-2x \\
+			0 & 5 & 0 & z
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-\frac{1}{2}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\ [0.3em]
+			0 & -2 & -2 & y-2x \\ [0.3em]
+			0 & 5 & 0 & z
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{2}\left(-\frac{1}{2}\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\ [0.3em]
+			0 & 1 & 1 & \frac{2x-y}{2} \\ [0.3em]
+			0 & 5 & 0 & z
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-5$ e poi si somma la seconda riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\ [0.3em]
+			0 & 1 & 1 & \frac{2x-y}{2} \\ [0.3em]
+			0 & 5 & 0 & z
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{3,2}\left(-5\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\ [0.3em]
+			0 & 1 & 1 & \frac{2x-y}{2} \\ [0.3em]
+			0 & 0 & -5 & z-5\left(\frac{2x-y}{2}\right)
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la terza riga per $-\frac{1}{5}$}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\ [0.3em]
+			0 & 1 & 1 & \frac{2x-y}{2} \\ [0.3em]
+			0 & 0 & -5 & z-5\left(\frac{2x-y}{2}\right)
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{3}\left(-\frac{1}{5}\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 1 & 2 & x \\ [0.3em]
+			0 & 1 & 1 & \frac{2x-y}{2} \\ [0.3em]
+			0 & 0 & 1 & \left(\frac{10x-5y-2z}{10}\right)
+		\end{rowequmatbra}
+	\end{equation*}
+	La forma ridotta è stata ottenuta, adesso si scrive il sistema lineare dipendente:
+	\begin{equation*}
+		\begin{cases}
+			\alpha = x - \beta - 2\gamma \\
+			\\
+			\beta = \dfrac{2x-y}{2} - \left(\dfrac{10x-5y-2z}{10}\right) \\
+			\\
+			\gamma = \dfrac{10x-5y-2z}{10}
+		\end{cases} \Longrightarrow
+		\begin{cases}
+			\alpha = x - \dfrac{z}{5} - \left(\dfrac{10x-5y-2z}{5}\right) = \dfrac{-5x+5y+z}{5}\\
+			\\
+			\beta = \dfrac{10x-5y-10x+5y+2z}{10} = \dfrac{z}{5} \\
+			\\
+			\gamma = \dfrac{10x-5y-2z}{10}
+		\end{cases}
+	\end{equation*}
+	Grazie alle soluzioni è possibile scrivere il vettore soluzione come:
+	\begin{equation*}
+		C_{B} = \left(\begin{bmatrix}
+			x \\
+			y \\
+			z
+		\end{bmatrix}\right) = \begin{rowequmatbra}{c}
+			\frac{-5x+5y+z}{5} \\ [0.3em]
+			\frac{z}{5} \\ [0.3em]
+			\frac{10x-5y-2z}{10}
+		\end{rowequmatbra} = \begin{rowequmatbra}{c}
+			-x+y+\frac{z}{5} \\ [0.3em]
+			\frac{z}{5} \\ [0.3em]
+			x - \frac{y}{2} - \frac{z}{5}
+		\end{rowequmatbra}
+	\end{equation*}
+	Adesso si eseguono le sostituzioni iniziali dell'applicazione lineare. Prima di tutto si sostituiscono i valori dei vettori $v_{1}, v_{2}, v_{3}$ nell'applicazione lineare $f$:
+	\begin{equation*}
+		\begin{array}{lllllll}
+			C_{B}\left(f\left(v_{1}\right)\right) & = & C_{B}\left(f\left(\begin{bmatrix}
+				1 \\
+				2 \\
+				0
+			\end{bmatrix}\right)\right) & = & \begin{bmatrix}
+				1 + 0 \\
+				2 + 2 \cdot 0 	\\
+				1 + 2 \cdot 2 + 5 \cdot 0
+			\end{bmatrix} & = & C_{B}\left(\begin{bmatrix}
+				1 \\
+				2 \\
+				5
+			\end{bmatrix}\right) \\
+			\\
+			C_{B}\left(f\left(v_{2}\right)\right) & = & C_{B}\left(f\left(\begin{bmatrix}
+				1 \\
+				0 \\
+				5
+			\end{bmatrix}\right)\right) & = & \begin{bmatrix}
+				1 + 5 	\\
+				0 + 2 \cdot 5 	\\
+				1 + 2 \cdot 0 + 5 \cdot 5
+			\end{bmatrix} & = & C_{B}\left(\begin{bmatrix}
+				6 \\
+				0 \\
+				26
+			\end{bmatrix}\right) \\
+			\\
+			C_{B}\left(f\left(v_{3}\right)\right) & = & C_{B}\left(f\left(\begin{bmatrix}
+				2 \\
+				2 \\
+				0
+			\end{bmatrix}\right)\right) & = & \begin{bmatrix}
+				2 + 0 	\\
+				2 + 2 \cdot 0 	\\
+				2 + 2 \cdot 2 + 5 \cdot 0
+			\end{bmatrix} & = & C_{B}\left(\begin{bmatrix}
+				2 \\
+				2 \\
+				6
+			\end{bmatrix}\right)
+		\end{array}
+	\end{equation*}\newpage
+	
+	\noindent
+	Poi si inseriscono i valori nell'applicazione lineare $C_{B}$, ovvero nel vettore soluzione ottenuto dal sistema:
+	\begin{equation*}
+		\begin{array}{lllll}
+			C_{B}\left(\begin{bmatrix}
+				1 \\
+				2 \\
+				5
+			\end{bmatrix}\right) & = & \begin{bmatrix}
+				-1 +2 +1 \\
+				1 \\
+				1 -1 -1
+			\end{bmatrix} & = & \begin{bmatrix}
+				2 \\
+				1 \\
+				-1
+			\end{bmatrix} \\
+			\\
+			C_{B}\left(\begin{bmatrix}
+				6 \\
+				10 \\
+				26
+			\end{bmatrix}\right) & = & \begin{rowequmatbra}{c}
+				-6 +10 +\frac{26}{5} \\ [0.3em]
+				\frac{26}{5} \\ [0.3em]
+				6 -5 -\frac{26}{5}
+			\end{rowequmatbra} & = & \begin{rowequmatbra}{c}
+				\frac{46}{5} \\ [0.3em]
+				\frac{26}{5} \\ [0.3em]
+				-\frac{21}{5}
+			\end{rowequmatbra} \\
+			\\
+			C_{B}\left(\begin{bmatrix}
+				2 \\
+				2 \\
+				6
+			\end{bmatrix}\right) & = & \begin{rowequmatbra}{c}
+				-2 +2 +\frac{6}{5} \\ [0.3em]
+				\frac{6}{5} \\ [0.3em]
+				2 -1 -\frac{6}{5}
+			\end{rowequmatbra} & = & \begin{rowequmatbra}{c}
+				\frac{6}{5} \\ [0.3em]
+				\frac{6}{5} \\ [0.3em]
+				-\frac{1}{5}
+			\end{rowequmatbra}
+		\end{array}
+	\end{equation*}
+	Si ricostruisce la matrice $B$:
+	\begin{equation*}
+		B = \begin{rowequmatbra}{ccc}
+			2 	& \frac{46}{5}	& \frac{6}{5} \\ [0.3em]
+			1 	& \frac{26}{5}	& \frac{6}{5} \\ [0.3em]
+			-1	& -\frac{21}{5}	& -\frac{1}{5}
+		\end{rowequmatbra} = \dfrac{1}{5} \begin{rowequmatbra}{ccc}
+			10 	& 46	& 6 \\ [0.3em]
+			5	& 26	& 6 \\ [0.3em]
+			-5	& -21	& -1
+		\end{rowequmatbra}
+	\end{equation*}\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso \emph{d}}}\newline
+	
+	\noindent
+	Il vettore $u$ appartiene all'immagine di $f$ se e solo se esiste un vettore $v \in \mathbb{R}^{3}$ tale per cui $f\left(v\right) = u$. Ovvero se l'applicazione lineare su $f$ restituisce $u$. Quindi, si sostituiscono i vettori nell'equazione di $u$:
+	\begin{equation*}
+		u = 2\begin{bmatrix}
+			1 \\
+			2 \\
+			0
+		\end{bmatrix} + \begin{bmatrix}
+			1 \\
+			0 \\
+			5
+		\end{bmatrix} - \begin{bmatrix}
+			2 \\
+			2 \\
+			0
+		\end{bmatrix} = \begin{bmatrix}
+			1 \\
+			2 \\
+			5	
+		\end{bmatrix}
+	\end{equation*}
+	Per dimostrare che $u$ è un'immagine di $f$, si pone l'uguaglianza dell'applicazione lineare di $f$ con il vettore $u$:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} + x_{3} = 1 \\
+			x_{2} + 2x_{3} = 2 \\
+			x_{1} + 2x_{2} + 5x_{3} = 5
+		\end{cases}
+	\end{equation*}
+	Per risolvere il sistema si applica l'EG tramite la matrice aumentata. La prima operazione è la \textbf{moltiplicazione della prima riga per $-1$ e poi si somma la prima riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 0 & 1 & 1 \\
+			0 & 1 & 2 & 2 \\
+			1 & 2 & 5 & 5
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{3,1}\left(-1\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 0 & 1 & 1 \\
+			0 & 1 & 2 & 2 \\
+			0 & 2 & 4 & 4
+		\end{rowequmatbra}
+	\end{equation*}
+	Si \textbf{moltiplica la seconda riga per $-2$ e poi si somma la seconda riga con la terza}:
+	\begin{equation*}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 0 & 1 & 1 \\
+			0 & 1 & 2 & 2 \\
+			0 & 2 & 4 & 4
+		\end{rowequmatbra}
+		\xlongrightarrow{E_{3,2}\left(-2\right)}
+		\begin{rowequmatbra}{ccc|c}
+			1 & 0 & 1 & 1 \\
+			0 & 1 & 2 & 2 \\
+			0 & 0 & 0 & 0
+		\end{rowequmatbra}
+	\end{equation*}
+	Si ottiene la forma ridotta e si riporta i coefficienti nel sistema lineare:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} + x_{3} = 1 \\
+			x_{2} + 2x_{3} = 2
+		\end{cases} \Longrightarrow \begin{cases}
+			x_{1} = 1 - x_{3} \\
+			x_{2} = 2 - 2x_{3}
+		\end{cases}
+	\end{equation*}
+	Il vettore risultante dipende dal parametro $x_{3}$:
+	\begin{equation*}
+		\begin{bmatrix}
+			1-x_{3} \\
+			2-2x_{3} \\
+			x_{3}
+		\end{bmatrix}
+	\end{equation*}
+	Per verificare che il vettore $u$ appartenga all'immagine di $f$, si prova a dare un valore a $x_{3}$ e verificare. Quindi, si assegna $x_{3} = 1$, il vettore diventa:
+	\begin{equation*}
+		v = \begin{bmatrix}
+			0 \\
+			0 \\
+			1
+		\end{bmatrix}
+	\end{equation*}
+	E applicando il vettore all'applicazione lineare $f\left(v\right)$:
+	\begin{equation*}
+		f\left(v\right) = f\left(\begin{bmatrix}
+			0 \\
+			0 \\
+			1
+		\end{bmatrix}\right) = \begin{bmatrix}
+			0 + 1 \\
+			0 + 2 \cdot 1 \\
+			0 + 2 \cdot 0 + 5 \cdot 1
+		\end{bmatrix} = \begin{bmatrix}
+			1 \\
+			2 \\
+			5
+		\end{bmatrix} = u \textcolor{Green4}{\textbf{ \checkmark Verificato}}
+	\end{equation*}
+	Dato che il vettore $u$ appartiene all'immagine di $f$, si deve determinare l'insieme $L$. Quest'ultimo ha la caratteristica di contenere tutti i vettori tali per cui la loro applicazione lineare $f$ sia uguale a $u$. Grazie alla definizione di un teorema, è noto che l'insieme delle soluzioni è composto dalla somma del vettore soluzione e un vettore appartenente all'insieme nullo:
+	\begin{equation*}
+		L = \left\{x + w \: | \: w \in N\left(A\right)\right\}
+	\end{equation*}
+	Dato che una base dello spazio nullo era già stato trovato al punto \emph{b}, si riutilizza quella soluzione:
+	\begin{equation*}
+		L = \left\{\left. v + \begin{bmatrix}
+			-z \\
+			-2z \\
+			z
+		\end{bmatrix} \right| z \in \mathbb{R}\right\}
+	\end{equation*}\newpage
+
+	\subsubsection{Esercizio 4}
+	
+	\textcolor{Red3}{\textbf{Esercizio}}\newline
+	
+	\noindent
+	Vero o falso? Si motivi la risposta!
+	
+	\begin{enumerate}
+		\item Se $\lambda$ è un autovalore di una matrice $A$, allora $\lambda^{2}$ è autovalore della matrice $A^{2}$.
+		
+		\item La matrice $\begin{bmatrix}
+				0 & 0 & 1 \\
+				0 & 4 & 0
+			\end{bmatrix}$ possiede un'inversa sinistra.
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso 1}}\newline
+	
+	\noindent
+	La risposta è vero. Infatti, $\lambda$ è autovalore di $A$ se esiste un vettore $v \in V$ tale che $Av = \lambda v$. Quindi:
+	\begin{equation*}
+		A^{2}v = A\left(Av\right) = A\left(\lambda v\right) = \lambda{Av} = \lambda^{2}v
+	\end{equation*}
+	Dunque $\lambda^{2}$ è autovalore di $A$.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Soluzione caso 2}}\newline
+	
+	\noindent
+	La risposta è falso. Infatti, la matrice non possiede un'inversa sinistra poiché il numero di righe non è maggiore o uguale al numero di colonne.
 \end{document}
