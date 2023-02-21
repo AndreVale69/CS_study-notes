@@ -1528,5 +1528,163 @@
 		\includegraphics[width=.6\textwidth]{img/valori_nulli.pdf}
 	\end{figure}\newpage
 
-	\subsection{Equivalenza di espressioni algebriche}
+	\subsection{Ottimizzare ed equivalenza di espressioni algebriche}
+	
+	\subsubsection{Definizioni}
+	
+	Ogni espressione (\emph{query}) ricevuta dal DBMS è soggetta ad un processo di elaborazione. Esiste una parte software ad un livello più basso che implementa l'\textcolor{Red3}{\textbf{ottimizzatore}}. Esso ha l'obbiettivo di generare un'espressione equivalente all'originale ma con un costo minore. Per \textbf{costo} si intende la dimensione dei risultati intermedi.\newline
+	
+	\noindent
+	Da questa necessità, si crea l'\textcolor{Red3}{\textbf{equivalenza delle espressioni algebriche}}, cioè espressioni fra loro equivalenti che producono quindi lo stesso risultato.\newline
+	
+	\noindent
+	Esistono \textbf{due tipi} di equivalenza:
+	\begin{itemize}
+		\item \textbf{Equivalenza \underline{assoluta}}. Non viene esplicitato nessuno schema, quindi è completamente indipendente (assoluta).\newline
+		Più formalmente:
+		\begin{equation*}
+			E_{1} \equiv E_{2} \text{ se } E_{1} \equiv_{\textbf{R}} E_{2} \text{ per ogni schema } \textbf{R}
+		\end{equation*}
+		Un \textcolor{Green4}{esempio}:
+		\begin{equation*}
+			\pi_{AB}\left(\sigma_{A>0}\left(R\right)\right) \equiv \sigma_{A>0}\left(\pi_{AB}\left(R\right)\right)
+		\end{equation*}
+		
+		\item \textbf{Equivalenza \underline{dipendente dallo schema}}. Viene esplicitato lo schema e dunque l'equivalenza è vera se e solo se l'intersezione degli insiemi è uguale.\newline
+		Più formalmente:
+		\begin{equation*}
+			E_{1} \equiv_{\textbf{R}} E_{2} \text{ se } E_{1}\left(\textbf{r}\right) = E_{2}\left(\textbf{r}\right) \text{ per ogni istanza } \textbf{r} \text{ di } \textbf{R}
+		\end{equation*}
+		Un \textcolor{Green4}{esempio}:
+		\begin{equation*}
+			\pi_{AB}\left(R_{1}\right) \Join \pi_{AC}\left(R_{2}\right) \equiv_{\textbf{R}} \pi_{ABC}\left(R_{1} \Join R_{2}\right)
+		\end{equation*}
+		L'equivalenza è valida se e solo se nello schema \textbf{R} l'intersezione fra gli insiemi di attributi di $R_{1}$ e $R_{2}$ è pari ad $A$.
+	\end{itemize}\newpage
+	
+	\subsubsection{Trasformazioni di equivalenza}
+	
+	Nel conteso delle ottimizzazioni, vengono spesso utilizzate le \textcolor{Red3}{\textbf{trasformazioni di equivalenza}}, ovvero operazioni che \textbf{sostituiscono un'espressione con un'altra a essa equivalente}. In particolare, risultano interessanti le trasformazioni che riducono le dimensioni dei risultati intermedi e quelle che preparano un'espressione all'applicazione di una trasformazione che riduce le dimensioni dei risultati intermedi.
+	\begin{enumerate}[label=\Roman*.]
+		\item \textcolor{Red3}{\textbf{Atomizzazione delle selezioni}}: una selezione $\sigma$ congiuntiva\footnote{Ovvero due espressioni connesse da un and, or, not logico} può essere sostituita da una cascata di selezioni atomiche:
+		\begin{equation*}
+			\sigma_{F_{1} \land F_{2}}\left(E\right) \equiv \sigma_{F_{1}}\left(\sigma_{F_{2}}\left(E\right)\right)
+		\end{equation*}
+		In cui $E$ è una qualunque espressione.
+	
+		\item \textcolor{Red3}{\textbf{Idempotenza delle proiezioni}}: una proiezione $\pi$ può essere trasformata in una cascata di proiezioni che \dquotes{eliminano} i vari attributi in fasi successive:
+		\begin{equation*}
+			\pi_{X}\left(E\right) \equiv \pi_{X}\left(\pi_{XY}\left(E\right)\right)
+		\end{equation*}
+		Se $E$ è definita su un insieme di attributi che contiene $Y$ (oltre a $X$).
+	
+		\item \textcolor{Red3}{\textbf{\emph{Pushing selections down}} (\textbf{Anticipazione della selezione rispetto al join})}:
+		\begin{equation*}
+			\sigma_{F}\left(E_{1} \Join E_{2}\right) \equiv E_{1} \Join \sigma_{F}\left(E_{2}\right)
+		\end{equation*}
+		Se la condizione $F$ fa riferimento solo ad attributi nella sottoespressione $E_{2}$.
+	
+		\item \textcolor{Red3}{\textbf{\emph{Pushing projections down}} (\textbf{Anticipazione della proiezione rispetto al join})}: siano $E_{1}$ ed $E_{2}$ definite rispettivamente su $X_{1}$ e $X_{2}$. Allora, se $Y_{2} \subseteq X_{2}$ e $Y_{2} \supseteq \left(X_{1} \cap X_{2}\right)$, ovvero se gli attributi in $X_{2} - Y_{2}$ non sono coinvolti nel join, vale:
+		\begin{equation*}
+			\pi_{X_{1}Y_{2}}\left(E_{1} \Join E_{2}\right) \equiv E_{1} \Join \pi_{Y_{2}}\left(E_{2}\right)
+		\end{equation*}
+		Combinando questa regola con quella della idempotenza delle proiezioni, si può ottenere:
+		\begin{equation*}
+			\pi_{Y}\left(E_{1} \underset{F}{\Join} E_{2}\right) \equiv \pi_{Y}\left(\pi_{Y_{1}}\left(E_{1}\right) \underset{F}{\Join} \pi_{Y_{2}}\left(E_{2}\right)\right)
+		\end{equation*}
+		Si indica con $X_{1}$ e $X_{2}$ gli attributi di $E_{1}$ ed $E_{2}$ rispettivamente, con $J_{1}$ e $J_{2}$ i rispettivi sottoinsiemi coinvolti nella condizione $F$ di join:
+		\begin{gather*}
+			Y_{1} = \left(X_{1} \cap Y\right) \cup J_{1} \\
+			Y_{2} = \left(X_{2} \cap Y\right) \cup J_{2} \\
+		\end{gather*}
+		In altre parole, è possibile \textbf{eliminare subito da ciascuna relazione gli attributi che non compaiono nel risultato finale e non sono coinvolti nel join}.
+	
+		\item \textcolor{Red3}{\textbf{Inglobamento di una selezione in un prodotto cartesiano a formare un join}}:
+		\begin{equation*}
+			\sigma_{F}\left(E_{1} \Join E_{2}\right) \equiv E_{1} \underset{F}{\Join} E_{2}
+		\end{equation*}
+		Indicando $X_{1}$ e $X_{2}$ i rispettivi attributi di $E_{1}, E_{2}$, allora $X_{1} \cap X_{2} = \emptyset$.
+	\end{enumerate}
+	Queste trasformate sono quelle più importanti.\newline
+	
+	\noindent
+	Esistono altre trasformate non meno importanti ma di minore rilievo rispetto alle prime che sono considerate fondamentali.\footnote{\textbf{All'esame non verranno chieste le trasformate minori!}}
+	\begin{enumerate}[label=\Roman*.]
+		\setcounter{enumi}{5}
+		\item \textbf{Distributività della selezione rispetto all'unione}:
+		\begin{equation*}
+			\sigma_{F}\left(E_{1} \cup E_{2}\right) \equiv \sigma_{F}\left(E_{1}\right) \cup \sigma_{F}\left(E_{2}\right)
+		\end{equation*}
+		
+		\item \textbf{Distributività della selezione rispetto alla differenza}:
+		\begin{equation*}
+			\sigma_{F}\left(E_{1} - E_{2}\right) \equiv \sigma_{F}\left(E_{1}\right) - \sigma_{F}\left(E_{2}\right)
+		\end{equation*}
+		
+		\item \textbf{Distributività della proiezione rispetto all'unione}:
+		\begin{equation*}
+			\pi_{X}\left(E_{1} \cup E_{2}\right) \equiv \pi_{X}\left(E_{1}\right) \cup \pi_{X}\left(E_{2}\right)
+		\end{equation*}
+	\end{enumerate}\:\newline
+	
+	\noindent
+	Un altro gruppo minore di trasformate è quello basato sull'interazione fra gli operatori insiemistici e le selezioni complesse:
+	\begin{enumerate}[label=\Roman*.]
+		\setcounter{enumi}{8}
+		\item $%
+		\sigma_{F_{1} \lor F_{2}}\left(R\right) \equiv \sigma_{F_{1}}\left(R\right) \cup \sigma_{F_{2}}\left(R\right)$
+		
+		\item $%
+		\sigma_{F_{1} \land F_{2}}\left(R\right) \equiv \sigma_{F_{1}}\left(R\right) \cap \sigma_{F_{2}}\left(R\right) \equiv \sigma_{F_{1}}\left(R\right) \Join \sigma_{F_{2}}\left(R\right)$
+		
+		\item $%
+		\sigma_{F_{1} \land \lnot F_{2}}\left(R\right) \equiv \sigma_{F_{1}}\left(R\right) - \sigma_{F_{2}}\left(R\right)$
+	\end{enumerate}\:\newline
+	
+	\noindent
+	Infine, la \textbf{proprietà distributiva del join rispetto all'unione}:
+	\begin{enumerate}[label=\Roman*.]
+		\setcounter{enumi}{11}
+		\item $%
+		E \Join\left( E_{1} \cup E_{2} \right) \equiv \left(E \Join E_{1}\right) \cup \left(E \Join E_{2}\right)$
+	\end{enumerate}\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Esempio}}}\newline
+	
+	\noindent
+	Si vede un esempio per chiarire le trasformazioni più importanti. Data la seguente base di dati:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/equivalenza_espressioni_algebriche.pdf}
+	\end{figure}
+	
+	\noindent
+	Si vuole trovare il numero di matricola dei capi di impiegati con meno di trenta anni. Immediatamente si potrebbe pensare di eseguire un join sulle due tabelle, specificare la condizione di selezione e infine proiettare l'unica colonna d'interesse:
+	\begin{equation*}
+		\pi_{\textsf{Capo}}\left(\sigma_{\textsf{Impiegato} = \textsf{Matricola} \land \textsf{Età} < 30} \left(\textsf{Impiegati} \Join \textsf{Supervisione}\right)\right)
+	\end{equation*}
+	È evidente che l'espressione risulta qualitativamente bassa poiché per calcolare pochi valori, in questo caso uno, viene effettuato un prodotto cartesiano che produce un risultato notevole. Quindi, si esegue l'ottimizzazione:
+	\begin{enumerate}
+		\item (Regola 1) Atomizzazione delle selezioni. Si elimina la coniugazione logica and:
+		\begin{equation*}
+			\pi_{\textsf{Capo}}\left(\sigma_{\textsf{Impiegato} = \textsf{Matricola}} \left(\sigma_{\textsf{Età} < 30} \left(\textsf{Impiegati} \Join \textsf{Supervisione}\right)\right)\right)
+		\end{equation*}
+	
+		\item (Regola 3) Anticipazione della selezione rispetto al join e (Regola 5) inglobamento di una selezione in un prodotto cartesiano a formare un join. Si fonde la prima selezione ($\sigma_{\textsf{Impiegato} = \textsf{Matricola}}$) con il prodotto cartesiano formando un join con condizione e successivamente si anticipa la seconda selezione ($\sigma_{\textsf{Età} < 30}$) rispetto al join:
+		\begin{equation*}
+			\pi_{\textsf{Capo}}\left(
+			\sigma_{\textsf{Età} < 30}\left(\textsf{Impiegati}\right) \underset{\textsf{Impiegato} = \textsf{Matricola}}{\Join} \textsf{Supervisione}
+			\right)
+		\end{equation*}
+		
+		\item (Regola 4) Anticipazione della proiezione rispetto al join. Si elimina dal primo argomento del join anche gli attributi non necessari:
+		\begin{equation*}
+			\pi_{\textsf{Capo}}\left(
+			\pi_{\textsf{Matricola}}\left(\sigma_{\textsf{Età} < 30}\left(\textsf{Impiegati}\right)\right)
+			\underset{\textsf{Impiegato} = \textsf{Matricola}}{\Join}
+			\textsf{Supervisione}
+			\right)
+		\end{equation*}
+	\end{enumerate}
 \end{document}
