@@ -274,7 +274,7 @@
 	
 	
 	
-	\subsection{Il modello Entità-Relazione (E-R)}
+	\subsection{Il modello Entità-Relazione (E-R)}\label{Il modello Entità-Relazione (E-R)}
 	
 	Il \textcolor{Red3}{\textbf{\emph{modello Entità-Relazione}}} è un modello \textbf{concettuale} di dati, quindi utilizzato nella \textbf{progettazione concettuale}, e fornisce una serie di strutture, chiamati \textbf{\emph{costrutti}}, atte a descrivere la realtà di interesse in una maniera facile da comprendere e che prescinde dai criteri di organizzazione dei dati nei calcolatori.
 	
@@ -1657,6 +1657,7 @@
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/equivalenza_espressioni_algebriche.pdf}
+		\label{Trasformazioni di equivalenza - Tabella}
 	\end{figure}
 	
 	\noindent
@@ -1686,5 +1687,182 @@
 			\textsf{Supervisione}
 			\right)
 		\end{equation*}
+	\end{enumerate}\newpage
+
+	\section{Calcolo relazionale}
+	
+	Il \textcolor{Red3}{\underline{\textbf{calcolo relazionale}}} fa riferimento ad una famiglia di linguaggi di interrogazione, basati sul calcolo dei predicati del primo ordine, che hanno la caratteristica di essere \textbf{dichiarativi}, cioè di \textbf{specificare le proprietà del risultato delle interrogazioni, anziché la procedura seguita per generarlo}.
+	
+	Al contrario l'algebra relazionale è un \textbf{linguaggio procedurale} poiché le sue espressioni specificano passo passo la costruzione del risultato.\newline
+	
+	\noindent
+	Esistono diversi \textbf{tipi} di calcolo relazionale:
+	\begin{itemize}
+		\item \textbf{Calcolo relazione su domini}. Presenta in modo naturale le caratteristiche originali dei linguaggi del calcolo relazionale.
+		
+		\item \textbf{Calcolo su tuple con dichiarazioni di range}. Metodo adottato durante questo corso, costituisce la base per molti costrutti disponibili per le interrogazioni nel linguaggio SQL.
+	\end{itemize}
+	Prima di presentare le varie caratteristiche, si tiene a precisare che rispetto al modello relazionale (paragrafo~\ref{Il modello Entità-Relazione (E-R)}), il calcolo su tuple con dichiarazioni di range utilizza una \textbf{notazione non posizionale}.\newpage
+	
+	\subsection{Calcolo su tuple con dichiarazioni di range}
+	
+	Il \textcolor{Red3}{\textbf{\underline{calcolo su tuple con dichiarazioni di range}}} presenta la seguente forma:
+	\begin{equation*}
+		\left\{T \: | \: L \: | \: f\right\}
+	\end{equation*}
+	In cui le variabili hanno diversi significati:
+	\begin{itemize}
+		\item La variabile $\boldsymbol{T}$ indica la \textbf{\emph{target list}}, ovvero la lista degli obbiettivi dell'interrogazione. I suoi elementi hanno la seguente forma $Y: x.Z$ con $x$ variabile e $Y$ e $Z$ sequenze di attributi (di pari lunghezza). Chiaramente, gli attributi in $Z$ devono comparire nello schema della relazione che costituisce il \emph{range} di $x$.\newline
+		Una notazione alternativa per abbreviare $X: x.X$ è $x.*$;
+		
+		\item La variabile $\boldsymbol{L}$ indica la \textbf{\emph{range list}}, ovvero la lista contenente le variabili libere della formula $f$ con i relativi \emph{range}. I suoi elementi hanno la seguente forma $x\left(R\right)$ con $x$ variabile e $R$ nome di relazione;
+		
+		\item La variabile $\boldsymbol{f}$ indica una \textbf{formula}, la quale può essere di tre tipi:
+		\begin{itemize}
+			\item Formula con atomi del tipo:
+			\begin{itemize}
+				\item $x.A\theta c$, si confronta il valore di $x$ sull'attributo $A$ con la costante $c$;
+				\item $x_{1}.A_{1}\theta x_{2}.A_{2}$, si confronta il valore di $x_{1}$ su $A_{1}$ con quello di $x_{2}$ su $A_{2}$.
+			\end{itemize}
+			
+			\item Formula con connettivi ($\land, \lor, \lnot$);
+			
+			\item Formula con quantificatori che associano i range alle relative variabili:
+			\begin{equation*}
+				\exists x\left(R\right)\left(f\right) \hspace{2em} \forall x\left(R\right)\left(f\right)
+			\end{equation*}
+			Intuitivamente, $\exists x\left(R\right)\left(f\right)$ significa \dquotes{esiste nella relazione $R$ una tupla $x$ che soddisfa la formula $f$}.
+		\end{itemize}
+	\end{itemize}\newpage
+	
+	\subsection{Unione, intersezione e differenza}
+	
+	Purtroppo, il calcolo su tuple con dichiarazioni di range non permette di esprimere tutte le interrogazioni che possono essere formulate in algebra relazionale.\newline
+	
+	\noindent
+	In particolare, le interrogazioni i cui risultati possono provenire indifferentemente da due o più relazioni (in algebra si realizza con un unione) non possono essere espresse in questa versione del calcolo.\newline
+	
+	\noindent
+	Infatti, i risultati sono costituiti a partire da tutte le variabili libere, i cui range sono definiti nella target list, e ogni variabile ha come range una sola relazione.\newline
+	
+	\noindent
+	Per esempio, si consideri un'unione di due relazioni sugli stessi attributi: $R_{1}\left(AB\right)$ e $R_{2}\left(AB\right)$. Se l'espressione avesse due variabili libere, allora ogni tupla del risultato dovrebbe corrispondere a una tupla di ciascuna delle relazioni, il che non è necessario, poiché l'unione richiede alle tuple nel risultato di comparire in almeno uno degli operandi, non necessariamente in entrambi. Viceversa, se l'espressione avesse una sola variabile libera, questa dovrebbe far riferimento a una sola delle relazioni, senza acquisire tuple dell'altra per il risultato.\newline
+	
+	\noindent
+	Nonostante l'\textbf{operatore di unione non sia rappresentabile}, gli operatori di intersezione e differenza risultato esprimibili:
+	\begin{itemize}
+		\item L'\textbf{intersezione} richiede che le tuple siano in entrambi gli operandi, ovvero richiede l'esistenza di una tupla uguale nell'altra relazione. Per esempio:
+		\begin{equation*}
+			\pi_{BC}\left(R_{1}\right) \cap \pi_{BC}\left(R_{2}\right)
+		\end{equation*}
+		Si esprime come:
+		\begin{equation*}
+			\left\{x_{1}.BC \hspace{1em} |
+			\hspace{1em} x_{1}\left(R_{1}\right) \hspace{1em} |
+			\hspace{1em} \exists x_{2}\left(R_{2}\right)\left(x_{1}.B = x_{2}.B \land x_{1}.C = x_{2}.C\right)\right\}
+		\end{equation*}
+	
+		\item La \textbf{differenza} produce le tuple di un operando non contenute nell'altro e può essere specificata richiedendo le tuple del minuendo che non compaiono nel sottraendo. Per esempio:
+		\begin{equation*}
+			\pi_{BC}\left(R_{1}\right) - \pi_{BC}\left(R_{2}\right)
+		\end{equation*}
+		Si esprime come:
+		\begin{equation*}
+			\left\{x_{1}.BC \hspace{1em} |
+			\hspace{1em} x_{1}\left(R_{1}\right) \hspace{1em} |
+			\hspace{1em} \lnot\exists x_{2}\left(R_{2}\right)\left(x_{1}.B = x_{2}.B \land x_{1}.C = x_{2}.C\right)\right\}
+		\end{equation*}
+	\end{itemize}\newpage
+	
+	\subsection{\textcolor{Green4}{Esempi}}
+	
+	Tutte le interrogazioni che verranno affrontate riguardano la seguente basi di dati (già vista nei precedenti paragrafi~\ref{Trasformazioni di equivalenza - Tabella}):
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/equivalenza_espressioni_algebriche.pdf}
+	\end{figure}
+
+	\noindent
+	La prima interrogazione è la seguente:
+	\begin{enumerate}
+		\item \emph{Si richiede la matricola, il nome, l'età e lo stipendio degli impiegati che guadagnano più di 40 mila euro}:
+		\begin{equation*}
+			\left\{
+			i.* \hspace{1em} | \hspace{1em}
+			i\left(\textsf{Impiegati}\right) \hspace{1em} | \hspace{1em}
+			i.\textsf{Stipendio} > 40
+			\right\}
+		\end{equation*}
+	\end{enumerate}
+	Per produrre meno risultati è sufficiente modificare la \emph{target list}:
+	\begin{enumerate}
+		\setcounter{enumi}{1}
+		\item \emph{Si richiede la matricola, il nome e l'età degli impiegati che guadagnano più di 40 mila euro}:
+		\begin{equation*}
+			\left\{
+			i.\left(\textsf{Matricola, Nome, Età}\right) \hspace{1em} | \hspace{1em}
+			i\left(\textsf{Impiegati}\right) \hspace{1em} | \hspace{1em}
+			i.\textsf{Stipendio} > 40
+			\right\}
+		\end{equation*}
+	\end{enumerate}
+	Per eseguire interrogazioni che coinvolgono più relazioni, si modifica la \emph{range list} usando più variabili. Si noti la prima condizione atomica che corrisponde a quella del join (e l'altra per la selezione):
+	\begin{enumerate}
+		\setcounter{enumi}{2}
+		\item \emph{Trovare le matricole dei capi degli impiegati che guadagnano più di 40 mila euro}:
+		\begin{gather*}
+			\left\{
+			s.\left(\textsf{Capo}\right) \hspace{1em} | \hspace{1em}
+			i\left(\textsf{Impiegati}\right), s\left(\textsf{Supervisione}\right) \hspace{1em} | \hspace{1em} \right. \\
+			\left. i.\textsf{Matricola} = s.\textsf{Impiegato} \land i.\textsf{Stipendio} > 40
+			\right\}
+		\end{gather*}
+	\end{enumerate}
+	Nel caso di join di una relazione con se stessa si ha più variabili aventi la stessa relazione come range:
+	\begin{enumerate}
+		\setcounter{enumi}{3}
+		\item \emph{Trovare il nome e stipendio dei capi degli impiegati che guadagnano più di 40 mila euro}:
+		\begin{gather*}
+			\left\{
+			\textsf{NomeC, StipC}: i'.\left(\textsf{Nome, Stipendio}\right) \hspace{1em} | \hspace{1em} \right. \\
+			i'\left(\textsf{Impiegati}\right), s\left(\textsf{Supervisione}\right), i\left(\textsf{Impiegati}\right) \hspace{1em} | \hspace{1em} \\
+			\left. i'.\textsf{Matricola} = s.\textsf{Capo} \land s.\textsf{Impiegato} = i.\textsf{Matricola} \land i.\textsf{Stipendio} > 40
+			\right\}
+		\end{gather*}
+	
+		\item \emph{Trovare gli impiegati che guadagnano più del rispettivo capo, mostrando matricola, nome e stipendio di ciascuno di essi e del capo}:
+		\begin{gather*}
+			\left\{
+			i.\left(\textsf{Nome, Matr, Stip}\right), \textsf{NomeC, MatrC, StipC}: i'.\left(\textsf{Nome, Matr, Stip}\right) \hspace{1em} | \hspace{1em} \right. \\
+			i\left(\textsf{Impiegati}\right), s\left(\textsf{Supervisione}\right), i'\left(\textsf{Impiegati}\right) \hspace{1em} | \hspace{1em} \\
+			\left. i.\textsf{Matr} = s.\textsf{Impiegato} \land s.\textsf{Capo} = i'.\textsf{Matr} \land i.\textsf{Stipendio} > i'.\textsf{Stipendio}
+			\right\}
+		\end{gather*}
+	\end{enumerate}
+	Le interrogazioni con i quantificatori ($\exists, \forall$) mostrano appieno la maggiore sinteticità e praticità del calcolo su tuple con dichiarazioni di range:
+	\begin{enumerate}
+		\setcounter{enumi}{5}
+		\item \emph{Trovare la matricola e il nome dei capi i cui impiegati guadagnano tutti più di 40 mila}:
+		\begin{itemize}
+			\item Quantificatore universale:
+			\begin{gather*}
+				\left\{
+				i.\left(\textsf{Matricola, Nome}\right) \hspace{1em} | \hspace{1em}
+				i\left(\textsf{Impiegati}\right), s\left(\textsf{Supervisione}\right) \hspace{1em} | \hspace{1em} \right. \\
+				i.\textsf{Matr} = s.\textsf{Capo} \land \forall i'\left(\textsf{Impiegati}\right) \left(\forall s'\left(\textsf{Supervisione}\right) \right. \\
+				\left.\left. \left(\lnot\left(s.\textsf{Capo} = s'.\textsf{Capo} \land s'.\textsf{Impiegato} = i'.\textsf{Matr}\right) \lor i'.\textsf{Stipendio} > 40\right)\right)
+				\right\}
+			\end{gather*}
+		
+			\item Quantificatore esistenziale:
+			\begin{gather*}
+				\left\{
+				i.\left(\textsf{Matricola, Nome}\right) \hspace{1em} | \hspace{1em}
+				i\left(\textsf{Impiegati}\right), s\left(\textsf{Supervisione}\right) \hspace{1em} | \hspace{1em} \right. \\
+				i.\textsf{Matr} = s.\textsf{Capo} \land \lnot \left(\exists i'\left(\textsf{Impiegati}\right) \left(\exists s'\left(\textsf{Supervisione}\right) \right.\right. \\
+				\left.\left.\left. \left(s.\textsf{Capo} = s'.\textsf{Capo} \land s'.\textsf{Impiegato} = i'.\textsf{Matr} \land i'.\textsf{Stipendio} \le 40\right)\right)\right)
+				\right\}
+			\end{gather*}
+		\end{itemize}
 	\end{enumerate}
 \end{document}
