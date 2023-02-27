@@ -1774,7 +1774,7 @@
 		\end{equation*}
 	\end{itemize}\newpage
 	
-	\subsection{\textcolor{Green4}{Esempi}}
+	\subsection[Esempi]{\textcolor{Green4}{Esempi}}
 	
 	Tutte le interrogazioni che verranno affrontate riguardano la seguente basi di dati (già vista nei precedenti paragrafi~\ref{Trasformazioni di equivalenza - Tabella}):
 	\begin{figure}[!htp]
@@ -1864,5 +1864,118 @@
 				\right\}
 			\end{gather*}
 		\end{itemize}
-	\end{enumerate}
+	\end{enumerate}\newpage
+
+	\subsection{Esercizi}
+	
+	\subsubsection{Aula, insegnamento, docente e lezione}
+	
+	\textcolor{Red3}{\textbf{\underline{Testo}}}\newline
+	
+	\noindent
+	Dato il seguente schema relazionale:
+	\begin{itemize}
+		\item \textbf{AULA}(\underline{NomeAula}, Capienza, Edificio);
+		\item \textbf{INSEGNAMENTO}(\underline{NomeIns, AnnoAcc}, Docente);
+		\item \textbf{DOCENTE}(\underline{Matricola}, Nome, Cognome, Età, Ruolo: \{ordinario, associato, ricercatore, esterno\});
+		\item \textbf{LEZIONE}(\underline{NomeIns, AnnoAcc, NomeAula, Giorno, Semestre, OraInizio}, OraFine).
+	\end{itemize}
+	Si calcoli:
+	\begin{enumerate}
+		\item Trovare il nome e la capienza delle aule dove nel 2° semestre 2015/2016 il venerdì non si sono svolte lezioni.
+		\item Trovare i docenti che nel 1° semestre 2016/2017 hanno svolto almeno una lezione di durata maggiore di 180 minuti, riportando nel risultato il nome e il cognome del docente insieme alla durata della lezione (durata in minuti $=$ (\underline{OraFine} $-$ OraInizio)).
+		\item Trovare per ogni lezione del 1° semestre 2016/2017 che si svolge il martedì prima delle 17.00 in aula A, la lezione immediatamente successiva nella stessa aula, riportando nel risultato per la prima lezione il nome dell’insegnamento, l’ora di inizio e l’ora di fine e per la lezione successiva solo il nome dell’insegnamento.
+	\end{enumerate}\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Soluzione 1}}}\newline
+	
+	\noindent
+	\emph{Trovare il nome e la capienza delle aule dove nel 2° semestre 2015/2016 il venerdì non si sono svolte lezioni.}\newline
+
+	\noindent
+	La soluzione è la seguente:
+	\begin{gather*}
+		Q = \left\{
+		\text{Nome, Capienza}: A\left(\text{NomeAula, Capienza}\right) \hspace{1em} | \hspace{1em} A\left(\text{Aula}\right) \hspace{1em} | \hspace{1em} \right. \\
+		\lnot\exists L\left(\text{Lezione}\right)\left(A\left(\text{NomeAula}\right) = L\left(\text{NomeAula}\right) \land L\left(\text{AnnoAcc}\right) = "2015/2016" \land \right. \\
+		\left. \left.\left. L\left(\text{Semestre}\right) = "2^{\mathrm{o}}" \land L\left(\text{Giorno}\right) = "\text{Venerdì}"\right) 
+		\right)\right\}
+	\end{gather*}
+	Il nome e la capienza delle aule si trovano nella tabella Aula, per cui nella \emph{target list} andranno i suoi due campi e basta.\newline
+	
+	\noindent
+	Nella \emph{range list} è sufficiente l'aula, nonostante nella tabella lezione ci siano alcuni dati importanti.\newline
+	
+	\noindent
+	Nel campo formula ci sono alcune condizioni. Per manifestare la negazione è necessario l'operatore logico \emph{not}. Esso deve operare su un campo presente nella tabella Lezione, ma allo stesso tempo deve avere le caratteristiche richieste dal risultato. Quindi, si scrive che non esiste una $L$ appartenente alla tabella Lezione tale per cui essa abbia:
+	\begin{itemize}
+		\item Il nome dell'aula (chiave) uguale sia nella tabella Aula che Lezione;
+		\item L'anno accademico (tabella Lezione) uguale al valore $2015/2016$;
+		\item Il semestre (tabella Lezione) uguale al valore $2^{\mathrm{o}}$;
+		\item Il giorno (tabella Lezione) uguale al valore Venerdì.
+	\end{itemize}
+	Quindi, in questo caso si richiede una Lezione che non è presente nella tabella Aula, cioè che non si sia svolta. Tuttavia, oltre a non essersi svolta, deve in un anno, semestre e giorno preciso.\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Soluzione 2}}}\newline
+	
+	\noindent
+	\emph{Trovare i docenti che nel 1° semestre 2016/2017 hanno svolto almeno una lezione di durata maggiore di 180 minuti, riportando nel risultato il nome e il cognome del docente insieme alla durata della lezione (durata in minuti $=$ (\underline{OraFine} $-$ OraInizio)).}\newline
+	
+	\noindent
+	La soluzione è la seguente:
+	\begin{gather*}
+		Q = \left\{
+		\text{Nome, Cognome}: D\left(\text{Nome, Cognome}\right), \right. \\
+		\text{Durata Lezione}: L\left(\text{OraFine}\right) - L\left(\text{OraInizio}\right) \hspace{1em} | \hspace{1em} \\
+		D\left(\text{Docente}\right), I\left(\text{Insegnamento}\right), L\left(\text{Lezione}\right) \hspace{1em} | \hspace{1em} \\
+		D\left(\text{Matricola}\right) = I\left(\text{Docente}\right) \land I\left(\text{NomeIns}\right) = L\left(\text{NomeIns}\right) \land \\
+		I\left(\text{AnnoAcc}\right) = L\left(\text{AnnoAcc}\right) \land L\left(\text{AnnoAcc}\right) = "2016/2017" \land L\left(\text{Semestre}\right) = 1^{\mathrm{o}} \land \\
+		\left. \left. \left(L\left(\text{OraFine}\right) - L\left(\text{OraInizio}\right)\right) \ge 180
+		\right)\right\}
+	\end{gather*}
+	Il risultato richiede il nome e il cognome del docente, quindi la \emph{target list} avrà tali campi e la durata. Quest'ultima sarà specificata eseguendo la differenza tra l'ora di fine e l'ora di inizio.\newline
+	
+	\noindent
+	Nella \emph{range list} si specifica ovviamente la tabella del docente, dell'insegnamento e della lezione.\newline
+	
+	\noindent
+	Nel campo formula ci sono alcune condizioni. È necessario collegare tutte le chiavi esterne, quindi le matricole del docente, il nome e l'anno accademico tra l'Insegnamento e la Lezione. Inoltre, le condizioni sul numero di semestre, anno accademico e durata delle lezioni, cioè ora di inizio e fine, sono specificate nella tabella Lezione. Quindi, le condizioni vengono espresse su di essa.\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{Soluzione 3}}}\newline
+	
+	\noindent
+	\emph{Trovare per ogni lezione del 1° semestre 2016/2017 che si svolge il martedì prima delle 17.00 in aula A, la lezione immediatamente successiva nella stessa aula, riportando nel risultato per la prima lezione il nome dell’insegnamento, l’ora di inizio e l’ora di fine e per la lezione successiva solo il nome dell’insegnamento.}\newline
+	
+	\noindent
+	La soluzione è la seguente:
+	\begin{gather*}
+		Q = \left\{
+		\text{Ins, Inizio, Fine}: L1.\left(\text{NomeIns, OraInizio, OraFine}\right), \right. \\
+		\text{InsSuccessivo}: L2.\left(\text{NomeIns}\right) \hspace{1em} | \hspace{1em} L1\left(\text{LEZIONE}\right), L2\left(\text{LEZIONE}\right) \hspace{1em} | \hspace{1em} \\
+		L1.\text{Semetre} = "1" \land L2.\text{Semestre} = "1" \land L1.\text{AnnoAcc} = "2016/2017" \land \\
+		L2.\text{AnnoAcc} = "2016/2017" \land L1.\text{Giorno} = "\text{Martedì}" \land L2.\text{Giorno} = "\text{Martedì}" \land \\
+		L1.\text{NomeAula} = "\text{A}" \land L2.\text{NomeAula} = "\text{A}" \land L1.\text{OraInizio} < 17:00 \land \\ L1.\text{OraInizio} < L2.\text{OraInizio} \land \lnot \exists L3\left(\text{LEZIONE}\right)\left( L3.\text{Semestre} = "1" \land \right. \\
+		L3.\text{AnnoAcc} = "2016/2017" \land L3.\text{Giorno} = "\text{Martedì}" \land L3.\text{NomeAula} = "\text{A}" \land \\
+		\left. L1.\text{OraInizio} < L3.\text{OraInizio} \land L3.\text{OraInizio} < L2.\text{OraInizio}
+		\right)\left.
+		\right\}
+	\end{gather*}
+	Il risultato richiede il nome, l'ora di inizio e l'ora di fine dell'insegnamento della prima lezione. Inoltre, anche il nome dell'insegnamento della lezione successiva alla prima. Quindi, nella \emph{target list} si aggiungono tali campi\newline
+	
+	\noindent
+	Nella \emph{range list} si specificano due riferimenti diversi per la tabella LEZIONE poiché sono necessari per indicare due lezioni diverse. Entrambi si riferiscono alla tabella LEZIONE dato che in essa ci sono tutti i dati richiesti.\newline
+	
+	\noindent
+	Nel campo formula ci sono alcune condizioni. Le prime condizioni sono necessarie per indicare che la lezione prima delle ore $17:00$ e quella successiva:
+	\begin{itemize}
+		\item Siano del primo semestre;
+		\item Dell'anno accademico $2016/2017$;
+		\item Si svolgano di martedì;
+		\item La prima lezione si svolga prima delle ore $17:00$ (è sufficiente l'ora di inizio);
+		\item La successiva (seconda) lezione si svolga dopo l'ora di inizio della prima.
+	\end{itemize}
+	Oltre a queste condizioni, è necessario specificare che la seconda lezione $L2$ sia la successiva di $L1$. Per farlo, è possibile utilizzare il quantificatore esistenziale per negare l'esistenza di una lezione tra la prima e la seconda. In questo modo, quest'ultima diventa la successiva. Quindi, le condizioni del semestre, anno accademico, giorno e aula sono le stesse. Al contrario, l'ora di inizio dovrà essere successiva alla prima lezione $L1$ e dovrà essere anche precedente alla seconda lezione $L2$. Negando l'esistenza di una lezione con queste condizioni, si ottiene la successione.
 \end{document}
