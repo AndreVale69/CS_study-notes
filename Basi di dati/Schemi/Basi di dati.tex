@@ -8,6 +8,7 @@
 \usepackage{amsmath}				% pacchetto matematica
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{listings}				% pacchetto per i codici
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 % Link ipertestuali per l'indice
 \usepackage{xcolor}
@@ -15,6 +16,33 @@
 \hypersetup{
 	colorlinks=true
 }
+
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
 
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
@@ -1977,5 +2005,162 @@
 		\item La prima lezione si svolga prima delle ore $17:00$ (è sufficiente l'ora di inizio);
 		\item La successiva (seconda) lezione si svolga dopo l'ora di inizio della prima.
 	\end{itemize}
-	Oltre a queste condizioni, è necessario specificare che la seconda lezione $L2$ sia la successiva di $L1$. Per farlo, è possibile utilizzare il quantificatore esistenziale per negare l'esistenza di una lezione tra la prima e la seconda. In questo modo, quest'ultima diventa la successiva. Quindi, le condizioni del semestre, anno accademico, giorno e aula sono le stesse. Al contrario, l'ora di inizio dovrà essere successiva alla prima lezione $L1$ e dovrà essere anche precedente alla seconda lezione $L2$. Negando l'esistenza di una lezione con queste condizioni, si ottiene la successione.
+	Oltre a queste condizioni, è necessario specificare che la seconda lezione $L2$ sia la successiva di $L1$. Per farlo, è possibile utilizzare il quantificatore esistenziale per negare l'esistenza di una lezione tra la prima e la seconda. In questo modo, quest'ultima diventa la successiva. Quindi, le condizioni del semestre, anno accademico, giorno e aula sono le stesse. Al contrario, l'ora di inizio dovrà essere successiva alla prima lezione $L1$ e dovrà essere anche precedente alla seconda lezione $L2$. Negando l'esistenza di una lezione con queste condizioni, si ottiene la successione.\newpage
+	
+	\section{Tecnologie per le basi di dati}
+	
+	\subsection{Transazioni}
+	
+	Una \textcolor{Red3}{\textbf{transazione}} identifica un'unità elementare di lavoro svolta da un'applicazione, su cui si vogliono associare particolari \underline{proprietà} di \textbf{correttezza}, \textbf{robustezza} e \textbf{isolamento}.\newline
+	
+	\noindent
+	Un sistema che mette a disposizione un meccanismo per la definizione e l'esecuzione di transazioni con le caratteristiche suddette viene detto \textbf{sistema transazionale}.\newline
+	
+	\noindent
+	La \textbf{principale caratteristica} di una transazione è che essa, una volta eseguita, si è certi che non ci saranno esecuzioni parziali. Dunque, l'operazione andrà a buon fine, oppure fallirà senza modificare la base dati.
+	
+	\subsection{Transazioni in SQL}
+	
+	La \textbf{sintassi} di una transazione in SQL è la seguente:
+	\begin{lstlisting}[language=SQL]
+begin transaction
+	<istruzione> | commit work | rollback work
+end transaction
+	\end{lstlisting}
+	Dove al posto di:
+	\begin{itemize}
+		\item \textsf{Istruzione}, possono andare una serie di comandi da eseguire;
+		\item \textsf{Commit work} (abbreviazione \textsf{commit}), la transazione va a buon fine al raggiungimento di tale operazione;
+		\item \textsf{Rollback work} (abbreviazione \textsf{rollback}), la transazione non ha alcun effetto al raggiungimento di tale operazione.
+	\end{itemize}
+	Una \textbf{transazione} è \textbf{ben formattata} se rispetta le seguenti caratteristiche:
+	\begin{enumerate}
+		\item Inizia con un'istruzione \textsf{begin transaction};
+		\item Termina con un'istruzione \textsf{end transaction};
+		\item L'esecuzione incontra un \textsf{commit} o un \textsf{rollaback} e successivamente non esegue altri accessi alla base di dati.
+	\end{enumerate}\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{Esempio}} di transazione ben formata:
+	\begin{lstlisting}[language=SQL]
+begin transaction;
+	update ContoCorrente
+		set Saldo = Saldo + 10
+		where NumConto = 12202;
+	update ContoCorrente
+		set Saldo = Saldo - 10
+		where NumConto = 42177;
+	select Saldo into A
+		from ContoCorrente
+		where NumConto = 42177;
+	if A >= 0
+		then commit work;
+		else rollback work;
+end transaction;
+	\end{lstlisting}
+
+	\longline
+	
+	\subsection{Proprietà acide delle transazioni}
+	
+	Una transazione possiede quattro \textcolor{Red3}{\textbf{proprietà acide}} (Atomicity Consistency Isolation Durability, ACID) che sono:
+	\begin{itemize}
+		\item \textbf{Atomicità} (\emph{Atomicity})
+		\item \textbf{Consistenza} (\emph{Consistency})
+		\item \textbf{Isolamento} (\emph{Isolation})
+		\item \textbf{Persistenza} (\emph{Durability})
+	\end{itemize}
+	
+	
+	\subsubsection{Atomicità}
+	
+	L'\textcolor{Red3}{\textbf{atomicità}} rappresenta il fatto che una transazione è un'unità \textbf{indivisibile} di esecuzione. Quindi, o vengono resi visibili tutti gli effetti di una transazione, oppure essa non deve aver alcun effetto sulla base di dati (tutto o niente).\newline
+	Per applicare questa proprietà, si implementano due implicazioni:
+	\begin{itemize}
+		\item \textbf{Transazione interrotta \underline{prima}} del \textsf{commit}, il sistema deve ricostruire la situazione esistente prima dell'esecuzione della transazione eliminando il lavoro eseguito fino a quel momento.
+		\item \textbf{Transazione interrotta \underline{dopo}} il \textsf{commit}, il sistema deve assicurare che la transazione lasci la base di dati nel suo stato finale.
+	\end{itemize}\newpage
+
+	\subsubsection{Consistenza}
+	
+	La \textcolor{Red3}{\textbf{consistenza}} richiede che l'esecuzione della transazione non violi i vincoli di integrità definiti sulla base di dati. Nel caso di una violazione, il sistema interviene per annullare la transazione o per correggere la violazione del vincolo.\newline
+	Il controllo della violazione può essere di due tipi:
+	\begin{itemize}
+		\item \textbf{Controllo della violazione \underline{immediata}}. I controlli vengono eseguiti durante l'esecuzione della transazione. Così facendo, è possibile rimuovere gli effetti della specifica istruzione di manipolazione dei dati che causa la violazione del vincolo, senza imporre un aborto delle transazioni.
+		\item \textbf{Controllo della violazione \underline{differita}}. I controlli vengono eseguiti al termine dell'esecuzione della transazione, ovvero dopo il \textsf{commit}. Nel caso in cui ci sia una violazione, viene abortita l'intera transazione.
+	\end{itemize}
+	
+	\subsubsection{Isolamento}
+	
+	L'\textcolor{Red3}{\textbf{isolamento}} richiede che l'esecuzione di una transazione sia indipendente dalla contemporanea esecuzione di altre transazioni.\newline
+	Per applicare questa proprietà, si implementano due implicazioni:
+	\begin{itemize}
+		\item \textbf{Esecuzione concorrente} di un insieme di transazioni deve essere analogo al risultato che le stesse transazioni otterrebbero qualora ciascuna di esse fosse eseguita da sola.
+		\item \textbf{Esecuzione indipendente}. L'esecuzione indipendente di ogni transazione evita che un eventuale \textsf{rollback} provochi un effetto domino generando una \textsf{rollback} anche nelle altre.
+	\end{itemize}
+
+	\subsubsection{Persistenza}
+	
+	La \textcolor{Red3}{\textbf{persistenza}} richiede che l'esecuzione di una transazione che ha eseguito il \textsf{commit} correttamente non venga più perso.\newline
+	L'applicazione di questa proprietà garantisce gli effetti delle transazioni che, al momento di un eventuale guasto, abbiano già eseguito un \textsf{commit}.\newpage
+	
+	\subsection{Architettura di riferimento di un DBMS}
+	
+	Si lascia qui di seguito l'immagine di un'architettura di un DBMS. Non è necessario approfondire più di tanto tale argomento, ma è utile sapere della sua conoscenza. L'unica cosa \textbf{importante} da ricordare è \textbf{quali sono i moduli che contribuiscono a garantire le proprietà delle transizioni}:
+	\begin{itemize}
+		\item Gestore dei metodi d'accesso:
+		\begin{itemize}
+			\item Consistenza
+		\end{itemize}
+		
+		\item Gestore dell'esecuzione concorrente:
+		\begin{itemize}
+			\item Atomicità
+			\item Isolamento
+		\end{itemize}
+	
+		\item Gestore dell'affidabilità
+		\begin{itemize}
+			\item Atomicità
+			\item Persistenza
+		\end{itemize}
+	\end{itemize}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/architettura_DBMS.pdf}
+		\caption{Architettura generale di un DBMS.}
+	\end{figure}\newpage
+	
+	\subsubsection{Gestore (ottimizzatore) delle interrogazioni}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/gestore_interrogazioni.pdf}
+		\caption{Gestore (ottimizzatore) delle interrogazioni.}
+	\end{figure}
+
+	\subsubsection{Gestore dei metodi d'accesso e dell'esecuzione concorrente}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/gestore_metodi_accesso_e_esecuzione.pdf}
+		\caption{Gestore dei metodi d'accesso e dell'esecuzione concorrente.}
+	\end{figure}\newpage
+
+	\subsubsection{Gestore dei metodi d'accesso e dell'affidabilità}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/gestore_metodi_accesso_e_affidabilita.pdf}
+		\caption{Gestore dei metodi d'accesso e dell'affidabilità.}
+	\end{figure}
+
+	\subsubsection{Gestore dell'affidabilità e del buffer}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/gestore_affidabilita_e_buffer.pdf}
+		\caption{Gestore dell'affidabilità e del buffer.}
+	\end{figure}
 \end{document}
