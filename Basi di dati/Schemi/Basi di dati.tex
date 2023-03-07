@@ -2163,4 +2163,252 @@ end transaction;
 		\includegraphics[width=\textwidth]{img/gestore_affidabilita_e_buffer.pdf}
 		\caption{Gestore dell'affidabilità e del buffer.}
 	\end{figure}
+
+	\newpage
+	\section{PostgreSQL}
+	
+	\subsection{Introduzione e installazione}
+	
+	Il sistema PostgreSQL è un Relational Data Base Management System (RDBMS o DBMS) con alcune funzionalità orientate agli oggetti. È possibile installarlo sui sistemi più famosi: Windows, Mac OS, Linux, ecc. Viene gestito da un gruppo di volontari e la sua pagina ufficiale è la seguente: \href{https://www.postgresql.org/}{PostgreSQL}.\newline
+	
+	\noindent
+	Per installarlo su windows si seguono i seguenti passi:
+	\begin{enumerate}
+		\item Si scarica il \textsf{setup.exe} dalla piattaforma ufficiale: \href{https://www.postgresql.org/download/}{link download};
+		
+		\item Si esegue il setup andando avanti e lasciando come porta quella predefinita suggerita dal programma;
+		
+		\item Si rifiuta il download aggiuntivo di un altro programma al termine dell'installazione.
+	\end{enumerate}
+	Al termine dell'installazione, è possibile aprire il programma pgAdmin 4, cercandolo banalmente dal menù start di Windows, e iniziare a configurarlo per collegarsi alla piattaforma. La configurazione del server dell'università è la seguente:
+	\begin{enumerate}
+		\item Sulla colonna di sinistra, si clicca con il destro sopra il nome Server $\rightarrow$ \textsf{Register} $\rightarrow$ \textsf{Server} barra della applicazioni si clicca su \textsf{File} $\rightarrow$ \textsf{Preferences};
+		
+		\item All'apertura della seguente finestra:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.7\textwidth]{img/lab/installazione.png}
+		\end{figure}
+		
+		\noindent
+		Si inserisce come nome un alias del server, per esempio \dquotes{gimmy}.\newline
+		Nella scheda \textsf{Connection}:
+		\begin{enumerate}
+			\item Si inserisce come Host name l'indirizzo del server di base di dati, ovvero: \textsf{dbserver.scienze.univr.it}
+			\item Nel campo \textsf{port} la porta utilizzata durante l'installazione, se è stata lasciata quella di default è la \textsf{5432}
+			\item Nei campi \textsf{Maintenace database} e \textsf{Username} si inserisce l'username utilizzato per identificarsi sulla piattaforma ESSE3, quindi \textsf{id123abc}
+			\item Il campo \textsf{password} è possibile riempirlo con la password utilizzata per identificarsi sulla piattaforma ESSE3, oppure lasciarlo vuoto per poi scrivere la password al primo accesso al database.
+		\end{enumerate}
+		
+		\item Cliccare su \textsf{Save}.
+	\end{enumerate}
+	Una volta configurata la piattaforma, sarà possibile accedervi tramite la colonna di sinistra. Sotto la voce \textsf{Server} sarà possibile trovare l'alias indicato nella configurazione e tutti i database presenti all'interno della piattaforma.\newline
+	
+	\noindent
+	Andando sul proprio id, si potrà accedere al database personale. Per eseguire le operazioni di query, si utilizza \textsf{Query Tool}. Per avviarlo basta andare sul proprio database personale $\rightarrow$ click destro $\rightarrow$ \textsf{Query Tool}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/lab/configurazione.png}
+	\end{figure}
+	
+	\noindent
+	Alla sua apertura sarà possibile eseguire query sulla propria base di dati inizialmente vuota. Dopo aver scritto un'espressione ben formattata, sarà possibile eseguirla con la scorciatoia da tastiera \textsf{F5} o cliccando sul tasto play in alto.\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{ATTENZIONE!}} \textbf{Al termine di ogni sessione, è necessario scollegarsi dal server cliccando con il destro sull'alias iniziale} $\rightarrow$ \textbf{\textsf{Disconnect from server}.}}\newpage
+	
+	\subsection{Caratteri (character, character varying, text)}
+	
+	Il dominio \textcolor{Red3}{\textsf{character}} consente di rappresentare singoli caratteri oppure stringhe di lunghezza fissa. Per indicare quest'ultima, viene scritto un valore all'interno delle parentesi tonde dopo il comando. Nel caso in cui non fosse presente, il dominio rappresentare un carattere singolo.\newline
+	
+	\noindent
+	Sintassi:
+	\begin{lstlisting}[language=SQL]
+character [ ( Lunghezza )]
+	[ character set NomeFamigliaCaratteri ]	\end{lstlisting}
+	Il campo lunghezza e l'insieme (\emph{set}) sono opzionali. È possibile abbreviare il comando scrivendo \textsf{char}.\newline
+	
+	\noindent
+	Esempio di stringa di 20 caratteri: \textsf{character(20)}.\newline
+	
+	\longline
+	
+	\noindent
+	Il dominio \textcolor{Red3}{\textsf{character varying}} consente di rappresentare stringhe di lunghezza variabile. Il suo funzionamento è identico a quello di \textsf{character} con la differenza che la lunghezza è variabile in questo caso.\newline
+	
+	\noindent
+	Sintassi:
+	\begin{lstlisting}[language=SQL]
+character varying [ ( Lunghezza ) ]
+	[ character set NomeFamigliaCaratteri ]	\end{lstlisting}
+	È possibile abbreviare il comando scrivendo \textsf{varchar}.\newline
+	
+	\noindent
+	Esempio di stringa di caratteri dell'alfabeto greco a lunghezza variabile, di lunghezza massima 1000: \textsf{character varying (1000) character set Greek}.\newline
+	
+	\longline
+	
+	\noindent
+	Il dominio \textcolor{Red3}{text} è un'estensione di PostgreSQL e indica una stringa di lunghezza variabile \textbf{senza limite} fissato. La sua sintassi è banale: \textsf{text}.\newpage
+	
+	\subsection{Booleani (\textsf{boolean})}
+	
+	Il dominio \textcolor{Red3}{\textsf{boolean}} consente di rappresentare singoli valori booleani: \emph{true} e \emph{false}.
+	
+	\longline
+	
+	\subsection{Tipi numerici esatti (\textsf{numeric}, \textsf{decimal}, \textsf{integer}, \textsf{smallint}, \textsf{bigint})}
+	
+	I tipi numerici esatti sono una famiglia contenenti i domini che consentono di \textbf{rappresentare i valori esatti, interi o con una parte decimale di lunghezza prefissata}.\newline
+	
+	\noindent
+	Sintassi:
+	\begin{lstlisting}[language=SQL]
+numeric [ ( Precisione [, Scala] ) ]
+decimal [ ( Precisione [, Scala] ) ]
+bigint
+integer
+smallint \end{lstlisting}
+	\begin{itemize}
+		\item \textsf{numeric} e \textsf{decimal} rappresentano i numeri in base \textbf{decimale}. I loro parametri sono:
+		\begin{itemize}
+			\item Precisione, specifica il numero di cifre significative;
+			\item Scala, specifica la scala di rappresentazione, ovvero si indica quante cifre devono comparire dopo la virgola
+		\end{itemize}
+		La loro \textbf{differenza} principale riguarda che la precisione nel dominio \textsf{numeric} rappresenta un valore esatto, mentre in \textsf{decimal} rappresenta un requisito minimo. Nel caso in cui non venga specificata la dimensione, il sistema usa un valore caratteristico dell'implementazione. Se la scala non si specifica, si assume che valga zero.
+		
+		\item \textsf{bigint}, \textsf{integer} e \textsf{smallint} utilizzano la rappresentazione binaria del calcolatore per rappresentare i valori interi. L'ordine di grandezza dei domini è quello scritto.
+	\end{itemize}\:\newline
+
+	\noindent
+	Esempi:
+	\begin{itemize}
+		\item Tutti i numeri decimali con tre valori dopo la virgola e un valore intero (range $-9,999$ e $+9,999$): \textsf{decimal(4)}
+		\item I valori con 4 valori dopo la virgola e due interi (range $-99,9999$ e $+99,999$): \textsf{decimal(6, 4)}
+	\end{itemize}\newpage
+	
+	\subsection{Tipi numerici approssimati (\textsf{float}, \textsf{real}, \textsf{double precision})}
+	
+	Per la rappresentazione di valori reali approssimati, utili nelle rappresentazioni di grandezze fisiche per esempio, si utilizzano principalmente tre comandi.\newline
+
+	\noindent
+	Sintassi:
+	\begin{lstlisting}[language=SQL]
+float [ ( Precisione ) ]
+real
+double precision \end{lstlisting}
+	Consentono di descrivere numeri approssimati mediante una rappresentazione in virgola mobile, in cui a ciascun numero corrisponde una coppia di valori: mantissa ed esponente. L'importante è sapere che a \textsf{float} è possibile assegnare una precisione, la quale rappresenta il numero di cifre dedicate alla rappresentazione della mantissa.
+	
+	\longline
+	
+	\subsection{Istanti e intervalli temporali (\textsf{date}, \textsf{time}, \textsf{timestamp}, \textsf{interval})}
+	
+	Per descrivere \textbf{intervalli temporali} o \textbf{istanti temporali}, si utilizzano diverse forme.\newline
+	
+	\noindent
+	Sintassi:
+	\begin{lstlisting}[language=SQL]
+date
+time [ (Precisione) ] [ with time zone ]
+timestamp [ (Precisione) ] [ with time zone ]
+interval PrimaUnitaDiTempo [ to UltimaUnitaDiTempo ]\end{lstlisting}
+	Il campo:
+	\begin{itemize}
+		\item \textsf{date} ammette i campi \textsf{year, month, day}
+		\item \textsf{time} ammette i campi \textsf{hour, minute, second}
+		\item \textsf{timestamp} ammette tutti i campi elencati
+	\end{itemize}
+	Nei due campi \textsf{time} e \textsf{timestamp} è possibile accedere al fuso orario tramite \textsf{with time zone}. Quindi, si accede ai due campi \textsf{timezone\_hour} e \textsf{timezone\_minute} che rappresentano la differenza di fuso orario tra l'ora locale a l'ora universale (UTC).\newpage
+	
+	\noindent
+	L'intervallo di tempo rappresenta la durata di un evento e può prendere i seguenti parametri:
+	\begin{itemize}
+		\item \textsf{interval year to month} per indicare che la durata dell'intervallo di tempo deve essere misurata in numero di anni e di mesi. Esempio di rappresentazione di intervalli con numero di anni a cinque cifre (range fino a $99'999$ e $11$ mesi): \textsf{interval year(5) to month}
+		\item \textsf{interval day to second} per indicare che la durata dell'intervallo di tempo deve essere misurata in numero di giorni e di secondi. Esempio di rappresentazione di intervalli con numero di giorni a quattro cifre e secondi a sei cifre (range fino a $9'999$ giorni, $23$ ore, $59$ minuti, $59,999999$ secondi): \textsf{interval day(4) to second(6)}
+	\end{itemize}
+	\textbf{Attenzione!} Non è possibile mischiare gli insiemi (e.g. \textsf{interval year to second}) poiché questo vorrebbe dire sovraccaricare il sistema di calcolo. Dunque, questa operazione non è ammessa.
+	
+	\longline
+	
+	\subsection{Oggetti di grandi dimensioni (\textsf{blob, clob})}
+	
+	I due domini \textcolor{Red3}{\textsf{blob, clob}} consentono di rappresentare oggetti molto grandi, come immagini o video, costituiti da una sequenza arbitraria di valori binari (\textsf{blob}, \emph{binary large object}) o di caratteri (\textsf{clob}, \emph{character large object}). Il sistema garantisce solo la loro memorizzazione, ma non consente di utilizzarli come criterio di selezione per le interrogazioni.
+	
+	\longline
+	
+	\subsection{Definizione delle tabelle (\textsf{create table})}
+	
+	Una tabella \textcolor{Red3}{\textsf{table}} SQL è costituita da una collezione ordinata di attributi e (opzionale) da un insieme di vincoli.\newline
+	
+	\noindent
+	Sintassi:
+	\begin{lstlisting}[language=SQL]
+create table NomeTabella
+( NomeAttributo Dominio [ ValoreDiDefault ] [ Vincoli ]
+  { , NomeAttributo Dominio [ ValoreDiDefault ] [ Vincoli ] }
+  AltriVincoli
+) \end{lstlisting}
+	
+	\noindent
+	Un esempio della creazione di una tabella:
+	\begin{lstlisting}[language=SQL]
+create table Dipartimento
+(
+	Nome			varchar(20) primary key,
+	Indirizzo	varchar(50),
+	Citta			varchar(20)
+) \end{lstlisting}
+	\textbf{Attenzione alla formattazione!}\newpage
+	
+	\subsection{Definizione dei domini (\textsf{create domain})}
+	
+	Nella definizione precedente di tabella, si può far riferimento ai domini predefiniti del linguaggio o a domini definiti dall'utente a partire dai domini predefiniti. Ovvero, è possibile creare insiemi di valori che formano un dominio.\newline
+	
+	\noindent
+	Sintassi:
+	\begin{lstlisting}[language=SQL]
+create domain NomeDominio as TipoDiDati
+			  			[ ValoreDiDefault ]
+			  			[ Vincolo ] \end{lstlisting}
+	Il dominio è caratterizzato dal proprio nome, da un valore di default e da un insieme di vincoli eventuali.\newline
+	
+	\noindent
+	Esempio:
+	\begin{lstlisting}[language=SQL]
+create domain giorniSettimana as char (3)
+	check(value in('LUN','MAR','MER','GIO','VEN','SAB','DOM')); \end{lstlisting}
+	
+	\longline
+	
+	\subsection{Valori di default (\textsf{default})}
+	
+	I valori di default, come si è visto nei precedenti paragrafi, sono valori che una riga di una tabella assume nel momento in cui viene aggiunta all'interno della base di dati senza che tale campo abbia ricevuto una modifica. Quando il valore di default non viene specificato, si assume il valore nullo.\newline
+	
+	\noindent
+	Sintassi:
+	\begin{lstlisting}[language=SQL]
+default < GenericoValore | user | null > \end{lstlisting}
+	Si deve scegliere solo uno dei tre valori:
+	\begin{itemize}
+		\item \textsf{GenericoValore}, rappresenta un valore compatibile con il dominio
+		\item \textsf{user}, impone come valore di default l'identificativo dell'utente che esegue il comando di aggiornamento della tabella
+		\item \textsf{null}, valore nullo
+	\end{itemize}\newpage
+	
+	\subsection{Vincoli intrarelazionali}
+	
+	\subsubsection{Not null}
+	
+	Il valore nullo indica un attributo senza valore. Il suo contrario, ovvero \textsf{not null}, indica che il valore nullo non è ammesso come valore dell'attributo e quindi esso deve essere sempre specificato.\newline
+	
+	\noindent
+	Sintassi con esempio:
+\begin{lstlisting}[language=SQL]
+Cognome varchar(20) not null \end{lstlisting}	
+	
+	\longline
+	
+	\subsubsection{Unique}
+	
+	\subsubsection{Primary key}
 \end{document}
