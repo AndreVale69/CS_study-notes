@@ -1,0 +1,384 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{listings}				% pacchetto per i codici
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+\newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\newcommand{\dquotes}[1]{``#1''}
+
+\begin{document}
+	\author{VR443470}
+	\title{Linguaggi}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Introduzione}
+	
+	\subsection{Nascita dei linguaggi}
+	
+	Il problema \textbf{principale dell'informatica} consiste nel voler far eseguire ad una macchina \textbf{algoritmi} che manipolano \textbf{dati}. Con il termine \dquotes{macchina} si intende un dispositivo \textbf{programmabile}, ovvero un calcolatore, che può eseguire un insieme di istruzioni chiamate programmi, ricevuti come input (\textcolor{Red3}{\textbf{macchine universali}}).\newline
+	
+	\noindent
+	In particolare, i computer moderni hanno un'architettura che nasce da quella di Von Neumann.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/von_neumann.png}
+		\caption{Architettura di Von Neumann.}
+	\end{figure}
+
+	\noindent
+	Per operare su tali macchine, fu necessario inserire una CPU per eseguire algoritmi e operare sui dati in memoria. Il primo linguaggio che consente di programmare tale architettura è quello basato sull'implementazione dell'architettura stessa, ovvero la programmazione con schede perforate per esempio.\newpage
+	
+	\subsection{Definizioni}
+	
+	\subsubsection{Algoritmo}
+	
+	Un \textcolor{Red3}{\textbf{algoritmo}} \textbf{è una sequenza finita di passi primitivi di calcolo descritti mediante una frase ben formata (programma) in un linguaggio di programmazione}. In altre parole, un algoritmo scompone un calcolo complesso in passi elementari di computazione. Esso è dunque un concetto astratto che trova la sua forma concreta in un programma che è la sequenza finita di istruzioni.\newline
+	
+	\noindent
+	Data la definizione, è necessario precisare che:
+	\begin{itemize}
+		\item \textbf{Un programma non è necessariamente un algoritmo}, poiché una frase grammaticalmente corretta potrebbe non avere significato;
+		\item \textbf{Lo stesso algoritmo può avere concretizzazioni diverse}, ovvero lo stesso algoritmo può essere implementato da infiniti programmi.
+	\end{itemize}
+
+	\subsubsection{Dati}
+
+	I programmi sono la concretizzazione degli algoritmi, i quali manipolano i \textcolor{Red3}{\textbf{dati}}. Essi sono informazioni memorizzate sia concretamente in celle di memoria, sia astrattamente in elementi che il linguaggio di programmazione può manipolare, ovvero le \textbf{variabili}.
+	
+	\subsubsection{Sintassi e semantica}
+
+	La trasformazione (scrittura) di un programma in un determinato linguaggio di programmazione rappresenta la \textcolor{Red3}{\textbf{sintassi}}, mentre l'effetto della sua esecuzione e la trasformazione dei dati eseguita, costituisce la \textcolor{Red3}{\textbf{semantica}}.
+	
+	\subsubsection{Linguaggio matematico e logico}
+	
+	Il \textcolor{Red3}{\textbf{linguaggio matematico}} è una notazione rigorosa per rappresentare funzioni, ma non sempre oggetti infiniti e computazioni, cioè passi di calcolo.\newline
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{linguaggio logico}} sono regole e assiomi che rendono possibile specificare il processo di computazione, in modo implicito, e consente di rappresentare formalmente oggetti infiniti in modo finito, ma non computazioni infinite.
+	
+	\subsubsection{Linguaggio di programmazione}
+	
+	Un \textcolor{Red3}{\textbf{linguaggio di programmazione}} consente di specificare in modo accurato esattamente le primitive del processo di computazione, con la rigorosità e la potenza della logica.\newpage
+	
+	\subsubsection{Programma}
+	
+	Un \textcolor{Red3}{\textbf{programma}} è un insieme finito di istruzioni e costrutti del linguaggio di programmazione.
+
+	\longline
+		
+	\subsection{Aspetti di progettazione}
+	
+	\subsubsection{Leggibilità}
+	
+	La \textcolor{Red3}{\textbf{leggibilità}} (\emph{readability}) è la sintassi chiara, l'assenza di ambiguità, la facilità di lettura e la comprensione dei programmi.\newline
+	
+	\noindent
+	I fattori che contribuiscono alla leggibilità sono:
+	\begin{enumerate}
+		\item La \textbf{semplicità di un linguaggio}, per esempio pochi ed essenziali costrutti base. Infatti, un linguaggio inizia ad essere complicato quando per poter fare la stessa cosa si possono seguire molti percorsi diversi. Un altro fattore di complicazione è l'overloading degli operatori, ovvero quando il simbolo di un operatore ha molteplici significati.
+		
+		\item L'\textbf{ortogonalità} della progettazione di un linguaggio. Un elemento di un programma è ortogonale se è indipendente dal contesto di utilizzo all'interno di esso. Più un programma è ortogonale, meno eccezioni alla regola esistono.
+		
+		\item \textbf{Presenza di strumenti per la definizione di tipi di dati e strutture dati}. Ad esempio l'uso di booleani al posto dei valori interi.
+		
+		\item \textbf{Struttura della sintassi}, come parole chiave significative ad esempio.
+	\end{enumerate}
+	
+	\subsubsection{Scrivibilità}
+	
+	La \textcolor{Red3}{\textbf{scrivibilità}} (\emph{writability}) è la facilita di utilizzo di un linguaggio per creare programmi, la facilità di analisi e la verifica dei programmi. I fattori che influenza la leggibilità sono gli stessi della scrivibilità.\newline
+	
+	\noindent
+	In breve i fattori che che contribuiscono alla scrivibilità sono:
+	\begin{enumerate}
+		\item \textbf{Semplicità e ortogonalità}. La presenza di pochi costrutti consente al programmatore di conoscerli in gran parte e di sfruttare al massimo il linguaggio. Stessa cosa per il numero di primitive.
+		
+		\item \textbf{Supporto per l'astrazione}. La possibilità di utilizzare strutture o operazioni complesse in modi che permettono di ignorare i dettagli. Esistono due tipi di astrazione: processi e dati.
+		
+		\item \textbf{Espressività}. Si riferisce a molte caratteristiche, per esempio mettere a disposizione un insieme di modi relativamente convenienti per specificare operazioni.
+	\end{enumerate}\newpage
+	
+	\subsubsection{Affidabilità e costo}
+	
+	Per \textcolor{Red3}{\textbf{affidabilità}} (\emph{reliability}) si intende la conformità alle sue specifiche. Mentre per \textcolor{Red3}{\textbf{costo}}, letteralmente il costo complessivo di utilizzo.\newline
+	
+	\noindent
+	Un \textbf{programma} viene categorizzato come \textbf{affidabile} se soddisfa le seguenti condizioni:
+	\begin{enumerate}
+		\item \textbf{\emph{Type checking}}, ovvero il controllo degli errori di tipo. Viene eseguito spesso a tempo di compilazione poiché risulta costoso.
+		
+		\item \textbf{Gestione delle eccezzioni}. Gestire gli errori run-time per consentire la continuazione dell'esecuzione e l'attuazione di eventuali misure correttive.
+		
+		\item \textbf{Presenza di potenziali aliasing}. La presenza di due o più metodi di riferimento per la stessa locazione di memoria è un problema.
+	\end{enumerate}
+
+	\noindent
+	Mentre le \textbf{specifiche di costo} riguardano:
+	\begin{itemize}
+		\item L'addestramento di programmatore per usare il linguaggio
+		\item Scrittura di programma
+		\item Compilazione dei programmi
+		\item Esecuzione dei programmi
+		\item Sistema di implementazione del linguaggio, ovvero la disponibilità di compilatori liberi
+		\item Poca affidabilità fanno lievitare i costi
+		\item Mantenimento dei programmi
+	\end{itemize}\newpage
+
+	\subsection{Classificazione dei linguaggi}
+	
+	I linguaggi possono essere classificati per: \textbf{metodo di computazione} e \textbf{per caratteristiche}.
+	
+	\subsubsection{Metodo di computazione}
+	
+	I linguaggi possono essere a:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Basso livello}}. Questi linguaggi hanno caratteristiche strettamente dipendente all'architettura su cui si sta programmando. Per esempio:
+		\begin{itemize}
+			\item Linguaggio binario che non fa distinzione tra dati e programmi;
+
+			\item Assembly, linguaggio strutturato molto basso, vicino al linguaggio macchina.
+		\end{itemize}
+	
+		\item \textcolor{Red3}{\textbf{Alto livello}}. Questi linguaggi consentono una programmazione strutturata in cui dati ed istruzioni hanno rappresentazioni diverse. Esistono tre tipi:
+		\begin{itemize}
+			\item \textcolor{Red3}{\textbf{Linguaggi imperativi}} che descrivono come \textbf{concetto chiave} l'elemento fondamentale dell'architettura di Von Neumann, ovvero la \textbf{cella di memoria}.\newline
+			Il concetto di variabile rappresenta l'astrazione logica della cella.\newline
+			Il concetto di assegnamento rappresenta l'operazione primitiva di modifica della cella di memoria e dunque dello stato della macchina.\newline
+			Nei linguaggi imperativi, gli assegnamenti vengono controllati in modo sequenziale, condizionale e ripetuti.
+			
+			\item \textcolor{Red3}{\textbf{Linguaggi funzionali}} sono molto vicini alla matematica. Essi descrivono i passi di calcolo come funzioni matematiche. Il \emph{core} principale si concentra sulla composizione e applicazione di funzioni.\newline
+			Una variabile viene intesa come un'incognita matematica e sostituita come se fosse un \emph{placeholder} all'interno del linguaggio. Infatti, essa \underline{non} può cambiare nel tempo durante la computazione.
+			
+			\item \textcolor{Red3}{\textbf{Linguaggi logici}} usano la logica, ovvero eseguono pattern matching. Come passo di calcolo primitivo utilizzano l'unificazione o la sostituzione.
+		\end{itemize}
+	\end{itemize}
+
+	\subsubsection{Per caratteristiche}
+	
+	La classificazione per caratteristiche è una metodologia utilizzata principalmente all'inizio dell'era informatica per studiare le caratteristiche di base quali: strutture di base di controllo, strutture per i dati, efficienze nell'esecuzione.\newline
+	
+	\noindent
+	Andando avanti con il tempo, la classificazione si è focalizzata su caratteristiche aggiuntive, ovvero le strutture di base rimangono le stesse, ma ad esse vengono aggiunte nuove caratteristiche. In questo modo viene migliorata la soluziona di specifici problemi.\newpage
+	
+	\subsection{Implementazione dei linguaggi}
+	
+	L'\textbf{implementazione di un linguaggio} ha un collegamento stretto con il funzionamento della macchina su cui deve essere eseguito. Infatti, l'implementazione riguarda le metodologie per rendere comprensibile alla macchina da programmare il linguaggio scelto. Per farlo, è necessario introdurre il funzionamento di una macchina basata sull'architettura di Von Neumann. Essa si basa sulla ripetizione di un ciclo che costituisce l'\textbf{interprete} del linguaggio che la macchina riconosce:
+	\begin{itemize}
+		\item Lettura dell'istruzione dalla memoria (\emph{fetch})
+		
+		\item Decodifica dell'istruzione (\emph{decode})
+		
+		\item Lettura di eventuali operandi
+		
+		\item Memorizzazione ed esecuzione del risultato (\emph{exec})
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.75\textwidth]{img/fasi_esecuzione.png}
+		\caption{Ciclo di esecuzione delle istruzioni.}
+	\end{figure}
+
+	\subsubsection{Macchina astratta}
+
+	\noindent
+	L'implementazione di un linguaggio \textbf{significa} considerare una macchina astratta poiché lavorando ad alto livello, le istruzioni vengono interpretate e dunque si ignorano momentaneamente il linguaggio binario e la macchina fisica.\newline
+	
+	\noindent
+	Dato un linguaggio $L$ di programmazione, la \textcolor{Red3}{\textbf{macchina astratta}} $M_{L}$ per $L$ è un insieme di strutture dati ed algoritmi che permettono di memorizzare ed eseguire i programmi scritti in $L$.\newpage
+	
+	\noindent
+	La collezione di strutture dati ed algoritmi è necessario per:
+	\begin{itemize}
+		\item Acquisire la prossima istruzione
+		
+		\item Gestire le chiamate e i ritorni dai sottoprogrammi
+		
+		\item Acquisire gli operandi e memorizzare i risultati delle operazioni
+		
+		\item Mantenere le associazioni fra nomi e valori denotati
+		
+		\item Gestire dinamicamente la memoria
+	\end{itemize}
+
+	\noindent
+	In altre parole, una \textbf{macchina astratta} è la combinazione di una memoria che immagazzina i programmi e di un interprete che esegue istruzioni dei programmi.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/macchina_astratta.png}
+		\caption{Rappresentazione di una macchina astratta.}
+	\end{figure}
+	
+	\noindent
+	Il \textbf{linguaggio} $L$ riconosciuto (interpretato) dalla macchina astratta $M_{L}$ viene chiamato \textbf{linguaggio macchina}. Formalmente, è l'insieme di tutte le stringhe interpretabili dalla macchina astratta $M$.\newpage
+	
+	\subsubsection{Realizzazione di una macchina astratta a vari livelli}
+	
+	Qualsiasi macchina astratta, per essere eseguita, deve prima o poi utilizzare qualche dispositivo hardware. Questo però non significa che tutte le macchine sono realizzate a livello hardware. Infatti, la realizzazione di una macchina astratta può avvenire tre categorie:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Realizzazione hardware (HW)}}. Sempre possibile e concettualmente semplice. Il linguaggio macchina è il linguaggio fisico/binario e si realizza mediante dispositivi fisici. Data la sua lontananza dai linguaggi ad alto livello, la loro programmazione risulta complessa. Questo è uno dei tanti motivi per cui viene usata solo per sistemi dedicati.
+		
+		\item \textcolor{Red3}{\textbf{Realizzazione firmware (FW)}}. Le strutture dati e gli algoritmi vengono simulati nella macchina mediante microprogrammi. Il linguaggio macchina è a basso livello e consiste in microistruzioni che specificano le operazioni di trasferimento dati tra registri. Il vantaggio è dato dalla velocità e la flessibilità maggiore rispetto all'hardware.
+		
+		\item \textcolor{Red3}{\textbf{Realizzazione software (SW)}}. Le strutture dati e gli algoritmi vengono realizzati tramite un linguaggio implementato. In questo modo è possibile scrivere programmi che interpretano i costrutti del linguaggio macchina simulando le funzionalità della macchina. La velocità viene diminuita ma aumenta molto la flessibilità.
+	\end{itemize}\newpage
+
+	\subsubsection{Realizzazione software e livelli di astrazione}
+	
+	Con la realizzazione software, vengono utilizzati linguaggi di programmazione ad alto livello poiché essi implementano una struttura suddivisa a livelli di astrazione. Ogni livello coopera in modo sequenziale ma allo stesso tempo è indipendente.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/astrazione.png}
+		\caption{Livelli di astrazione utilizzati dai linguaggi ad alto livello.}
+	\end{figure}
+
+	\noindent
+	Quindi, la macchina può essere vista come una stratificazione di livelli di astrazione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/livelli_astrazione_macchina.pdf}
+	\end{figure}\newpage
+
+	\subsection{Realizzazione di una macchina a livello software/firmware}
+	
+	Sia $L$ un linguaggio da implementare e sia $M_{L_{0}}$ una macchina astratta a disposizione che ha come linguaggio macchina $L_{0}$. La macchina astratta $M_{L_{0}}$ è il livello su cui si vuole implementare il linguaggio $L$ e che mettette a disposizione di $M_{L}$ le sue funzionalità.\newline
+	
+	\noindent
+	Dunque, la realizzazione di una macchina astratta $M_{L}$ consiste nel realizzare una macchina che \dquotes{traduce} il linguaggio $L$ (ad alto livello per esempio) in linguaggio macchina $L_{0}$, ovvero che interpreta tutte le istruzioni di $L$ come istruzioni di $L_{0}$. La traduzione avviene tramite due metodi a scelta:
+	\begin{itemize}
+		\item \textbf{Soluzione interpretativa}. Simulazione dei costrutti della macchina astratta $M_{L}$ da realizzare, mediante programmi scritti in $L_{0}$;
+		\item \textbf{Soluzione compilativa}. Traduzione esplicita dei programmi di $L$ in corrispondenti programmi di $L_{0}$.
+	\end{itemize}\newpage
+
+	\subsubsection{Soluzione interpretativa: interprete}
+	
+	La soluzione interpretativa prevede l'utilizzo di un interprete per la realizzazione di una macchina astratta. Un \textcolor{Red3}{\textbf{interprete}} è un programma $\mathrm{int}^{\mathrm{L_{0}, L}}$ che esegue, sulla macchina astratta per $L_{0}$, programmi $P^{L}$, scritti nel linguaggio di programmazione $L$, su un input fissato appartenente all'insieme di dati (input e output). In breve, un interprete è una \textbf{macchina universale} che preso un programma e un suo input, lo esegue su quell'input usando solo funzionalità messe a disposizione dal livello (macchina astratta) sottostante.
+	\begin{center}
+		\textcolor{Red3}{\textbf{\emph{Notazioni}}}
+	\end{center}
+	\begin{itemize}
+		\item $Prog^{L}$ è l'insieme di programmi scritti nel linguaggio di programmazione $L$;
+		\item $D$ è l'insieme di dati, ovvero input e output;
+		\item $P^{L}$ è il programma scritto nel linguaggio di programmazione $L$;
+		\item Relazioni ovvie: $P^{L} \in Prog^{L}$ e $in, out \in D$;
+		\item $\exec{P^{L}}: D \longrightarrow D$ è la notazione utilizzata per indicare che l'esecuzione del programma scritto nel linguaggio di programmazione $L$ con input $in$ è uguale all'output $out$. Quindi $\exec{P^{L}}\left(in\right) = out$.
+	\end{itemize}
+	Un \textcolor{Red3}{\textbf{interprete formalmente}} (\textbf{definizione}) è esprimibile nel seguente modo. Si consideri un interprete da $L$ a $L_{0}$: dato $P^{L} \in Prog^{L}$ e $in \in D$, un interprete $int^{L, L_{0}}$ per $L$ su $L_{0}$ è un programma tale che $\exec{int^{L, L_{0}}}: \left(Prog^{L}\right) \longrightarrow D$ e dunque $\exec{int^{L, L_{0}}}\left(P^{L}, in\right) = \exec{P^{L}}\left(in\right)$.\newline
+	
+	\noindent
+	Anche un programma può essere utilizzato come dato di input in un altro programma. Si osservi il seguente diagramma:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/programma_input.png}
+	\end{figure}
+	
+	\noindent
+	Si noti come un programma scritto nel linguaggio $L$, insieme ad eventuali altri input, viene interpretato da un programma creato appositamente per eseguire questo compito su $L$, ma scritto in $L_{0}$. L'\textbf{esecuzione comporta una decodifica e non una traduzione esplicita}. Infatti, l'interprete simula ogni istruzione di $L$ utilizzando un certo insieme di istruzioni di $L_{0}$. Questa è la base dei linguaggi di scripting.
+	
+	\subsubsection{Soluzione interpretativa: operazioni e struttura}
+	
+	Un interprete può eseguire una serie di \textbf{operazioni}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Elaborazione dei dati primitivi}}. I dati primitivi sono dati rappresentabili in modo diretto nella memoria, per esempio i numeri. Le elaborazioni di essi, sono implementate direttamente nella struttura della macchina;
+		
+		\item \textcolor{Red3}{\textbf{Controllo di sequenza delle esecuzioni}}. Non è altro che la gestione del flusso di esecuzione delle istruzioni, le quali non sempre sono sequenziali, tramite alcune strutture dati;
+		
+		\item \textcolor{Red3}{\textbf{Controllo dei dati}}. Recupero dei dati necessari per eseguire le istruzioni. I dati possono riguardare le modalità di indirizzamento della memoria e l'ordine con cui recuperare gli operandi;
+		
+		\item \textcolor{Red3}{\textbf{Controllo della memoria}}. È necessaria una gestione della memoria per allocare dati e programmi. Cambia a seconda del tipo di realizzazione della macchina astratta:
+		\begin{itemize}
+			\item Realizzazione hardware (HW): la gestione è semplice poiché nella peggiore delle ipotesi, i dati potrebbero essere rimasti sempre nelle stesse locazioni.
+			
+			\item Realizzazione software (SW): la gestione è complessa ed esistono costrutti di allocazione e deallocazione che richiedono alcune strutture dati (e.g. pile) e operazioni dinamiche.
+		\end{itemize}
+	\end{itemize}
+	Date le operazioni elencate, il \textcolor{Red3}{\textbf{ciclo di esecuzione di un interprete}} è il seguente:
+	\begin{lstlisting}[language=C]
+begin
+	go := true;
+	while go do begin
+		FETCH(OPCODE, OPINFO) at PC
+		DECODE(OPCODE, OPINFO)
+		if OPCODE needs ARGS then FETCH (ARGS)
+		case OPCODE of
+			OP1: EXECUTE(OP1, ARGS)
+			...
+			OPn: EXECUTE(OPn, ARGS)
+			HLT: go := false;
+		if OPCODE has result then STORE(RES);
+		PC := PC + SIZE(OPCODE);
+	end
+end \end{lstlisting}
+	\begin{itemize}
+		\item Righe 1-3: finché \textsf{go} ha il valore \textsf{true}, il codice viene eseguito;
+		\item Riga 4: estrazione dell'istruzione riferita ad \textsf{OPCODE} (controllo sequenza 1 su 2);
+		\item Righe 5: decodifica dell'istruzione estratta alla riga precedente;
+		\item Riga 6: prelievo dalla memoria gli operandi richiesti da \textsf{OPCODE} e nelle modalità individuate (controllo dati 1 su 2);
+		\item Righe 7-11: esecuzione delle operazioni;
+		\item Riga 12: se l'operazione ha un risultato da salvare, allora viene salvato in memoria (controllo dati 2 su 2);
+		\item Riga 13: viene incrementato il \emph{program counter} (PC) per eseguire la prossima istruzione (controllo sequenza 2 su 2).
+	\end{itemize}
+	Il ciclo continua ad essere eseguito finché la variabile \textsf{go} ha valore \textsf{true}. Inoltre, le istruzioni riferite al program counter sono chiamate istruzioni di \textbf{controllo sequenza} (CS) perché manipolano e accedono al program counter. Mentre le operazioni di memorizzazione/estrazione sugli argomenti si chiamano \textbf{controllo dati} (CD).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ciclo_esecuzione_interprete.png}
+		\caption{Diagramma a blocchi della struttura di un interprete.}
+	\end{figure}\newpage
+	
+	\subsubsection{Soluzione compilativa: compilatore}
+	
+	\subsubsection{Soluzione compilativa: struttura}
+\end{document}
