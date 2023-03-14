@@ -2162,8 +2162,391 @@ end transaction;
 		\centering
 		\includegraphics[width=\textwidth]{img/gestore_affidabilita_e_buffer.pdf}
 		\caption{Gestore dell'affidabilità e del buffer.}
-	\end{figure}
+	\end{figure}\newpage
 
+	\section{Approfondimento gestore dell'affidabilità e del buffer}
+	
+	\subsection{Memoria secondaria}
+	
+	Le basi di dati hanno la necessità di \textbf{gestire dati in memoria secondaria per due motivi}:
+	\begin{enumerate}
+		\item La \textbf{dimensione della \underline{memoria primaria}} (e.g. RAM) \textbf{\underline{non è sufficiente}} per contenere interamente una base di dati;
+		
+		\item Le basi di dati hanno come \textbf{caratteristica fondamentale la \underline{persistenza}}. Essa è possibile \textbf{applicarla solo su una memoria} di massa (\textbf{secondaria}) sulla quale i dati non possono essere persi.
+	\end{enumerate}
+	Si elencano alcune \textbf{caratteristiche} delle memorie secondarie:
+	\begin{itemize}
+		\item Una memoria secondaria \textbf{\underline{non può essere utilizzata direttamente dai}} \textbf{\underline{programmi}}, ma prima è necessario un passaggio attraverso la memoria primaria;
+		
+		\item I \textbf{\underline{dati}} sono organizzati in \textbf{\underline{blocchi}} di dimensione fissa o variabile a seconda del sistema;
+		
+		\item Le \textbf{\underline{operazioni}} ammesse sono due: \textbf{\underline{lettura e scrittura}} di un blocco;
+		
+		\item Il tempo di lettura/scrittura di un blocco è molto più alto rispetto ad un accesso e ad un'elaborazione dei dati in memoria centrale (e.g. RAM). Quindi, solitamente si \textbf{\underline{conteggiano solo gli accessi alla memoria secondaria}}, quindi il numero di blocchi letti o scritti.
+	\end{itemize}\newpage
+	
+	\subsection{Gestione del buffer}
+	
+	L'interazione tra la memoria centrale e la memoria secondaria è realizzata nel DBMS attraverso l'utilizzo di una \textbf{zona della memoria centrale} chiamata \textcolor{Red3}{\textbf{buffer}} e \textbf{condivisa con tutte le applicazioni}.\newline
+	
+	\noindent
+	L'\underline{\textbf{obbiettivo}} del \emph{buffer} è quello di evitare di ripetere accessi multipli alla memoria secondaria per tutti quei dati che vengono utilizzati più volte in un tempo ravvicinato. La sua gestione è dunque fondamentale.\newline
+	
+	\noindent
+	Un \emph{buffer} è \textbf{\underline{organizzato} in pagine di dimensione pari a un numero intero di blocchi}. Il \textbf{gestore del buffer} si occupa del \textbf{caricamento} e dello \textbf{scaricamento} (salvataggio) delle pagine dalla memoria centrale alla memoria di massa. Per semplicità, si può dire che ogni caricamento o salvataggio di pagina richiede un'operazione su memoria di massa (lettura o scrittura rispettivamente).\newline
+	
+	\noindent
+	Quindi, le \underline{\textbf{operazioni}} sono:
+	\begin{itemize}
+		\item \textbf{Lettura}, lettura dal buffer se presente, altrimenti lettura fisica;
+		\item \textbf{Scrittura}, gestore del buffer differisce la scrittura fisica se tale attesa è compatibile con la proprietà di affidabilità del sistema, ovvero se si è sicuri che l'operazione vada a buon fine.
+	\end{itemize}
+	La gestione del buffer segue il \textcolor{Red3}{\textbf{principio di località dei dati}}: i dati referenziati di recente hanno maggior probabilità di essere referenziati nuovamente nel futuro. Ne consegue che i buffer contengono le pagine sulle quali vengono fatte la maggior parte degli accessi. Inoltre, una \textbf{legge empirica} afferma che il $20\%$ dei dati è tipicamente acceduto dall'$80\%$ delle applicazioni.\newline
+	
+	\noindent
+	Il \textbf{gestore del buffer} memorizza alcune \underline{\textbf{informazioni}}:
+	\begin{itemize}
+		\item Descrizione del contenuto corrente del buffer indicando per \emph{ogni} pagina:
+		\begin{itemize}
+			\item Il \textbf{file fisico}
+			\item Il \textbf{numero di blocco}
+		\end{itemize}
+
+		\item Mantenimento di alcune variabili di stato:
+		\begin{itemize}
+			\item \textbf{Contatore} per indicare quanti programmi utilizzano la pagina
+			\item \textbf{Bit di stato} per indicare se la pagina è stata modificata
+		\end{itemize}
+	\end{itemize}\newpage
+
+	\subsection{Primitive per la gestione del buffer}
+	
+	\subsubsection{Primitiva \textsf{fix}}
+	
+	La primitiva \textcolor{Red3}{\textbf{\textsf{fix}}} viene utilizzata dalle transazioni per \textbf{richiedere l'accesso ad una pagina}. Essa restituisce al chiamante il riferimento (puntatore) alla pagina del buffer, in modo che esso possa accedere effettivamente ai dati. L'esecuzione della primitiva è realizzata nel modo seguente.
+	\begin{enumerate}
+		\item Viene \textbf{cercata la pagina tra quelle in memoria}. Se viene trovata, l'operazione si conclude e l'indirizzo della pagina (puntatore) viene restituito alla transazione richiedente;
+		
+		\item Se non viene trovata la pagina in memoria, viene \textbf{scelta una pagina dal buffer} cercando tra le pagine libere, ovvero con contatore pari a zero. La scelta viene fatta a seconda della strategia adottata, per esempio selezionando la pagina usata meno di recente (LRU, \emph{least recently used}), oppure selezionando quella caricata da più tempo (FIFO, \emph{first input first output}). Inoltre, nel caso in cui il bit di stato segnala che la pagina è stata modificata, essa viene aggiornata in memoria di massa (operazione di \emph{flush}). Infine, viene identificata la pagina da caricare nel buffer e successivamente avviene l'operazione di lettura.
+		
+		\item Se non esistono pagine libere, il gestore del buffer può scegliere due approcci differenti:
+		\begin{enumerate}
+			\item Approccio \textbf{\emph{steal}}, viene sottratta una pagina a un'altra transazione. La pagina sottratta viene chiamata vittima e viene scaricata in memoria di massa (operazione di \emph{flush}). Infine, vengono eseguite le operazioni di conversione di indirizzi e successivamente l'operazione di lettura.
+			
+			\item Approccio \textbf{\emph{non steal}}, la transazione viene sospesa, in attesa che si liberino pagine dal buffer. Quindi, essa entra in una coda di transazioni, la quale è mantenuta dal gestore del buffer. Nel momento in cui si libera una pagina, viene identificata, caricata nel buffer e successivamente avviene l'operazione di lettura.
+		\end{enumerate}
+	\end{enumerate}
+	In ogni caso, \textbf{quando si effettua un accesso ad una pagina, viene incrementato il contatore relativo all'utilizzo della pagina}.\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/gestione_del_buffer-fix.pdf}
+		\caption{Diagramma a blocchi della primitiva fix}
+	\end{figure}
+	
+	\subsubsection{Primitiva \textsf{setDirty}}
+	
+	La primitiva \textcolor{Red3}{\textbf{\textsf{setDirty}}} indica al gestore del buffer che \textbf{una pagina è stata modificata}. Il suo effetto è la modifica del bit di stato relativo.
+	
+	\subsubsection{Primitiva \textsf{unfix}}
+	
+	La primitiva \textcolor{Red3}{\textbf{\textsf{unfix}}} indica al gestore del buffer che il modulo \textbf{chiamante ha terminato di usare la pagina}. Il suo effetto è decrementare il contatore di utilizzo della pagina.
+	
+	\subsubsection{Primitiva \textsf{force}}
+	
+	La primitiva \textcolor{Red3}{\textbf{\textsf{force}}} \textbf{trascrive} in memoria di massa, in modo sincrono, una \textbf{pagina del buffer}.\newpage
+	
+	\subsection{Gestore dell'affidabilità}
+	
+	Il \textcolor{Red3}{\textbf{controllo dell'affidabilità}} garantisce due \textbf{proprietà fondamentali} delle transazioni: atomicità e persistenza.
+	\begin{itemize}
+		\item \textbf{Atomicità}, garantire che le transazioni non vengano lasciate incomplete
+		\item \textbf{Persistenza}, garantire che gli effetti di ciascuna transazione conclusa con un \emph{commit} siano mantenuti in modo permanente
+	\end{itemize}
+	Il gestore dell'affidabilità garantisce queste proprietà tramite il \textbf{log}, ovvero un archivio persistente su cui registra le varie azioni svolte dal DBMS.\newline
+	
+	\noindent
+	L'\textbf{architettura} del controllore di affidabilità è descritta nella seguente immagine.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/architettura_gestore_affidabilita.pdf}
+		\caption{Architettura di un gestore dell'affidabilità.}
+	\end{figure}
+	
+	\noindent
+	Il controllore dell'affidabilità riceve richieste di accessi a pagine in lettura e scrittura, che passa al \emph{buffer manager}, e genera altre richieste di lettura e scrittura di pagine necessarie a garantire la robustezza e la resistenza ai guasti.\newline
+	
+	\noindent
+	Inoltre, questa componente per eseguire il suo compito necessita di una \textbf{\underline{memoria}} \textbf{\underline{stabile}}, ovvero una memoria che risulti resistente ai guasti. Ovviamente, non esiste un dispositivo con tali caratteristiche, ma grazie ad alcuni meccanismi, è possibile rendere tale probabilità prossima allo zero.\newpage
+	
+	\subsubsection{Definizione log}
+	
+	Il \textcolor{Red3}{\textbf{log}} è un file sequenziale di cui è responsabile il controllore dell'affidabilità, scritto in memoria stabile e contenente informazione ridondante che \textbf{consente di ricostruire il contenuto della base di dati a seguito di guasti}. L'\textbf{ordine} di \textbf{salvataggio} delle varie transazioni è quello \textbf{temporale}.\newline
+	
+	\noindent
+	Ogni salvataggio produce un \emph{record} nel file, il quale può essere di due \textbf{tipi}:
+	\begin{enumerate}
+		\item \textcolor{Red3}{\textbf{Record di transazione}}, identificano le \textbf{attività svolte da ciascuna transazione}. Quindi, ogni transazione inserisce nel log un record di \textsf{begin} (corrispondente al \textsf{start transaction}), vari record relativi alle azioni effettuate (corrispondente ad \textsf{insert}, \textsf{delete}, \textsf{update}) e un record di \textsf{commit} oppure di \textsf{abort} (corrispondente a \textsf{rollback}).
+		
+		\item \textcolor{Red3}{\textbf{Record di sistema}}, indicano l'\textbf{effettuazione di operazioni} specifiche del controllore dell'affidabilità che in totale sono due: \textbf{\emph{dump}} e \textbf{\emph{checkpoint}}.
+	\end{enumerate}\newpage
+	
+	\subsubsection{Notazione dei record nel log}
+	
+	I \textbf{record che descrivono una transizione} vengono identificati nel seguente modo:
+	\begin{itemize}
+		\item I record:
+		\begin{itemize}
+			\item \textsf{begin} $\longrightarrow B\left(T\right)$
+			\item \textsf{commit} $\longrightarrow C\left(T\right)$
+			\item \textsf{abort} $\longrightarrow A\left(T\right)$
+		\end{itemize}
+		Contengono l'indicazione del tipo di record e l'identificativo $T$ della transazione.
+		
+		\item Il record:
+		\begin{itemize}
+			\item \textsf{update} $\longrightarrow U\left(T, O, BS, AS\right)$
+		\end{itemize}
+		Contiene l'identificativo $T$ della transazione, l'identificativo $O$ dell'oggetto su cui avviene l'\emph{update}, e poi due valori $BS$ e $AS$ che descrivono rispettivamente il valore dell'oggetto $O$ precedentemente alla modifica (\emph{before state}), e successivamente alla modifica (\emph{after state}).
+		
+		\item I record:
+		\begin{itemize}
+			\item \textsf{insert} $\longrightarrow I\left(T, O, AS\right)$
+			\item \textsf{delete} $\longrightarrow D\left(T, O, BS\right)$
+		\end{itemize}
+		Sono identici ad \textsf{update} ma manca un operatore.
+	\end{itemize}
+
+	\noindent
+	Invece, i \textbf{record che consentono di disfare e rifare le rispettive azioni sulla base di dati} sono le seguenti:
+	\begin{itemize}
+		\item Il record:
+		\begin{itemize}
+			\item \textsf{undo} $\longrightarrow Undo\left(A\right)$
+		\end{itemize}
+		Consente di disfare un oggetto $O$ ricopiando in $O$ il valore $BS$ (\emph{before state}); l'\textsf{insert} viene disfatto cancellando l'oggetto $O$.
+		
+		\item Il record:
+		\begin{itemize}
+			\item \textsf{redo} $\longrightarrow Redo\left(A\right)$
+		\end{itemize}
+		Consente di rifare un'azione su un soggetto $O$ ricopiando in $O$ il valore $AS$ (\emph{after state}); il \textsf{delete} viene rifatto cancellando l'oggetto $O$.
+	\end{itemize}
+	Dato che le operazioni $Undo$ e $Redo$ sono definite tramite un'azione di copiatura, vale una proprietà essenziale: la \textcolor{Red3}{\textbf{proprietà di idempotenza}}. Essa afferma che l'effettuazione di un numero arbitrario di undo o redo della stessa azione equivale allo svolgimento di tale azione una sola volta:
+	\begin{equation*}
+		Undo\left(Undo\left(A\right)\right) = Undo\left(A\right) \hspace{3em} Redo\left(Redo\left(A\right)\right) = Redo\left(A\right)
+	\end{equation*}\newpage
+	
+	\subsubsection{Checkpoint e dump}
+	
+	Nonostante i record introdotti nel paragrafo precedente siano sufficienti a svolgere un'azione di ripristino, si introducono due nuovi operatori per consentire un ripristino molto più rapido.\newline
+	
+	\noindent
+	Un \textcolor{Red3}{\textbf{checkpoint}} è un'operazione svolta periodicamente dal gestore dell'affidabilità, con l'\textbf{obbiettivo} di \textbf{registrare quali transazioni sono attive}.\newline
+	
+	\noindent
+	La sua \textbf{notazione} è $CK\left(T_{1}, T_{2}, ..., T_{n}\right)$ dove $T_{1}, T_{2}, ..., T_{n}$ denotano gli identificatori delle transazioni attive all'istante del checkpoint.\newline
+	
+	\noindent
+	L'operazione si articola in quattro passaggi:
+	\begin{enumerate}
+		\item Viene \textbf{sospesa l'accettazione di operazioni} di scrittura, \textsf{commit} o \textsf{abort}, da parte di ogni transazione.
+		
+		\item Viene \textbf{trasferita} in memoria di massa (operazione di \emph{force}) tutte le \textbf{pagine del buffer su cui sono state eseguite modifiche} da parte di transazioni che hanno \textbf{già effettuato il \textsf{commit}}.
+		
+		\item \textbf{Scrittura} in modo sincrono (\emph{force}) \textbf{nel log un record di checkpoint} contenente gli identificatori delle transazioni attive.
+		
+		\item \textbf{Ripresa dell'accettazione} delle operazioni sopra sospese.
+	\end{enumerate}
+
+	\noindent
+	Un \textcolor{Red3}{\textbf{dump}} è una \textbf{copia completa e consistente della base di dati}, che viene normalmente effettuata in mutua esclusione con tutte le altre transazioni quando il sistema non è operativo. Al termine di tale operazione, viene scritto nel log un \textbf{\emph{record di dump}}, il quale segnale la presenza di una copia eseguita in un determinato istante.\newline
+	
+	\noindent
+	La sua \textbf{notazione} è semplicemente $DUMP$.\newpage
+	
+	\subsubsection{Esecuzione delle transazioni e scrittura dei log}
+	
+	Il gestore dell'affidabilità deve garantire che siano seguite due regole durante il funzionamento delle transazioni. Esse \textbf{definiscono i requisiti minimi che consentono di ripristinare la correttezza della base di dati a fronte di guasti}.
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Regola WAL}} (\textbf{\emph{Write Ahead Log}}) impone che la parte \textbf{\emph{before state}} (pre modifica) dei record di un log venga \textbf{scritta nel log prima di} effettuare la corrispondente \textbf{operazione sulla base di dati}.\newline
+		Questa regola \textbf{consente} di disfare (\textbf{\emph{undo}}) le scritture già effettuate in memoria di massa da parte di una transazione che non ha ancora effettuato un commit, poiché per ogni aggiornamento viene reso disponibile in modo affidabile il valore precedente la scrittura.
+		
+		\item \textcolor{Red3}{\textbf{Regola di Commit-Precedenza}} impone che la parte \textbf{\emph{after state}} (post modifica) dei record di un log venga \textbf{scritta nel log prima di effettuare il commit}.\newline
+		Questa regola \textbf{consente} di rifare (\textbf{\emph{redo}}) le scrittura già decise da una transazione che ha effettuato il commit ma le cui pagine modificate non sono ancora state trascritte dal buffer manager in memoria di massa.
+	\end{itemize}
+	Se il \underline{guasto avviene}:
+	\begin{itemize}
+		\item \textbf{\underline{Prima} della scrittura nel log del record di commit}, allora un eventuale guasto comporta l'\textbf{\emph{undo}} delle azioni effettuate, ricostruendo lo stato iniziale della base di dati.
+		
+		\item \textbf{\underline{Dopo} la scrittura nel log del record di commit}, allora un eventuale guasto comporta il \textbf{\emph{redo}} delle azioni effettuate, in modo da da ricostruire con certezza lo stato finale della transazione.
+	\end{itemize}\newpage
+	
+	\subsubsection{Gestione dei guasti}
+	
+	I \textbf{guasti} si suddividono in \textbf{due classi}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Guasti di sistema}} sono guasti indotti da \dquotes{bachi software}, per esempio del sistema operativo.\newline
+		\textbf{Perdita di:} contenuto della memoria centrale (e dunque di tutti i buffer);\newline
+		\textbf{Sopravvivenza di:} rimane valido il contenuto della memoria di massa (e quindi della base di dati e del log).
+		
+		\item \textcolor{Red3}{\textbf{Guasti di dispositivo}} sono guasti relativi ai dispositivi di gestione della memoria di massa, per esempio lo strisciamento delle testine di un disco.\newline
+		\textbf{Perdita di:} contenuto della base di dati;\newline
+		\textbf{Sopravvivenza di:} rimane valido il log.
+	\end{itemize}
+	Il log è l'unico file che sopravvive ai guasti. Per cui è importante mantenere la sua integrità e non perderlo.\newline
+	
+	\noindent
+	La \textbf{gestione ideale dei guasti} è chiamata \textcolor{Red3}{\textbf{\emph{fail-stop}}}: nel momento in cui il sistema individua un guasto (di sistema o di dispositivo), viene forzato immediatamente un arresto completo della transazioni. Dopodiché, viene effettuato un ripristino del corretto funzionamento del sistema operativo (\emph{boot}). Quest'ultima operazione comporta un buffer completamente vuoto e un sistema riutilizzabile.\newline
+	
+	\noindent
+	Le procedure adottate a seconda del guasto sono due: \textbf{ripresa a caldo} (\emph{warm restart}) nel caso di guasto di sistema, \textbf{ripresa a freddo} (\emph{cold restart}) nel caso di guasto di dispositivo.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/modello_fail-stop.pdf}
+		\caption{Modello \emph{fail-stop} di funzionamento di un DBMS.}
+	\end{figure}\newpage
+
+	\subsubsection{Ripresa a caldo}
+	
+	La \textcolor{Red3}{\textbf{ripresa a caldo}} è articolata in quattro fasi:
+	\begin{enumerate}
+		\item Viene eseguito l'accesso all'ultimo blocco del log, ovvero quello corrente all'istante del guasto. Dopodiché viene ripercorso all'indietro il log fino all'ultimo (più recente) record di checkpoint.
+		
+		\item Vengono decise le transazioni da rifare (\emph{redo}) o disfare (\emph{undo}).\newline
+		Vengono costruiti due insiemi UNDO e REDO contenenti identificativi di transazioni:
+		\begin{itemize}
+			\item UNDO inizializzato con le transazioni attive al checkpoint.
+			\item REDO inizializzato con l'insieme vuoto.
+		\end{itemize}
+		Viene ripercorso il file log in avanti (dopo essere tornati indietro al punto uno), aggiungendo:
+		\begin{itemize}
+			\item Ad UNDO tutte le transazioni di cui è presente un record di \textsf{begin};
+			\item A REDO tutti gli identificativi delle transazioni, quindi spostandoli da UNDO a REDO, di cui è presente il record di commit.
+		\end{itemize}
+		Al termine il risultato sarà:
+		\begin{itemize}
+			\item UNDO contenente tutti gli identificativi delle transazioni da disfare
+			\item REDO contenente tutti gli identificativi delle transazioni da rifare.
+		\end{itemize}
+		
+		\item Viene ripercorso nuovamente all'indietro il file log disfacendo le transazioni dall'insieme UNDO, risalendo fino alla prima azione della transazione più \dquotes{vecchia} nei due insiemi UNDO e REDO. Questa azione potrebbe precedere il record di checkpoint nel log.
+		
+		\item Infine, viene ripercorso in avanti fino alla fine, così da applicare le azioni di \emph{redo} nell'ordine in cui sono state registrare nel log. In questo modo viene replicato esattamente il comportamento delle transazioni originali.
+	\end{enumerate}
+	Questo processo può essere visto come: ripercorrere il file fino all'ultimo backup eseguito per inserire un break-point; creare due insiemi, ripercorrendo il file fino alla fine, contenenti le azioni da rieseguire e le azioni già confermate e dunque da eliminare; ripercorrere nuovamente il file fino al break-point eliminando le varie operazioni eseguite e confermate prima del guasto; ripercorrere per un'ultima volta il file fino alla fine rieseguendo le operazioni non confermate grazie all'insieme creato.\newline
+	
+	\noindent
+	È consigliato verificare l'algoritmo con l'esempio a fine capitolo per comprendere meglio il suo funzionamento.\newpage
+	
+	\subsubsection{Ripresa a freddo}
+	
+	La \textcolor{Red3}{\textbf{ripresa a freddo}} \textbf{risponde ad un guasto che provoca il deterioramento di una parte della base di dati}; è articolata in tre fasi successive:
+	\begin{enumerate}
+		\item Accesso al file \emph{dump} e viene ricopiato selettivamente la parte deteriorata della base di dati.
+		
+		\item Viene ripercorso il file di log fino al record di \emph{dump} e successivamente viene ripercorso fino alla fine applicando relativamente alla parte deteriorata sia le azioni sulla base di dati, sia le azioni di commit o abort. Viene così ripristinata la situazione prima del guasto.
+		
+		\item Infine, viene svolta una ripresa a caldo per confermare le operazioni interrotte.
+	\end{enumerate}\newpage
+	
+	\subsubsection{Esercizio sulla ripresa a caldo}
+	
+	Si supponga che nel log vengano registrate le seguenti azioni:
+	\begin{gather*}
+		B\left(T1\right), B\left(T2\right), U\left(T2,O1,B1,A1\right), I\left(T1,O2,A2\right), B\left(T3\right), C\left(T1\right), B\left(T4\right), \\
+		U\left(T3, O2, B3, A3\right), U\left(T4, O3, B4, A4\right), CK\left(T2, T3, T4\right), C\left(T4\right), B\left(T5\right), \\
+		U\left(T3,O3,B5,A5\right), U\left(T5,O4,B6,A6\right), D\left(T3,O5,B7\right), A\left(T3\right), C\left(T5\right), \\
+		I\left(T2, O6, A8\right)
+	\end{gather*}
+	Si verifica un guasto. Il protocollo di ripresa a caldo esegue le seguenti operazioni:
+	\begin{enumerate}[label=\Roman*.]
+		\item Viene risalito il log fino all'ultimo checkpoint, ovvero il più recente:
+		\begin{gather*}
+			\textcolor{Red3}{\boldsymbol{CK\left(T2, T3, T4\right)}}, C\left(T4\right), B\left(T5\right), U\left(T3,O3,B5,A5\right), U\left(T5,O4,B6,A6\right), \\
+			D\left(T3,O5,B7\right), A\left(T3\right), C\left(T5\right), I\left(T2, O6, A8\right)
+		\end{gather*}
+		Vengono inizializzati i due insiemi:
+		\begin{equation*}
+			UNDO = \left\{T2, T3, T4\right\} \hspace{3em} REDO = \left\{\right\}
+		\end{equation*}
+		
+		
+		\item Viene ripercorso il file log in avanti aggiornando man mano i due insiemi. In $REDO$ vengono inseriti tutti gli identificativi che hanno eseguito il \textsf{commit} e in $UNDO$ tutti gli identificativi che iniziano (\textsf{begin}) una transazione:
+		\begin{enumerate}
+			\item Incontro con $C\left(T4\right)$, aggiornamento insiemi:
+			\begin{equation*}
+				UNDO = \left\{T2, T3\right\} \hspace{3em} REDO = \left\{T4\right\}
+			\end{equation*}
+
+			\item Incontro con $B\left(T5\right)$, aggiornamento insiemi:
+			\begin{equation*}
+				UNDO = \left\{T2, T3, T5\right\} \hspace{3em} REDO = \left\{T4\right\}
+			\end{equation*}
+
+			\item Incontro con $C\left(T5\right)$, aggiornamento insiemi:
+			\begin{equation*}
+				UNDO = \left\{T2, T3\right\} \hspace{3em} REDO = \left\{T4, T5\right\}
+			\end{equation*}
+		\end{enumerate}
+		
+		\item Viene ripercorso nuovamente indietro il file log fino all'azione della transazione più vecchia nei due insiemi. Le azioni che riguardano gli identificativi dell'insieme $UNDO$ sono:
+		\begin{gather*}
+			B\left(T1\right), B\left(T2\right), \textcolor{Red3}{\boldsymbol{U\left(T2,O1,B1,A1\right)}}, I\left(T1,O2,A2\right), B\left(T3\right), C\left(T1\right), B\left(T4\right), \\
+			\textcolor{Red3}{\boldsymbol{U\left(T3, O2, B3, A3\right)}}, U\left(T4, O3, B4, A4\right), CK\left(T2, T3, T4\right), C\left(T4\right), B\left(T5\right), \\
+			\textcolor{Red3}{\boldsymbol{U\left(T3,O3,B5,A5\right)}}, U\left(T5,O4,B6,A6\right), \textcolor{Red3}{\boldsymbol{D\left(T3,O5,B7\right)}}, A\left(T3\right), C\left(T5\right), \\
+			\textcolor{Red3}{\boldsymbol{I\left(T2, O6, A8\right)}}
+		\end{gather*}
+		Dato che le operazioni sono in ordine temporale, la più vecchia è la $U\left(T2, O1, B1, A1\right)$. Quindi, risalendo fino a tale operazione, vengono disfatte nel frattempo le transazioni dall'insieme $UNDO$ eseguendo le operazioni al contrario così da riprendere lo stato prima delle modifiche:
+		\begin{enumerate}
+			\item Incontro con $I\left(T2, O6, A8\right)$, ripristino eseguendo operazione di eliminazione:
+			\begin{equation*}
+				Delete\left(O6\right)
+			\end{equation*}
+			
+			\item Incontro con $D\left(T3, O5, B7\right)$, ripristino eseguendo operazione di inserimento:
+			\begin{equation*}
+				Insert\left(O5\right) \hspace{1.5em} \text{con } O5 = B7
+			\end{equation*}
+		
+			\item Incontro con $U\left(T3, O3, B5, A5\right)$, ripristino eseguendo operazione di assegnamento del valore \emph{before state}:
+			\begin{equation*}
+				O3 = B5
+			\end{equation*}
+		
+			\item Incontro con $U\left(T3, O2, B3, A3\right)$, ripristino eseguendo operazione di assegnamento del valore \emph{before state}:
+			\begin{equation*}
+				O2 = B3
+			\end{equation*}
+		
+			\item Incontro con $U\left(T2, O1, B1, A1\right)$, ripristino eseguendo operazione di assegnamento del valore \emph{before state}:
+			\begin{equation*}
+				O1 = B1
+			\end{equation*}
+		\end{enumerate}
+		
+		\item Infine, viene ripercorso il file fino alla fine svolgendo le azioni di $REDO$. Le azioni che riguardano gli identificativi dell'insieme $REDO$ sono:
+		\begin{gather*}
+			B\left(T1\right), B\left(T2\right), U\left(T2,O1,B1,A1\right), I\left(T1,O2,A2\right), B\left(T3\right), C\left(T1\right), B\left(T4\right), \\
+			U\left(T3, O2, B3, A3\right), \textcolor{Red3}{\boldsymbol{U\left(T4, O3, B4, A4\right)}}, CK\left(T2, T3, T4\right), C\left(T4\right), B\left(T5\right), \\
+			U\left(T3,O3,B5,A5\right), \textcolor{Red3}{\boldsymbol{U\left(T5,O4,B6,A6\right)}}, D\left(T3,O5,B7\right), A\left(T3\right), C\left(T5\right), \\
+			I\left(T2, O6, A8\right)
+		\end{gather*}
+		Partendo dall'operazione $U\left(T2, O1, B1, A1\right)$, si eseguono le operazioni di $REDO$ ripristinando gli stati in ordine temporale:
+		\begin{enumerate}
+			\item Incontro con $U\left(T4, O3, B4, A4\right)$, esecuzione dell'operazione di assegnamento del valore \emph{after state}:
+			\begin{equation*}
+				O3 = A4
+			\end{equation*}
+			
+			\item Incontro con $U\left(T5, O4, B6, A6\right)$, esecuzione dell'operazione di assegnamento del valore \emph{after state}:
+			\begin{equation*}
+				O4 = A6
+			\end{equation*}
+		\end{enumerate}
+	\end{enumerate}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\newpage
 	\section{PostgreSQL}
 	
