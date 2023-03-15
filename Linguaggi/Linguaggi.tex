@@ -303,7 +303,7 @@
 		\item \textbf{Soluzione compilativa}. Traduzione esplicita dei programmi di $L$ in corrispondenti programmi di $L_{0}$.
 	\end{itemize}\newpage
 
-	\subsubsection{Soluzione interpretativa: interprete}
+	\subsubsection{Soluzione interpretativa: interprete}\label{interprete}
 	
 	La soluzione interpretativa prevede l'utilizzo di un interprete per la realizzazione di una macchina astratta. Un \textcolor{Red3}{\textbf{interprete}} è un programma $\mathrm{int}^{\mathrm{L_{0}, L}}$ che esegue, sulla macchina astratta per $L_{0}$, programmi $P^{L}$, scritti nel linguaggio di programmazione $L$, su un input fissato appartenente all'insieme di dati (input e output). In breve, un interprete è una \textbf{macchina universale} che preso un programma e un suo input, lo esegue su quell'input usando solo funzionalità messe a disposizione dal livello (macchina astratta) sottostante.
 	\begin{center}
@@ -377,8 +377,126 @@ end \end{lstlisting}
 		\includegraphics[width=\textwidth]{img/ciclo_esecuzione_interprete.png}
 		\caption{Diagramma a blocchi della struttura di un interprete.}
 	\end{figure}\newpage
+
+	\subsubsection{Soluzione interpretativa: pro e contro}
 	
-	\subsubsection{Soluzione compilativa: compilatore}
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{Pro:}}
+		\begin{itemize}
+			\item \textbf{Facilità di interazione \emph{run-time}}. Interpretazione al momento dell'esecuzione consente di interagire direttamente con l'esecuzione del programma (\emph{debugging});
+			\item Velocità nello sviluppo applicativo di un interprete, quindi \textbf{tempi ridotti per la sua creazione};
+			\item Utilizzo della \textbf{memoria ridotto} rispetto ad un compilatore.
+		\end{itemize}
+
+		\item \textcolor{Red3}{\textbf{Contro:}}
+		\begin{itemize}
+			\item Tempi di decodifica sommati a quelli d'esecuzione ogni volta che un'istruzione viene eseguita, si traduce in un'\textbf{esecuzione lenta} e quindi una scarsa efficienza della macchina.
+		\end{itemize}
+	\end{itemize}\newpage
 	
+	\subsubsection{Soluzione compilativa: compilatore}\label{compilatore}
+
+	Un \textcolor{Red3}{\textbf{compilatore}} è un programma $\mathrm{comp}^{L_{0}, L}$ che \textbf{traduce}, preservando semantica e funzionalità, programmi scritti nel linguaggio di programmazione $L$ in programmi scritti in $L_{0}$, e quindi eseguibili direttamente sulla macchina astratta per $L_{0}$.
+	Come l'interprete, anche il compilatore accetta un programma come input poiché viene considerato come dato.
+	\begin{center}
+		\textcolor{Red3}{\textbf{\emph{Notazioni}}}
+	\end{center}
+	\begin{itemize}
+		\item $Prog^{L}$ è l'insieme di programmi scritti nel linguaggio di programmazione $L$;
+		\item $D$ è l'insieme di dati, ovvero input e output;
+		\item $P^{L}$ è il programma scritto nel linguaggio di programmazione $L$;
+		\item Relazioni ovvie: $P^{L} \in Prog^{L}$ e $in, out \in D$;
+		\item $\exec{P^{L}}: D \longrightarrow D$ rappresenta la semantica di $P^{L}$.
+	\end{itemize}
+	Un \textcolor{Red3}{\textbf{compilatore formalmente}} (\textbf{definizione}) è esprimibile nel seguente modo.\newline
+	Dato $P^{L} \in Prog^{L}$, un \textbf{compilatore} $\mathrm{comp}^{L, L_{0}}$ da $L$ a $L_{0}$ è un programma tale che $\exec{comp^{L, L_{0}}}: Progr^{L} \longrightarrow Progr^{L_{0}}$ e:
+	\begin{equation*}
+		\exec{comp^{L, L_{0}}}\left(P^{L}\right) = P^{L_{0}} \text{ tale che } \forall in \in D. \exec{P^{L_{0}}}\left(in\right) = \exec{P^{L}}\left(in\right)
+	\end{equation*}
+	Ovvero che l'esecuzione della compilazione del linguaggio $L$ a $L_{0}$ con input il programma scritto in $L$, l'output sia uguale al programma scritto nel linguaggio $L_{0}$; tale che per ogni input appartenente all'insieme dei dati, l'esecuzione del programma scritto in $L_{0}$ con input $in$, sia uguale all'esecuzione del programma scritto in $L$ con input $in$.\newline
+
+	\noindent
+	Con un compilatore, la \textbf{traduzione} è \textbf{esplicita} poiché il codice in $L$ viene prodotto come output e non eseguito. Quindi, per eseguire il programma $P^{L}$ con input $in$, è necessario prima eseguire $comp^{L, L_{0}}$ con $P^{L}$ come input.
+	L'esecuzione avverrà sulla macchina astratta $M_{A}$ del linguaggio in cui è scritto il compilatore. Il risultato dunque è un altro programma (compilato) $P^{L_{0}}$, scritto in $L_{0}$. Solo a questo punto è possibile eseguire $P^{L_{0}}$ su $M_{L_{0}}$ con input $in$.
+	Un \textbf{esempio} di linguaggio compilato è il C.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/compilatore.png}
+	\end{figure}\newpage
+
 	\subsubsection{Soluzione compilativa: struttura}
+
+	La compilazione deve tradurre un programma da un linguaggio ad un altro preservandone la semantica: si deve avere la certezza che il programma compilato faccia esattamente quello che faceva il sorgente. L'\textcolor{Red3}{\textbf{esecuzione}} di un compilatore si articola in varie fasi:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.85\textwidth]{img/fasi_compilatore.png}
+	\end{figure}
+	
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Analisi lessicale}} (\emph{Lexical analyzer}), divide il programma in componenti sintattici primitivi chiamati \textbf{tokens} (identificatori, numeri, parole riservate). I \emph{tokens} sono coloro che formano i linguaggi regolari.\newline
+		In altre parole, l'\textbf{analisi lessicale converte caratteri del programma sorgente in unità lessicali};\newpage
+
+		\item \textcolor{Red3}{\textbf{Analisi sintattica}} (\emph{Syntax analyzer}), crea una rappresentazione ad albero della sintassi del programma. Ogni foglia è un \emph{token} e le foglie lette da sinistra verso destra costituiscono frasi ben formate del linguaggio. Inoltre, l'albero costituisce la struttura logica del programma e dunque nel momento in cui non fosse possibile costruire l'albero, significherebbe che qualche frase è illegale. Questo genere di evento si traduce in un errore di compilazione. Le frasi di token formano linguaggi CF.\newline
+		In altre parole, l'\textbf{analisi sintattica trasforma unità lessicali in \emph{parse tree} che rappresentano la struttura sintattica del programma}.
+
+		\item \textcolor{Red3}{\textbf{Tabella dei simboli}} (\emph{Symbol table}), memorizza le informazioni sui nomi presente nel programma, come gli identificatori, le chiamate di procedura, ecc.
+		
+		\item \textcolor{Red3}{\textbf{Analisi semantica}} (\emph{Semantic analyzer}), consente di rilevare errori semantici, grazie all'analisi semantica, e di generare codice intermedio che ha la caratteristica di essere indipendente dall'architettura (compito del \emph{Intermediate code generator}).
+
+		\item \textcolor{Red3}{\textbf{Ottimizzazione}} (\emph{Optimization}), opzionale, consente di ottimizzare il codice.
+
+		\item \textcolor{Red3}{\textbf{Generatore di codice}} (\emph{Code generator}), viene generato codice macchina che ha la caratteristica di essere dipendente dall'architettura.
+	\end{itemize}
+
+	\longline
+
+	\subsubsection{Soluzione compilativa: pro e contro}
+	
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{Pro:}}
+		\begin{itemize}
+			\item \textbf{Esecuzione molto efficiente}, il codice viene anche ottimizzato;
+		\end{itemize}
+
+		\item \textcolor{Red3}{\textbf{Contro:}}
+		\begin{itemize}
+			\item \textbf{Interazione \emph{run-time} molto difficile};
+			\item Un \textbf{errore} a \emph{run-time} è \textbf{difficile da associare} all'esatto comando del codice sorgente (debugging complesso);
+		\end{itemize}
+	\end{itemize}\newpage
+
+	\subsubsection{Soluzione reale: ibrido}\label{ibrido}
+
+	Nella realtà esiste un compromesso tra compilatore e interprete. Ovvero, una \textcolor{Red3}{\textbf{soluzione ibrida}} dove il linguaggio
+	ad alto livello viene compilato in un linguaggio a più basso livello che poi viene interpretato.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/soluzione_reale_ibrida.png}
+	\end{figure}
+
+	\noindent
+	Il \textbf{procedimento} è il seguente.\newline
+	Si consideri il linguaggio ad alto livello $L$ per il quale si deve realizzare la macchina astratta $M_{L}$.\newline
+	Il linguaggio $L$ viene quindi tradotto in un linguaggio intermedio $L_{Mi}$ la cui macchina astratta $M_{I}$ consiste in un interprete del linguaggio $L_{Mi}$ sulla macchina ospite $M_{O}$.\newline
+
+	\noindent
+	La separazione non è netta poiché vengono interpretati i costrutti lontani da $M_{O}$, mentre viene compilato il resto. Il passaggio chiave è la traduzione (compilazione) da $L$ ad un linguaggio intermedio (quello interpretato). Questo accade spesso nella realtà, specialmente con le \emph{system call} del sistema operativo. In parole povere, si cerca di trovare una connessione a metà strada.\newpage
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzione_ibrida_system_call.pdf}
+		\caption{Soluzione ibrida con le \emph{system call}.}
+	\end{figure}
+
+	\longline
+
+	\subsection{Sintesi}
+
+	Nell'evoluzione dei linguaggi di programmazione, esistono fondamentalmente tre situazioni possibili:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Interprete puro}} (paragrafo \ref{interprete}), $M_{L} = M_{I}$ (interprete per $L$ realizzato sulla macchina ospite $M_{O}$). Per esempio i linguaggi logici e funzionali, e di scripting (JS, PHP, ...)
+
+		\item \textcolor{Red3}{\textbf{Compilatore}} (paragrafo \ref{compilatore}), macchina intermedia $M_{I}$ realizzata per estensione sulla macchina ospite $M_{O}$. Per esempio i linguaggi imperativi come C, C++, Pascal
+		
+		\item \textcolor{Red3}{\textbf{Implementazione mista}} (paragrafo \ref{ibrido}), traduzione dei programmi da $L$ ad un linguaggio intermedio $L_{Mi}$. I programmi $L_{Mi}$ sono poi interpretati sulla macchina ospite $M_{O}$. Per esempio, Java con il suo linguaggio intermedio Java bytecode, Pascal con il suo linguaggio intermedio P-code.
+	\end{itemize}
 \end{document}
