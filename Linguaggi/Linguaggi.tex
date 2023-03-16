@@ -6,6 +6,9 @@
 \usepackage{amsfonts}
 \usepackage{booktabs}				% tabelle di qualità superiore
 \usepackage{amsmath}				% pacchetto matematica
+\usepackage{amsthm}					% teoremi migliorati (QED)
+\usepackage{mathtools}				% pacchetto matematica pt.2
+\usepackage{amssymb}				% pacchetto matematica pt.3
 \usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
@@ -20,6 +23,7 @@
 
 \newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 \newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+\renewcommand{\qedsymbol}{QED}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -498,5 +502,210 @@ end \end{lstlisting}
 		\item \textcolor{Red3}{\textbf{Compilatore}} (paragrafo \ref{compilatore}), macchina intermedia $M_{I}$ realizzata per estensione sulla macchina ospite $M_{O}$. Per esempio i linguaggi imperativi come C, C++, Pascal
 		
 		\item \textcolor{Red3}{\textbf{Implementazione mista}} (paragrafo \ref{ibrido}), traduzione dei programmi da $L$ ad un linguaggio intermedio $L_{Mi}$. I programmi $L_{Mi}$ sono poi interpretati sulla macchina ospite $M_{O}$. Per esempio, Java con il suo linguaggio intermedio Java bytecode, Pascal con il suo linguaggio intermedio P-code.
+	\end{itemize}\newpage
+
+	\section{Descrivere i linguaggi}
+
+	Un \textbf{linguaggio di programmazione} è un linguaggio naturale, ma con alcune semplificazioni e \textbf{non ambiguo}. Quindi, per descriverli è necessario affrontare alcune tematiche:
+	\begin{itemize}
+		\item Grammatica, o meglio la \textcolor{Red3}{\textbf{sintassi}}: costituisce l'\textbf{insieme delle regole che consentono di costruire frasi corrette}. Viene quindi individuato l'alfabeto con cui sono costruite le frasi, le parole che compongono le frasi e infine viene eseguito un controllo della grammatica per verificare se le frasi le rispettano (il compito di verificare è assegnato al \textbf{\emph{parsing}});
+		\item \textcolor{Red3}{\textbf{Semantica}}: nei linguaggi rappresenta la \textbf{relazione tra segni} (frasi legali) \textbf{e significati} (entità autonome che esistono indipendentemente dai segni utilizzati). Per esempio, la semantica di un programma può essere la funzione matematica calcolata dal programma. Solitamente la semantica viene specificata descrivendo gli effetti della sintassi su una rappresentazione astratta della macchina, chiamata \textbf{stato};
+		\item \textcolor{Red3}{\textbf{Pragmatica}}: analisi delle \textbf{frasi che hanno lo stesso significato, ma possono essere utilizzate diversamente} in modo dipendente dal contesto linguistico;
+		\item \textcolor{Red3}{\textbf{Implementazione}}: aspetti riguardanti la tecnica di implementazione utilizzata, i vincoli dell'architettura o della macchina, l'interfaccia del sistema operativo, gestione degli errori.\newline
+		In sintesi, sono tutti gli aspetti che hanno effetto sul funzionamento del linguaggio ma che dipendono dalla macchina su cui esso viene eseguito.
+	\end{itemize}\newpage
+
+	\subsection{Sintassi}
+
+	\subsubsection{Definizione e notazione}
+
+	Le regole sintattiche (\textcolor{Red3}{\textbf{sintassi}}) del linguaggio specificano quali stringhe di caratteri sono legali nel linguaggio.\newline
+	
+	\noindent
+	La terminologia linguistica utilizzata è la seguente:
+	\begin{itemize}
+		\item Una \textbf{parola} è una stringa di caratteri su un alfabeto;
+		\item Una \textbf{frase} è una sequenza, ben formata, di parole;
+		\item Una \textbf{linguaggio} è un insieme di frasi.
 	\end{itemize}
+	Invece, la \textbf{terminologia tecnica} utilizzata nel mondo dell'informatica è la seguente:
+	\begin{itemize}
+		\item Le \textbf{parole} vengono chiamate \textcolor{Red3}{\textbf{lessemi}}. Un lessema è una \textbf{parola con un significato specifico}, nella grammatica corrisponde ad un terminale. Rappresenta anche l'\textbf{unità minima sintattica}, ovvero quella a più basso livello di un linguaggio di programmazione (e.g. \textsf{begin}). \textbf{Per esempio}, in $index = 2$, sia $index$, $=$, che $2$ sono lessemi;
+		\item Le \textbf{frasi} vengono chiamate \textcolor{Red3}{\textbf{\emph{token}}}. Essi corrispondono agli elementi delle categorie sintattiche del linguaggio di programmazione, e nella grammatica corrispondono alle sequenze generate dai simboli non terminali. \textbf{Per esempio}, con $index = 2$, il token è l'intera definizione;
+		\item Il \textcolor{Red3}{\textbf{programma}} è una sequenza/composizione sequenziale, nella grammatica, di frasi ben formate;
+		\item I linguaggi diventa il \textcolor{Red3}{\textbf{linguaggio di programmazione}}, ovvero tutti gli strumenti formali che lo definiscono.
+	\end{itemize}\newpage
+
+	\subsubsection{Descrivere la sintassi}
+
+	Nei linguaggi di programmazione, il \textbf{linguaggio dei lessemi} è in generale sempre un linguaggio \textbf{regolare}, ovvero \textbf{riconosciuto} da un automa a stati finiti. Si definisce \textcolor{Red3}{\textbf{riconoscitore}}, uno \textbf{strumento di riconoscimento che legge in input stringhe sull'alfabeto del linguaggio e decide se la stringa appartiene o meno al linguaggio}.\newline
+	
+	\noindent
+	Per esempio, l'analisi sintattica, la quale riconosce lessemi, di un compilatore.\newline
+
+	\noindent
+	Sia $L$ un linguaggio su un alfabeto $\Sigma$, per \textbf{costruire un riconoscitore} è necessario avere un meccanismo $R$ in grado di leggere (input) le stringhe di caratteri e dire (output) se essa appartiene oppure no al linguaggio $L$. Si ricorda, che questo è possibile perché il linguaggio è regolare.\newline
+
+	\noindent
+	Il \textbf{linguaggio dei \emph{token}}, e quindi dei programmi, è in generale un \textbf{linguaggio \emph{context-free} (CF)}, quindi viene \textbf{generato} da una grammatica CF. Si definisce \textcolor{Red3}{\textbf{generatore}}, uno \textbf{strumento che genera stringhe di un linguaggio}. Inoltre, un generatore può determinare se la sintassi di una particolare chiave è sintatticamente corretta confrontandola con la struttura del generatore (\emph{parser}).
+
+	\longline
+
+	\subsection{Grammatiche \emph{context-free}}
+
+	Una \textcolor{Red3}{\textbf{grammatica libera dal contesto}} (o \emph{context-free}, CF) è una quadrupla $G = \left\langle V, T, P, S \right\rangle$, dove:
+	\begin{itemize}
+		\item $V$ è un insieme finito di variabili, chiamati anche simboli non terminali. Rappresenta le \textbf{categorie sintattiche}, ovvero gli \textbf{elementi della frase};
+		\item $T$ è un insieme finito di simboli terminali $\left(V \cap T = \emptyset\right)$. Rappresenta il \textbf{vocabolario}, ovvero la \textbf{collezione di lessemi};
+		\item $P$ è un insieme finito di produzioni; ogni produzione è della forma $A \rightarrow \alpha$, dove:
+		\begin{itemize}
+			\item $A \in V$ è una variabile
+			\item $\alpha \in \left(V \cup T\right)$
+		\end{itemize}
+		Questo insieme rappresenta la \textbf{collezione di regole di formazione/composizione};
+		\item $S \in V$ è una variabile speciale, chiamata simbolo iniziale. Rappresenta la \textbf{categoria delle frasi}.
+	\end{itemize}
+	La proprietà CF è anche uno svantaggio per i linguaggi di programmazione, infatti tali grammatiche non riescono a catturare vincoli contestuali. Per esempio, poter utilizzare una variabile se e solo se questa è stata precedentemente dichiarata/definita.\newpage
+
+	\subsection{Notazione BNF}
+
+	La \textcolor{Red3}{\textbf{BNF}} è un metalinguaggio, ovvero un \textbf{linguaggio usato per descrivere altri linguaggi}. Venne introdotto perché in passato accadeva che chi progettava ogni implementazione di un compilatore, dava significati diversi agli stessi costrutti. Questo si traduceva che programmi scritti in un linguaggio di programmazione, sviluppati per macchine diverse, non erano confrontabili.\newline
+
+	\noindent
+	Questa notazione è utilizzata per descrivere grammatiche CF, dove si usano intere parole come simboli terminali, i non terminali sono identificati racchiudendoli tra parentesi angolate $<>$, e per le produzioni si utilizza il simbolo $\Coloneqq$ al posto della freccia.
+	\begin{equation*}
+		\begin{array}{lll}
+			<A> & \Coloneqq & \alpha <B> \gamma \hspace{1em} | \hspace{1em} \alpha \\
+			\\
+			<B> & \Coloneqq & \varepsilon \hspace{1em} | \hspace{1em} \beta_{1} \hspace{1em} | \hspace{1em} \beta_{2}
+		\end{array}
+	\end{equation*}
+	Il suo significato è esattamente identico a quello delle grammatiche. Quindi:
+	\begin{itemize}
+		\item \textbf{Non terminali} sono astrazioni utilizzate per rappresentare classi di strutture sintattiche;
+		\item \textbf{Terminali} sono lessemi;
+		\item Ogni regola ha una parte \textbf{sinistra} contenente un \textbf{non terminale};
+		\item Ogni regola ha una parte \textbf{destra} contenente una \textbf{stringa di terminali e non terminali}.
+	\end{itemize}
+	Esiste anche la \textcolor{Red3}{\textbf{variante EBNF}} che aggiunge la possibilità di rappresentare le \textbf{opzioni}:
+	\begin{itemize}
+		\item Le \textbf{parentesi quadre} $[\:]$ indicano nessuna o un'occorrenza del contenuto;
+		\item Le \textbf{parentesi graffe} $\{\:\}$ indicano nessuna o più occorrenze di quanto contenuto.
+		\item La \textbf{virgola} $,$ consente di esprimere più opzioni in or logico.
+	\end{itemize}
+	Un esempio:
+	\begin{equation*}
+		<A> \Coloneqq \alpha \: \left[\beta_{1}, \beta_{2}\right] \: \gamma \hspace{1em} | \hspace{1em} \alpha \: \gamma \hspace{1em} | \hspace{1em} \gamma
+	\end{equation*}\newpage
+
+	\subsection{Descrivere un semplice linguaggio imperativo}
+
+	Un \textbf{linguaggio può essere descritto in modo informale} descrivendo quali caratteristiche inserire e il loro significato:
+	\begin{itemize}
+		\item Niente dichiarazioni;
+		\item Solo variabili ed espressioni booleane;
+		\item Assegnamento e composizione sequenziale;
+		\item Comando condizionale;
+		\item Comando iterativo (\emph{loop}).
+	\end{itemize}
+	Nonostante possa essere sufficiente per scrivere un programma corretto e interpretabile da un altro programmatore, esso \underline{non} è adeguato per costruire un compilatore o un interprete.\newline
+	
+	\noindent
+	Per costruire un compilatore o un interprete è necessario scendere ad un livello più formale.\newline
+
+	\noindent
+	\textbf{È necessario che un linguaggio sia descritto a più livelli di astrazione ed ogni strato sia descritto da una grammatica}.
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/astrazione_linguaggi.pdf}
+		\caption{Linguaggio descritto a più livelli di astrazione.}
+	\end{figure}
+
+	\noindent
+	Un esempio di descrizione a più livelli:
+	\begin{equation*}
+		\begin{array}{lllll}
+			\mathrm{<program>} 		&& S & \Coloneqq & C \\
+			\\
+			\mathrm{<com>}			&& C & \Coloneqq & A \hspace{1em} | \hspace{1em} C ; C \hspace{1em} | \hspace{1em} \mathrm{if} \: B \: \mathrm{then} \: C \: \mathrm{else} \: C \hspace{1em} | \hspace{1em} \mathrm{while} \: B \: \mathrm{do} \: C \\
+			\\
+			\mathrm{<atomic \: com>}&& A & \Coloneqq & v \Coloneq B \\
+			\\
+			\mathrm{<b-expr>}		&& B & \Coloneqq & \mathrm{true} \hspace{1em} | \hspace{1em} \mathrm{false} \hspace{1em} | \hspace{1em} v \hspace{1em} | \hspace{1em} \left(\mathrm{not} \: B\right) \hspace{1em} | \hspace{1em} \left(B \: \mathrm{and} \: B\right) \hspace{1em} | \hspace{1em} \left(B \: \mathrm{or} \: B\right)
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsection{Analisi semantica}
+
+	Esistono dei vincoli che dipendono dal contesto. Per esempio, l'espressione:
+	\begin{equation*}
+		I \Coloneq R + 3
+	\end{equation*}
+	Potrebbe essere sintatticamente corretta ma illegale nel contesto in cui si trova. Infatti, se il linguaggio fosse fortemente \emph{tipato} e prima non ci fosse una dichiarazione di $R$ e di $I$, il comando sarebbe illegale.\newline
+
+	\noindent
+	Quindi, stringhe sintatticamente corrette per una certa grammatica sono legali sono in determinati contesti. Questo \textbf{vincolo sintattico} non può essere descritto mediante le grammatiche CF.\newline
+
+	\noindent
+	Esistono due \textbf{soluzioni}:
+	\begin{itemize}
+		\item Utilizzare grammatiche contestuali (CSG). Tuttavia, non esistono algoritmi lineari per il riconoscimento di stringhe generate, quindi non esistono algoritmi efficienti per effettuare il parser delle stringhe di una CSG.
+		\item Utilizzare controlli \emph{ad hoc}.
+	\end{itemize}
+	A causa dei problemi con le grammatiche contestuali, la scelta ricade nell'utilizzare una specifica del linguaggio mediante una grammatica CF (\textbf{sintassi}) e successivamente, come parte della semantica (\textcolor{Red3}{\textbf{semantica statica}}) specificare i vincoli contestuali.\newpage
+
+	\subsection{Semantica dinamica}
+
+	La \textbf{semantica} ricerca esattezza e flessibilità:
+	\begin{itemize}
+		\item \textbf{Esattezza}: descrizione precisa e non ambigua di ogni costrutto sintatticamente corretto, per sapere cosa accadrà durante l'esecuzione
+		\item \textbf{Flessibilità}: nessuna anticipazione delle scelte che devono essere demandate dall'implementazione.
+	\end{itemize}
+	La \textcolor{Red3}{\textbf{semantica dinamica}} risponde ad alcune problematiche, come il significato di alcuni comandi, che cosa fanno i costrutti, generatori di compilatori. Il suo \textbf{utilizzo è fondamentale poiché specifica gli effetti della sintassi sulla rappresentazione astratta della macchina}, quest'ultima chiamata \textbf{stato}.\newline
+	Quindi, per ogni costrutto, va descritto il significato della sua esecuzione come trasformazione di stato. Infatti, l'astrazione della macchina nel concetto di stato consente di dare al costrutto un significato puro, indipendente dalla macchina, quindi senza restrizioni.\newline
+
+	\noindent
+	La \textcolor{Red3}{\textbf{semantica}} \textbf{attribuisce un significato ad ogni frase sintatticamente corretta}. Con \textcolor{Red3}{\textbf{significato}} \textbf{si intendono le entità autonome che esistono indipendentemente dai segni che vengono utilizzati per descriverle}.\newline
+
+	\noindent
+	Esiste un \textbf{legame forte tra sintassi e semantica}:
+	\begin{itemize}
+		\item La \textbf{sintassi} è utilizzato come metodo finito per rappresentare un insieme infinito di programmi, la cui sola cosa analizzabile è la struttura;
+		\item La \textbf{semantica} è utilizzata come metodo finito, infatti segue la struttura della sintassi, per dare significato a tutti gli elementi dell'insieme infinito dei programmi.
+	\end{itemize}\newpage
+
+	\subsection{Induzione matematica e strutturale}
+
+	La semantica segue la struttura della sintassi, mentre quest'ultima è definita descrivendo gli elementi base e componendo questi elementi, attraverso regole, in elementi composti. Questa forma di definizione si chiama \textcolor{Red3}{\textbf{induzione}} e più formalmente è: data un insieme $A$ ed una relazione binaria $< \subseteq A \times A$ ben fondata (senza catene discendenti infinite), se $A = Nat$ si ha \textbf{induzione matematica}; se $A = L\left(G\right)$ è un linguaggio generato da una grammatica $G$, allora si ha \textbf{induzione strutturale}.\newline
+
+	\noindent
+	Il \textcolor{Red3}{\textbf{principio di induzione strutturale}} si basa sulla seguente definizione. Per dimostrare che una proprietà è valida per tutti gli elementi di una categoria sintattica:
+	\begin{enumerate}
+		\item \textbf{Base induttiva}: si dimostra la proprietà per tutti gli elementi base della categoria, quelli che non hanno nessun elemento come componente;
+		\item \textbf{Passo induttivo}: si dimostra la proprietà per tutti gli elementi composti assumendo che la proprietà sia verificata da tutti i loro componenti immediati.
+	\end{enumerate}
+	Ecco un esempio.
+	\begin{proof}[\textbf{Dimostrazione induttiva}]
+		Dimostrare che:
+		\begin{equation*}
+			\sum_{i = 1}^{n} i = \dfrac{n \left( n + 1 \right)}{2} \hspace{2em} \text{con } n \ge 1
+		\end{equation*}
+		La \textbf{base induttiva} è con $n$ pari ad $1$, quindi sostituendo:
+		\begin{equation*}
+			n = 1 \hspace{2em} \sum_{i = 1}^{1} i = 1 = \dfrac{1 \left( 1 + 1 \right)}{2}
+		\end{equation*}
+		Per il \textbf{passo induttivo} si suppone che sia vero per $n$ considerando dunque come passo induttivo l'equazione iniziale. Si dimostra per $n + 1$:
+		\begin{equation*}
+			\begin{array}{rll}
+				\displaystyle\sum_{i=1}^{n+1} i & = & \dfrac{ \left(n+1\right) \left(n+2\right) }{2} \\
+				\\
+				\displaystyle\sum_{i=1}^{n+1} i \triangleq \underbrace{\sum_{i=1}^{n} i + \left(n+1\right)}_{\text{per definizione}} & = & \underbrace{\dfrac{n \left(n+1\right)}{2}}_{\text{ip. induttiva}} + \: n + 1 \\
+				\\
+				& = & \dfrac{n \left(n+1\right) + 2n + 2}{2} = \dfrac{n^{2} + n + 2n + 2}{2} \\
+				\\
+				& = & \dfrac{\left(n+1\right) n + \left(n+1\right) 2}{2} = \dfrac{\left(n+1\right) \left(n+2\right)}{2}
+			\end{array}
+		\end{equation*}
+	\end{proof}
 \end{document}
