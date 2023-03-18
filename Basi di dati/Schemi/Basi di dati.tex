@@ -2544,9 +2544,156 @@ end transaction;
 				O4 = A6
 			\end{equation*}
 		\end{enumerate}
+	\end{enumerate}\newpage
+
+	\section{Gestore dei metodi d'accesso}
+	
+	Il \textcolor{Red3}{\textbf{gestore dei metodi d'accesso}} è colui che esegue il piano di esecuzione prodotto dall'ottimizzatore e produce sequenze di accessi ai blocchi della base di dati presenti in memoria secondaria. Con \textbf{metodi di accesso} si intende tutti i moduli software che implementano gli algoritmi di accesso e manipolazione dei dati organizzati in specifiche strutture fisiche.
+
+	\longline
+	
+	\subsection{Gestione delle tuple nelle pagine}
+	
+	Ogni organizzazione fisica è differente a seconda dell'architettura, tuttavia sotto molti aspetti hanno caratteristiche in comune.\newline
+	
+	\noindent
+	In ogni pagina sono presenti: l'\textbf{informazione utile}, cioè i dati veri e propri, e l'\textbf{informazione di controllo}, quella che consente di accedere all'informazione utile. Inoltre, sono presenti anche informazioni:
+	\begin{itemize}
+		\item Ogni pagina, corrispondente ad un blocco di memoria di massa, ha due parti contenenti l'\textbf{informazione di controllo utilizzata dal \emph{file system}}:
+		\begin{itemize}
+			\item Una \textbf{parte iniziale (\emph{block header})}
+			\item Una \textbf{parte finale (\emph{block trailer})} 
+		\end{itemize}
+		
+		\item Ogni pagina, contenente dati gestiti dal DBMS, ha altre due parti contenenti l'\textbf{informazione di controllo relativa alla specifica struttura fisica}\footnote{Questa informazione può per esempio contenere l'identificatore dell'oggetto (tabella, indice, dizionario dei dati, ecc.) contenuto nella pagina, puntatori a pagine successive o precedenti nella struttura dati, numero di dati utili elementari (tuple) contenuti nella pagina, quantità di memoria libera disponibile nella pagina}:
+		\begin{itemize}
+			\item Una \textbf{parte iniziale (\emph{page header})}
+			\item Una \textbf{parte finale (\emph{page trailer})}
+		\end{itemize}
+		
+		\item Ogni pagina ha il suo \textbf{dizionario di pagina}, il quale contiene:
+		\begin{itemize}
+			\item \textbf{Puntatori} a ciascun dato utile elementare contenuto nella pagina;
+			\item \textbf{Parte utile}, la quale contiene i dati.
+		\end{itemize}
+		Solitamente, queste due parti crescono come uno stack (si veda l'immagine) contrapposti, lasciando memoria libera in uno spazio contiguo compreso tra i due stack.
+
+		\item Ogni pagina contiene \textbf{bit di parità} per verificare che l'informazione in essa contenuta sia valida.
+	\end{itemize}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics*[width=\textwidth]{img/organizzazione_pagina.pdf}
+		\caption{Organizzazione di una pagina.}
+	\end{figure}
+
+	\noindent
+	In riferimento al \textbf{\underline{dizionario di pagina}}, esso ha una struttura variabile a seconda della struttura delle tuple:
+	\begin{itemize}
+		\item \textbf{Tuple con lunghezza \emph{fissa}}, la struttura dei dizionari è semplificata, ma si corre il rischio di spreco di spazio nelle pagine.
+
+		\item \textbf{Tuple con lunghezza \emph{variabile}}, il dizionario di pagina contiene l'indicazione degli \emph{offset} di ciascuna tupla rispetto all'inizio della parte utile e di ciascun valore dei vari campi presenti nella tupla rispetto all'inizio della tupla stessa.
+	\end{itemize}
+	Le \textbf{\underline{operazioni}} (primitive) eseguibili sulle pagine sono:
+	\begin{itemize}
+		\item \textbf{Inserimento} e \textbf{aggiornamento} che vengono eseguite in modo differente a seconda dello spazio disponibile:
+		\begin{itemize}
+			\item Spazio non contiguo, le operazioni sono precedute da una riorganizzazione della pagina con conseguente accesso in memoria centrale;
+			\item Spazio contiguo, le operazioni vengono eseguite senza difficoltà;
+			\item Spazio insufficiente, le operazioni comportano un'interazione con il file system, che deve allocare nuovi blocchi per il file.
+		\end{itemize}
+
+		\item \textbf{Cancellazione}, operazione sempre eseguibile.
+		\item \textbf{Accesso a una particolare multipla}, identificata tramite il valore della chiave oppure in base al suo \emph{offset}.
+		\item \textbf{Accesso a un campo di una particolare tupla}, identificata la tupla come nel punto precedente (tramite chiave o \emph{offset}) e successivamente viene identificato il campo in base all'\emph{offset} e alla lunghezza del campo stesso.
+	\end{itemize}\newpage
+
+	\subsection{Strutture primarie per l'organizzazione di file}
+
+	Le principali tecniche utilizzate per la struttura primaria di un file, cioè quella che stabilisce il criterio secondo il quale sono disposte le tuple nell'ambito del file.
+	Le strutture possono essere divise in tre categorie principali:
+	\begin{enumerate}
+		\item \textbf{Sequenziali}. Un file è costituito da vari blocchi di memoria \dquotes{logicamente} consecutivi, e le tuple vengono inserite nei blocchi rispettando una sequenza:
+		\begin{itemize}
+			\item Organizzazione \textbf{disordinata (seriale)}, la sequenza delle tuple è indotta dal loro ordine di immissione;
+			\item Organizzazione \textbf{ad array}, le tuple sono disposte come in un array e la loro posizione dipende dal valore assunto in ciascuna tupla da un campo di \textbf{indice};
+			\item Organizzazione \textbf{sequenziale ordinata}, la sequenza delle tuple dipende dal valore assunto in ciascuna tupla da un campo del file.
+		\end{itemize}
+		\item \textbf{Ad accesso calcolato (\emph{hash})}
+		\item \textbf{Ad albero}
 	\end{enumerate}
+
+	\longline
+
+	\subsection{Strutture sequenziali}
+
+	\subsubsection{Struttura sequenziale ordinata}
+
+	La \textcolor{Red3}{\textbf{struttura sequenziale ordinata}} prevede la memorizzazione dei record secondo un ordinamento fisico coerente con l'ordinamento di un campo chiamato \textbf{chiave}\footnote{In questo caso ci si riferisce ad un campo di ordinamento, ma potrebbero essere due o più, con ordinamento sulla base del primo e, in caso di valori uguali, sul secondo, e così via. Inoltre, il campo su cui è realizzato l'ordinamento non è necessariamente la chiave della relazione.}.\newline
+
+	\noindent
+	Le strutture ordinate rendono \textbf{efficienti} le operazioni che hanno bisogno proprio dell'ordinamento utilizzato, come per esempio la produzione di un elenco ordinato per cognome.
+	Inoltre, esse \textbf{favoriscono} le \dquotes{selezioni su intervallo} (\textbf{\emph{range query}}), per esempio la \textbf{ricerca di tuple} con un cognome che inizia con una certa sequenza di lettere oppure con una data compresa in un certo intervallo.
+	Questo accade poiché memorizzano in posizioni consecutive i record che soddisfano la condizione: una volta individuato il primo record (per esempio tramite un indice), l'accesso agli altri sarà molto efficiente.\newline
+
+	\noindent
+	Le strutture ordinate presentano anche \textbf{inconvenienti} in presenza di:
+	\begin{itemize}
+		\item \textbf{Aggiornamenti}, a causa della necessità di mantenere l'ordinamento;
+		\item \textbf{Eliminazioni}, provocano spreco di spazio;
+		\item \textbf{Inserimenti in posizioni intermedie}, richiedono spazio aggiuntivo con perdita di contiguità.
+	\end{itemize}
+	Per questi motivi, le strutture possono richiedere \textbf{periodicamente riorganizzazioni}.\newpage
+
+	\subsubsection{Indici primari e secondari}
+
+	L'\textbf{obbiettivo} degli indici è quello di consentire ricerche efficienti.\newline
+
+	\noindent
+	Dato un file $f$ con un campo chiave $k$, un \textcolor{Red3}{\textbf{indice secondario}} è un altro file, in cui ciascun record è logicamente composto da due campi:
+	\begin{itemize}
+		\item Uno contenente un valore della chiave $k$ del file $f$;
+		\item Uno contenente l'indirizzo o gli indirizzi fisici dei record di $f$ che hanno quel valore di chiave.
+	\end{itemize}
+	L'indice secondario è \textbf{ordinato in base al valore della chiave} e quindi consente una rapida ricerca in base a tale valore. Per cui, l'indice secondario può essere usato da un programma per accedere rapidamente ai dati del file primario.\newline
+	Inoltre, un indice secondario \textbf{deve} contenere i riferimenti a tutti i valori della chiave, visto che record con valori consecutivi della chiave possono trovarsi in blocchi ben diversi. Per questo motivo viene detto che è un \textcolor{Red3}{\textbf{indice denso}}.\newline
+
+	\noindent
+	Se l'indice contiene al suo interno i dati oppure è realizzato su un file ordinato sullo stesso campo su cui è definito l'indice stesso, allora viene definito \textcolor{Red3}{\textbf{indice primario}}.
+	Questo perché viene garantito un accesso in base alla chiave e sono contenuti anche i record fisici necessari per memorizzare i dati o comunque ne vincola l'allocazione. Quindi, un \textbf{file non può avere un solo indice primario e sequenziale}.\newline
+	Per l'indice primario, è possibile utilizzare:
+	\begin{itemize}
+		\item L'\textbf{indice denso}, per ogni occorrenza della chiave presente nel file esiste un record corrispondente nell'indice;
+		\item L'\textbf{indice sparso}, solo per alcune occorrenze della chiave presenti nel file esiste un corrispondente record nell'indice, tipicamente una per blocco.
+	\end{itemize}\newpage
+
+	\subsubsection{Esempi di indice primario e secondario}
+
+	Qui di seguito si lascia lo schema di un esempio di applicazione di indice primario. Il file sequenziale è diviso in due blocchi e ciascuno è puntato da un indice denso e/o sparso.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/indice_primario.pdf}
+		\caption{Esempio di indice primario.}
+	\end{figure}
+	
+	\noindent
+	L'indice primario in versione \dquotes{sparso}, punta al primo elemento di ogni blocco, in questo modo è possibile risalire agli altri grazie alla concatenazione delle tuple nei blocchi.\newline
+	Invece, la versione \dquotes{densa}, punta al primo elemento di ogni riferimento e non ad un solo riferimento di un blocco.\newline
+
+	\noindent
+	Al contrario, nel seguente esempio è possibile osservare l'applicazione di un indice secondario. In questo caso l'indice è solo di tipo \dquotes{denso}, quindi punta ad ogni riferimento.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/indice_secondario.pdf}
+		\caption{Esempio di indice secondario.}
+	\end{figure}
+
+
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\newpage
 	\section{PostgreSQL}
 	
@@ -2778,7 +2925,7 @@ default < GenericoValore | user | null > \end{lstlisting}
 		\item \textsf{null}, valore nullo
 	\end{itemize}\newpage
 	
-	\subsection{Vincoli intrarelazionali}
+	\subsection{Vincoli intrarelazionali}\label{vincoli intrarelazionali}
 	
 	\subsubsection{Not null}
 	
@@ -2792,6 +2939,290 @@ Cognome varchar(20) not null \end{lstlisting}
 	\longline
 	
 	\subsubsection{Unique}
+
+	Un vincolo \textsf{unique} può essere applicato ad un solo attributo oppure ad un insieme di attributi di una tabella. L'obbiettivo è imporre che i valori dell'attributo, o le ennuple di valori sull'insieme di attributi, siano una (super)chiave, ovvero righe differenti della tabella non possano avere gli stessi valori.
+
+	Il valore \textsf{null} crea un'eccezione in questo caso. Infatti, esso è l'unico valore che ha il permesso di comparire su diverse righe senza violare il vincolo, in quanto si assume che i valori nulli siano tutti diversi tra loro.\newline
+
+	\noindent
+	La sintassi cambia a seconda dello scopo del suo utilizzo:
+	\begin{enumerate}
+		\item Definire il vincolo su \textbf{un solo} attributo:
+\begin{lstlisting}[language=SQL]
+Attributo TipoAttributo unique\end{lstlisting}
+		Per esempio, si vuole rendere unica la matricola di uno studente:
+\begin{lstlisting}[language=SQL]
+Matricola character(6) unique\end{lstlisting}
+
+		\item Definire il vincolo su \textbf{un insieme} di attributi:
+\begin{lstlisting}[language=SQL]
+unique ( Attributo { , Attributo } )\end{lstlisting}
+		Per esempio, si vuole rendere unico il nome e cognome di una persona, vincolando l'insieme e non i singoli campi:
+\begin{lstlisting}[language=SQL]
+Nome 		varchar(20) not null,
+Cognome varchar(20) not null,
+unique (Cognome, Nome)\end{lstlisting}
+	\end{enumerate}
+	\textcolor{Red3}{\textbf{Attenzione!}} C'è differenza tra definire un insieme e, prendendo in considerazione il secondo esempio, vincolare ogni campo:
+\begin{lstlisting}[language=SQL]
+Nome 		varchar(20) not null unique,
+Cognome varchar(20) not null unique\end{lstlisting}
+	Nel caso dell'esempio dell'elenco puntato, si impone che non ci siano due righe che abbiano uguali \textbf{sia} il nome, \textbf{sia} il cognome. Invece, nel secondo caso qua sopra (più restrittivo), si ha una violazione se nelle righe compaiono più di una volta o lo stesso nome o lo stesso cognome.\newpage
 	
 	\subsubsection{Primary key}
+
+	La chiave primaria può essere specificata tramite il vincolo \textsf{primary key} una sola volta per ogni tabella.
+
+	Esattamente come il vincolo \textsf{unique}, il comando \textsf{primary key} può essere definito su un singolo attributo, oppure essere definito elencando più attributi che costituiscono l'identificatore.
+
+	Inoltre, gli attributi appartenenti alla chiave primaria \textbf{non} possono assumere il valore nullo. Quindi, l'utilizzo di \textsf{primary key} implica per tutti gli attributi della chiave primaria una definizione di \textsf{not null}.\newline
+
+	\noindent
+	\noindent
+	La sintassi cambia a seconda dello scopo del suo utilizzo:
+	\begin{enumerate}
+		\item Definire il vincolo su \textbf{un solo} attributo:
+\begin{lstlisting}[language=SQL]
+Attributo TipoAttributo primary key\end{lstlisting}
+		Per esempio, si vuole rendere come chiave primaria la matricola di uno studente:
+\begin{lstlisting}[language=SQL]
+Matricola character(6) primary key\end{lstlisting}
+
+		\item Definire il vincolo su \textbf{un insieme} di attributi:
+\begin{lstlisting}[language=SQL]
+primary key ( Attributo { , Attributo } )\end{lstlisting}
+		Per esempio, si vuole rendere come chiave primaria il nome e cognome di una persona:
+\begin{lstlisting}[language=SQL]
+Nome 		varchar(20),
+Cognome varchar(20),
+primary key (Cognome, Nome)\end{lstlisting}
+	\end{enumerate}\newpage
+
+	\subsection{Vincoli interrelazionali \textsf{foreign key}}
+	
+	I vincoli interrelazioni più diffusi e significativi sono i \textbf{vincoli di integrità referenziale}. In SQL per la loro definizione viene utilizzato il vincolo \textsf{foreign key}, ovvero \textbf{chiave esterna}.\newline
+	
+	\noindent
+	Questo vincolo crea un legame tra i valori di un attributo della tabella su cui è definito (\textbf{tabella \emph{interna}}) e i valori di un attributo di un'altra tabella (\textbf{tabella \emph{esterna}}).
+	
+	Il \textbf{vincolo impone} che per ogni riga della tabella interna il valore dell'attributo specificato, se diverso dal valore nullo, sia presente nelle righe della tabella esterna tra i valori del corrispondente attributo.
+	
+	L'\textbf{unico requisito} imposto dalla sintassi è che l'attributo cui si fa riferimento nella tabella esterna sia soggetto ad un vincolo \textsf{unique}, quindi sia un identificatore della tabella. Solitamente l'attributo della tabella esterna è la chiave primaria della tabella.\newline
+	
+	\noindent
+	La sintassi cambia a seconda del numero di chiavi esterne:
+	\begin{itemize}
+		\item Nel caso di \textbf{un solo} attributo coinvolto, è possibile utilizzare il costrutto sintattico \textsf{references} con il quale si specificano la tabella esterna e l'attributo della tabella esterna al quale l'attributo in questione deve essere legato.\newline
+		Un \textcolor{Green4}{\textbf{esempio}} in cui il vincolo su \textsf{Dipart} della tabella Impiegato può assumere solo uno dei valori che le righe della tabella Dipartimento possiedono per l'attributo \textsf{NomeDip}:
+		\lstinputlisting[language=SQL]{code/vincoli_interrelazionali-pre.sql}
+		
+		\item Nel caso di \textbf{un insieme} di attributi coinvolti, è possibili utilizzare il costrutto sintattico \textsf{foreign key} in combinazione con \textsf{references}, posto al termine della definizione degli attributi.\newline
+		Se per \textcolor{Green4}{\textbf{esempio}} si volesse imporre che gli attributi \textsf{Nome} e \textsf{Cognome} debbano comparire in una tabella anagrafica, si potrebbe aggiungere il vincolo:
+\begin{lstlisting}[language=SQL]
+foreign key (Nome, Cognome)
+						references Anagrafica(Nome, Cognome)\end{lstlisting}
+		La corrispondenza tra gli attributi locali ed esterni avviene in base all'ordine: al primo attributo argomento di \textsf{foreign key} corrisponde il primo attributo argomento di \textsf{references}, e via via gli altri attributi. In questo caso a \textsf{Nome} e \textsf{Cognome} di Impiegato corrispondono rispettivamente \textsf{Nome} e \textsf{Cognome} di Anagrafica.
+	\end{itemize}\newpage
+	
+	\subsubsection{Politiche di reazione ad una modifica/eliminazione}\label{politiche di reazione ad una modifica/eliminazione}
+	
+	Solitamente se il sistema rileva una violazione, il comando di aggiornamento viene rifiutato. Al contrario, SQL permette di scegliere altre reazioni da adottare quando viene rilevata una violazione.\newline
+	
+	\noindent
+	Le \textbf{violazioni si manifestano} in due occasioni:
+	\begin{enumerate}
+		\item Inserimento di una nuova riga (operazione sulla \underline{tabella interna});
+		\item Modifica del valore dell'attributo referente (operazione sulla \underline{tabella interna}).
+	\end{enumerate}
+	In questo caso, il sistema le \textbf{rifiuta}.\newline
+	
+	\noindent
+	Al contrario, esistono \textbf{altre violazioni che sono gestite} a seconda del programmatore:
+	\begin{enumerate}
+		\item Modifiche del valore dell'attributo riferito (operazione sulla \underline{tabella esterna});
+		\item Cancellazione di righe (operazione sulla \underline{tabella esterna}).
+	\end{enumerate}
+	In altre parole, \textbf{le violazioni gestite sono soltanto quelle che si creano operando sulla tabella esterna}. Questo perché la tabella esterna viene rappresentata come la tabella principale (\emph{master}) alle cui violazioni la tabella interna (\emph{slave}) deve adeguarsi.\newline
+	
+	\noindent
+	Per le operazioni di \textbf{\underline{modifica}} sulla tabella esterna, il sistema propone quattro politiche di gestione:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textsf{cascade}}: il \textbf{nuovo valore} dell'attributo della tabella esterna viene riportato su tutte le corrispondenti righe della tabella interna;
+		
+		\item \textcolor{Red3}{\textsf{set null}}: all'attributo referente viene \textbf{assegnato il valore nullo} al posto del valore modificato nella tabella esterna;
+		
+		\item \textcolor{Red3}{\textsf{set default}}: all'attributo referente viene \textbf{assegnato il valore di default} al posto del valore modificato nella tabella esterna;
+		
+		\item \textcolor{Red3}{\textsf{no action}}: l'azione di \textbf{modifica non viene consentita} e il sistema non ha quindi bisogno di riparare la violazione.
+	\end{itemize}
+	Invece, per le operazioni di \textbf{\underline{eliminazione}} sulla tabella esterna, il sistema propone quattro politiche di gestione:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textsf{cascade}}: \textbf{tutte le righe} della tabella interna corrispondenti alla riga cancellata vengono cancellate;
+		
+		\item \textcolor{Red3}{\textsf{set null}}: all'attributo referente viene \textbf{assegnato il valore nullo} al posto del valore cancellato nella tabella esterna;
+		
+		\item \textcolor{Red3}{\textsf{set default}}: all'attributo referente viene \textbf{assegnato il valore di default} al posto del valore cancellato nella tabella esterna;
+		
+		\item \textcolor{Red3}{\textsf{no action}}: la cancellazione \textbf{non viene consentita}.
+	\end{itemize}\newpage
+
+	\noindent
+	Si noti che le reazioni alle violazioni possono generare una \textbf{reazione a catena} qualora la tabella interna compaia a sua volta come tabella esterna in un altro vincolo di integrità.\newline
+	
+	\noindent
+	La politica di reazione scelta deve essere specificata immediatamente dopo il vincolo di integrità, secondo la seguente \textbf{sintassi}:
+\begin{lstlisting}[language=SQL]
+on 	< delete | update >
+		< cascade | set null | set default | no action >\end{lstlisting}
+	Ovviamente è possibile scegliere un solo valore.\newline
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} è il seguente:
+	\lstinputlisting[language=SQL]{code/vincoli_interrelazionali.sql}\newpage
+
+	\subsection{Vincolo di integrità generico (\textsf{check})}
+
+	Per specificare vincoli più complessi, la versione SQL-2 offre la clausola \textsf{check} con la seguente sintassi:
+\begin{lstlisting}[language=SQL]
+check ( Condizione )
+\end{lstlisting}
+	Le condizioni ammissibili sono le stesse che possono apparire come argomento della clausola \textsf{where} di un'interrogazione SQL. Inoltre, la condizione deve essere \textbf{sempre verificata} affinché la base di dati sia corretta. In questo modo è possibile specificare tutti i vincoli intrarelazionali (paragrafo \ref{vincoli intrarelazionali}).\newline
+	
+	\noindent
+	Una dimostrazione della potenza del costrutto consiste nel mostrare come tutti i vincoli predefiniti possano essere descritti con la clausola \textsf{check}. Per questo motivo, si riprende la seguente dichiarazione effettuata nel paragrafo dei vincoli interrelazionali:
+	\lstinputlisting[language=SQL]{code/vincoli_interrelazionali-pre.sql}
+	E si esegue il confronto utilizzando l'operatore \textsf{check}:
+	\lstinputlisting[language=SQL]{code/check.sql}
+	È possibile notare diverse cose:
+	\begin{enumerate}
+		\item I vincoli predefiniti (primo \href{https://it.wikipedia.org/wiki/Snippet}{\emph{snippet}}) consentono una rappresentazione \textbf{molto più compatta e leggibile}. Per esempio, il vincolo di chiave ha bisogno di una rappresentazione abbastanza complicata, che fa uso dell'operatore \textsf{count} (contatore/conteggio).
+		
+		\item \textbf{Perdita} della possibilità di associare ai vincoli una \textbf{politica di reazione} alle violazioni (paragrafo \ref{politiche di reazione ad una modifica/eliminazione}).
+		
+		\item Le espressioni dei \textbf{vincoli mediante costrutti predefiniti} (primo \emph{snippet}) viene gestita in modo migliore dal sistema, il quale le riconosce immediatamente e riesce a gestirle in modo \textbf{più efficiente}.
+	\end{enumerate}\newpage
+
+	\noindent
+	Un utilizzo più sensato della clausola \textsf{check}, è possibile esprimerlo grazie alla seguente richiesta (e.g.): si richiede che un impiegato abbia un manager del proprio dipartimento, a meno che la matricola non inizi con la cifra $1$. Per soddisfare questa richiesta, basta estendere la dichiarazione della tabella Impiegato con le seguenti dichiarazioni:
+	\lstinputlisting[language=SQL]{code/check_correct_use.sql}\newpage
+	
+	\subsection{Modifica degli schemi}
+	
+	\subsubsection{Modifica dei domini e schemi \textsf{alter}}
+	
+	Il comando \textsf{alter} consente di modificare domini e schemi di tabelle. La sua sintassi è la seguente:
+	\lstinputlisting[language=SQL]{code/alter.sql}
+	\begin{itemize}
+		\item Con \textsf{alter domain} è possibile aggiungere e rimuovere vincoli sul dominio, e modificare i valori di default associati ai domini;
+		\item Con \textsf{alter table} è possibile aggiungere e rimuovere vincoli sul dominio, e modificare i valori di default associati agli attributi.
+	\end{itemize}
+	Quando viene definito un nuovo vincolo, questo deve essere soddisfatto dai dati già presenti. Nel caso in cui l'istanza contiene violazioni per il nuovo vincolo, l'inserimento viene rifiutato.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, in questo caso viene esteso lo schema della tabella Dipartimento con un attributo \textsf{NroUff} che consente di rappresentare il numero di uffici di cui il dipartimento è dotato:
+\begin{lstlisting}[language=SQL]
+alter table Dipartimento add column NroUff numeric(4)\end{lstlisting}\newpage
+	
+	\subsubsection{Rimuovere schemi, domini, viste, asserzioni \textsf{drop}}\label{drop}
+	
+	Il comando \textsf{drop} consente di rimuovere dei componenti quali schemi, domini, tabelle, viste o asserzioni\footnote{Le \href{https://stackoverflow.com/questions/2443322/what-is-the-difference-between-triggers-assertions-and-checks-in-database}{asserzioni} sono dei vincoli che non sono associati ad alcuna tabella in particolare.}. La sua sintassi è la seguente:
+	\lstinputlisting[language=SQL]{code/drop.sql}
+	\begin{itemize}
+		\item Con \textsf{restrict} viene specificato che il comando di rimozione \textbf{non} deve essere eseguito nel caso in cui ci siano oggetti \textbf{non vuoti}. Quindi:
+		\begin{itemize}
+			\item \textbf{Schema} non viene rimosso contiene tabelle o altri oggetti;
+		
+			\item \textbf{Dominio} non viene rimosso  se appare in qualche definizione di tabella;
+		
+			\item \textbf{Tabella} non viene rimossa se possiede delle righe o se è presente in qualche definizione di tabella o vista;
+		
+			\item \textbf{Vista} non viene rimossa se è utilizzata nella definizione di tabelle o viste.
+		\end{itemize}
+		Il valore \textsf{restrict} è l'\textbf{opzione di default}.
+		
+		\item Con \textsf{cascade} tutti gli oggetti vengono rimossi:
+		\begin{itemize}
+			\item \textbf{Schema} non vuoto, tutti gli oggetti che fanno parte dello schema vengono eliminati;
+			
+			\item \textbf{Dominio} che compare nella definizione di qualche attributo, la sua rimozione fa sì che il nome del dominio venga rimosso, ma gli attributi che sono stati definiti utilizzando quel dominio rimangono associati al medesimo dominio elementare.\newline
+			Per \textcolor{Green4}{\textbf{esempio}}, eliminando il dominio \textsf{StringaLunga}, definito come \textsf{varchar(100)}, tramite il comando:
+\begin{lstlisting}[language=SQL]
+drop domain StringaLunga cascade\end{lstlisting}
+			Tutti gli attributi definiti su quel dominio assumeranno direttamente il dominio \textsf{varchar(100)};
+			
+			\item \textbf{Tabella}, tutte le righe vengono perse. Nel caso in cui la tabella compariva in qualche definizione di tabella o vista, anch'esse vengono rimosse.
+			
+			\item \textbf{Vista} che compare nella definizione di altre tabelle o viste, anche queste tabelle e viste vengono rimosse.
+		\end{itemize}
+	\end{itemize}
+	Data la potenza di \textsf{cascade} e degli effetti disastrosi che potrebbe causare per cascata, è necessario prestare estrema cautela nell'uso di questa opzione, in quanto può capitare che, a causa di qualche dipendenza sfuggita all'analisi, il comando abbia un effetto molto diverso da quello voluto.\newpage
+	
+	\subsection{Modifica dei dati}
+	
+	\subsubsection{Inserimento \textsf{insert into}}
+	
+	Il comando di inserimento \textsf{insert into} presenta un'unica sintassi con un possibile doppio utilizzo:
+	\lstinputlisting[language=SQL]{code/insert_into.sql}
+	\begin{enumerate}
+		\item È possibile inserire \textbf{singole righe} all'interno delle tabelle. L'argomento \textsf{values} rappresenta esplicitamente i valori degli attributi della singola riga.\newline
+		Per \textcolor{Green4}{\textbf{esempio}}:
+		\lstinputlisting[language=SQL]{code/insert_into-ex1.sql}
+		Questa forma viene usata tipicamente all'interno dei programmi per riempire una tabella con i dati forniti direttamente dagli utenti.
+		
+		\item È possibile inserire \textbf{insiemi di righe}, estratti dal contenuto della base di dati.\newline
+		Per \textcolor{Green4}{\textbf{esempio}}, con la seguente query viene inserito nella tabella ProdottiMilanesi il risultato della selezione della relazione Prodotto di tutte le righe aventi \textsf{'Milano'} come valore dell'attributo \textsf{LuogoProd}:
+		\lstinputlisting[language=SQL]{code/insert_into-ex2.sql}
+		Questa forma consente di inserire i dati in una tabella a partire da altre informazioni presenti nella base di dati.
+	\end{enumerate}
+	Una regola che vale indipendentemente dall'utilizzo scelto: se in un inserimento \textbf{non vengono specificati i valori} di tutti gli attributi della tabella, agli attributi mancanti viene assegnato il valore di default, o in assenza di questo il valore nullo.\newline
+	
+	\noindent
+	Infine, la corrispondenza tra gli attributi della tabella e i valori da inserire è data dall'ordine in cui compaiono i termini nella definizione della tabella.\newpage
+	
+	\subsubsection{Cancellazione \textsf{delete}, \textsf{drop}}
+	
+	Il comando \textsf{delete} elimina righe dalle tabelle della base di dati, la sintassi è la seguente:
+	\lstinputlisting[language=SQL]{code/delete.sql}
+	Se la condizione \textsf{where} non viene specificata, il comando cancella \textbf{tutte} le righe della tabella, altrimenti vengono rimosse solo le righe che soddisfano la condizione.
+	
+	Inoltre, si ricorda che qualora esista un \textbf{vincolo di integrità referenziale} con politica di \textsf{cascade} in cui la tabella viene referenziata, allora la cancellazione di righe dalla tabella può comportare la cancellazione di righe appartenente ad altre tabelle (reazione a catena).\newline
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di eliminazione di una riga da Dipartimento avente come nome \textsf{'Produzione'}:
+	\lstinputlisting[language=SQL]{code/delete-ex1.sql}
+	Un altro \textcolor{Green4}{\textbf{esempio}} in cui compare al suo interno anche interrogazioni nidificate che fanno riferimento ad altre tabelle:
+	\lstinputlisting[language=SQL]{code/delete-ex2.sql}
+	Eliminazione dei dipartimenti senza impiegati.\newline
+	
+	\noindent
+	Infine, si noti la \textbf{differenza} tra il comando \textsf{delete} appena visto e il comando \textsf{drop} (paragrafo \ref{drop}). Infatti, un comando:
+\begin{lstlisting}[language=SQL]
+delete from Dipartimento\end{lstlisting}
+	Elimina tutte le righe della tabella Dipartimento, eventualmente eliminando anche tutte le righe dalle tabella che sono legate da vincolo di integrità referenziale con la tabella, se per il vincolo è specificata la politica \textsf{cascade}.\newline
+	Invece, con il comando:
+\begin{lstlisting}[language=SQL]
+drop table Dipartimento cascade\end{lstlisting}
+	Si ha lo stesso effetto del \textsf{delete}, ma in più anche lo \textbf{schema} della base di dati viene \textbf{modificato}, eliminando dallo schema non solo la tabella Dipartimento, ma anche tutte le viste e tabelle che nella loro definizione fanno riferimento ad essa.\newpage
+	
+	\subsubsection{Modifica \textsf{update}}
+	
+	Il comando \textsf{update} presenta una sintassi leggermente complicata:
+	\lstinputlisting[language=SQL]{code/update.sql}
+	Con \textsf{update} è possibile aggiornare uno o più attributi delle righe di \textsf{NomeTabella} che soddisfano l'eventuale \textsf{Condizione}. Se il comando non presenta la clausola \textsf{where}, come al solito viene supposto che la condizione sia soddisfatta e viene eseguita la modifica su tutte le righe.\newline
+	
+	\noindent
+	Il nuovo valore può essere:
+	\begin{enumerate}
+		\item Il risultato della valutazione di un'espressione sugli attributi della tabella, il quale può anche far riferimento al valore corrente dell'attributo che verrà modificato;
+		
+		\item Il risultato di una generica interrogazione SQL;
+		
+		\item Il valore nullo;
+		
+		\item Il valore di default per il dominio.
+	\end{enumerate}
+	Un \textcolor{Green4}{\textbf{esempio}} di modifica di una singola riga aggiornando lo stipendio del dipendente con matricola \textsf{M2047}:
+	\lstinputlisting[language=SQL]{code/update-ex1.sql}	
+	Un \textcolor{Green4}{\textbf{esempio}} di modifica di un insieme di righe aumentando del $10\%$ lo stipendio di tutti gli impiegati che lavorano in Amministrazione:
+	\lstinputlisting[language=SQL]{code/update-ex2.sql}
 \end{document}
