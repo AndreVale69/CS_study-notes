@@ -2686,9 +2686,356 @@ end transaction;
 		\centering
 		\includegraphics[width=\textwidth]{img/indice_secondario.pdf}
 		\caption{Esempio di indice secondario.}
+	\end{figure}\newpage
+
+	\section{Strutture ad albero e hash}
+
+	\subsection{Alberi B+ (\emph{B$+$-Tree})}
+	
+	\subsubsection{Definizione}
+	
+	Un albero B+ o un \textcolor{Red3}{\textbf{\emph{B+-Tree}}} è una tipica struttura ad albero utilizzata nel mondo dell'informatica per rappresentare dei dati. Ogni \textbf{nodo} corrisponde ad una \textbf{pagina della memoria secondaria}, mentre i \textbf{legami} tra nodi diventano \textbf{puntatori a pagina}. Ogni \textbf{nodo} ha un numero elevato di foglie (figli), quindi generalmente gli alberi hanno pochi livelli, ma molti nodi foglia.\newline
+	
+	\noindent
+	Un albero viene definito \textbf{bilanciato} se la lunghezza dei percorsi che collegano la radice ai nodi foglia è costante. Inoltre, viene definito \textbf{efficiente} poiché gli inserimento e le cancellazioni non alterano le prestazioni dell'accesso ai dati.
+	
+	\longline
+	
+	\subsubsection{Struttura di un nodo foglia}
+	
+	La struttura di un \textcolor{Red3}{\textbf{nodo foglia}} può essere immaginata come un array. Esso può contenere fino a $n-1$ valori \textbf{ordinati} di chiave di ricerca e fino a $n$ puntatori (quindi il suo \textcolor{Red3}{\textbf{\emph{fan-out}}} è uguale a $n$). Esiste anche una variante in cui al posto dei valori chiave, il nodo foglia contiene direttamente le tuple (variante implementata in una struttura fisica integrata dati/indice).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/B+-tree_foglia.pdf}
+		\caption{Struttura di un nodo foglia.}
+	\end{figure}
+	
+	\noindent
+	Nella figura viene evidenziata la sua struttura, dove:
+	\begin{itemize}
+		\item Le $p$ rappresentano i \textbf{puntatori};
+		
+		\item Le $K$ rappresentano le \textbf{chiavi di ricerca} ordinate, quindi dati due indici $i,j$ tale che $i<j$, allora la chiave $K_{i}$ sarà prima della chiave $K_{j}$, ovvero $K_{i} < K_{j}$;
+		
+		\item Vale la \textbf{relazione} $m \le n$, dove $n$ è il numero totale di puntatori. Dallo schema è evidente che le chiavi di ricerca possono arrivare al massimo a $m-1$ rispettando sempre questa condizione;
+		
+		\item Ogni \textbf{puntatore} (escluso l'ultimo) \textbf{punta alla sua rispettiva chiave}, quindi entrambi avranno gli stessi indici (indice primario);\newline
+		Ogni \textbf{puntatore punta al \emph{bucket} di puntatori} verso le tuple con chiave $K_{1}$ (indice secondario).
+	\end{itemize}
+	L'ultimo puntatore punta al nodo successivo se esiste.\newpage
+	
+	\subsubsection{Struttura di un nodo intermedio}
+	
+	Un \textcolor{Red3}{\textbf{nodo intermedio}} ha la stessa identica struttura di un nodo foglia, con la differenza che ogni puntatore (in riferimento alla struttura sotto):
+	\begin{itemize}
+		\item $p_{1}$ punta al sottoalbero con chiavi $k$ tali che: $k < K_{1}$
+		
+		\item $p_{i}$ punta al sottoalbero con chiavi $k$ tali che: $K_{i-1} < k < K_{i}$
+		
+		\item $p_{m}$ punta al sottoalbero con chiavi $k$ tali che: $K_{m-1} \le k$
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/B+-tree_intermedio.pdf}
+		\caption{Struttura di un nodo intermedio.}
 	\end{figure}
 
+	\longline
+	
+	\subsubsection{Vincoli di riempimento}\label{vincoli di riempimento}
+	
+	I \textcolor{Red3}{\textbf{vincoli di riempimento}} determinano il numero di chiavi e puntatori che sono presenti rispettivamente all'interno di un nodo foglia o di un nodo intermedio.\newline
+	
+	\noindent
+	Un \textbf{nodo foglia} che utilizza un un vincolo di riempimento con \emph{fan-out} uguale a $n$, è un nodo contenete un \textbf{numero di valori chiave} (rappresentati con il termine $\#chiavi$) vincolato nel seguente modo:
+	\begin{equation*}
+		\left\lceil \dfrac{\left(n-1\right)}{2} \right\rceil \le \#chiavi \le \left(n-1\right)
+	\end{equation*}
+	Invece, un \textbf{nodo intermedio} che utilizza un un vincolo di riempimento con \emph{fan-out} uguale a $n$, è un nodo contenete un \textbf{numero di valori puntatori} (rappresentati con il termine $\#puntatori$) vincolato nel seguente modo:
+	\begin{equation*}
+		\left\lceil \dfrac{n}{2} \right\rceil \le \#chiavi \le n
+	\end{equation*}
+	Le parentesi quadre indicano l'arrotondamento all'intero superiore più vicino.\newpage
+	
+	\subsubsection{Esempio di albero B+}\label{esempio di albero B+}
+	
+	Il primo caso che viene presentato è il \textcolor{Green4}{\textbf{riempimento minimo dei nodi foglia}}. Il \emph{fan-out} impostato è $4$ e i valori delle chiavi presenti sono: $A,B,D,E,F,G,L,M,N,P$. I vincoli di riempimento sono:
+	\begin{itemize}
+		\item $2 \le \#chiavi \le 3$
+		\item $2 \le \#puntatori \le 4$
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_riempimento_minimo.png}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_riempimento_minimo-albero.png}
+		\caption{Albero utilizzando un riempimento minimo dei nodi foglia.}
+	\end{figure}
+	
+	\noindent
+	Invece, nel secondo caso viene presentato il \textcolor{Green4}{\textbf{riempimento massimo dei nodi foglia}}. Il \emph{fan-out} impostato è $4$ e i valori delle chiavi presenti sono: $A,B,D,E,F,G,L,M,N,P$. I vincoli di riempimento sono:
+	\begin{itemize}
+		\item $2 \le \#chiavi \le 3$
+		\item $2 \le \#puntatori \le 4$
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_riempimento_massimo.png}
+	\end{figure}\newpage
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_riempimento_massimo-albero.png}
+		\caption{Albero utilizzando un riempimento massimo dei nodi foglia.}
+	\end{figure}
 
+	\longline
+	
+	\subsection{Operazione sugli alberi}
+	
+	\subsubsection{Ricerca con chiave K}
+	
+	La \textbf{ricerca} tramite una chiave si divide in due passaggi:
+	\begin{enumerate}
+		\item Ricercare nel \textbf{nodo radice} il più piccolo valore di chiave maggiore di K:
+		\begin{itemize}
+			\item Se il valore esiste, per esempio $K_{i}$, allora viene seguito il puntatore $p_{i}$.
+			\begin{figure}[!htp]
+				\centering
+				\includegraphics[width=.7\textwidth]{img/ricerca-1.pdf}
+			\end{figure}
+			
+			\item Se il valore non esiste, allora viene seguito il puntatore $p_{m}$.
+			\begin{figure}[!htp]
+				\centering
+				\includegraphics[width=.7\textwidth]{img/ricerca-2.pdf}
+			\end{figure}
+		\end{itemize}
+		
+		\item Una volta raggiunto il \textbf{nodo foglia}, viene cercato il valore $K$ nel nodo e viene seguito il corrispondente puntatore verso le tuple.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.7\textwidth]{img/ricerca-3.pdf}
+		\end{figure}
+	\end{enumerate}\newpage
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio di ricerca}} nell'albero B+ è il seguente. In questo caso vengono richieste quelle tuple con valore $G$ della chiave.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ricerca-4.pdf}
+	\end{figure}
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{costo di una ricerca}} nell'indice, in termini di \textbf{numero di accessi alla memoria secondaria}, è pari al numero di nodi acceduti nella ricerca.\newline
+	
+	\noindent
+	Tale numero, in una struttura ad albero, è \textbf{pari alla profondità} ($prof$) dell'albero. Nel caso dei B+ è indipendente dal percorso ed è funzione del \emph{fan-out} $n$ e del numero di valori chiave presenti nell'albero $\#valoriChiave$:
+	\begin{equation*}
+		prof_{B+\text{-}tree} \le 1 + \log_{\left\lceil \frac{n}{2} \right\rceil} \left(\dfrac{\#valoriChiave}{\left\lceil \dfrac{\left(n-1\right)}{2} \right\rceil}\right)
+	\end{equation*}\newpage
+
+	\subsubsection{Inserimento con chiave K}
+	
+	Come per la ricerca, anche l'\textbf{inserimento} tramite una chiave viene eseguito in due passaggi:
+	\begin{enumerate}
+		\item Ricercare nel nodo foglia (NF) dove il valore K va inserito;
+		
+		\item Verificare se K è presente o meno nel nodo foglia:
+		\begin{itemize}
+			\item Se $K \in NF$:
+			\begin{itemize}
+				\item Indice primario: non compie nessuna azione;
+				\item Indice secondario: aggiornamento del \emph{bucket} di puntatori 
+			\end{itemize}
+			
+			\item Se $K \notin NF$, allora $K$ viene inserito rispettando l'ordine:
+			\begin{itemize}
+				\item Indice primario: inserimento di un puntatore alla tupla con valore $K$ della chiave;
+				\item Indice secondario: inserimento di un nuovo \emph{bucket} di puntatori contente il puntatore alla tupla con valore $K$ della chiave.
+			\end{itemize}
+		\end{itemize}
+	\end{enumerate}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/inserimento-1.pdf}
+	\end{figure}
+	
+	\noindent
+	Esiste anche un'altra possibilità, ovvero quello in cui \textbf{non è possibile inserire} K in NF e dunque è necessario eseguire uno \textbf{split del nodo foglia NF}.\newline
+	
+	\noindent
+	Lo \textcolor{Red3}{\textbf{split di un nodo foglia}} consiste nel eseguire una serie di operazioni così che si possa ottenere due nodi, ovvero uno split:
+	\begin{enumerate}
+		\item Creazione di due nodi foglia;
+		\item Inserimento dei primi $\left\lceil \frac{\left(n-1\right)}{2} \right\rceil$ valori nel primo;
+		\item Inserimento dei rimanenti nel secondo;
+		\item Inserimento nel nodo padre di un nuovo puntatore per il secondo nodo foglia generato e correzione dei valori chiave presenti nel nodo padre;
+		\item (Caso estremo) Se il nodo padre è pieno, ovvero ci sono già $n$ puntatori, allora lo SPLIT si propaga al padre e così via fino alla radice, se è necessario.
+	\end{enumerate}\newpage
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di SPLIT di un nodo foglia con \emph{fan-out} uguale a $5$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/inserimento-2.pdf}
+	\end{figure}
+
+	\longline
+	
+	\subsubsection{Cancellazione con chiave K}
+	
+	I passi per eseguire una \textcolor{Red3}{\textbf{cancellazione con chiave K}} sono i seguenti:
+	\begin{enumerate}
+		\item Ricerca del nodo foglia NF in cui il valore K deve essere cancellato;
+		
+		\item Una volta trovato, eliminazione di K dal nodo foglia NF insieme al suo puntatore:
+		\begin{itemize}
+			\item L'indice primario viene eliminato direttamente;
+			
+			\item L'indice secondario esegue prima una \emph{detatch} dei puntatori dal \emph{bucket} e poi viene eliminato.
+		\end{itemize}
+	\end{enumerate}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/eliminazione-1.pdf}
+	\end{figure}
+	
+	\noindent
+	Anche in questo caso, può accade che dopo la cancellazione di K dal nodo foglia NF, viene violato il vincolo di riempimento minimo (paragrafo \ref{vincoli di riempimento} e l'esempio nel paragrafo \ref{esempio di albero B+}). In tal caso, il sistema esegue una \textbf{MERGE} (pagina successiva) del nodo foglia così da aumentare la dimensione.\newpage
+	
+	\noindent
+	Il \textcolor{Red3}{\textbf{MERGE}} di un nodo foglia viene eseguito se nel nodo da unire esistono:
+	\begin{equation*}
+		\left\lceil \dfrac{\left(n-1\right)}{2} \right\rceil - 1
+	\end{equation*}
+	valori chiave. Allora vengono eseguiti i seguenti passaggi:
+	\begin{enumerate}
+		\item Individuazione del nodo fratello adiacente da unire al nodo corrente;
+
+		\item Se i due nodi hanno al massimo $n-1$ valori chiave:
+		\begin{enumerate}
+			\item Generazione di un unico nodo contenente tutti i valori;
+			\item Rimozione di un puntatore dal nodo padre;
+			\item Correzione dei valori chiave nel nodo padre.
+		\end{enumerate}
+
+		\item Se il punto due era falso, allora vengono distribuiti i valori chiave tra i due nodi e vengono corretti i valori chiave del nodo padre;
+
+		\item Nel caso in cui il nodo padre violasse anch'egli il vincolo minimo di riempimento, ovvero meno di $\left\lceil \frac{n}{2} \right\rceil$ puntatori presenti, allora l'operazione di MERGE viene propagata al padre e così via fino alla radice, se necessario.
+	\end{enumerate}
+	Un \textcolor{Green4}{\textbf{esempio}} di applicazione dell'operazione di MERGE:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/eliminazione-2.pdf}
+	\end{figure}\newpage
+
+	\subsection{Hash}
+	
+	\subsubsection{Definizione}
+	
+	Le \textbf{strutture ad accesso calcolato}, dette più comunemente \textcolor{Red3}{\textbf{hashing}} o \textbf{funzioni di hash}, si basano su una funzione di hash che esegue un \emph{mapping} dei valori della chiave di ricerca sugli indirizzi di memorizzazione delle tuple nelle pagine della memoria secondari:
+	\begin{equation*}
+		h : K \rightarrow B
+	\end{equation*}
+	Con $K$ che rappresenta il dominio delle chiavi e $B$ il dominio degli indirizzi.\newline
+	
+	\noindent
+	Un utilizzo pratico di una funzione di hash negli indici è il seguente:
+	\begin{itemize}
+		\item Stima del numero di valori che saranno contenuti nella tabella;
+		\item Allocazione di un numero di bucket di puntatori (alias B) uguale al numero stimato;
+		\item Definizione di una funzione di FOLDING che esegue la trasformazione dei valori chiave in numeri interi positivi:
+		\begin{equation*}
+			f: K \rightarrow Z+
+		\end{equation*}
+		\item Definizione di una funzione di HASHING:
+		\begin{equation*}
+			h: Z+ \rightarrow B
+		\end{equation*}
+	\end{itemize}
+	Una funzione di hashing \underline{buona} è tale quando i \textbf{valori} della chiave vengono \textbf{distribuiti} in maniera \textbf{uniforme ma casuale} all'interno dei \emph{bucket}. Inoltre, è buona norma decidere con accuratezza tale funzione, poiché un suo cambiamento vorrebbe dire decodificare l'intera struttura per poi ricostruire tutto da capo (grave perdita di tempo).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/hashing_banale.pdf}
+		\caption{Un \textcolor{Green4}{\textbf{esempio}} banale di hashing.}
+	\end{figure}\newpage
+
+	\subsubsection{Operazioni}
+	
+	Le \textbf{operazioni} eseguite tramite l'hashing sono principalmente tre: la \textbf{ricerca}, l'\textbf{inserimento} e la \textbf{cancellazione}.\newline
+	
+	\noindent
+	La \textcolor{Red3}{\textbf{ricerca}} viene eseguita tramite la classica chiave K:
+	\begin{enumerate}
+		\item Viene calcolata la funzione di hashing $b = h\left(f\left(K\right)\right)$ (costo nullo)
+		\item Accesso al \emph{bucket} $b$ (costo pari ad uno per pagina)
+		\item Accesso alle $n$ tuple attraverso i puntatori del \emph{bucket} (costo pari ad $m$ accessi a pagina con $m \le n$)
+	\end{enumerate}
+	Analogamente, sia l'\textcolor{Red3}{\textbf{inserimento}} e l'\textcolor{Red3}{\textbf{eliminazione}}.
+		
+	\longline
+	
+	\subsubsection{Problema della collisione}
+	
+	Un grave problema da gestire durante l'utilizzato delle funzioni di hash è quello della gestione del \textcolor{Red3}{\textbf{problema della collisione}}.\newline
+	
+	\noindent
+	La struttura ad accesso calcolato (hashing) funziona se i \emph{buckets} conservano un basso coefficiente di riempimento. Il problema della collisione si \textbf{manifesta} quando dati due valori di chiave $K1$ e $K2$ con $K1 \ne K2$, risulta:
+	\begin{equation*}
+		h\left(f\left(K1\right)\right) = h\left(f\left(K2\right)\right)
+	\end{equation*}
+	Banalmente, \textbf{quando con due valori di chiave diversi, le funzioni di hash coincidono}. Questo è assolutamente da evitare, poiché un \textbf{numero eccessivo di collisioni porta alla saturazione del \emph{bucket}} corrispondente.\newline
+	
+	\noindent
+	La \textbf{probabilità che un \emph{bucket} riceva $t$ chiavi su $n$ inserimenti} è data dalla seguente formula:
+	\begin{equation*}
+		p\left(t\right) =
+		\begin{pmatrix}
+			n \\
+			t
+		\end{pmatrix} \left(\dfrac{1}{B}\right)^{t} \left(1 - \dfrac{1}{B}\right)^{\left(n-t\right)}
+	\end{equation*}
+	Dove la prima espressione all'interno delle parentesi indica il numero di combinazione di $n$ oggetti presi ad un passo di $t$ e $B$ indica il numero totale di \emph{buckets}.\newline
+	
+	\noindent
+	La \textbf{probabilità di avere più di $F$ collisioni}, dove $F$ rappresenta il numero di puntatori nel \emph{bucket}, è la seguente:
+	\begin{equation*}
+		p_{K} = 1 - \displaystyle\sum_{i=0}^{F} p\left(i\right)
+	\end{equation*}\newpage
+
+	\noindent
+	Una soluzione alle collisioni è la possibilità di adottare una politica di \textcolor{Red3}{\textbf{gestione delle collisioni}}. In altre parole, il sistema prevede la possibilità di allocare \textbf{\emph{bucket} di \emph{overflow}} collegati al \emph{bucket} di base. Questo comporta una \textbf{riduzione delle prestazioni durante la ricerca} poiché potrebbe essere necessario \textbf{accedere anche al \emph{bucket} di \emph{overflow}}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/hash-gestione_collisioni.pdf}
+		\caption{Gestione delle collisioni tramite il supporto di \emph{bucket} di \emph{overflow}.}
+	\end{figure}\newpage
+	
+	\subsection{Confronto alberi B+ e Hashing}
+	
+	Il confronto verrà effettuato sulle operazioni, quindi sulla ricerca, inserimento e cancellazione.
+	
+	\subsubsection{Operazione di ricerca}
+	
+	Date le selezioni basate su condizioni di uguali, del tipo $A = cost$, si ha:
+	\begin{itemize}
+		\item Hashing, senza \emph{overflow}, tempo costante
+		\item B$+$-\emph{tree} tempo logaritmo nel numero di chiavi
+	\end{itemize}
+	Mentre, per le selezioni basate su intervalli (\emph{range}) $A > cost1 \land A < cost2$:
+	\begin{itemize}
+		\item Hashing, numero elevato di selezioni su condizioni di uguaglianza per scandire tutti i valori del range
+		\item B$+$-\emph{tree}, tempo logaritmico per accedere al primo valore dell'intervallo, scansione dei nodi foglia (grazie all'ultimo puntatore) fino all'ultimo valore compreso nel range.
+	\end{itemize}
+
+	\subsubsection{Operazione di inserimento e cancellazione}
+	
+	\begin{itemize}
+		\item Hashing, tempo costante sommato alla gestione dell'\emph{overflow}
+		\item B$+$-\emph{tree}, tempo logaritmico nel numero di chiavi sommato alle operazioni di split e/o merge
+	\end{itemize}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2697,7 +3044,7 @@ end transaction;
 	\newpage
 	\section{PostgreSQL}
 	
-	\subsection{Introduzione e installazione}
+	\subsection{Introduzione e installazione pgAdmin 4}
 	
 	Il sistema PostgreSQL è un Relational Data Base Management System (RDBMS o DBMS) con alcune funzionalità orientate agli oggetti. È possibile installarlo sui sistemi più famosi: Windows, Mac OS, Linux, ecc. Viene gestito da un gruppo di volontari e la sua pagina ufficiale è la seguente: \href{https://www.postgresql.org/}{PostgreSQL}.\newline
 	
@@ -2746,6 +3093,37 @@ end transaction;
 	
 	\noindent
 	\textcolor{Red3}{\textbf{\underline{ATTENZIONE!}} \textbf{Al termine di ogni sessione, è necessario scollegarsi dal server cliccando con il destro sull'alias iniziale} $\rightarrow$ \textbf{\textsf{Disconnect from server}.}}\newpage
+	
+	\subsection{Se ti è piaciuto pgAdmin, adorerai VSCode}
+	
+	Su Visual Studio Code esiste un'estensione che consente di eseguire le query. Perché farlo? Esistono alcune persone, come il sottoscritto, che magari preferiscono avere uno strumento un po' più potente \dquotes{comodo} rispetto a pgAdmin 4. Da questa necessità nasce questa introduzione all'installazione del server PostgreSQL su VSCode.\newline
+	
+	\noindent
+	L'estensione da scaricare è la seguente:\newline
+	
+	\noindent
+	\textsf{Nome:} PostgreSQL\newline
+	\textsf{ID:} ckolkman.vscode-postgres\newline
+	\textsf{Descrizione:} PostgreSQL Management Tool\newline
+	\textsf{Versione:} 1.4.0\newline
+	\textsf{Editore:} Chris Kolkman\newline
+	\textsf{Collegamento di Visual Studio Marketplace:} \url{https://marketplace.visualstudio.com/items?itemName=ckolkman.vscode-postgres}\newline
+	
+	\noindent
+	Una volta scaricata, basterà cliccare sulla figura dell'estensione e cliccare sul tasto $+$ in alto a destra. I dati da inserire in ordine saranno:
+	\begin{enumerate}
+		\item Il server a cui collegarsi, quindi \textsf{dbserver.scienze.univr.it}
+		\item La root, quindi l'username utilizzato durante il login su Esse3 (id123ab)
+		\item La password utilizzata per accedere ad Esse3
+		\item Il numero di porta (invariato 5432)
+		\item Standard connection
+		\item Il database a cui collegarsi, ovvero il vostro id123ab
+	\end{enumerate}
+	A questo punto, per eseguire le query basterà cliccare con il tasto destro sopra il vostro database (sarà visibile sulla colonna di sinistra dalla quale è stato cliccato il pulsante $+$) $\rightarrow$ \textsf{New Query}. A questo punto scrivendo una query, potrà essere eseguita selezionando il testo da eseguire $\rightarrow$ click destro $\rightarrow$ \textsf{Run Query}. Si aprirà una nuova schermata con il risultato.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/esempio_vscode_sql.png}
+	\end{figure}\newpage
 	
 	\subsection{Caratteri (character, character varying, text)}
 	
