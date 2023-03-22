@@ -888,5 +888,83 @@ P:
 		\item \textbf{Equivalenza di programmi}, per dimostrare che due programmi calcolano la stessa funzione;
 		
 		\item \textbf{Efficienza}, Dati due programmi che calcolano la stessa funzione, si vuole dimostrare quale lo fa in modo più efficiente.
+	\end{itemize}\newpage
+	
+	\subsection{Sintassi}
+	
+	\subsubsection{Stato (ambiente e memoria)}
+	
+	Per descrivere il significato dei programmi, è necessario introdurre due entità fondamentali: ambiente e memoria.\newline
+	
+	\noindent
+	L'\textcolor{Red3}{\textbf{ambiente}} (\textbf{\emph{environment}}) \textbf{è un insieme di legami (\emph{bindings}) tra identificatori e denotazioni}. Inoltre, l'ambiente specifica quali nomi sono usati e per quali oggetti, solitamente possono essere legati ad un tipo, ad un valore, ad una locazione. Quindi, i \emph{binding}\footnote{In breve sarebbero le API (\emph{Application Programming Interface}): \href{https://en.wikipedia.org/wiki/Language_binding}{link fonte}.} sono associati ai nomi, i quali possono essere variabili, costanti, procedure, e altro. I nomi sono solo un'entità separata dall'oggetto che denotano, infatti esso potrebbe essere usato in contesti diversi per rappresentare valori differenti.\newline
+	
+	\noindent
+	La \textcolor{Red3}{\textbf{memoria}} (\textbf{\emph{store}}) \textbf{è un insieme di effetti sugli identificatori (causati da assegnamenti)}. Essa è una mappa che solitamente rappresenta la storia, cioè l'evoluzione, delle variazioni dei valori associati agli identificatori. In altre parole, fornisce un \emph{binding} tra locazione e valore.\newline
+	Si ricorda, che la memoria è fortemente legato all'approccio imperativo, infatti i linguaggi funzionali pure non ne hanno bisogno dato che non gestiscono variabili che cambiano durante l'esecuzione del programma.
+	
+	\longline
+	
+	\subsubsection{Categorie sintattiche}
+	
+	Le \textcolor{Red3}{\textbf{categorie sintattiche}} \textbf{sono la classificazione dei costrutti in funzione del loro significato atteso, ovvero della classe di effetti che ha la loro esecuzione causa.}\newline
+	Quindi, esse sono classi che rappresentano un diverso tipo di significato, effetto, esecuzione di un programma.\newline
+	
+	\noindent
+	Le categorie sintattiche si distinguono in: \textbf{espressioni}, \textbf{comandi} e \textbf{dichiarazioni}. Formalmente, le categorie sono i simboli non terminali della grammatica classificati in funzione di cosa modificano dello stato e come lo modificano.\newpage
+	
+	\subsubsection{Espressioni}
+	
+	Le \textcolor{Red3}{\textbf{espressioni}} \textbf{nascono dalla necessità di avere una categoria sintattica che consenta di rappresentare e denotare i valori}. Esse possono essere espresse con dei vincoli, per esempio il tipo.\newline
+	
+	\noindent
+	Nonostante le espressioni denotino i valori, esse \textbf{non sono locazioni di memoria}. Quest'ultime sono legati all'architettura (struttura) di una macchina, mentre le espressioni fanno riferimento allo specifico linguaggio di programmazione.\newline
+	
+	\noindent
+	Due espressioni sono considerate \textcolor{Red3}{\textbf{equivalenti}} \textbf{se vengono valutate nello stesso valore in tutti gli stati di computazione. Anche eventuali \emph{side-effect} devono essere gli stessi}.
+	
+	Infatti, due espressioni possono essere diverse ma essere valutate nello stesso valore. Per \textcolor{Green4}{\textbf{esempio}}, l'espressione logica \textsf{not(a and b)} è logicamente (semanticamente) equivalente ad \textsf{(not a) or (not b)} ma sono sintatticamente diverse.
+	
+	\longline
+	
+	\subsubsection{Dichiarazioni}
+	
+	Le \textcolor{Red3}{\textbf{dichiarazioni}} \textbf{sono la categoria sintattica che consente la creazione o la modifica dei legami associati agli identificatori, ovvero gli ambienti}.\newline
+	
+	\noindent
+	Esse nascono con l'obbiettivo di utilizzare i valori. Per farlo, è stato necessario creare, utilizzare e modificare \textbf{legami} tra nomi e valori.
+	
+	Inoltre, gli le modifiche agli ambienti sono trasformazioni \textbf{reversibili}, ovvero che le trasformazioni hanno valenza esclusivamente all'interno del raggio d'azione (\emph{scope}) attuale dell'identificatore. In altre parole, i linguaggi di programmazione delimitano la validità di un ambiente. Più precisamente con \textbf{reversibili si intende} che una volta terminata la validità di un ambiente, le modifiche verranno annullate.\newline
+	
+	\noindent
+	Due dichiarazioni sono \textcolor{Red3}{\textbf{equivalenti}} \textbf{se producono lo stesso ambiente e la stessa memoria in caso di \emph{side-effect} in tutti gli stati di computazione}.\newline
+	A causa del \emph{side-effect} è necessario che l'equivalenza richieda che due dichiarazioni generino le stesse identiche modifiche a tutto lo stato di computazione.
+	
+	\longline
+	
+	\subsubsection{Comandi}
+	
+	I \textcolor{Red3}{\textbf{comandi}} \textbf{sono richieste di modifica dello stato di computazione, ed in particolare della memoria}.\newline
+	
+	\noindent
+	Le trasformazioni sono \textbf{irreversibili}, ovvero sono definite nell'esecuzione del programma. Quindi, per annullarle è necessario eseguire altri comandi e altre trasformazioni che consentono di tornare alla stessa memoria iniziale. Quindi, i comandi non sono altro che funzioni di trasformazione e devono essere \textbf{eseguiti} per poter attuare la corrispondente trasformazione (irreversibile) della memoria.
+	
+	Due comandi sono \textcolor{Red3}{\textbf{equivalenti}} \textbf{se per ogni stato (memoria) in input producono lo stesso stato (memoria) in output}.\newpage
+	
+	\subsection{Semantica operazionale: sistemi di transizione}
+	
+	I \textcolor{Red3}{\textbf{sistemi di transizione}} \textbf{sono strumenti astratti mirati a specificare senza ambiguità e senza dipendenza dalla macchina, cosa fa un linguaggio}. Le sue caratteristiche principali sono:
+	\begin{itemize}
+		\item Matematicamente precisi;
+
+		\item Molto concisi;
+
+		\item Metodo di specifica generale che consente l'astrazione;
+
+		\item Specificano cosa viene calcolato per induzione sulla struttura sintattica del linguaggio.
 	\end{itemize}
+	Inoltre, sfruttando la definizione induttiva del linguaggio, consentono di definire il significato mediante induzione sull'\emph{abstract syntax tree}. Quindi, viene \textbf{usata l'induzione strutturale matematica per ragion sui programmi}.\newline
+	
+	\noindent
+	Formalmente: \textbf{un \textcolor{Red3}{sistema di transizione} è una struttura $\left(\Gamma, \rightarrow\right)$, dove $\Gamma$ è un insieme di elementi $\gamma$ chiamati configurazioni e la relazione binaria $\rightarrow \subseteq \Gamma \times \Gamma$ è chiamata relazione di transizione. Se $\Gamma_{T} \subseteq \Gamma$ è un insieme di configurazioni terminali, il sistema è detto terminale.}
 \end{document}
