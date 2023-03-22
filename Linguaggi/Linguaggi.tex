@@ -707,5 +707,186 @@ end \end{lstlisting}
 				& = & \dfrac{\left(n+1\right) n + \left(n+1\right) 2}{2} = \dfrac{\left(n+1\right) \left(n+2\right)}{2}
 			\end{array}
 		\end{equation*}
-	\end{proof}
+	\end{proof}\newpage
+
+	\subsection{Un significato, tante rappresentazioni}
+	
+	Durante l'implementazione di un algoritmo, ci sono alcuni aspetti che un programmatore deve tenere in considerazione:
+	\begin{itemize}
+		\item Il \textbf{comportamento dell'I/O} è un aspetto che interessa l'\textbf{implementatore}, ovvero colui che descrive funzionalità attraverso le trasformazioni di stato della macchina.
+	
+		\item La funzione descritta dall'algoritmo è un aspetto che interessa il \textbf{progettista}, ovvero colui che progetta costrutti del linguaggio per consentire l'implementazione di certe funzionalità.
+	
+		\item Le \textbf{proprietà e invarianti} sono di interesse dello sviluppatore, ovvero colui che è focalizzato sull'utilizzo e sulla combinazione dei costrutti così di preservare invarianti o da garantire proprietà desiderate.
+	\end{itemize}
+	Di fatto tutte queste rappresentazioni, e i loro punti di vista, sono equivalenti, guardano solo il problema da diversi punti. Per questo motivo, nascono \textbf{diversi tipi di semantica}:
+	\begin{itemize}
+		\item \textbf{Semantica denotazionale}: descrive funzionalità. Studia gli effetti dell'esecuzione e cerca proprietà del programma studiando proprietà della funzione calcolata;
+		
+		\item \textbf{Semantica assiomatica}: descrive proprietà. Necessaria per fare deduzioni logiche, a partire da assiomi dati, su parti del programma (dimostrazioni di correttezza);
+		
+		\item \textbf{Semantica operazionale}: descrive trasformazioni di stato. Opera con l'obbiettivo di analizzare il processo per arrivare ad un risultato finale. In parole povere, ha l'obbiettivo di analizzare come i risultati finali vengono prodotti (implementazione di un interprete).
+	\end{itemize}\newpage
+
+	\subsubsection{Semantica denotazionale}
+	
+	La \textcolor{Red3}{\textbf{semantica denotazionale}} è un modello matematico dei programmi basato sulla ricorsione. È la semantica più \dquotes{astratta} con cui descrivere i programmi.\newline
+	
+	\noindent
+	Il \textbf{processo di costruzione} della semantica denotazionale \textbf{per un linguaggio} si articola in due passaggi fondamentali:
+	\begin{enumerate}
+		\item Definizione di un oggetto matematico per ogni entità del linguaggio;
+		
+		\item Definizione di una funzione che esegue un \emph{mapping} delle istanze delle entità del linguaggio in istanze dei corrispondenti oggetti matematici.
+	\end{enumerate}
+	Il modello matematico utilizzato è quello delle funzioni matematiche ricorsive, ovvero un programma corrispondente ad una funzione tra stati della macchina:
+	\begin{equation*}
+		E: \mathrm{Prog} \longrightarrow \left( \left(\mathrm{Var} \rightarrow \mathrm{Val}\right) \longrightarrow \left(\mathrm{Var} \rightarrow \mathrm{Val}\right) \right)
+	\end{equation*}
+	L'equivalenza di programma si dimostra mediante equivalenza tra funzioni matematiche.\newline
+	
+	\noindent
+	Dunque la \textbf{semantica denotazionale è un oggetto puramente matematico} che descrive gli effetti semplicemente manipolando oggetti matematici.\newline
+	In particolare, vengono \textbf{analizzati gli effetti dell'esecuzione del programma}, descrivendo l'effetto dell'esecuzione di una sequenza di comandi separati da \dquotes{;} attraverso la composizione degli effetti dei singoli comandi da sinistra verso destra.\newline
+	Con \textbf{effetto di ogni comando} si intende la funzione che dato uno stato produce un nuovo stato.\newline
+	
+	\noindent
+	Il suo utilizzo è \textcolor{Green4}{\textbf{utile}} per:
+	\begin{itemize}
+		\item Dimostrare la correttezza dei programmi;
+		\item Ragionare formalmente sui programmi;
+		\item Aiutare la progettazione dei linguaggi;
+		\item Generare i compilatori.s
+	\end{itemize}
+	Purtroppo, a causa della sua elevata complessità, risulta \textcolor{Red3}{\textbf{poco utile}} per gli utilizzatori dei linguaggi.\newpage
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, si definisce la funzione di valutazione $E\exec{P}\sigma$ che valuta il programma $P$ sulla memoria $\sigma$, restituendo in output $\sigma'$ che corrisponde alla memoria $\sigma$ modificata dal programma $P$.\newline
+	
+	\noindent
+	Il programma $P$ è formato nel seguente modo:
+\begin{lstlisting}[language=C]
+P:
+	z := 2;
+	y := z;
+	y := y+1;
+	z := y;\end{lstlisting}
+	La semantica denotazionale consente questa rappresentazione:
+	\begin{equation*}
+		\begin{array}{lll}
+			E\exec{P}\left(z = \bot, y = \bot\right) & = & \left(E\exec{ z \coloneq y } \circ E\exec{ y \coloneq y+1 } \circ E\exec{ y \coloneq z } \circ E\exec{ z \coloneq 2 }\right) \left[z = \bot, y = \bot\right] \\
+			\\
+			&=& \left(E\exec{ z \coloneq y } \left( E\exec{ y \coloneq y+1 } \left( E\exec{ y \coloneq z } \left( E\exec{ z \coloneq 2 } \right) \left[z = \bot, y = \bot\right]\right)\right)\right) \\
+			\\
+			&=& \left(E\exec{ z \coloneq y } \left( E\exec{ y \coloneq y+1 } \left( E\exec{ y \coloneq z } \left[z = 2, y = \bot\right]\right)\right)\right) \\
+			\\
+			&=& \left(E\exec{ z \coloneq y } \left( E\exec{ y \coloneq y+1 } \left[z = 2, y = 2\right]\right)\right) \\
+			\\
+			&=& \left(E\exec{ z \coloneq y } \left[z = 2, y = 3\right]\right) \\
+			\\
+			&=& \left[z = 3, y = 3\right]
+		\end{array}
+	\end{equation*}
+	Ad ogni passo viene consumata una valutazione, la quale modifica in memoria i valori tra parentesi quadre.\newpage
+	
+	\subsubsection{Semantica assiomatica}
+	
+	La \textcolor{Red3}{\textbf{semantica assiomatica}} è un modello matematico dei programmi basato sulla logica formale, ovvero il calcolo dei predicati.\newline
+	
+	\noindent
+	L'\textbf{obbiettivo} della semantica assiomatica è la verifica formale di programmi. Per farle, vengono utilizzati assiomi e regole di inferenza. Le \textbf{espressioni logiche} utilizzate sono chiamate \textbf{asserzioni}:
+	\begin{itemize}
+		\item \textbf{Precondizione}: asserzione prima di un comando che dichiara le relazioni e i vincoli validi prima dell'esecuzione del comando;
+		
+		\item \textbf{Postcondizione}: asserzione che segue il comando che descrive cosa vale dopo l'esecuzione;
+		
+		\item \textbf{\emph{Weakest precondition}}: una precondizione meno restrittiva che garantisce la post-condizione.
+	\end{itemize}
+	Quindi, la semantica assiomatica consente di \textbf{dimostrare proprietà parziali di correttezza}: quando lo stato iniziale rispetta la precondizione e il programma termina, allora lo stato finale soddisfa la postcondizione.\newline
+	
+	\noindent
+	Dato che la semantica assiomatica è un sistema logico, deve \textbf{godere di due proprietà}:
+	\begin{itemize}
+		\item \textbf{Correttezza} (\emph{soundness}), ogni proprietà derivabile nel sistema vale per il programma;
+		
+		\item \textbf{Completezza}, ogni proprietà che vale per il programma è derivabile nel sistema di regole.
+	\end{itemize}
+
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, si definisce la notazione $\left\{P\right\}$ \emph{statement} $\left\{Q\right\}$. Questa semantica si calcola mediante un sistema di prova: si ha una tripla da verificare e si cerca di dimostrarla applicando le regole.\newline
+	
+	\noindent
+	Il programma $P$ è formato nel seguente modo:
+	\begin{lstlisting}[language=C]
+		P:
+		z := 2;
+		y := z;
+		y := y+1;
+		z := y;\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/eg-semantica_assiomatica.pdf}
+	\end{figure}\newpage
+
+	\subsubsection{Semantica operazionale}
+	
+	La \textcolor{Red3}{\textbf{semantica operazionale}} è un modello matematico dei programmi basato sui sistemi di transizione.\newline
+	
+	\noindent
+	La semantica operazionale descrive il significato del programma \textbf{eseguendo i suoi comandi su una macchina}, simulata o reale. La \textbf{trasformazione dello stato definisce il significato del comando}. Quindi, lo stato è la rappresentazione astratta della macchina.
+	
+	Inoltre, la semantica operazionale è necessaria per definire una macchina astratta.\newline
+	
+	\noindent
+	Il modello matematico utilizzato è quello dei sistemi di transizione. Per \textcolor{Green4}{\textbf{esempio}}, si consideri la funzione memoria $\sigma: \mathrm{Var} \rightarrow \mathrm{Val}$ che associa valori alle variabili. Con \textbf{stato} si identifica una coppia nel programma ancora da eseguire:
+	\begin{equation*}
+		\mathrm{Stato} = \left\langle P,\sigma \right\rangle
+	\end{equation*}
+	Ad ogni passo, viene eseguita un'operazione e la configurazione o stato cambia. La chiusura transitiva descrive l'esecuzione completa.\newline
+	Inoltre, questa semantica esegue i comandi separai da \dquotes{;} sequenzialmente e nell'ordine in cui compaiono da sinistra a destra.
+	
+	Infine, nonostante sia una delle forme più concrete di semantica, viene eseguita comunque un'astrazione di come il programma viene eseguito, quindi essa è indipendente dall'architettura.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, il programma $P$ è formato nel seguente modo:
+	\begin{lstlisting}[language=C]
+		P:
+		z := 2;
+		y := z;
+		y := y+1;
+		z := y;\end{lstlisting}
+	\begin{gather*}
+		\left\langle z \coloneq 2; \hspace{1em} y \coloneq z; \hspace{1em} y \coloneq y+1; \hspace{1em} z \coloneq y, \left[z=\bot,y=\bot\right]\right\rangle \\
+		\left\langle y \coloneq z; \hspace{1em} y \coloneq y+1; \hspace{1em} z \coloneq y, \left[z=2,y=\bot\right]\right\rangle \\		
+		\left\langle y \coloneq y+1; \hspace{1em} z \coloneq y, \left[z=2,y=2\right]\right\rangle \\
+		\left\langle z \coloneq y, \left[z=2,y=3\right]\right\rangle \\
+		\left\langle \varepsilon, \left[z=3,y=3\right]\right\rangle
+	\end{gather*}\newpage
+	
+	\subsubsection{Composizionalità}
+	
+	La \textcolor{Red3}{\textbf{composizionalità}} è la proprietà per cui il significato di ogni programma deve essere in funzione del significato dei costituenti immediati.\newline
+	
+	\noindent
+	La composizionalità è una \textbf{proprietà della semantica} necessaria per caratterizzare i comportamenti e significati di sistemi che possono avere infiniti elementi.\newline
+	
+	\noindent
+	L'\textbf{importanza} della composizionalità è dovuta alla necessità di analizzare le proprietà di un programma. Infatti, per farlo è necessario capire che cosa fa e dunque capire la semantica in ogni sua forma. L'analisi diventa molto più semplice grazie alla \textbf{modularità}, la quale è \textbf{garantita dalla composizionalità}. Quindi, anche nei software di grandi dimensioni, è possibile analizzare il codice separatamente nei suoi moduli, per poi ricomporre il risultato dell'analisi componendo i risultati ottenuti sui singoli moduli.
+	
+	\subsubsection{Equivalenza}
+	
+	L'\textcolor{Red3}{\textbf{equivalenza}} è vera quando due programmi hanno la stessa semantica.\newline
+	
+	\noindent
+	Per capire se due programmi sono equivalenti, viene osservata la relazione tra input e output. Se la relazione è la stessa, indipendentemente da come l'algoritmo la calcola, allora sono equivalenti. Quindi, solo caratterizzando la funzionalità I/O è possibile determinare questa caratteristica.\newline
+	
+	\noindent
+	Infine, l'equivalenza è necessaria in varie fasi di analisi:
+	\begin{itemize}
+		\item \textbf{Correttezza}, per dimostrare che il programma scritto calcola esattamente la funzione attesa;
+		
+		\item \textbf{Equivalenza di programmi}, per dimostrare che due programmi calcolano la stessa funzione;
+		
+		\item \textbf{Efficienza}, Dati due programmi che calcolano la stessa funzione, si vuole dimostrare quale lo fa in modo più efficiente.
+	\end{itemize}
 \end{document}
