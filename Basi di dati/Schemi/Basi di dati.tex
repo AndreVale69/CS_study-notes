@@ -3017,24 +3017,24 @@ end transaction;
 	
 	Il confronto verrà effettuato sulle operazioni, quindi sulla ricerca, inserimento e cancellazione.
 	
-	\subsubsection{Operazione di ricerca}
+	\subsubsection[Operazione di ricerca]{\textcolor{Red3}{Operazione di ricerca}}
 	
 	Date le selezioni basate su condizioni di uguali, del tipo $A = cost$, si ha:
 	\begin{itemize}
-		\item Hashing, senza \emph{overflow}, tempo costante
-		\item B$+$-\emph{tree} tempo logaritmo nel numero di chiavi
+		\item \textbf{Hashing}, senza \emph{overflow}, tempo costante
+		\item \textbf{B$\boldsymbol{+}$-\emph{tree}} tempo logaritmo nel numero di chiavi
 	\end{itemize}
 	Mentre, per le selezioni basate su intervalli (\emph{range}) $A > cost1 \land A < cost2$:
 	\begin{itemize}
-		\item Hashing, numero elevato di selezioni su condizioni di uguaglianza per scandire tutti i valori del range
-		\item B$+$-\emph{tree}, tempo logaritmico per accedere al primo valore dell'intervallo, scansione dei nodi foglia (grazie all'ultimo puntatore) fino all'ultimo valore compreso nel range.
+		\item \textbf{Hashing}, numero elevato di selezioni su condizioni di uguaglianza per scandire tutti i valori del range
+		\item \textbf{B$\boldsymbol{+}$-\emph{tree}}, tempo logaritmico per accedere al primo valore dell'intervallo, scansione dei nodi foglia (grazie all'ultimo puntatore) fino all'ultimo valore compreso nel range.
 	\end{itemize}
 
-	\subsubsection{Operazione di inserimento e cancellazione}
+	\subsubsection[Operazione di inserimento e cancellazione]{\textcolor{Red3}{Operazione di inserimento e cancellazione}}
 	
 	\begin{itemize}
-		\item Hashing, tempo costante sommato alla gestione dell'\emph{overflow}
-		\item B$+$-\emph{tree}, tempo logaritmico nel numero di chiavi sommato alle operazioni di split e/o merge
+		\item \textbf{Hashing}, tempo costante sommato alla gestione dell'\emph{overflow}
+		\item \textbf{B$\boldsymbol{+}$-\emph{tree}}, tempo logaritmico nel numero di chiavi sommato alle operazioni di split e/o merge
 	\end{itemize}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3096,7 +3096,7 @@ end transaction;
 	
 	\subsection{Se ti è piaciuto pgAdmin, adorerai VSCode}
 	
-	Su Visual Studio Code esiste un'estensione che consente di eseguire le query. Perché farlo? Esistono alcune persone, come il sottoscritto, che magari preferiscono avere uno strumento un po' più potente \dquotes{comodo} rispetto a pgAdmin 4. Da questa necessità nasce questa introduzione all'installazione del server PostgreSQL su VSCode.\newline
+	Su Visual Studio Code esiste un'estensione che consente di eseguire le query. Perché farlo? Esistono alcune persone, come il sottoscritto, che magari preferiscono avere uno strumento un po' più potente/\dquotes{comodo} rispetto a pgAdmin 4. Da questa necessità nasce questa brevissima introduzione all'installazione dell'estensione PostgreSQL su VSCode.\newline
 	
 	\noindent
 	L'estensione da scaricare è la seguente:\newline
@@ -3602,5 +3602,191 @@ drop table Dipartimento cascade\end{lstlisting}
 	Un \textcolor{Green4}{\textbf{esempio}} di modifica di una singola riga aggiornando lo stipendio del dipendente con matricola \textsf{M2047}:
 	\lstinputlisting[language=SQL]{code/update-ex1.sql}	
 	Un \textcolor{Green4}{\textbf{esempio}} di modifica di un insieme di righe aumentando del $10\%$ lo stipendio di tutti gli impiegati che lavorano in Amministrazione:
-	\lstinputlisting[language=SQL]{code/update-ex2.sql}
+	\lstinputlisting[language=SQL]{code/update-ex2.sql}\newpage
+	
+	\subsection{Interrogazioni semplici}
+	
+	\subsubsection{\textsf{Select}}\label{select}
+	
+	La clausola \textsf{select} specifica gli elementi dello schema della tabella risultato. Come argomento può comparire anche il carattere speciale * (asterisco), il quale rappresenta la \textbf{selezione di tutti gli attributi delle tabelle elencate nella clausola} \textsf{from}.\newline
+
+	\noindent
+	La sua sintassi:
+	\lstinputlisting[language=SQL]{code/select.sql}
+	\begin{itemize}
+		\item \textsf{AttrEspr} sono le colonne che si ottengono dalla valutazione delle espressioni che appaiono nella clausola \textsf{select};
+		\item \textsf{Alias} è la ridenominazione che può subire una colonna;
+		\item \textsf{from} è la tabella su cui cercare la selezione;
+		\item \textsf{where} è la condizione che filtra i risultati.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, data la base di dati composta da due tabelle:
+	\begin{itemize}
+		\item \textsf{Impiegato(\underline{Nome}, \underline{Cognome}, Dipart, Ufficio, Stipendio, Città)}
+		\item \textsf{Dipartimento(\underline{Nome}, Indirizzo, Città)}
+	\end{itemize}
+	(dichiarazione a pag.\pageref{select dbms}) si eseguono le seguenti interrogazioni:
+	\begin{enumerate}
+		\item Estrazione di tutte le informazioni relative agli impiegati di cognome \dquotes{Rossi}:
+		\lstinputlisting[language=SQL]{code/select-ex1.sql}
+		Il risultato:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/select-ex1.pdf}
+		\end{figure}
+		
+		\item Estrazione dello stipendio mensile dell'impiegato che ha cognome \dquotes{Bianchi}:
+		\lstinputlisting[language=SQL]{code/select-ex2.sql}
+		Il risultato è un unico valore ($3,00$) avente come nome della colonna \textsf{StipendioMensile}.
+	\end{enumerate}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/select-ex_dbms.pdf}
+		\label{select dbms}
+		\caption{DBMS d'esempio.}
+	\end{figure}\newpage
+
+	\subsubsection{\textsf{From}}
+	
+	Quando viene considerata un'interrogazione che coinvolge righe appartenenti a più di una tabella, viene posto come argomento della clausola \textsf{from} l'\textbf{insieme di tabelle alle quali si vuole accedere}. Sul prodotto cartesiano delle tabelle elencate verranno applicate le condizioni contenute nella clausola \textsf{where}. Sintassi identica al paragrafo \ref{select}.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, data la base dati a pagina \pageref{select dbms}, si eseguono le seguenti interrogazioni:
+	\begin{enumerate}
+		\item Estrazione dei nomi degli impiegati e le città in cui lavorano:
+		\lstinputlisting[language=SQL]{code/from-ex1.sql}
+		Il risultato:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.7\textwidth]{img/from-ex1.pdf}
+		\end{figure}
+		
+		\item Data la precedente ambiguità tra \textsf{Nome} e \textsf{Città}, si riformula la query in modo corretto (il risultato rimane invariato, escluso il nome delle colonne che si abbreviano):
+		\lstinputlisting[language=SQL]{code/from-ex2.sql}
+	\end{enumerate}\newpage
+
+	\subsubsection{\textsf{Where} e i suoi operatori \textsf{like}, \textsf{similar to}, \textsf{between}, \textsf{in}, \textsf{is null}}
+	
+	La clausola \textsf{where} ammette come argomento un'espressione booleana costruita combinando predicati semplici con gli operatori:
+	\begin{itemize}
+		\item \emph{and}
+		\item \emph{or}
+		\item \emph{not}
+	\end{itemize}
+	Ogni predicato semplice utilizza gli operatori:
+	\begin{itemize}
+		\item $=$ uguale
+		\item $<>$ diverso
+		\item $<$ minore
+		\item $>$ maggiore
+		\item $\le$ minore-uguale
+		\item $\ge$ maggiore-uguale
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, data la base dati a pagina \pageref{select dbms}, si eseguono le seguenti interrogazioni:
+	\begin{enumerate}
+		\item Estrazione del nome e cognome degli impiegati che lavorano nell'ufficio $20$ del dipartimento Amministrazione:
+		\lstinputlisting[language=SQL]{code/where-ex1.sql}
+		Il risultato è una riga con \textsf{Nome} \textsf{Giovanni} e \textsf{Cognome} \textsf{Verdi}.
+		
+		\item Estrazione dei nomi e cognomi degli impiegati che lavorano nel dipartimento Amministrazione o nel dipartimento Produzione:
+		\lstinputlisting[language=SQL]{code/where-ex2.sql}
+		Il risultato:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.35\textwidth]{img/where-ex2.pdf}
+		\end{figure}\newpage
+		
+		\item Estrazione dei nomi propri degli impiegati di cognome \dquotes{Rossi} che lavorano nei dipartimenti Amministrazione o Produzione:
+		\lstinputlisting[language=SQL]{code/where-ex3.sql}
+		Il risultato è una riga con \textsf{Nome} \textsf{Mario}.
+	\end{enumerate}
+	La clausola \textsf{where} implementa \textbf{due operatori} abbastanza simili: \textsf{like} e \textsf{similar to}. L'\textbf{operatore \textsf{like}} viene utilizzato per confronto di stringhe e consente anche di effettuare confronti con stringhe in cui compaiono i caratteri speciali:
+	\begin{itemize}
+		\item \_ (trattino sottolineato), utilizzato per rappresentare un carattere arbitrario
+		\item \% (percentuale), utilizzato per rappresentare un numero arbitrario (anche nullo) di caratteri arbitrari
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, un confronto \textsf{lile 'ab\%ba\_'} è soddisfatto quando qualsiasi stringa di caratteri che inizia con \textsf{ab} e che ha la coppia di caratteri \textsf{ba} prima dell'ultima posizione. Una \emph{query} d'\textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{select dbms}:
+	\lstinputlisting[language=SQL]{code/where-ex4.sql}
+	Il risultato:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/where-ex4.pdf}
+	\end{figure}\:\newline
+
+	\noindent
+	L'\textbf{operatore \textsf{similar to}} è come la clausola \textsf{where} ma ha una rosa di operatori molto più ampia. Infatti, essa accetta come \emph{pattern} un sottoinsieme delle espressioni regolari POSIX. Alcune delle espressioni regolari più utilizzate:
+	\begin{itemize}
+		\item \_ (trattino sottolineato), un carattere qualsiasi
+		\item \% (percentuale), nessuno o più caratteri qualsiasi
+		\item * (asterisco), ripetizione del precedente match $0$ o più volte
+		\item + (segno addizione), ripetizione del precedente \emph{match} una o più volte
+		\item $\left\{n,m\right\}$, ripetizione del precedente \emph{match} almeno $n$ volte e non oltre $m$ volte
+		\item $\left[\cdots\right]$, al posto dei punti si inserisce un elenco di caratteri ammissibili (\emph{white list})
+	\end{itemize}
+	Si lascia il \href{https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-SIMILARTO-REGEXP}{link alla documentazione} ufficiale per chiarire eventuali dubbi.\newpage
+	
+	\noindent
+	Nella clausola \textsf{where} può apparire anche l'\textbf{operatore \textsf{between}} per testare l'appartenenza (o no) di un valore ad un intervallo (estremi compresi!).\newline
+	
+	\noindent
+	La sintassi è la seguente:
+	\lstinputlisting[language=SQL]{code/between.sql}
+	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{select dbms}:
+	\lstinputlisting[language=SQL]{code/between-ex1.sql}
+	Il risultato:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/between-ex1.pdf}
+	\end{figure}\:\newline
+
+	\noindent
+	Nella clausola \textsf{where} può apparire anche l'\textbf{operatore \textsf{in}} per testare l'appartenenza (o no) di un valore ad un insieme.\newline
+	
+	\noindent
+	La sintassi è la seguente:
+	\lstinputlisting[language=SQL]{code/in.sql}
+	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{select dbms}:
+	\lstinputlisting[language=SQL]{code/in-ex1.sql}
+	Il risultato:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/in-ex1.pdf}
+	\end{figure}\newpage
+
+	\noindent
+	Infine, per \textbf{selezionare i termini con valori nulli} SQL fornisce il predicato \textsf{is null}, la cui sintassi è semplicemente:
+	\lstinputlisting[language=SQL]{code/is_null.sql}
+	Il predicato risulta vero sol se l'attributo ha valore nullo. Il predicato \textsf{is not null} è la sua negazione.\newline
+	
+	\noindent
+	Si consideri un predicato di confronto tra un attributo e un valore costante:
+	\begin{equation*}
+		\textsf{Stipendio} > 40
+	\end{equation*}
+	Questo predicato sarà vero per le righe in cui l'attributo \textsf{Stipendio} è superiore a	$40$.
+	
+	\longline
+	
+	\subsection{Ordinamento \textsf{order by}}
+	
+	SQL consente di specificare un ordinamento delle righe del risultato di un'interrogazione tramite la clausola \textsf{order by}, con la quale si chiude l'interrogazione. La sintassi:
+	\lstinputlisting[language=SQL]{code/order_by.sql}
+	Si specificano gli attributi che devono essere usati per l'ordinamento. Le righe vengono \textbf{ordinate in base al primo attributo nell'elenco}. Nel caso in cui due righe hanno lo stesso valore per il primo attributo, si considerano i valori degli attributi successivi in sequenza. L'ordine può essere ascendente (\textsf{asc}) o discendente (\textsf{desc}) e di default è \textsf{asc}.\newline
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{select dbms}:
+	\lstinputlisting[language=SQL]{code/order_by-ex1.sql}
+	Il risultato:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/order_by-ex1.pdf}
+	\end{figure}\newpage
+	
+	\subsection{Operatori aggregati \textsf{count}, \textsf{sum}, \textsf{max}, \textsf{min}, \textsf{avg}}
+	
+	Lo standard SQL prevede cinque operatori aggregati: \textsf{count}, \textsf{sum}, \textsf{max}, \textsf{min}, \textsf{avg}.\newline
+	
+	\noindent
+	L'\textbf{operatore \textsf{count}} ha la seguente sintassi:
+	\lstinputlisting[language=SQL]{code/count.sql}
 \end{document}
