@@ -1,0 +1,286 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{mathtools}				% per sottolineare sotto le equazioni
+\usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
+\usepackage{amsthm}					% teoremi migliorati
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
+\usepackage{cancel}					% per cancellare delle espressioni matematiche
+
+
+
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+\usepackage{tikz}
+\newcommand{\MyTikzmark}[2]{%
+	\tikz[overlay,remember picture,baseline] \node [anchor=base] (#1) {#2};%
+}
+\newcommand{\DrawVLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.3ex, #1] (#2.north) -- (#3.south);
+	\end{tikzpicture}
+}
+\newcommand{\DrawHLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.2em, #1] (#2.west) -- (#3.east);
+	\end{tikzpicture}
+}
+
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\newtheorem{theorem}{\textcolor{Red3}{\underline{Teorema}}}
+\newtheorem{lemma}{Lemma}
+\renewcommand{\qedsymbol}{QED}
+\newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+\newcommand{\dquotes}[1]{``#1''}
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+\newcommand{\circledtext}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
+
+\newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
+\newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
+
+\begin{document}
+	\author{VR443470 - Andrea Valentini}
+	\title{Soluzioni scheda 1}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Soluzione esercizio 1}
+	
+	Si considerino le seguenti matrici su $\mathbb{C}$:
+	\begin{equation*}
+		A = \begin{rowequmat}{cc}
+			1 & -1 \\ [0.3em]
+			i & \frac{1}{2}
+		\end{rowequmat}, \hspace{1em}
+		B = \begin{rowequmat}{cc}
+			0 & 3i \\
+			-1 & 0
+		\end{rowequmat}, \hspace{1em}
+		C = \begin{rowequmat}{cc}
+			3 & 4 \\
+			-2 & -2
+		\end{rowequmat}, \hspace{1em}
+		D = \begin{rowequmat}{cc}
+			0 & -1 \\
+			1+i & 2
+		\end{rowequmat}
+	\end{equation*}
+	
+	\subsection{Soluzione \emph{a}}
+	
+	Si determini la matrice risultante ottenibile eseguendo l'operazione $\left(CD\right)A$:
+	\begin{equation*}
+		\begin{array}{lll}
+			\left(CD\right)A & = &
+			\left[ \begin{rowequmat}{cc}
+				3 & 4 \\
+				-2 & -2
+			\end{rowequmat} \cdot \begin{rowequmat}{cc}
+				0 & -1 \\
+				1+i & 2
+			\end{rowequmat} \right] \cdot \begin{rowequmat}{cc}
+				1 & -1 \\ [0.3em]
+				i & \frac{1}{2}
+			\end{rowequmat} \\
+			\\
+			&=& \begin{rowequmat}{cc}
+				4+4i & 5 \\
+				-2-2i & -2
+			\end{rowequmat} \cdot \begin{rowequmat}{cc}
+				1 & -1 \\ [0.3em]
+				i & \frac{1}{2}
+			\end{rowequmat} \\
+			\\
+			&=& \begin{rowequmat}{cc}
+				4+9i  & -\frac{3}{2}-4i \\ [0.3em]
+				-2-4i & 1+2i
+			\end{rowequmat}
+		\end{array}
+	\end{equation*}
+	
+	\subsection{Soluzione \emph{b}}
+	
+	Si determini la matrice risultante ottenibile eseguendo l'operazione $A^{T} B$:
+	\begin{gather*}
+		A = \begin{rowequmat}{cc}
+			1 & -1 \\ [0.3em]
+			i & \frac{1}{2}
+		\end{rowequmat} \longrightarrow
+		A^{T} = \begin{rowequmat}{cc}
+			1 & i \\ [0.3em]
+			-1 & \frac{1}{2}
+		\end{rowequmat}\\
+		\\
+		A^{T} B = \begin{rowequmat}{cc}
+			1 & i \\ [0.3em]
+			-1 & \frac{1}{2}
+		\end{rowequmat} \cdot \begin{rowequmat}{cc}
+			0 & 3i \\
+			-1 & 0
+		\end{rowequmat} =
+		\begin{rowequmat}{cc}
+			-i & 3i \\[0.3em]
+			-\frac{1}{2} & -3i
+		\end{rowequmat}
+	\end{gather*}
+	
+	\subsection{Soluzione \emph{c}}
+	
+	Si determini la matrice risultante ottenibile eseguendo l'operazione $3A\left(B-D^{T}\right)$:
+	\begin{gather*}
+		D = \begin{rowequmat}{cc}
+			0 	& -1 \\
+			1+i & 2
+		\end{rowequmat} \longrightarrow
+		D^{T} = \begin{rowequmat}{cc}
+			0 	& 1+i \\
+			-1 	& 2
+		\end{rowequmat} \longrightarrow
+		-D^{T} = \begin{rowequmat}{cc}
+			0 	& -1-i \\
+			1 	& -2
+		\end{rowequmat} \\
+		\\
+		\begin{array}{lll}
+			3A\left(B-D^{T}\right) & = & 
+			3\cdot\begin{rowequmat}{cc}
+				1 & -1 \\ [0.3em]
+				i & \frac{1}{2}
+			\end{rowequmat} \cdot \left[
+			\begin{rowequmat}{cc}
+				0 & 3i \\
+				-1 & 0
+			\end{rowequmat} + \begin{rowequmat}{cc}
+				0 	& -1-i \\
+				1 	& -2
+			\end{rowequmat}
+			\right] \\
+			\\
+			&=& 3\cdot\begin{rowequmat}{cc}
+				1 & -1 \\ [0.3em]
+				i & \frac{1}{2}
+			\end{rowequmat} \cdot \begin{rowequmat}{cc}
+				0 & -1+2i \\
+				0 & -2
+			\end{rowequmat} \\
+			\\
+			&=& \begin{rowequmat}{cc}
+				3 & -3 \\ [0.3em]
+				3i & \frac{3}{2}
+			\end{rowequmat} \cdot \begin{rowequmat}{cc}
+				0 & -1+2i \\
+				0 & -2
+			\end{rowequmat} = \begin{rowequmat}{cc}
+				0 & 3+6i \\
+				0 & -9-3i
+			\end{rowequmat}
+		\end{array}
+	\end{gather*}\newpage
+	
+	\subsection{Soluzione \emph{d}}
+	
+	Si determini la matrice risultante ottenibile eseguendo l'operazione $\left(4B-C\right)^{T}~-~DC$:
+	\begin{equation*}
+		\begin{array}{lll}
+			\left(4B-C\right)^{T}-DC &=&
+			\left[
+			\begin{rowequmat}{cc}
+				0  & 12i \\
+				-4 & 0
+			\end{rowequmat} - \begin{rowequmat}{cc}
+				3 & 4 \\
+				-2 & -2
+			\end{rowequmat}
+			\right]^{T} -
+			\begin{rowequmat}{cc}
+				0 & -1 \\
+				1+i & 2
+			\end{rowequmat}	\cdot
+			\begin{rowequmat}{cc}
+				3 & 4 \\
+				-2 & -2
+			\end{rowequmat} \\
+			\\ %%%
+			&=& \left[
+			\begin{rowequmat}{cc}
+				-3 & -4+12i \\
+				-2 & 2
+			\end{rowequmat}
+			\right]^{T} - 
+			\begin{rowequmat}{cc}
+				2 & 2 \\
+				-1+3i & 4i
+			\end{rowequmat} \\
+			\\ %%%
+			&=& \begin{rowequmat}{cc}
+				-3 & -2 \\
+				-4+12i & 2
+			\end{rowequmat} - \begin{rowequmat}{cc}
+				2 & 2 \\
+				-1+3i & 4i
+			\end{rowequmat} \\
+			\\ %%%
+			&=& \begin{rowequmat}{cc}
+				-5 & -4 \\
+				-3+9i & 2-4i
+			\end{rowequmat}
+		\end{array}
+	\end{equation*}\newpage
+	
+	\section{Soluzione esercizio 2}
+	
+	Si considerino le seguenti matrici su $\mathbb{R}$:
+	\begin{gather*}
+		A = \begin{rowequmat}{ccccc}
+			0 & 0 & -1 & 4 & 0 \\
+			0 & 2 & 0 & -2 & 0 \\
+			0 & 0 & 3 & 0 & 3 \\
+			0 & 0 & 0 & 0 & 5
+		\end{rowequmat} \hspace{1em}
+		B = \begin{rowequmat}{ccccccc}
+			0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+			0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+			1 & 0 & 1 & 0 & 1 & 0 & 1
+		\end{rowequmat} \\
+		C = \begin{rowequmat}{ccc}
+			2 & 0 & 1 \\
+			-4 & 0 & -2 \\
+			0 & 3 & 2 \\
+			2 & -2 & 3 \\
+			4 & 3 & 4
+		\end{rowequmat} \hspace{1em}
+		D = \begin{rowequmat}{ccc}
+			2 & 0 & 1 \\
+			-1 & 2 & 2 \\
+			2 & 0 & 2
+		\end{rowequmat}
+	\end{gather*}
+	
+	\subsection{Soluzione \emph{a}}
+	
+	Si utilizza l'algoritmo di Eliminazione di Gauss per determinare una forma ridotta di ognuna delle matrici elencate.
+\end{document}
