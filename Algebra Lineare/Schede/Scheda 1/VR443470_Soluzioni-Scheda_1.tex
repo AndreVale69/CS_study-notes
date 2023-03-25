@@ -50,6 +50,7 @@
 \newcommand{\dquotes}[1]{``#1''}
 \newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 \newcommand{\circledtext}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
+\DeclareMathOperator{\rk}{rk}
 
 \newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
 \newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
@@ -282,5 +283,605 @@
 	
 	\subsection{Soluzione \emph{a}}
 	
-	Si utilizza l'algoritmo di Eliminazione di Gauss per determinare una forma ridotta di ognuna delle matrici elencate.
+	Si utilizza l'algoritmo di Eliminazione di Gauss per determinare una forma ridotta di ognuna delle matrici elencate.\newline
+	
+	\noindent
+	La forma ridotta della \textbf{matrice} $\boldsymbol{A}$ è la seguente:
+	\begin{gather*}
+		\begin{rowequmat}{ccccc}
+			0 & 0 & -1 & 4 & 0 \\
+			0 & 2 & 0 & -2 & 0 \\
+			0 & 0 & 3 & 0 & 3 \\
+			0 & 0 & 0 & 0 & 5
+		\end{rowequmat} \xlongrightarrow{E_{1,2}}
+		\begin{rowequmat}{ccccc}
+			0 & 2 & 0 & -2 & 0 \\
+			0 & 0 & -1 & 4 & 0 \\
+			0 & 0 & 3 & 0 & 3 \\
+			0 & 0 & 0 & 0 & 5
+		\end{rowequmat} \xlongrightarrow{E_{2,3}\left(3\right)}
+		\begin{rowequmat}{ccccc}
+			0 & 2 & 0 & -2 & 0 \\
+			0 & 0 & -1 & 4 & 0 \\
+			0 & 0 & 0 & 12 & 3 \\
+			0 & 0 & 0 & 0 & 5
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow[E_{1}\left(\frac{1}{2}\right)]{E_{2}\left(-1\right)}
+		\begin{rowequmat}{ccccc}
+			0 & 1 & 0 & -1 & 0 \\
+			0 & 0 & 1 & -4 & 0 \\
+			0 & 0 & 0 & 12 & 3 \\
+			0 & 0 & 0 & 0 & 5
+		\end{rowequmat} \xlongrightarrow[E_{4}\left(\frac{1}{5}\right)]{E_{3}\left(\frac{1}{12}\right)}
+		\begin{rowequmat}{ccccc}
+			0 & 1 & 0 & -1 & 0 \\
+			0 & 0 & 1 & -4 & 0 \\
+			0 & 0 & 0 & 1 & 4 \\
+			0 & 0 & 0 & 0 & 1
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow[E_{3,2}\left(4\right)]{E_{4,3}\left(-4\right)}
+		\begin{rowequmat}{ccccc}
+			0 & 1 & 0 & -1 & 0 \\
+			0 & 0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 0 & 1
+		\end{rowequmat} \xlongrightarrow{E_{3,1}\left(1\right)}
+		\begin{rowequmat}{ccccc}
+			0 & 1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 0 & 1
+		\end{rowequmat}
+	\end{gather*}
+	La forma ridotta della \textbf{matrice} $\boldsymbol{B}$ è la seguente:
+	\begin{gather*}
+		\begin{rowequmat}{ccccccc}
+			0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+			0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+			1 & 0 & 1 & 0 & 1 & 0 & 1
+		\end{rowequmat} \xlongrightarrow[E_{3,2}]{E_{4,1}}
+		\begin{rowequmat}{ccccccc}
+			1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+			0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+			0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1 & 0 & 0 & 0
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow{E_{4,2}\left(-1\right)}
+		\begin{rowequmat}{ccccccc}
+			1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+			0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+			0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1 & 0 & 0 & 0
+		\end{rowequmat} \xlongrightarrow{E_{3,1}\left(-1\right)}
+		\begin{rowequmat}{ccccccc}
+			1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+			0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+			0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1 & 0 & 0 & 0
+		\end{rowequmat}
+	\end{gather*}\newpage
+	
+	\noindent
+	La forma ridotta della \textbf{matrice} $\boldsymbol{C}$ è la seguente:
+	\begin{gather*}
+		\begin{rowequmat}{ccc}
+			2 & 0 & 1 \\
+			-4 & 0 & -2 \\
+			0 & 3 & 2 \\
+			2 & -2 & 3 \\
+			4 & 3 & 4
+		\end{rowequmat} \xlongrightarrow[E_{3,4}]{E_{5,2}\left(1\right)}
+		\begin{rowequmat}{ccc}
+			2 & 0 & 1 \\
+			0 & 3 & 2 \\
+			2 & -2 & 3 \\
+			0 & 3 & 2 \\
+			4 & 3 & 4
+		\end{rowequmat} \xlongrightarrow[E_{2,5}\left(-1\right)]{E_{2,4}\left(-1\right)}
+		\begin{rowequmat}{ccc}
+			2 & 0 & 1 \\
+			0 & 3 & 2 \\
+			2 & -2 & 3 \\
+			0 & 0 & 0 \\
+			4 & 0 & 2
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow{E_{1,5}\left(-2\right)}
+		\begin{rowequmat}{ccc}
+			2 & 0 & 1 \\
+			0 & 3 & 2 \\
+			2 & -2 & 3 \\
+			0 & 0 & 0 \\
+			0 & 0 & 0
+		\end{rowequmat} \xlongrightarrow[E_{2,3}\left(\frac{2}{3}\right)]{E_{1,3}\left(-1\right)}
+		\begin{rowequmat}{ccc}
+			2 & 0 & 1 \\ [0.3em]
+			0 & 3 & 2 \\ [0.3em]
+			0 & 0 & \frac{10}{3} \\ [0.3em]
+			0 & 0 & 0 \\ [0.3em]
+			0 & 0 & 0
+		\end{rowequmat} \xlongrightarrow[E_{3,1}\left(-1\right)]{E_{3}\left(\frac{3}{10}\right)}
+		\begin{rowequmat}{ccc}
+			2 & 0 & 0 \\ 
+			0 & 3 & 2 \\ 
+			0 & 0 & 1 \\ 
+			0 & 0 & 0 \\ 
+			0 & 0 & 0
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow{E_{3,2}\left(-2\right)}
+		\begin{rowequmat}{ccc}
+			2 & 0 & 0 \\ 
+			0 & 3 & 0 \\ 
+			0 & 0 & 1 \\ 
+			0 & 0 & 0 \\ 
+			0 & 0 & 0
+		\end{rowequmat} \xlongrightarrow[E_{2}\left(\frac{1}{3}\right)]{E_{1}\left(\frac{1}{2}\right)}
+		\begin{rowequmat}{ccc}
+			1 & 0 & 0 \\ 
+			0 & 1 & 0 \\ 
+			0 & 0 & 1 \\ 
+			0 & 0 & 0 \\ 
+			0 & 0 & 0
+		\end{rowequmat}
+	\end{gather*}
+	La forma ridotta della \textbf{matrice} $\boldsymbol{D}$ è la seguente:
+	\begin{gather*}
+		\begin{rowequmat}{ccc}
+			2  & 0  & 1 \\
+			-1 & 2 & 2 	\\
+			2  & 0  & 2
+		\end{rowequmat} \xlongrightarrow{E_{1,3}\left(-1\right)}
+		\begin{rowequmat}{ccc}
+			2  & 0  & 1 \\
+			-1 & 2 & 2 	\\
+			0  & 0  & 1
+		\end{rowequmat} \xlongrightarrow{E_{1,2}\left(\frac{1}{2}\right)}
+		\begin{rowequmat}{ccc}
+			2  & 0  & 1 \\ [0.3em]
+			0  & 2  & \frac{5}{2} \\ [0.3em]
+			0  & 0  & 1
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow[E_{3,1}\left(-1\right)]{E_{3,2}\left(-\frac{5}{2}\right)}
+		\begin{rowequmat}{ccc}
+			2  & 0  & 0 \\ 
+			0  & 2  & 0 \\ 
+			0  & 0  & 1
+		\end{rowequmat} \xlongrightarrow[E_{2}\left(\frac{1}{2}\right)]{E_{1}\left(\frac{1}{2}\right)}
+		\begin{rowequmat}{ccc}
+			1  & 0  & 0 \\ 
+			0  & 1  & 0 \\ 
+			0  & 0  & 1
+		\end{rowequmat}
+	\end{gather*}\newpage
+	
+	\subsection{Soluzione \emph{b}}\label{soluzione b}
+	
+	Date le forme ridotte $A'$, $B'$, $C'$, $D'$ delle rispettive matrici $A$, $B$, $C$ e $D$, il loro rango corrisponde al numero delle colonne dominanti, quindi:
+	\begin{equation*}
+		\begin{array}{lllll}
+			A' & = & \begin{rowequmat}{ccccc}
+				0 & 1 & 0 & 0 & 0 \\
+				0 & 0 & 1 & 0 & 0 \\
+				0 & 0 & 0 & 1 & 0 \\
+				0 & 0 & 0 & 0 & 1
+			\end{rowequmat} & \longrightarrow & \rk\left(A\right) = 4 \\
+			\\
+			B' & = & \begin{rowequmat}{ccccccc}
+				1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+				0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+				0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+				0 & 0 & 0 & 1 & 0 & 0 & 0
+			\end{rowequmat} & \longrightarrow & \rk\left(B\right) = 4 \\
+			\\
+			C' & = & \begin{rowequmat}{ccc}
+				1 & 0 & 0 \\ 
+				0 & 1 & 0 \\ 
+				0 & 0 & 1 \\ 
+				0 & 0 & 0 \\ 
+				0 & 0 & 0
+			\end{rowequmat} & \longrightarrow & \rk\left(C\right) = 3 \\
+			\\
+			D' & = & \begin{rowequmat}{ccc}
+				1  & 0  & 0 \\ 
+				0  & 1  & 0 \\ 
+				0  & 0  & 1
+			\end{rowequmat} & \longrightarrow & \rk\left(D\right) = 3
+		\end{array}
+	\end{equation*}\newpage
+	
+	\subsection{Soluzione \emph{c}}
+	
+	Si scrivano i sistemi lineari per cui le matrici indicate sopra sono le corrispondenti matrici aumentate, e si usi il Teorema di Rouché-Capelli per decidere se ognuno di questi sistemi ha o non ha soluzioni.\newline
+	
+	\noindent
+	I sistemi lineari delle corrispondenti matrici aumentate sono:
+	\begin{equation*}
+		\begin{array}{lllll}
+			A & = & \begin{rowequmat}{ccccc}
+				0 & 0 & -1 & 4 & 0 \\
+				0 & 2 & 0 & -2 & 0 \\
+				0 & 0 & 3 & 0 & 3 \\
+				0 & 0 & 0 & 0 & 5
+			\end{rowequmat} & \longrightarrow & \begin{cases}
+				-x_{3} + 4x_{4} = 0 \\
+				2x_{2} - 2x_{4} = 0 \\
+				3x_{3} = 3 \\
+				0 = 5
+			\end{cases} \\
+			\\
+			B & = & \begin{rowequmat}{ccccccc}
+				0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+				0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+				0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+				1 & 0 & 1 & 0 & 1 & 0 & 1
+			\end{rowequmat} & \longrightarrow & \begin{cases}
+				x_{4} = 0 \\
+				x_{3} + x_{5} = 0 \\
+				x_{2} + x_{4} + x_{6} = 0 \\
+				x_{1} + x_{3} + x_{5} = 1
+			\end{cases} \\
+			\\
+			C & = & \begin{rowequmat}{ccc}
+				2 & 0 & 1 \\
+				-4 & 0 & -2 \\
+				0 & 3 & 2 \\
+				2 & -2 & 3 \\
+				4 & 3 & 4
+			\end{rowequmat} & \longrightarrow & \begin{cases}
+				2x_{1} = 1 \\
+				-4x_{1} = -2 \\
+				3x_{2} = 2 \\
+				2x_{1} - 2x_{2} = 3 \\
+				4x_{1} + 3x_{2} = 4
+			\end{cases} \\
+			\\
+			D & = & \begin{rowequmat}{ccc}
+				2 & 0 & 1 \\
+				-1 & 2 & 2 \\
+				2 & 0 & 2
+			\end{rowequmat} & \longrightarrow & \begin{cases}
+				2x_{1} = 1 \\
+				-x_{1} + 2x_{2} = 2 \\
+				2x_{1} = 2
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Si applica il teorema di Rouché-Capelli per decidere se ogni sistema ha o non ha soluzioni.\newpage
+	
+	\noindent
+	\begin{proof}[\textbf{Dimostrazione soluzioni matrice} $\boldsymbol{A}$]
+		Considerando la matrice aumentata $\left(A|b\right)$ con il rango pari a $4$:
+		\begin{equation*}
+			\left(A|b\right) = \begin{rowequmat}{cccc|c}
+				0 & 0 & -1 & 4 & 0 \\
+				0 & 2 & 0 & -2 & 0 \\
+				0 & 0 & 3 & 0 & 3 \\
+				0 & 0 & 0 & 0 & 5
+			\end{rowequmat}
+		\end{equation*}
+		Si esegue lo studio del rango della matrice incompleta $A$:
+		\begin{equation*}
+			A = \begin{rowequmat}{cccc}
+				0 & 0 & -1 & 4 \\
+				0 & 2 & 0 & -2 \\
+				0 & 0 & 3 & 0 \\
+				0 & 0 & 0 & 0
+			\end{rowequmat}
+		\end{equation*}
+		Si procede con l'Eliminazione di Gauss per ottenere la forma ridotta e infine si calcola il rango tramite le colonne dominanti:
+		\begin{gather*}
+			\begin{rowequmat}{cccc}
+				0 & 0 & -1 & 4 \\
+				0 & 2 & 0 & -2 \\
+				0 & 0 & 3 & 0 \\
+				0 & 0 & 0 & 0
+			\end{rowequmat} \xlongrightarrow[E_{2,3}]{E_{1,2}}
+			\begin{rowequmat}{cccc}
+				0 & 2 & 0 & -2 \\
+				0 & 0 & 3 & 0 \\
+				0 & 0 & -1 & 4 \\
+				0 & 0 & 0 & 0
+			\end{rowequmat}\xlongrightarrow{E_{2,3}\left(\frac{1}{3}\right)}
+			\begin{rowequmat}{cccc}
+				0 & 2 & 0 & -2 \\
+				0 & 0 & 3 & 0 \\
+				0 & 0 & 0 & 4 \\
+				0 & 0 & 0 & 0
+			\end{rowequmat} \\
+			\\
+			\xlongrightarrow{E_{3,1}\left(\frac{1}{2}\right)}
+			\begin{rowequmat}{cccc}
+				0 & 2 & 0 & 0 \\
+				0 & 0 & 3 & 0 \\
+				0 & 0 & 0 & 4 \\
+				0 & 0 & 0 & 0
+			\end{rowequmat} \xlongrightarrow[E_{3}\left(\frac{1}{4}\right)]{E_{1}\left(\frac{1}{2}\right), E_{2}\left(\frac{1}{3}\right)}
+			\begin{rowequmat}{cccc}
+				0 & 1 & 0 & 0 \\
+				0 & 0 & 1 & 0 \\
+				0 & 0 & 0 & 1 \\
+				0 & 0 & 0 & 0
+			\end{rowequmat}
+		\end{gather*}
+		Le colonne dominanti sono $3$, quindi il rango della matrice incompleta $A$ è $3$ ($\rk\left(A\right) = 3$). Il teorema di Rouché Capelli afferma che se:
+		\begin{equation*}
+			\rk\left(A\right) < \rk\left(A|b\right)
+		\end{equation*}
+		Ovvero se il rango della matrice incompleta è minore del rango della matrice completa, allora il sistema è impossibile da risolvere, cioè non ammette soluzioni.
+	\end{proof}\newpage
+
+	\begin{proof}[\textbf{Dimostrazione soluzioni matrice} $\boldsymbol{B}$]
+		Considerando la matrice aumentata $\left(B|b\right)$ con il rango pari a $4$:
+		\begin{equation*}
+			\left(B|b\right) = \begin{rowequmat}{cccccc|c}
+				0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+				0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+				0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+				1 & 0 & 1 & 0 & 1 & 0 & 1
+			\end{rowequmat}
+		\end{equation*}
+		Si esegue lo studio del rango della matrice incompleta $B$:
+		\begin{equation*}
+			B = \begin{rowequmat}{cccccc}
+				0 & 0 & 0 & 1 & 0 & 0 \\
+				0 & 0 & 1 & 0 & 1 & 0 \\
+				0 & 1 & 0 & 1 & 0 & 1 \\
+				1 & 0 & 1 & 0 & 1 & 0
+			\end{rowequmat}
+		\end{equation*}
+		Si procede con l'Eliminazione di Gauss per ottenere la forma ridotta e infine si calcola il rango tramite le colonne dominanti:
+		\begin{gather*}
+			\begin{rowequmat}{cccccc}
+				0 & 0 & 0 & 1 & 0 & 0 \\
+				0 & 0 & 1 & 0 & 1 & 0 \\
+				0 & 1 & 0 & 1 & 0 & 1 \\
+				1 & 0 & 1 & 0 & 1 & 0
+			\end{rowequmat} \xlongrightarrow[E_{3,2}]{E_{4,1}}
+			\begin{rowequmat}{cccccc}
+				1 & 0 & 1 & 0 & 1 & 0 \\
+				0 & 1 & 0 & 1 & 0 & 1 \\
+				0 & 0 & 1 & 0 & 1 & 0 \\
+				0 & 0 & 0 & 1 & 0 & 0
+			\end{rowequmat} \xlongrightarrow[E_{3,1}\left(-1\right)]{E_{4,2}\left(-1\right)}
+			\begin{rowequmat}{cccccc}
+				1 & 0 & 0 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 & 0 & 1 \\
+				0 & 0 & 1 & 0 & 1 & 0 \\
+				0 & 0 & 0 & 1 & 0 & 0
+			\end{rowequmat}
+		\end{gather*}
+		Le colonne dominanti sono $4$, quindi il rango della matrice incompleta $B$ è $4$ ($\rk\left(B\right) = 4$). Il teorema di Rouché Capelli afferma che se:
+		\begin{equation*}
+			\rk\left(B\right) = \rk\left(B|b\right)
+		\end{equation*}
+		Ovvero se il rango della matrice incompleta è uguale al rango della matrice completa, allora il sistema è compatibile, cioè ammette una o infinite soluzioni. In particolare, dato $n$ come il numero di incognite, cioè $6$, allora:
+		\begin{equation*}
+			\rk\left(B\right) = \rk\left(B|b\right) < n \Longrightarrow 4 = 4 < 6 \textcolor{Green4}{\textbf{ \checkmark}}
+		\end{equation*}
+		Il sistema ammette infinite soluzioni.
+	\end{proof}\newpage
+	
+	\begin{proof}[\textbf{Dimostrazione soluzioni matrice} $\boldsymbol{C}$]
+		Considerando la matrice aumentata $\left(C|b\right)$ con il rango pari a $3$:
+		\begin{equation*}
+			\left(C|b\right) = \begin{rowequmat}{cc|c}
+				2 & 0 & 1 \\
+				-4 & 0 & -2 \\
+				0 & 3 & 2 \\
+				2 & -2 & 3 \\
+				4 & 3 & 4
+			\end{rowequmat}
+		\end{equation*}
+		Si esegue lo studio del rango della matrice incompleta $C$:
+		\begin{equation*}
+			C = \begin{rowequmat}{cc}
+				2 & 0 \\
+				-4 & 0 \\
+				0 & 3 \\
+				2 & -2 \\
+				4 & 3
+			\end{rowequmat}
+		\end{equation*}
+		Si procede con l'Eliminazione di Gauss per ottenere la forma ridotta e infine si calcola il rango tramite le colonne dominanti:
+		\begin{gather*}
+			\begin{rowequmat}{cc}
+				2 & 0 \\
+				-4 & 0 \\
+				0 & 3 \\
+				2 & -2 \\
+				4 & 3
+			\end{rowequmat} \xlongrightarrow[E_{2,5}\left(-1\right), E_{1,3}\left(2\right)]{E_{3,2}, E_{3,5}\left(1\right)}
+			\begin{rowequmat}{cc}
+				2 & 0 \\
+				0 & 3 \\
+				0 & 0 \\
+				2 & -2 \\
+				0 & 0
+			\end{rowequmat} \xlongrightarrow[E_{2,4}\left(\frac{2}{3}\right)]{E_{1,4}\left(-1\right)}
+			\begin{rowequmat}{cc}
+				2 & 0 \\
+				0 & 3 \\
+				0 & 0 \\
+				0 & 0 \\
+				0 & 0
+			\end{rowequmat} \xlongrightarrow[E_{2}\left(\frac{1}{3}\right)]{E_{1}\left(\frac{1}{2}\right)}
+			\begin{rowequmat}{cc}
+				1 & 0 \\
+				0 & 1 \\
+				0 & 0 \\
+				0 & 0 \\
+				0 & 0
+			\end{rowequmat}
+		\end{gather*}
+		Le colonne dominanti sono $2$, quindi il rango della matrice incompleta $C$ è $2$ ($\rk\left(C\right) = 2$). Il teorema di Rouché Capelli afferma che se:
+		\begin{equation*}
+			\rk\left(C\right) < \rk\left(C|b\right)
+		\end{equation*}
+		Ovvero se il rango della matrice incompleta è minore del rango della matrice completa, allora il sistema è impossibile da risolvere, cioè non ammette soluzioni.
+	\end{proof}\newpage
+
+	\begin{proof}[\textbf{Dimostrazione soluzioni matrice} $\boldsymbol{D}$]
+		Considerando la matrice aumentata $\left(D|b\right)$ con il rango pari a $3$:
+		\begin{equation*}
+			\left(D|b\right) = \begin{rowequmat}{cc|c}
+				2 & 0 & 1 \\
+				-1 & 2 & 2 \\
+				2 & 0 & 2
+			\end{rowequmat}
+		\end{equation*}
+		Si esegue lo studio del rango della matrice incompleta $D$:
+		\begin{equation*}
+			D = \begin{rowequmat}{cc}
+				2 & 0 \\
+				-1 & 2 \\
+				2 & 0
+			\end{rowequmat}
+		\end{equation*}
+		Si procede con l'Eliminazione di Gauss per ottenere la forma ridotta e infine si calcola il rango tramite le colonne dominanti:
+		\begin{gather*}
+			\begin{rowequmat}{cc}
+				2 & 0 \\
+				-1 & 2 \\
+				2 & 0
+			\end{rowequmat} \xlongrightarrow[E_{1,2}\left(\frac{1}{2}\right)]{E_{1,3}\left(-1\right)}
+			\begin{rowequmat}{cc}
+				2 & 0 \\
+				0 & 2 \\
+				0 & 0
+			\end{rowequmat} \xlongrightarrow[E_{2}\left(\frac{1}{2}\right)]{E_{1}\left(\frac{1}{2}\right)}
+			\begin{rowequmat}{cc}
+				1 & 0 \\
+				0 & 1 \\
+				0 & 0
+			\end{rowequmat}
+		\end{gather*}
+		Le colonne dominanti sono $2$, quindi il rango della matrice incompleta $D$ è $2$ ($\rk\left(D\right) = 2$). Il teorema di Rouché Capelli afferma che se:
+		\begin{equation*}
+			\rk\left(D\right) < \rk\left(D|b\right)
+		\end{equation*}
+		Ovvero se il rango della matrice incompleta è minore del rango della matrice completa, allora il sistema è impossibile da risolvere, cioè non ammette soluzioni.
+	\end{proof}\newpage
+
+	\subsection{Soluzione \emph{d}}
+	
+	Si trovino tutte le soluzioni del sistema di equazioni lineari:
+	\begin{equation*}
+		\left(D|b\right) = D\begin{rowequmat}{c}
+			x \\
+			y \\
+			z
+		\end{rowequmat} = \begin{rowequmat}{c}
+			1 \\
+			-1 \\
+			3
+		\end{rowequmat}
+	\end{equation*}
+	Si scrive la matrice aumentata:
+	\begin{equation*}
+		\left(D|b\right) = \begin{rowequmat}{ccc|c}
+			2 & 0 & 1 & 1 \\
+			-1 & 2 & 2 & -1 \\
+			2 & 0 & 2 & 3
+		\end{rowequmat}
+	\end{equation*}
+	E si esegue l'Eliminazione di Gauss per ottenere una forma ridotta:
+	\begin{gather*}
+		\begin{rowequmat}{ccc|c}
+			2 & 0 & 1 & 1 \\
+			-1 & 2 & 2 & -1 \\
+			2 & 0 & 2 & 3
+		\end{rowequmat} \xlongrightarrow[E_{1,3}\left(-1\right)]{E_{3,2}\left(\frac{1}{2}\right)}
+		\begin{rowequmat}{ccc|c}
+			2 & 0 & 1 & 1 \\ [0.3em]
+			0 & 2 & 3 & \frac{1}{2} \\ [0.3em]
+			0 & 0 & 1 & 2
+		\end{rowequmat} \xlongrightarrow[E_{3,1}\left(-1\right)]{E_{3,2}\left(-3\right)}
+		\begin{rowequmat}{ccc|c}
+			2 & 0 & 0 & -1 \\ [0.3em]
+			0 & 2 & 0 & -\frac{11}{2} \\ [0.3em]
+			0 & 0 & 1 & 2
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow[E_{2}\left(\frac{1}{2}\right)]{E_{1}\left(\frac{1}{2}\right)}
+		\begin{rowequmat}{ccc|c}
+			1 & 0 & 0 & -\frac{1}{2} \\ [0.3em]
+			0 & 1 & 0 & -\frac{11}{4} \\ [0.3em]
+			0 & 0 & 1 & 2
+		\end{rowequmat}
+	\end{gather*}
+	Il rango della matrice è pari al numero di colonne dominanti:
+	\begin{equation*}
+		\rk\left(D|b\right) = 3
+	\end{equation*}
+	Il rango della matrice incompleta $D$ è pari a $3$ (calcolato nel paragrafo~\ref{soluzione b}). Quindi, grazie al Teorema di Rouché Capelli si ha:
+	\begin{equation*}
+		\rk\left(D|b\right) = \rk\left(D\right) = n \Longrightarrow 3 = 3 = 3 \textcolor{Green4}{\textbf{ \checkmark}}
+	\end{equation*}
+	Dove $n$ rappresenta il numero di incognite. Quindi, il sistema ammette un'unica soluzione che è quella trovata grazie all'Eliminazione di Gauss:
+	\begin{equation*}
+		\begin{rowequmat}{ccc|c}
+			1 & 0 & 0 & -\frac{1}{2} \\ [0.3em]
+			0 & 1 & 0 & -\frac{11}{4} \\ [0.3em]
+			0 & 0 & 1 & 2
+		\end{rowequmat} \Longrightarrow
+		\begin{cases}
+			x_{1} = -\frac{1}{2} \vspace{0.3em} \\
+			x_{2} = -\frac{11}{4} \vspace{0.3em} \\
+			x_{3} = 2
+		\end{cases}
+	\end{equation*}
+	Il vettore soluzione:
+	\begin{equation*}
+		\begin{rowequmat}{c}
+			x \\
+			y \\
+			z
+		\end{rowequmat}
+		= \begin{rowequmat}{c}
+			-\frac{1}{2} \\ [0.3em]
+			-\frac{11}{4} \\ [0.3em]
+			2
+		\end{rowequmat}
+	\end{equation*}\newpage
+
+	\section{Soluzione esercizio 3}
+	
+	Per ogni parametro $t$ in $\mathbb{R}$ si consideri la matrice:
+	\begin{equation*}
+		A_{t} \coloneq \begin{rowequmat}{cccc}
+			1 & t & -1 & t \\
+			2 & 2t & -1 & 3t+1 \\
+			1 & -1 & -t & 2
+		\end{rowequmat}
+	\end{equation*}
+	
+	\subsection{Soluzione \emph{a}}
+	
+	Si calcola il rango di $A_{t}$ con $t = -1s$. La matrice $A_{-1}$ è:
+	\begin{equation*}
+		A_{-1} = \begin{rowequmat}{cccc}
+			1 & -1 & -1 & -1 \\
+			2 & -2 & -1 & -2 \\
+			1 & -1 &  1 &  2
+		\end{rowequmat}
+	\end{equation*}
+	L'Eliminazione di Gauss porta alla seguente forma ridotta:
+	\begin{gather*}
+		\begin{rowequmat}{cccc}
+			1 & -1 & -1 & -1 \\
+			2 & -2 & -1 & -2 \\
+			1 & -1 &  1 &  2
+		\end{rowequmat} \xlongrightarrow[E_{1,2}\left(-2\right)]{E_{1,3}\left(-1\right)}
+		\begin{rowequmat}{cccc}
+			1 & -1 & -1 & -1 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 &  2 &  3
+		\end{rowequmat}
+	\end{gather*}
 \end{document}
