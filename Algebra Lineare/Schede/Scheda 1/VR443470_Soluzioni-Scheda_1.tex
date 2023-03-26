@@ -1107,11 +1107,56 @@
 			-\sin\theta & \cos\theta
 		\end{rowequmat}
 	\end{equation*}
-	La matrice inversa:
-	\begin{equation*}
-		A = \begin{rowequmat}{cc}
-			\cos\theta & -\sin\theta \\
-			\sin\theta & \cos\theta
+	La matrice inversa si ottiene affiancando una matrice identità ed eseguendo l'Eliminazione di Gauss così da avere la matrice identità dalla parte opposta (ricordando che $\tan\theta = \frac{\sin\theta}{\cos\theta}$ e che $\sin^{2}\theta = 1-\cos^{2}\theta$):
+	\begin{gather*}
+		\left(A|I_{2}\right) = \begin{rowequmat}{cc|cc}
+			\cos\theta & -\sin\theta & 1 & 0 \\
+			\sin\theta & \cos\theta  & 0 & 1
+		\end{rowequmat} \xlongrightarrow{E_{1,2}\left(-\tan\theta\right)}
+		\begin{rowequmat}{cc|cc}
+			\cos\theta & -\sin\theta & 1 & 0 \\ [0.3em]
+			0 & \frac{1}{\cos\theta}  & -\frac{\sin\theta}{\cos\theta} & 1
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow{E_{2}\left(\cos\theta\right)}
+		\begin{rowequmat}{cc|cc}
+			\cos\theta & -\sin\theta & 1 & 0 \\ [0.3em]
+			0 & 1  & -\sin\theta & \cos\theta
+		\end{rowequmat} \xlongrightarrow{E_{1}\left(\frac{1}{\cos\theta}\right)}
+		\begin{rowequmat}{cc|cc}
+			1 & -\frac{\sin\theta}{\cos\theta} & \frac{1}{\cos\theta} & 0 \\ [0.3em]
+			0 & 1  & -\sin\theta & \cos\theta
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow{E_{2,1}\left(\frac{\sin\theta}{\cos\theta}\right)}
+		\begin{rowequmat}{cc|cc}
+			1 & 0 & \frac{1}{\cos\theta} - \frac{\sin^{2}\theta}{\cos\theta} & \sin\theta \\ [0.3em]
+			0 & 1  & -\sin\theta & \cos\theta
+		\end{rowequmat} \longrightarrow 
+		\begin{rowequmat}{cc|cc}
+			1 & 0 & \cos\theta & \sin\theta \\ [0.3em]
+			0 & 1  & -\sin\theta & \cos\theta
 		\end{rowequmat}
+	\end{gather*}
+	E a destra si ha la matrice inversa, la quale è uguale alla matrice trasposta:
+	\begin{equation*}
+		\begin{array}{cll}
+			A & = & \begin{rowequmat}{cc}
+				\cos\theta & -\sin\theta \\
+				\sin\theta & \cos\theta
+			\end{rowequmat} \\
+			\\
+			A^{T} & = & \begin{rowequmat}{cc}
+				\cos\theta & \sin\theta \\
+				-\sin\theta & \cos\theta
+			\end{rowequmat} \\
+			\\
+			\parallel & & \\
+			\\
+			A^{-1} & = & \begin{rowequmat}{cc}
+				\cos\theta & \sin\theta \\
+				-\sin\theta & \cos\theta
+			\end{rowequmat}
+		\end{array}
 	\end{equation*}
 \end{document}
