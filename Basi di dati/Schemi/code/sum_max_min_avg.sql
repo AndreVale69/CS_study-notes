@@ -1,0 +1,1 @@
+< sum | max | min | avg > ( [ distinct | all ] AttrEspr )
