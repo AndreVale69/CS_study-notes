@@ -3125,7 +3125,7 @@ end transaction;
 		\includegraphics[width=\textwidth]{img/lab/esempio_vscode_sql.png}
 	\end{figure}\newpage
 	
-	\subsection{Caratteri (character, character varying, text)}
+	\subsection{Caratteri (\textsf{character}, \textsf{character varying}, \textsf{text})}
 	
 	Il dominio \textcolor{Red3}{\textsf{character}} consente di rappresentare singoli caratteri oppure stringhe di lunghezza fissa. Per indicare quest'ultima, viene scritto un valore all'interno delle parentesi tonde dopo il comando. Nel caso in cui non fosse presente, il dominio rappresentare un carattere singolo.\newline
 	
@@ -3305,7 +3305,7 @@ default < GenericoValore | user | null > \end{lstlisting}
 	
 	\subsection{Vincoli intrarelazionali}\label{vincoli intrarelazionali}
 	
-	\subsubsection{Not null}
+	\subsubsection{\textsf{Not null}}
 	
 	Il valore nullo indica un attributo senza valore. Il suo contrario, ovvero \textsf{not null}, indica che il valore nullo non è ammesso come valore dell'attributo e quindi esso deve essere sempre specificato.\newline
 	
@@ -3316,7 +3316,7 @@ Cognome varchar(20) not null \end{lstlisting}
 	
 	\longline
 	
-	\subsubsection{Unique}
+	\subsubsection{\textsf{Unique}}
 
 	Un vincolo \textsf{unique} può essere applicato ad un solo attributo oppure ad un insieme di attributi di una tabella. L'obbiettivo è imporre che i valori dell'attributo, o le ennuple di valori sull'insieme di attributi, siano una (super)chiave, ovvero righe differenti della tabella non possano avere gli stessi valori.
 
@@ -3347,7 +3347,7 @@ Nome 		varchar(20) not null unique,
 Cognome varchar(20) not null unique\end{lstlisting}
 	Nel caso dell'esempio dell'elenco puntato, si impone che non ci siano due righe che abbiano uguali \textbf{sia} il nome, \textbf{sia} il cognome. Invece, nel secondo caso qua sopra (più restrittivo), si ha una violazione se nelle righe compaiono più di una volta o lo stesso nome o lo stesso cognome.\newpage
 	
-	\subsubsection{Primary key}
+	\subsubsection{\textsf{Primary key}}
 
 	La chiave primaria può essere specificata tramite il vincolo \textsf{primary key} una sola volta per ogni tabella.
 
@@ -3376,7 +3376,7 @@ Cognome varchar(20),
 primary key (Cognome, Nome)\end{lstlisting}
 	\end{enumerate}\newpage
 
-	\subsection{Vincoli interrelazionali \textsf{foreign key}}
+	\subsection{Vincoli interrelazionali (\textsf{foreign key})}
 	
 	I vincoli interrelazioni più diffusi e significativi sono i \textbf{vincoli di integrità referenziale}. In SQL per la loro definizione viene utilizzato il vincolo \textsf{foreign key}, ovvero \textbf{chiave esterna}.\newline
 	
@@ -3486,7 +3486,7 @@ check ( Condizione )
 	
 	\subsection{Modifica degli schemi}
 	
-	\subsubsection{Modifica dei domini e schemi \textsf{alter}}
+	\subsubsection{Modifica dei domini e schemi (\textsf{alter})}
 	
 	Il comando \textsf{alter} consente di modificare domini e schemi di tabelle. La sua sintassi è la seguente:
 	\lstinputlisting[language=SQL]{code/alter.sql}
@@ -3501,7 +3501,7 @@ check ( Condizione )
 \begin{lstlisting}[language=SQL]
 alter table Dipartimento add column NroUff numeric(4)\end{lstlisting}\newpage
 	
-	\subsubsection{Rimuovere schemi, domini, viste, asserzioni \textsf{drop}}\label{drop}
+	\subsubsection{Rimuovere schemi, domini, viste, asserzioni (\textsf{drop})}\label{drop}
 	
 	Il comando \textsf{drop} consente di rimuovere dei componenti quali schemi, domini, tabelle, viste o asserzioni\footnote{Le \href{https://stackoverflow.com/questions/2443322/what-is-the-difference-between-triggers-assertions-and-checks-in-database}{asserzioni} sono dei vincoli che non sono associati ad alcuna tabella in particolare.}. La sua sintassi è la seguente:
 	\lstinputlisting[language=SQL]{code/drop.sql}
@@ -3537,7 +3537,7 @@ drop domain StringaLunga cascade\end{lstlisting}
 	
 	\subsection{Modifica dei dati}
 	
-	\subsubsection{Inserimento \textsf{insert into}}
+	\subsubsection{Inserimento (\textsf{insert into})}
 	
 	Il comando di inserimento \textsf{insert into} presenta un'unica sintassi con un possibile doppio utilizzo:
 	\lstinputlisting[language=SQL]{code/insert_into.sql}
@@ -3557,7 +3557,7 @@ drop domain StringaLunga cascade\end{lstlisting}
 	\noindent
 	Infine, la corrispondenza tra gli attributi della tabella e i valori da inserire è data dall'ordine in cui compaiono i termini nella definizione della tabella.\newpage
 	
-	\subsubsection{Cancellazione \textsf{delete}, \textsf{drop}}
+	\subsubsection{Cancellazione (\textsf{delete}, \textsf{drop})}
 	
 	Il comando \textsf{delete} elimina righe dalle tabelle della base di dati, la sintassi è la seguente:
 	\lstinputlisting[language=SQL]{code/delete.sql}
@@ -3582,7 +3582,7 @@ delete from Dipartimento\end{lstlisting}
 drop table Dipartimento cascade\end{lstlisting}
 	Si ha lo stesso effetto del \textsf{delete}, ma in più anche lo \textbf{schema} della base di dati viene \textbf{modificato}, eliminando dallo schema non solo la tabella Dipartimento, ma anche tutte le viste e tabelle che nella loro definizione fanno riferimento ad essa.\newpage
 	
-	\subsubsection{Modifica \textsf{update}}
+	\subsubsection{Modifica (\textsf{update})}
 	
 	Il comando \textsf{update} presenta una sintassi leggermente complicata:
 	\lstinputlisting[language=SQL]{code/update.sql}
@@ -3665,7 +3665,7 @@ drop table Dipartimento cascade\end{lstlisting}
 		\lstinputlisting[language=SQL]{code/from-ex2.sql}
 	\end{enumerate}\newpage
 
-	\subsubsection{\textsf{Where} e i suoi operatori \textsf{like}, \textsf{similar to}, \textsf{between}, \textsf{in}, \textsf{is null}}
+	\subsubsection{\textsf{Where} e i suoi operatori (\textsf{like}, \textsf{similar to}, \textsf{between}, \textsf{in}, \textsf{is null})}
 	
 	La clausola \textsf{where} ammette come argomento un'espressione booleana costruita combinando predicati semplici con gli operatori:
 	\begin{itemize}
@@ -3767,7 +3767,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	
 	\longline
 	
-	\subsection{Ordinamento \textsf{order by}}
+	\subsection{Ordinamento (\textsf{order by})}
 	
 	SQL consente di specificare un ordinamento delle righe del risultato di un'interrogazione tramite la clausola \textsf{order by}, con la quale si chiude l'interrogazione. La sintassi:
 	\lstinputlisting[language=SQL]{code/order_by.sql}
@@ -3782,11 +3782,58 @@ drop table Dipartimento cascade\end{lstlisting}
 		\includegraphics[width=\textwidth]{img/order_by-ex1.pdf}
 	\end{figure}\newpage
 	
-	\subsection{Operatori aggregati \textsf{count}, \textsf{sum}, \textsf{max}, \textsf{min}, \textsf{avg}}
+	\subsection{Operatori aggregati (\textsf{count}, \textsf{sum}, \textsf{max}, \textsf{min}, \textsf{avg})}
 	
 	Lo standard SQL prevede cinque operatori aggregati: \textsf{count}, \textsf{sum}, \textsf{max}, \textsf{min}, \textsf{avg}.\newline
 	
 	\noindent
-	L'\textbf{operatore \textsf{count}} ha la seguente sintassi:
+	L'\textbf{operatore \textcolor{Red3}{\textsf{count}}} ha la seguente sintassi:
 	\lstinputlisting[language=SQL]{code/count.sql}
+	\begin{itemize}
+		\item * restituisce il numero di righe;
+		\item \textsf{distinct} restituisce il numero di diversi valori degli attributi in \textsf{ListaAttributi};
+		\item \textsf{all} (default) restituisce il numero di righe che possiedono valori diversi dal valore nullo per gli attributi in \textsf{ListaAttributi}.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, si eseguono le seguenti \emph{query} (sempre considerando la base dati a pagina \pageref{select dbms}):
+	\begin{itemize}
+		\item Si vuol estrarre il numero di diversi valori dell'attributo \textsf{Stipendio} fra tutte le righe di \textsf{Impiegato}:
+		\lstinputlisting[language=SQL]{code/count-ex1.sql}
+		Il risultato è $6$ perché i valori distinti sono $45, 36, 40, 80, 73, 46$.
+		
+		\item Si vuole estrarre il numero di righe che possiedono un valore non nullo per l'attributo \textsf{Nome}:
+		\lstinputlisting[language=SQL]{code/count-ex2.sql}
+		Il risultato è $8$ perché tutte le tuple hanno un valore nel campo \textsf{Nome}.
+	\end{itemize}\:\newline
+	
+	\noindent
+	Gli \textbf{operatori \textcolor{Red3}{\textsf{sum}} e \textcolor{Red3}{\textsf{avg}}} ammettono come argomento \underline{solo} espressioni che rappresentano \textbf{valori numerici o intervalli di tempo}. Invece, gli \textbf{operatori \textcolor{Red3}{\textsf{max}} e \textcolor{Red3}{\textsf{min}}} richiedono \underline{solamente} che sull'\textbf{espressione sia definito un ordinamento}, per cui si possono applicare anche su stringhe di caratteri o su istanti di tempo. La sintassi:
+	\lstinputlisting[language=SQL]{code/sum_max_min_avg.sql}
+	\begin{itemize}
+		\item \textsf{sum} restituisce la somma dei valori posseduti dall'espressione;
+		\item \textsf{max} restituisce il valore massimo;
+		\item \textsf{min} restituisce il valore minimo;
+		\item \textsf{avg} restituisce la media dei valori, ovvero la divisione tra \textsf{sum} e \textsf{count}.
+		\item \textsf{distinct} elimina i duplicati (non ha effetto su \textsf{max} e \textsf{min});
+		\item \textsf{all} trascura solo i valori nulli (non ha effetto su \textsf{max} e \textsf{min}).
+	\end{itemize}\newpage
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, si eseguono le seguenti \emph{query} (sempre considerando la base dati a pagina \pageref{select dbms}):
+	\begin{itemize}
+		\item Si vuole estrarre la somma degli stipendi del dipartimento Amministrazione:
+		\lstinputlisting[language=SQL]{code/sum-ex1.sql}
+		Il risultato è $125$.
+		
+		\item Si vuole estrarre lo stipendio minimo, massimo e medio fra quelli di tutti gli impiegati:
+		\lstinputlisting[language=SQL]{code/max_min_avg-ex1.sql}
+		Il risultato è $36$ per il valore minimo, $80$ per il valore massimo e $50,625$ per la media.
+		
+		\item Si vuole estrarre il massimo stipendio tra quelli degli impiegati che lavorano in un dipartimento con sede a Milano:
+		\lstinputlisting[language=SQL]{code/max-ex1.sql}
+		Il risultato è $80$.
+		
+		\item Questa \emph{query} \underline{\textbf{non è corretta}}:
+		\lstinputlisting[language=SQL]{code/max-ex2.sql}
+		Questa interrogazione non può essere utilizzata poiché gli operatori aggregati (in questo caso \textsf{max}) non rappresentano un meccanismo di selezione, ma solo delle funzioni che restituiscono un valore quando sono applicate ad un insieme. Quindi, \textbf{SQL non ammette che nella stessa clausola \textsf{select} compaiano funzioni aggregati ed espressioni al livello di riga, a meno che non si faccia utilizzo della clausola \textsf{group by}}.
+	\end{itemize}
 \end{document}
