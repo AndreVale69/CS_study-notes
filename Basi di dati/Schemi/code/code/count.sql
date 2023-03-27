@@ -1,1 +1,0 @@
-count ( < * | [distinct | all] ListaAttributi > )

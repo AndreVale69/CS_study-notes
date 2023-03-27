@@ -1,1 +1,0 @@
-where Attr [not] in (valore [, ...])
