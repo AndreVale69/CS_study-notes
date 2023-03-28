@@ -3035,7 +3035,184 @@ end transaction;
 	\begin{itemize}
 		\item \textbf{Hashing}, tempo costante sommato alla gestione dell'\emph{overflow}
 		\item \textbf{B$\boldsymbol{+}$-\emph{tree}}, tempo logaritmico nel numero di chiavi sommato alle operazioni di split e/o merge
+	\end{itemize}\newpage
+
+	\section{Controllo di concorrenza}
+	
+	\subsection{Anomalie delle transazioni concorrenti}
+	
+	L'unità di misura solitamente utilizzata per caratterizzare il carico applicativo di un DBMS è il \textbf{numero di transazioni al secondo}, abbreviato in \emph{tps} (\emph{transactions per second}) che devono essere gestite dal DBMS per soddisfare le applicazioni.
+	
+	Le azioni $r\left(x\right)$ e $w\left(x\right)$ denotano rispettivamente la lettura e la scrittura della pagina in cui il dato $x$ è memorizzato nel DBMS.
+	
+	\longline
+	
+	\subsubsection{Perdita di aggiornamento}
+	
+	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
+	\begin{gather*}
+		t_{1} : r_{1}\left(x\right), x = x + 1, w_{1}\left(x\right) \\
+		t_{2} : r_{2}\left(x\right), x = x + 1, w_{2}\left(x\right)
+	\end{gather*}
+	\begin{itemize}
+		\item $r_{i}\left(x\right)$ rappresenta la lettura del generico oggetto $x$
+		\item $w_{i}\left(x\right)$ rappresenta la scrittura del generico oggetto $x$
+		\item $t_{1}$ rappresenta la transazione che esegue $r$ o $w$
+		\item $x$ si suppone sia uguale a $2$ all'inizio
+		\item $x = x+1$ rappresenta l'incremento effettuato da un programma applicativo, per esempio un \textsf{update} in SQL
 	\end{itemize}
+	L'esecuzione in \textbf{sequenza} delle due transazioni ha come risultato il valore $4$ all'interno di $x$.\newline
+	
+	\noindent
+	La \textcolor{Red3}{\textbf{perdita di aggiornamento}} (\emph{lost update}) si verifica nel seguente caso tramite l'esecuzione concorrente delle due transazioni:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c l l @{}}
+			\toprule
+			Tempo & Transazione $t_{1}$ & Transazione $t_{2}$ \\
+			\midrule
+			0	& $r_{1}\left(x\right)$			& \\
+			1	& $x = x + 1$					& \\
+			2	&								& $r_{2}\left(x\right)$ \\
+			3	&								& $x = x + 1$ \\
+			4	&								& $w_{2}\left(x\right)$ \\
+			5	&								& \textsf{commit} \\
+			6	& $w_{1}\left(x\right)$			& \\
+			7	& \textsf{commit}				& \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+
+	\noindent
+	Il valore finale di $x$ è pari a $3$, poiché entrambe le transazioni leggono $2$ come valore iniziale di $x$ (lettura di $t_{1}$ al tempo $0$ e lettura di $t_{2}$ al tempo $2$). Quindi, la perdita di aggiornamento si verifica quando gli \textbf{effetti della transazione} $t_{2}$, la prima che scrive il nuovo valore di $x$, \textbf{vengono persi}.\newpage
+	
+	\subsubsection{Lettura sporca}
+	
+	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
+	\begin{gather*}
+		t_{1} : r_{1}\left(x\right), x = x + 1, w_{1}\left(x\right) \\
+		t_{2} : r_{2}\left(x\right), x = x + 1, w_{2}\left(x\right)
+	\end{gather*}
+	\begin{itemize}
+		\item $r_{i}\left(x\right)$ rappresenta la lettura del generico oggetto $x$
+		\item $w_{i}\left(x\right)$ rappresenta la scrittura del generico oggetto $x$
+		\item $t_{1}$ rappresenta la transazione che esegue $r$ o $w$
+		\item $x$ si suppone sia uguale a $2$ all'inizio
+		\item $x = x+1$ rappresenta l'incremento effettuato da un programma applicativo, per esempio un \textsf{update} in SQL
+	\end{itemize}
+	L'esecuzione in \textbf{sequenza} delle due transazioni ha come risultato il valore $4$ all'interno di $x$.\newline
+	
+	\noindent
+	La \textcolor{Red3}{\textbf{lettura sporca}} (\emph{dirty read}) si verifica nel seguente caso tramite l'esecuzione concorrente delle due transazioni:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c l l @{}}
+			\toprule
+			Tempo & Transazione $t_{1}$ & Transazione $t_{2}$ \\
+			\midrule
+			0	& $r_{1}\left(x\right)$			& \\
+			1	& $x = x + 1$					& \\
+			2	& $w_{1}\left(x\right)$			& \\
+			3	&								& $r_{2}\left(x\right)$ \\
+			4	&								& \textsf{commit} \\
+			5	& \textsf{abort}				& \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	Il valore finale di $x$ è pari a $2$, nonostante la seconda transazione ha letto (tempo $3$), e potenzialmente comunicato all'esterno, il valore $3$. L'\textbf{aspetto critico} di questa anomalia è la lettura della transazione $t_{2}$, la quale vede uno stato intermedio generato dalla transazione $t_{1}$. Tuttavia, $t_{2}$ non avrebbe dovuto vedere tale stato, perché successivamente viene eseguito un \textsf{abort}.\newline
+	
+	\noindent
+	Il nome di questa anomalia deriva dal fatto che \textbf{viene letto un dato che rappresenta uno stato intermedio nell'evoluzione di una transazione}. L'\underline{unico modo} per \textbf{ripristinare} la correttezza, sarebbe imporre un \textsf{abort} anche nella transazione $t_{2}$ e, ricorsivamente, di tutte le transazioni che avessero letto dati modificati da $t_{2}$. Purtroppo, questa pratica, oltre ad essere molto onerosa, talvolta è anche non praticabile a causa dell'eventuale comunicazione all'esterno del risultato.\newpage
+	
+	\subsubsection{Letture inconsistenti}
+	
+	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
+	\begin{gather*}
+		t_{1} : r_{1}\left(x\right), x = x + 1, w_{1}\left(x\right) \\
+		t_{2} : r_{2}\left(x\right), x = x + 1, w_{2}\left(x\right)
+	\end{gather*}
+	\begin{itemize}
+		\item $r_{i}\left(x\right)$ rappresenta la lettura del generico oggetto $x$
+		\item $w_{i}\left(x\right)$ rappresenta la scrittura del generico oggetto $x$
+		\item $t_{1}$ rappresenta la transazione che esegue $r$ o $w$
+		\item $x$ si suppone sia uguale a $2$ all'inizio
+		\item $x = x+1$ rappresenta l'incremento effettuato da un programma applicativo, per esempio un \textsf{update} in SQL
+	\end{itemize}
+	L'esecuzione in \textbf{sequenza} delle due transazioni ha come risultato il valore $4$ all'interno di $x$.\newline
+	
+	\noindent
+	La \textcolor{Red3}{\textbf{lettura inconsistente}} si verifica nel seguente caso tramite l'esecuzione concorrente delle due transazioni:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c l l @{}}
+			\toprule
+			Tempo & Transazione $t_{1}$ & Transazione $t_{2}$ \\
+			\midrule
+			0	& $r_{1}\left(x\right)$			& \\
+			1	&								& $r_{2}\left(x\right)$ \\
+			2	& 								& $x = x + 1$ \\
+			3	& 								& $w_{2}\left(x\right)$ \\
+			4	&								& \textsf{commit} \\
+			5	& $r_{1}\left(x\right)$			& \\
+			6	& \textsf{abort}				& \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	In questo caso, la $x$ assume il valore $2$ dopo la prima operazione di lettura e il valore $3$ dopo la seconda operazione di lettura. La lettura inconsistente si verifica poiché una \textbf{transazione che accede due o più volte alla base di dati, trova due o più volte un valore diverso per ciascun dato letto}.\newline
+	
+	\noindent
+	Invece, è opportuno che una transazione che accede due volte alla base di dati trovi esattamente lo stesso valore per ciascun dato letto, e non risenta dell'effetto di altre transazioni.\newpage
+	
+	\subsubsection{Aggiornamento fantasma}
+	
+	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
+	\begin{gather*}
+		t_{1} : r_{1}\left(x\right), x = x + 1, w_{1}\left(x\right) \\
+		t_{2} : r_{2}\left(x\right), x = x + 1, w_{2}\left(x\right)
+	\end{gather*}
+	\begin{itemize}
+		\item $r_{i}\left(x\right)$ rappresenta la lettura del generico oggetto $x$
+		\item $w_{i}\left(x\right)$ rappresenta la scrittura del generico oggetto $x$
+		\item $t_{1}$ rappresenta la transazione che esegue $r$ o $w$
+		\item $x$ si suppone sia uguale a $2$ all'inizio
+		\item $x = x+1$ rappresenta l'incremento effettuato da un programma applicativo, per esempio un \textsf{update} in SQL
+	\end{itemize}
+	L'esecuzione in \textbf{sequenza} delle due transazioni ha come risultato il valore $4$ all'interno di $x$.\newline
+	
+	\noindent
+	L'\textcolor{Red3}{\textbf{aggiornamento fantasma}} (\emph{ghost update}) si verifica nel seguente caso tramite l'esecuzione concorrente delle due transazioni supponendo anche che la base di dati abbia $3$ oggetti $x,y,z$ che soddisfano il vincolo di integrità $x+y+z=1000$:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c l l @{}}
+			\toprule
+			Tempo & Transazione $t_{1}$ & Transazione $t_{2}$ \\
+			\midrule
+			0	& $r_{1}\left(x\right)$			& \\
+			1	& 								& $r_{2}\left(y\right)$ \\
+			2	& $r_{1}\left(y\right)$			& \\
+			3	& 								& $y = y - 100$ \\
+			4	&								& $r_{2}\left(z\right)$ \\
+			5	& 								& $z = z + 100$ \\
+			6	& 								& $w_{2}\left(y\right)$ \\
+			7	& 								& $w_{2}\left(z\right)$ \\
+			8	&								& \textsf{commit} \\
+			9	& $r_{1}\left(z\right)$			& \\
+			10	& $s = x + y + z$				& \\
+			11	& \textsf{commit}				& \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	La transazione $t_{2}$ non altera la somma dei valori e quindi non viola il vincolo di integrità. Tuttavia, la variabile $s$ della transazione $t_{1}$, che dovrebbe contenere la somma di $x,y,z$, contiene in effetti al termine dell'esecuzione il valore $1100$.\newline
+	
+	\noindent	
+	In altri termini, la \textbf{transazione} $t_{1}$ \textbf{osserva solo in parte gli effetti (di un'altra)} della \textbf{transazione} $t_{2}$, \textbf{e quindi osserva uno stato che non soddisfa i vincoli di integrità}.\newpage
+	
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
