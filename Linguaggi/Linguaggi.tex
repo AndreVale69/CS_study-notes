@@ -966,5 +966,171 @@ P:
 	Inoltre, sfruttando la definizione induttiva del linguaggio, consentono di definire il significato mediante induzione sull'\emph{abstract syntax tree}. Quindi, viene \textbf{usata l'induzione strutturale matematica per ragion sui programmi}.\newline
 	
 	\noindent
-	Formalmente: \textbf{un \textcolor{Red3}{sistema di transizione} è una struttura $\left(\Gamma, \rightarrow\right)$, dove $\Gamma$ è un insieme di elementi $\gamma$ chiamati configurazioni e la relazione binaria $\rightarrow \subseteq \Gamma \times \Gamma$ è chiamata relazione di transizione. Se $\Gamma_{T} \subseteq \Gamma$ è un insieme di configurazioni terminali, il sistema è detto terminale.}
+	Formalmente: \textbf{un \textcolor{Red3}{sistema di transizione} è una struttura $\left(\Gamma, \rightarrow\right)$, dove $\Gamma$ è un insieme di elementi $\gamma$ chiamati configurazioni e la relazione binaria $\rightarrow \subseteq \Gamma \times \Gamma$ è chiamata relazione di transizione. Se $\Gamma_{T} \subseteq \Gamma$ è un insieme di configurazioni terminali, il sistema è detto terminale.}\newpage
+	
+	\subsection{Esempio di un linguaggio reale ($PL_{0}$)}\label{esempio di un linguaggio reale PL0}
+	
+	Un esempio di linguaggio reale è $PL_{0}$ strutturato nel seguente modo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/pl0.pdf}
+	\end{figure}
+	
+	\begin{itemize}
+		\item I programmi $P$ sono blocchi.
+		
+		\item I blocchi $B$ sono una dichiarazione $D$ seguita da un comando $S$, entrambi liberi dal contesto.
+		
+		\item Le dichiarazioni $D$ sono dichiarazioni di valori costanti con nome (const), dichiarazioni di variabili (var) e dichiarazioni di procedure.
+		
+		\item I nomi sono gli identificatori $I$, considerati parte del vocabolario, e $N$ sono i numeri naturali, anch'essi considerati parte del vocabolario.
+		
+		\item Non esiste il concetto di tipo poiché l'unico dato ammesso è intero.
+		
+		\item I comandi sono:
+		\begin{itemize}
+			\item Comando vuoto;
+			\item Assegnamento di un valore ad un identificatore;
+			\item Chiamata ad una procedura mediante il suo nome;
+			\item Comando condizionale che esegue un comando al verificarsi di una condizione booleana;
+			\item Ciclo che ripete un comando finché una data condizione è vera;
+			\item Composizione sequenziale di comandi.
+		\end{itemize}
+	
+		\item Le condizioni $C$ sono espressioni che hanno al loro interno valori booleani.
+		
+		\item Le espressioni $E$ sono identificatori, valori naturali, operazioni tra espressioni e espressioni tra parentesi.
+	\end{itemize}\newpage
+
+	\section{Espressioni}
+	
+	\subsection{Introduzioni}
+	
+	Per manipolare i valori è necessario rappresentarli e per questo motivo vengono utilizzate le espressioni. Quest'ultime, devono essere valutate per dare un valore e con valore non viene intesa la locazione di memoria: i valori fanno parte dello specifico linguaggio di programmazione, mentre la locazione è parte della struttura dell'architettura. Quindi, la locazione di memoria modella il modo in cui il linguaggio di programmazione si relazione alla macchina sottostante.
+	
+	\longline
+	
+	\subsection{Descrivere le espressioni}
+	
+	Per associare significati e valori alle \textbf{espressioni}, esse \textbf{devono essere valutate}.\newline
+	
+	\noindent
+	Il \textbf{valore ottenuto mediante la valutazione} è chiamato \textbf{valore esprimibile}, poiché è un \textbf{valore che può essere espresso attraverso la sintassi del linguaggio di programmazione}, e in particolare attraverso la sintassi delle espressioni.\newline
+	
+	\noindent
+	\textbf{Formalmente} con \textcolor{Red3}{\textbf{valore esprimibile}} si intende l'unione tra i tipi booleani e interi:
+	\begin{equation*}
+		Eval = bool \cup int \hspace{2em} \text{con metavariabile } ev
+	\end{equation*}
+	Per metavariabile si intende qualsiasi valore esprimibile.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, un linguaggio come $PL_{0}$ (paragrafo \ref{esempio di un linguaggio reale PL0}), si hanno espressioni che rappresentano interi e identificatori, e indirettamente anche booleani in quanto le condizioni corrispondono a valori booleani (e.g. $3=3$ è \emph{true}, mentre $3\#3$ è \emph{false}).\newline
+	
+	\noindent
+	Dal punto di vista \textbf{sintattico}, i \textbf{costituenti elementari delle espressioni} sono \textbf{letterali} (costanti e identificatori), i quali sono \textbf{composti mediante operatori}.\newline
+	
+	\noindent
+	\textbf{Per concludere}, un'espressione è un oggetto sintattico composto da operatori, operandi (che sono espressioni alla fine), parentesi e funzioni/procedure.\newpage
+	
+	\subsection{Caratteristiche}
+	
+	Ecco qua di seguito gli \textbf{aspetti che caratterizzano le espressioni}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Notazione}} che specifica in che modo gli operandi e gli operatori vengono rappresentati. Inoltre, indica su quali operandi un operatore opera.
+		\begin{itemize}
+			\item Paragrafo \ref{notazione} sulla notazione
+			\item Paragrafo \ref{notazione post-fissa} sulla notazione post-fissa
+			\item Paragrafo \ref{notazione pre-fissa} sulla notazione pre-fissa
+			\item Paragrafo \ref{notazione in-fissa} sulla notazione in-fissa
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{Regole di precedenza}} tra operatori (paragrafo \ref{regole di precedenza})
+		
+		\item \textcolor{Red3}{\textbf{Regole di associatività}} degli operatori (paragrafo \ref{regole di associatività})
+		
+		\item \textcolor{Red3}{\textbf{Ordine di valutazione degli operandi}}
+		
+		\item \textcolor{Red3}{\textbf{Presenza di \emph{side-effects}}}, ovvero qualunque effetto che non consiste puramente nella rappresentazione di valori;
+		
+		\item \textcolor{Red3}{\textbf{\emph{Overloading} degli operatori}}, ovvero simboli di operatori che hanno significati diversi a seconda del tipo degli operatori a cui sono applicati.
+		
+		\item \textcolor{Red3}{\textbf{Espressioni con tipi misti}}
+	\end{itemize}
+	
+	\longline
+	
+	\subsubsection{Notazione}\label{notazione}
+	
+	A seconda di \textbf{come viene rappresentata l'espressione}, \textbf{varia anche il modo in cui viene determinata la semantica} e di conseguenza varia la sua valutazione.\newline
+	
+	\noindent
+	Esistono \textbf{diversi modi per denotare le espressioni}:
+	\begin{itemize}
+		\item Notazione \textbf{in-fissa}, per esempio $a+b$
+		\item Notazione \textbf{pre-fissa} (polacca), per esempio $+ab$
+		\item Notazione \textbf{post-fissa} (polacca inversa), per esempio $ab+$
+	\end{itemize}
+	La notazione in-fissa è quella più utilizza nelle espressioni aritmetiche poiché più intuitiva, ma sono necessarie altre regole per eliminare l'ambiguità. Nelle altre notazioni (pre e post fissa), l'\textcolor{Red3}{\textbf{arietà dell'operatore}}, ovvero il \textbf{numero di operandi a cui si applica}, è spesso sufficiente ad evitare ambiguità nella valutazione.\newpage
+	
+	\subsubsection{Notazione post-fissa}\label{notazione post-fissa}
+	
+	La notazione \textcolor{Red3}{\textbf{post-fissa}} è \textbf{più semplice della in-fissa}, dal punto di vista della \textbf{computazione}, poiché:
+	\begin{itemize}
+		\item Non sono necessarie regole di precedenza
+		\item Non sono necessarie regole di associatività
+		\item Non sono necessarie parentesi
+	\end{itemize}
+	Viene anche concessa una rappresentazione uniforme per qualsiasi arietà di operatori\footnote{Arietà: numero di operandi a cui si applica.}.\newline
+	
+	\noindent
+	Vengono presentati due \textcolor{Green4}{\textbf{esempi}}:
+	\begin{itemize}
+		\item La notazione $ab+cd+*$ viene valutata da sinistra a destra usando una pila LIFO (\emph{Last In, First Out}).
+		
+		\item La notazione $532*+$ viene valutata nel seguente modo: durante la lettura, i valori vengono messi sulla pila; nel momento in cui viene trovato un operatore, come $*$, sapendo che la sua arietà è $2$, è noto che l'operatore viene applicato ai primi due valori in cima alla pila. Infine, il risultato dopo ogni operazione viene caricato in cima alla pila;
+	\end{itemize}
+	L'\textcolor{Red3}{\textbf{algoritmo di valutazione}} si articola in pochi passaggi. \textbf{Graficamente è possibile leggerlo nella prossima pagina}, mentre in forma scritta qui di seguito:
+	\begin{enumerate}
+		\item Lettura di un simbolo dall'espressione.
+		
+		\begin{enumerate}
+			\item Se il simbolo letto è un operatore:
+			\begin{enumerate}
+				\item Applicazione dell'operatore a $n$ operandi immediatamente precedente sulla pila, il numero di operandi dipende dall'arietà dell'operatore.
+				
+				\item Memorizzazione del risultato in $R$.
+				
+				\item Eliminazione dell'operatore e degli operandi dalla pila.
+				
+				\item Memorizzazione del valore $R$ sulla pila.
+			\end{enumerate}
+			
+			\item Se il simbolo letto non è un operatore, allora è un operando e viene inserito direttamente in pila.
+		\end{enumerate}
+		
+		\item Se ci sono altri simboli da leggere rinizia dal punto 1, altrimenti termina e il risultato sarà in cima alla pila.
+	\end{enumerate}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/algoritmo_notazione_post-fissa.pdf}
+		\caption{Algoritmo di valutazione nella notazione post-fissa.}
+	\end{figure}\newpage
+	
+	\subsubsection{Notazione pre-fissa}\label{notazione pre-fissa}
+	
+	\subsubsection{Notazione in-fissa}\label{notazione in-fissa}
+	
+	\subsubsection{Regole di precedenza}\label{regole di precedenza}
+	
+	\subsubsection{Regole di associatività}\label{regole di associatività}
+	
+	\subsubsection{Valutazione delle espressioni}\label{valutazione delle espressioni}
+	
+	\subsection{Semantica delle espressioni}
+	
+	\subsection{Regole di transizione}
+	
+	\subsection{Valutazione ed equivalenza}
 \end{document}
