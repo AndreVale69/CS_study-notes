@@ -3039,7 +3039,7 @@ end transaction;
 
 	\section{Controllo di concorrenza}
 	
-	\subsection{Anomalie delle transazioni concorrenti}
+	\subsection{Anomalie delle transazioni concorrenti}\label{anomalie delle transazioni concorrenti}
 	
 	L'unità di misura solitamente utilizzata per caratterizzare il carico applicativo di un DBMS è il \textbf{numero di transazioni al secondo}, abbreviato in \emph{tps} (\emph{transactions per second}) che devono essere gestite dal DBMS per soddisfare le applicazioni.
 	
@@ -3047,7 +3047,7 @@ end transaction;
 	
 	\longline
 	
-	\subsubsection{Perdita di aggiornamento}
+	\subsubsection{Perdita di aggiornamento}\label{perdita di aggiornamento}
 	
 	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
 	\begin{gather*}
@@ -3086,7 +3086,7 @@ end transaction;
 	\noindent
 	Il valore finale di $x$ è pari a $3$, poiché entrambe le transazioni leggono $2$ come valore iniziale di $x$ (lettura di $t_{1}$ al tempo $0$ e lettura di $t_{2}$ al tempo $2$). Quindi, la perdita di aggiornamento si verifica quando gli \textbf{effetti della transazione} $t_{2}$, la prima che scrive il nuovo valore di $x$, \textbf{vengono persi}.\newpage
 	
-	\subsubsection{Lettura sporca}
+	\subsubsection{Lettura sporca}\label{lettura sporca}
 	
 	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
 	\begin{gather*}
@@ -3126,7 +3126,7 @@ end transaction;
 	\noindent
 	Il nome di questa anomalia deriva dal fatto che \textbf{viene letto un dato che rappresenta uno stato intermedio nell'evoluzione di una transazione}. L'\underline{unico modo} per \textbf{ripristinare} la correttezza, sarebbe imporre un \textsf{abort} anche nella transazione $t_{2}$ e, ricorsivamente, di tutte le transazioni che avessero letto dati modificati da $t_{2}$. Purtroppo, questa pratica, oltre ad essere molto onerosa, talvolta è anche non praticabile a causa dell'eventuale comunicazione all'esterno del risultato.\newpage
 	
-	\subsubsection{Letture inconsistenti}
+	\subsubsection{Letture inconsistenti}\label{letture inconsistenti}
 	
 	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
 	\begin{gather*}
@@ -3167,7 +3167,7 @@ end transaction;
 	\noindent
 	Invece, è opportuno che una transazione che accede due volte alla base di dati trovi esattamente lo stesso valore per ciascun dato letto, e non risenta dell'effetto di altre transazioni.\newpage
 	
-	\subsubsection{Aggiornamento fantasma}
+	\subsubsection{Aggiornamento fantasma}\label{aggiornamento fantasma}
 	
 	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
 	\begin{gather*}
@@ -3213,6 +3213,124 @@ end transaction;
 	\noindent	
 	In altri termini, la \textbf{transazione} $t_{1}$ \textbf{osserva solo in parte gli effetti (di un'altra)} della \textbf{transazione} $t_{2}$, \textbf{e quindi osserva uno stato che non soddisfa i vincoli di integrità}.\newpage
 	
+	\subsection{Teoria del controllo di concorrenza}
+	
+	Uno \textcolor{Red3}{\textbf{schedule}} rappresenta la \textbf{sequenza di operazioni di ingresso/uscita presentate da transazioni concorrenti}. Uno schedule $S_{1}$ solitamente ha una sequenza del tipo:
+	\begin{equation*}
+		S_{1} : r_{1}\left(x\right) r_{2}\left(z\right) w_{1}\left(x\right) w_{2}\left(z\right) ...
+	\end{equation*}
+	\begin{itemize}
+		\item $r_{1}\left(x\right)$ rappresenta la \textbf{lettura} dell'oggetto $x$ effettuata dalla transazione $t_{1}$
+		\item $w_{2}\left(z\right)$ rappresenta la \textbf{scrittura} dell'oggetto $z$ effettuata dalla transazione $t_{2}$
+	\end{itemize}
+	Le operazioni compaiono nello schedule seguendo l'ordine temporale con cui sono eseguite sulla base di dati.\newline
+	
+	\noindent
+	Il \textbf{controllo di concorrenza} ha la funzione di \textbf{accettare alcuni schedule e rifiutarne altri}, in modo per esempio di \underline{evitare che si verifichino le anomalie} illustrare nel paragrafo precedente (\ref{anomalie delle transazioni concorrenti}). Per questo motivo, il modulo che gestisce il controllo di concorrenza viene chiamato \textcolor{Red3}{\textbf{scheduler}}: esso ha l'\textbf{obbiettivo di intercettare le operazioni compiute} sulla base di dati dalle transazioni, decidendo per ciascuna se \textbf{rifiutarla o accettarla}.\newline
+	
+	\noindent
+	Uno schedule viene detto \textcolor{Red3}{\textbf{commit-proiezione}} quando esso assume che le \textbf{transazioni che compaiono nello schedule abbiano un esito noto} (\textsf{commit} o \textsf{abort}). Quindi, \textbf{vengono ignorate le transazioni che producono un \textsf{abort}}, togliendo dallo schedule tutte le loro azioni, e concentrandosi solo sulle transazioni che producono un \textsf{commit}.
+	
+	Questa assunzione viene fatta solo a fini teorici poiché nella realtà uno scheduler deve decidere se accettare o rifiutare le azioni di una transazione senza conoscere il suo esito finale.\newline
+	
+	\noindent
+	Inoltre, uno schedule si definisce \textcolor{Red3}{\textbf{seriale}} se \textbf{tutte le azioni di ogni transazione compaiono in sequenza, senza essere inframmezzate da istruzioni di altre transazioni}. Per \textcolor{Green4}{\textbf{esempio}}, lo schedule $S_{2}$ è seriale e vengono eseguite in sequenza le transazioni $t_{0}, t_{1}, t_{2}$:
+	\begin{equation*}
+		S_{2} : r_{0}\left(x\right) r_{0}\left(y\right) w_{0}\left(x\right) r_{1}\left(y\right) r_{1}\left(x\right) w_{1}\left(y\right) r_{2}\left(x\right) r_{2}\left(y\right) r_{2}\left(z\right) w_{2}\left(z\right)
+	\end{equation*}
+	Uno \textbf{schedule} $S_{i}$ viene identificato come \textcolor{Red3}{\textbf{serializzabile}} se la sua \textbf{esecuzione è corretta quando produce lo stesso risultato prodotto da un qualunque schedule seriale} $S_{j}$ \textbf{delle stesse transazioni}.\newpage
+	
+	\subsubsection{View-equivalenza}
+	
+	Si definisce una relazione che lega coppie di operazioni di lettura e scrittura:
+	\begin{itemize}
+		\item Un'operazione di \textbf{lettura} $r_{i}\left(x\right)$ \textcolor{Red3}{\textbf{legge da}} una scrittura $w_{j}\left(x\right)$ quando $w_{j}\left(x\right)$ precede $r_{i}\left(x\right)$ e non vi è alcun $w_{k}\left(x\right)$ compreso tra le due operazioni.
+		
+		\item Un'operazione di \textbf{scrittura} $w_{i}\left(x\right)$ viene detta una \textcolor{Red3}{\textbf{scrittura finale}} se è l'\textbf{ultima scrittura} dell'oggetto $x$ \textbf{che appare} nello schedule.
+		
+		\item \textbf{Due schedule} vengono detti \textcolor{Red3}{\textbf{view-equivalenti}} ($S_{i} \approx_{V} S_{j}$) \textbf{se possiedono la stessa relazione} \dquotes{\textbf{legge da}} e le \textbf{stesse scritture finali}.
+		
+		\item \textbf{Uno schedule} viene detto \textcolor{Red3}{\textbf{view-serializzabile}} se \textbf{esiste uno schedule seriale view-equivalente} ad esso. L'\textbf{insieme} degli \textbf{schedule view-serializzabili} è \textcolor{Red3}{\textbf{VSR}}.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}} si considerino gli schedule seguenti:
+	\begin{equation*}
+		\begin{array}{ll}
+			S_{3}: & w_{0}\left(x\right) r_{2}\left(x\right) r_{1}\left(x\right) w_{2}\left(x\right) w_{2}\left(z\right) \\
+			\\
+			S_{4}: & w_{0}\left(x\right) r_{1}\left(x\right) r_{2}\left(x\right) w_{2}\left(x\right) w_{2}\left(z\right) \\
+			\\
+			S_{5}: & w_{0}\left(x\right) r_{1}\left(x\right) w_{1}\left(x\right) r_{2}\left(x\right) w_{1}\left(z\right) \\
+			\\
+			S_{6}: & w_{0}\left(x\right) r_{1}\left(x\right) w_{1}\left(x\right) w_{1}\left(z\right) r_{2}\left(x\right)
+		\end{array}
+	\end{equation*}
+	\begin{itemize}[label=-]
+		\item $S_{3}$ è view-equivalente allo schedule seriale $S_{4}$ e quindi è anche view-serializzabile;
+		\item $S_{5}$ non è invece view-equivalente a $S_{4}$, ma è view-equivalente allo schedule seriale $S_{6}$, e quindi anche view-serializzabile.
+	\end{itemize}
+	È interessare notare che i seguenti schedule corrispondono ad anomalie di perdita di aggiornamento (paragrafo \ref{perdita di aggiornamento}), letture inconsistenti (paragrafo \ref{letture inconsistenti}) e aggiornamento fantasma (paragrafo \ref{aggiornamento fantasma}). Nessuno è view-serializzabile:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textbf{Perdita di aggiornamento} & S_{7} : & r_{1}\left(x\right) r_{2}\left(x\right) w_{2}\left(x\right) w_{1}\left(x\right) \\
+			\\
+			\textbf{Letture inconsistenti} & S_{8} : & r_{1}\left(x\right) r_{2}\left(x\right) w_{2}\left(x\right) r_{1}\left(x\right) \\
+			\\
+			\textbf{Aggiornamento fantasma} & S_{9} : & r_{1}\left(x\right) r_{1}\left(y\right) r_{2}\left(z\right) r_{2}\left(y\right) w_{2}\left(y\right) w_{2}\left(z\right) r_{1}\left(z\right)
+		\end{array}
+	\end{equation*}
+	Determinare la \textbf{view-equivalenza di due schedule è un problema con \underline{complessità lineare}}. Determinare se uno schedule è view-equivalente a un qualsiasi schedule seriale è un problema NP-difficile\footnote{Definizione di un problema NP-difficile: \href{https://it.wikipedia.org/wiki/NP-difficile}{link Wikipedia}}, perché può esiste un numero esponenziale di schedule seriali (tutte le permutazioni delle transazioni).\newpage
+	
+	\subsubsection{Conflict-equivalenza}
+	
+	Si definisce una nozione di equivalenza più semplice rispetto a quella utilizzata nella view:
+	\begin{itemize}
+		\item \textbf{Date due azioni} $a_{i}$ e $a_{j}$ eseguite da transazioni diverse, quindi con $i \ne j$, si dice che $a_{i}$ è in \textcolor{Red3}{\textbf{conflitto}} con $a_{j}$ \textbf{se} esse \textbf{operano sullo stesso oggetto} e \textbf{almeno una} di esse è una \textbf{scrittura}.\newline
+		I conflitti esistenti sono:
+		\begin{itemize}
+			\item Lettura-scrittura ($rw$)
+			\item Scrittura-lettura ($wr$)
+			\item Scrittura-scrittura ($ww$)
+		\end{itemize}
+		
+		\item Lo schedule $S_{i}$ è \textcolor{Red3}{\textbf{conflict-equivalente}} allo schedule $S_{j}$ $\left(S_{i} \approx_{C} S_{j}\right)$ \textbf{se} i \textbf{due schedule presentano le stesse operazioni} e ogni coppia di \textbf{operazioni in conflitto} è nello \textbf{stesso ordine nei due schedule}.
+		
+		\item Uno schedule risulta \textcolor{Red3}{\textbf{conflict-serializzabile}} se \textbf{esiste uno schedule seriale a esso conflict-equivalente}. L'\textbf{insieme} degli schedule \textbf{conflict-serializzabili} si chiama \textcolor{Red3}{\textbf{CSR}}.
+	\end{itemize}
+	È dimostrato che l'insieme degli schedule CSR è strettamente incluso nell'insieme degli schedule VSR:
+	\begin{equation*}
+		CSR \subset VSR
+	\end{equation*}
+	Ovvero, \textbf{esistono schedule che appartengono a VSR ma non a CSR}, mentre tutti gli schedule CSR appartengono a VSR.\newline
+	
+	\noindent
+	A differenza della view-equivalenza che necessita di verificare tutte le permutazioni prima di dire se uno schedule è view-serializzabile, il conflict-equivalenza può \textbf{determinare se uno schedule è conflict-serializzabile} tramite il \textcolor{Red3}{\textbf{grafo dei conflitti}}.
+	
+	Il grafo è costruito facendo corrispondere un nodo a ogni transazione. Si traccia quindi un \textbf{arco orientato} da $t_{i}$ a $t_{j}$ \textbf{se esiste almeno un conflitto tra un'azione} $a_{i}$ e \textbf{un'azione} $a_{j}$ e si ha che $a_{i}$ \textbf{precede} $a_{j}$.\newline
+	Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/conflict-equivalenza-grafo.pdf}
+	\end{figure}\newpage
+
+	\noindent
+	Il relativo grafo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/conflict-equivalenza-grafo2.pdf}
+	\end{figure}
+
+	\noindent
+	È possibile dimostrare che uno \textbf{schedule è in CSR se e solo se il suo grafo dei conflitti è aciclico}\footnote{Per grafo aciclico si intende: \href{https://it.wikipedia.org/wiki/Digrafo_aciclico}{link Wikipedia}}:
+	\begin{itemize}
+		\item Dato uno \textbf{schedule} $S \in CSR$, \textbf{per definizione è conflict-equivalente ad uno schedule seriale} $S_{0}$.\newline
+		Sia $t_{1}, t_{2}, ..., t_{n}$, la sequenza delle transazioni in $S_{0}$. Dato che lo schedule seriale $S_{0}$ ha tutti i conflitti nello stesso ordine dello schedule $S$, nel grafo $S$ ci possono essere solo archi $\left(i,j\right)$ con $i < j$ e quindi il grafo non può avere cicli. Quest'ultima affermazione è vera perché un ciclo richiede almeno un arco $\left(i,j\right)$ con $i > j$ che non esiste.
+		
+		\item Dato un \textbf{grafo} di $S$ \textbf{aciclico}, allora \textbf{esiste} fra i nodi un \dquotes{ordinamento topologico}, ovvero una \textbf{numerazione dei nodi tale che il grafo contiene solo archi} $\left(i,j\right)$ \textbf{con} $i < j$.\newline
+		Lo schedule seriale le cui transazioni sono ordinate secondo l'ordinamento topologico è equivalente a $S$, perché per ogni conflitto $\left(i,j\right)$ si ha sempre $i < j$.
+	\end{itemize}\:\newline
+
+	\noindent
+	L'\textbf{analisi di ciclicità di un grafo ha una complessità lineare} rispetto alla dimensione del grafo stesso.
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
