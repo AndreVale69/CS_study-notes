@@ -1045,9 +1045,9 @@ P:
 			\item Paragrafo \ref{notazione in-fissa} sulla notazione in-fissa
 		\end{itemize}
 		
-		\item \textcolor{Red3}{\textbf{Regole di precedenza}} tra operatori (paragrafo \ref{regole di precedenza})
+		\item \textcolor{Red3}{\textbf{Regole di precedenza}} tra operatori
 		
-		\item \textcolor{Red3}{\textbf{Regole di associatività}} degli operatori (paragrafo \ref{regole di associatività})
+		\item \textcolor{Red3}{\textbf{Regole di associatività}} degli operatori
 		
 		\item \textcolor{Red3}{\textbf{Ordine di valutazione degli operandi}}
 		
@@ -1117,20 +1117,233 @@ P:
 		\includegraphics[width=\textwidth]{img/algoritmo_notazione_post-fissa.pdf}
 		\caption{Algoritmo di valutazione nella notazione post-fissa.}
 	\end{figure}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_notazione_post-fissa.pdf}
+		\caption{Esempio di applicazione dell'algoritmo di valutazione della notazione post-fissa.}
+	\end{figure}\newpage
 	
 	\subsubsection{Notazione pre-fissa}\label{notazione pre-fissa}
 	
+	La notazione \textcolor{Red3}{\textbf{pre-fissa}} è \textbf{più semplice della in-fissa}, dal punto di vista della \textbf{computazione}, poiché:
+	\begin{itemize}
+		\item Non sono necessarie regole di precedenza
+		\item Non sono necessarie regole di associatività
+		\item Non sono necessarie parentesi
+	\end{itemize}
+	Viene anche concessa una rappresentazione uniforme per qualsiasi arietà di operatori\footnote{Arietà: numero di operandi a cui si applica.}.\newline
+	
+	\noindent
+	A \textbf{differenza della notazione post-fissa}, l'\textbf{algoritmo} di valutazione è \textbf{più complicato} poiché è necessario contare gli operandi che vengono letti.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, la notazione $*+ab+cd$ viene valutata da sinistra a destra usando una pila LIFO (\emph{Last In, First Out}). A differenza delle altre notazioni, in questo caso ogni volta che viene letto un operatore, è necessario contare gli operandi da leggere prima di eseguire il calcolo.\newline
+	
+	\noindent
+	L'\textcolor{Red3}{\textbf{algoritmo di valutazione}} si articola in pochi passaggi. \textbf{Graficamente è possibile leggerlo nella prossima pagina}, mentre in forma scritta qui di seguito:
+	\begin{enumerate}
+		\item Lettura di un simbolo dall'espressione e inserimento in pila.
+		
+		\begin{enumerate}
+			\item Se il simbolo letto è un operatore, inizializza il contatore $C$ con il numero di argomenti dell'operatore $\left(C_{op} = n\right)$ e torna al punto 1;
+			
+			\item Se il simbolo letto è un operando, decrementa il contatore $C$ di uno $\left(C_{op} = C_{op}-1\right)$ ($op$ è l'ultimo operatore inserito):
+			
+			\begin{enumerate}
+				\item Se $C_{op} \ne 0$, torna al punto 1;
+				
+				\item Se $C_{op} = 0$ vengono eseguite le seguenti operazioni:
+				
+				\begin{enumerate}
+					\item Applicazione dell'ultimo operatore agli operandi in cima alla pila;\newline
+					memorizzazione del risultato in $R$;\newline
+					eliminazione dell'operatore e degli operandi processati dalla pila;\newline
+					memorizzazione del risultato $R$ sulla pila;
+					
+					\item Se non vi sono più simboli di operatore sulla pila, si salta al punto 2 (la fine);
+					
+					\item Inizializzazione del nuovo contatore: $C_{op} = n - m$ dove $n$ è l'arietà del nuovo operatore nella pila, il quale si trova in cima, e $m$ è il numero di operandi presenti nella pila sopra tale operatore;
+					
+					\item Ritorna al punto \emph{i}.
+				\end{enumerate}
+			\end{enumerate}
+		\end{enumerate}
+		
+		\item Se la sequenza da leggere non è vuota torna all'1.
+	\end{enumerate}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/algoritmo_notazione_pre-fissa.pdf}
+		\caption{Algoritmo di valutazione nella notazione post-fissa.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_notazione_pre-fissa.pdf}
+		\caption{Esempio di applicazione dell'algoritmo di valutazione della notazione pre-fissa.}
+	\end{figure}\newpage
+	
 	\subsubsection{Notazione in-fissa}\label{notazione in-fissa}
 	
-	\subsubsection{Regole di precedenza}\label{regole di precedenza}
+	La notazione \textcolor{Red3}{\textbf{in-fissa}} è la \textbf{notazione più utilizzata in matematica} e nei linguaggi di programmazione come zucchero sintattico. Inoltre, è quella che consente una lettura più intuitiva ma che richiede maggiori specifiche.\newline
 	
-	\subsubsection{Regole di associatività}\label{regole di associatività}
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, considerando $15-5-3$, a seconda dell'operazione che viene eseguita per prima, cambia il risultato.\newline
 	
-	\subsubsection{Valutazione delle espressioni}\label{valutazione delle espressioni}
+	\noindent
+	L'algoritmo di valutazione della notazione in-fissa non è così semplice come i precedenti. Infatti, a causa di alcune regole, chiamate di \textbf{precedenza} e \textbf{associatività}, e alla presenza di alcune regole, non è possibile valutare l'espressione con una semplice scansione da sinistra a destra o viceversa.\newline
+	
+	\noindent
+	Con \textcolor{Red3}{\textbf{regole di precedenza}} si intende: \textbf{le regole di precedenza di un operatore per la valutazione di un'espressione, definisce l'ordine in cui operatori \dquotes{adiacenti} a diversi livelli di precedenza vengono valutati}. Anche se ogni linguaggio differisce per le priorità assegnate agli operatori, l'importante è che vengano stabilite a priori. Per \textcolor{Green4}{\textbf{esempio}}, un tipico livello di precedenza è dato da: (1) parentesi, (2) operatori unari, (3) elevazione a potenza, (4) moltiplicazione e divisione, (5) somma e sottrazione.\newline
+	
+	\noindent
+	Con \textcolor{Red3}{\textbf{regole di associatività}} si intende: \textbf{le regole di associatività per la valutazione delle espressioni definiscono l'ordine con cui operatori allo stesso livello di precedenza vengono valutati}. Per \textcolor{Green4}{\textbf{esempio}}, delle tipiche regole di associatività sono: da sinistra verso destra; a volte operatori unitari associano da destra; in alcuni linguaggi tutti gli operatori hanno lo stesso livello di precedenza e associano da destra; le regole di precedenza e associatività possono essere sovrascritte usando le parentesi.\newline
+	Un altro \textcolor{Green4}{\textbf{esempio}} $a+b-c+d$ restituisce valori diversi a seconda che si associ da destra o da sinistra.\newpage
+	
+	\subsection{Valutazione delle espressioni}\label{valutazione delle espressioni}
+	
+	La rappresentazione interna della espressioni consiste in una \textbf{rappresentazione ad albero} (\emph{abstract syntax tree}), dove i \textbf{nodi interni} sono \textbf{operatori} mentre le foglie sono valori (operandi elementari). Ogni nodo interno ha come figli gli alberi che rappresentano le espressioni a cui l'operatore si applica.\newline
+	
+	\noindent
+	In altre parole, l'\textbf{albero fornisce la struttura dell'espressione}, ovvero:
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{Aspetto positivo:}} elimina eventuali ambiguità legate a precedenze e associatività;
+		\item \textcolor{Red3}{\textbf{Aspetto negativo:}} non dà informazioni riguardanti l'ordine di valutazione dell'espressione.
+	\end{itemize}
+	
+	\noindent
+	A causa delle eventuali ambiguità sulle espressioni, nasce il \textcolor{Red3}{\textbf{problema dell'ordine di valutazione}}, il quale è prettamente informatico. Infatti, la presenza di alcune caratteristiche influenzano il risultato:
+	\begin{itemize}
+		\item \textbf{Operandi non definiti}. Se esistono degli \textbf{operandi non definiti}, può accadere che l'espressione venga valutata solo con un preciso ordine. Per esempio, con l'espressione $\left(a == 0 ? b : b/a\right)$, è chiaro che $b/a$ può essere una divisione per $0$, quindi non definita. Tuttavia è necessario che venga valutata solo per divisioni diverse da zero, quindi un linguaggio di programmazione può essere:
+		\begin{itemize}
+			\item \textbf{Valutazione \textcolor{Red3}{\emph{lazy}}} (o corto circuito), ovvero gli operandi vengono valutati solo quando è necessario, quindi quando l'espressione è sempre definita.
+			
+			\item \textbf{Valutazione \textcolor{Red3}{\emph{eager}}}, ovvero gli operandi vengono valutati sempre.
+		\end{itemize}
+		Un ottimo \textcolor{Green4}{\textbf{esempio}} per comprendere la distinzione: \href{https://www.tutorialspoint.com/functional_programming_with_java/functional_programming_with_java_evaluation.htm}{link}
+		
+		\item \textbf{Effetti collaterali} (\emph{side effects}). Sono \textbf{effetti non legati all'oggetto di cui vi è la manipolazione}, per esempio: la valutazione di un'espressione provoca un cambiamento della memoria; una funzione modifica i propri parametri o modifica variabili non locali. Un \textcolor{Green4}{\textbf{esempio}} più tangibile è $\left(\left(a+f\left(b\right)\right) * \left(c+f\left(b\right)\right)\right)$ con la funzione $f\left(b\right)$ definita come $b++$ e l'espressione ritorna valori diversi a seconda dell'ordine di valutazione.
+		
+		\item \textbf{Aritmetica finita}. Nelle macchine l'\textbf{aritmetica è limitata dall'architettura, quindi i numeri non sono infiniti ed esiste un massimo numero rappresentabile}. I \textbf{problema di valutazione} avviene quando le espressioni coinvolgono tale numero.\newline
+		Per \textcolor{Green4}{\textbf{esempio}} se viene eseguita una somma prima di una differenza, è possibile cambiare il risultato se la somma calcola un numero maggiore del massimo numero rappresentabile.
+	\end{itemize}\newpage
 	
 	\subsection{Semantica delle espressioni}
 	
+	La \textcolor{Red3}{\textbf{semantica delle espressioni}} di un linguaggio imperativo $IMP$ cerca di descrivere la semantica senza interessarsi della grammatica, la quale include tutte le regole di associatività e precedenza. Quindi, vengono ignorante anche le parentesi, nonostante tutte queste regole rendono un'espressione chiara e non ambigua.\newline
+	
+	\noindent
+	L'aspetto d'interesse è la \textbf{struttura induttiva} e non la struttura sintattica. Per questo motivo si introducono alcune definizione teoriche:
+	\begin{itemize}
+		\item Le \textcolor{Red3}{\textbf{espressioni}} $\mathcal{E}$ è un \textbf{insieme di (alberi di valutazione) di espressioni valutate ad intero o booleano}. Gli elementi solitamente vengono rappresentati con la lettera $e$.
+		
+		\item I \textcolor{Red3}{\textbf{numeri}} $\mathcal{N}$ è un \textbf{insieme di numeri reali nella macchina}. Gli elementi solitamente vengono rappresentati con le lettere $m$, $n$ o $p$.
+		
+		\item I \textcolor{Red3}{\textbf{booleani}} $\mathcal{B}$ è un \textbf{insieme di valori booleani}. Composto solo da \textsf{true} e \textsf{false}. Gli elementi solitamente vengono rappresentati con la lettera $t$.
+	\end{itemize}
+	Questi insiemi vengono usati per definire il \textcolor{Red3}{\textbf{sistema di transizione}}:
+	\begin{equation*}
+		\Gamma = \mathcal{E}, \hspace{2em} T = \mathcal{N} \cup \mathcal{B}, \hspace{2em} \mathrm{op}\in\left\{+,-,*,=\right\} \hspace{1em} \mathrm{bop} \in \left\{=, or\right\}
+	\end{equation*}
+	\begin{itemize}
+		\item $\Gamma$ rappresenta l'insieme delle configurazioni;
+		\item $\mathcal{E}$ rappresenta l'insieme delle espressioni da valutare;
+		\item $T$ rappresenta l'insieme delle configurazioni terminali;
+		\item $\mathrm{op}$ rappresenta l'insieme delle operazioni ammesse;
+		\item $\mathrm{bop}$ rappresenta una metavariabile.
+	\end{itemize}
+	Quindi, viene definito l'insieme delle configurazioni come l'insieme delle espressioni da valutare $\left(\Gamma = \mathcal{E}\right)$; l'insieme delle configurazioni terminali sono un tutti i valori numerici e booleani $\left(T = \mathcal{N} \cup \mathcal{B}\right)$.\newpage
+	
 	\subsection{Regole di transizione}
 	
+	Si espongono qua di seguito le \textcolor{Red3}{\textbf{regole di transizione}}. Si tenga conto che con \textbf{bop} in grassetto si identifica il simbolo sintattico di un'operazione e con bop normale si identifica il simbolo dell'operazione nella macchina sottostante.\newline
+	
+	\noindent
+	Si introducono le prime tre \textbf{regole necessarie per \underline{valutare espressioni aritmetiche}}:
+	\begin{itemize}
+		\item È un \underline{assioma} e \textbf{valuta l'espressione sintattica contenente un operatore aritmetico nel valore che esso rappresenta}. Per esempio, l'espressione $3+5$ viene valutata letteralmente come il valore $3$, l'operazione di somma $+$ e il valore $5$.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.65\textwidth]{img/regola_transizione-1.pdf}
+		\end{figure}
+		
+		\item È una \underline{regola induttiva} e indica che \textbf{se gli operandi non sono valori primitivi allora è necessario valutarli}.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.65\textwidth]{img/regola_transizione-2.pdf}
+		\end{figure}
+		
+		\item La regola stabilisce che \textbf{nel momento in cui l'operando a sinistra è un valore allora è possibile iniziare a valutare l'operando a destra}. Ovviamente se anche l'operatore a destra è un valore allora si ricade nella prima regola ed è possibile restituire il valore finale.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.65\textwidth]{img/regola_transizione-3.pdf}
+		\end{figure}
+	\end{itemize}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_regole_aritmetiche.pdf}
+		\caption{Esempio di applicazione delle regole aritmetiche.}
+	\end{figure}
+	
+	\noindent
+	\underline{\textbf{Attenzione!}} Non è possibile eseguire una derivazione di questo tipo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_regole_errato.pdf}
+	\end{figure}
+	
+	\noindent
+	Questo perché le regole impongono la valutazione da sinistra verso destra e nella figura viene eseguita una valutazione da destra verso sinistra. Nonostante sia possibile implementare una nuova regola, non avrebbe senso poiché aumenterebbe la possibilità di errore nell'implementazione.
+	
+	\newpage
+	
+	\noindent
+	Si continua con le regole necessarie per valutare le espressioni booleane (ricordando che \textbf{bop} è il simbolo sintattico di un'operazione e bop è il simbolo dell'operazione nella macchina sottostante):
+	\begin{itemize}
+		\item È un \underline{assioma} che \textbf{valuta l'espressione sintattica contenente un operatore, nel valore che esso rappresenta}. Ovviamente con valori booleani, i valori coinvolti devono essere tali.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.65\textwidth]{img/regola_transizione-4.pdf}
+		\end{figure}
+		
+		\item Questa regola è una modifica alla precedente poiché \textbf{ammette che l'espressione contenga operatori binari booleani}. L'ordine di valutazione è da sinistra verso destra.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.65\textwidth]{img/regola_transizione-3b.pdf}
+		\end{figure}
+		
+		\item Questa regola stabilisce che nel momento in cui l'\textbf{operando a sinistra è un valore booleano allora è possibile iniziare a valutare l'operando a destra}. Ovviamente, se l'operatore a destra è un valore booleano, allora si ricade nell'assioma $\mathcal{E}_{4}$ ed è possibile restituire il valore finale.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.65\textwidth]{img/regola_transizione-5.pdf}
+		\end{figure}
+		
+		\item Nel caso booleano è necessario aggiungere la \textbf{regola per l'operatore unario}. Quindi si crea l'\underline{assioma} che \textbf{restituisce il valore corrispondente all'applicazione dell'operatore sul valore rappresentato}.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.65\textwidth]{img/regola_transizione-6.pdf}
+		\end{figure}
+		
+		\item Sempre nel caso booleano, si deve creare la \textbf{regola di valutazione}, analoga alle precedenti.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.65\textwidth]{img/regola_transizione-7.pdf}
+		\end{figure}
+	\end{itemize}\newpage
+	
 	\subsection{Valutazione ed equivalenza}
+	
+	La \textcolor{Red3}{\textbf{valutazione delle espressioni}} è una \textbf{funzione $Eval: \mathcal{E} \rightarrow \mathbb{N} \cup \mathbb{B}$ che descrive il comportamento dinamico delle espressioni restituendo il valore in cui esse sono valute}:
+	\begin{equation*}
+		Eval\left(e\right) = k \iff e \rightarrow^* k
+	\end{equation*}\:\newline
+
+	\noindent
+	L'\textcolor{Red3}{\textbf{equivalenza di espressioni}} è una \textbf{relazione $\equiv \subseteq \mathcal{E} \times \mathcal{E}$ definita come segue}:
+	\begin{equation*}
+		e_{0} \equiv e_{1} \iff Eval\left(e_{0}\right) = Eval\left(e_{1}\right)
+	\end{equation*}
 \end{document}
