@@ -14,6 +14,7 @@
 \usepackage{pifont}					% pacchetto con elenchi carini
 \usepackage{listings}				% pacchetto per i codici
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
+\usepackage{tcolorbox}				% pacchetto per le box colorate
 % Link ipertestuali per l'indice
 \usepackage{xcolor}
 \usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
@@ -22,7 +23,7 @@
 }
 
 \newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
-\newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+\newcommand{\exec}[1]{\left\llbracket #1\:\right\rrbracket}
 \renewcommand{\qedsymbol}{QED}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -56,6 +57,16 @@
 \newcommand{\dquotes}[1]{``#1''}
 
 \begin{document}
+	\newcounter{definition}[section]
+	\newtcolorbox{boxdef}{colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries,title=Definizione~\refstepcounter{definition}\thedefinition}
+	
+%	\newenvironment{definition}[1][]{\begin{center}\begin{tabular}{|p{\textwidth}|}\hline%
+%				\refstepcounter{definition}\par\medskip
+%		\noindent \textcolor{Red3}{\textbf{Definizione~\thedefinition. #1}} \rmfamily}{\medskip%
+%		\\\hline
+%		\end{tabular} 
+%		\end{center}}
+	
 	\author{VR443470}
 	\title{Linguaggi}
 	\date{\printdayoff\today}
@@ -89,22 +100,29 @@
 	
 	\subsubsection{Algoritmo}
 	
-	Un \textcolor{Red3}{\textbf{algoritmo}} \textbf{è una sequenza finita di passi primitivi di calcolo descritti mediante una frase ben formata (programma) in un linguaggio di programmazione}. In altre parole, un algoritmo scompone un calcolo complesso in passi elementari di computazione. Esso è dunque un concetto astratto che trova la sua forma concreta in un programma che è la sequenza finita di istruzioni.\newline
-	
+	\begin{boxdef}
+		Un \textcolor{Red3}{\textbf{algoritmo}} \textbf{è una sequenza finita di passi primitivi di calcolo descritti mediante una frase ben formata (programma) in un linguaggio di programmazione}.
+	\end{boxdef}
+
 	\noindent
+	In altre parole, un algoritmo scompone un calcolo complesso in passi elementari di computazione. Esso è dunque un concetto astratto che trova la sua forma concreta in un programma che è la sequenza finita di istruzioni.\newline
 	Data la definizione, è necessario precisare che:
 	\begin{itemize}
 		\item \textbf{Un programma non è necessariamente un algoritmo}, poiché una frase grammaticalmente corretta potrebbe non avere significato;
 		\item \textbf{Lo stesso algoritmo può avere concretizzazioni diverse}, ovvero lo stesso algoritmo può essere implementato da infiniti programmi.
 	\end{itemize}
 
+	\longline
+
 	\subsubsection{Dati}
 
 	I programmi sono la concretizzazione degli algoritmi, i quali manipolano i \textcolor{Red3}{\textbf{dati}}. Essi sono informazioni memorizzate sia concretamente in celle di memoria, sia astrattamente in elementi che il linguaggio di programmazione può manipolare, ovvero le \textbf{variabili}.
 	
+	\longline
+	
 	\subsubsection{Sintassi e semantica}
 
-	La trasformazione (scrittura) di un programma in un determinato linguaggio di programmazione rappresenta la \textcolor{Red3}{\textbf{sintassi}}, mentre l'effetto della sua esecuzione e la trasformazione dei dati eseguita, costituisce la \textcolor{Red3}{\textbf{semantica}}.
+	La trasformazione (scrittura) di un programma in un determinato linguaggio di programmazione rappresenta la \textcolor{Red3}{\textbf{sintassi}}, mentre l'effetto della sua esecuzione e la trasformazione dei dati eseguita, costituisce la \textcolor{Red3}{\textbf{semantica}}.\newpage
 	
 	\subsubsection{Linguaggio matematico e logico}
 	
@@ -113,21 +131,27 @@
 	\noindent
 	Il \textcolor{Red3}{\textbf{linguaggio logico}} sono regole e assiomi che rendono possibile specificare il processo di computazione, in modo implicito, e consente di rappresentare formalmente oggetti infiniti in modo finito, ma non computazioni infinite.
 	
+	\longline
+	
 	\subsubsection{Linguaggio di programmazione}
 	
-	Un \textcolor{Red3}{\textbf{linguaggio di programmazione}} consente di specificare in modo accurato esattamente le primitive del processo di computazione, con la rigorosità e la potenza della logica.\newpage
+	\begin{boxdef}
+		Un \textcolor{Red3}{\textbf{linguaggio di programmazione}} consente di specificare in modo accurato esattamente le primitive del processo di computazione, con la rigorosità e la potenza della logica.
+	\end{boxdef}
+
+	\longline
 	
 	\subsubsection{Programma}
 	
-	Un \textcolor{Red3}{\textbf{programma}} è un insieme finito di istruzioni e costrutti del linguaggio di programmazione.
-
-	\longline
+	Un \textcolor{Red3}{\textbf{programma}} è un insieme finito di istruzioni e costrutti del linguaggio di programmazione.\newpage
 		
 	\subsection{Aspetti di progettazione}
 	
 	\subsubsection{Leggibilità}
 	
-	La \textcolor{Red3}{\textbf{leggibilità}} (\emph{readability}) è la sintassi chiara, l'assenza di ambiguità, la facilità di lettura e la comprensione dei programmi.\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{leggibilità}} (\emph{readability}) è la sintassi chiara, l'assenza di ambiguità, la facilità di lettura e la comprensione dei programmi.
+	\end{boxdef}
 	
 	\noindent
 	I fattori che contribuiscono alla leggibilità sono:
@@ -140,10 +164,17 @@
 		
 		\item \textbf{Struttura della sintassi}, come parole chiave significative ad esempio.
 	\end{enumerate}
+
+	\longline
 	
 	\subsubsection{Scrivibilità}
 	
-	La \textcolor{Red3}{\textbf{scrivibilità}} (\emph{writability}) è la facilita di utilizzo di un linguaggio per creare programmi, la facilità di analisi e la verifica dei programmi. I fattori che influenza la leggibilità sono gli stessi della scrivibilità.\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{scrivibilità}} (\emph{writability}) è la facilita di utilizzo di un linguaggio per creare programmi, la facilità di analisi e la verifica dei programmi.
+	\end{boxdef}
+	
+	\noindent
+	I fattori che influenza la leggibilità sono gli stessi della scrivibilità.\newline
 	
 	\noindent
 	In breve i fattori che che contribuiscono alla scrivibilità sono:
@@ -157,7 +188,12 @@
 	
 	\subsubsection{Affidabilità e costo}
 	
-	Per \textcolor{Red3}{\textbf{affidabilità}} (\emph{reliability}) si intende la conformità alle sue specifiche. Mentre per \textcolor{Red3}{\textbf{costo}}, letteralmente il costo complessivo di utilizzo.\newline
+	\begin{boxdef}
+		Per \textcolor{Red3}{\textbf{affidabilità}} (\emph{reliability}) si intende la conformità alle sue specifiche.
+	\end{boxdef}
+	\begin{boxdef}
+		Per \textcolor{Red3}{\textbf{costo}} si intende letteralmente il costo complessivo di utilizzo.
+	\end{boxdef}
 	
 	\noindent
 	Un \textbf{programma} viene categorizzato come \textbf{affidabile} se soddisfa le seguenti condizioni:
@@ -185,6 +221,8 @@
 	
 	I linguaggi possono essere classificati per: \textbf{metodo di computazione} e \textbf{per caratteristiche}.
 	
+	\longline
+	
 	\subsubsection{Metodo di computazione}
 	
 	I linguaggi possono essere a:
@@ -209,6 +247,8 @@
 			\item \textcolor{Red3}{\textbf{Linguaggi logici}} usano la logica, ovvero eseguono pattern matching. Come passo di calcolo primitivo utilizzano l'unificazione o la sostituzione.
 		\end{itemize}
 	\end{itemize}
+	
+	\longline
 
 	\subsubsection{Per caratteristiche}
 	
@@ -235,13 +275,15 @@
 		\caption{Ciclo di esecuzione delle istruzioni.}
 	\end{figure}
 
+	\longline\newpage
+
 	\subsubsection{Macchina astratta}
 
 	\noindent
-	L'implementazione di un linguaggio \textbf{significa} considerare una macchina astratta poiché lavorando ad alto livello, le istruzioni vengono interpretate e dunque si ignorano momentaneamente il linguaggio binario e la macchina fisica.\newline
-	
-	\noindent
-	Dato un linguaggio $L$ di programmazione, la \textcolor{Red3}{\textbf{macchina astratta}} $M_{L}$ per $L$ è un insieme di strutture dati ed algoritmi che permettono di memorizzare ed eseguire i programmi scritti in $L$.\newpage
+	L'implementazione di un linguaggio \textbf{significa} considerare una macchina astratta poiché lavorando ad alto livello, le istruzioni vengono interpretate e dunque si ignorano momentaneamente il linguaggio binario e la macchina fisica.
+	\begin{boxdef}
+		Dato un linguaggio $L$ di programmazione, la \textcolor{Red3}{\textbf{macchina astratta}} $M_{L}$ per $L$ è un insieme di strutture dati ed algoritmi che permettono di memorizzare ed eseguire i programmi scritti in $L$.
+	\end{boxdef}
 	
 	\noindent
 	La collezione di strutture dati ed algoritmi è necessario per:
@@ -310,17 +352,29 @@
 	\subsubsection{Soluzione interpretativa: interprete}\label{interprete}
 	
 	La soluzione interpretativa prevede l'utilizzo di un interprete per la realizzazione di una macchina astratta. Un \textcolor{Red3}{\textbf{interprete}} è un programma $\mathrm{int}^{\mathrm{L_{0}, L}}$ che esegue, sulla macchina astratta per $L_{0}$, programmi $P^{L}$, scritti nel linguaggio di programmazione $L$, su un input fissato appartenente all'insieme di dati (input e output). In breve, un interprete è una \textbf{macchina universale} che preso un programma e un suo input, lo esegue su quell'input usando solo funzionalità messe a disposizione dal livello (macchina astratta) sottostante.
-	\begin{center}
-		\textcolor{Red3}{\textbf{\emph{Notazioni}}}
-	\end{center}
-	\begin{itemize}
-		\item $Prog^{L}$ è l'insieme di programmi scritti nel linguaggio di programmazione $L$;
-		\item $D$ è l'insieme di dati, ovvero input e output;
-		\item $P^{L}$ è il programma scritto nel linguaggio di programmazione $L$;
-		\item Relazioni ovvie: $P^{L} \in Prog^{L}$ e $in, out \in D$;
-		\item $\exec{P^{L}}: D \longrightarrow D$ è la notazione utilizzata per indicare che l'esecuzione del programma scritto nel linguaggio di programmazione $L$ con input $in$ è uguale all'output $out$. Quindi $\exec{P^{L}}\left(in\right) = out$.
-	\end{itemize}
-	Un \textcolor{Red3}{\textbf{interprete formalmente}} (\textbf{definizione}) è esprimibile nel seguente modo. Si consideri un interprete da $L$ a $L_{0}$: dato $P^{L} \in Prog^{L}$ e $in \in D$, un interprete $int^{L, L_{0}}$ per $L$ su $L_{0}$ è un programma tale che $\exec{int^{L, L_{0}}}: \left(Prog^{L}\right) \longrightarrow D$ e dunque $\exec{int^{L, L_{0}}}\left(P^{L}, in\right) = \exec{P^{L}}\left(in\right)$.\newline
+	\begin{boxdef}
+		\begin{center}
+			\textcolor{Red3}{\textbf{\emph{Notazioni}}}
+		\end{center}
+		\begin{itemize}
+			\item $Prog^{L}$ è l'insieme di programmi scritti nel linguaggio di programmazione $L$;
+			\item $D$ è l'insieme di dati, ovvero input e output;
+			\item $P^{L}$ è il programma scritto nel linguaggio di programmazione $L$;
+			\item Relazioni ovvie: $P^{L} \in Prog^{L}$ e $in, out \in D$;
+			\item $\exec{P^{L}}: D \longrightarrow D$ è la notazione utilizzata per indicare che l'esecuzione del programma scritto nel linguaggio di programmazione $L$ con input $in$ è uguale all'output $out$. Quindi $\exec{P^{L}}\left(in\right) = out$.
+		\end{itemize}
+	\end{boxdef}
+	\begin{boxdef}
+		Un \textcolor{Red3}{\textbf{interprete formalmente}} è esprimibile nel seguente modo.\newline
+		Si consideri un interprete da $L$ a $L_{0}$: dato $P^{L} \in Prog^{L}$ e $in \in D$, un interprete $int^{L, L_{0}}$ per $L$ su $L_{0}$ è un programma tale che:
+		\begin{equation*}
+			\exec{int^{L, L_{0}}}: \left(Prog^{L}\right) \longrightarrow D
+		\end{equation*}
+		e dunque:
+		\begin{equation*}
+			\exec{int^{L, L_{0}}}\left(P^{L}, in\right) = \exec{P^{L}}\left(in\right)
+		\end{equation*}
+	\end{boxdef}
 	
 	\noindent
 	Anche un programma può essere utilizzato come dato di input in un altro programma. Si osservi il seguente diagramma:
@@ -331,6 +385,8 @@
 	
 	\noindent
 	Si noti come un programma scritto nel linguaggio $L$, insieme ad eventuali altri input, viene interpretato da un programma creato appositamente per eseguire questo compito su $L$, ma scritto in $L_{0}$. L'\textbf{esecuzione comporta una decodifica e non una traduzione esplicita}. Infatti, l'interprete simula ogni istruzione di $L$ utilizzando un certo insieme di istruzioni di $L_{0}$. Questa è la base dei linguaggi di scripting.
+		
+	\longline
 	
 	\subsubsection{Soluzione interpretativa: operazioni e struttura}
 	
@@ -401,23 +457,37 @@ end \end{lstlisting}
 	\subsubsection{Soluzione compilativa: compilatore}\label{compilatore}
 
 	Un \textcolor{Red3}{\textbf{compilatore}} è un programma $\mathrm{comp}^{L_{0}, L}$ che \textbf{traduce}, preservando semantica e funzionalità, programmi scritti nel linguaggio di programmazione $L$ in programmi scritti in $L_{0}$, e quindi eseguibili direttamente sulla macchina astratta per $L_{0}$.
-	Come l'interprete, anche il compilatore accetta un programma come input poiché viene considerato come dato.
-	\begin{center}
-		\textcolor{Red3}{\textbf{\emph{Notazioni}}}
-	\end{center}
-	\begin{itemize}
-		\item $Prog^{L}$ è l'insieme di programmi scritti nel linguaggio di programmazione $L$;
-		\item $D$ è l'insieme di dati, ovvero input e output;
-		\item $P^{L}$ è il programma scritto nel linguaggio di programmazione $L$;
-		\item Relazioni ovvie: $P^{L} \in Prog^{L}$ e $in, out \in D$;
-		\item $\exec{P^{L}}: D \longrightarrow D$ rappresenta la semantica di $P^{L}$.
-	\end{itemize}
-	Un \textcolor{Red3}{\textbf{compilatore formalmente}} (\textbf{definizione}) è esprimibile nel seguente modo.\newline
-	Dato $P^{L} \in Prog^{L}$, un \textbf{compilatore} $\mathrm{comp}^{L, L_{0}}$ da $L$ a $L_{0}$ è un programma tale che $\exec{comp^{L, L_{0}}}: Progr^{L} \longrightarrow Progr^{L_{0}}$ e:
-	\begin{equation*}
-		\exec{comp^{L, L_{0}}}\left(P^{L}\right) = P^{L_{0}} \text{ tale che } \forall in \in D. \exec{P^{L_{0}}}\left(in\right) = \exec{P^{L}}\left(in\right)
-	\end{equation*}
-	Ovvero che l'esecuzione della compilazione del linguaggio $L$ a $L_{0}$ con input il programma scritto in $L$, l'output sia uguale al programma scritto nel linguaggio $L_{0}$; tale che per ogni input appartenente all'insieme dei dati, l'esecuzione del programma scritto in $L_{0}$ con input $in$, sia uguale all'esecuzione del programma scritto in $L$ con input $in$.\newline
+	Come l'interprete, anche il compilatore accetta un programma come input poiché viene considerato come dato.\newline
+	
+	\noindent
+	\begin{boxdef}
+		\begin{center}
+			\textcolor{Red3}{\textbf{\emph{Notazioni}}}
+		\end{center}
+		\begin{itemize}
+			\item $Prog^{L}$ è l'insieme di programmi scritti nel linguaggio di programmazione $L$;
+			\item $D$ è l'insieme di dati, ovvero input e output;
+			\item $P^{L}$ è il programma scritto nel linguaggio di programmazione $L$;
+			\item Relazioni ovvie: $P^{L} \in Prog^{L}$ e $in, out \in D$;
+			\item $\exec{P^{L}}: D \longrightarrow D$ rappresenta la semantica di $P^{L}$.
+		\end{itemize}
+	\end{boxdef}\:\newline
+
+	\noindent
+	\begin{boxdef}
+		Un \textcolor{Red3}{\textbf{compilatore formalmente}} è esprimibile nel seguente modo.\newline
+		Dato $P^{L} \in Prog^{L}$, un \textbf{compilatore} $\mathrm{comp}^{L, L_{0}}$ da $L$ a $L_{0}$ è un programma tale che:
+		\begin{equation*}
+			\exec{comp^{L, L_{0}}}: Progr^{L} \longrightarrow Progr^{L_{0}}
+		\end{equation*}
+		e dunque:
+		\begin{equation*}
+			\exec{comp^{L, L_{0}}}\left(P^{L}\right) = P^{L_{0}} \text{ tale che } \forall in \in D. \exec{P^{L_{0}}}\left(in\right) = \exec{P^{L}}\left(in\right)
+		\end{equation*}
+	\end{boxdef}\:\newline
+	
+	\noindent
+	Ovvero che l'esecuzione della compilazione del linguaggio $L$ a $L_{0}$ con input il programma scritto in $L$, l'output sia uguale al programma scritto nel linguaggio $L_{0}$; tale che per ogni input appartenente all'insieme dei dati, l'esecuzione del programma scritto in $L_{0}$ con input $in$, sia uguale all'esecuzione del programma scritto in $L$ con input $in$.\newpage
 
 	\noindent
 	Con un compilatore, la \textbf{traduzione} è \textbf{esplicita} poiché il codice in $L$ viene prodotto come output e non eseguito. Quindi, per eseguire il programma $P^{L}$ con input $in$, è necessario prima eseguire $comp^{L, L_{0}}$ con $P^{L}$ come input.
@@ -538,7 +608,10 @@ end \end{lstlisting}
 
 	\subsubsection{Descrivere la sintassi}
 
-	Nei linguaggi di programmazione, il \textbf{linguaggio dei lessemi} è in generale sempre un linguaggio \textbf{regolare}, ovvero \textbf{riconosciuto} da un automa a stati finiti. Si definisce \textcolor{Red3}{\textbf{riconoscitore}}, uno \textbf{strumento di riconoscimento che legge in input stringhe sull'alfabeto del linguaggio e decide se la stringa appartiene o meno al linguaggio}.\newline
+	Nei linguaggi di programmazione, il \textbf{linguaggio dei lessemi} è in generale sempre un linguaggio \textbf{regolare}, ovvero \textbf{riconosciuto} da un automa a stati finiti.
+	\begin{boxdef}
+		Si definisce \textcolor{Red3}{\textbf{riconoscitore}}, uno \textbf{strumento di riconoscimento che legge in input stringhe sull'alfabeto del linguaggio e decide se la stringa appartiene o meno al linguaggio}.
+	\end{boxdef}
 	
 	\noindent
 	Per esempio, l'analisi sintattica, la quale riconosce lessemi, di un compilatore.\newline
@@ -547,9 +620,10 @@ end \end{lstlisting}
 	Sia $L$ un linguaggio su un alfabeto $\Sigma$, per \textbf{costruire un riconoscitore} è necessario avere un meccanismo $R$ in grado di leggere (input) le stringhe di caratteri e dire (output) se essa appartiene oppure no al linguaggio $L$. Si ricorda, che questo è possibile perché il linguaggio è regolare.\newline
 
 	\noindent
-	Il \textbf{linguaggio dei \emph{token}}, e quindi dei programmi, è in generale un \textbf{linguaggio \emph{context-free} (CF)}, quindi viene \textbf{generato} da una grammatica CF. Si definisce \textcolor{Red3}{\textbf{generatore}}, uno \textbf{strumento che genera stringhe di un linguaggio}. Inoltre, un generatore può determinare se la sintassi di una particolare chiave è sintatticamente corretta confrontandola con la struttura del generatore (\emph{parser}).
-
-	\longline
+	Il \textbf{linguaggio dei \emph{token}}, e quindi dei programmi, è in generale un \textbf{linguaggio \emph{context-free} (CF)}, quindi viene \textbf{generato} da una grammatica CF.
+	\begin{boxdef}
+		Si definisce \textcolor{Red3}{\textbf{generatore}}, uno \textbf{strumento che genera stringhe di un linguaggio}. Inoltre, un generatore può determinare se la sintassi di una particolare chiave è sintatticamente corretta confrontandola con la struttura del generatore (\emph{parser}).
+	\end{boxdef}\newpage
 
 	\subsection{Grammatiche \emph{context-free}}
 
@@ -666,7 +740,12 @@ end \end{lstlisting}
 	Quindi, per ogni costrutto, va descritto il significato della sua esecuzione come trasformazione di stato. Infatti, l'astrazione della macchina nel concetto di stato consente di dare al costrutto un significato puro, indipendente dalla macchina, quindi senza restrizioni.\newline
 
 	\noindent
-	La \textcolor{Red3}{\textbf{semantica}} \textbf{attribuisce un significato ad ogni frase sintatticamente corretta}. Con \textcolor{Red3}{\textbf{significato}} \textbf{si intendono le entità autonome che esistono indipendentemente dai segni che vengono utilizzati per descriverle}.\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{semantica}} \textbf{attribuisce un significato ad ogni frase sintatticamente corretta}.
+	\end{boxdef}
+	\begin{boxdef}
+		Con \textcolor{Red3}{\textbf{significato}} \textbf{si intendono le entità autonome che esistono indipendentemente dai segni che vengono utilizzati per descriverle}.
+	\end{boxdef}
 
 	\noindent
 	Esiste un \textbf{legame forte tra sintassi e semantica}:
@@ -677,15 +756,23 @@ end \end{lstlisting}
 
 	\subsection{Induzione matematica e strutturale}
 
-	La semantica segue la struttura della sintassi, mentre quest'ultima è definita descrivendo gli elementi base e componendo questi elementi, attraverso regole, in elementi composti. Questa forma di definizione si chiama \textcolor{Red3}{\textbf{induzione}} e più formalmente è: data un insieme $A$ ed una relazione binaria $< \subseteq A \times A$ ben fondata (senza catene discendenti infinite), se $A = Nat$ si ha \textbf{induzione matematica}; se $A = L\left(G\right)$ è un linguaggio generato da una grammatica $G$, allora si ha \textbf{induzione strutturale}.\newline
+	La semantica segue la struttura della sintassi, mentre quest'ultima è definita descrivendo gli elementi base e componendo questi elementi, attraverso regole, in elementi composti.\newline
+	
+	\begin{boxdef}
+		Questa forma di definizione si chiama \textcolor{Red3}{\textbf{induzione}} e più formalmente è: data un insieme $A$ ed una relazione binaria $< \subseteq A \times A$ ben fondata (senza catene discendenti infinite), se $A = Nat$ si ha \textbf{induzione matematica}; se $A = L\left(G\right)$ è un linguaggio generato da una grammatica $G$, allora si ha \textbf{induzione strutturale}.
+	\end{boxdef}\:\newline
 
 	\noindent
-	Il \textcolor{Red3}{\textbf{principio di induzione strutturale}} si basa sulla seguente definizione. Per dimostrare che una proprietà è valida per tutti gli elementi di una categoria sintattica:
-	\begin{enumerate}
-		\item \textbf{Base induttiva}: si dimostra la proprietà per tutti gli elementi base della categoria, quelli che non hanno nessun elemento come componente;
-		\item \textbf{Passo induttivo}: si dimostra la proprietà per tutti gli elementi composti assumendo che la proprietà sia verificata da tutti i loro componenti immediati.
-	\end{enumerate}
-	Ecco un esempio.
+	\begin{boxdef}
+		Il \textcolor{Red3}{\textbf{principio di induzione strutturale}} si basa sulla seguente definizione. Per dimostrare che una proprietà è valida per tutti gli elementi di una categoria sintattica:
+		\begin{enumerate}
+			\item \textbf{Base induttiva}: si dimostra la proprietà per tutti gli elementi base della categoria, quelli che non hanno nessun elemento come componente;
+			\item \textbf{Passo induttivo}: si dimostra la proprietà per tutti gli elementi composti assumendo che la proprietà sia verificata da tutti i loro componenti immediati.
+		\end{enumerate}
+	\end{boxdef}\newpage
+
+	\noindent
+	Ecco una dimostrazione d'\textcolor{Green4}{\textbf{esempio}} di induzione.
 	\begin{proof}[\textbf{Dimostrazione induttiva}]
 		Dimostrare che:
 		\begin{equation*}
@@ -730,7 +817,9 @@ end \end{lstlisting}
 
 	\subsubsection{Semantica denotazionale}
 	
-	La \textcolor{Red3}{\textbf{semantica denotazionale}} è un modello matematico dei programmi basato sulla ricorsione. È la semantica più \dquotes{astratta} con cui descrivere i programmi.\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{semantica denotazionale}} è un modello matematico dei programmi basato sulla ricorsione. È la semantica più \dquotes{astratta} con cui descrivere i programmi.
+	\end{boxdef}
 	
 	\noindent
 	Il \textbf{processo di costruzione} della semantica denotazionale \textbf{per un linguaggio} si articola in due passaggi fondamentali:
@@ -791,7 +880,9 @@ P:
 	
 	\subsubsection{Semantica assiomatica}
 	
-	La \textcolor{Red3}{\textbf{semantica assiomatica}} è un modello matematico dei programmi basato sulla logica formale, ovvero il calcolo dei predicati.\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{semantica assiomatica}} è un modello matematico dei programmi basato sulla logica formale, ovvero il calcolo dei predicati.
+	\end{boxdef}
 	
 	\noindent
 	L'\textbf{obbiettivo} della semantica assiomatica è la verifica formale di programmi. Per farle, vengono utilizzati assiomi e regole di inferenza. Le \textbf{espressioni logiche} utilizzate sono chiamate \textbf{asserzioni}:
@@ -810,7 +901,7 @@ P:
 		\item \textbf{Correttezza} (\emph{soundness}), ogni proprietà derivabile nel sistema vale per il programma;
 		
 		\item \textbf{Completezza}, ogni proprietà che vale per il programma è derivabile nel sistema di regole.
-	\end{itemize}
+	\end{itemize}\newpage
 
 	\noindent
 	Per \textcolor{Green4}{\textbf{esempio}}, si definisce la notazione $\left\{P\right\}$ \emph{statement} $\left\{Q\right\}$. Questa semantica si calcola mediante un sistema di prova: si ha una tripla da verificare e si cerca di dimostrarla applicando le regole.\newline
@@ -830,7 +921,9 @@ P:
 
 	\subsubsection{Semantica operazionale}
 	
-	La \textcolor{Red3}{\textbf{semantica operazionale}} è un modello matematico dei programmi basato sui sistemi di transizione.\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{semantica operazionale}} è un modello matematico dei programmi basato sui sistemi di transizione.
+	\end{boxdef}
 	
 	\noindent
 	La semantica operazionale descrive il significato del programma \textbf{eseguendo i suoi comandi su una macchina}, simulata o reale. La \textbf{trasformazione dello stato definisce il significato del comando}. Quindi, lo stato è la rappresentazione astratta della macchina.
@@ -865,7 +958,9 @@ P:
 	
 	\subsubsection{Composizionalità}
 	
-	La \textcolor{Red3}{\textbf{composizionalità}} è la proprietà per cui il significato di ogni programma deve essere in funzione del significato dei costituenti immediati.\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{composizionalità}} è la proprietà per cui il significato di ogni programma deve essere in funzione del significato dei costituenti immediati.
+	\end{boxdef}
 	
 	\noindent
 	La composizionalità è una \textbf{proprietà della semantica} necessaria per caratterizzare i comportamenti e significati di sistemi che possono avere infiniti elementi.\newline
@@ -873,9 +968,13 @@ P:
 	\noindent
 	L'\textbf{importanza} della composizionalità è dovuta alla necessità di analizzare le proprietà di un programma. Infatti, per farlo è necessario capire che cosa fa e dunque capire la semantica in ogni sua forma. L'analisi diventa molto più semplice grazie alla \textbf{modularità}, la quale è \textbf{garantita dalla composizionalità}. Quindi, anche nei software di grandi dimensioni, è possibile analizzare il codice separatamente nei suoi moduli, per poi ricomporre il risultato dell'analisi componendo i risultati ottenuti sui singoli moduli.
 	
+	\longline
+	
 	\subsubsection{Equivalenza}
 	
-	L'\textcolor{Red3}{\textbf{equivalenza}} è vera quando due programmi hanno la stessa semantica.\newline
+	\begin{boxdef}
+		L'\textcolor{Red3}{\textbf{equivalenza}} è vera quando due programmi hanno la stessa semantica.
+	\end{boxdef}
 	
 	\noindent
 	Per capire se due programmi sono equivalenti, viene osservata la relazione tra input e output. Se la relazione è la stessa, indipendentemente da come l'algoritmo la calcola, allora sono equivalenti. Quindi, solo caratterizzando la funzionalità I/O è possibile determinare questa caratteristica.\newline
@@ -897,17 +996,25 @@ P:
 	Per descrivere il significato dei programmi, è necessario introdurre due entità fondamentali: ambiente e memoria.\newline
 	
 	\noindent
-	L'\textcolor{Red3}{\textbf{ambiente}} (\textbf{\emph{environment}}) \textbf{è un insieme di legami (\emph{bindings}) tra identificatori e denotazioni}. Inoltre, l'ambiente specifica quali nomi sono usati e per quali oggetti, solitamente possono essere legati ad un tipo, ad un valore, ad una locazione. Quindi, i \emph{binding}\footnote{In breve sarebbero le API (\emph{Application Programming Interface}): \href{https://en.wikipedia.org/wiki/Language_binding}{link fonte}.} sono associati ai nomi, i quali possono essere variabili, costanti, procedure, e altro. I nomi sono solo un'entità separata dall'oggetto che denotano, infatti esso potrebbe essere usato in contesti diversi per rappresentare valori differenti.\newline
+	\begin{boxdef}
+		L'\textcolor{Red3}{\textbf{ambiente}} (\textbf{\emph{environment}}) \textbf{è un insieme di legami (\emph{bindings}) tra identificatori e denotazioni}.
+	\end{boxdef}
+	Inoltre, l'ambiente specifica quali nomi sono usati e per quali oggetti, solitamente possono essere legati ad un tipo, ad un valore, ad una locazione. Quindi, i \emph{binding}\footnote{In breve sarebbero le API (\emph{Application Programming Interface}): \href{https://en.wikipedia.org/wiki/Language_binding}{link fonte}.} sono associati ai nomi, i quali possono essere variabili, costanti, procedure, e altro. I nomi sono solo un'entità separata dall'oggetto che denotano, infatti esso potrebbe essere usato in contesti diversi per rappresentare valori differenti.\newline
 	
 	\noindent
-	La \textcolor{Red3}{\textbf{memoria}} (\textbf{\emph{store}}) \textbf{è un insieme di effetti sugli identificatori (causati da assegnamenti)}. Essa è una mappa che solitamente rappresenta la storia, cioè l'evoluzione, delle variazioni dei valori associati agli identificatori. In altre parole, fornisce un \emph{binding} tra locazione e valore.\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{memoria}} (\textbf{\emph{store}}) \textbf{è un insieme di effetti sugli identificatori (causati da assegnamenti)}.
+	\end{boxdef}
+	Essa è una mappa che solitamente rappresenta la storia, cioè l'evoluzione, delle variazioni dei valori associati agli identificatori. In altre parole, fornisce un \emph{binding} tra locazione e valore.\newline
 	Si ricorda, che la memoria è fortemente legato all'approccio imperativo, infatti i linguaggi funzionali pure non ne hanno bisogno dato che non gestiscono variabili che cambiano durante l'esecuzione del programma.
 	
 	\longline
 	
 	\subsubsection{Categorie sintattiche}
 	
-	Le \textcolor{Red3}{\textbf{categorie sintattiche}} \textbf{sono la classificazione dei costrutti in funzione del loro significato atteso, ovvero della classe di effetti che ha la loro esecuzione causa.}\newline
+	\begin{boxdef}
+		Le \textcolor{Red3}{\textbf{categorie sintattiche}} \textbf{sono la classificazione dei costrutti in funzione del loro significato atteso, ovvero della classe di effetti che ha la loro esecuzione causa.}
+	\end{boxdef}
 	Quindi, esse sono classi che rappresentano un diverso tipo di significato, effetto, esecuzione di un programma.\newline
 	
 	\noindent
@@ -921,7 +1028,9 @@ P:
 	Nonostante le espressioni denotino i valori, esse \textbf{non sono locazioni di memoria}. Quest'ultime sono legati all'architettura (struttura) di una macchina, mentre le espressioni fanno riferimento allo specifico linguaggio di programmazione.\newline
 	
 	\noindent
-	Due espressioni sono considerate \textcolor{Red3}{\textbf{equivalenti}} \textbf{se vengono valutate nello stesso valore in tutti gli stati di computazione. Anche eventuali \emph{side-effect} devono essere gli stessi}.
+	\begin{boxdef}
+		Due espressioni sono considerate \textcolor{Red3}{\textbf{equivalenti}} \textbf{se vengono valutate nello stesso valore in tutti gli stati di computazione. Anche eventuali \emph{side-effect} devono essere gli stessi}.
+	\end{boxdef}
 	
 	Infatti, due espressioni possono essere diverse ma essere valutate nello stesso valore. Per \textcolor{Green4}{\textbf{esempio}}, l'espressione logica \textsf{not(a and b)} è logicamente (semanticamente) equivalente ad \textsf{(not a) or (not b)} ma sono sintatticamente diverse.
 	
@@ -932,15 +1041,16 @@ P:
 	Le \textcolor{Red3}{\textbf{dichiarazioni}} \textbf{sono la categoria sintattica che consente la creazione o la modifica dei legami associati agli identificatori, ovvero gli ambienti}.\newline
 	
 	\noindent
-	Esse nascono con l'obbiettivo di utilizzare i valori. Per farlo, è stato necessario creare, utilizzare e modificare \textbf{legami} tra nomi e valori.
+	Esse nascono con l'obbiettivo di utilizzare i valori. Per farlo, è stato necessario creare, utilizzare e modificare \textbf{legami} tra nomi e valori.\newline
 	
+	\noindent
 	Inoltre, gli le modifiche agli ambienti sono trasformazioni \textbf{reversibili}, ovvero che le trasformazioni hanno valenza esclusivamente all'interno del raggio d'azione (\emph{scope}) attuale dell'identificatore. In altre parole, i linguaggi di programmazione delimitano la validità di un ambiente. Più precisamente con \textbf{reversibili si intende} che una volta terminata la validità di un ambiente, le modifiche verranno annullate.\newline
 	
 	\noindent
-	Due dichiarazioni sono \textcolor{Red3}{\textbf{equivalenti}} \textbf{se producono lo stesso ambiente e la stessa memoria in caso di \emph{side-effect} in tutti gli stati di computazione}.\newline
-	A causa del \emph{side-effect} è necessario che l'equivalenza richieda che due dichiarazioni generino le stesse identiche modifiche a tutto lo stato di computazione.
-	
-	\longline
+	\begin{boxdef}
+		Due dichiarazioni sono \textcolor{Red3}{\textbf{equivalenti}} \textbf{se producono lo stesso ambiente e la stessa memoria in caso di \emph{side-effect} in tutti gli stati di computazione}.
+	\end{boxdef}
+	A causa del \emph{side-effect} è necessario che l'equivalenza richieda che due dichiarazioni generino le stesse identiche modifiche a tutto lo stato di computazione.\newpage
 	
 	\subsubsection{Comandi}
 	
@@ -949,8 +1059,12 @@ P:
 	\noindent
 	Le trasformazioni sono \textbf{irreversibili}, ovvero sono definite nell'esecuzione del programma. Quindi, per annullarle è necessario eseguire altri comandi e altre trasformazioni che consentono di tornare alla stessa memoria iniziale. Quindi, i comandi non sono altro che funzioni di trasformazione e devono essere \textbf{eseguiti} per poter attuare la corrispondente trasformazione (irreversibile) della memoria.
 	
-	Due comandi sono \textcolor{Red3}{\textbf{equivalenti}} \textbf{se per ogni stato (memoria) in input producono lo stesso stato (memoria) in output}.\newpage
-	
+	\begin{boxdef}
+		Due comandi sono \textcolor{Red3}{\textbf{equivalenti}} \textbf{se per ogni stato (memoria) in input producono lo stesso stato (memoria) in output}.
+	\end{boxdef}
+
+	\longline
+
 	\subsection{Semantica operazionale: sistemi di transizione}
 	
 	I \textcolor{Red3}{\textbf{sistemi di transizione}} \textbf{sono strumenti astratti mirati a specificare senza ambiguità e senza dipendenza dalla macchina, cosa fa un linguaggio}. Le sue caratteristiche principali sono:
@@ -966,7 +1080,9 @@ P:
 	Inoltre, sfruttando la definizione induttiva del linguaggio, consentono di definire il significato mediante induzione sull'\emph{abstract syntax tree}. Quindi, viene \textbf{usata l'induzione strutturale matematica per ragion sui programmi}.\newline
 	
 	\noindent
-	Formalmente: \textbf{un \textcolor{Red3}{sistema di transizione} è una struttura $\left(\Gamma, \rightarrow\right)$, dove $\Gamma$ è un insieme di elementi $\gamma$ chiamati configurazioni e la relazione binaria $\rightarrow \subseteq \Gamma \times \Gamma$ è chiamata relazione di transizione. Se $\Gamma_{T} \subseteq \Gamma$ è un insieme di configurazioni terminali, il sistema è detto terminale.}\newpage
+	\begin{boxdef}
+		Formalmente: \textbf{un \textcolor{Red3}{sistema di transizione} è una struttura $\left(\Gamma, \rightarrow\right)$, dove $\Gamma$ è un insieme di elementi $\gamma$ chiamati configurazioni e la relazione binaria $\rightarrow \subseteq \Gamma \times \Gamma$ è chiamata relazione di transizione. Se $\Gamma_{T} \subseteq \Gamma$ è un insieme di configurazioni terminali, il sistema è detto terminale.}
+	\end{boxdef}\newpage
 	
 	\subsection{Esempio di un linguaggio reale ($PL_{0}$)}\label{esempio di un linguaggio reale PL0}
 	
@@ -1196,10 +1312,20 @@ P:
 	L'algoritmo di valutazione della notazione in-fissa non è così semplice come i precedenti. Infatti, a causa di alcune regole, chiamate di \textbf{precedenza} e \textbf{associatività}, e alla presenza di alcune regole, non è possibile valutare l'espressione con una semplice scansione da sinistra a destra o viceversa.\newline
 	
 	\noindent
-	Con \textcolor{Red3}{\textbf{regole di precedenza}} si intende: \textbf{le regole di precedenza di un operatore per la valutazione di un'espressione, definisce l'ordine in cui operatori \dquotes{adiacenti} a diversi livelli di precedenza vengono valutati}. Anche se ogni linguaggio differisce per le priorità assegnate agli operatori, l'importante è che vengano stabilite a priori. Per \textcolor{Green4}{\textbf{esempio}}, un tipico livello di precedenza è dato da: (1) parentesi, (2) operatori unari, (3) elevazione a potenza, (4) moltiplicazione e divisione, (5) somma e sottrazione.\newline
+	\begin{boxdef}
+		Con \textcolor{Red3}{\textbf{regole di precedenza}} si intende: \textbf{le regole di precedenza di un operatore per la valutazione di un'espressione, definisce l'ordine in cui operatori \dquotes{adiacenti} a diversi livelli di precedenza vengono valutati}.
+	\end{boxdef}
+
+	\noindent
+	Anche se ogni linguaggio differisce per le priorità assegnate agli operatori, l'importante è che vengano stabilite a priori. Per \textcolor{Green4}{\textbf{esempio}}, un tipico livello di precedenza è dato da: (1) parentesi, (2) operatori unari, (3) elevazione a potenza, (4) moltiplicazione e divisione, (5) somma e sottrazione.\newline
 	
 	\noindent
-	Con \textcolor{Red3}{\textbf{regole di associatività}} si intende: \textbf{le regole di associatività per la valutazione delle espressioni definiscono l'ordine con cui operatori allo stesso livello di precedenza vengono valutati}. Per \textcolor{Green4}{\textbf{esempio}}, delle tipiche regole di associatività sono: da sinistra verso destra; a volte operatori unitari associano da destra; in alcuni linguaggi tutti gli operatori hanno lo stesso livello di precedenza e associano da destra; le regole di precedenza e associatività possono essere sovrascritte usando le parentesi.\newline
+	\begin{boxdef}
+		Con \textcolor{Red3}{\textbf{regole di associatività}} si intende: \textbf{le regole di associatività per la valutazione delle espressioni definiscono l'ordine con cui operatori allo stesso livello di precedenza vengono valutati}.
+	\end{boxdef}
+
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, delle tipiche regole di associatività sono: da sinistra verso destra; a volte operatori unitari associano da destra; in alcuni linguaggi tutti gli operatori hanno lo stesso livello di precedenza e associano da destra; le regole di precedenza e associatività possono essere sovrascritte usando le parentesi.\newline
 	Un altro \textcolor{Green4}{\textbf{esempio}} $a+b-c+d$ restituisce valori diversi a seconda che si associ da destra o da sinistra.\newpage
 	
 	\subsection{Valutazione delle espressioni}\label{valutazione delle espressioni}
@@ -1236,13 +1362,17 @@ P:
 	
 	\noindent
 	L'aspetto d'interesse è la \textbf{struttura induttiva} e non la struttura sintattica. Per questo motivo si introducono alcune definizione teoriche:
-	\begin{itemize}
-		\item Le \textcolor{Red3}{\textbf{espressioni}} $\mathcal{E}$ è un \textbf{insieme di (alberi di valutazione) di espressioni valutate ad intero o booleano}. Gli elementi solitamente vengono rappresentati con la lettera $e$.
-		
-		\item I \textcolor{Red3}{\textbf{numeri}} $\mathcal{N}$ è un \textbf{insieme di numeri reali nella macchina}. Gli elementi solitamente vengono rappresentati con le lettere $m$, $n$ o $p$.
-		
-		\item I \textcolor{Red3}{\textbf{booleani}} $\mathcal{B}$ è un \textbf{insieme di valori booleani}. Composto solo da \textsf{true} e \textsf{false}. Gli elementi solitamente vengono rappresentati con la lettera $t$.
-	\end{itemize}
+	\begin{boxdef}
+		Le \textcolor{Red3}{\textbf{espressioni}} $\mathcal{E}$ è un \textbf{insieme di (alberi di valutazione) di espressioni valutate ad intero o booleano}. Gli elementi solitamente vengono rappresentati con la lettera $e$.
+	\end{boxdef}
+	\begin{boxdef}
+		I \textcolor{Red3}{\textbf{numeri}} $\mathcal{N}$ è un \textbf{insieme di numeri reali nella macchina}. Gli elementi solitamente vengono rappresentati con le lettere $m$, $n$ o $p$.
+	\end{boxdef}
+	\begin{boxdef}
+		I \textcolor{Red3}{\textbf{booleani}} $\mathcal{B}$ è un \textbf{insieme di valori booleani}. Composto solo da \textsf{true} e \textsf{false}. Gli elementi solitamente vengono rappresentati con la lettera $t$.
+	\end{boxdef}
+	
+	\noindent
 	Questi insiemi vengono usati per definire il \textcolor{Red3}{\textbf{sistema di transizione}}:
 	\begin{equation*}
 		\Gamma = \mathcal{E}, \hspace{2em} T = \mathcal{N} \cup \mathcal{B}, \hspace{2em} \mathrm{op}\in\left\{+,-,*,=\right\} \hspace{1em} \mathrm{bop} \in \left\{=, or\right\}
@@ -1336,14 +1466,17 @@ P:
 	
 	\subsection{Valutazione ed equivalenza}
 	
-	La \textcolor{Red3}{\textbf{valutazione delle espressioni}} è una \textbf{funzione $Eval: \mathcal{E} \rightarrow \mathbb{N} \cup \mathbb{B}$ che descrive il comportamento dinamico delle espressioni restituendo il valore in cui esse sono valute}:
-	\begin{equation*}
-		Eval\left(e\right) = k \iff e \rightarrow^* k
-	\end{equation*}\:\newline
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{valutazione delle espressioni}} è una \textbf{funzione $Eval: \mathcal{E} \rightarrow \mathbb{N} \cup \mathbb{B}$ che descrive il comportamento dinamico delle espressioni restituendo il valore in cui esse sono valute}:
+		\begin{equation*}
+			Eval\left(e\right) = k \iff e \rightarrow^* k
+		\end{equation*}
+	\end{boxdef}\:\newline
 
-	\noindent
-	L'\textcolor{Red3}{\textbf{equivalenza di espressioni}} è una \textbf{relazione $\equiv \subseteq \mathcal{E} \times \mathcal{E}$ definita come segue}:
-	\begin{equation*}
-		e_{0} \equiv e_{1} \iff Eval\left(e_{0}\right) = Eval\left(e_{1}\right)
-	\end{equation*}
+	\begin{boxdef}
+		L'\textcolor{Red3}{\textbf{equivalenza di espressioni}} è una \textbf{relazione $\equiv \subseteq \mathcal{E} \times \mathcal{E}$ definita come segue}:
+		\begin{equation*}
+			e_{0} \equiv e_{1} \iff Eval\left(e_{0}\right) = Eval\left(e_{1}\right)
+		\end{equation*}
+	\end{boxdef}
 \end{document}
