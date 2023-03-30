@@ -1386,7 +1386,7 @@ P:
 	\end{itemize}
 	Quindi, viene definito l'insieme delle configurazioni come l'insieme delle espressioni da valutare $\left(\Gamma = \mathcal{E}\right)$; l'insieme delle configurazioni terminali sono un tutti i valori numerici e booleani $\left(T = \mathcal{N} \cup \mathcal{B}\right)$.\newpage
 	
-	\subsection{Regole di transizione}
+	\subsection{Regole di transizione}\label{regole di transizione}
 	
 	Si espongono qua di seguito le \textcolor{Red3}{\textbf{regole di transizione}}. Si tenga conto che con \textbf{bop} in grassetto si identifica il simbolo sintattico di un'operazione e con bop normale si identifica il simbolo dell'operazione nella macchina sottostante.\newline
 	
@@ -1594,29 +1594,307 @@ void f(){...};\end{lstlisting}
 	\end{boxdef}\newpage
 	
 	
-	
 	\subsubsection{Tipi di bindings nei linguaggi di programmazione}
+	
+	A seconda dell'oggetto denotato, il \emph{binding} creato è di tipo diverso:
+	\begin{itemize}
+		\item \textbf{Nome-Valore}: quando il \textbf{legame non può cambiare}, allora viene legato il nome ad un valore.
+		
+		\item \textbf{Nome-Locazione}: \textbf{legame non modificabile}
+		
+		\item \textbf{Locazione-Valore} \textbf{legame modificabile}
+	\end{itemize}
+	Tutti i \textbf{legami} sono \textbf{immutabili} ed esistono due tipi di \emph{binding}:
+	\begin{itemize}
+		\item \textbf{Binding \emph{statico}} è tale \textbf{se occorre per la prima volta prima dell'esecuzione e rimane invariato durante tutta l'esecuzione del programma}.\newline
+		Per \textcolor{Green4}{\textbf{esempio}}, i tipi delle variabili in linguaggi fortemente tipati.
+		
+		\item \textbf{Binding \emph{dinamico}} è tale \textbf{se occorre durante l'esecuzione e può variare}.\newline
+		Per \textcolor{Green4}{\textbf{esempio}}, i \textbf{legami tra locazioni/celle di memoria e valori contenuti nelle locazioni}.
+	\end{itemize}\newpage
 	
 	\subsubsection{Tempi}
 	
+	Esistono due \textbf{tipi di \underline{creazione} dei \emph{binding}}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Tempo di compilazione}} (\emph{Early binding}). Ogni nome viene risolto a tempo di compilazione, quindi è presente un'\textbf{allocazione statica della memoria} con indirizzi assoluti.
+		\begin{itemize}
+			\item \textcolor{Green4}{\textbf{Pro:}} esecuzione estremamente veloce
+			
+			\item \textcolor{Red3}{\textbf{Contro:}} programmazione poco flessibile
+			
+			\item \textbf{Esempi di linguaggi:}  Fortran\footnote{Un interessante articolo sul perché Fortran viene ancora utilizzato: \href{https://www.matecdev.com/posts/why-fortran-still-used.html}{link}}, Cobol.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{Tempo di esecuzione}} (\emph{Late binding}). Tutto avviene a tempo di esecuzione, quindi la \textbf{memoria è allocata dinamicamente}, tutti i \emph{binding} vengono creati dinamicamente con indirizzi non assoluti.
+		\begin{itemize}
+			\item \textcolor{Green4}{\textbf{Pro:}} programmazione più flessibile
+			
+			\item \textcolor{Red3}{\textbf{Contro:}} esecuzione più lenta
+			
+			\item \textbf{Esempi di linguaggi:} Snobol4, Lisp, APL.
+		\end{itemize}
+	\end{itemize}
+	Invece, qui di seguito vengono elencati degli \textbf{esempi di tempi di bindings}:
+	\begin{itemize}
+		\item Tempo di \textbf{progettazione}, \emph{bindings} di operatori ($+,-,...$) ai simboli;
+		
+		\item Tempo di \textbf{implementazione di linguaggi}, \emph{binding} del tipo floating point con la propria rappresentazione;
+		
+		\item Tempo di \textbf{compilazione}, \emph{binding} delle variabili con i loro tipo, come in C o Java;
+		
+		\item Tempo di \textbf{caricamento}, \emph{binding} variabili \textsf{static} alla cella di memoria;
+		
+		\item Tempo di \textbf{esecuzione}, \emph{binding} variabili non statiche con la cella di memoria.
+	\end{itemize}
+	Quindi, dovrebbe essere chiara la \textbf{fondamentale importanza dei \emph{bindings}}: un identificatore/nome non ha significato se non è legato a qualcosa, se non è coinvolto almeno in un \emph{binding}. Per \textcolor{Green4}{\textbf{esempio}}, un'espressione non ha significato/valore se contiene nomi non legati a nulla.\newpage
+	
+	
 	\subsection{Semantica: Identificatori, ambienti e dichiarazioni}
+	
+	Nei linguaggi di programmazione, per riferire \textbf{valori generati dalle espressioni}, viene utilizzato il concetto di \textcolor{Red3}{\textbf{identificatore}}. Esso è un \textbf{nome che viene associato all'oggetto da identificare/riferire}.\newline
+	
+	\noindent
+	Per riferire i valori (oggetti denotabili) associati agli identificatori, viene utilizzato il concetto di \textcolor{Red3}{\textbf{ambiente}}, il quale è definito come l'insieme di legami (\emph{bindings}) tra identificatori e oggetti \textbf{denotabili}, ovvero tutti quegli oggetti del linguaggio che sono riferibili mediante un identificatore.
+	
+	In altre parole, l'ambiente è la componente della macchina astratta che per ogni nome introdotto dal programmatore, e per ogni punto di programma, consente di determinare quale sia l'associazione corretta.\newline
+	
+	\noindent
+	Infine, la \textbf{dichiarazione} implementa la creazione dei legami.\newline
+	
+	\noindent
+	\begin{boxdef}
+		L'\textcolor{Red3}{\textbf{ambiente}} è l'\textbf{insieme delle associazioni fra nomi e oggetti denotabili esistenti a \emph{run-time} in uno specifico punto del programma ed in uno specifico momento dell'esecuzione}.
+	\end{boxdef}
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{dichiarazione}} è il \textbf{meccanismo (implicito o esplicito) col quale si crea un'associazione nell'ambiente}.
+	\end{boxdef}\newpage
+
 	
 	\subsubsection{Termini chiusi e ground}
 	
+	\begin{boxdef}
+		\textbf{In un linguaggio (con identificatori),un \textcolor{Red3}{termine} in cui non ci sono identificatori liberi è detto \textcolor{Red3}{chiuso}.}
+	\end{boxdef}
+	
+	\noindent
+	Il significato delle frasi chiuse è quello di \textbf{dare significato alla frase senza richiedere un ambiente esterno}. In termini tecnici, significa che un \textbf{programma}, ad esempio, \textbf{non ha identificatori liberi e quindi può essere eseguito a partire da un ambiente vuoto}, in quanto non ci sono identificatori che richiedono un significato all'esterno.\newline
+
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, non è possibile dare significato ad $a+b+c+x$ se non viene dato un significato ad $a,b,c,x$. È dunque necessario di assunzioni sull'ambiente, le quali riguardano l'insieme di \emph{binding} per gli identificatori, ovvero uguaglianze del tipo $nome = entità$.\newline
+	
+	\noindent
+	Quindi, un \textbf{programma è una \textcolor{Red3}{frase chiusa} se ogni occorrenza d'uso è preceduta da un'occorrenza di definizione che stabilisce il significato dell'identificatore}.\newline
+	
+	\noindent
+	\begin{boxdef}
+		\textbf{In un linguaggio (con identificatori), un \textcolor{Red3}{termine} in cui non ci sono identificatori è detto \textcolor{Red3}{\emph{ground}}.}
+	\end{boxdef}
+	
+	\noindent
+	Data l'assenza di identificatori, il \textbf{termine \emph{ground}} non richiede neanche un ambiente.\newpage
+	
 	\subsubsection{Ambienti nei linguaggi imperativi}
+	
+	Nel \textbf{linguaggio imperativo} si considerano solo \textbf{interi e booleani} (per semplicità), quindi gli unici oggetti denotabili sono:
+	\begin{equation*}
+		\begin{array}{rl}
+			\mathcal{N} = \text{ Insieme di numerali nella macchina sottostante:} & \textsf{m,n,p} \\
+			\mathcal{B} = \left\{\textsf{true}, \textsf{false}\right\}: & \textsf{t}
+		\end{array}
+	\end{equation*}
+	\begin{boxdef}
+		Un \textcolor{Red3}{\textbf{ambiente dinamico}} è un elemento dello spazio di funzioni tale che:
+		\begin{equation*}
+			Env = \cup_{V \subseteq_{f} Id} Env_{V}
+		\end{equation*}
+		In cui:
+		\begin{equation*}
+			Env_{V}: V \rightarrow DVal \hspace{2em} \cup\left\{\bot\right\} \text{ ha metavariabile }\rho
+		\end{equation*}
+	\end{boxdef}
+	
+	\noindent
+	I valori denotabili, nel linguaggio imperativo scelto, costituiscono l'insieme $DVal = \left\{Int \cup Bool\right\}$.\newline
+	
+	\noindent
+	L'ambiente associa identificatori agli oggetti denotabili ($\bot$ va associato all'identificatore non definito, ovvero non associato ad alcun valore). Quindi, un \textbf{ambiente} per un insieme di identificatori finito $V\left(Env_{V}\right)$ è una \textbf{funzione che ad ogni identificatore associa un valore denotabile, oppure il valore non definito }$\bot$. L'ambiente è l'unione di tutte queste funzioni al variare dell'insieme $V$.
+	
+	\longline
 	
 	\subsubsection{Espressioni con identificatori}
 	
+	Le espressioni arricchite con la semantica degli identificatori è la seguente. La sintassi è la grammatica completa delle espressioni:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/espressioni-identificatori.pdf}
+	\end{figure}
+	
+	\noindent
+	Poi si definisce l'insieme $\mathcal{E}^{V}$ delle espressioni (con identificatori) valutate ad intero o booleano. Quindi, il sistema di transizione diventa:
+	\begin{equation*}
+		\Gamma = \mathcal{E}^{V}, \hspace{1em} T = \mathcal{N} \cup \mathcal{B}, \hspace{1em} \mathrm{op} \in \left\{+,-,*,=\right\}, \hspace{1em} \mathrm{bop} \in \left\{=, or\right\}
+	\end{equation*}
+	Inoltre, le regole definite nel paragrafo \ref{regole di transizione} devono essere riscritte integrando l'ambiente. Tutte le regole $\mathcal{E}_{i}$ diventano:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/regole_arricchite.pdf}
+	\end{figure}
+
+	\noindent
+	In cui $\rho$ è l'ambiente di valutazione delle espressioni, ovvero la specifica dell'associazione tra identificatori e oggetti denotati, e il pedice della freccia ($\rightarrow_{e}$) denota quale sistema di transizione si sta utilizzando.\newpage
+	
+	
 	\subsubsection{Identificatori liberi}
+	
+	\begin{boxdef}
+		Un identificatore è in posizione libera (\textcolor{Red3}{\textbf{occorrenza libera}}) (\textbf{\emph{free occurrence}}) se il suo uso (\emph{applied occurrence}) non è nel \textbf{raggio di azione (scope)} di una definizione.
+	\end{boxdef}\newpage
+	
 	
 	\subsection{Nuove regole}
 	
+	Per una descrizione dettagliata delle regole si rimanda al paragrafo \ref{regole di transizione}:
+	\begin{itemize}
+		\item La prima regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-1.pdf}
+		\end{figure}
+		
+		\item La seconda regola cambia, in quanto ora è necessario l'assioma per gli identificatori. In questo \textbf{assioma}, quando si incontra un identificatore, questo viene valutato nel valore che l'ambiente associa all'identificatore. Ovviamente, questa regola è applicabile solo se $I$ è un identificatore per il quale $\rho$ esiste un'associazione.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-2.pdf}
+		\end{figure}
+		
+		\item La terza regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-3.pdf}
+		\end{figure}
+		
+		\item La quarta regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-4.pdf}
+		\end{figure}
+		
+		\item La quinta regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-5.pdf}
+		\end{figure}
+		
+		\item La terza regola aggiornata:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-3b.pdf}
+		\end{figure}\newpage
+		
+		\item La sesta regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-6.pdf}
+		\end{figure}
+		
+		\item La settima regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-7.pdf}
+		\end{figure}
+		
+		\item L'ottava regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-8.pdf}
+		\end{figure}
+	\end{itemize}\newpage
+
+	
 	\subsection{Tipo}
+	
+	Il \textcolor{Red3}{\textbf{tipo}} \textbf{determina l'insieme di valori dotato di un insieme di operazioni definite per i valori di quel tipo}. In altre parole, il tipo determina il range di valori che un identificatore può memorizzare/denotare e l'insieme di operazioni definite su quei valori.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Esempi}} di tipo sono:
+	\begin{lstlisting}[language=Java]
+Integer
+String
+Int -> Bool
+(Int -> Int) -> Bool\end{lstlisting}
+	In questo caso, ogni tipo è effettivamente un insieme omogeneo di valori e di operazioni su quei valori.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{Esempi}} di elementi che \underline{non} sono un tipo:
+	\begin{lstlisting}[language=Java]
+{3, True, \x->x}
+Even integers
+{f:Int -> Int | x>3 => f(x) > x * (x+1)}\end{lstlisting}\:\newline
+
+	\noindent
+	\textbf{La distinzione tra insiemi di valori che sono tipi e insiemi che non lo sono \emph{dipende dal linguaggio}}. Inoltre, i tipi sono \textbf{utili a vari livelli}:
+	\begin{itemize}
+		\item \textbf{Livello di progetto:} organizzano l'informazione, come i commenti;
+		
+		\item \textbf{Livello di programma:} identificano e prevengono errori. Per esempio $3+"stringa"$ deve essere sbagliato;
+		
+		\item \textbf{Livello di implementazione:} consentono alcune ottimizzazioni, per esempio il tipo $Bool$ richiede meno bit di $real$.
+	\end{itemize}
+
+	\longline
 	
 	\subsubsection{Binding di tipo (\emph{Type binding})}
 	
+	A seconda del legame, esistono due tipi di dichiarazione:
+	\begin{itemize}
+		\item Legame \textbf{statico}: quando il \textbf{legame, una volta creato, rimane inalterato per l'intera esecuzione}. Esistono due tipi di dichiarazione per specificare questo legame:
+		\begin{itemize}
+			\item \textcolor{Red3}{\textbf{Esplicita}}: quando esiste un comando del linguaggio che consente di \textbf{dichiarare il tipo delle variabili};
+			
+			\item \textcolor{Red3}{\textbf{Implicita}}: è un meccanismo di default che specifica il \textbf{tipo delle variabili attraverso convenzioni} di default (maggiore facilità di scrittura, ma scarsa affidabilità).
+		\end{itemize}
+		
+		\item Legame \textbf{dinamico}: quando il \textbf{legame può cambiare durante l'esecuzione}. Per esempio in Python è possibile dichiarare una variabile senza esplicitare il tipo. Questo porta un \textcolor{Green4}{\textbf{vantaggio}} in termini di flessibilità, ma \textcolor{Red3}{\textbf{svantaggi}} in termini di costi di implementazione (alti) e una difficile rilevazione di errori di tipo.
+	\end{itemize}
+	
 	\subsection{Ambiente statico e semantica statica}
 	
+	L'\textbf{ambiente statico} associa agli identificatori il tipo degli oggetti che denoteranno.
+	\begin{boxdef}
+		Un \textcolor{Red3}{\textbf{ambiente statico}} (o di tipi) è un elemento dello spazio di funzioni $TEnv$ definito da:
+		\begin{equation*}
+			TEnv = \cup_{V \subseteq_{f} Id} TEnv_{V}
+		\end{equation*}
+		Dove:
+		\begin{equation*}
+			TEnv_{V} : V \rightarrow DTyp \hspace{2em} \text{ ha metavariabile }
+		\end{equation*}
+		E $DTyp$ è l'insieme dei tipi denotabili.
+	\end{boxdef}
+
+	\noindent
+	Per il momento $DTyp$ sono solo interi e booleani.\newline
+	
+	\noindent
+	Si considera anche un elemento speciale che rappresenta il \textbf{tipo di un identificatore non inizializzato}:
+	\begin{equation*}
+		\tau \in DTyp = \left\{\textsf{int}, \textsf{bool}, \bot\right\}
+	\end{equation*}
+	Quindi, la semantica statica è un \textbf{insieme di regole che consentono di associare un tipo ad ogni espressione corretta}; in questo caso l'espressione viene detta \textcolor{Red3}{\textbf{ben formata}}. Inoltre, le regole della semantica statica hanno la seguente forma:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/semantica_statica.pdf}
+	\end{figure}
+	
+	\noindent
+	\begin{itemize}
+		\item $\Delta$ indica l'\textbf{ambiente statico} nel quale valutare staticamente l'espressione, ovvero l'insieme dei legami statici validi nel contesto di valutazione.
+		
+		\item $V$ indica l'\textbf{insieme degli identificatori} per i quali l'ambiente definisce un'associazione.
+	\end{itemize}
+	Nel caso in cui questi elementi non sono presenti, significa che l'ambiente è vuoto. In tal caso, si dice che $e$ è di tipo $\tau$ nell'ambiente $\Delta$.
+
 	\subsubsection{Semantica statica delle espressioni}
 	
 	\subsection{Compatibilità di ambienti}
