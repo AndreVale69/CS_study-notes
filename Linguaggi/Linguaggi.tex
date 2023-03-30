@@ -1478,5 +1478,148 @@ P:
 		\begin{equation*}
 			e_{0} \equiv e_{1} \iff Eval\left(e_{0}\right) = Eval\left(e_{1}\right)
 		\end{equation*}
+	\end{boxdef}\newpage
+
+	\section{Dichiarazioni}
+	
+	\subsection{Identificatori}
+	
+	Gli \textbf{identificatori} sono \textbf{sequenze di caratteri}, che hanno lo \textbf{scopo di denotare} (identificatore appunto) \textbf{qualcos'altro}.\newline
+	
+	\noindent
+	In altre parole, gli \textbf{identificatori sono nomi usati per riferire altri elementi del linguaggio}, come le procedure, \textbf{o della macchina sottostante}, come le colle di memoria, \textbf{durante la computazione}, senza necessariamente conoscerne il valore a priori.\newline
+	
+	\noindent
+	Gli \textbf{identificatori} sono detti \textbf{variabili} quando identificano celle di memoria.\newline
+	
+	\noindent
+	I \textbf{nomi} sono fondamentali per gli identificatori perché sono \textbf{facili da ricordare} e consentono di effettuare un processo di \textbf{astrazione}. Inoltre, è importante sottolineare il fatto che un identificatore ed un oggetto denotato \underline{non} sono la stessa cosa:
+	\begin{itemize}
+		\item Un identificatore può denotare più elementi;
+		\item Un elemento può essere denotato da più identificatori diversi (\emph{aliasing})
+	\end{itemize}
+	Un \textcolor{Green4}{\textbf{esempio}} è il seguente codice:
+	\begin{lstlisting}[language=C]
+const pi = 3.14;
+int x;
+void f(){...};\end{lstlisting}
+	Gli oggetti denotati sono una costante, una variabile e una procedura:
+	\begin{itemize}
+		\item \textsf{3.14} è una costante;
+		\item \textsf{x} è una variabile;
+		\item \textsf{\{...\}} è una procedura
+	\end{itemize}
+	Mentre \textsf{pi, x, f} sono nomi.\newline
+	
+	\noindent
+	In definitiva, gli identificatori non possono essere stringhe di caratteri qualunque, ma devono seguire delle regole così che il \emph{parser} del linguaggio li possa riconoscere come tali.\newline
+	
+	\noindent
+	\begin{boxdef}
+		Gli \textcolor{Red3}{\textbf{identificatori}} sono una \textbf{sequenza di caratteri usata per rappresentare o \underline{denotare} un altro oggetto}.
+	\end{boxdef}\newpage
+	
+	\subsection{Bindings}
+	
+	\subsubsection{Legami}
+	
+	\begin{boxdef}
+		Il \textcolor{Red3}{\textbf{\emph{binding occurrences}}} o in italiano la \textcolor{Red3}{\textbf{creazione \emph{binding}}} è il momento in cui viene \textbf{\underline{definito} il nome (identificatore) e il suo significato (denotazione)}.
 	\end{boxdef}
+
+	\noindent
+	In \textbf{matematica} questo accade ogni volta che viene posto un problema enunciando (e.g.) \dquotes{sia $x$ ...}. Viene creato un \emph{binding} \textbf{tra il significato dichiarato e il nome che verrà poi utilizzato nella specifica del problema}. In \textbf{logica} i \emph{binding} sono creati dai quantificatori (universali o esistenziali).\newline
+	
+	\noindent
+	In \textbf{programmazione} i \emph{binding} sono creati dalle dichiarazioni. Successivamente, il nome può essere correttamente utilizzato per riferirsi/rappresentare il suo significato.\newline
+	
+	\noindent
+	\begin{boxdef}
+		L'\textcolor{Red3}{\textbf{\emph{applied occurrences}}} o in italiano l'\textcolor{Red3}{\textbf{applicazione \emph{binding}}} è il momento in cui viene \textbf{\underline{utilizzato} il nome (identificatore) per \underline{accedere} al suo significato (denotazione)}.
+	\end{boxdef}
+
+	\noindent
+	In programmazione, come in matematica, non è sempre necessario creare i \emph{binding} prima del loro utilizzo, dipende dal linguaggio di programmazione.\newline
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di creazione e applicazione:
+	\begin{gather*}
+		\displaystyle\sum_{i=1}^{n}\sum_{j=1}^{m}a_{ij} \cdots b_{jk} \\
+		\downarrow \\
+		\displaystyle\underbrace{\sum_{i=1}^{n}\sum_{j=1}^{m}}_{\text{\emph{Binding occurrences i,j}}} \overbrace{a_{ij} \cdots b_{jk}}^{\text{\emph{Applied occurrences i,j}}}
+	\end{gather*}
+	La $i$ e $j$ sotto il simbolo di sommatoria sulla sinistra indicano la creazione del \emph{binding} e la $i,j$ a pedice dei simboli $a$ e $b$ sulla destra indicano l'applicazione del \emph{binding}.\newpage
+	
+	\subsubsection{Scope}
+	
+	Esistono anche le occorrenze libere che sono simili a quelle applicate con l'unica differenza che riguarda il raggio di azione (\emph{scope}) di un'occorrenza di definizione.\newline
+	
+	\noindent
+	\begin{boxdef}
+		Le \textcolor{Red3}{\textbf{\emph{free occurrences}}} o in italiano le \textcolor{Red3}{\textbf{occorrenze libere}} (non legate) è il momento in cui viene \textbf{\underline{utilizzato} un nome (identificatore) il cui significato (denotazione) non è stato definito}.
+	\end{boxdef}\:\newline
+
+	\noindent
+	\begin{boxdef}
+		Lo \textcolor{Red3}{\textbf{\emph{scope} di un \emph{binding}}} o in italiano il \textcolor{Red3}{\textbf{raggio d'azione di una definizione}} è la \textbf{definizione di spazio in cui è possibile utilizzare un nome per rappresentare il significato associato da un \emph{binding}}.
+	\end{boxdef}\:\newline
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di creazione e applicazione:
+	\begin{gather*}
+		\displaystyle\sum_{i=1}^{n}\sum_{j=1}^{m}a_{ij} \cdots b_{jk} \\
+		\downarrow \\
+		\displaystyle\underbrace{\sum_{i=1}^{n}\overbrace{\sum_{j=1}^{m} a_{ij} \cdots b_{jk}}^{\text{Scope di \emph{j}}}}_{\text{Scope di \emph{i}}}
+	\end{gather*}
+	La $n$, la $m$ e la $k$ sopra il simbolo di sommatoria sulla sinistra e al pedice della $b$, indicano le occorrenze libere, cioè non legate. Invece, lo \emph{scope} di $j$ si concentra sulla sommatoria più innestata, mentre lo \emph{scope} di $i$ sulla sommatoria più esterna.\newpage
+	
+	
+	\subsubsection{Bindings nei linguaggi di programmazione}
+	
+	Si riportano le definizioni già date ma con una veste diversa (non so il motivo di questa scelta, ma sulle slide è così...).\newline
+	
+	\noindent
+	\begin{boxdef}
+		\textcolor{Red3}{\textbf{Definizione - \emph{Binding occurrence}:}} un identificatore in posizione di definizione quando si \emph{(ri)definisce il significato} dell'identificatore.
+	\end{boxdef}\:\newline
+
+	\noindent
+	\begin{boxdef}
+		\textcolor{Red3}{\textbf{Uso - \emph{Applied occurrence}:}} un identificatore in posizione di uso quando si \emph{riferisce/denota il significato} definito da una definizione.
+	\end{boxdef}\:\newline
+	
+	\noindent
+	\begin{boxdef}
+		\textcolor{Red3}{\textbf{Libera - \emph{Free occurrence}:}} un identificatore in posizione libera se il suo uso non è nel \emph{raggio di azione (scope)} di una definizione.
+	\end{boxdef}\newpage
+	
+	
+	
+	\subsubsection{Tipi di bindings nei linguaggi di programmazione}
+	
+	\subsubsection{Tempi}
+	
+	\subsection{Semantica: Identificatori, ambienti e dichiarazioni}
+	
+	\subsubsection{Termini chiusi e ground}
+	
+	\subsubsection{Ambienti nei linguaggi imperativi}
+	
+	\subsubsection{Espressioni con identificatori}
+	
+	\subsubsection{Identificatori liberi}
+	
+	\subsection{Nuove regole}
+	
+	\subsection{Tipo}
+	
+	\subsubsection{Binding di tipo (\emph{Type binding})}
+	
+	\subsection{Ambiente statico e semantica statica}
+	
+	\subsubsection{Semantica statica delle espressioni}
+	
+	\subsection{Compatibilità di ambienti}
+	
+	\subsection{Espressioni con identificatori costanti - Regole}
 \end{document}
