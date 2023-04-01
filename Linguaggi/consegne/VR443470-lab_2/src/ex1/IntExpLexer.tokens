@@ -1,0 +1,16 @@
+LPAR=1
+RPAR=2
+PLUS=3
+MULT=4
+SUBT=5
+DIVI=6
+MODU=7
+NAT=8
+WS=9
+'('=1
+')'=2
+'+'=3
+'*'=4
+'-'=5
+'/'=6
+'mod'=7

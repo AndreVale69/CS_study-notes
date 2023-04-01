@@ -1,11 +1,13 @@
 grammar Ex4;
 
-main : seq EOF;
+main : start EOF;
 
-seq : | alph;
+start : | inizia_a | inizia_b;
 
-alph : | 'a' alph alph_c | 'b' alph alph_c | 'c' alph alph_obb;
+inizia_a : | 'a' inizia_a continua_b fine_c;
 
-alph_c : 'c' alph;
+inizia_b : | 'b' inizia_b fine_c;
 
-alph_obb : 'a' alph | 'b' alph;
+continua_b : | 'b' continua_b fine_c;
+
+fine_c : 'c';
