@@ -14,17 +14,17 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
     }
 
     @Override
-    public Integer visitMul(IntExpParser.MulContext ctx) {
-        int left = visit(ctx.exp(0));
-        int right = visit(ctx.exp(1));
-        return left * right;
-    }
-
-    @Override
     public Integer visitSub(IntExpParser.SubContext ctx) {
         int left = visit(ctx.exp(0));
         int right = visit(ctx.exp(1));
         return left - right;
+    }
+
+    @Override
+    public Integer visitMul(IntExpParser.MulContext ctx) {
+        int left = visit(ctx.exp(0));
+        int right = visit(ctx.exp(1));
+        return left * right;
     }
 
     @Override
