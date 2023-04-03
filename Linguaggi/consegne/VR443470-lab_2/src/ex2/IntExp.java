@@ -1,13 +1,12 @@
 package ex2;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class IntExp extends IntExpBaseVisitor<Integer> {
     /**
      * The Map object where save all variables used in the expressions
      */
-    private Map<String, Integer> vars = new HashMap<>();
+    private final Map<String, Integer> vars = new HashMap<>();
 
     /**
      * The start point
@@ -31,6 +30,11 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
         return visit(ctx.exp());
     }
 
+    /**
+     * Declaration all variables
+     * @param ctx the parse tree
+     * @return visit declaration action
+     */
     @Override
     public Integer visitAssignm(IntExpParser.AssignmContext ctx) {
         // Take name of variable
@@ -55,6 +59,11 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
         return null;
     }
 
+    /**
+     * Get the var
+     * @param ctx the parse tree
+     * @return value of var or zero (default)
+     */
     @Override
     public Integer visitAlf(IntExpParser.AlfContext ctx) {
         // Take the value from the Map
@@ -63,6 +72,11 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
         return Objects.requireNonNullElse(value, 0);
     }
 
+    /**
+     * Plus operation
+     * @param ctx the parse tree
+     * @return result plus operation
+     */
     @Override
     public Integer visitPlus(IntExpParser.PlusContext ctx) {
         int left = visit(ctx.exp(0));
@@ -70,6 +84,11 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
         return left + right;
     }
 
+    /**
+     * Subtraction operation
+     * @param ctx the parse tree
+     * @return result subtraction operation
+     */
     @Override
     public Integer visitSub(IntExpParser.SubContext ctx) {
         int left = visit(ctx.exp(0));
@@ -77,6 +96,11 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
         return left - right;
     }
 
+    /**
+     * Multiplication operation
+     * @param ctx the parse tree
+     * @return result multiplication operation
+     */
     @Override
     public Integer visitMul(IntExpParser.MulContext ctx) {
         int left = visit(ctx.exp(0));
@@ -84,6 +108,11 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
         return left * right;
     }
 
+    /**
+     * Division operation
+     * @param ctx the parse tree
+     * @return result division operation
+     */
     @Override
     public Integer visitDiv(IntExpParser.DivContext ctx) {
         int left = visit(ctx.exp(0));
@@ -91,6 +120,11 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
         return left / right;
     }
 
+    /**
+     * Module operation
+     * @param ctx the parse tree
+     * @return result module operation
+     */
     @Override
     public Integer visitMod(IntExpParser.ModContext ctx) {
         int left = visit(ctx.exp(0));
@@ -98,6 +132,11 @@ public class IntExp extends IntExpBaseVisitor<Integer> {
         return left % right;
     }
 
+    /**
+     * Natural numbers
+     * @param ctx the parse tree
+     * @return Natural numbers
+     */
     @Override
     public Integer visitNat(IntExpParser.NatContext ctx) {
         return Integer.parseInt(ctx.NAT().getText());
