@@ -1408,7 +1408,7 @@
 		r_{1} \Join r_{2}
 	\end{equation*}\newpage
 
-	\subsubsection{Theta-join ed equi-join}
+	\subsubsection{Theta-join ed equi-join}\label{theta-join}
 	
 	Osservando l'esempio 1 a fine paragrafo, è possibile notare come un prodotto cartesiano ha di solito ben poca utilità, in quanto concatena tuple non necessariamente correlate dal punto di vista semantico. Infatti, il \textbf{prodotto cartesiano viene spesso seguito da una selezione}, la quale centra l'attenzione su tuple correlate secondo le esigenze.\newline
 	\textcolor{Green4}{\textbf{Per esempio}}, nell'esempio 2 a fine paragrafo, sulle relazione \textsf{Impiegati} e \textsf{Progetti} ha senso definire un prodotto cartesiano seguito dalla selezione che mantiene solo le tuple con valori uguali sull'attributo \textsf{\emph{Progetto}} di \textsf{Impiegati} e su \textsf{\emph{Codice}} di \textsf{Progetti}.
@@ -4130,5 +4130,81 @@ drop table Dipartimento cascade\end{lstlisting}
 		\item Questa \emph{query} \underline{\textbf{non è corretta}}:
 		\lstinputlisting[language=SQL]{code/max-ex2.sql}
 		Questa interrogazione non può essere utilizzata poiché gli operatori aggregati (in questo caso \textsf{max}) non rappresentano un meccanismo di selezione, ma solo delle funzioni che restituiscono un valore quando sono applicate ad un insieme. Quindi, \textbf{SQL non ammette che nella stessa clausola \textsf{select} compaiano funzioni aggregati ed espressioni al livello di riga, a meno che non si faccia utilizzo della clausola \textsf{group by}}.
+	\end{itemize}\newpage
+
+	\subsection{Join interni ed esterni (\textsf{inner/right/left/full/cross join})}
+	
+	La sintassi del \textsf{join} è la seguente:
+	\lstinputlisting[language=SQL]{code/join.sql}
+	Il parametro \textsf{TipoJoin} rappresenta qual è il tipo di join da utilizzare che può essere:
+	\begin{itemize}
+		\item \textbf{Valore di default:} \textcolor{Red3}{\textsf{inner join}} è il \textbf{tradizionale theta-join} dell'algebra relazionale (paragrafo~\ref{theta-join});
+		
+		\item \textcolor{Red3}{\textsf{cross join}} è il \textbf{prodotto cartesiano} di due o più tabelle;
+
+		\item \textcolor{Red3}{\textsf{right join}} fornisce come risultato il \textbf{join interno esteso con le righe della tabella che compare a \underline{destra} per le quali non esiste una corrispondente riga nella tabella di \underline{sinistra}};
+
+		\item \textcolor{Red3}{\textsf{left join}} fornisce come risultato il \textbf{join interno esteso con le righe della tabella che compare a \underline{sinistra} per le quali non esiste una corrispondente riga nella tabella di \underline{destra}};	
+
+		\item \textcolor{Red3}{\textsf{full join}} restituisce il \textbf{join interno esteso con le righe escluse di \underline{entrambe} le tabelle}.
 	\end{itemize}
+	È possibile aggiungere la parola \textcolor{Red3}{\textsf{natural}} davanti ogni join così da specificare l'utilizzo del join naturale, ovvero utilizzare un join con una condizione implicita di uguaglianza su tutti gli attributi caratterizzati dallo stesso nome.\newline
+	
+	\noindent
+	Si presentano alcuni \textcolor{Green4}{\textbf{esempi}}:
+	\begin{itemize}
+		\item Tenendo in considerazione la base dati a pagina~\ref{select dbms}, si vogliono estrarre i nomi degli impiegati e le città in cui lavorano:
+		\lstinputlisting[language=SQL]{code/join-ex1.sql}
+		Il risultato:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.55\textwidth]{img/join-ex1.pdf}
+		\end{figure}\newpage
+	
+		\item Si consideri la seguente base dati:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.75\textwidth]{img/join-ex_dbms.pdf}
+			\caption{Base dati d'esempio.}
+		\end{figure}
+		
+		\begin{itemize}
+			\item Si vuole estrarre i guidatori con le automobili loro associate, mantenendo nel risultato anche i guidatori senza automobile:
+			\lstinputlisting[language=SQL]{code/join-ex2.sql}
+			Si noti che l'ultima riga del risultato rappresenta un guidatore cui non risulta associata nessuna automobile:
+			\begin{figure}[!htp]
+				\centering
+				\includegraphics[width=\textwidth]{img/join-ex2.pdf}
+			\end{figure}\newpage
+		
+			\item Si vuole estrarre tutti i guidatori e tutte le auto, mostrando tutte le relazioni esistenti tra di essi:
+			\lstinputlisting[language=SQL]{code/join-ex3.sql}
+			L'interrogazione produce come risultato la seguente tabella. Si noti che l'ultimo elemento della tabella descrive un'automobile per la quale non esiste un corrispondente elemento in \textsf{Guidatore}:
+			\begin{figure}[!htp]
+				\centering
+				\includegraphics[width=\textwidth]{img/join-ex3.pdf}
+			\end{figure}
+			
+			\item Si estraggono tutti i guidatori e tutte le auto, mostrando tutte le relazioni esistenti tra di essi, ma questa volta usando il join naturale:
+			\lstinputlisting[language=SQL]{code/join-ex4.sql}
+			Il risultato è identico al punto precedente (tabella soprastante). Analizzando il join naturale, esso \textbf{non è normalmente consigliabile} poiché un'interrogazione che lo utilizza può introdurre dei rischi nelle applicazioni, in quanto il suo comportamento può mutare profondamente al variare dello schema delle tabelle.
+		\end{itemize}
+	\end{itemize}\newpage
+
+	\subsection{Raggruppamento (\textsf{group by})}
+	
+	Spesso nasce l'esigenza di \textbf{applicare l'operatore aggregato separatamente a sottoinsiemi di righe}. Per poter utilizzare in questo modo l'operatore aggregato, SQL mette a disposizione la clausola \textsf{group by}, la quale consente di specificare come dividere le tabelle in sottoinsiemi.\newline
+	
+	\noindent
+	La sintassi e il suo funzionamento vengono spiegate con l'introduzione di un esempio: si vuole estrarre la somma degli stipendi di tutti gli impiegati dello stesso dipartimento:
+	\lstinputlisting[language=SQL]{code/group-by-ex1.sql}
+	I passi eseguiti per ottenere il risultato sono:
+	\begin{enumerate}
+		\item L'interrogazione viene eseguita come se la clausola \textsf{group by} non esistesse. Quindi, viene eseguita una \textbf{selezione degli attributi} che \textbf{appaiono come argomento della clausola} \textsf{group by} o che \textbf{compaiono all'interno dell'espressione argomento dell'operatore aggregato}. Nell'esempio è come se si considerasse:
+		\lstinputlisting[language=SQL]{code/group-by-ex2.sql}
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.4\textwidth]{img/group-by-ex1.pdf}
+		\end{figure}
+	\end{enumerate}
 \end{document}
