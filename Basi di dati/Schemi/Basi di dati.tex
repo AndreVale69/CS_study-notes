@@ -4200,11 +4200,78 @@ drop table Dipartimento cascade\end{lstlisting}
 	\lstinputlisting[language=SQL]{code/group-by-ex1.sql}
 	I passi eseguiti per ottenere il risultato sono:
 	\begin{enumerate}
-		\item L'interrogazione viene eseguita come se la clausola \textsf{group by} non esistesse. Quindi, viene eseguita una \textbf{selezione degli attributi} che \textbf{appaiono come argomento della clausola} \textsf{group by} o che \textbf{compaiono all'interno dell'espressione argomento dell'operatore aggregato}. Nell'esempio è come se si considerasse:
+		\item L'interrogazione viene eseguita come se la clausola \textsf{group by} non esistesse. Quindi, viene eseguita una \textbf{selezione degli attributi} che \textbf{appaiono come argomento della clausola} \textsf{group by} o che \textbf{compaiono all'interno dell'espressione argomento dell'operatore aggregato}.\newline
+		Nell'esempio è come se si considerasse:
 		\lstinputlisting[language=SQL]{code/group-by-ex2.sql}
 		\begin{figure}[!htp]
 			\centering
 			\includegraphics[width=.4\textwidth]{img/group-by-ex1.pdf}
+		\end{figure}\newpage
+	
+		\item La tabella ottenuta, precisamente le righe (\emph{records}), viene \textbf{divisa in insiemi caratterizzati dallo stesso valore degli attributi che compaiono come argomento della clausola \textsf{group by}}.\newline
+		Nell'esempio vengono raggruppate in base al valore dell'attributo \textsf{Dipart}, il risultato è il seguente:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.4\textwidth]{img/group-by-ex2.pdf}
+		\end{figure}
+	
+		\item Viene \textbf{applicato l'operatore aggregato separatamente su ogni sottoinsieme}. Il risultato è una tabella con righe che contengono l'esito della valutazione dell'operatore aggregato affiancato al valore dell'attributo che è stato usato per l'aggregazione.\newline
+		Nell'esempio il risultato finale:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.4\textwidth]{img/group-by-ex3.pdf}
 		\end{figure}
 	\end{enumerate}
+	\textbf{\underline{ATTENZIONE:}} un'\textbf{interrogazione può utilizzare} la clausola \textbf{\textsf{group by}} se compare come \textbf{argomento della \textsf{select} solamente un sottoinsieme degli attributi usati nella clausola} \textsf{group by}. Infatti, per questi attributi, ciascuna tupla del sottoinsieme sarà caratterizzata dallo stesso valore. Un esempio che non rispetta tale regola, viene presentato nella prossima pagina.\newpage
+	
+	\noindent
+	Alcuni \textcolor{Green4}{\textbf{esempi}} particolari:
+	\begin{itemize}
+		\item Questo caso mostra i \textbf{problemi} che possono essere introdotti da interrogazioni che presentano nella clausola \textsf{select} attributi che non appaiono nella clausola \textsf{group by}:
+		\lstinputlisting[language=SQL]{code/group-by-ex3.sql}
+		È un'\underline{\textbf{interrogazione scorretta}}! Infatti, ad ogni valore dell'attributo \textsf{Dipart} corrisponderanno diversi valori dell'attributo \textsf{Ufficio}.
+		
+		Al contrario, dopo l'esecuzione del raggruppamento, ogni sottoinsieme di righe deve corrispondere ad una sola riga nella tabella risultato dell'interrogazione.
+		
+		
+		\item Un'altra \underline{\textbf{interrogazione vietata}} è la seguente:
+		\lstinputlisting[language=SQL]{code/group-by-ex4.sql}
+		Questa interrogazione \textbf{dovrebbe} restituire i dipartimenti, il numero di impiegati di ciascun dipartimento e la città in cui il dipartimento ha sede. Dato che \textsf{Nome} è chiave di \textsf{Dipartimento}, ad ogni valore di \textsf{Dipart} corrisponde un preciso valore di \textsf{Citta}.
+		
+		L'interrogazione può essere riscritta correttamente nel seguente modo:
+		\lstinputlisting[language=SQL]{code/group-by-ex5.sql}
+	\end{itemize}\newpage
+
+	\subsubsection{Predicati sui gruppi (\textsf{having})}
+	
+	A seconda delle necessità, si possono presentare due casistiche:
+	\begin{enumerate}
+		\item \textbf{Problema}: considerare solo sottoinsiemi che soddisfano condizioni verificabili al livello delle singole righe.\newline
+		\textbf{Soluzione}: porre i predicati come argomento nella clausola \textsf{where}.
+		
+		\item \textbf{Problema}: considerare solo sottoinsiemi che soddisfano condizioni di tipi aggregato.\newline
+		\textbf{Soluzione}: costrutto \textsf{having}, il quale \textbf{descrive le condizioni che si devono applicare al termine dell'esecuzione di un'interrogazione che fa uso della clausola \textsf{group by}}-
+	\end{enumerate}
+	Quindi, il costrutto \textsf{having} consente di filtrare i risultati della clausola \textsf{group by}.\newline
+	
+	\noindent
+	È inoltre possibile utilizzare il costrutto \textsf{having} anche senza \textsf{group by}. In tal caso, l'\textbf{intero insieme di righe è trattato come un unico raggruppamento}. Solitamente, questo metodo è poco utilizzato poiché in caso di condizione falsa, il risultato sarà vuoto.\newline
+	
+	\noindent
+	Per sapere \textbf{quali predicati di un'interrogazione che fa uso del raggruppamento vanno dati come argomento della clausola \textsf{where} e quali come argomento della clausola \textsf{having}}, è necessario rispettare il seguente \underline{criterio}: \textbf{\emph{solo i predicati in cui compaiono operatori aggregati devono essere argomento della clausola} \textsf{having}}.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{itemize}
+		\item Si vuole estrarre i dipartimenti che spendono più di $100$ in stipendi:
+		\lstinputlisting[language=SQL]{code/having-ex1.sql}
+		Vengono raggruppate le righe in base al valore dell'attributo \textsf{Dipart}; viene valutato il predicato argomento della clausola \textsf{having}, la quale seleziona i dipartimenti per cui la somma degli stipendi, per tutti gli elementi del sottoinsieme, è superiore a $100$. Il risultato:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.3\textwidth]{img/having-ex1.pdf}
+		\end{figure}
+		
+		\item Si vuole estrarre i dipartimenti per cui la media degli stipendi degli impiegati che lavorano nell'ufficio $20$ è superiore a $25$:
+		\lstinputlisting[language=SQL]{code/having-ex2.sql}
+	\end{itemize}
 \end{document}
