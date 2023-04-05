@@ -1752,7 +1752,7 @@ void f(){...};\end{lstlisting}
 	\end{boxdef}\newpage
 	
 	
-	\subsection{Nuove regole}
+	\subsection{Nuove regole}\label{nuove regole}
 	
 	Per una descrizione dettagliata delle regole si rimanda al paragrafo \ref{regole di transizione}:
 	\begin{itemize}
@@ -1893,11 +1893,202 @@ Even integers
 		
 		\item $V$ indica l'\textbf{insieme degli identificatori} per i quali l'ambiente definisce un'associazione.
 	\end{itemize}
-	Nel caso in cui questi elementi non sono presenti, significa che l'ambiente è vuoto. In tal caso, si dice che $e$ è di tipo $\tau$ nell'ambiente $\Delta$.
+	Nel caso in cui questi elementi non sono presenti, significa che l'ambiente è vuoto. In tal caso, si dice che $e$ è di tipo $\tau$ nell'ambiente $\Delta$.\newpage
 
 	\subsubsection{Semantica statica delle espressioni}
 	
-	\subsection{Compatibilità di ambienti}
+	Si introducono le \textcolor{Red3}{\textbf{regole della semantica statica delle espressioni}}. Le prime tre regole sono assiomi, mentre le restanti riguardano operazioni booleane e aritmetiche. Esse vengono definite usando delle funzioni che determinano il tipo del risultato di un operatore booleano o aritmetico in funzione del tipo degli operandi:
+	\begin{itemize}
+		\item La prima regola è un \textbf{assioma} e dice che nell'ambiente vuoto, cioè qualsiasi, un numero ha tipo intero (int):
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.3\textwidth]{img/regola_semantica-1.pdf}
+		\end{figure}
 	
-	\subsection{Espressioni con identificatori costanti - Regole}
+		\item La seconda regola è un \textbf{assioma} e dice che nell'ambiente vuoto, cioè qualsiasi, una costante booleana ha tipo booleano (bool):
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.3\textwidth]{img/regola_semantica-2.pdf}
+		\end{figure}
+	
+		\item La terza regola è un \textbf{assioma} e riguarda gli identificatori. In questo caso, la regola determina che l'identificatore ha come tipo proprio quello che l'ambiente statico $\delta$ del contesto gli associa:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_semantica-3.pdf}
+		\end{figure}
+	
+		\item La quarta regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_semantica-4.pdf}
+		\end{figure}
+	
+		\item La quinta regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_semantica-5.pdf}
+		\end{figure}
+	
+		\item La sesta regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.5\textwidth]{img/regola_semantica-6.pdf}
+		\end{figure}\newpage
+	
+		\item La settima regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.5\textwidth]{img/regola_semantica-7.pdf}
+		\end{figure}
+	\end{itemize}
+	
+	\longline
+	
+	\subsection{Compatibilità di ambienti e regole aggiornate}
+	
+	Date le due definizioni di ambiente statico e dinamico, è necessario introdurre una nuova definizione:
+	\begin{boxdef}
+		La \textcolor{Red3}{\textbf{compatibilità di ambienti}} è esprimibile nel seguente modo. Sia $\rho : V$ un ambiente dinamico e $\Delta : V$ un ambiente statico con $V \subseteq_{f} Id$. Gli ambienti $\rho$ e $\Delta$ sono compatibili (formalmente $\rho:\Delta$) se e soltanto se:
+		\begin{equation*}
+			\forall id \in V : \left( \Delta\left(id\right) = \tau \land \rho\left(id\right) \in \tau \right)
+		\end{equation*}
+		In una sola riga:
+		\begin{equation*}
+			\rho : \Delta \iff \forall id \in V : \left( \Delta\left(id\right) = \tau \land \rho\left(id\right) \in \tau \right)
+		\end{equation*}
+	\end{boxdef}
+	
+	\noindent
+	Quindi, un ambiente statico e un ambiente dinamico sono \textbf{compatibili se \dquotes{parlano} in modo coerente degli stessi identificatori}. In particolare, questo significa che se l'ambiente statico stabilisce che una certa espressione ha tipo $\tau$, allora la semantica dinamica deve arrivare ad associare all'identificatore un valore contenuto nel tipo $\tau$, ovvero nell'insieme dei valori con lo stesso tipo $\tau$.\newline
+	
+	\noindent
+	Adesso, nelle regole \textbf{non} si osserva più l'\textbf{ambiente dinamico} specificando l'insieme degli identificatori, ma specificando l'\textbf{ambiente statico compatibile}:
+	\begin{equation*}
+		\rho \dashv_{\Delta}
+	\end{equation*}
+	A seguito dell'aggiornamento con l'ambiente statico, si espongono le regole (paragrafo~\ref{nuove regole}) aggiornate tenendo in considerazione $op \in \left\{+,-,*,=\right\}$ e $bop \in \left\{or,=\right\}$:
+	\begin{itemize}
+		\item La prima regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-1.pdf}
+		\end{figure}
+		
+		\item La seconda regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-2.pdf}
+		\end{figure}\newpage
+		
+		\item La terza regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-3.pdf}
+		\end{figure}
+		
+		\item La quarta regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-4.pdf}
+		\end{figure}
+		
+		\item La terza regola aggiornata:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-5.pdf}
+		\end{figure}
+		
+		\item La sesta regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-6.pdf}
+		\end{figure}
+		
+		\item La settima regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-7.pdf}
+		\end{figure}
+		
+		\item L'ottava regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-8.pdf}
+		\end{figure}
+	\end{itemize}\newpage
+	
+	\subsection{Dichiarazioni in $IMP$}
+	
+	Le dichiarazioni vengono \textbf{utilizzate per creare legami tra identificatori e oggetti denotati}. Le dichiarazioni quindi devono essere elaboratore per ottenere l'associazione che descrivono.\newline
+	
+	\noindent
+	Si introduce la \textbf{sintassi delle dichiarazioni}, ovvero la loro \underline{\textbf{grammatica}}:
+	\begin{equation*}
+		\mathcal{D}: <Dec> \: D \rightarrow \mathrm{nil} \hspace{1em} | \hspace{1em} \mathrm{const} \: I:\tau = e \hspace{1em} | \hspace{1em} D \: \mathrm{in} \: D \hspace{1em} | \hspace{1em} D \: ; D \hspace{1em} | \hspace{1em} \rho
+	\end{equation*}
+	\begin{itemize}
+		\item $D$ è il \textbf{simbolo non terminale della grammatica} che corrisponde (genera) tutti i termini della categoria sintattica, ovvero tutte le dichiarazioni nel linguaggio;
+		
+		\item $\mathrm{nil}$ è la \textbf{dichiarazione vuota}, ovvero quella che crea l'ambiente vuoto;
+		
+		\item $\mathrm{const} \: I:\tau = e$ è una \textbf{dichiarazione di una costante} che serve a definire un identificatore $I$ costante (quindi non cambia durante l'esecuzione) di tipo $\tau$, inizializzato con il valore rappresentato dall'espressione $e$.
+		
+		\item $\rho$ rappresenta la \textbf{dichiarazione completamente elaborata}, il suo \textbf{valore finale}, così come i simboli numerici erano i valori terminali delle espressioni.
+		
+		\item $D_{1} \: ; D_{2}$ definisce la \textbf{composizione sequenziale} dove $D_{1}$ definisce i legami che si uniscono a quelli di $D_{2}$ e che possono anche essere utilizzati da $D_{2}$.
+		
+		\item $D_{1} \: \mathrm{in} \: D_{2}$ definisce la \textbf{composizione privata}, ovvero i legami creati da $D_{1}$ sono visibili e utilizzati da $D_{2}$ ma non sono visibili all'esterno, dopo l'elaborazione di $D_{2}$. In altre parole, $D_{1}$ definisce i legami che risolvono le occorrenze libere presenti in $D_{2}$.
+	\end{itemize}
+	
+	\begin{boxdef}
+		Le \textcolor{Red3}{\textbf{dichiarazioni}} denotano richieste di modifica/creazione di ambienti.
+	\end{boxdef}\newpage
+	
+	\subsubsection{Comporre dichiarazioni}
+	
+	Si definiscono graficamente le composizioni presentate nel paragrafo precedente, ovvero $D_{1} \: ; D_{2}$ e $D_{1} \: \mathrm{in} \: D_{2}$.\newline
+	
+	\noindent
+	Nella \textbf{composizione sequenziale} tutto ciò che è definito dalla prima  è visibile alla seconda e dopo la dichiarazione, tranne ciò che la seconda sovrascrive:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/composizione_sequenziale.pdf}
+	\end{figure}
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textbf{composizione sequenziale}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_composizione_sequenziale.pdf}
+	\end{figure}
+	
+	\noindent
+	Al contrario, nella \textbf{composizione privata} la prima dichiarazione è appunto privata, esclusiva, per la seconda:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/composizione_privata.pdf}
+	\end{figure}
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textbf{composizione privata}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/esempio_composizione_privata.pdf}
+	\end{figure}\newpage
+	
+	\subsubsection{Identificatori definiti nelle dichiarazioni}
+	
+	\subsubsection{Identificatori liberi nelle dichiarazioni}
+	
+	\subsubsection{Semantica statica delle dichiarazioni}
+	
+	\subsubsection{Semantica statica delle dichiarazioni composte}
+	
+	\subsubsection{Semantica dinamica delle dichiarazioni}
+	
+	\subsection{Regole per l'elaborazione delle dichiarazioni}
+	
+	\subsection{Valutazione de equivalenza}
+	
+	\subsection{Esempio completo di utilizzo delle regole}
 \end{document}
