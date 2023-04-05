@@ -6,6 +6,7 @@
 \usepackage{amsfonts}
 \usepackage{booktabs}				% tabelle di qualità superiore
 \usepackage{amsmath}				% pacchetto matematica
+\usepackage{amsthm}					% teoremi migliorati
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
 \usepackage{listings}				% pacchetto per i codici
@@ -16,8 +17,6 @@
 \hypersetup{
 	colorlinks=true
 }
-
-\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -41,13 +40,14 @@
 	showtabs=false,                  
 	tabsize=2
 }
-
 \lstset{style=mystyle}
 
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
 
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 \newcommand{\dquotes}[1]{``#1''}
+\renewcommand{\qedsymbol}{QED}
 
 \begin{document}
 	\author{VR443470}
@@ -3330,7 +3330,295 @@ end transaction;
 	\end{itemize}\:\newline
 
 	\noindent
-	L'\textbf{analisi di ciclicità di un grafo ha una complessità lineare} rispetto alla dimensione del grafo stesso.
+	L'\textbf{analisi di ciclicità di un grafo ha una complessità lineare} rispetto alla dimensione del grafo stesso.\newpage
+	
+	\subsubsection{Locking a due fasi (2PL)}
+	
+	Esiste un meccanismo che supera i problemi riscontrati nelle due tecniche precedenti (conflict-equivalenza e view-equivalenza). Tale tecnica prende il nome di \textcolor{Red3}{\textbf{locking}}, la quale si basa sulla seguente idea: \textbf{tutte le operazioni di lettura e scrittura devono essere protette tramite l'esecuzione di opportune primitive} (\textsf{r\_lock}, \textsf{w\_lock}, \textsf{unlock}); lo \textbf{scheduler} (\emph{lock manager}) \textbf{riceve una sequenza di richieste di esecuzione di queste primitive da parte delle transazioni, e ne determina la correttezza con una semplice ispezione di una struttura dati}.
+	\begin{enumerate}
+		\item Ogni \textbf{operazione di \underline{lettura}} deve essere preceduta da un \textbf{\textsf{r\_lock}} e seguita da un \textsf{unlock};
+		
+		Il \textbf{lock} si dice in questo caso \textbf{\emph{condiviso}}, perché su un dato possono essere contemporaneamente attivi più lock di questo tipo.
+		
+		\item Ogni \textbf{operazione di \underline{scrittura}} deve essere preceduta da un \textbf{\textsf{w\_lock}} e seguita da un \textsf{unlock};
+		
+		Il \textbf{lock} si dice in tal caso \textbf{\emph{esclusivo}}, perché non può coesistere con altri lock (esclusivi o condivisi) sullo stesso dato.
+	\end{enumerate}
+	Se vengono rispettate queste regole, allora una \textbf{\emph{transazione è ben formata rispetto al locking}}.\newline
+	
+	\noindent
+	Si forniscono alcuni termini per delle azioni:
+	\begin{itemize}
+		\item Quando una \textbf{richiesta di lock è concessa}, si dice che la corrispondente risorsa viene \textbf{\underline{acquisita}} dalla transazione richiedente.
+		
+		\item All'\textbf{esecuzione dell'unlock}, la risorsa viene \textbf{\underline{rilasciata}}.
+		
+		\item Quando una \textbf{richiesta di lock non viene concessa}, la transazione richiedente viene messa in \textbf{\underline{stato di attesa}}. L'attesa termina quando la risorsa viene sbloccata e diviene disponibile.
+		
+		\item I \textbf{lock già concessi} vengono memorizzati in \textbf{\underline{tabelle di lock}}, gestite dal lock manager.
+	\end{itemize}
+	Una \textbf{richiesta di lock} è caratterizzata solo dall'\textbf{identificativo della transazione} che fa la richiesta, e dalla \textbf{risorsa} per la quale la richiesta viene effettuata.\newpage
+	
+	\noindent
+	Il lock manager basa le sue decisioni in base alla \textbf{tabella dei conflitti}:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c c c c @{}}
+			\toprule
+			Richiesta 	& 			& Stato risorsa	& \\ \cmidrule{2-4}
+						& \emph{libero} 	& \textsf{r\_locked} 	& \textsf{w\_locked} \\
+			\midrule
+			\textsf{r\_lock}& OK / \textsf{r\_locked}	& OK / \textsf{r\_locked}	& No / \textsf{w\_locked} 	\\
+			\textsf{w\_lock}& OK / \textsf{w\_locked}	& No / \textsf{r\_locked}	& No / \textsf{w\_locked}	\\
+			\textsf{unlock}	& \emph{error}				& OK / \emph{dipende}		& OK / \emph{libero}		\\
+			\bottomrule
+		\end{tabular}
+		\caption{La tabella dei conflitti per il metodo di locking.}
+	\end{table}
+
+	\noindent
+	Alcune precisazioni e caratteristiche della tabella:
+	\begin{itemize}
+		\item Le \textbf{\emph{righe}} identificano le \textbf{richieste};
+	
+		\item Le \textbf{\emph{colonne}} identificano lo \textbf{stato della risorsa} richiesta;
+	
+		\item Il \textbf{valore di \emph{sinistra}} (OK, No) identifica l'\textbf{esito della richiesta}. In particolare, il valore No rappresenta un conflitto che si può presentare quando:
+		\begin{itemize}
+			\item Viene richiesta una lettura/scrittura su un oggetto già bloccato in scrittura;
+			
+			\item Viene richiesta una scrittura su un oggetto già bloccato in lettura.
+		\end{itemize}
+	
+		\item Il \textbf{valore di \emph{destra}} (\textsf{r\_locked}, \textsf{w\_locked}, dipende, libero) identifica lo \textbf{stato} che verrà assunto dalla \textbf{risorsa dopo l'esecuzione} della primitiva.
+		
+		\item \textbf{Solo quando un oggetto è bloccato in lettura è possibile dare risposta positiva ad un'altra richiesta di lock in lettura}. Da questa caratteristica discende il nome \textbf{\emph{lock condiviso}} attribuito al lock in lettura.
+		
+		\item Nel \textbf{caso di \textsf{unlock} di un risorsa bloccata in modo condiviso} (lettura), la \textbf{risorsa ritorna \emph{libera} quando non ci sono altre transazioni in lettura che operano su di essa}; altrimenti, essa rimane bloccata in lettura.
+		
+		Per questo motivo, la colonna \textsf{r\_locked} assume il valore \emph{dipende} in corrispondenza di \textsf{unlock}.
+	\end{itemize}
+	Per avere la \textbf{garanzia} che le \textbf{transazioni} seguano uno \textbf{schedule serializzabile} è necessario porre una restrizione sull'ordinamento delle richieste di lock. Tale regola prende il nome di \textcolor{Red3}{\textbf{locking a due fasi}} (\emph{Two Phase Locking}, 2PL): \textbf{una transazione, dopo aver rilasciato un lock, non può acquisirne altri}.
+	
+	Questo provoca una conseguenza durante l'esecuzione, la quale viene divisa in due fasi:
+	\begin{enumerate}
+		\item (\textbf{\emph{fase crescente}}) Acquisizione dei lock per le risorse a cui si deve accedere.
+		
+		\item (\textbf{\emph{fase calante}}) I lock acquisiti vengono rilasciati.
+	\end{enumerate}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/conseguenza_2PL.pdf}
+		\caption{Rappresentazione delle risorse allocate a una transazione con un protocollo di lock a due fasi. L'ascissa rappresenta il tempo, mentre l'ordinata rappresenta il numero di risorse ottenute da una transazione durante la sua esecuzione.}
+	\end{figure}
+	
+	\begin{proof}[\textbf{Dimsotrazione che} $\boldsymbol{2PL \subset CSR}$]
+		Si vuole dimostrare che ogni schedule che rispetti i requisiti del protocollo di lock a due fasi risulta anche uno schedule serializzabile rispetto alla conflict-equivalenza.\newline
+		
+		\noindent
+		Si ipotizzi per assurdo che esista uno schedule $S$ tale che:
+		\begin{equation*}
+			S \in 2PL \land S \notin CSR
+		\end{equation*}
+		Se $S$ non appartiene a $CSR$, allora vuol dire che costruendo il grafo delle dipendenze tra le transazioni si ottiene un ciclo del tipo $t_{1}, t_{2}, ..., t_{n}, t_{1}$. Nel caso in cui esista un conflitto tra $t_{1}$ e $t_{2}$, vuol dire che esiste una risorsa $x$ su cui operano entrambe le transizioni in modo conflittuale. Affinché la transazione $t_{2}$ possa procedere, è necessario che la transazione $t_{1}$ rilasci il lock su $x$.
+		
+		D'altra parte, osservando il conflitto tra $t_{n}$ e $t_{1}$, è evidente che esiste una risorsa $y$ su cui operano entrambe le transazioni in modo conflittuale. Affinché la transazione $t_{1}$ possa procedere, è necessario che la transazione $t_{1}$ acquisisca il lock sulla risorsa $y$, rilasciato da $t_{n}$.\newline
+		
+		\noindent
+		Quindi, la transazione $t_{1}$ non può essere a due fasi: essa rilascia la risorsa $x$ prima di acquisire la $y$. Si conclude che le classi $2PL$ e $CSR$ non sono equivalenti, e quindi che $2PL$ è inclusa strettamente in $CSR$. Un esempio di schedule non in $2PL$ ma in $CSR$:
+		\begin{equation*}
+			S_{12}: \hspace{1em} r_{1}\left(x\right) w_{1}\left(x\right) r_{2}\left(x\right) w_{2}\left(x\right) r_{3}\left(y\right) w_{1}\left(y\right)
+		\end{equation*}
+		In questo caso, la transazione $t_{1}$ deve cedere un lock esclusivo sulla risorsa $x$ e successivamente richiedere un lock esclusivo sulla risorsa $y$, risultando pertanto non a due fasi. Viceversa, lo schedule è conflict-serializzabile rispetto alla sequenza: $t_{3}, t_{1}, t_{2}$. Quindi, \textbf{la classe $2PL$ è strettamente contenuta nella classe $CSR$}.
+	\end{proof}\newpage
+	
+	\noindent
+	Qui di seguito si presenta un \textcolor{Green4}{\textbf{esempio}} per osservare come il metodo locking a due fasi evita l'insorgere delle anomalie descritte nei paragrafi (\ref{anomalie delle transazioni concorrenti}) precedenti:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} c l l c c c @{}}
+			\toprule
+			Tempo & \multicolumn{2}{c}{Transazioni} & \multicolumn{3}{c}{Risorse} \\ \cmidrule{2-6}
+				  & $t_{1}$ & $t_{2}$ & $x$ & $y$ & $z$ \\
+			\midrule
+			0	&								&								& free	& free		& free		\\
+			1	& $r\_lock_{1}\left(x\right)$	&								& 1:read& 			&			\\
+			2	& $r_{1}\left(x\right)$			&								& 		&			&			\\
+			3	& 								& $w\_lock_{2}\left(y\right)$	& 		& 2:write	&			\\
+			4	&								& $r_{2}\left(y\right)$ 		&		&			&			\\
+			5	& $r\_lock_{1}\left(y\right)$	& 								&		& 1:wait	&			\\
+			6	& 								& $y = y - 100$ 				&		&			&			\\
+			7	& 								& $w\_lock_{2}\left(z\right)$ 	&		&			& 2:write	\\
+			8	&								& $r_{2}\left(z\right)$			&		&			&			\\
+			9	& 								& $z = z + 100$ 				&		&			&			\\
+			10	& 								& $w_{2}\left(y\right)$ 		&		&			&			\\
+			11	& 								& $w_{2}\left(z\right)$ 		&		&			&			\\
+			12	& 								& \textsf{commit} 				&		&			&			\\
+			13	& 								& $unlock_{2}\left(y\right)$	&		& 1:read	&			\\
+			14	& $r_{1}\left(y\right)$			& 								&		&			&			\\
+			15	& $r\_lock_{1}\left(z\right)$	& 								&		&			& 1:wait	\\
+			16  &								& $unlock_{2}\left(z\right)$ 	&		&			& 1:read	\\
+			14	& $r_{1}\left(z\right)$			& 								&		&			&			\\
+			15	& $s = x+y+z$					& 								&		&			&			\\
+			16	& \textsf{commit}				& 								&		&			&			\\
+			17	& $unlock_{1}\left(x\right)$	& 								& free	&			&			\\
+			18	& $unlock_{1}\left(y\right)$	& 								&		& free		&			\\
+			19	& $unlock_{1}\left(z\right)$	& 								&		&			& free		\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	\begin{itemize}
+		\item Per ogni risorsa ci sono quattro possibili stati:
+		\begin{itemize}
+			\item \textsf{free} stato libero;
+			
+			\item \textsf{i:read} bloccato in lettura dalla \emph{i}-esima transazione;
+			
+			\item \textsf{i:write} bloccato in scrittura dalla \emph{i}-esima transazione;
+			
+			\item \textsf{i:wait} esito negativo di una richiesta di lock della \emph{i}-esima transazione, posta in stato di attesa.
+		\end{itemize}
+	
+		\item Le richieste di lock di $t_{1}$ relative alle risorse $z$ e $x$ vengono messe in attesa, e la transazione $t_{1}$ può procedere solo quanto tali risorse vengono sbloccate da $t_{2}$.
+	\end{itemize}\newpage
+
+	\noindent
+	La lettura sporca (paragrafo \ref{lettura sporca}) può essere risolta grazie al principio di \textcolor{Red3}{\textbf{locking a due fasi stretto}} (strict 2PL): \textbf{i lock di una transazione possono essere rilasciati solo dopo aver correttamente effettuato le operazioni di \textsf{commit}/\textsf{abort}}.\newline
+	
+	\noindent
+	A causa di questo vincolo, i lock vengono rilasciati solo al termine della transazione, dopo che ciascun dato è stato portato nel suo stato finale. L'esempio nella pagina precedente utilizza il 2PL stretto, poiché le azioni di rilascio dei lock seguono l'azione di \textsf{commit}.\newline
+	
+	\noindent
+	Grazie a questo principio, viene reso \textbf{impossibile il verificarsi di letture sporche} (\ref{lettura sporca}), poiché viene \textbf{impedito l'accesso}, da parte di altre transazioni, \textbf{a dati scritti da transazioni che ancora non hanno effettuato il} \textsf{commit}.\newline
+	
+	\noindent
+	Per concludere, il 2PL può essere sfruttato in maniera differente così da ottenere diversi livelli di isolamento. Nella prossima pagina viene presentata una tabella riassuntiva.
+	
+	\begin{table}[!htpb]
+		\centering
+		\begin{tabular}{@{} l p{8cm} @{}}
+			\toprule
+			Livello di isolamento & Descrizione \\
+			\midrule
+			\textbf{Read uncommitted}: 	& La transazione non chiede lock e non osserva nemmeno i lock esclusivi posti da altre transazioni.
+			\begin{itemize}
+				\item [\ding{51}] Perdita di aggiornamento;
+				\item [\ding{55}] Lettura sporca;
+				\item [\ding{55}] Letture inconsistenti;
+				\item [\ding{55}] Aggiornamento fantasma;
+				\item [\ding{55}] Inserimento fantasma;
+			\end{itemize} \\
+			\textbf{Read committed}: 	& Richiede lock per le letture, rilasciandoli subito dopo, quindi senza 2PL; in questo modo si evitano le letture sporche, ma non le altre anomalie tipiche delle letture.
+			\begin{itemize}
+				\item [\ding{51}] Perdita di aggiornamento;
+				\item [\ding{51}] Lettura sporca;
+				\item [\ding{55}] Letture inconsistenti;
+				\item [\ding{55}] Aggiornamento fantasma;
+				\item [\ding{55}] Inserimento fantasma;
+			\end{itemize} \\
+			\textbf{Repeatable read}: 	& Applica il 2PL stretto, ma applicando i lock a singole tuple; sono evitate tutte le anomalie ma non l'inserimento fantasma (\emph{phantom}), perché non è possibile impedire l'inserimento di nuove tuple.
+			\begin{itemize}
+				\item [\ding{51}] Perdita di aggiornamento;
+				\item [\ding{51}] Lettura sporca;
+				\item [\ding{51}] Letture inconsistenti;
+				\item [\ding{51}] Aggiornamento fantasma;
+				\item [\ding{55}] Inserimento fantasma;
+			\end{itemize} \\
+			\textbf{Serializable}: 		& Applica il 2PL stretto e i lock di predicato, quindi evita tutte le anomalie.
+			\begin{itemize}
+				\item [\ding{51}] Perdita di aggiornamento;
+				\item [\ding{51}] Lettura sporca;
+				\item [\ding{51}] Letture inconsistenti;
+				\item [\ding{51}] Aggiornamento fantasma;
+				\item [\ding{51}] Inserimento fantasma;
+			\end{itemize} \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+
+	\subsection{Blocco critico}
+	
+	Il \textcolor{Red3}{\textbf{blocco critico}} (\emph{deadlock}) costituisce un problema rilevante. \textbf{Si spiega il fenomeno tramite un esempio}.\newline
+	
+	\noindent
+	Si supponga di avere una transazione $t_{1}$ che deve eseguire le operazioni $r\left(x\right)$, $w\left(y\right)$, e una seconda transazione $t_{2}$ che deve eseguire $r\left(y\right)$, $w\left(x\right)$. Se viene utilizzato il protocollo di lock a due fasi, è possibile presentare il seguente schedule:
+	\begin{equation*}
+		r\_lock_{1}\left(x\right), r\_lock_{2}\left(y\right), read_{1}\left(x\right), read_{2}\left(y\right), w\_lock_{1}\left(y\right), w\_lock_{2}\left(x\right)
+	\end{equation*}
+	È evidente che nessuna delle transazioni riesce a procedere e il sistema è bloccato. Il problema è dato dal fatto che $t_{1}$ è in attesa che si liberi l'oggetto $y$, che è bloccato da $t_{2}$, e a sua volta $t_{2}$ è in attesa dell'oggetto $x$, bloccato da $t_{1}$.\newline
+	
+	\noindent
+	Si valuta la \textbf{probabilità} che si verifichi un evento del genere. Si consideri una tabella che consiste di $n$ diverse tuple, con identica probabilità di accesso:
+	\begin{itemize}
+		\item La probabilità che due transazioni che operano un solo accesso vadano in conflitto è $\dfrac{1}{n}$;
+		
+		\item La probabilità che si verifichi un blocco critico di lunghezza $2$ è pari alla probabilità di un secondo conflitto, e quindi vale $\dfrac{1}{n^{2}}$.
+	\end{itemize}
+	Le \textbf{tecniche utilizzate per risolvere il problema} sono tre:
+	\begin{enumerate}
+		\item Timeout;
+		\item Prevenzione (\emph{deadlock prevention});
+		\item Rilevamento (\emph{deadlock detection}).
+	\end{enumerate}
+
+	\longline
+	
+	\subsubsection{Timeout}
+	
+	Il \textcolor{Red3}{\textbf{timeout}} è una tecnica molto semplice. Le \textbf{transazioni rimangono in attesa} di una risorsa \textbf{per un tempo} prefissato. Una volta passato questo tempo, se la \textbf{risorsa non è stata ancora concessa, la richiesta di lock viene rifiutata}.\newline
+	
+	\noindent
+	In questo modo, nel caso in cui una transazione fosse in deadlock, verrebbe tolta dalla condizione di attesa, e presumibilmente abortita.\newline
+	
+	\noindent
+	Il \textbf{valore di timeout} può essere scelto in base a due aspetti:
+	\begin{itemize}
+		\item Valore \textbf{elevato} $\rightarrow$ risolve tardi i blocchi critici, dopo che le transazioni coinvolte nel blocco hanno passato del tempo in attesa;
+		
+		\item Valore \textbf{troppo basso} $\rightarrow$ corre il rischio di rilevare come blocchi critici anche situazioni in cui una transazione sta aspettando una risorsa senza che vi sia un vero deadlock, uccidendo inutilmente una transazione e sprecando il lavoro già svolto dalla transazione.
+	\end{itemize}\newpage
+
+	\subsubsection{Prevenzione (\emph{deadlock prevention})}
+	
+	Esistono diverse tecniche di prevenzione, qui di seguito ne vengono presentate due tralasciando l'esistenza della più nota e recente che si basa sul \emph{lock upgrade} (ovviamente non spiegato a lezione):
+	\begin{itemize}
+		\item Questa tecnica prevede di \textbf{richiede il lock di tutte le risorse necessarie alla transazione in una sola volta}.
+		
+		\textcolor{Red3}{\textbf{Problema:}} le transazioni spesso non conoscono a priori le risorse cui vogliono accedere.
+		
+		
+		\item Un'altra tecnica utilizzata si basa sul fatto che le \textbf{transazioni acquisiscano un \emph{timestamp}}, e consiste nel \textbf{consentire l'attesa di una transazione} $t_{i}$ \textbf{su una risorsa acquisita da} $t_{j}$ \textbf{solamente se vale una determinata relazione di precedenza fra i \emph{timestamp} di} $t_{i}$ \textbf{e} $t_{j}$ (per esempio $i < j$).
+	
+		\textcolor{Green4}{\textbf{Vantaggio:}} circa il 50\% delle richieste che generano un conflitto possono attendere in conda, mentre nel restante 50\% dei casi una transazione deve essere uccisa.
+		
+		\textcolor{Red3}{\textbf{Problema:}} quale transazione uccidere.
+	\end{itemize}
+	Le politiche di scelta della transazione da uccidere (\textbf{applicabile solo alla seconda tecnica presentata}) si dividono in \textbf{politiche interrompenti} (\emph{preemptive}), cioè se è possibile risolvere il conflitto uccidendo la transazione che possiede la risorsa, e \textbf{politiche non interrompenti}, ovvero una transazione può essere uccisa solo all'atto di fare una nuova richiesta.\newline
+	
+	\noindent
+	Un \textbf{tipo di politica adottata} è la seguente:
+	\begin{itemize}
+		\item Vengono \textbf{uccise le transazioni che hanno fatto meno lavoro}.
+		
+		\textcolor{Red3}{\textbf{Problema:}} può capitare che una transazione faccia accesso, all'inizio della propria elaborazione, ad un oggetto cui accedono molte altre transazioni. In questo modo, la transazione trova sempre un conflitto, ed essendo la transazione che ha fatto meno lavoro, viene uccisa ripetutamente (\textbf{blocco individuale}, \emph{starvation}).
+		
+		\textcolor{Green4}{\textbf{Soluzione al problema:}} garantire che ogni transazione non possa essere uccisa un numero illimitato di volte. Tecnica attuabile \textbf{mantenendo lo stesso timestamp quando una transazione viene fatta abortire e ripartire, dando nel contempo priorità crescente alle transazioni più \dquotes{anziane}}.
+	\end{itemize}
+	Quest'ultima soluzione (tecnica) al problema non viene mai usata nei DBMS commerciali, in quanto mediamente si uccide una transazione ogni due conflitti, mentre la probabilità di insorgenza del blocco critico è di gran lunga inferiore alla probabilità di conflitto.\newpage
+	
+	\subsubsection{Rilevamento (\emph{deadlock detection})}
+	
+	La tecnica di \textcolor{Red3}{\textbf{rilevamento}} prevede di \textbf{non porre vincoli al comportamento del sistema}, ma di \textbf{controllare il contenuto delle tabelle di lock} tutte le volte che si ritiene necessario, così da \textbf{rilevare eventuali situazioni di blocco}.\newline
+	
+	\noindent
+	Il controllo viene effettuato a intervalli prefissati, o quando scade un timeout di attesa di una transazione.\newline
+	
+	\noindent
+	Il rilevamento di un blocco critico richiede di analizzare le relazioni di attesa tra le varie transazioni e di determinare se esiste un ciclo. La \textbf{ricerca di cicli in un grafo risulta abbastanza efficiente}. Per questo motivo, alcuni DBMS commerciali utilizzano questa tecnica.
+	
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
