@@ -3617,8 +3617,216 @@ end transaction;
 	Il controllo viene effettuato a intervalli prefissati, o quando scade un timeout di attesa di una transazione.\newline
 	
 	\noindent
-	Il rilevamento di un blocco critico richiede di analizzare le relazioni di attesa tra le varie transazioni e di determinare se esiste un ciclo. La \textbf{ricerca di cicli in un grafo risulta abbastanza efficiente}. Per questo motivo, alcuni DBMS commerciali utilizzano questa tecnica.
+	Il rilevamento di un blocco critico richiede di analizzare le relazioni di attesa tra le varie transazioni e di determinare se esiste un ciclo. La \textbf{ricerca di cicli in un grafo risulta abbastanza efficiente}. Per questo motivo, alcuni DBMS commerciali utilizzano questa tecnica.\newpage
 	
+	\section{Gestore delle interrogazioni: esecuzione e ottimizzazione}
+	
+	\subsection{Definizione}
+	
+	Il \textcolor{Red3}{\textbf{gestore delle interrogazioni}} è \textbf{responsabile dell'esecuzione efficiente} di operazioni che sono specificate a livello molto alto. Esso si sviluppa nel seguente modo:
+	\begin{enumerate}
+		\item Riceve in \textbf{ingresso un'interrogazione} scritta in \textbf{SQL};
+		
+		\item L'interrogazione viene \textbf{analizzata per determinare eventuali errori} lessicali, sintattici o semantici. Inoltre, il \textbf{sistema accede al dizionario dei dati} per leggere l'informazione ivi contenuta e consentire così i controlli; dal dizionario dei dati vengono lette anche informazioni statistiche relative alle dimensioni delle tabelle;
+		
+		\item Accettando l'interrogazione, quest'ultima viene \textbf{tradotta in una forma interna di tipo algebrico};
+		
+		\item L'\textbf{ottimizzazione} ha inizio:
+		\begin{itemize}
+			\item \textbf{Ottimizzazione di tipo algebrico}, in cui vengono effettuate tutte le trasformazioni algebriche che sono sempre convenienti;
+			
+			\item \textbf{Ottimizzazione} che dipende sia dalla \textbf{tipologia dei metodi di accesso ai dati} supportati dal sottostante livello sia dal \textbf{modello dei costi} assunto;
+			
+			\item \textbf{Generazione del codice}, la quale utilizza i metodi di accesso ai dati. Si ottengono quindi programmi di accesso in formato \dquotes{oggetto} o \dquotes{interno} che richiedono l'uso delle strutture dati fornite dal sistema.
+		\end{itemize}
+	\end{enumerate}
+	L'ottimizzazione agisce \textbf{a tempo di compilazione}. Infatti, nel caso in cui l'interrogazione venga compilata una volta ed eseguita molteplici volte, il codice viene prodotto e memorizzato nella base di dati, assieme a un'indicazione delle dipendenze del codice dalle particolari versioni di tabelle e indici della base di dati, descritte nel dizionario dei dati.
+	
+	Invece, talvolta un'interrogazione viene compilata e immediatamente eseguita, senza essere memorizzata.\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/compilazione_interrogazione.pdf}
+		\caption{Compilazione di un'interrogazione.}
+	\end{figure}\newpage
+
+	\subsection{Profili delle relazioni}
+	
+	Ciascun DBMS possiede informazioni quantitative relative alle caratteristiche delle tabelle, organizzate in strutture dati, dette \textcolor{Red3}{\textbf{profili delle relazioni}}, le quali vengono memorizzate nel dizionario dei dati. I profili contengono:
+	\begin{itemize}
+		\item \textbf{Cardinalità} \textsf{CARD}$\left(T\right)$ (numero di tuple) di ciascuna tabella $T$;
+		
+		\item \textbf{Dimensione} in byte, \textsf{SIZE}$\left(T\right)$, di ciascuna tupla di $T$;
+		
+		\item \textbf{Dimensione} in byte, \textsf{SIZE}$\left(A_{j}, T\right)$, di ciascun attributo $A_{j}$ di $T$;
+		
+		\item \textbf{Numero di valori distinti}, \textsf{VAL}$\left(A_{j}, T\right)$, di ciascun attributo $A_{j}$ di $T$;
+		
+		\item \textbf{Valore minimo} \textsf{MIN}$\left(A_{j}, T\right)$ e quello \textbf{massimo} \textsf{MAX}$\left(A_{j}, T\right)$ di ciascun attributo $A_{j}$ di $T$.
+	\end{itemize}
+	I profili vengono calcolati in base ai dati effettivamente memorizzati nelle tabelle, utilizzando opportune primitive di sistema.\newline
+	
+	\noindent
+	Nelle valutazioni delle stime di costo si tiene conto del profilo delle relazioni.
+	
+	\longline
+	
+	\subsection{Operazioni di scansione}
+	
+	Un'operazione di \textcolor{Red3}{\textbf{scansione}} (\emph{scan}) opera contestualmente varie operazioni di tipo algebrico ed extra-algebrico. Quindi, oltre alla scannerizzazione viene effettuata in combinazione anche una delle seguenti operazioni:
+	\begin{itemize}
+		\item \textbf{Proiezione} su di una lista di attributi;
+		\item \textbf{Selezione} su di un predicato;
+		\item \textbf{Inserimenti}, \textbf{cancellazioni} e \textbf{modifiche} delle tuple quando vi si fa accesso durante la scansione.
+	\end{itemize}\newpage
+	
+	\subsection{Ordinamenti}
+	
+	La necessità di operazioni di \textcolor{Red3}{\textbf{ordinamento}} emerge principalmente per tre motivi:
+	\begin{enumerate}
+		\item Ai fini dell'applicazione, poiché si desiderano risultati ordinati;		
+		\item Per una corretta realizzazione delle proiezioni, con eliminazione dei duplicati;
+		\item Utile per operazioni quali join o di raggruppamento.
+	\end{enumerate}
+	Il \textbf{problema di ordinare} strutture dati riguarda il corso di algoritmi, tuttavia viene introdotto \textbf{un algoritmo utilizzato nella memoria secondaria} chiamato \textbf{Z-way Sort-Merge}.
+	
+	\longline
+	
+	\subsubsection{Passaggi dell'algoritmo Z-way Sort-Merge}
+
+	\begin{itemize}
+		\item \textbf{Sort interno}:
+		\begin{enumerate}
+			\item Vengono lette una alla volta le pagine della tabella;
+			\item Le tuple di ogni pagina vengono ordinate facendo uso di un algoritmo di sort interno (come il QuickSort);
+			\item Ogni pagina ordinata, chiamata \emph{run}, viene scritta su memoria secondaria in un file temporaneo
+		\end{enumerate}
+		
+		\item \textbf{Merge}: applicando uno o più passi di fusione (a seconda del parametro $Z$, quindi due passi con 2-way Sort-Merge, tre passi con 3-way Sort-Merge e così via), le \emph{run} vengono unite fino a produrre un'unica pagina (o \emph{run}).
+	\end{itemize}\newpage
+	
+	\subsubsection{Esempio di applicazione dell'algoritmo}
+	
+	Si supponga di dover ordinare un input che è composto in una tabella di $NP$ pagine e di avere a disposizione solo $NB$ buffer in memoria centrale, tale per cui $NB < NP$. Si considera inoltre il caso base a due vie $Z=2$ e si supponga di avere a disposizione solo $3$ buffer in memoria centrale $NB = 3$.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/z-way_sort-merge.pdf}
+	\end{figure}
+	
+	\noindent
+	Vengono prese le pagine in input a coppie di $3$ e ordinate dal primo buffer; successivamente a coppie di $6$ e ordinate dal secondo buffer; infine, il risultato sarà prodotto dal merge eseguito dal terzo buffer.\newline
+	
+	\noindent
+	Si consideri come \textbf{costo il numero di accessi alla memoria secondaria}. Allora, nel caso di $Z = 2$ e con $NB = 3$ si possono fare alcune considerazioni. Nella fase di sort interno si leggono/riscrivono $NP$ pagine e ad ogni passo di merge si leggono/riscrivono $NP$ pagine. Quindi, il numero di passi di merge è pari a:
+	\begin{equation*}
+		\left\lceil \log_{2}\left(NP\right) \right\rceil
+	\end{equation*}
+	Poiché ad ogni passo il numero di run si dimezza ($Z = 2$). Il costo complessivo è dunque pari a:
+	\begin{equation*}
+		2 \cdot NP \cdot \left(\lceil \log_{2} NP \rceil\right)
+	\end{equation*}\newpage
+
+	\subsection{Accesso diretto}
+	
+	La tecnica di \textcolor{Red3}{\textbf{accesso diretto}} viene utilizzata quando è possibile leggere o scrivere un record \textbf{senza} dover necessariamente \textbf{esaminare il file in modo sequenziale}, \textbf{ma è possibile ottenere} in altro modo, a partire dal valore di un campo, \textbf{l'indirizzo del blocco in cui il record si trova}.\newline
+	
+	\noindent
+	Per eseguire questa tecnica è necessaria la presenza di una struttura \emph{hash} o indice:
+	\begin{itemize}
+		\item Gli indici favoriscono accessi puntuali, ovvero $A_{i} = V$, oppure intervalli del tipo $V_{1} \le A_{i} \le V_{2}$. Si dice in questo caso che un predicato dell'interrogazione è \textbf{valutabile} tramite l'indice.
+		
+		\item Le strutture \emph{hash} sono molto efficienti per gli accessi puntuali, ma purtroppo non supportano le ricerche per intervallo.
+	\end{itemize}
+	Dopo aver indicato i tipi di struttura necessari per utilizzare l'accesso diretto, si indicano i loro utilizzi in base al numero di predicati e altro:
+	\begin{itemize}
+		\item L'interrogazione ha \textbf{un solo predicato} valutabile, allora è conveniente utilizzare l'indice o la struttura \emph{hash};
+		
+		\item L'interrogazione ha \textbf{una congiunzione di predicati} (e.g. $\land$) valutabili tramite indice o funzione \emph{hash}, il DBMS sceglie il più selettivo dei due per l'accesso diretto;
+		
+		\item L'interrogazione ha \textbf{una disgiunzione di predicati} (e.g. $\lor$), basta che \textbf{uno di loro non sia valutabile} per imporre l'uso di una scansione completa;
+		
+		\item Simile al punto precedente, quindi l'interrogazione ha \textbf{una disgiunzione di predicati}, ma essi sono \textbf{tutti valutabili}, allora è possibile utilizzare gli indici oppure una scansione. Nel caso di utilizzo degli indici, però è necessario eliminare i duplicati di quelle tuple che vengono ritrovate tramite più indici.
+	\end{itemize}\newpage
+	
+	\subsection{Metodo di join}
+	
+	Il join è l''operazione più gravosa per un DBMS poiché il rischio di un'esplosione del numero di tuple del risultato è alto. Per rendere il più efficiente possibile questa operazione, esistono tre tecniche: \textbf{nested loop}, \textbf{merge scan}, \textbf{hash-based}.
+	
+	\longline
+	
+	\subsubsection{Nested loop}
+	
+	Nel \textcolor{Red3}{\textbf{nested loop}} una tabella viene definita come \textbf{esterna} e una tabella come \textbf{interna}. L'algoritmo si compone dei seguenti passaggi:
+	\begin{enumerate}
+		\item Viene eseguita una \textbf{scansione} sulla \textbf{tabella esterna};
+		
+		\item Per \textbf{ogni tupla} ritrovata dalla scansione, viene \textbf{prelevato il valore dell'attributo di join} e vengono \textbf{cercate le tuple della tabella interna che hanno lo stesso valore}.
+		
+		\item A questo punto è utile avere una struttura \emph{hash} o un indice sull'attributo di join della tabella interna, che può essere creato \emph{ad hoc}. Nel caso non fosse possibile sfruttare una di queste strutture, è necessario eseguire una scansione sulla tabella interna per ogni valore di join della tabella esterna.
+	\end{enumerate}
+	Questa tecnica prende il nome dal suo \emph{modus operandi} poiché propone una \textbf{scansione \dquotes{nidificata}} nell'altra.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/nested-loop.pdf}
+		\caption{\textcolor{Green4}{\textbf{Esempio}} di \emph{nested loop} con una relazione di join del tipo $R.A = S.A$.}
+	\end{figure}\newpage
+
+	\noindent
+	Il \textbf{costo} dell'algoritmo varia a seconda dell'implementazione e a seconda dello spazio messo a disposizione nei buffer. Si supponga che ci sia 1 buffer a disposizione per ogni tabella (interna ed esterna) e che $NR$ sia il numero di tuple (\emph{row}) e $NP$ il numero di pagine:
+	\begin{itemize}
+		\item Costo dell'algoritmo generale è
+		\begin{equation*}
+			NP\left(Esterna\right) + NR\left(Esterna\right) \times NP\left(Interna\right)
+		\end{equation*}
+		accessi a memoria secondaria;
+		
+		\item Costo dell'algoritmo con un indice \emph{ad hoc} è
+		\begin{equation*}
+			NP\left(Esterna\right) + NR\left(Esterna\right) \times \left(\text{ProfonditàIndice } + \dfrac{NR\left(Interna\right)}{VAL\left(A,Interna\right)}\right)
+		\end{equation*}
+		dove $VAL\left(A,Interna\right)$ rappresenta il numero di valori distinti dell'attributo $A$ che compaiono nella relazione $Interna$.
+	\end{itemize}
+
+	\longline
+	
+	\subsubsection{Merge scan}
+	
+	Il \textcolor{Red3}{\textbf{merge scan}} richiede di esaminare le tabelle secondo l'ordine degli attributi di join ed è quindi \textbf{particolarmente efficiente quando le tabelle sono già ordinate} oppure \textbf{quando sono definiti su di esse indici adeguati}.\newline
+	
+	\noindent
+	L'\textbf{algoritmo} è semplice poiché si basa sulla \textbf{scannerizzazione parallela delle due tabelle}, basate sull'ordinamento, \textbf{con i classici algoritmi di fusione} (\emph{merge}). In questo modo, le scansioni possono ritrovare nelle tuple valori ordinati degli attributi di join; quando coincidono, vengono generate ordinatamente tuple del risultato.\newline
+	
+	\noindent
+	Il \textbf{costo} totale dell'algoritmo è il seguente, ricordando $NR$ come il numero di tuple (\emph{row}) e $NP$ come il numero di pagine. Utilizzando gli indici:
+	\begin{equation*}
+		NP\left(Esterna\right) + NR\left(Interna\right)
+	\end{equation*}\newpage
+	
+	\subsubsection{Hash-based}
+	
+	La tecnica di \textcolor{Red3}{\textbf{hash-based}} si sviluppa in due passi (versione \textbf{partizionata}):
+	\begin{enumerate}
+		\item Data una funzione $h$ di hash sugli attributi di join, essa viene utilizzata per memorizzare una copia di ciascuna delle due tabelle.
+		
+		Si supponga che $h$ faccia corrispondere i valori del dominio di tali attributi a $B$ partizioni su ciascuna tabella;
+		
+		\item La costruzione delle tuple del risultato avviene grazie agli stessi valori ottenuti eseguendo l'operazione di hash. Infatti, due valori identici restituiscono esattamente lo stesso hash.
+	\end{enumerate}
+	Esiste anche la \textbf{versione non partizionata} in cui le tuple vengono calcolate tramite la funzione di \emph{hash} e ricercate direttamente.\newline
+	
+	\noindent
+	Il \textbf{costo} è differente a seconda della versione adottata:\\
+	\begin{itemize}
+		\item Nel caso della versione senza partizione il costo è:
+		\begin{equation*}
+			NP\left(Esterna\right) + NP\left(Interna\right)
+		\end{equation*}
+		
+		\item Nel caso della versione partizionata:
+		\begin{equation*}
+			NP\left(Esterna\right) \times NR\left(Interna\right)
+		\end{equation*}
+	\end{itemize}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
