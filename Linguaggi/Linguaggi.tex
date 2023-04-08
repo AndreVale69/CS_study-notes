@@ -2078,7 +2078,74 @@ Even integers
 	
 	\subsubsection{Identificatori definiti nelle dichiarazioni}
 	
+	Si introducono gli \textcolor{Red3}{\textbf{identificatori definiti}}, ovvero identificatori in posizione di definizione. Si ricorda che l'obbiettivo primario delle dichiarazioni è quello di definire identificatori.\newline
+	
+	\noindent
+	Quindi si definisce la funzione $DI$ (\emph{definite identificators}) che \textbf{associa ad ogni dichiarazione l'insieme degli identificatori} che definisce:
+	\begin{equation*}
+		DI: Dic \longrightarrow \wp\left(ID\right)
+	\end{equation*}
+	La definizione è induttiva sulla struttura delle dichiarazioni:
+	\begin{itemize}
+		\item La \textbf{\underline{dichiarazione nulla}} non definisce identificatori ed è un insieme vuoto:
+		\begin{equation*}
+			DI\left(\mathsf{nil}\right) = \emptyset
+		\end{equation*}
+		
+		\item La \textbf{\underline{dichiarazione di costante}} definisce precisamente l'identificatore che sta dichiarando. Questo significa che dove questa dichiarazione è visibile, l'identificatore $x$ è legato a questa definizione:
+		\begin{equation*}
+			DI\left(\mathbf{const} \: \mathsf{x}: \tau = \mathrm{e}\right) = \left\{x\right\}
+		\end{equation*}
+		
+		\item La \textbf{\underline{composizione sequenziale}} definisce tutto ciò che è definito nelle due dichiarazioni. Questo significa che all'esterno della composizione tutte le occorrenze di identificatori qui definiti sono legate:
+		\begin{equation*}
+			DI\left(d_{1} ; d_{2}\right) = DI\left(d_{1}\right) \cup DI\left(d_{2}\right)
+		\end{equation*}
+		
+		\item La \textbf{\underline{composizione privata}} è particolare. Ciò che viene definito nella prima dichiarazione $d_{1}$ rimane privato e quindi non risulta legato all'esterno della composizione. Fuori dalla composizione è legato solo ciò che viene definito nella seconda dichiarazione $d_{2}$:
+		\begin{equation*}
+			DI\left(d_{1} \: \mathsf{in} \: d_{2}\right) = DI\left(d_{2}\right)
+		\end{equation*}
+		
+		\item Il \textbf{\underline{valore terminale}}, ovvero gli ambienti, definiscono tutti gli identificatori per i quali hanno una associazione:
+		\begin{equation*}
+			DI\left(\rho\right) = V
+		\end{equation*}
+		Dove $V$ è il dominio di $\rho$.
+	\end{itemize}\newpage
+	
 	\subsubsection{Identificatori liberi nelle dichiarazioni}
+	
+	Al contrario degli identificatori definiti, gli \textcolor{Red3}{\textbf{identificatori liberi}} si trovano fuori dallo scope di una qualche dichiarazione/definizione.\newline
+	
+	\noindent
+	Gli \textbf{identificatori liberi}, calcolati dalla funzione $FI$ (\emph{free identificators}), si possono ottenere anche sulle dichiarazioni, per induzione sulla struttura della grammatica. In questo caso, $FI$ \textbf{applicata ad una dichiarazione restituisce l'insieme degli identificatori liberi nella dichiarazione}:
+	\begin{equation*}
+		FI: Dic \longrightarrow \wp\left(Id\right)
+	\end{equation*}
+	In particolare:
+	\begin{itemize}
+		\item La \textbf{\underline{dichiarazione nulla}} non ha identificatori e non ne ha liberi dunque:
+		\begin{equation*}
+			FI\left(\mathsf{nil}\right) = \emptyset
+		\end{equation*}
+		
+		\item La \textbf{\underline{identificatori liberi}} della dichiarazione di costante sono tutti quelli usati nell'espressione che inizializza l'identificatore. Questi identificatori devono essere definiti nell'ambiente di elaborazione perché si possa valutare l'espressione:
+		\begin{equation*}
+			FI\left(\mathbf{const} \: \mathsf{x}: \tau = \mathrm{e}\right) = FI\left(\mathrm{e}\right)
+		\end{equation*}
+		
+		\item Il \textbf{\underline{caso delle due composizioni}} sono sicuramente liberi tutti gli identificatori della prima dichiarazione $d_{1}$. Sono inoltre liberi tutti gli identificatori che sono liberi nella seconda dichiarazione $d_{2}$ ma che non vengono definiti in $d_{1}$:
+		\begin{gather*}
+			FI\left(d_{1} ; d_{2}\right) = FI\left(d_{1}\right) \cup \left(FI\left(d_{2}\right) \setminus DI\left(d_{1}\right)\right) \\
+			FI\left(d_{1} \: \mathsf{in} \: d_{2}\right) = FI\left(d_{1}\right) \cup \left(FI\left(d_{2}\right) \setminus DI\left(d_{1}\right)\right)
+		\end{gather*}
+		
+		\item Un \textbf{\underline{ambiente non ha identificatori liberi}}, in quanto gli unici identificatori che contiene sono quelli per cui definisce delle associazioni:
+		\begin{equation*}
+			FI\left(\rho\right) = \emptyset
+		\end{equation*}
+	\end{itemize}\newpage
 	
 	\subsubsection{Semantica statica delle dichiarazioni}
 	
