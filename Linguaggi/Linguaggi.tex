@@ -1715,7 +1715,7 @@ void f(){...};\end{lstlisting}
 	\end{boxdef}
 	
 	\noindent
-	I valori denotabili, nel linguaggio imperativo scelto, costituiscono l'insieme $DVal = \left\{Int \cup Bool\right\}$.\newline
+	I valori denotabili, nel linguaggio imperativo scelto, costituiscono l'insieme $DVal = \left\{Int \cup Bool\right\}$.\newline\label{DVal}
 	
 	\noindent
 	L'ambiente associa identificatori agli oggetti denotabili ($\bot$ va associato all'identificatore non definito, ovvero non associato ad alcun valore). Quindi, un \textbf{ambiente} per un insieme di identificatori finito $V\left(Env_{V}\right)$ è una \textbf{funzione che ad ogni identificatore associa un valore denotabile, oppure il valore non definito }$\bot$. L'ambiente è l'unione di tutte queste funzioni al variare dell'insieme $V$.
@@ -1881,7 +1881,7 @@ Even integers
 	\begin{equation*}
 		\tau \in DTyp = \left\{\textsf{int}, \textsf{bool}, \bot\right\}
 	\end{equation*}
-	Quindi, la semantica statica è un \textbf{insieme di regole che consentono di associare un tipo ad ogni espressione corretta}; in questo caso l'espressione viene detta \textcolor{Red3}{\textbf{ben formata}}. Inoltre, le regole della semantica statica hanno la seguente forma:
+	Quindi, la semantica statica è un \textbf{insieme di regole che consentono di associare un tipo ad ogni espressione corretta}; in questo caso l'espressione viene detta \textcolor{Red3}{\textbf{ben formata}}. Inoltre, le regole della semantica statica hanno la seguente forma:\label{ben formata}
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=.3\textwidth]{img/semantica_statica.pdf}
@@ -2149,9 +2149,134 @@ Even integers
 	
 	\subsubsection{Semantica statica delle dichiarazioni}
 	
-	\subsubsection{Semantica statica delle dichiarazioni composte}
+	Per le dichiarazioni, la \textbf{semantica statica deve associare un ambiente statico ad ogni dichiarazione scritta correttamente} (chiamata ben formata). Le regole, sempre per quanto riguarda le dichiarazioni, dovranno avere la seguente forma:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/semantica_statica_dichiarazioni.pdf}
+	\end{figure}
+
+	\noindent
+	Vuol dire che nel sistema di regole è possibile associare l'ambiente statico $\Delta$ alla dichiarazione $d$, se questa è ben formata.\newline
+	
+	\noindent
+	Si introducono qua di seguito le \textbf{regole}:
+	\begin{itemize}
+		\item La \textbf{dichiarazione vuota} genera un ambiente vuoto:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.3\textwidth]{img/semantica_statica_dichiarazioni-1.pdf}
+		\end{figure}
+		
+		\item Con un \textbf{ambiente dinamico}, l'ambiente statico associato è quello compatibile, ovvero quello che associa agli identificatori esattamente i tipi dei valori che l'ambiente dinamico associa:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.4\textwidth]{img/semantica_statica_dichiarazioni-2.pdf}
+		\end{figure}
+		
+		\item Nella \textbf{dichiarazione di costante}, il tipo da associare è stabilito esplicitamente dalla dichiarazione. Quest'ultima viene detta ben formata se rispetta quanto scritto a pagina~\ref{ben formata} ed è esattamente del tipo $\tau$ presente nella dichiarazione. In tal caso l'ambiente statico corrispondente è esattamente l'associazione di $\tau$ all'identificatore definito $x$:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.5\textwidth]{img/semantica_statica_dichiarazioni-3.pdf}
+		\end{figure}
+	\end{itemize}\newpage
+
+	\noindent
+	Si considerino due ambiente $\beta$, $\beta' \in Env$ dove $\beta : V, \beta' : V'$ (cioè compatibili) con $V,V' \subseteq Id$, dove:
+	\begin{itemize}
+		\item $\beta$ è definito sugli identificatori in $V$	
+		\item $\beta'$ è definito sull'insieme di identificatori $V'$
+	\end{itemize}
+	L'aggiornamento dell'ambiente $\beta$ mediante l'ambiente $\beta'$ dà come risultato l'ambiente $\beta''\in Env$, denotato con $\beta\left[\beta'\right]$, definito come:
+	\begin{equation*}
+		\beta''\left(I\right) = \begin{cases}
+			\beta'\left(I\right)	& \text{se } I \in V' \\
+			\beta\left(I\right)		& \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	In altre parole, \textbf{l'ambiente che aggiorna ha la precedenza, tutto quello di cui questo ambiente non parla rimane inalterato}.\newline
+	
+	\noindent
+	Quindi, la regola della \textbf{\underline{composizione privata}} è la seguente:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/semantica_statica_dichiarazioni-4.pdf}
+	\end{figure}
+	
+	\noindent
+	In cui $V'$ è il dominio dell'ambiente $\Delta_{1}$. Nelle premesse si trova:
+	\begin{itemize}
+		\item L'ambiente statico $\Delta_{1}$ associato alla dichiarazione $d_{1}$ se questa è ben formata. Successivamente, questo ambiente viene utilizzato per aggiornare l'ambiente contestuale con le nuove associazioni create da $d_{1}$.
+		
+		\item L'ambiente statico risultante viene utilizzato per associare l'ambiente $\Delta_{2}$ alla dichiarazione $d_{2}$. A questo punto, l'ambiente associato alla dichiarazione composta è solo l'ambiente associato alla dichiarazione $d_{2}$, in quanto $d_{1}$ (e quindi $\Delta_{1}$) è esclusivamente visibile/utilizzabile per l'elaborazione di $d_{2}$.
+	\end{itemize}\newpage
+
+	\noindent
+	La \textbf{semantica statica per la \underline{composizione sequenziale}} ha la seguente regola:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/semantica_statica_dichiarazioni-5.pdf}
+	\end{figure}
+	
+	\noindent
+	In cui $V'$ è il dominio dell'ambiente $\Delta_{1}$. Nelle premesse:
+	\begin{itemize}
+		\item Si associa l'ambiente statico $\Delta_{1}$ corrispondente alla dichiarazione $d_{1}$;
+		
+		\item Si aggiorna l'ambiente esterno $\Delta$ con l'ambiente (punto precedente) $\Delta_{1}$ e quindi nell'ambiente risultante $\Delta\left[\Delta_{1}\right]$ si elabora la dichiarazione $d_{2}$, la quale viene associata all'ambiente $\Delta_{2}$.
+		
+		\item Quindi, l'ambiente che si associa alla dichiarazione composta sequenzialmente è esattamente $\Delta_{1}$ aggiornato da $\Delta_{2}$, ovvero $\Delta_{1}\left[\Delta_{2}\right]$
+	\end{itemize}
+	Questo significa che tutto quello che vene dichiarato nella dichiarazione composta è visibile all'esterno, tranne ciò che viene definito nella prima dichiarazione $d_{1}$ e ridefinito nella seconda dichiarazione $d_{2}$.\newpage
+	
+	\noindent
+	Ad \textcolor{Green4}{\textbf{esempio}}, in $d_{1}$ un identificatore $x$ viene dichiarato booleano, mentre dentro $d_{2}$ lo stesso identificatore $x$ viene dichiarato intero. Questa seconda definizione riscrive la prima e all'esterno della composizione $x$ è visibile come intero e non più come booleano. Questo è quello che avviene:
+	\begin{equation*}
+		\begin{array}{lll}
+			d_{1} & \mathsf{const} & x:\mathrm{bool} = true; \\
+			d_{2} & \mathsf{const} & x:\mathrm{int} = 5; \: \mathsf{const} \hspace{1em} y: \mathrm{int} = 6*x
+		\end{array}
+	\end{equation*}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=1.3\textwidth]{img/semantica_statica_dichiarazioni-eg.pdf}
+	\end{figure}\newpage
 	
 	\subsubsection{Semantica dinamica delle dichiarazioni}
+	
+	Si definisce l'insieme $\mathcal{D}$ come l'\textbf{insieme delle dichiarazioni con identificatori} (non con variabili) \textbf{da elaborare in ambienti dinamici}, ovvero in insiemi di associazioni tra identificatori e valori con metavariabile $d$.
+	
+	\begin{boxdef}
+		L'\textbf{insieme delle dichiarazioni} $\mathcal{D}$ \textbf{è l'insieme di associazioni tra identificatori e valori (oggetti denotati) derivabili nella grammatica}: $d$.
+	\end{boxdef}
+
+	\noindent
+	L'insieme dei valori derivabili è già stato definito e viene denotato $DVal$ (pagina~\pageref{DVal}), che per il momento può solo contenere interi, booleani e il tipo degli identificatori non definiti. Quindi, si definisce:
+	\begin{itemize}
+		\item L'\textbf{insieme delle configurazioni} $\Gamma$ come l'insieme delle configurazioni $\mathcal{D}$ da elaborare in ambienti;
+		
+		\item L'\textbf{insieme delle configurazioni} terminali $T$ sono ovviamente gli ambienti dinamici, i quali non hanno elementi da elaborare/valutare ulteriormente.
+	\end{itemize}
+	
+	\begin{boxdef}
+		Si definisce il \textcolor{Red3}{\textbf{sistema di transizione}} come:
+		\begin{equation*}
+			\Gamma = \mathcal{D}, T = Env
+		\end{equation*}
+	\end{boxdef}
+
+	\noindent
+	Le regole del sistema di transizione vanno definite induttivamente sulla struttura sintattica delle dichiarazioni. Le \textbf{regole} avranno la forma:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/sistema_di_transizione.pdf}
+	\end{figure}
+
+	\begin{itemize}
+		\item $\rho$ è l'\textbf{ambiente} nel quale viene elaborata la dichiarazione compatibile con l'ambiente statico $\Delta$;
+		
+		\item Il pedice $d$ della freccia serve ad indicare che la \textbf{regola è del sistema di transizione delle dichiarazioni}.
+	\end{itemize}\newpage
 	
 	\subsection{Regole per l'elaborazione delle dichiarazioni}
 	
