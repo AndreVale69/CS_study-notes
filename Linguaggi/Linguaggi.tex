@@ -2280,7 +2280,170 @@ Even integers
 	
 	\subsection{Regole per l'elaborazione delle dichiarazioni}
 	
+	\begin{itemize}
+		\item La prima regola è un \textbf{assioma} che evidenzia come la dichiarazione nulla viene elaborata nell'ambiente dinamico vuoto:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.3\textwidth]{img/regola_dichiarazione-1.pdf}
+		\end{figure}
+	
+		\item La seconda regola è un'\textbf{assioma} che evidenzia come la dichiarazione costante (ben formata) viene elaborata nell'ambiente che associa all'identificatore definito dalla dichiarazione, il valore inserito nella dichiarazione per l'inizializzazione.\newline
+		Ovviamente, se nella dichiarazione l'identificatore viene inizializzato con un'espressione non valutata, è necessario prima valutare l'espressione così da arrivare ad un valore costante e poter applicare l'assioma:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_dichiarazione-2.pdf}
+		\end{figure}
+	
+		\item La terza regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.7\textwidth]{img/regola_dichiarazione-3.pdf}
+		\end{figure}
+	\end{itemize}
+	Le seguenti regole riguardano la \textbf{composizione sequenziale}:
+	\begin{itemize}
+		\item La quarta regola dice di elaborare completamente la dichiarazione a sinistra in un ambiente $\rho$:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.4\textwidth]{img/regola_dichiarazione-4.pdf}
+		\end{figure}
+		
+		\item La quinta regola segue la precedente poiché qui è necessario valutare la dichiarazione a destra ed elaborarla in un ambiente esterno $\rho$ aggiornato da quello restituito dalla prima dichiarazione $\rho_{0}$, ovvero $\rho\left[\rho_{0}\right]$:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-5.pdf}
+		\end{figure}\newpage
+		
+		\item La sesta regola conclude la composizione sequenziale ed è un \textbf{assioma} che consente di ottenere l'ambiente associato alla prima dichiarazione $\rho_{0}$ aggiornato dall'ambiente associato alla seconda dichiarazione $\rho_{1}$, ovvero $\rho_{0}\left[\rho_{1}\right]$:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-6.pdf}
+		\end{figure}
+	\end{itemize}
+	Per la \textbf{composizione privata}, le regole sono le stesse della composizione sequenziale. L'unica differenza è che quando entrambe le dichiarazioni sono state elaborate, solo l'ambiente associato alla seconda dichiarazione $\rho_{1}$ viene restituito come ambiente risultante:
+	\begin{itemize}
+		\item La settima regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_dichiarazione-7.pdf}
+		\end{figure}
+		
+		\item L'ottava regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/regola_dichiarazione-8.pdf}
+		\end{figure}
+		
+		\item La nona regola:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-9.pdf}
+		\end{figure}
+	\end{itemize}\newpage
+	
 	\subsection{Valutazione de equivalenza}
 	
+	Le regole elencate nel precedente paragrafo, definiscono formalmente cosa significa elaborare una dichiarazione.\newline
+	
+	\noindent
+	Sia $\rho$ un ambiente dinamico appartenente all'insieme $Env$. Allora l'\textbf{elaborazione} è una funzione che prende una \textbf{dichiarazione sintattica}, ovvero un elemento nell'insieme $\mathcal{D}$, e gli \textbf{associa l'ambiente che esso rappresenta}.
+	
+	\begin{boxdef}
+		L'\textcolor{Red3}{\textbf{elaborazione delle dichiarazioni}} formalmente si descrive nel seguente modo. \textbf{La valutazione è una funzione}:
+		\begin{equation*}
+			Elab: \mathcal{D} \longrightarrow Env
+		\end{equation*}
+		\textbf{Che descrive il comportamento dinamico delle dichiarazioni restituendo l'ambiente in cui esse sono elaborate:}
+		\begin{equation*}
+			Elab\left(d\right) = \rho \iff d \longrightarrow^{*} \rho
+		\end{equation*}
+	\end{boxdef}\:\newline
+
+	\noindent
+	Due dichiarazioni sono \textbf{equivalenti} quando potenzialmente sono \textbf{scritte con diversa sintassi}, ma \textbf{rappresentano lo stesso ambiente}, ovvero hanno lo stesso significato.
+	
+	\begin{boxdef}
+		L'\textcolor{Red3}{\textbf{equivalenza di dichiarazioni}} formalmente si descrive nel seguente modo. \textbf{L'equivalenza di dichiarazioni è una relazione del tipo:}
+		\begin{equation*}
+			\equiv \subseteq \mathcal{D} \times \mathcal{D}
+		\end{equation*}
+		\textbf{Definita come segue:}
+		\begin{equation*}
+			d_{0} \equiv d_{1} \iff Elab\left(d_{0}\right) = Elab\left(d_{1}\right)
+		\end{equation*}
+	\end{boxdef}\:\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, la dichiarazione:
+	\begin{equation*}
+		\mathsf{const} \hspace{1em} x: \mathrm{int} = \left(3+5\right)*2
+	\end{equation*}
+	È equivalente alla dichiarazione:
+	\begin{equation*}
+		\mathsf{const} \hspace{1em} x: \mathrm{int} = \left(1+3\right)*4
+	\end{equation*}
+	Pur essendo due dichiarazioni \underline{sintatticamente} diverse.\newpage
+	
 	\subsection{Esempio completo di utilizzo delle regole}
+	
+	Solitamente, la risoluzione degli esercizi si concentra sul \textbf{partire da cosa dimostrare} e, ricorsivamente, arrivare a \textbf{determinare fatti sempre più semplici da dimostrare}, i quali \textbf{combinati danno la dimostrazione} iniziale cercata.\newline
+	
+	\noindent
+	Questo sistema è deterministico, nel senso che in ogni istante è noto quale regola applicare. Quindi, si ottiene uno stile di prova logico-matematico basato su un sistema di transizione deterministico.\newline
+	
+	\noindent
+	Qui di seguito viene proposto un esempio di come usare le regole della semantica dinamica per elaborare una dichiarazione.\newline
+	
+	\noindent
+	Si consideri la seguente dichiarazione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-ex1.pdf}
+	\end{figure}
+	
+	\noindent
+	Si ha una composizione privata tra due dichiarazioni, di cui la seconda è a sua volta una composizione sequenziale di dichiarazioni. I passi saranno:
+	\begin{enumerate}
+		\item Elaborare $d_{1}$ in un ambiente;
+		\item Elaborare $d_{2}$ utilizzando l'ambiente usato per $d_{1}$. Per farlo, viene elaborata prima la dichiarazione a sinistra e poi quella a destra nell'ambiente aggiornato.
+	\end{enumerate}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/regola_espressione-ex2.pdf}
+	\end{figure}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/regola_espressione-ex3.pdf}
+	\end{figure}
+
+	\noindent
+	Adesso si vuole dimostrare:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/regola_espressione-ex4.pdf}
+	\end{figure}
+	
+	\noindent
+	Quindi, la dimostrazione per passi:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/regola_espressione-ex5.pdf}
+	\end{figure}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/regola_espressione-ex6.pdf}
+	\end{figure}
+
+	\noindent
+	Si conclude la dimostrazione:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/regola_espressione-ex7.pdf}
+	\end{figure}
 \end{document}
