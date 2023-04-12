@@ -1895,7 +1895,7 @@ Even integers
 	\end{itemize}
 	Nel caso in cui questi elementi non sono presenti, significa che l'ambiente è vuoto. In tal caso, si dice che $e$ è di tipo $\tau$ nell'ambiente $\Delta$.\newpage
 
-	\subsubsection{Semantica statica delle espressioni}
+	\subsubsection{Semantica statica delle espressioni}\label{semantica statica delle espressioni}
 	
 	Si introducono le \textcolor{Red3}{\textbf{regole della semantica statica delle espressioni}}. Le prime tre regole sono assiomi, mentre le restanti riguardano operazioni booleane e aritmetiche. Esse vengono definite usando delle funzioni che determinano il tipo del risultato di un operatore booleano o aritmetico in funzione del tipo degli operandi:
 	\begin{itemize}
@@ -2076,7 +2076,7 @@ Even integers
 		\includegraphics[width=\textwidth]{img/esempio_composizione_privata.pdf}
 	\end{figure}\newpage
 	
-	\subsubsection{Identificatori definiti nelle dichiarazioni}
+	\subsubsection{Identificatori definiti nelle dichiarazioni}\label{identificatori definiti}
 	
 	Si introducono gli \textcolor{Red3}{\textbf{identificatori definiti}}, ovvero identificatori in posizione di definizione. Si ricorda che l'obbiettivo primario delle dichiarazioni è quello di definire identificatori.\newline
 	
@@ -2114,7 +2114,7 @@ Even integers
 		Dove $V$ è il dominio di $\rho$.
 	\end{itemize}\newpage
 	
-	\subsubsection{Identificatori liberi nelle dichiarazioni}
+	\subsubsection{Identificatori liberi nelle dichiarazioni}\label{identificatori liberi}
 	
 	Al contrario degli identificatori definiti, gli \textcolor{Red3}{\textbf{identificatori liberi}} si trovano fuori dallo scope di una qualche dichiarazione/definizione.\newline
 	
@@ -2445,5 +2445,507 @@ Even integers
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/regola_espressione-ex7.pdf}
+	\end{figure}\newpage
+
+	\section{Comandi}
+	
+	\subsection{Introduzione ai concetti}
+	
+	Qua di seguito vengono introdotti un po' di concetti utili per il capitolo sui comandi:
+	\begin{itemize}
+		\item La \textcolor{Red3}{\textbf{memoria}} è un \textbf{insieme di associazioni tra locazioni e valori}. È possibile immaginarla come un \emph{array} illimitato in cui ogni indice rappresenta una locazione e il valore corrispondente è il contenuto della locazione.\newline
+		Per \textbf{trasformare lo stato della memoria}, è necessario un meccanismo presente nei linguaggi imperativi chiamato \textbf{assegnamento}. Esso consente di modificare il contenuto della memoria.
+		
+		\item Le \textcolor{Red3}{\textbf{variabili}} sono \textbf{identificatori associati a locazioni}, le quali a loro volta, nella memoria, sono associate a valori che possono cambiare durante l'esecuzione.\newline
+		La loro introduzione è stata necessaria poiché un programma sarebbe dipendente dall'implementazione fisica lavorando con gli indirizzi di memoria.
+		
+		\item I \textcolor{Red3}{\textbf{comandi}} contengono \textbf{costrutti necessari per la composizione e il controllo del flusso di esecuzione}.
+	\end{itemize}\newpage
+
+	\subsection{Memoria e locazioni}
+	
+	Ogni nuovo oggetto può usufruire di una nuova locazione. Questo perché viene reso possibile che una \textbf{variabile possa avere indirizzi differenti in differenti momenti dell'esecuzione}, oppure che una \textbf{variabile posso avere indirizzi differenti in diversi punti del programma}. Nel caso in cui, nello stesso momento, due nomi di variabili possono essere usati per accedere alla stessa locazione, allora questi sono detti \textbf{alias}.\newline
+	Quindi, la \textbf{locazione associata ad una variabile astrae l'indirizzo di memoria in cui il valore della variabile si trova}.\newline
+	
+	\noindent
+	Lo \textbf{stato di ogni macchina viene rappresentato attraverso la sua memoria}, ovvero attraverso l'insieme di associazioni tra locazioni (riferibili mediante variabili) e valori memorizzabili.
+	
+	Quindi, la \textbf{memoria è lo strumento utilizzato per tenere traccia dell'evoluzione dei valori delle variabili}, attraverso la descrizione dei valori che stanno nelle locazioni associate alle variabili.\:\newline
+	
+	\noindent	
+	\begin{boxdef}
+		\textbf{La} \textcolor{Red3}{\textbf{locazione/indirizzo}} \textbf{è un contenitore per i valori che può essere inutilizzata, indefinita o definita.}
+	\end{boxdef}\:\newline
+	
+	\noindent
+	\begin{boxdef}
+		\textbf{La} \textcolor{Red3}{\textbf{memoria}} \textbf{è una collezione di associazioni con gli identificatori, che vengono aggiornate dinamicamente, fotografate in un istante.}
+	\end{boxdef}\:\newline
+
+	\noindent
+	Il \textbf{tempo di vita} di una \textbf{locazione} è determinato dallo \emph{scope} (visibilità) della dichiarazione. Invece, il modo con cui si \textbf{rilascia la locazione determina la reversibilità dei cambiamenti}:
+	\begin{itemize}
+		\item Se il rilascio è \textbf{implicito} (automatico) il cambiamento è reversibile.
+		
+		\item Se il rilascio è \textbf{esplicito} (allocazione dinamica) allora anche questi cambiamenti diventano non reversibili.
+	\end{itemize}\newpage
+
+	\subsection{Nuova grammatica per le dichiarazioni: aggiornamento della sintassi}
+	
+	Con l'introduzione della memoria, è necessario aggiungere una dichiarazione alla grammatica delle dichiarazioni, così che consenta di definite un nuovo oggetto sintattico:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/grammatica_con_memoria.pdf}
 	\end{figure}
+
+	\noindent
+	Dove $\mathcal{D}^{V}$ è l'\textbf{insieme di dichiarazioni con variabili}, che nella semantica costituiscono l'insieme delle configurazioni del sistema di transizione.
+	
+	La nuova grammatica definisce un identificatore $x$ come una variabile di tipo $\tau$ ed inizializzata al valore denotato dall'espressione $e$.\newline
+	
+	\noindent
+	Le \textbf{funzioni definite sulla sintassi}, ovvero $DI$ (identificatori definiti, paragrafo~\ref{identificatori definiti}) e $FI$ (identificatori liberi, paragrafo~\ref{identificatori liberi}), vengono aggiornate (in rosso gli aggiornamenti) nel seguente modo (le spiegazioni si trovano nei paragrafi indicati):
+	\begin{equation*}
+		\begin{array}{lll}
+			DI\left(\mathsf{nil}\right) & = & \emptyset \\
+			DI\left(\mathbf{const} \: \mathsf{x}: \tau = \mathrm{e}\right) & = & \textcolor{Red3}{DI\left(\mathbf{var} \: \mathsf{x}: \tau = \mathrm{e}\right)} = \left\{x\right\} \\
+			DI\left(d_{0} ; d_{1}\right) & = & DI\left(d_{0}\right) \cup DI\left(d_{1}\right) \\
+			DI\left(d_{0} \: \mathsf{in} \: d_{1}\right) & = & DI\left(d_{1}\right) \\
+			DI\left(\rho\right) & = & I, \hspace{1em} \text{con } \rho : I \\
+			\\
+			FI\left(\mathsf{nil}\right) & = & \emptyset \\
+			FI\left(\mathbf{const} \: \mathsf{x}: \tau = \mathrm{e}\right) & = & \textcolor{Red3}{FI\left(\mathbf{var} \: \mathsf{x}: \tau = \mathrm{e}\right)} = FI\left(\mathrm{e}\right) \\
+			FI\left(d_{0} ; d_{1}\right) & = & FI\left(d_{0} \: \mathsf{in} \: d_{1}\right) = FI\left(d_{0}\right) \cup \left(FI\left(d_{1}\right) \setminus DI\left(d_{0}\right)\right) \\
+			FI\left(\rho\right) & = & \emptyset
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsection{Le variabili}
+	
+	Le \textcolor{Red3}{\textbf{variabili}} sono caratterizzate da vari aspetti, i quali sono \textbf{\underline{in comune} con gli identificatori costanti}:
+	\begin{itemize}
+		\item \textbf{Nome/identificatore}, rappresenta la sequenza di caratteri utilizzati per \textbf{riferirsi all'oggetto denotato};
+		
+		\item \textbf{Tipo}, rappresenta l'\textbf{insieme dei valori riferibili dalla variabile}, ovvero quei valori memorizzabili nella locazione legata all'identificatore, e dalle \textbf{operazioni possibili su questi valori};
+		
+		\item \textbf{Valore}, rappresenta l'\textbf{oggetto memorizzato nella locazione associato all'identificatore}. Ovviamente deve essere tra quelli identificati dal tipo della variabile.
+	\end{itemize}
+	Invece, le \textbf{caratteristiche \underline{differenti} da un identificatore costante}, e quindi proprie delle variabili, sono:
+	\begin{itemize}
+		\item \textbf{Indirizzo/locazione}, rappresenta l'\textbf{astrazione della cella di memoria} in cui il valore associato viene memorizzato. È l'oggetto denotabile legato all'identificatore della variabile;
+		
+		\item \textbf{Scope}, rappresenta il \textbf{range dei comandi a cui la variabile è visibile}, ovvero dove è visibile la sua dichiarazione;
+		
+		\item \textbf{Tempo di vita}, rappresenta il \textbf{tempo in cui il \emph{binding} con la locazione è attivo}.
+	\end{itemize}\newpage
+	
+	\subsubsection{Semantica statica per le variabili e nuove regole}
+	
+	Viene introdotto un nuovo tipo così da \textbf{distinguere gli identificatori variabili e costanti}. Si definisce il tipo $\mathsf{\tau loc}$ utilizzato per gli identificatori variabili di tipo $\tau$:
+	\begin{equation*}
+		\begin{array}{rll}
+			\tau \in \mathrm{DTyp} & = & \left\{\mathsf{int}, \mathsf{bool}, \bot\right\} \\
+			\mathsf{\tau loc} \in \mathrm{DTypLoc} & = & \left\{\mathsf{intloc}, \mathsf{boolloc}\right\} \\
+			\mathrm{Typ} & = & \mathrm{DTyp} \cup \mathrm{DTypLoc}
+		\end{array}
+	\end{equation*}
+	Le regole di semantica statica date nel paragrafo~\ref{semantica statica delle espressioni} sono esattamente le stesse. Tuttavia, viene \textbf{aggiunta la regola per la nuova dichiarazione}:
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/semantica_statica-agg-6.pdf}
+	\end{figure}
+
+	\noindent
+ 	Dato che $\tau \in \mathrm{DTyp}$, si dice che la dichiarazione è \textbf{ben formata} (come per le costanti) \textbf{se il tipo dichiarato coincide con il tipo dell'espressione usata per inizializzare}. In tal caso, l'ambiente statico ottenuto associa alla variabile $x$ il tipo $\tau \mathrm{loc}$.\newline
+ 	
+ 	\noindent
+ 	Per \textcolor{Green4}{\textbf{esempio}}, se viene dichiarata una variabile $x$ di tipo $int$ e viene inizializzata con il valore $3$, allora la dichiarazione è ben formata e l'ambiente statico associa ad $x$ il tipo $intloc$.\newline
+ 	
+ 	\noindent
+ 	Questa modifica \textbf{cambia} anche la \textbf{regola semantica statica per gli identificatori che ora possono essere di tipo variabile}:
+ 	
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=.6\textwidth]{img/semantica_statica-agg-7.pdf}
+ 	\end{figure}\newpage
+ 
+ 	\subsection{Memoria e locazioni in $IMP$}
+ 	
+ 	Le \textbf{locazioni} sono modellate come un insieme finito ma illimitato di elementi che rappresentano celle di memoria:
+ 	\begin{boxdef}
+ 		\textbf{L'insieme} $Loc$ \textbf{è una collezione illimitata di locazioni:}
+ 		\begin{equation*}
+ 			L \subseteq Loc \hspace{2em} New\left(L\right) \in Loc \setminus L
+ 		\end{equation*}
+ 	\end{boxdef}
+ 	
+ 	\noindent
+ 	Dove la funzione $New$ \textbf{prende un insieme di locazioni già utilizzate e ne genera una nuova da utilizzare}.\newline
+ 	
+ 	\noindent
+ 	Siano $MVal$ i valori memorizzabili, ovvero quelli che possono essere associati ad una locazione. Si definiscono come $MVal$ i valori interi e booleani:
+ 	\begin{equation*}
+ 		MVal = \mathcal{N} \cup \mathcal{B}
+ 	\end{equation*}
+ 	Allora è possibile definire formalmente il concetto di memoria.
+ 	
+ 	\begin{boxdef}
+ 		Una \textcolor{Red3}{\textbf{memoria formalmente}} \textbf{è un elemento dello spazio di funzioni} $Mem$ definito da:
+ 		\begin{equation*}
+ 			Mem = \bigcup_{L\subseteq_{f} Loc} Mem_{L}
+ 		\end{equation*}
+ 		\textbf{Dove}:
+ 		\begin{equation*}
+ 			Mem_{L} : L \longrightarrow MVal
+ 		\end{equation*}
+ 		\textbf{Ha una metavariabile} $\sigma$ \textbf{e} $MVal$ \textbf{sono i valori memorizzabili.}
+ 	\end{boxdef}
+ 
+ 	\noindent
+ 	Dove $Loc_{\tau}$ è l'unione degli insiemi $Loc$ delle locazioni che possono memorizzare valori di tipo $\tau$.\newline
+ 	
+ 	\noindent
+ 	Si considerino due memoria $\sigma$, $\sigma' \in Mem$ dove $\sigma: L$ (sigma è compatibile con $L$) e $\sigma' : L' \left(L, L' \subseteq Loc\right)$, ovvero $\sigma$ è definito sulle locazioni in $L$ e $\sigma'$ è definito sull'insieme di locazioni.
+ 	
+ 	L'\textbf{aggiornamento della memoria} $\sigma$ mediante la memoria $\sigma'$ è la memoria $\sigma''\in Mem$, denotato con $\sigma\left[\sigma'\right]$ e definito come:
+ 	\begin{equation*}
+ 		\sigma''\left(l\right) = \begin{cases}
+ 			\sigma'\left(l\right)	& \text{se } l \in L' \\
+ 			\sigma\left(l\right)	& \text{altrimenti}
+ 		\end{cases}
+ 	\end{equation*}
+ 	In altre parole, \textbf{la memoria che aggiorna ha la precedenza, tutto quello di cui questa memoria non parla rimane inalterato}.\newpage
+ 	
+ 	\subsection{Aggiungere la memoria nei sistemi di transizione e nelle regole}
+ 	
+ 	\begin{boxdef}
+ 		Le \textcolor{Red3}{\textbf{espressioni}} hanno il seguente \textbf{sistema di transizione}:
+ 		\begin{equation*}
+ 			I^{V} = \mathcal{E}^{V} \times Mem, \hspace{1em} T^{V} = \left(\mathcal{N} \cup \mathcal{B}\right) \times Mem
+ 		\end{equation*}
+ 	\end{boxdef}
+ 	
+ 	\noindent
+ 	Le regole assumono la seguente struttura:
+
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=.5\textwidth]{img/regola_espressione-update-1.pdf}
+ 	\end{figure}
+ 
+ 	\noindent
+ 	L'unica regola che \textbf{cambia} è quella di \textbf{valutazione degli identificatori}, la quale deve considerare il caso in cui l'identificatore sia una variabile:
+ 	
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/regola_espressione-update-2.pdf}
+ 	\end{figure}
+ 	
+ 	\noindent
+ 	Per le \textbf{altre regole}, basta aggiungere la memoria nella regola. Tuttavia, si osserva che tale memoria non può essere trasformata dalla valutazione, la quale accede in memoria sempre e solo in lettura.\newline
+ 	
+ 	\noindent
+ 	\begin{boxdef}
+ 		Le \textcolor{Red3}{\textbf{dichiarazioni}} hanno il seguente \textbf{sistema di transizione}:
+ 		\begin{equation*}
+ 			I^{V} = \mathcal{D}^{V} \times Mem, \hspace{1em} T^{V} = Env \times Mem
+ 		\end{equation*}
+ 	\end{boxdef}
+ 	
+ 	\noindent
+ 	Le regole assumono la seguente struttura:
+ 	
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-update-1.pdf}
+ 	\end{figure}
+ 	
+ 	\noindent
+ 	Dopo la transazione, la \textbf{memoria può essere diversa} poiché le dichiarazioni, \textbf{inizializzando le variabili}, \textbf{modificano la memoria}.\newpage
+ 	
+ 	\subsubsection{Regole definitive delle espressioni con variabili}
+ 	
+ 	Vengono riportate qua di seguito le regole aggiornate con la memoria:
+ 	\begin{itemize}
+ 		\item La prima regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-1.pdf}
+ 		\end{figure}
+ 		
+ 		\item La seconda regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-2.pdf}
+ 		\end{figure}
+ 		
+ 		\item La terza regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-3.pdf}
+ 		\end{figure}
+ 		
+ 		\item La quarta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-4.pdf}
+ 		\end{figure}
+ 		
+ 		\item La quinta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-5.pdf}
+ 		\end{figure}
+ 		
+ 		\item La terza regola aggiornata:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-3b.pdf}
+ 		\end{figure}\newpage
+ 		
+ 		\item La sesta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-6.pdf}
+ 		\end{figure}
+ 		
+ 		\item La settima regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-7.pdf}
+ 		\end{figure}
+ 		
+ 		\item L'ottava regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-8.pdf}
+ 		\end{figure}
+ 	\end{itemize}\newpage
+ 	
+ 	\subsubsection{Regole definitive delle espressioni con chiusura transitiva}
+ 	
+ 	Un sistema di regole equivalente al paragrafo precedente ma che utilizza la chiusura transitiva nelle premesse:
+ 	\begin{itemize} 		
+ 		\item La seconda regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-2.pdf}
+ 		\end{figure}
+ 		
+ 		\item La terza e la quarta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-3_4.pdf}
+ 		\end{figure}
+ 		
+ 		\item La quarta e la prima regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-4_1.pdf}
+ 		\end{figure}
+ 		
+ 		\item La terza regola aggiornata e la sesta:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-3b_6.pdf}
+ 		\end{figure}
+ 		
+ 		\item La sesta e la quinta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-6_5.pdf}
+ 		\end{figure}\newpage
+ 		
+ 		\item L'ottava e la settima regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-8_7.pdf}
+ 		\end{figure}
+ 	\end{itemize}
+ 
+ 	\longline
+ 	
+ 	\subsubsection{Espressioni: valutazione ed equivalenza con variabili}
+ 	
+ 	La \textbf{funzione di valutazione} non cambia concettualmente ma solo formalmente, in quanto è necessario considerare anche le memorie.
+ 	
+ 	\begin{boxdef}
+ 		La \textcolor{Red3}{\textbf{valutazione delle espressioni con variabili}} è la seguente. \textbf{La valutazione è una funzione:}
+ 		\begin{equation*}
+ 			Eval: \mathcal{E}^{V} \times Mem \longrightarrow \mathbb{N} \cup \mathbb{B} \times Mem
+ 		\end{equation*}
+ 		\textbf{Che descrive il comportamento dinamico delle espressioni restituendo il valore in cui esse sono valutate (insieme alla memoria):}
+ 		\begin{equation*}
+ 			Eval\left(\langle e, \rho \rangle\right) = k \iff \langle e,\rho \rangle \longrightarrow^{*} \langle k,\rho \rangle
+ 		\end{equation*}
+ 	\end{boxdef}\:\newline
+ 
+ 	\noindent
+ 	L'\textbf{equivalenza} cambia poiché il valore risultante dipende potenzialmente dalla memoria da cui si parte. Allora c'è equivalenza se e solo se il valore risultante è lo stesso per tutte le possibili memorie iniziali:
+ 	
+ 	\begin{boxdef}
+ 		\textbf{L'}\textcolor{Red3}{\textbf{equivalenza di espressioni con variabili}} \textbf{è una relazione:}
+ 		\begin{equation*}
+ 			\equiv \subseteq \mathcal{E}^{V} \times \mathcal{E}^{V}
+ 		\end{equation*}
+ 		\textbf{Definita come segue:}
+ 		\begin{equation*}
+ 			e_{0} \equiv e_{1} \iff \forall \sigma. \: Eval\left(\langle e_{0},\sigma \rangle\right) = Eval\left( \langle e_{1},\sigma \rangle \right)
+ 		\end{equation*}
+ 	\end{boxdef}\newpage
+ 	
+ 	\subsubsection{Semantica dinamica per le variabili e regole delle dichiarazioni con variabili}
+ 	
+ 	Per la semantica dinamica, vengono introdotte \textbf{due nuove regole necessarie per la dichiarazione}:
+ 	\begin{itemize}
+ 		\item La prima regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-up-1.pdf}
+ 		\end{figure}
+ 	
+ 		\item La seconda regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.9\textwidth]{img/regola_dichiarazione-up-2.pdf}
+ 		\end{figure}
+ 	
+ 		\item La terza regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=\textwidth]{img/regola_dichiarazione-up-3.pdf}
+ 		\end{figure}
+ 	
+ 		\item La quarta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-4.pdf}
+ 		\end{figure}
+ 		
+ 		\item La quinta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.9\textwidth]{img/regola_dichiarazione-up-5.pdf}
+ 		\end{figure}
+ 		
+ 		\item La sesta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_dichiarazione-up-6.pdf}
+ 		\end{figure}\newpage
+ 	
+ 		\item La settima regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-7.pdf}
+ 		\end{figure}
+ 	
+ 		\item L'ottava regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-8.pdf}
+ 		\end{figure}
+ 	
+ 		\item La nona regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_dichiarazione-up-9.pdf}
+ 		\end{figure}
+ 	
+ 		\item La decima regola viene utilizzata per inizializzare una variabile. Una volta che l'espressione è stata valutata ad un valore costante $k$, allora è possibile allocare spazio per la nuova variabile. In particolare, si prende una nuova locazione $I$ di tipo $\tau$. La configurazione generata consiste nella coppia composta:
+ 		\begin{itemize}
+ 			\item Dall'ambiente dinamico che associa all'identificatore la nuova locazione $I$;
+ 			\item Dalla memoria iniziale aggiornata con l'associazione $I$ e il valore $k$.
+ 		\end{itemize}
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=\textwidth]{img/regola_dichiarazione-up-010.pdf}
+ 		\end{figure}
+ 		
+ 		\item L'undicesima regola indica la nuova associazione rispetto a quella iniziale:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.9\textwidth]{img/regola_dichiarazione-up-011.pdf}
+ 		\end{figure}
+ 	\end{itemize}\newpage
+ 	
+ 	\subsubsection{Regole delle dichiarazioni con variabili e chiusura transitiva}
+ 	
+ 	Le regole che utilizzano la chiusura transitiva nelle premesse:
+ 	\begin{itemize}
+ 		\item La prima regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-up-transitiva-1.pdf}
+ 		\end{figure}
+ 	
+ 		\item La quarta e la quinta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_dichiarazione-up-transitiva-4_5.pdf}
+ 		\end{figure}
+ 	
+ 		\item La quinta e la sesta regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-transitiva-5_6.pdf}
+ 		\end{figure}
+ 		
+ 		\item L'undicesima e la decima regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=\textwidth]{img/regola_dichiarazione-up-transitiva-11_10.pdf}
+ 		\end{figure}
+ 	
+ 		\item La terza e la seconda regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=\textwidth]{img/regola_dichiarazione-up-transitiva-3_2.pdf}
+ 		\end{figure}
+ 	
+ 		\item La settima e l'ottava regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-transitiva-7_8.pdf}
+ 		\end{figure}\newpage
+ 		
+ 		\item L'ottava e la nona regola:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-transitiva-8_9.pdf}
+ 		\end{figure}
+ 	\end{itemize}
+ 
+ 	\longline
+ 	
+ 	\subsubsection{Dichiarazioni: valutazione ed equivalenza con variabili}
+ 	
+ 	La funzione di \textbf{elaborazione} non cambia concettualmente, ma solo formalmente poiché è necessario considerare anche le memorie.
+ 	
+ 	\begin{boxdef}
+ 		L'\textcolor{Red3}{\textbf{elaborazione delle dichiarazioni con variabili}} è descritta nel seguente modo. \textbf{L'elaborazione è una funzione:}
+ 		\begin{equation*}
+ 			Elab: \mathcal{D}^{V} \times Mem \longrightarrow Env \times Mem
+ 		\end{equation*}
+ 		\textbf{Che descrive il comportamento dinamico delle dichiarazioni restituendo l'ambiente in cui esse sono elaborate:}
+ 		\begin{equation*}
+ 			Elab\left(\langle d,\sigma \rangle\right) = \langle \rho,\sigma \rangle \iff \langle d,\sigma \rangle \longrightarrow^{*} \langle \rho,\sigma' \rangle
+ 		\end{equation*}
+ 	\end{boxdef}\:\newline
+ 	
+ 	\noindent
+ 	L'\textbf{equivalenza} cambia concettualmente. Infatti, dato che l'ambiente risultante dipende potenzialmente dalla memoria da cui si parte, allora si avrà equivalenza se e solo se l'ambiente risultato è lo stesso per tutte le possibili memorie iniziali.
+ 	
+ 	\begin{boxdef}
+ 		L'\textcolor{Red3}{\textbf{equivalenza delle dichiarazioni con variabili}} è descritta nel seguente modo. \textbf{L'equivalenza di dichiarazioni con variabili è una relazione:}
+ 		\begin{equation*}
+ 			\equiv \subseteq \mathcal{D}^{V} \times \mathcal{D}^{V}
+ 		\end{equation*}
+ 		\textbf{Definita come segue:}
+ 		\begin{equation*}
+ 			d_{0} \equiv d_{1} \iff \forall \sigma. \: Elab\left(\langle d_{0},\sigma \rangle\right) = Elab\left(\langle d_{1},\sigma \rangle\right)
+ 		\end{equation*}
+ 	\end{boxdef}
 \end{document}
