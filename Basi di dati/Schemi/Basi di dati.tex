@@ -4769,5 +4769,154 @@ drop table Dipartimento cascade\end{lstlisting}
 		
 		\item Si vuole estrarre i dipartimenti per cui la media degli stipendi degli impiegati che lavorano nell'ufficio $20$ è superiore a $25$:
 		\lstinputlisting[language=SQL]{code/having-ex2.sql}
+	\end{itemize}\newpage
+
+	\subsection{Interrogazioni nidificate (\textsf{any}, \textsf{all}, \textsf{in}, \textsf{not in}, \textsf{some})}
+	
+	Il linguaggio SQL consente di scrivere interrogazioni che presentano al loro interno altre interrogazioni. Si parla in questo caso di \textcolor{Red3}{\textbf{interrogazioni nidificate}} e possono avvenire sia nella clausola \textsf{select}, sia nella clausola \textsf{from}, sia nella clausola \textsf{where}. In questo paragrafo verranno viste nella clausola \textsf{where} poiché è l'uso più comune. Mentre nel paragrafo~\ref{interrogazioni nidificate nelle clausole select e from} è possibile vederle nelle clausole \textsf{select} e \textsf{from}.
+	
+	\longline
+	
+	\subsubsection{Operatori \textsf{any}/\textsf{some} e \textsf{all}}
+	
+	SQL mette a disposizione i comandi \textcolor{Red3}{\textsf{all}} e \textcolor{Red3}{\textsf{any}} (o il suo sinonimo \textcolor{Red3}{\textsf{some}}), con l'obbiettivo di \textbf{estendere} i classici \textbf{operatori di confronto}: $=, <>, <, >, <=, >=$.\newline
+	
+	\noindent
+	L'operatore \textcolor{Red3}{\textsf{any}} specifica che la riga \textbf{soddisfa la condizione} se risulta vero il \textbf{confronto} (con l'operatore specificato) \textbf{tra il valore dell'attributo per la riga e almeno uno degli elementi restituiti dall'interrogazione}. Il sinonimo \textcolor{Red3}{\textsf{some}} ha le stesse caratteristiche di \textsf{any}.\newline
+	
+	\noindent
+	L'operatore \textcolor{Red3}{\textsf{all}} specifica che la riga \textbf{soddisfa la condizione} \underline{solo} se \textbf{tutti gli elementi restituiti dall'interrogazione nidificata rendono vero il confronto}.\newline
+	
+	\noindent
+	La sintassi richiede la \textbf{compatibilità di dominio tra l'attributo restituito dall'interrogazione nidificata e l'attributo con cui avviene il confronto}. Quindi non possono avvenire, per esempio, confronto tra una stringa e un intero.\newline
+	
+	\noindent
+	Alcune interrogazioni di \textcolor{Green4}{\textbf{esempio}}:
+	\begin{itemize}
+		\item Si vuole estrarre gli impiegati che lavorano in dipartimenti situati a Firenze:
+		\lstinputlisting[language=SQL]{code/any-ex1.sql}
+		L'interrogazione seleziona le righe di \textsf{Impiegato} per cui il valore dell'attributo \textsf{Dipart} è uguale ad almeno uno dei valori dell'attributo \textsf{Nome} delle righe di \textsf{Dipartimento}.
+		
+		Questa interrogazione poteva essere \textbf{espressa anche mediante un join} tra le tabelle \textsf{Impiegato} e \textsf{Dipartimento}. La scelta tra l'una e l'altra rappresentazione può essere dettata dal grado di \textbf{leggibilità della soluzione}. In casi così semplici non vi sono differenze significative, ma per \textbf{interrogazioni più complicate la scomposizione in interrogazioni distinte può migliorare la leggibilità}.\newpage
+		
+		\item Si vogliono trovare gli impiegati che hanno lo stesso nome di un impiegato nel dipartimento Produzione. L'interrogazione può essere espressa in diversi modi:
+		\begin{itemize}
+			\item La più compatta e con l'utilizzo di variabili:
+			\lstinputlisting[language=SQL]{code/any-ex2.sql}
+			
+			\item Utilizzando un'interrogazione nidificata:
+			\lstinputlisting[language=SQL]{code/any-ex3.sql}
+		\end{itemize}
+		
+		\item Si vogliono estrarre i dipartimenti in cui non lavorano persone di cognome \dquotes{Rossi}:
+		\lstinputlisting[language=SQL]{code/all-ex1.sql}
+		L'interrogazione nidificata selezione i valori di \textsf{Dipart} di tutte le righe in cui il cognome vale \dquotes{Rossi}. La condizione viene soddisfatta da quelle righe di \textsf{Dipartimento} per cui il valore dell'attributo \textsf{Nome} non fa parte dei nomi prodotti dall'interrogazione nidificata.
+		
+		Questa interrogazione \textbf{non} poteva essere \textbf{espressa mediante un join}.
 	\end{itemize}
+
+	\longline
+	
+	\subsubsection{Operatori \textsf{in} e \textsf{not in}}
+	
+	Per rappresentare il \textbf{controllo di appartenenza e di esclusione rispetto ad un insieme}, SQL mette a disposizione due appositi operatori, \textcolor{Red3}{\textsf{in}} e \textcolor{Red3}{\textsf{not in}}, i quali risultano del tutto identici agli operatori che sono stati visti negli esempi del paragrafo precedente (\textsf{= any}, \textsf{<> all}).\newline
+	
+	\noindent
+	Data la semplicità di questi operatori, gli \textcolor{Green4}{\textbf{esempi}} sono consultabili in combinazione con altri argomenti al paragrafo~\ref{interrogazioni nidificate complesse (exists)}.\newpage
+	
+	\subsubsection{Interrogazioni nidificate complesse (\textsf{exists}), passaggio di binding e scope}\label{interrogazioni nidificate complesse (exists)}
+	
+	Talvolta l'\textbf{interrogazione nidificata fa riferimento al contesto dell'interrogazione che la racchiude}; tipicamente ciò accade tramite una variabile definite nell'ambito della \emph{query} più esterna e usata nell'ambito della \emph{query} più interna (si parla di un \textbf{\emph{passaggio di binding}} da un contesto all'altro). La presenza di questo meccanismo arricchisce il potere espressivo di SQL e consente di comprendere meglio l'operatore che verrà introdotto tra poco.\newline
+	
+	\noindent
+	Per quanto riguarda la \textbf{visibilità} (o \textbf{\emph{scope}}) delle variabili SQL, vale la restrizione che \textbf{una variabile è usabile solo nell'ambito della \emph{query} in cui è definita o nell'ambito di una \emph{query} nidificata all'interno di essa}. Se un'interrogazione possiede interrogazioni nidificate allo stesso livello, le variabili introdotte nella clausola \textsf{from} di una \emph{query} non potranno essere usate nell'ambito dell'altra \emph{query}. Quindi, per \textcolor{Green4}{\textbf{esempio}}, la seguente \emph{query} \textbf{\underline{non è corretta}}:
+	\begin{itemize}
+		\item Si vogliono estrarre gli impiegati che afferiscono al dipartimento Produzione o a un dipartimento che risiede nella stessa città del dipartimento Produzione:
+		\lstinputlisting[language=SQL]{code/scope.sql}
+		La \emph{query} \textbf{non rispetta la sintassi SQL perché utilizza la variabile \textsf{D1} dove non è visibile}.
+	\end{itemize}\:\newline
+
+	\noindent
+	L'operatore logico \textcolor{Red3}{\textsf{exists}} ammette come \textbf{parametro un'interrogazione nidificata} e \textbf{restituisce} il valore \textbf{vero \underline{solo} se l'interrogazione fornisce un risultato non vuoto} (quantificatore esistenziale della logica $\exists$). L'operatore può essere utilizzato in modo significativo quando vi è un \emph{passaggio di binding} tra l'interrogazione esterna e quella nidificata.\newpage
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, si consideri una relazione che descrive dati anagrafici, avente il seguente schema:
+	\begin{equation*}
+		\textsf{Persona}\left(\textbf{\textsf{\underline{CodFiscale}}, \textsf{Nome}, \textsf{Cognome}, \textsf{Città}}\right)
+	\end{equation*}
+	\begin{itemize}
+		\item Si vuol estrarre le persone che hanno degli omonimi, ovvero persone con lo stesso nome e cognome, ma diverso codice fiscale:
+		\begin{itemize}
+			\item Utilizzando una \emph{query} nidificata:
+			\lstinputlisting[language=SQL]{code/exists-ex1.sql}
+			Si osservi che in questo caso \textbf{non risulta possibile eseguire l'interrogazione nidificata prima di valutare l'interrogazione più esterna}, in quanto senza aver associato un valore alla variabile \textsf{P} l'interrogazione nidificata non risulta completamente definita.
+			
+			Prima deve essere valutata l'interrogazione esterna; per ogni singola riga esaminata nell'ambito dell'interrogazione esterna si deve valutare l'interrogazione nidificata. In questo modo, prima di tutto verranno considerate una a una le righe associate alla variabile \textsf{P}; per ciascuna di esse sarà poi eseguita l'interrogazione nidificata che restituirà o meno l'insieme vuoto a seconda che vi siano o meno degli omonimi della persona.
+			
+			
+			\item Utilizzando un join tra due diversi istanze della tabella \textsf{Persona}:
+			\lstinputlisting[language=SQL]{code/exists-ex2.sql}
+		\end{itemize}		
+		
+		\item Si vogliono estrarre le persone che \underline{non} hanno degli omonimi:
+		\begin{itemize}
+			\item Utilizzando una \emph{query} nidificata:
+			\lstinputlisting[language=SQL]{code/exists-ex3.sql}
+			
+			\item Utilizzando il costruttore di tupla:
+			\lstinputlisting[language=SQL]{code/exists-ex4.sql}
+		\end{itemize}
+	\end{itemize}\newpage
+
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}}, si consideri il seguente schema:
+	\begin{equation*}
+		\textsf{Cantante}\left(\textbf{\textsf{\underline{Nome}}, \textsf{\underline{Canzone}}}\right) \hspace{2em} \textsf{Autore}\left(\textbf{\textsf{\underline{Nome}}, \textsf{\underline{Canzone}}}\right)
+	\end{equation*}
+	\begin{itemize}
+		\item Si vogliono estrarre i cantautori puri, ovvero i cantanti che hanno eseguito solo canzoni di cui erano anche autori:
+		\lstinputlisting[language=SQL]{code/exists-ex5.sql}
+		La prima interrogazione nidificata (quella con \textsf{from Cantante C}) non ha alcun legame con l'interrogazione esterna, e può quindi essere eseguita in modo del tutto indipendente. Invece, l'interrogazione al livello successivo presenta un legame (\textsf{Autore.Canzone = C.Canzone}).
+		
+		L'\textbf{esecuzione} dell'interrogazione avviene seguendo queste \textbf{fasi}:
+		\begin{enumerate}
+			\item La prima interrogazione (\textsf{from Cantante C}) legge tutte le righe della tabella \textsf{Cantante};
+			
+			
+			\item Per ogni riga di \textsf{C}, viene valutata l'interrogazione più interna, la quale restituisce i nomi degli autori della canzone il cui titolo compare nella riga di \textsf{C} che viene considerata.
+			
+			Se il nome del cantante non compare tra gli autori (e quindi il cantante non è un cantautore puro), allora il nome viene selezionato;
+			
+			
+			\item Dopo che l'interrogazione nidificata ha terminato di analizzare le righe di \textsf{C}, costruendo la tabella contenente i nomi dei cantanti che non sono cantautori puri, viene eseguita l'interrogazione più esterna, la quale restituirà tutti i nomi di cantanti che non compaiono nella tabella ottenuta come risultato dell'interrogazione nidificata.
+		\end{enumerate}
+	\end{itemize}\newpage
+	
+	\subsubsection{Interrogazioni nidificate nelle clausole \textsf{select} e \textsf{from}}\label{interrogazioni nidificate nelle clausole select e from}
+	
+	La sintassi SQL consente l'\textbf{uso di interrogazioni nidificate anche come elemento della clausola} \textsf{select} \textbf{e nella clausola} \textsf{from}.\newline
+	
+	\noindent
+	Nella \textbf{clausola} \textcolor{Red3}{\textsf{select}} è possibile utilizzare interrogazioni nidificate per \textbf{rappresentare interrogazioni che altrimenti sarebbero rappresentate mediante l'uso di join}.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{itemize}
+		\item Si vuole estrarre per ogni cantante il numero di canzoni di cui è autore:
+		\lstinputlisting[language=SQL]{code/select-ex3.sql}
+		L'interrogazione potrebbe essere formulata utilizzando una struttura di join e il costrutto di raggruppamento:
+		\lstinputlisting[language=SQL]{code/select-ex4.sql}
+	\end{itemize}
+	In generale è necessaria \underline{\textbf{grande cautela}} nell'uso di questo costrutto, in quanto è indispensabile che l'interrogazione nidificata restituisca un'unica tupla come risultato. Solitamente l'interrogazione nidificata presenta riferimenti nella sua clausola \textsf{where} a variabili dell'interrogazione stessa.\newline
+	
+	\noindent
+	Nella \textbf{clausola} \textcolor{Red3}{\textsf{from}} è possibile \textbf{comporre catene di interrogazioni}, in cui ciascuna interrogazione utilizza il risultato della precedente come se fosse una tabella base.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{itemize}
+		\item Si vuole estrarre per ogni cantante che è anche autore di canzoni, il numero di canzoni di cui è rispettivamente interprete e autore:
+		\lstinputlisting[language=SQL]{code/from-ex3.sql}
+	\end{itemize}
+	Questa interrogazione assume semplicemente che vengano dapprima eseguita le interrogazioni nella clausola \textsf{from} e che i risultati di queste interrogazioni vengano utilizzate come normali tabelle.
 \end{document}
