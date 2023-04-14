@@ -42,6 +42,37 @@
 	tabsize=2
 }
 
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{codegreen}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=JavaScript,
+	backgroundcolor=\color{lightgray},
+	extendedchars=true,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=left,
+	numberstyle=\footnotesize,
+	numbersep=9pt,
+	tabsize=2,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
+
 \lstset{style=mystyle}
 
 %\usepackage{showframe}				% visualizzazione bordi
@@ -171,7 +202,7 @@
 		\item Modalità di trasmissione: UDP o TCP.
 	\end{itemize}\newpage
 	
-	\subsection{Esempi di codice}
+	\subsection[\textcolor{Green4}{\textbf{Esempi}} di codice]{Esempi di codice}
 	
 	\subsubsection{Esecuzione degli esempi}
 	
@@ -221,7 +252,7 @@
 		\item (15) invio della risposta del server al client.
 	\end{itemize}\newpage
 
-	\subsubsection{Client\_inc UDP}
+	\subsubsection{Client\_inc UDP}\label{client_inc UDP}
 	
 	Il client UDP (paragrafo~\ref{client UDP}) può essere riscritto nel seguente modo:
 	\lstinputlisting[language=C]{code/clientUDP_inc.c}
@@ -239,7 +270,7 @@
 		\item (15-16) scrittura sul terminale della porta, dell'indirizzo del mittente e del messaggio.
 	\end{itemize}\newpage
 
-	\subsubsection{Server\_inc UDP}
+	\subsubsection{Server\_inc UDP}\label{server_inc UDP}
 	
 	Il server UDP (paragrafo~\ref{server UDP}) può essere riscritto nel seguente modo:
 	\lstinputlisting[language=C]{code/serverUDP_inc.c}
@@ -308,6 +339,182 @@
 
 		\item (39-43) al termine del processo di copia, viene stampato il file nel quale sono stati copiati i valori e chiusi i rispettivi file descriptors.
 	\end{itemize}\newpage
+	
+	\subsection[\textcolor{Red3}{\textbf{Esercizi}}]{Esercizi}
+	
+	\subsubsection{Esercizio 1}
+	
+	Lanciare prima il server e poi il client. Cosa si osserva? Invertire la sequenza di lancio. Cosa si osserva?\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Lanciando il server e successivamente il client, il primo attende la connessione da parte di qualcuno. Quindi, una volta avviato il client, le due parti inizieranno a comunicare.
+	
+	Invece, avviando prima il client e successivamente il server, le due parti non riescono a comunicare. Questo perché il client tenta di raggiungere un host non esistente.
+	
+	\longline
+	
+	\subsubsection{Esercizio 2}
+	
+	Modificare i sorgenti per consentire al server di ricevere sulla porta 10000 e il client di trasmettere sulla propria porta 30000 (ogni modifica dei sorgenti richiede una loro ricompilazione).\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Le modifiche da effettuare sono banali, ecco qua di seguito i codici del client (spiegazione al paragrafo~\ref{client UDP}):
+	\lstinputlisting[language=C]{code/clientUDP_mod2.c}\newpage
+	
+	\noindent
+	E del server (spiegazione al paragrafo~\ref{server UDP}):
+	\lstinputlisting[language=C]{code/serverUDP_mod2.c}
+	
+	\longline
+	
+	\subsubsection{Esercizio 3}
+	
+	Mettere il server in ascolto sulla porta 100 e osservare cosa succede:
+	\begin{itemize}
+		\item Bisogna modificare anche il client? Se sì, dove?
+		\item Per chi usa il proprio PC con Linux o una virtual machine Linux, lanciare il server con il comando \dquotes{\textsf{sudo ./serverUDP}} e osservare cosa cambia.
+	\end{itemize}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Modificando il codice e inserendo il numero di porta 100, il server non riesce ad essere eseguito per un problema della porta. Infatti, la porta 100 fa parte delle \emph{well-know port} e non può essere utilizzata per altri scopi.\newline
+	
+	\noindent
+	Modificando anche il client e inviando il messaggio al localhost con porta 100, il codice viene compilato ed eseguito correttamente. Ovviamente il client rimane in attesa del server.\newline
+	
+	\noindent
+	Compilando il server con la modalità \textsf{sudo} è possibile forzare la modifica della porta 100 e mettersi in ascolto su tale porta. Di conseguenza, il server si metterà in ascolto sulla porta 100 e il client che eseguirà l'invio di un messaggio in tale porta, riuscirà a trasmettere il messaggio.\newpage
+	
+	\subsubsection{Esercizio 4}
+	
+	Sostituire \dquotes{127.0.0.1} (o la stringa \dquotes{localhost}) con localhost (o al contrario con 127.0.0.1) e poi con \dquotes{pippo} e osservare cosa succede.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Modificando il parametro della chiamata a funzione \textsf{UDPSend} nel client viene modificato l'indirizzo del destinatario:
+	\begin{itemize}
+		\item Inserendo \dquotes{127.0.0.1} si sta inserendo l'indirizzo privato creato per identificare l'host stesso;
+
+		\item Inserendo \textsf{localhost} si sta utilizzando un \emph{alias}, dunque è come scrivere l'indirizzo \dquotes{127.0.0.1};
+
+		\item Inserendo \dquotes{Pippo} si sta provando a identificare l'alias Pippo a qualche indirizzo. Purtroppo non esiste nessun alias all'interno del sistema operativo con tale valore, tuttavia su Linux (forse anche su Windows) è possibile creare alias di rete con il relativo indirizzo IP.
+	\end{itemize}
+
+	\longline
+	
+	\subsubsection{Esercizio 5}
+	
+	(Da fare solo se in Lab Delta) Accordarsi per lavorare su coppie di macchine in modo che server e client siano su macchine diverse. Come bisogna modificare i sorgenti?\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	La modifica è alquanto semplice. Supponendo che i due host siano connessi sulla stessa rete, quindi non per forza la rete universitaria ma va bene anche un hotspot tramite telefono, è necessario modificare nel seguente modo i codici:
+	\begin{itemize}
+		\item Server: non apportare nessuna modifica in quanto il server (destinatario) deve solo aprire una porta, nel caso d'esempio la 35000;
+		
+		\item Client: indipendentemente dalla porta aperta nel client, di default nell'esempio la 20000, il client necessita di una modifica nei parametri della chiamata a funzione \textsf{UDPSend}. In particolare, al posto di \textsf{localhost} o dell'indirizzo \dquotes{127.0.0.1}, basterà inserire l'indirizzo IP del server che ha all'interno della rete. È doveroso cambiare anche il numero di porta nel caso in cui sia stata cambiata nel server.
+		
+		Attenzione, nelle virtual machine non è così semplice la faccenda. Infatti esse utilizzano un bridge per collegarsi alla scheda di rete e di conseguenza l'IP che viene visualizzato non è \dquotes{reale}. Si consiglia dunque un sistema operativo linux (o windows) non virtualizzato.
+	\end{itemize}\newpage
+	
+	\subsubsection{Esercizio 6}
+	
+	Modificare il server in maniera che soddisfi 5 richieste prima di terminare.
+	\begin{itemize}
+		\item E se volessi che non terminasse mai?
+	\end{itemize}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Per soddisfare almeno 5 richieste, è necessario modificare il codice del server di modo che esegua la parte di codice della ricezione almeno 5 volte. Quindi il relativo codice del server sarà:
+	\lstinputlisting[language=C]{code/serverUDP_mod3.c}
+	Mentre quello del client non viene modificato.
+	
+	\noindent
+	La simulazione dell'esecuzione sarà la seguente (prossima pagina):
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_1.png}
+		\caption{Terminale client.}
+		\:\newline
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_2.png}
+		\caption{Terminale server.}
+	\end{figure}\newpage
+
+	\subsubsection{Esercizio 7}
+	
+	Compilare ed eseguire il secondo esempio.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Si esegue il secondo esempio che riguarda il clientUDP e serverUDP in versione \_inc, rispettivamente paragrafo~\ref{client_inc UDP} e \ref{server_inc UDP}.
+	
+	\longline
+	
+	\subsubsection{Esercizio 8}
+	
+	Modificare il codice in modo tale da costruire una semplice sommatrice:
+	\begin{itemize}
+		\item Il client acquisisce ripetutamente da tastiera un numero intero e lo invia al server finché l'utente digita zero;
+		
+		\item Il server accumula in una variabile \dquotes{somma} i valori mandati dal client finché il client manda zero;
+		
+		\item Quando il client manda zero il server risponde al client con la somma ottenuta.
+	\end{itemize}
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice del client:
+	\lstinputlisting[language=C]{code/clientUDP_inc_mod2.c}
+	\begin{itemize}
+		\item 
+		
+		\item 
+		
+		\item 
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_3.png}
+		\caption{Esempio di esecuzione del client.}
+	\end{figure}
+	\newpage
+
+	\noindent
+	Il codice del server:
+	\lstinputlisting[language=C]{code/serverUDP_inc_mod2.c}
+	\begin{itemize}
+		\item 
+		
+		\item 
+		
+		\item 
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_4.png}
+		\caption{Esempio di esecuzione del server.}
+	\end{figure}\newpage
+	\:
+	\newpage
 
 	\section{Dal Web ai Webservices}
 	
@@ -523,5 +730,351 @@
 		\centering
 		\includegraphics[width=\textwidth]{img/protocol_upgrade.pdf}
 		\caption{Il Protocol Upgrade nel dettaglio.}
+	\end{figure}\newpage
+
+	\subsubsection{Approfondimento WebSocket}
+	
+	Il \textbf{WebSocket} è un protocollo di comunicazione web che fornisce un canale di \textbf{comunicazione bidirezionale} attraverso una singola connessione TCP inizialmente utilizzata per il protocollo HTTP.
+	
+	Il protocollo consente \textbf{maggiore interazione tra browser e server}, facilitando inoltre la realizzazione di applicazioni web che devono fornire contenuti in tempo reale. Tutto questo è possibile poiché i \textbf{WebSocket concedono al server di \dquotes{prendere l'iniziativa} ed effettuare dei \emph{push} autonomi di dati verso il browser per aggiornarlo}. Ovviamente questo non è possibile con il classico protocollo HTTP. Per \textbf{\emph{comunicazione bidirezionale}} si intende una comunicazione in entrambe le direzioni \underline{simultaneamente}.\newline
+	
+	\noindent
+	I WebSocket sono basati sul protocollo TCP e nascono da una connessione HTTP grazie ad un \textbf{Upgrade Request} richiesto dal client al server. Il browser comunica questa richiesta speciale al server tramite alcune voci nell'intestazione del messaggio. Inoltre, il WebSocket consente connessioni per un lungo periodo.\newline
+	
+	\noindent
+	In sintesi, le \textbf{\underline{caratteristiche}} di questo protocollo:
+	\begin{itemize}
+		\item Si \textbf{basa sul protocollo TCP}, la quale inizialmente utilizza il protocollo HTTP, ma grazie alla richiesta speciale Upgrade Request, essa muta nel protocollo WebSocket;
+		
+		\item \textbf{Connessione bidirezionale} (\emph{full-duplex}), quindi aumento della facilità nella realizzazione di applicazioni web che forniscono contenuti in tempo reale;
+		
+		\item \textbf{Utilizzo di porte note} (\emph{Well-know ports}), in particolare quelle dedicate al protocollo HTTP, quindi la 80 e la 443;
+		
+		\item \textbf{Connessioni per un lungo periodo}.
+	\end{itemize}
+
+	\longline
+	
+	\subsubsection{Limitazioni}
+	
+	Nonostante la grande utilità che apporta il protocollo WebSocket, esso non è la soluzione a tutto. Infatti, \textbf{HTTP ha ancora un ruolo chiave nella comunicazione client-server} per vari motivi:
+	\begin{itemize}
+		\item \textbf{Invio e chiusura delle connessioni per trasferimenti di dati di tipo one-time}, come i caricamenti iniziali. Il protocollo HTTP è più efficiente del WebSocket;
+		
+		\item \textbf{Utilizzo più intelligente} da parte di HTTP delle \textbf{risorse} grazie alla chiusura delle connessioni una volta terminate le operazioni. Al contrario, il WebSocket mantiene una connessione attiva più a lungo rischiando di sprecare risorse inutilmente;
+		
+		\item \textbf{WebSocket riservato solo agli utenti con JavaScript abilitato} e quindi a coloro che posseggono browser moderni a discapito, per esempio, dei sistemi \emph{embedded}.
+	\end{itemize}\newpage
+
+	\subsection{WebSocket-Chat}
+	
+	WebSocket-Chat è un progetto \dquotes{giocattolo} \textbf{realizzato per comprendere al meglio la tecnologia offerta dal protocollo WebSocket}. Esso utilizza vari linguaggi di programmazione: JavaScript, Node.js (\href{https://it.wikipedia.org/wiki/Node.js}{framework per realizzare applicazioni Web in JavaScript}), HTML, CSS e una parte aggiuntiva chiamata Console con Ispezione Network (monitoraggio da parte del browser con scambio tra i pacchetti).
+	
+	\longline
+	
+	\subsubsection{Node.js e l'approccio asincrono}
+	
+	Il framework \textcolor{Red3}{\textbf{Node.js}} (\href{https://it.wikipedia.org/wiki/Node.js}{Wikipedia}, \href{https://nodejs.org/it}{sito ufficiale Node.js}) è nato per realizzare applicazioni Web in JavaScript. Solitamente viene utilizzato lato client (\emph{client-side}) per realizzare applicazioni tipicamente lato server (\emph{server-side}).\newline
+	
+	\noindent
+	La \textbf{caratteristica principale} di Node.js è la possibilità di accedere alle risorse del sistema operativo in modalità \emph{event-driven} (\href{https://it.wikipedia.org/wiki/Programmazione_a_eventi}{programmazione orientata agli eventi}) e \underline{non} sfruttando il classico modello basato su processi/thread concorrenti, utilizzato dai classici web server.\newline
+	
+	\noindent
+	Il modello \textbf{\emph{event-driven}}, tradotto in programmazione orientata agli eventi, si basa sulla \textbf{mutazione di stato nel momento in cui si manifesta un evento}.
+	
+	A differenza della programmazione procedurale (\emph{C-style}) in cui ogni azione viene eseguita una dopo l'altra con un determinato ordine, nella programmazione ad eventi le azioni sono asincrone e seguono un ordine dettato dalla manifestazione degli eventi.\newline
+	
+	\noindent
+	L'\textbf{approccio asincrono} comporta una \textcolor{Green4}{\textbf{grande efficienza}} soprattutto in ambito di \emph{networking} poiché capita spesso di effettuare richieste e di rimanere in attesa di un'eventuale risposta. Grazie all'approccio asincrono, \textbf{durante l'attesa possibile effettuare altre operazioni che non dipendono dalla richiesta effettuata}.
+	
+	\longline
+	
+	\subsubsection{Descrizione dell'applicazione}
+	
+	Il progetto mira ad avere una chat multiutente a cui collegarsi tramite browser. Le \emph{features} implementate sono le seguenti:
+	\begin{itemize}
+		\item Registrazione del nome di contatto che si vuole avere quando si accede alla chat.
+		
+		\item Invio dei messaggi in broadcast a tutti gli utenti attualmente collegati alla chat.
+	
+		\item Visualizzazione dei messaggi inviati col nome della persona che lo ha inviato.
+	\end{itemize}\newpage
+
+	\subsubsection{Codice Back-end server}\label{codice Back-end server}
+	
+	\lstinputlisting[language=JavaScript]{code/server.js}
+	
+	\begin{itemize}
+		\item (3) \textcolor{Red3}{\textbf{Express.js}} è una libreria di Node.js che consente di costruire applicazioni web molto facilmente (\href{https://en.wikipedia.org/wiki/Express.js}{Wikipedia}, \href{https://expressjs.com/}{sito ufficiale}). L'unica cosa importante da sapere è che la prima linea di codice crea una variabile \textsf{express}, che necessita della relativa libreria Express.js, e viene \textbf{utilizzata per creare il server web in ascolto sulla porta 4000}.
+		
+		\item (4) \textcolor{Red3}{\textbf{Socket.IO}} è una libreria JavaScript \textbf{utilizzata per implementare il protocollo WebSocket} e racchiude molte \textbf{funzioni} tra le quali:
+		\begin{itemize}
+			\item \textbf{Broadcasting} a tutti i socket collegati;
+			
+			\item \textbf{Salvataggio} dei dati riguardanti ciascun utente;
+			
+			\item Approccio \textbf{asincrono di I/O}.
+		\end{itemize}
+	
+		\item (6-13) Alla riga 7 viene effettuato il vero e proprio \emph{import} della libreria e viene creato il socket;
+		
+		Alla riga 11 il server si mette in ascolto, sulla porta 4000, e (riga 12) stampa sul terminale la stringa \dquotes{waiting for HTTP requests on port 4000,}.
+		
+		
+		\item (21) Una volta ricevuta una connessione da parte di un client, il server ricerca all'interno della cartella chiamata \textsf{public}, il relativo file \dquotes{.html} da inviare al mittente.
+		
+		\item (29) Alla conferma di connessione instaurata e di file ricevuto, il server prende l'iniziativa ed esegue un \textbf{Upgrade Request} trasformando la connessione in una WebSocket.
+		
+		\item (30-38) Il server rimane in attesa, in particolare questo accade alla linea 35. Nel momento in cui un client scatena un evento, ovvero invia un messaggio con il tag \textsf{message}, il server lo inoltrerà a tutti i client connessi mediante l'oggetto \textsf{sockets}.
+	\end{itemize}
+
+	\longline
+	
+	\subsubsection{Codice Front-end HTML}
+	
+	\lstinputlisting[language=HTML]{code/index.html}
+	Il codice HTML consente di far visualizzare l'interfaccia utente creata da JavaScript. In particolare, nella pagina è possibile leggere e inviare messaggi.\newline
+	
+	\noindent
+	L'unica osservazione da fare è il tag \textsf{<script>}, il quale contiene il link del file .js da eseguire all'apertura del file HTML (paragrafo~\ref{codice Front-end JavaScript}). Ovviamente si intende il codice a riga 21, ovvero quello necessario per la chat.\newpage
+	
+	\subsubsection{Codice Front-end JavaScript}\label{codice Front-end JavaScript}
+	
+	\lstinputlisting[language=JavaScript]{code/chat.js}
+	\begin{itemize}
+		\item (3-6) Finché non viene inserito un nome, il codice continua a chiederlo.
+		
+		\item (9-13) Vengono inizializzate le variabili che acquisiscono i tag presenti nella pagina HTML.
+		
+		\item (15-16) Viene scritto il nome dell'utente nella pagina web e impostato il valore.
+		
+		\item (19) Viene creato il socket che deve connettersi al server.
+		
+		\item (22-30) Sul bottone di invio del messaggio, viene aggiunto un nuovo evento JavaScript. Quest'ultimo si attiverà nel momento in cui l'utente cliccherà sul bottone. Una volta premuto, se il messaggio non sarà vuoto, verrà inviato al server (con tag \textsf{message}!) il messaggio (riga 25) e il nome dell'utente (riga 26). Una volta inviato, viene svuotato il valore del messaggio.
+		
+		\item (32-35) Sono la stampa del messaggio ricevuto. Si noti il segno \dquotes{+=} che indica che i vari messaggi ricevuti vengono concatenati.
+	\end{itemize}\newpage
+
+	\subsubsection{Esecuzione del Front-end e del Back-end}
+	
+	Il server web utilizzato è Node.js che consente di eseguire codice JavaScript \emph{server-side} per creare il Back-end. Invece, il Front-end è realizzato mediante codice JavaScript eseguito dentro il browser.\newline
+	
+	\noindent
+	Passaggi da eseguire su Windows:
+	\begin{enumerate}
+		\item Download del file di installazione dal sito ufficiale: \url{https://nodejs.org/it/download}
+		
+		\item Eseguire il Back-end:
+		\begin{enumerate}
+			\item Scaricare lo zip fornito su Moodle con nome \dquotes{WebSocket\_Chat};
+			\item Aprire un terminale e posizionarsi nella cartella contente il file \textsf{server.js};
+			\item Eseguire il comando: \textsf{node.exe server.js}.
+		\end{enumerate}
+		
+		\item Eseguire il Front-end:
+		\begin{enumerate}
+			\item Aprire il browser alla pagina: \url{http://localhost:4000};
+			\item (Opzionale) Aprire più finestre del browser così da simulare l'accesso da parte di più utenti.
+		\end{enumerate}
+	\end{enumerate}\newpage
+	
+	\subsubsection[\textcolor{Red3}{\textbf{Esercizi}}]{Esercizi}
+	
+	\noindent	
+	\textcolor{Red3}{\textbf{\emph{\underline{Esercizio 1}}}}\newline
+	
+	\noindent
+	Lanciare l'applicazione dopo aver fatto partire l'ispezione del Network tramite la console di sviluppo del browser. Ogni quanto tempo il client fa sapere al server che è ancora connesso? È un'azione dovuta all'implementazione della chat o insita nel WebSocket? A cosa sere tale procedura?\newline
+	Lanciare Wireshark e vedere cosa passa in rete sulla connessione TCP interessata.\newline
+	
+	\noindent	
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione esercizio 1}}}}\newline
+	
+	\noindent
+	Per analizzare la rete si utilizza il software Wireshark che consente di analizzare il flusso di pacchetti in entrata e in uscita. All'apertura del software, andando nella sezione \dquotes{\emph{Adapter for loopback traffic capture}} sarà possibile seguire tutti i pacchetti che riguardano il localhost. Per filtrare il risultato dei pacchetti, si inserisce la stringa \dquotes{websocket} nella barra in alto, così da mostrare solamente quei pacchetti con protocollo WebSocket:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_websocket-chat/wireshark-1.png}
 	\end{figure}
+
+	\noindent
+	A questo punto, si aprono tre, quattro client. Quindi, si scrive l'URL localhost:4000 nel browser. Dato che il server non è in esecuzione, il browser non riesce a collegarsi al localhost:4000 poiché vede tale porta inutilizzata. Di conseguenza, il traffico catturato da Wireshark è inesistente.\newline
+
+	\noindent
+	Avviando il server, in automatico vedrà il collegamento dei 3/4 client avviati precedentemente. Di conseguenza, su Wireshark appariranno dei pacchetti corrispondenti al collegamento dei client al server:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_websocket-chat/wireshark-2.png}
+	\end{figure}
+
+	\noindent
+	Cliccando su uno dei pacchetti con flag [MASKED] è possibile notare una cosa interessante riguardo il protocollo TCP. Ovvero, il numero di porta d'origine e destinazione. Per esempio, nell'immagine è possibile vedere come un client con porta 51021 (\emph{Source Port}) stia comunicando con il server sulla sua porta 4000 (\emph{Destination Port}):
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_websocket-chat/wireshark-3.png}
+	\end{figure}\newpage
+	
+	\noindent
+	Adesso che è chiaro quale siano i client (quelli \dquotes{marchiati} con MASKED e il \href{https://en.wikipedia.org/wiki/WebSocket#Client_to_Server_Masking}{motivo per cui i messaggi sono mascherati è dovuto ad una questione di sicurezza}) e quale il server, è possibile vedere sulla colonna (la terza) di sinistra qual'è il tempo in cui ogni client comunica al server che è ancora vivo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_websocket-chat/wireshark-4.png}
+	\end{figure}
+	
+	\noindent
+	In questo caso, al tempo 259 il client con porta 51021 ha comunicato al server che è ancora vivo. Ovviamente il server ha risposto con un ACK e successivamente gli altri 3 client hanno comunicato al server la loro presenza. Al tempo 284, nuovamente il client con porta 51021 ricomunica al server che è ancora vivo (idem per gli altri). Si deduce che il client fa sapere al server che è ancora connesso ogni 25 secondi circa ($284-259=25$).\newline
+	Documentazione ufficiale riguardo al Keep-Alive nel protocollo WebSocket: \url{https://websockets.readthedocs.io/en/stable/topics/timeouts.html}\newline
+	RFC documentation: \url{https://www.rfc-editor.org/rfc/rfc6455#page-36}\newpage
+	
+	\noindent	
+	\textcolor{Red3}{\textbf{\emph{\underline{Esercizio 2}}}}\newline
+	
+	\noindent
+	Modificare il sorgente del codice per fare in modo che ad ogni utente connesso alla chat arrivi nella console il messaggio \dquotes{l'utente sta scrivendo...}.\newline
+	
+	\noindent
+	NOTA: Lato client, bisogna spedire al server un evento apposito (ad es. \dquotes{typing}) quando l'utente scrive sulla tastiera (catturando l'evento di sistema \dquotes{keypress}). Lato server, la chiamata \textsf{webSocket.broadcast.emit('typing', data)} rilancia l'evento \dquotes{typing} a tutti i client connessi tranne che a quello dalla quale si è ricevuto il messaggio. Lato client infine gestire la ricezione de messaggio \dquotes{typing} che arriva dal server (si veda la gestione del messaggio \dquotes{UploadChat}).\newline
+	
+	\noindent	
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione esercizio 2}}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=JavaScript]{code/server_ex2.js}
+	Il codice è rimasto lo stesso (paragrafo~\ref{codice Back-end server}), l'unica modifica effettuata è stata dalla riga 38 alla riga 40 in cui si impone al server di inoltrare il messaggio ricevuto, con tag \textsf{typing}, a tutti gli altri client.\newpage
+	
+	\noindent
+	\lstinputlisting[language=JavaScript]{code/chat_ex2.js}
+	Il codice del front-end è rimasto pressoché identico (paragrafo~\ref{codice Front-end JavaScript}) tranne a due modifiche importanti:
+	\begin{itemize}
+		\item (20-26) Sull'elemento \textsf{message} della pagina HTML, si crea un evento. Nel momento in cui una lettera viene premuta, il client invierà il messaggio con tag \textsf{typing} al server, inserendo nel payload il nome del mittente (\textsf{sender.value}).
+		
+		\item (50-60) Alla ricezione dell'evento \textsf{typing} da parte del server, il client stamperà la scritta \textsf{typing...} se e solo se supera il controllo alla riga 52, ovvero se non è lui il mittente (come da specifica dell'esercizio).
+	\end{itemize}
+	
+	\longline\newline
+	
+	\noindent	
+	\textcolor{Red3}{\textbf{\emph{\underline{Esercizio 3}}}}\newline
+	
+	\noindent
+	Modificare a piacimento il contenuto del file \textsf{public/index.html} e valutare l'impatto grafico.\newline
+	
+	\noindent	
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione esercizio 3}}}}\newline
+	
+	\noindent
+	Una modifica che è possibile fare è l'aggiunta di un altro titolo con tag h2. Ovviamente i colori saranno in tema con quelli specificati dal file CSS (styles.css).\newline
+	
+	\longline\newline
+	
+	\noindent	
+	\textcolor{Red3}{\textbf{\emph{\underline{Esercizio 4}}}}\newline
+	
+	\noindent
+	Provare a collegarsi allo stesso server da browser presenti su diversi PC collegati in rete.\newline
+	
+	\noindent	
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione esercizio 4}}}}\newline
+	
+	\noindent
+	In teoria dovrebbe funzionare anche con localhost, ma non ci sono riuscito per cui non posso fornire più di tante informazioni a riguardo.\newpage
+	
+	\subsection{Architetture orientate ai servizi (Service-Oriented Architecture, SOA)}
+	
+	Solitamente le applicazioni sono monolitiche, ovvero hanno un'interfaccia utente, la quale richiama delle funzionalità fornite da una serie di librerie linkate in un unico programma che è eseguito sulla macchina dell'utente.\newline
+	
+	\noindent
+	Al giorno d'oggi esiste un altro approccio di sviluppo delle applicazioni che riguarda SOA. Le \textcolor{Red3}{\textbf{architetture orientate ai servizi}} (\emph{Service-Oriented Architecture}) riguarda lo sviluppo di applicazioni complesse attraverso la \textbf{combinazione di diversi programmi attraverso la rete}:
+	\begin{itemize}
+		\item L'interfaccia utente e qualche funzionalità di base sono eseguito sull'host dell'utente.
+		\item Le funzionalità principali dell'applicazione sono fornite da programmi che sono eseguiti su uno o più server.
+	\end{itemize}
+
+	\noindent
+	I \textcolor{Green4}{\textbf{vantaggi}} sono molteplici:
+	\begin{itemize}
+		\item \textbf{Potenza di calcolo e memoria} sono delegate al server;
+		
+		\item \textbf{Protezione} della proprietà intellettuale su \textbf{algoritmi} strategici;
+		
+		\item \textbf{Annullamento} della necessità di distribuire \textbf{aggiornamenti} software quando le modifiche riguardano solo il codice dei server;
+		
+		\item Nuovo modello economico: \textbf{pay per use};
+		
+		\item \textbf{Eliminazione della pirateria}.
+	\end{itemize}
+	Nonostante i grandi vantaggi che propone, c'è un \textbf{requisito fondamentale} che deve essere rispettato: \textbf{la presenza e l'affidabilità della rete}.
+	
+	\longline
+	
+	\subsubsection{Funzioni remote e webservice}
+	
+	\noindent
+	Queste architetture \textbf{si basano} completamente sui servizi offerti, ovvero sulle \textbf{funzioni remote}.
+	
+	Le \textcolor{Red3}{\textbf{funzioni remote}} hanno il seguente funzionamento. Il \textbf{server espone una API}\footnote{Application program interface (API): insieme delle funzioni/metodi esposte da una certa libreria.}, \textbf{la quale descrive una serie di funzioni che il client} (\underline{non} il web browser) \textbf{può invocare}. Quindi, l'implementazione effettiva del \textbf{codice si trova \emph{server-side}}, mentre il codice che richiama una funzione specifica dell'API si trova \emph{client-side}.\newline
+	
+	\noindent
+	In passato le tecnologie utilizzate per eseguire una chiamata a funzione remota erano scritte completamente in C e venivano chiamate \emph{Remote Procedure Call} (RPC). Dopodiché, vennero semplificate e programmate in Java tramite il \emph{Java Remote Method Invocation} (JAVA RMI). Successivamente, ci fu l'invenzione del \emph{Common Object Request Broker Architecture} (CORBA) che permise di scrivere e di far comunicare più client/server con linguaggi differenti.\newline
+	Al giorno d'oggi, grazie all'approdo delle \textcolor{Red3}{\textbf{webservice}}, al protocollo HTTP/HTTPS e alla metodologia REST, le cose sono molto più semplici.
+	
+	\longline
+	
+	\subsubsection{Webservice basati su REST}
+	
+	I webservice basati su REST hanno molteplici vantaggi. Questa metodologia consente di poter \textbf{utilizzare due linguaggi di programmazione differenti \emph{client-side} e \emph{server-side}}. Anche l'\textbf{architettura può essere differente}. Questo grazie a due componenti fondamentali:
+	\begin{itemize}
+		\item \textbf{Funzione STUB}, \emph{client-side}: codifica dei parametri trasmessi e la decodifica dei valori di ritorno;
+		
+		\item \textbf{Componente SKELETON}, \emph{server-side}: decodificare l'input, eseguire il codice della libreria, codificare l'eventuale risultato e inviarlo al client.
+	\end{itemize}
+	La metodologia REST utilizza il protocollo HTTP/HTTPS. Il suo \textbf{servizio principale sono le chiamate remote e per farlo utilizza l'URL}, il quale è stato mappato (\emph{mapping}).
+	
+	I \textbf{parametri possono essere passati tramite URL}, metodo GET, oppure dopo l'header \textbf{nel payload}, con il metodo POST o PUT.\newline
+	
+	\noindent
+	Alcune dei metodi HTTP più famosi in base ai quali viene eseguita una funzione specifica:
+	\begin{itemize}
+		\item \textbf{POST}: usato da funzioni che \textbf{creano un nuovo oggetto} sul server;
+		
+		\item \textbf{PUT}: usato da funzioni che \textbf{aggiornano un oggetto esistente} sul server;
+		
+		\item \textbf{GET}: usato da funzioni che \textbf{recuperano informazioni di un oggetto} sul server;
+		
+		\item \textbf{DELETE}: usato da funzioni che \textbf{distruggono un oggetto esistente} sul server;
+	\end{itemize}
+	Solitamente i \textbf{valori di ritorno} sono sotto forma di file JSON.\newline
+	
+	\noindent
+	I \textcolor{Green4}{\textbf{vantaggi}} sono:
+	\begin{itemize}
+		\item A differenza di CORBA, il \textbf{webservice utilizza il protocollo HTTP/HTTPS}. Di conseguenza, elementi come \textbf{firewall o NAT sono già predisposti all'utilizzo} senza troppe complicazioni;
+		
+		\item Il \textbf{debugging è facilitato} (e quindi anche lo sviluppo di applicazioni) dall'utilizzo di contenuti testuali nelle transazioni, per esempio i file JSON.
+	\end{itemize}\newpage
+	
+	\subsubsection{Breve introduzione ai file JSON}
+	
+	I file \textcolor{Red3}{\textbf{JSON}} sono dei file testuali nati con JavaScript, ma ad oggi supportati da quasi tutti i linguaggi di programmazione.\newline
+	
+	\noindent
+	La sua è una \textbf{struttura gerarchica} facilmente leggibile da un umano e parserizzabile da un programma. La sua sintassi è semplice ed è formato da coppie \dquotes{\textsf{attributo:valore}}.\newline
+	
+	\noindent
+	Possono essere presenti anche array, rappresentati con le parentesi quadre, e strutture dati, rappresentate con le parentesi graffe. Un \textcolor{Green4}{\textbf{esempio}} di formattazione JSON:
+	\begin{lstlisting}
+{"impiegati":[
+	{
+		"nome":"Giovanni",
+		"cognome":"Rossi"
+	},
+	{
+		"nome":"Anna",
+		"cognome":"Bianchi"
+	},
+	{
+		"nome":"Pietro",
+		"cognome":"Verdi"
+	}
+]}\end{lstlisting}
 \end{document}
