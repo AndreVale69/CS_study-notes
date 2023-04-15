@@ -14,12 +14,16 @@ int main(void) {
         printf("[SERVER] Sono in attesa di richieste di connessione da qualche client\n");    
         connection = acceptConnection(socket);
         printf("[SERVER] Connessione instaurata\n");
-        TCPReceive(connection, &request, sizeof(request));
-        printf("[SERVER] Ho ricevuto la seguente richiesta dal client: %d\n", request);
-        response = request + 1;
-        printf("[SERVER] Invio la risposta al client\n");
-        TCPSend(connection, &response, sizeof(response));
+
+        int somma = 0;
+        do
+        {
+            TCPReceive(connection, &request, sizeof(request));
+            printf("[SERVER] Ho ricevuto la seguente richiesta dal client: %d\n", request);
+            somma += request;
+        } while (request != 0);
+        printf("[SERVER] Invio il risultato al client\n");
+        TCPSend(connection, &somma, sizeof(somma));
         closeConnection(connection);
     }
 }
-

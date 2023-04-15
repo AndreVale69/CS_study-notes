@@ -342,7 +342,7 @@
 	
 	\subsection[\textcolor{Red3}{\textbf{Esercizi}}]{Esercizi}
 	
-	\subsubsection{Esercizio 1}
+	\subsubsection{Esercizio 1 - UDP}
 	
 	Lanciare prima il server e poi il client. Cosa si osserva? Invertire la sequenza di lancio. Cosa si osserva?\newline
 	
@@ -356,7 +356,7 @@
 	
 	\longline
 	
-	\subsubsection{Esercizio 2}
+	\subsubsection{Esercizio 2 - UDP}
 	
 	Modificare i sorgenti per consentire al server di ricevere sulla porta 10000 e il client di trasmettere sulla propria porta 30000 (ogni modifica dei sorgenti richiede una loro ricompilazione).\newline
 	
@@ -373,7 +373,7 @@
 	
 	\longline
 	
-	\subsubsection{Esercizio 3}
+	\subsubsection{Esercizio 3 - UDP}
 	
 	Mettere il server in ascolto sulla porta 100 e osservare cosa succede:
 	\begin{itemize}
@@ -393,7 +393,7 @@
 	\noindent
 	Compilando il server con la modalità \textsf{sudo} è possibile forzare la modifica della porta 100 e mettersi in ascolto su tale porta. Di conseguenza, il server si metterà in ascolto sulla porta 100 e il client che eseguirà l'invio di un messaggio in tale porta, riuscirà a trasmettere il messaggio.\newpage
 	
-	\subsubsection{Esercizio 4}
+	\subsubsection{Esercizio 4 - UDP}
 	
 	Sostituire \dquotes{127.0.0.1} (o la stringa \dquotes{localhost}) con localhost (o al contrario con 127.0.0.1) e poi con \dquotes{pippo} e osservare cosa succede.\newline
 	
@@ -412,7 +412,7 @@
 
 	\longline
 	
-	\subsubsection{Esercizio 5}
+	\subsubsection{Esercizio 5 - UDP}
 	
 	(Da fare solo se in Lab Delta) Accordarsi per lavorare su coppie di macchine in modo che server e client siano su macchine diverse. Come bisogna modificare i sorgenti?\newline
 	
@@ -429,7 +429,7 @@
 		Attenzione, nelle virtual machine non è così semplice la faccenda. Infatti esse utilizzano un bridge per collegarsi alla scheda di rete e di conseguenza l'IP che viene visualizzato non è \dquotes{reale}. Si consiglia dunque un sistema operativo linux (o windows) non virtualizzato.
 	\end{itemize}\newpage
 	
-	\subsubsection{Esercizio 6}
+	\subsubsection{Esercizio 6 - UDP}
 	
 	Modificare il server in maniera che soddisfi 5 richieste prima di terminare.
 	\begin{itemize}
@@ -455,7 +455,7 @@
 		\caption{Terminale server.}
 	\end{figure}\newpage
 
-	\subsubsection{Esercizio 7}
+	\subsubsection{Esercizio 7 - UDP}
 	
 	Compilare ed eseguire il secondo esempio.\newline
 	
@@ -467,7 +467,7 @@
 	
 	\longline
 	
-	\subsubsection{Esercizio 8}
+	\subsubsection{Esercizio 8 - Sommatrice UDP}\label{esercizio 8 - Sommatrice UDP}
 	
 	Modificare il codice in modo tale da costruire una semplice sommatrice:
 	\begin{itemize}
@@ -485,35 +485,196 @@
 	Il codice del client:
 	\lstinputlisting[language=C]{code/clientUDP_inc_mod2.c}
 	\begin{itemize}
-		\item 
+		\item (11-16) Viene richiesto l'inserimento di un numero intero all'utente finché tale numero non è diverso da zero. Ogni numero viene inviato al server (15).
 		
-		\item 
-		
-		\item 
-	\end{itemize}
+		\item (17-19) Nel momento in cui il numero inserito è zero, il programma termina aspettando il risultato che verrà inviato dal server. Alla ricezione, verrà stampato.
+	\end{itemize}\newpage
+	
+	\noindent
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_3.png}
 		\caption{Esempio di esecuzione del client.}
 	\end{figure}
-	\newpage
 
 	\noindent
 	Il codice del server:
 	\lstinputlisting[language=C]{code/serverUDP_inc_mod2.c}
 	\begin{itemize}
-		\item 
+		\item (12-19) Viene dichiarata la variabile somma, come richiesto dall'esercizio. Successivamente, il server attende che qualche client gli invii un valore intero. Una volta arrivato tale informazione, il server somma il valore ad una sua variabile locale. Il ciclo continua finché non riceve un valore pari a zero.
 		
-		\item 
-		
-		\item 
-	\end{itemize}
+		\item (20-22) Quando viene ricevuto un valore pari a zero, il server invia la somma effettuata al client e stampa chi è il client che ha richiesto la terminazione.
+	\end{itemize}\newpage
+
+	\noindent
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_4.png}
 		\caption{Esempio di esecuzione del server.}
 	\end{figure}\newpage
-	\:
+
+	\subsubsection{Esercizio 9 - Sommatrice UDP e perdita di pacchetti}\label{esercizio 9 - Sommatrice UDP e perdita di pacchetti}
+	
+	Usare la sommatrice su due macchine distinte provando, sulla macchina del client, a staccare il cavo di rete prima di un invio di un dato, ad esempio:
+	\begin{itemize}
+		\item Digitare \dquotes{2345} + INVIO
+		\item Digitare \dquotes{5187} + INVIO
+		\item \textbf{Staccare il cavo}
+		\item Digitare \dquotes{2} + INVIO
+		\item \textbf{Riattaccare il cavo e aspettare 30 sec che il sistema operativo si riassesti}
+		\item Digitare \dquotes{1} + INVIO
+		\item \dquotes{0}
+	\end{itemize}
+	Che somma leggo? È corretta?\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Si parte con il rispondere prima alla domanda e poi a fornire la motivazione. La somma letta \underline{non} è corretta. La motivazione è la seguente:
+	\begin{itemize}
+		\item Il client invia il valore 2345 al server. Quest'ultimo riceve correttamente il valore. Somma progressiva: $2345$;
+		
+		\item Il client invia il valore 5187 al server. Quest'ultimo riceve correttamente il valore. Somma progressiva: $2345 + 5187 = 7532$;
+		
+		\item Viene staccato il cavo;
+		
+		\item Inserimento del valore 2 all'interno del client. Quest'ultimo invia il pacchetto al localhost, il quale non è collegato alla rete, di conseguenza il pacchetto viene perso. Dato che il protocollo è UDP, il client non sa se il pacchetto è stato ricevuto dal destinatario oppure no, di conseguenza ricomincia il ciclo e richiede un numero intero. La somma nel server rimane $7532$, mentre la somma corretta dovrebbe essere $7532+2=7534$;
+		
+		\item Viene riattaccato il cavo;
+		
+		\item Il client invia il valore 1 al server. Quest'ultimo riceve correttamente il valore. Somma progressiva: $7532+1 = 7533$;
+		
+		\item Valore zero, il client e il server si fermano.
+	\end{itemize}\newpage
+
+	\subsubsection{Esercizio 10 - Sommatrice UDP e influenze reciproche}\label{esercizio 10 - Sommatrice UDP e influenze reciproche}
+	
+	Invocare il server della sommatrice con due client diversi (tutti e tre possono anche essere sulla stessa macchina ovviamente su finestre terminali diverse), ad esempio:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l | l @{}}
+			\toprule
+			\textbf{Client A} & \textbf{Client B} \\
+			\midrule
+			Digitare \dquotes{2345} + INVIO	& Digitare \dquotes{2} + INVIO 	\\
+			Digitare \dquotes{5187} + INVIO	& Digitare \dquotes{8} + INVIO 	\\
+			Digitare \dquotes{2} + INVIO	& \dquotes{0} 					\\
+			Digitare \dquotes{1} + INVIO	& 								\\
+			\dquotes{0}						&								\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	Che somma leggo da ciascun client? È la somma che ciascun client si aspetterebbe?\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Mantenendo lo schema dell'esercizio 8 (paragrafo~\ref{esercizio 8 - Sommatrice UDP}), l'esecuzione dei due client (A e B) come nello schema dell'esercizio:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_5.png}
+	\end{figure}
+	
+	\noindent
+	Ricordando di eseguire prima un'operazione del client A, poi un'operazione del client B, poi A, poi B, e così via. Il risultato ottenuto sul server è il seguente:\newpage
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_6.png}
+	\end{figure}
+
+	\noindent
+	Quindi, nel client B viene letta la somma corretta, ovvero quella eseguita prima che il client B inviasse il valore zero e richiedesse la terminazione del server. Al contrario, nel client A il valore inserito 1 non viene ricevuto dal server, ma dato che è un protocollo UDP, il client continua ad eseguire il codice. Il problema nel client A sorge nel momento in cui esce dal ciclo \textsf{do...while}, poiché deve attendere una risposta (il risultato) dal server. Tuttavia, dato che il client B ha inviato il valore di terminazione \dquotes{0} e di conseguenza ha cessato la sua esecuzione, il client A rimarrà in un stato di attesa infinito.\newline
+	
+	\noindent
+	Quale potrebbe essere una \textbf{possibile modifica per evitare questa attesa infinita}? Ci sono molteplici soluzioni, una tra queste è quella di inserire un ciclo \textsf{do...while} al termine del codice del server e inserendo al suo interno un'attesa di ricezione con il conseguente invio del valore corretto. Il codice muterebbe in questo modo:
+	\lstinputlisting[language=C]{code/serverUDP_inc_mod3.c}
+	E l'esecuzione del client diventerebbe:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_7.png}
+	\end{figure}
+
+	\noindent
+	Con il server che rimarrebbe in attesa di essere terminato dal programmatore:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_8.png}
+	\end{figure}\newpage
+
+	\subsubsection{Esercizio 11 - Sommatrice TCP}
+	
+	Scrivere la sommatrice (quella dell'esercizio 8 al paragrafo~\ref{esercizio 8 - Sommatrice UDP}) usando TCP, compilare ed eseguire.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice del client:
+	\lstinputlisting[language=C]{code/clientTCP.c}
+	Un esempio di esecuzione del client:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_9.png}
+	\end{figure}\newpage
+
+	\noindent
+	Il codice del server:
+	\lstinputlisting[language=C]{code/serverTCP.c}
+	Un esempio di esecuzione del server:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_10.png}
+	\end{figure}\newpage
+
+	\subsubsection{Esercizio 12 - Sommatrice TCP e influenze reciproche}
+	
+	Provare a rifare l'esercizio 10 (paragrafo~\ref{esercizio 10 - Sommatrice UDP e influenze reciproche}) ma con questa nuova versione della sommatrice.\newline
+	Cosa si può osservare? Che soluzioni si può trovare? C'è influenza reciproca tra i due client?\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	In questo caso, non vi è influenza reciproca poiché il protocollo TCP è più restrittivo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_11.png}
+	\end{figure}
+	
+	\noindent
+	Il server ha la seguente esecuzione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/soluzioni_TCP-UDP/TCP-UDP_10.png}
+	\end{figure}\newpage
+
+	\subsubsection{Esercizio 13 - Sommatrice TCP e perdita di pacchetti}
+	
+	Riprovare l'esercizio 9 (paragrafo~\ref{esercizio 9 - Sommatrice UDP e perdita di pacchetti}) utilizzando questa volta la sommatrice TCP. Si analizzi il risultato.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Nonostante non sia possibile provare questo esercizio in Delta, è possibile formulare la risposta grazie alle conoscenze teoriche sul protocollo TCP.\newline
+	
+	\noindent
+	Nel momento in cui vengono inviati i primi due valori (2345 e 5187), il server riceve correttamente il valore. Successivamente, avviene un down di rete, ovvero viene staccato il cavo. Il client tenta di inviare un pacchetto contenente il valore 2 ma fallisce. Per definizione del protocollo, entra in gioco l'RTO (\emph{Retransmission TimeOut}) che inizia ad aumentare e a riprovare l'invio finché non riesce. Alla fine del down di rete, il server riceve il pacchetto con il valore 2, successivamente riceve il pacchetto inviato dal client con il valore 1 e termina con zero.
+
+
+
+
+
+
+
+
+
+
+	
 	\newpage
 
 	\section{Dal Web ai Webservices}

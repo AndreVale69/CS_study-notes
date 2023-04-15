@@ -16,8 +16,8 @@ int main(void) {
         UDPReceive(socket, &request, sizeof(request), hostAddress, &port);
         printf("[SERVER] Sommo il numero %d...\n", request);
         somma += request;
-        UDPSend(socket, &somma, sizeof(somma), hostAddress, port);
     } while (request != 0);
+    UDPSend(socket, &somma, sizeof(somma), hostAddress, port);
     printf("[SERVER] Ho ricevuto il valore di terminazione da host/porta %s/%d\n", hostAddress, port);
     printf("[SERVER] Contenuto: %d\n", request);
 }
