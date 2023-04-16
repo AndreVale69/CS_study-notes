@@ -4092,5 +4092,310 @@ confronto = [vec_media; media_Matlab]\end{lstlisting}
 	Il codice della funzione che richiama Mymean:
 	\lstinputlisting[language=MATLAB]{code/lab1_ex3.m}
 	E il codice della funzione Mymean:
-	\lstinputlisting[language=MATLAB]{code/lab1_ex3-Mymean.m}
+	\lstinputlisting[language=MATLAB]{code/lab1_ex3-Mymean.m}\newpage
+	
+	\subsection{Concetti avanzati di MATLAB}
+	
+	\subsubsection{Debug}
+	
+	MATLAB consente di eseguire un debug del codice ottimo. Per entrare nella modalità debug è necessario inserire un breakpoint cliccando sul numero di riga del codice interessata (classico stile di debug); all'esecuzione del codice, MATLAB si fermerà alla linea in cui è stato inserito il breakpoint.
+	
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l p{24em} @{}}
+			\toprule
+			Comando	& Descrizione \\
+			\midrule
+			\textsf{dbstop if error;}	& Entra in modalità di debug nel momento in cui riscontra un errore nel codice, in corrispondenza della riga che ha prodotto l'errore. Risulta utile per ispezionare il workspace alla ricerca del motivo dell'errore. \\
+			%
+			\textsf{dbstop if warning;}	& Stessa descrizione di \textsf{dbstop if error} con la differenza che è uno \emph{warning} ad attivare la modalità di debug. \\
+			%
+			\textsf{dbquit;}			& Esce dalla modalità di debug. \\
+			%
+			\textsf{dbclear all;}		& Rimuove tutti i breakpoint. \\
+			%
+			CTRL + r					& Commenta la riga corrente o la porzione di codice selezionata. \\
+			CTRL + t					& Elimina il primo commento sulla sinistra, se presente, o della porzione di codice selezionata. \\
+			CTRL + i					& Identa la riga di codice o la porzione di codice selezionata guardando l'intero \emph{scope} dello script o funzione in cui ci si trova. \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+	
+	\subsubsection{Rappresentazione grafica dei segnali}\label{MATLAB - Rappresentazione grafica dei segnali}
+	
+	Le figure possono essere inizializzate con il comando \textsf{figure(number)}.\newline
+	
+	\noindent
+	Il \textbf{\emph{line plot}} è il tipo di grafico più utilizzato per rappresentare i segnali e richiede due vettori della \underline{stessa dimensione}. Un vettore $x$ che rappresenta le coordinate orizzontali di ogni punto e un vettore $y$ che rappresenta i valori corrispondenti nell'asse delle ordinate. Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{lstlisting}[language=MATLAB]
+A = [1:10];
+B = rand(1,10);
+plot(A,B)\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/lab/visualizzazione-segnali_1.png}
+	\end{figure}
+	
+	\noindent
+	È possibile specificare il colore della linea del grafico inserendo un terzo parametro nella funzione \textsf{plot}. Per \textcolor{Green4}{\textbf{esempio}}, si vuole un grafico identico a quello sopra ma con la linea rossa:
+	\begin{lstlisting}[language=MATLAB]
+plot(A,B,'r')\end{lstlisting}
+	I colori di MATLAB sono 8:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l l @{}}
+			\toprule
+			Comando		& Colore \\
+			\midrule
+			\textsf{b}	& blue \\
+			\textsf{g}	& green \\
+			\textsf{r}	& red \\
+			\textsf{c}	& cyan \\
+			\textsf{m}	& magenta \\
+			\textsf{y}	& yellow \\
+			\textsf{k}	& black \\
+			\textsf{w}	& white \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+
+	\noindent
+	È possibile specificare anche la tipologia di linea e maker del grafico, per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{lstlisting}[language=MATLAB]
+plot(A,B,'--or')\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/lab/visualizzazione-segnali_2.png}
+	\end{figure}
+
+	\noindent
+	Le varie tipologie di linee e markers:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l l @{}}
+			\toprule
+			Comando		& Tipo di linea/marker \\
+			\midrule
+			.		& point \\
+			o		& circle \\
+			x		& x-mark \\
+			+		& plus \\
+			$\ast$	& star \\
+			s		& square \\
+			d		& diamond \\
+			v		& triangle (down) \\
+			$\wedge$	& triangle (up) \\
+			$<$		& triangle (left) \\
+			$>$		& triangle (right) \\
+			p		& pentagram \\
+			h		& hexagram \\
+			-		& solid \\
+			:		& dotted \\
+			-.		& dashdot \\
+			- -		& dashed \\
+			(none)	& no line \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+
+	\noindent
+	Altri comandi che vengono utilizzati per rappresentare i grafici sono:
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l p{17em} @{}}
+			\toprule
+			Comando	& Descrizione \\
+			\midrule
+			\textsf{title('titolo')}				& Per settare il titolo \\
+			\textsf{xlabel('name')}					& Per settare il nome dell'asse $x$ \\
+			\textsf{ylabel('name')}					& Per settare il nome dell'asse $y$ \\
+			\textsf{axis([xmin xmax ymin ymax])}	& Per settare minimo/massimo per asse \\
+			\textsf{xlim([ ]), ylim([ ])}				& Per settare minimo/massimo per un asse \\
+			\textsf{legend('text')}					& Per visualizzare una legenda a lato \\
+			\textsf{grid on/off}					& Per visualizzare (o no) la griglia nel grafico \\
+			\textsf{hold on}						& Per visualizzare più grafici sovrapposti \\
+			\textsf{clf}							& Per pulire il contenuto di una figura \\
+			\textsf{stem}							& Per visualizzare la sequenza dei dati $Y$ come steli che si estendono per tutta la lunghezza $X$ \\
+			\textsf{subplot}						& Per creare più immagini all'interno di una singola figura \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+	
+	\subsubsection{Rappresentazione dei suoni}
+	
+	Per \textbf{leggere un file contenente un suono} è necessario il seguente comando:
+	\begin{lstlisting}[language=MATLAB]
+[Y, FS] = audioread(FILENAME)\end{lstlisting}
+	Consente di leggere un file audio, specificato nella stringa FILENAME, e di restituire i dati campionati in \textsf{Y} e la frequenza di campionamento \textsf{FS}, in Hertz.\newline
+	
+	\noindent
+	Per visualizzare i suoni è possibile utilizzare le rappresentazioni grafiche ampiamente spiegate nel paragrafo~\ref{MATLAB - Rappresentazione grafica dei segnali}. Un \textcolor{Green4}{\textbf{esempio}} di codice e del suo relativo grafico (si ricorda che l'operazione \textsf{./} prende ogni valore dell'array e lo divide per l'operando):
+	\begin{lstlisting}[language=MATLAB]
+t = 1:size(y(1:Fs/2,1),1);
+t = t ./ Fs;
+figure; plot(t, y(1:Fs/2, 1))
+xlabel('t [sec]')
+ylabel('amplitude')\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/lab/visualizzazione-segnali_3.png}
+	\end{figure}\newpage
+
+	\subsubsection{Rappresentazione delle immagini}
+	
+	In MATLAB esistono due tipologie di immagini:
+	\begin{itemize}
+		\item \textbf{Indicizzata}, una matrice di dati i cui valori rappresentano un \dquotes{puntatore} al colore vero, contenuto in una mappa di colore.
+		
+		Le immagini indicizzate sono \textbf{matrici di dati} chiamata di solito $X$ \textbf{e una matrici di colori} chiamata $map$. Quest'ultima è un array ($m \times 3$) di double contenente valori a virgola mobile nell'intervallo $\left[0,1\right]$ e \textbf{ogni riga specifica i componenti rosso, verde e blu di ogni singolo colore}.
+		
+		Un'immagine indicizzata utilizza la \textbf{mappatura diretta dei valori dei pixel ai valori della mappa di colori}. Quindi, il colore di ciascun pixel dell'immagine viene determinato mappando il valore di $X$ al corrispondente colore nella mappa di colori (i valori di $X$ quindi devono essere numeri interi). Per \textcolor{Green4}{\textbf{esempio}}, l'immagine \textsf{trees.tif}:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/lab/visualizzazione-segnali_4.png}
+		\end{figure}\newpage
+		
+		\item \textbf{Di intensità}, una matrice di dati i cui valori rappresentano già i colori (in particolare rappresentano intensità all'interno di un intervallo).
+		
+		Le immagini di intensità sono \textbf{matrici di dati} $I$, i cui valori rappresentano intensità all'interno di un intervallo:
+		\begin{itemize}
+			\item $M \times N$ (singolo canale): il valore di ogni pixel indica il suo livello di grigio;
+			
+			\item $M \times N \times K$ (3 canali): i tre valori di ogni pixel indicano il colore (tipicamente secondo la codifica RGB).
+		\end{itemize}
+		Per \textcolor{Green4}{\textbf{esempio}}, l'immagine \textsf{peppers.png}:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/lab/visualizzazione-segnali_5.jpg}
+		\end{figure}
+	\end{itemize}
+	Per leggere un file contenente un'immagine in scala di grigi o a colori, e ottenere informazioni su di essa, viene messo a disposizione il comando \textsf{imread}:
+	\begin{lstlisting}[language=MATLAB]
+I = imread(filename, fmt);
+[I, map] = imread(...);
+[I, map] = imread(filename);
+[I, map] = imread(URL, ...);\end{lstlisting}
+	Il parametro \textsf{filename} indica il nome del file e \textsf{fmt} il formato dell'immagine. A seconda del tipo di immagine, il comando ritorna valori differenti:
+	\begin{itemize}
+		\item Immagini \textbf{indicizzate}, il comando ritorna l'immagine nella variabile \textsf{I}, e la mappa di colore in \textsf{map}.
+		
+		\item Immagini di \textbf{intensità}, il comando ritorna l'immagine nella variabile \textsf{I}, mentre la mappa \textsf{map} è nulla.
+	\end{itemize}\newpage
+
+	\noindent
+	Per entrambi i tipi di immagine, la matrice immagine \textsf{I} ha alcune caratteristiche a seconda dell'immagine in scala di grigio o a seconda dell'immagine di intensità a colori:
+	\begin{itemize}[label=-]
+		\item Immagine in \textbf{scala di grigio o binaria}, quindi ha dimensione $M \times N$ e il prodotto sono il numero di pixel;
+		
+		\item Immagine di \textbf{intensità a colori}, che possono essere di dimensione $M \times N \times 3$ nel caso di modelli RGB o HSV, oppure di dimensione $M \times N \times 4$ nel caso di modelli CMYK (tipico dei file con estensione \textsf{.tiff}).
+	\end{itemize}
+	Per \textbf{visualizzare un'immagine} in scala di grigi o a colori contenuta in una matrice \textsf{I}, viene utilizzato il seguente comando:
+	\begin{lstlisting}[language=MATLAB]
+imshow(I)\end{lstlisting}
+	Aggiungendo alcuni parametri è possibile ottenere qualche informazioni in più:
+	\begin{itemize}
+		\item Con le \textbf{immagini indicizzate}, aggiungendo il parametro \textsf{map}, viene visualizzata un'immagine indicizzata con la relativa mappa di colore contenuta nella variabile \textsf{map}.
+		
+		\item Con \textbf{immagini in scala di grigi} vengono visualizzati i pixels con i valori all'interno dell'intervallo $\left[low \: high\right]$, gli altri valori saranno sostituiti con il colore nero, se il loro valore è minore di \emph{low}, altrimenti, se maggiore, con il colore bianco.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{lstlisting}[language=MATLAB]
+I = imread('cameraman.tif');
+figure(1)
+subplot(1,2,1), imshow(I)
+subplot(1,2,2), imshow(I, [0 80])\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/visualizzazione-segnali_6.jpg}
+	\end{figure}
+	
+	\noindent
+	Un ulteriore metodo per \textbf{visualizzare un'immagine in scala di grigi o a colori contenuta in una matrice} \textsf{A} è quello di utilizzare il comando \textsf{imagesc(A)}. L'immagine ottenuta viene visualizzata utilizzando tutto il range di colori compreso nella mappa di colore (colormap). Il suo scopo è visualizzare una generica informazione bidimensionale, massimizzando l'utilizzo della mappa cromatica.\newpage
+	
+	\subsubsection{Ulteriori comandi utili per le immagini}
+	
+	Il comando \textsf{surf(I)} consente di \textbf{visualizzare un'immagine \textsf{I} come un rilievo geografico, con valli e picchi}. Risulta \textbf{efficace per capire l'analisi in frequenza}, per vedere l'effetto di operazioni quali estrazioni di edge, segmentazioni, e altro. Un \textcolor{Green4}{\textbf{esempio}}:
+	\begin{lstlisting}[language=MATLAB]
+I = imread('cameraman.tif');
+figure(1)
+surf(I)
+shading flat
+colormap bone\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/lab/visualizzazione-segnali_7.jpg}
+	\end{figure}
+	
+	\noindent
+	Girando la figura:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/lab/visualizzazione-segnali_8.jpg}
+	\end{figure}\newpage
+
+	\noindent
+	Con il comando \textsf{imresize(A, scale)} è possibile \textbf{riscalare un'immagine} (a colori o in scala di grigi), rimpicciolendola oppure ingrandendola a seconda del valore del parametro \textsf{scale}. Supponendo:
+	\begin{lstlisting}[language=MATLAB]
+B = imresize(A,scale)\end{lstlisting}
+	Se \textsf{scale} ha valore:
+	\begin{itemize}
+		\item Compreso tra $0$ e $1$, allora $B < A$
+		\item Maggiore di $1$, allora $B > A$
+	\end{itemize}
+	Con il comand \textsf{imrotate(I, angle)} è possibile \textbf{ruotare un'immagine} in senso orario con valori di \textsf{angle} negativi, in senso antiorario con valori di \textsf{angle} positivi. Ovviamente \textsf{angle} è espresso in gradi.\newline
+	
+	\noindent
+	Con il comando \textsf{imcrop(I)} è possibile visualizzare un'immagine e aprire un tool interattivo per selezionarne una porzione.\newline
+	
+	\noindent
+	Con il comando \textsf{rgb2gray(RGB)} è possibile \textbf{convertire un'immagine da RGB a scala di grigi}.\newline
+	
+	\noindent
+	Con il comando \textsf{imwrite(I, map, 'filename', 'fmt')} è possibile scrivere un file contenente un'immagine in scala di grigi o a colori. Il parametro \textsf{map} è necessario \underline{solo} per le immagini indicizzate.\newpage
+	
+	\subsubsection{Esercizio 1}
+	
+	Prendere la foto di Paperino oppure fatevi una foto al volto. Copiate questa foto nella directory di lavoro, e caricatela attraverso MATLAB. Attraverso opportune indicizzazioni della matrice in cui è contenuta la foto, sostituite ai pixel che rappresentano gli occhi dei pixel neri, facendo comprarire una sorta di occhiali da sole.\newline
+	
+	\noindent
+	Si ricorda che il valore nero si ottiene con una terna $RGB = \left[0 \: 0 \: 0\right]$. Visualizzate l'immagine originale e quella modificata attraverso il comando surf, in due plot separati nella stessa figura. Per visualizzare con surf occorre trasformare la foto in scala di grigio. Per una visualizzazione ottimale, usare anche il comando \dquotes{shading flat}.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice dell'esercizio è il seguente:
+	\lstinputlisting[language=MATLAB]{code/lab2_ex1.m}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/lab/lab2_ex1-fig1.jpg}
+		\caption{\textsf{figure(1)}}
+		\:\newline
+		\includegraphics[width=.6\textwidth]{img/lab/lab2_ex1-fig2.jpg}
+		\caption{\textsf{figure(2)}}
+		\:\newline
+		\includegraphics[width=.6\textwidth]{img/lab/lab2_ex1-fig3.jpg}
+		\caption{\textsf{figure(3)}}
+	\end{figure}\newpage
+	
+	\subsubsection{Esercizio 2}
+
+	Realizzare una funzione che, data l'immagine a livelli di grigio \textsf{moon.tif}, conti quanti pixel ($=$ entries $i,j$ all'interno della matrice) assumono un particolare valore di grigio, per tutti i valori di grigio compresi tra $0$ e $255$. Il risultato sarà un vettore di naturali di dimensionalità (256, 1) chiamato istogramma. Provare a visualizzare questo vettore usando il comando bar.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice dell'esercizio è il seguente:
+	\lstinputlisting[language=MATLAB]{code/lab2_ex2.m}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/lab/lab2_ex2-fig1.jpg}
+		\caption{\textsf{figure(1)}}
+		\:\newline
+		\includegraphics[width=.8\textwidth]{img/lab/lab2_ex2-fig2.jpg}
+		\caption{\textsf{figure(2)} e \textsf{figure(3)}}
+	\end{figure}
 \end{document}
