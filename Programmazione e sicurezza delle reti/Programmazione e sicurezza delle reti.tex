@@ -1237,5 +1237,410 @@
 		"nome":"Pietro",
 		"cognome":"Verdi"
 	}
-]}\end{lstlisting}
+]}\end{lstlisting}\newpage
+
+	\section{Introduzione alla sicurezza}
+	
+	Per comprendere al meglio la sicurezza informatica, è necessario procedere a piccoli passi. Prima di tutto, ci sono delle domande da porsi:
+	\begin{itemize}
+		\item Quali risorse si vogliono proteggere? Risposta al paragrafo \ref{quali risorse si vogliono proteggere}
+		\item Come vengono minacciate tali risorse? Risposta al paragrafo \ref{come vengono minacciate le risorse}
+		\item Cosa è necessario fare per contrastare tali minacce? Risposta al paragrafo \ref{come contrastare le minacce}
+	\end{itemize}
+
+	\longline
+	
+	\subsection{Quali risorse si vogliono proteggere}\label{quali risorse si vogliono proteggere}
+	
+	Le risorse che solitamente si vogliono proteggere sono:
+	\begin{itemize}
+		\item Risorse \textbf{hardware}, come i sistemi, i componenti, dischi. In questo caso si parla di \textbf{sicurezza \dquotes{fisica}};
+		
+		\item Risorse \textbf{software}, come i sistemi operativi e gli applicativi;
+		
+		\item Risorse di \textbf{dati}, come file e database;
+		
+		\item Risorse di \textbf{rete}, come i collegamenti e gli apparati.
+	\end{itemize}
+	Per \textcolor{Red3}{\textbf{proteggere}} queste risorse è necessario \textbf{garantire le proprietà di}:
+	\begin{itemize}
+		\item Confidenzialità
+		\item Integrità
+		\item Disponibilità
+		\item Autenticità
+		\item Tracciabilità
+	\end{itemize}
+	
+	\longline
+	
+	\subsubsection{Confidenzialità}
+	
+	Per \textcolor{Red3}{\textbf{confidenzialità}} si intende che \textbf{nessun utente deve poter ottenere o dedurre dal sistema informazioni che non è autorizzato a conoscere}. In questo caso ci sono due caratteristiche fondamentali:
+	\begin{itemize}
+		\item La \textbf{riservatezza dei dati}, ovvero le informazioni confidenziali non devono essere rilevate o rilevabili da utenti non autorizzati;
+		
+		\item La \textbf{privacy}, ovvero dare l'opportunità all'utente di controllare i dati che il sistema con cui sta interagendo può collezionare e memorizzare.
+	\end{itemize}\newpage
+		
+	\subsubsection{Integrità}
+	
+	Per \textcolor{Red3}{\textbf{integrità}} si intende di \textbf{impedire l'alterazione diretta o indiretta delle informazioni, sia da parte di utente e processi non autorizzati, che a seguito di eventi accidentali}. Nel caso in cui i dati venissero alterati, sarebbe necessario fornire strumenti per poter verificare facilmente tale alterazione.\newline
+	
+	\noindent
+	Anche qui ci sono due caratteristiche fondamentali:
+	\begin{itemize}
+		\item \textbf{Integrità dei dati}, ovvero le informazioni e i programmi possono essere modificati solo se autorizzati;
+		
+		\item \textbf{Integrità del sistema}, ovvero il sistema funzione e non è compromesso.
+	\end{itemize}
+
+	\longline
+	
+	\subsubsection{Disponibilità}
+	
+	Per \textcolor{Red3}{\textbf{disponibilità}} si intende la possibilità di \textbf{rendere disponibili a ciascun utente abilitato, le informazioni alle quali ha diritto di accedere, nei tempi e modi previsti}. Quindi in determinate condizioni o in un preciso istante o in un intervallo di tempo. Nei sistemi informatici, i requisiti di disponibilità includono caratteristiche di prestazioni e robustezza.
+	
+	\longline
+	
+	\subsubsection{Autenticità}
+	
+	Per \textcolor{Red3}{\textbf{autenticità}} si intende il \textbf{dovere da parte di ciascun utente di verificare l'autenticità delle informazioni}. Per esempio messaggi, mittenti e destinatari. Per garantire l'autenticità, si richiede di poter verificare se un'informazione è stata manipolata.
+	
+	\longline
+	
+	\subsubsection{Tracciabilità}
+	
+	Per \textcolor{Red3}{\textbf{tracciabilità}} si intende che le \textbf{azioni di un'entità devono essere tracciate in modo univoco così da supportare la non-ripudiabilità e l'isolamento della responsabilità}. Ad esempio, nessun utente deve poter ripudiare o negare in tempi successivi messaggi da lui spediti o firmati.\newpage
+	
+	\subsection{Come vengono minacciate le risorse} \label{come vengono minacciate le risorse}
+	
+	Le minacce compromettono le proprietà di confidenzialità, integrità e disponibilità. Per \textcolor{Green4}{\textbf{esempio}}:
+	
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l p{9em} p{9em} p{9em} @{}}
+			\toprule
+			& Confidenzialità & Integrità & Disponibilità \\
+			\midrule
+			HW & & & Calcolatore rubato \\
+			&&&\\
+			SW & Copia non autorizzata & Eseguibile modificato & Eseguibili cancellati \\
+			&&&\\
+			Dati & Lettura non autorizzata & File modificati & File cancellati \\
+			&&&\\
+			Rete & Lettura messaggi inviati & Messaggi modificati/ritardati/duplicati & Messaggi distrutti, rete fuori uso \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	Una \textcolor{Red3}{\textbf{minaccia}} è una \textbf{possibile violazione della sicurezza}. Mentre un \textcolor{Red3}{\textbf{attacco}} è una \textbf{violazione effettiva della sicurezza}. Gli \textbf{attacchi} possono essere:
+	\begin{itemize}
+		\item \textbf{Attivi}, tentativi di \textbf{alterare risorse o modificare il funzionamento} dei sistemi;
+		
+		\item \textbf{Passivi}, tentativi di \textbf{ottenere informazioni e utilizzarle} senza intaccare le risorse;
+		
+		\item \textbf{Interni}, iniziati da un'\textbf{entità interna} al sistema;
+		
+		\item \textbf{Esterni}, iniziati da un'\textbf{entità esterna}, tipicamente attraverso la rete.
+	\end{itemize}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/sicurezza/sicurezza.png}
+		\caption{Esempi di attacchi.}
+	\end{figure}
+
+	\noindent
+	Infine, esistono alcune classi di attacchi o minacce:
+	\begin{itemize}
+		\item \textbf{\emph{Disclosure}}, accesso non autorizzato alle informazioni
+		
+		\item \textbf{\emph{Deception}}, accettazione di dati falsi
+		
+		\item \textbf{\emph{Disruption}}, interruzione o prevenzione di operazioni corrette
+		
+		\item \textbf{\emph{Usurpation}} controllo non autorizzato di alcune parti del sistema
+	\end{itemize}\newpage
+
+	\subsection{Come contrastare le minacce}\label{come contrastare le minacce}
+	
+	Il contrasto delle minacce è la parte più difficile della sicurezza. Innanzitutto non esiste una risposta unica poiché dipende da una serie di fattori. Inoltre, le risorse cambiano con il tempo e quello che oggi è considerato come \dquotes{sistema sicuro}, un domani non potrebbe più esserlo.\newline
+	
+	\noindent
+	\textbf{Durante la progettazione di sistemi} è necessario considerare la possibilità di \textbf{attacchi potenziali}. Quindi, l'obbiettivo è di considerare quali possibili attacchi un attaccante potrebbe mettere in atto. Nello sviluppo di meccanismi di difesa, è intelligente utilizzare delle \textbf{soluzioni contro-intuitive} così da complicare la vita ad eventuali malintenzionati.\newline
+	
+	\noindent
+	I \textbf{meccanismi di sicurezza devono essere inseriti sia a livello fisico che a livello logico}, quindi protocollare. Tuttavia, nonostante il grande impegno che può esserci per sviluppare sistemi sicuri, la \textbf{sicurezza dipende anche dagli utenti}. Per esempio le informazioni possedute, come password, e la creazione/distribuzione/protezione di tali informazioni dovrebbero avere un occhio di riguardo.\newline
+	
+	\noindent
+	Purtroppo sempre più spesso la \textbf{sicurezza viene vista come un impedimento e/o rallentamento} del normale funzionamento dei sistemi per una serie di motivi:
+	\begin{itemize}
+		\item Gli \textbf{amministratori conducono una battaglia no-stop contro gli attaccanti}, ai quali, a differenza dei difensori che devono eliminare \underline{qualsiasi} minaccia possibile, è sufficiente sfruttare una singola vulnerabilità;
+		
+		\item Dispendio di energie e forze senza un reale risultato tangibile. Questo si traduce in uno svantaggio e non in un beneficio. Ovviamente finché non accade un incidente di sicurezza...
+		
+		\item Sempre più elementi aggiuntivi al sistema.
+	\end{itemize}\newpage
+	
+	\subsubsection{Principi fondamentali di progettazione della sicurezza}
+	
+	Nonostante anni di ricerca, è impossibile progettare sistema senza falle di sicurezza. Tuttavia, grazie ad un insieme di pratiche e regole è possibile creare un sistema molto difficile da attaccare con successo. Queste \textbf{regole} vengono chiamate \textcolor{Red3}{\textbf{principi fondamentali di progettazione della sicurezza}}:
+	\begin{itemize}
+		\item \textbf{Aspetti economici dei meccanismi}, la progettazione delle misure di sicurezza deve essere il più semplice possibile, sia da implementare che da verificare;
+		
+		\item \textbf{\emph{Fail-safe default}}, i comportamenti non specificati devono prevedere un default sicuro, ad esempio i permessi di accesso;
+		
+		\item \textbf{Progettazione aperta} è preferibile rispetto al codice segreto;
+		
+		\item \textbf{Tracciabilità delle operazioni}, così che qualsiasi operazione può essere ricostruita e il sistema ripristinato;
+		
+		\item \textbf{Separazione dei privilegi} dalle risorse create da ciascun utente e da quelle critiche;
+		
+		\item \textbf{Separazione delle funzionalità}, ovvero la distinzione dei ruoli nei diversi punti del sistema fisico e logico;
+		
+		\item \textbf{Isolamento dei sottosistemi}, ovvero un sistema compromesso non dovrebbe compromettere gli altri;
+		
+		\item \textbf{Modularità}, quindi meccanismi di sicurezza indipendenti, sostituibili e riusabili.
+	\end{itemize}\newpage
+	
+	\subsubsection{Politiche di sicurezza e meccanismi}
+	
+	Una \textcolor{Red3}{\textbf{politica di sicurezza}} è un'indicazione di \textbf{cosa è permesso e di cosa non è concesso}. Le regole riguardano i dati, le operazioni possibili, gli utenti singoli e i profili.\newline
+	
+	\noindent
+	Un \textcolor{Red3}{\textbf{meccanismo di sicurezza}} è un metodo (strumento/procedura) per garantire una politica di sicurezza.\newline
+	
+	\noindent
+	Quindi, data l'unione di queste due definizione, si dice: data una politica che distingue le azioni sicure da quelle non sicure, i meccanismi di sicurezza \textbf{prevengono}, \textbf{scoprono} o \textbf{recupero} da un attacco.
+	\begin{itemize}
+		\item \textbf{Prevenzione} di un attacco, ovvero il meccanismo di sicurezza deve rende impossibile l'attacco. Spesso l'adozione di questa politica interferisce con il sistema al punto da renderlo scomodo da usare. Per \textcolor{Green4}{\textbf{esempio}}, la richiesta di password come modo di autenticazione.
+		
+		\item \textbf{Scoperta} di un attacco, quindi il meccanismo di sicurezza è in grado di scoprire che un attacco è in corso. È \textbf{utile} quando:
+		\begin{itemize}
+			\item Non è possibile prevenire l'attacco;
+			\item È necessario valutare le misure preventive.
+		\end{itemize}
+		Solitamente vengono monitorate le risorse del sistema, cercando eventuali tracce di attacchi.
+		
+		\item \textbf{Recupero} da un attacco. Questa politica è possibile applicarla in due modi diversi:
+		\begin{enumerate}
+			\item \textbf{Fermare l'attacco} e recuperare o ricostruire la situazione prima dell'attacco, per esempio con un backup;
+			
+			\item \textbf{Continuare a far funzionare il sistema correttamente durante l'attacco}, in gergo viene chiamata \emph{fault-tolerant}.
+		\end{enumerate}
+	\end{itemize}
+	Degli \textcolor{Green4}{\textbf{esempi}} di meccanismi (specifici) di sicurezza sono: la \textbf{crittografia}, cioè la trasformazione dei dati in un formato non facilmente comprensibile da un essere umano, la \textbf{firma digitale}, usata per provare la sorgente, l'\textbf{autenticazione e controllo degli accessi}, come la gestione dei diritti degli utenti rispetto le risorse. I meccanismi generali possono essere il rilevamento degli eventi, la gestione degli Audit (\href{https://it.wikipedia.org/wiki/Audit}{Wikipedia}) o le Recovery (\href{https://www.cybersecurity360.it/soluzioni-aziendali/cyber-event-recovery-strutturare-un-piano-dazione-per-ripristinare-dati-sistemi-e-servizi/}{CyberSecurity360}).\newpage
+	
+	\subsubsection{Ottenere un sistema sicuro}
+	
+	Per ottenere un \textcolor{Red3}{\textbf{sistema sicuro}}, i primi passi sono uno sviluppo consapevole. È dunque necessario seguire le seguenti \textbf{fasi}:
+	\begin{enumerate}
+		\item \textbf{Specifica}, descrive il funzionamento del sistema desiderato e avere una visione d'insieme;
+		\item \textbf{Progetto}, tradurre le specifiche in componenti che le implementano ed elencare le loro caratteristiche;
+		\item \textbf{Implementazione}, creare il sistema vero e proprio che soddisfi le specifiche.
+	\end{enumerate}
+	Durante queste fasi è \underline{fondamentale} continuare a verificare la correttezza dell'implementazione.\newline
+	
+	\noindent
+	Inoltre, è importante \textbf{considerare alcune scelte implementative} inevitabili durante la progettazione di un sistema:
+	\begin{itemize}
+		\item \textbf{Analizzare} i \textbf{costi-benefici} dell'implementazione della \textbf{sicurezza} e dei suoi meccanismi;
+		
+		\item \textbf{Analizzare i rischi} in caso di attacchi e gli eventuali danni/perdite che possono causare;
+		
+		\item \textbf{Aspetti legali} riguardanti la sicurezza e la privacy ed eventuali \textbf{aspetti morali};
+		
+		\item \textbf{Analizzare i problemi organizzativi}, infatti l'implementazione di meccanismi di sicurezza, come detto nei paragrafi precedenti, potrebbe creare situazioni di difficoltà per gli utenti che utilizzano il sistema. Questo si potrebbe tradurre nell'aumento di perdite invece di utili;
+		
+		\item \textbf{Aspetti comportamentali} delle persone coinvolte.
+	\end{itemize}
+	
+	\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Analisi di rete con Wireshark e da linea di comando}
+	
+	\subsection{Introduzione agli analizzatori di rete}
+	
+	Esistono diversi \textbf{strumenti software che consentono di analizzare i pacchetti} che arrivano alla propria interfaccia di rete:
+	\begin{itemize}
+		\item \textbf{TCDUMP} tool da linea di comando per sistemi operativi Linux;
+		
+		\item \textbf{WinDump} tool da linea di comando per sistemi operativi Windows;
+		
+		\item \textbf{Wireshark} tool sia da linea di comando che da GUI per sistemi operativi Linux, Windows e MacOS.
+	\end{itemize}
+	Tutti gli \textbf{strumenti di rete si basano sulla libreria} del linguaggio programmazione C, chiamata \textcolor{Red3}{\textbf{\textsf{libpcap}}}. Le sue funzionalità sono tre:
+	\begin{enumerate}
+		\item Cercare e trovare interfacce di rete;
+		
+		\item Gestione avanzata di filtri di cattura;
+		
+		\item Gestione degli errori e statistiche di cattura.
+	\end{enumerate}
+	
+	\longline
+	
+	\subsubsection{Sniffing e la motivazione del \textsf{sudo}}\label{sniffing e la motivazione del sudo}
+	
+	Con il termine \textcolor{Red3}{\textbf{\emph{sniffing}}} viene intesa l'abilità del software, in questo caso Wireshark, di \textbf{catturare i pacchetti in arrivo e in partenza} dalla propria interfaccia di rete. Esistono due tipi di \emph{sniffing}:
+	\begin{itemize}
+		\item \emph{Sniffing} all'interno di \textcolor{Red3}{\textbf{reti non-switched}}. Come accade, per esempio, nelle \textbf{reti WiFi}, tutte le schede di rete dei PC collegati al router ricevono tutti i pacchetti, sia i propri sia quelli destinati ad altri.
+		
+		In questo caso, lo \emph{sniffing} consente di \textbf{catturare sia i pacchetti destinati al dispositivo che sta eseguendo questa operazione, sia i pacchetti di cui non è il destinatario}. Per eseguire questa operazione è necessario avviare Wireshark in modalità amministratore (comando \textsf{sudo} su Linux). Questo perché a priori l'\textbf{interfaccia di rete scarta i pacchetti a cui non è interessato}, mentre con Wireshark viene attivata la \textcolor{Red3}{\textbf{modalità promiscua}} che \textbf{consente di bypassare il sistema operativo e interrogare direttamente la CPU per salvare tutti i pacchetti in entrata e in uscita}. La modalità promiscua viene disattivata dal sistema operativo per motivi di \emph{performance}. Infatti, se fosse sempre attiva, il sistema operativo avrebbe un carico di lavoro talmente alto sulla CPU che calerebbero le prestazioni generali del sistema.
+		
+		\item \emph{Sniffing} all'interno di \textcolor{Red3}{\textbf{reti Ethernet switched}}. In questo caso, l'apparato centrale della rete (\emph{switch}), si preoccupa di \textbf{inoltrare su ciascuna porta solo il traffico destinato ai dispositivi collegati a quella porta}. Di conseguenza, ciascuna interfaccia di rete riceve solo i pacchetti destinati a lei (o multicast/broadcast).
+		
+		In altre parole, la \textbf{modalità promiscua \underline{non} consente la cattura di pacchetti di altre schede di rete}.
+	\end{itemize}\newpage
+
+	\subsection{Interfaccia grafica di Wireshark}
+	
+	Come specificato nel paragrafo~\ref{sniffing e la motivazione del sudo}, Wireshark necessita di essere avviato con la modalità amministratore (o \textsf{sudo} su Linux).
+	
+	Una volta avviato, la schermata iniziale sarà la seguente. Al centro sono presenti una serie di voci in cui vengono indicati i vari dispositivi di rete su cui è possibile ascoltare il traffico. Oltre all'interfaccia Wi-Fi (se presente sulla macchina), è possibile trovare interfacce del tipo bluetooth, ethernet (LAN), USB e interfacce di rete delle macchine virtuali.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/grafica-wireshark-1.png}
+		\caption{Schermata iniziale di Wireshark.}
+	\end{figure}\newpage
+
+	\subsubsection{Sniffing della rete}
+
+	Cliccando su una delle interfacce, il software inizierà ad ascoltare il traffico di pacchetti nella rete. La grafica si presenta nel seguente modo e con i seguenti colori:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/grafica-wireshark-2.png}
+		\caption{Schermata di \emph{sniffing} nella rete.}
+	\end{figure}
+
+	\longline
+	
+	\subsubsection{Applicazione dei filtri}
+	
+	Data la grande mole di pacchetti che possono presentarsi durante lo \emph{sniffing}, Wireshark dà la possibilità di applicare una serie di filtri (la serie di comandi che è possibile utilizzare: \href{https://www.wireshark.org/docs/man-pages/wireshark-filter.html}{documentazione ufficiale}). Essi possono essere applicati scrivendo il relativo comando nella barra in alto in cui è scritto \dquotes{\textsf{Apply a display filter ...}}. Per \textcolor{Green4}{\textbf{esempio}} è possibile ricercare un protocollo scrivendolo nella barra (se quest'ultima viene evidenziata di verde, il comando è corretto, altrimenti viene evidenziata di rosso per segnalare un'inesattezza nel comando).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/grafica-wireshark-3.png}
+		\caption{Applicazione corretta di un filtro.}
+		\vspace{2em}
+		\includegraphics[width=\textwidth]{img/wireshark/grafica-wireshark-4.png}
+		\caption{Applicazione errata di un filtro.}
+	\end{figure}\newpage
+
+	\subsubsection{Seguire il flusso di una conversazione}
+	
+	È possibile seguire il flusso dati della \dquotes{conversazione} di un pacchetto. Per farlo è necessario cliccare sul pacchetto interessato, andare nella barra degli strumenti e cliccare \emph{Analyze} $\rightarrow$ \emph{Follow} e selezionare il protocollo interessato. Per \textcolor{Green4}{\textbf{esempio}}, nella seguente conversazione viene seguito il protocollo UDP.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/grafica-wireshark-5.png}
+		\caption{Analisi del flusso di un pacchetto 1 di 2.}
+		\vspace{2em}
+		\includegraphics[width=\textwidth]{img/wireshark/grafica-wireshark-6.png}
+		\caption{Analisi del flusso di un pacchetto 2 di 2.}
+	\end{figure}\newpage
+
+	\subsection{Comando \textsf{ping}}
+	
+	Il comando \textcolor{Red3}{\textsf{ping}} consente di \textbf{verificare la raggiungibilità di un computer connesso alla rete e il relativo Round Trip Time} (RTT)\footnote{Tempo che intercorre dalla partenza del pacchetto inviato fino al ritorno della risposta.}. Per questa operazione viene utilizzato il protocollo ICMP (Internet Control Message Protocol) che è un servizio per trasmettere informazioni riguardanti malfunzionamenti, informazioni di controllo o messaggi tra vari componenti di una rete di calcolatori.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/altri-strumenti/ping.png}
+		\caption{Esempio di esecuzione del comando \textsf{ping}.}
+	\end{figure}\newpage
+	
+	\subsection{Comando \textsf{traceroute} (\textsf{tracert} Windows)}
+	
+	Il comando \textcolor{Red3}{\textsf{traceroute}} (\textsf{tracert} in Windows) è un semplice strumento per \textbf{tracciare il precorso che un pacchetto segue dalla sorgente alla destinazione}. Il comando mostra un elenco di tutte le interfacce dei router che il pacchetto attraversa finché non raggiunge la destinazione. Per questioni di sicurezza, alcuni nodi possono non essere visibili tramite il comando \textsf{traceroute}, questo per evitare che venga resa nota la struttura della rete.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/altri-strumenti/traceroute.png}
+		\caption{Esempio di esecuzione del comando \textsf{tracert} su Windows (\textsf{traceroute} su Linux).}
+	\end{figure}\newpage
+
+	\subsection{Comando \textsf{nslookup}}
+	
+	Il comando \textcolor{Red3}{\textsf{nslookup}} consente di \textbf{effettuare un'interrogazione ai server DNS (Domain Name System)\footnote{Sistema di server organizzato gerarchicamente per la gestione del namespace.} per poter ottenere da un hostname il relativo indirizzo IP, o viceversa}. Esso può essere utilizzato in modalità: \textbf{interattiva} o \textbf{non interattiva}.\newline
+	
+	\noindent
+	La \textbf{modalità interattiva} consente di \textbf{effettuare più interrogazioni} e visualizza i singoli risultati. Viene attivata eseguendo il comando senza parametri.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/altri-strumenti/nslookup1.png}
+		\caption{Esempio di esecuzione del comando \textsf{nslookup} in modalità interattiva.}
+	\end{figure}
+
+	\noindent
+	La \textbf{modalità \underline{non} interattiva} consente di \textbf{effettuare una sola interrogazione} visualizzandone il risultato. Viene attivata se viene inserito un parametro che corrisponde ad un \emph{host-to-find}.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/altri-strumenti/nslookup2.png}
+		\caption{Esempio di esecuzione del comando \textsf{nslookup} in modalità \underline{non} interattiva.}
+	\end{figure}\newpage
+	
+	\subsection{Comando \textsf{ifconfig} (\textsf{ipconfig} Windows)}
+	
+	Il comando \textcolor{Red3}{\textsf{ifconfig}} (\textsf{ipconfig} in Windows) è utilizzato per \textbf{configurare e controllare un'interfaccia di rete TCP/IP} da riga di comando. La sua esecuzione con il parametro \dquotes{\textsf{-a}} stampa su terminale le informazioni di tutte le interfacce di rete.\newline
+	
+	\noindent
+	Vengono stampate molteplici interfacce di rete, ma tra queste le più famose sono:
+	\begin{itemize}
+		\item \textsf{eth0} è la prima interfaccia Ethernet;
+		
+		\item \textsf{lo} è l'interfaccia \emph{loopback}, sempre presente. È \dquotes{speciale} poiché il sistema la utilizza per comunicare con sé stesso;
+		
+		\item \textsf{wlan0} è il nome della prima interfaccia di rete Wireless del sistema.
+	\end{itemize}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/altri-strumenti/ifconfig.png}
+		\caption{Esempio di esecuzione del comando \textsf{ifconfig} su Linux.}
+	\end{figure}\newpage
+
+	\subsection{Comando \textsf{route} (\textsf{route PRINT} Windows)}
+	
+	Il comando \textcolor{Red3}{\textsf{route}} (\textsf{route PRINT} su Windows) è utilizzato per \textbf{visualizzare e modificare le tabelle di routing}. L'esecuzione consente di visualizzare la tabella di routing dell'host.
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/altri-strumenti/route.png}
+		\caption{Esempio di esecuzione del comando \textsf{ifconfig} su Linux.}
+	\end{figure}
+
+	\longline	
+
+	\subsection{Comando \textsf{whois}}
+	
+	Il comando \textsf{whois} consente, mediante l'interrogazione di database server da parte di un client, di \textbf{stabilire il nome privato, o dell'azienda, o dell'ente, al quale è intestato un determinato indirizzo IP o uno specifico DNS}. Solitamente vengono mostrate anche informazioni riguardanti l'intestatario, data di registrazione e data di scadenza.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=.78\textwidth]{img/altri-strumenti/whois.png}
+		\caption{Esempio di esecuzione del comando \textsf{whois} su Linux.}
+	\end{figure}\newpage
+	
+	\subsection[\textcolor{Red3}{\textbf{Esercizi}}]{Esercizi}
+	
+	\subsubsection{Esercizio 1 - File \textsf{capture.cap}}
+	
+	\subsubsection{Esercizio 2 - File \textsf{simpleHTTP.cap}}
+	
+	\subsubsection{Esercizio 3 - File \textsf{busyNetwork.cap}}
+	
+	\subsubsection{Esercizio 4 - File \textsf{pingCapture.cap}}
+	
+	\subsubsection{Esercizio 5 - Comando \textsf{traceroute}}
+	
+	\subsubsection{Esercizio 6 - Interfacce di rete}
 \end{document}
