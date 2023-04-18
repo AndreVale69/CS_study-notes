@@ -19,6 +19,6 @@ public class Main {
         ParseTree parseTree = brainfuckParser.main();
 
         Brainfuck brainfuck = new Brainfuck();
-        System.out.println(brainfuck.visit(parseTree));
+        brainfuck.visit(parseTree);
     }
 }
