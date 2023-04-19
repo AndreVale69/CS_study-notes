@@ -1521,7 +1521,7 @@
 
 	\longline
 	
-	\subsubsection{Applicazione dei filtri}
+	\subsubsection{Applicazione dei filtri}\label{applicazione dei filtri}
 	
 	Data la grande mole di pacchetti che possono presentarsi durante lo \emph{sniffing}, Wireshark dà la possibilità di applicare una serie di filtri (la serie di comandi che è possibile utilizzare: \href{https://www.wireshark.org/docs/man-pages/wireshark-filter.html}{documentazione ufficiale}). Essi possono essere applicati scrivendo il relativo comando nella barra in alto in cui è scritto \dquotes{\textsf{Apply a display filter ...}}. Per \textcolor{Green4}{\textbf{esempio}} è possibile ricercare un protocollo scrivendolo nella barra (se quest'ultima viene evidenziata di verde, il comando è corretto, altrimenti viene evidenziata di rosso per segnalare un'inesattezza nel comando).
 	\begin{figure}[!htp]
@@ -1633,6 +1633,231 @@
 	\subsection[\textcolor{Red3}{\textbf{Esercizi}}]{Esercizi}
 	
 	\subsubsection{Esercizio 1 - File \textsf{capture.cap}}
+	
+	Avviare Wireshark, aprire il menù \textsf{File/Open} e selezionare il file \textsf{capture.cap}.\newline
+	Si prenda in considerazione il pacchetto numero 9 e si risponda alle seguenti domande/esercizi:
+	\begin{enumerate}
+		\item Che tipo di protocollo di livello Data-link è utilizzato? Come fa Wireshark a capirlo?
+		
+		\item Disegnare la PDU di livello Data-link indicando il valore dei vari campi.
+		
+		\item Qual è il MAC sorgente? Di che tipo è: unicast o broadcast?
+		
+		\item Qual è il MAC destinatario? Di che tipo è: unicast o broadcast?
+		
+		\item Che tipo di protocollo di livello Network è utilizzato? Come fa Wireshark a capirlo?
+		
+		\item Qual è la lunghezza dell'header IP?
+		
+		\item Quali sono gli indirizzi IP sorgente e destinazione?
+		
+		\item Che tipo di protocollo di livello trasporto è contenuto in IP? Come fa Wireshark a capirlo?
+		
+		\item Quali sono le porte sorgente e destinazione a livello trasporto?
+		
+		\item Creare un filtro per visualizzare solo i pacchetti che hanno ARP come protocollo.\newline (\emph{suggerimento}: basta scrivere \textsf{arp} nella barra \textsf{Filter} sotto la toolbar; si ricordi di premere su \textsf{Apply} dopo aver scritto \textsf{arp}).
+		
+		\item Dopo aver applicato il filtro precedente qual è la percentuale di pacchetti che rimangono visualizzati rispetto al totale?\newline
+		(\emph{suggerimento}: vedere entrambi i valori nella barra di stato in basso).
+		
+		\item Creare un filtro per visualizzare solo i pacchetti che hanno destinazione MAC 00:01:e6:57:4b:e0.\newline
+		(\emph{suggerimento}: usare l'editore di espressioni; la categoria da selezionare è \textsf{Ethernet}; per l'indirizzo MAC usare la notazione esadecimale con i due punti come separatori; si ricordi di premere su \textsf{Apply} dopo aver creato l'espressione).
+		
+		\item Dopo aver applicato il filtro precedente qual è la percentuale di pacchetti che rimangono visualizzati rispetto al totale?\newline
+		(\emph{suggerimento}: vedere entrambi i valori nella barra di stato in basso).
+		
+		\item Creare un filtro per visualizzare solo i pacchetti che hanno destinazione MAC broadcast.\newline
+		(\emph{suggerimento}: nell'editor di espressioni la categoria da usare è \textsf{Ethernet}; per l'indirizzo MAC usare la notazione esadecimale con i due punti come separatori; si ricordi di premere su \textsf{Apply} dopo aver creato l'espressione).
+		
+		\item Dopo aver applicato il filtro precedente qual è la percentuale di pacchetti che rimangono visualizzati rispetto al totale? Sono molti? Perché?
+	\end{enumerate}\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{1. Domanda:}} \textbf{\emph{Che tipo di protocollo di livello Data-link è utilizzato? Come fa Wireshark a capirlo?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{1. Risposta:}} Con il livello Data-link si intende il livello 2, ovvero il livello di collegamento. Tra i vari protocolli disponibili, nel pacchetto numero 9 viene utilizzato il protocollo Ethernet. È individuabile guardando l'header del pacchetto grazie a Wireshark. Esso è possibile vederlo in basso, come in figura.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/ex1.png}
+		\label{fig:header-ex1}
+		\caption{Header livello Data-link del pacchetto numero 9.}
+	\end{figure}
+	
+	\noindent
+	Grazie alla libreria \textsf{libpcap}, Wireshark riesce ad ottenere i pacchetti dall'interfaccia di rete interessata dall'utente. Per analizzare il pacchetto, ha bisogno di una serie di strumenti che vengono concessi dalla libreria \textsf{libpcap} e non solo. La struttura di Wireshark è visibile nella seguente figura:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/wireshark/ex1-2.png}
+		\caption{Struttura interna di Wireshark (\href{https://www.wireshark.org/docs/wsdg_html_chunked/ChWorksOverview.html}{fonte ufficiale}).}
+	\end{figure}
+		
+	\noindent
+	\begin{itemize}
+		\item La parte di \emph{GUI} riguarda l'interfaccia mostrata all'utente e dunque gestisce tutti gli input e output del software;
+		
+		\item La parte di \emph{core} è il cuore pulsante e controlla gli altri strumenti collegati (Capture, Wiretap, Epan). In gergo viene chiamato \emph{glue code};
+		
+		\item \emph{Wiretap} è una libreria utilizzata per leggere e scrivere i file catturati in formato libpcap, pcapng e altri;
+
+		\item \emph{Capture} è l'interfaccia del motore di cattura;
+		
+		\item \textbf{\emph{Epan}} (\emph{Enhanced Packet ANalyzer}) è il motore di analisi per i pacchetti. Al suo interno è possibile trovare quattro strumenti fondamentali:
+		\begin{itemize}
+			\item \emph{Protocol Tree} che consente di dissezionare le informazioni da un pacchetto;
+			
+			\item \emph{Dissectors} che contiene i vari protocolli dissezionati;
+			
+			\item \emph{Dissector Plugins} che implementa strumenti di supporto per dissezionare;
+			
+			\item \emph{Display Filters} che implementa un motore per effettuare i filtri.
+		\end{itemize}
+	\end{itemize}
+	Quindi, Wireshark è in grado di capire il protocollo grazie alla sua struttura e in particolare alla parte \emph{Epan}.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{2. Domanda:}} \textbf{\emph{Disegnare la PDU di livello Data-link indicando il valore dei vari campi.}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{2. Risposta:}} Nella risposta alla precedente domanda, è possibile vedere sia il protocollo che il suo \emph{header}.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{3. Domanda:}} \textbf{\emph{Qual è il MAC sorgente? Di che tipo è: unicast o broadcast?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{3. Risposta:}} Guardando la figura della prima risposta a pagina~\pageref{fig:header-ex1} è possibile visualizzare il MAC sorgente: 00:e0:81:24:dd:64. Si deduce che è di tipo \emph{unicast}.\newline
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{4. Domanda:}} \textbf{\emph{Qual è il MAC destinatario? Di che tipo è: unicast o broadcast?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{4. Risposta:}} Guardando la figura della prima risposta a pagina~\pageref{fig:header-ex1} è possibile visualizzare il MAC destinatario: ff:ff:ff:ff:ff:ff. Si deduce che è di tipo \emph{broadcast}.\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{5. Domanda:}} \textbf{\emph{Che tipo di protocollo di livello Network è utilizzato? Come fa Wireshark a capirlo?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{5. Risposta:}} Il protocollo a livello Network è IPv4 (Internet Protocol Version 4):
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/ex1-3.png}
+		\caption{Protocollo IPv4 a livello Network nel pacchetto numero 9.}
+	\end{figure}
+	
+	\noindent
+	Wireshark per capirlo utilizza lo stesso meccanismo utilizzato anche per il livello Data-link.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{6. Domanda:}} \textbf{\emph{Qual è la lunghezza dell'header IP?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{6. Risposta:}} Come si vede dalla foto sopra, il campo Header Length comunica che la lunghezza dell'header è di 20 \emph{bytes}.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{7. Domanda:}} \textbf{\emph{Quali sono gli indirizzi IP sorgente e destinazione?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{7. Risposta:}} Come si vede dalla foto sopra, l'IP sorgente è 157.27.252.223 e l'IP destinazione è 157.27.252.255.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{8. Domanda:}} \textbf{\emph{Che tipo di protocollo di livello trasporto è contenuto in IP? Come fa Wireshark a capirlo?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{8. Risposta:}} Come si vede dalla foto sopra nel campo \textsf{Protocol}, il protocollo contenuto è UDP (User Datagram Protocol). Wireshark riesce a capirlo per gli stessi motivi spiegati per il protocollo Ethernet.\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{9. Domanda:}} \textbf{\emph{Quali sono le porte sorgente e destinazione a livello trasporto?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{9. Risposta:}} A livello di trasporto, il pacchetto contiene i seguenti dati:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/ex1-4.png}
+		\caption{Protocollo UDP a livello di trasporto nel pacchetto numero 9.}
+	\end{figure}
+	
+	\noindent
+	Come si vede dalla figura, la porta sorgente è la 631 e quella di destinazione è identica.\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{10. Domanda:}} \textbf{\emph{Creare un filtro per visualizzare solo i pacchetti che hanno ARP come protocollo.\newline (\emph{suggerimento}: basta scrivere \textsf{arp} nella barra \textsf{Filter} sotto la toolbar; si ricordi di premere su \textsf{Apply} dopo aver scritto \textsf{arp}).}}\newline
+	
+	
+	\noindent
+	\textcolor{Green4}{\textbf{10. Risposta:}} Come veniva anticipato tramite un esempio al capitolo~\ref{applicazione dei filtri}, la creazione di un filtro è possibile eseguirla scrivendo nella barra in alto. Il risultato dell'esercizio:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/ex1-5.png}
+		\caption{Applicazione del filtro \textsf{arp} all'interno del pacchetto \textsf{capture.cap}.}
+	\end{figure}
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{11. Domanda:}} \textbf{\emph{Dopo aver applicato il filtro precedente qual è la percentuale di pacchetti che rimangono visualizzati rispetto al totale?\newline
+			(\emph{suggerimento}: vedere entrambi i valori nella barra di stato in basso).}}\newline
+	
+	
+	\noindent
+	\textcolor{Green4}{\textbf{11. Risposta:}} La percentuale di pacchetti che rimangono è pari al 63.6\%, cioè 173 pacchetti su un totale di 272.\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{12. Domanda:}} \textbf{\emph{Creare un filtro per visualizzare solo i pacchetti che hanno destinazione MAC 00:01:e6:57:4b:e0.\newline
+			(\emph{suggerimento}: usare l'editore di espressioni; la categoria da selezionare è \textsf{Ethernet}; per l'indirizzo MAC usare la notazione esadecimale con i due punti come separatori; si ricordi di premere su \textsf{Apply} dopo aver creato l'espressione).}}\newline
+	
+	
+	\noindent
+	\textcolor{Green4}{\textbf{12. Risposta:}} L'indirizzo MAC è nel protocollo Ethernet. Dunque, è necessario selezionare la voce MAC di questo protocollo e verificare che sia uguale (condizione logica) all'indirizzo MAC fornito dall'esercizio. Nel campo di filtro quindi si scriverà:
+	\begin{center}
+		\textsf{eth.dst == 00:01:e6:57:4b:e0}
+	\end{center}
+	
+	\noindent
+	In questo modo viene indicata come destinazione l'indirizzo MAC. Wireshark capisce che si sta parlando dell'indirizzo MAC perché è stato specificato il protocollo Ethernet (\textsf{eth}). Il \textbf{risultato} è il pacchetto numero 12.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{13. Domanda:}} \textbf{\emph{Dopo aver applicato il filtro precedente qual è la percentuale di pacchetti che rimangono visualizzati rispetto al totale?\newline
+			(\emph{suggerimento}: vedere entrambi i valori nella barra di stato in basso).}}\newline
+	
+	
+	\noindent
+	\textcolor{Green4}{\textbf{13. Risposta:}} La percentuale è del 0.4\% e cioè 1 pacchetto.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{14. Domanda:}} \textbf{\emph{Creare un filtro per visualizzare solo i pacchetti che hanno destinazione MAC broadcast.\newline
+			(\emph{suggerimento}: nell'editor di espressioni la categoria da usare è \textsf{Ethernet}; per l'indirizzo MAC usare la notazione esadecimale con i due punti come separatori; si ricordi di premere su \textsf{Apply} dopo aver creato l'espressione).}}\newline
+	
+	
+	\noindent
+	\textcolor{Green4}{\textbf{14. Risposta:}} Per visualizzare i pacchetti con destinazione broadcast si applica lo stesso filtro della domanda 12 ma con indirizzo di destinazione broadcast, ovvero:
+	\begin{center}
+		\textsf{eth.dst == ff:ff:ff:ff:ff:ff}
+	\end{center}
+	
+	\longline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{15. Domanda:}} \textbf{\emph{Dopo aver applicato il filtro precedente qual è la percentuale di pacchetti che rimangono visualizzati rispetto al totale? Sono molti? Perché?}}\newline
+	
+	
+	\noindent
+	\textcolor{Green4}{\textbf{15. Risposta:}} Il protocollo ARP viene utilizzato per conoscere gli indirizzi MAC degli altri host e per conoscere i MAC in una rete privata. Quindi, questo protocollo lavora principalmente sul canale \emph{broadcast} dato che deve aggiornare spesso le varie tabelle di ARP. Il \textbf{risultato} post filtro è di 228 pacchetti trovati con una percentuale di 83.8\% su 272.\newpage
 	
 	\subsubsection{Esercizio 2 - File \textsf{simpleHTTP.cap}}
 	
