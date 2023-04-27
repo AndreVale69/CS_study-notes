@@ -792,6 +792,22 @@
 		\lstinputlisting[language=HTML]{code/javascript-timer2.html}
 	\end{itemize}\newpage
 	
+	\subsection[\textcolor{Red3}{\textbf{Esercizio}} di HTML e Javascript]{Esercizio di HTML e Javascript}
+	
+	\textcolor{Red3}{\underline{\textbf{\emph{Esercizio}}}}\newline
+	
+	\noindent
+	Scrivere e provare una pagina HTML che ricarica periodicamente il sito dell'ANSA.\newline
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il seguente codice esegue ogni due secondi il \emph{refresh} del sito:
+	\lstinputlisting[language=HTML]{code/javascript-load2.html}
+	
+	\longline
+	
 	\subsection{Uniform Resource Locator (URL)}
 	
 	Chiamato anche Universal Resource Locator, l'\textcolor{Red3}{\textbf{URL}} consente di identificare in maniera univoca una risorsa HTTP in qualsiasi parte della rete mondiale.\newline
@@ -805,6 +821,62 @@
 		
 		\item Nome della risorsa con il percorso logico completo.
 	\end{itemize}\newpage
+	
+	\subsection[\textcolor{Red3}{\textbf{Esercizio}} su un semplice web server]{Esercizio su un semplice web server}
+	
+	\textcolor{Red3}{\underline{\textbf{\emph{Esercizio}}}}\newline
+	
+	\begin{itemize}
+		\item Aprire il file \textsf{serverHTTP.c} in \textsf{Esempi-web/} e analizzarne il contenuto;
+		
+		\item Compilarlo come nell'esercitazione sull'interfaccia socket ed eseguirlo;
+		
+		\item Provare ad aprire un secondo terminale nella stessa cartella e a rilanciare lo stesso server. Funziona? Perché?
+		
+		\item Aprire il browser preferito e impostare la URL \dquotes{\url{http://127.0.0.1:8000/}}. Cosa si vede sul browser e sul terminale?
+		
+		\item Aprire il browser preferito e impostare la URL \dquotes{\url{http://localhost:8000/}}. Cosa cambia?
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Aprendo il file \textsf{serverHTTP.c}, il codice è il seguente:
+	\lstinputlisting[language=C]{code/serverHTTP.c}
+	\begin{itemize}
+		\item (4-9) Vengono dichiarate le variabili necessarie per il funzionamento del server:
+		\begin{itemize}
+			\item \textsf{HTMLResponse} contiene la pagina web da inviare come risposta ai richiedenti;
+			
+			\item \textsf{sockfd} è la variabile utilizzata per creare il socket e il server;
+			
+			\item \textsf{connfd} è il file ricevuto tramite la connessione;
+			
+			\item \textsf{i} è utilizzata all'interno dei cicli;
+			
+			\item \textsf{length} è la lunghezza della richiesta;
+			
+			\item \textsf{request} è la richiesta del client, \textsf{method} è il metodo HTTP (POST, GET, ...) e \textsf{c} è una variabile temporanea utilizzata per stampare il contenuto del file.
+		\end{itemize}
+		
+		\item (11-15) Viene creata la socket sulla porta 8000 e in caso di errore il programma termina.
+		
+		\item (18) Si attende una richiesta di connessione per l'invio di un file descriptor (FD).
+		
+		\item (20-30) Al collegamento di un client, il server stampa l'intero header della richiesta sul terminale.
+		
+		\item (32-37) Se viene eseguita una richiesta POST, viene stampato il contenuto del file passato.
+		
+		\item (39-46) Viene inviata come risposta la pagina web, chiusa la connessione/socket e fermato il programma.
+	\end{itemize}\newpage
+	
+	\noindent
+	Una volta compilato ed eseguito sul terminale, il server rimane in attesa di una connessione da parte di un client. Il tentativo di eseguire lo stesso programma fallisce poiché non è possibile creare un'interfaccia socket sulla porta 8000 (già occupata). Collegandosi ad una delle due pagine web (l'URL è lo stesso ma cambia solo l'alias), il risultato nel terminale è il seguente:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/web-server/web-server-1.jpg}
+	\end{figure}\newpage
 	
 	\subsection{Passare dei dati al server web col metodo GET}
 	
