@@ -1,0 +1,18 @@
+# Fonte: https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command
+
+# Per vedere le porte in ascolto
+sudo netstat -tupln | grep LISTEN
+
+# Oppure un comando alternativo
+ss -lntu
+
+
+# Apertura della porta
+netstat -na | grep :4000
+
+# Oppure
+ss -na | grep :4000
+
+
+# Verificare che la porta sia aperta
+nmap localhost -p 4000
