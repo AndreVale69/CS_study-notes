@@ -663,11 +663,27 @@
 	Nonostante non sia possibile provare questo esercizio in Delta, è possibile formulare la risposta grazie alle conoscenze teoriche sul protocollo TCP.\newline
 	
 	\noindent
-	Nel momento in cui vengono inviati i primi due valori (2345 e 5187), il server riceve correttamente il valore. Successivamente, avviene un down di rete, ovvero viene staccato il cavo. Il client tenta di inviare un pacchetto contenente il valore 2 ma fallisce. Per definizione del protocollo, entra in gioco l'RTO (\emph{Retransmission TimeOut}) che inizia ad aumentare e a riprovare l'invio finché non riesce. Alla fine del down di rete, il server riceve il pacchetto con il valore 2, successivamente riceve il pacchetto inviato dal client con il valore 1 e termina con zero.
+	Nel momento in cui vengono inviati i primi due valori (2345 e 5187), il server riceve correttamente il valore. Successivamente, avviene un down di rete, ovvero viene staccato il cavo. Il client tenta di inviare un pacchetto contenente il valore 2 ma fallisce. Per definizione del protocollo, entra in gioco l'RTO (\emph{Retransmission TimeOut}) che inizia ad aumentare e a riprovare l'invio finché non riesce. Alla fine del down di rete, il server riceve il pacchetto con il valore 2, successivamente riceve il pacchetto inviato dal client con il valore 1 e termina con zero.\newpage
 
-
-
-
+	\subsubsection{Esercizio 14 - Trasferimento di un file}
+	
+	\begin{itemize}
+		\item Il client chiede al server un file specificandone il nome
+		\item Il server lo trasmette un byte alla volta
+		\item Il client salva in locale con lo stesso nome
+	\end{itemize}
+	Quale protocollo si utilizza? Lanciare client e server su due macchine dierse, trasferire un file di grosse dimensioni in modo da avere il tempo di staccare e riattaccare il cavo di rete. Cosa succede al file trasferito?\newline
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il protocollo utilizzato nella soluzione è il TCP. In questo modo, nel caso di eventuali perdite (ultima domanda), i due host saranno in grado di riprendere la comunicazione. Il codice del client è:
+	\lstinputlisting[language=C]{code/client-Send_File.c}\newpage
+	
+	\noindent
+	Il codice del server è:
+	\lstinputlisting[language=C]{code/server-Send_File.c}
 
 
 
@@ -822,7 +838,7 @@
 		\item Nome della risorsa con il percorso logico completo.
 	\end{itemize}\newpage
 	
-	\subsection[\textcolor{Red3}{\textbf{Esercizio}} su un semplice web server]{Esercizio su un semplice web server}
+	\subsection[\textcolor{Red3}{\textbf{Esercizio}} su un semplice web server]{Esercizio su un semplice web server}\label{esercizio su un semplice web server}
 	
 	\textcolor{Red3}{\underline{\textbf{\emph{Esercizio}}}}\newline
 	
@@ -895,7 +911,32 @@
 		\centering
 		\includegraphics[width=\textwidth]{img/richiesta_get.pdf}
 		\caption{La richiesta GET HTTP.}
-	\end{figure}\newpage
+	\end{figure}
+	
+	\longline
+	
+	\subsubsection[\textcolor{Red3}{\textbf{Esercizio}}]{Esercizio}
+	
+	Eseguire il server web \textsf{serverHTTP.c} e con il browser preferito aprire il file \textsf{form-get.html}. Cosa si vede? Provare ad analizzare il contenuto della connessione TCP con Wireshark. Cosa si vede?\newline
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Avviano il server web e aprendo la pagina web, è possibile visualizzare lo stesso form visualizzabile nella pagina precedente.\newline
+	
+	\noindent
+	Eseguendo il metodo GET, quindi cliccando su \dquotes{Invia}, ed analizzando la comunicazione con Wireshark, è possibile osservare lo scambio di messaggi tra client e server. In particolare, tralasciando i pacchetti del protocollo TCP, è possibile vedere la richiesta GET del client diretta verso il server e la risposta di quest'ultimo con il metodo OK:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/web-server/web-server-2.png}
+	\end{figure}
+	
+	\noindent
+	È interessante osservare anche come ogni richiesta GET venga stampata sul terminale dal server con una identazione leggibile.\newline
+	
+	\noindent
+	Infine, è possibile notare che nell'URL della pagina web di risposta sono presenti i valori inseriti nel form. Questa è una debolezza del metodo GET che potrebbe essere sfruttata in modo malevolo.\newpage
 
 	\subsection{Passare dei dati al server web col metodo POST}
 	
@@ -917,8 +958,172 @@
 		\centering
 		\includegraphics[width=\textwidth]{img/richiesta_post.pdf}
 		\caption{La richiesta POST HTTP.}
-	\end{figure}\newpage
-
+	\end{figure}
+	
+	\longline
+	
+	\subsubsection[\textcolor{Red3}{\textbf{Esercizio}}]{Esercizio}
+	
+	Eseguire il server web \textsf{serverHTTP.c} e con il browser preferito aprire il file \textsf{form-post.html}. Cosa si vede? Provare ad analizzare il contenuto della connessione TCP con Wireshark. Cosa si vede?\newline
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Avviano il server web e aprendo la pagina web, è possibile visualizzare lo stesso form visualizzabile nella pagina precedente.\newline
+	
+	\noindent
+	Eseguendo il metodo POST, quindi cliccando su \dquotes{Invia}, ed analizzando la comunicazione con Wireshark, è possibile osservare lo scambio di messaggi tra client e server. In particolare, tralasciando i pacchetti del protocollo TCP, è possibile vedere la richiesta POST del client diretta verso il server e la risposta di quest'ultimo con il metodo OK:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/web-server/web-server-3.png}
+	\end{figure}
+	
+	\noindent
+	È interessante osservare anche come ogni richiesta POST venga stampata sul terminale dal server con una identazione leggibile.\newline
+	
+	\noindent
+	A differenza del metodo GET, il metodo POST non consente di visualizzare i valori direttamente nell'URL, ma solo all'interno della richiesta. Quindi, è necessario uno \emph{sniffer} per catturare i dati.
+	
+	\longline
+	
+	\subsection[\textcolor{Red3}{\textbf{Esercizi}} di modifica del web server]{Esercizi di modifica del web server}
+	
+	\subsubsection{Esercizio 1 - Ricerca di una pagina in locale}
+	
+	Modificare il file \textsf{serverHTTP.c} in modo che, invece di restituire sempre la solita pagina web di prova, restituisca una delle pagine html usate nel capitolo attraverso l'uso del browser. Suggerimenti:
+	\begin{itemize}
+		\item Provare a fare la nuova richiesta col browser usando il \textsf{serverHTTP.c} in modo da vedere la richiesta HTTP per capire dove si trova la stringa con il nome del file nella richiesta che fa il browser (aiutarsi anche con Wireshark)
+		\begin{itemize}
+			\item Cosa devo scrivere nella barra del browser?
+		\end{itemize}
+		
+		\item Capire come recuperare la stringa con il nome del file della richiesta HTTP (si veda \textsf{esempio-parser.c});
+		
+		\item Per costruire la risposta riciclare parte del codice usato nell'esercizio del trasferimento di file.
+	\end{itemize}
+	Prova finale: cosa succede se chiedo al server di restituire i file \textsf{form-get.html} e \textsf{form-post.html}?\newline
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice necessita di alcune modifiche. L'esercizio richiede l'accesso completo alla cartella in cui è presente il server. Infatti, il client deve essere in grado di richiamare la pagina all'interno della cartella, scrivendo nell'URL la pagina interessata. Per esempio, scrivendo \url{http://localhost:8000/css.html}, il server dovrebbe inviare il file \textsf{css.html} al client e quest'ultimo visualizzare la pagina web. Il codice:
+	\lstinputlisting[language=C]{code/serverHTTP-ex1.c}
+	\begin{itemize}
+		\item (4-12) Vengono dichiarate nuove variabili ed eliminate le vecchie. Vengono dichiarate variabili per eseguire lo \emph{split}, necessario per capire quale file ha richiesto il client, per eseguire la lettura del file in locale (\textsf{buffer}) e un puntatore al file.
+		
+		\item (23-27) Oltre a prendere la richiesta (GET, POST, ecc), viene copiato il contenuto di \textsf{request}, il quale verrà modificato alla riga 27 a causa della funzione \textsf{strtok}\footnote{La funzione \textsf{strtok} esegue una divisione di stringhe a seconda del delimitatore impostato (\href{https://www.tutorialspoint.com/c_standard_library/c_function_strtok.htm}{link approfondimento})}.
+		
+		\item (44-47) Come detto in precedenza, vengono eseguite due \textsf{strtok} per acquisire il nome del file inserito dall'utente. Dato che la richiesta sarà nella forma del tipo:
+		\begin{equation*}
+			\textsf{GET /form-get.html HTTP/1.1}
+		\end{equation*}
+		Viene utilizzato un primo delimitatore \emph{slash} e \emph{spazio} (\dquotes{\textsf{/ }}) per dividere la stringa in più parti e infine viene riutilizzata la funzione \textsf{strtok} per prendere il nome del file.
+		
+		\item (49-56) Il server tenta di aprire il file specificato dal client. Nel caso in cui il puntatore \textsf{fptr1} rimanga nullo, il file o non esiste o non può essere aperto. Di conseguenza, il server risponde al server con un \textsf{404 Not Found} e stampa l'errore.\newpage
+		
+		\item (57-85) In questa parte di codice l'obbiettivo è leggere il contenuto del file richiesto dall'utente e inviarglielo come pagina web.
+		\begin{itemize}
+			\item (61) La funzione \textsf{fseek} cambia la posizione del puntatore all'interno di un file. In questo caso, è utile posizionarsi alla fine del file (\textsf{SEEK\_END}) per capire la grandezza del file;
+			
+			\item (63) Come accennato precedentemente, grazie alla funzione \textsf{ftell} è possibile ottenere la grandezza del file. O meglio, quanti caratteri ci sono all'interno così di allocare uno spazio in memoria della grandezza esatta;
+			
+			\item (65) Dopo aver calcolato il numero di caratteri dentro il file, il puntatore del file stream viene riposizionato all'inizio (\textsf{SEEK\_SET});
+			
+			\item (67-69) Allocazione del buffer della lunghezza equivalente al numero di caratteri dentro il file e controllo di eventuali errori di allocazione. Nel caso in cui l'allocazione sia stata eseguita correttamente, viene letto l'intero file e salvato ogni carattere all'interno della stringa \textsf{buffer};
+			
+			\item (77-84) Se durante la lettura da file non ci sono stati errori, viene inviata una risposta affermativa al client, quindi un codice 200 del protocollo HTTP; viene inviato l'intero contenuto del buffer, quindi del file; infine, vengono inviati dei caratteri di identazione (non necessari).
+		\end{itemize}
+	\end{itemize}\newpage
+	
+	\subsubsection{Esercizio 2 - Upload di un file sul server}
+	
+	Modificare il server web \textsf{serverHTTP.c} in modo che accetti con il metodo POST un intero file da salvare nella cartella del server (il cosiddetto \dquotes{upload sul server}). Suggerimenti:
+	\begin{itemize}
+		\item Utilizzare il file \textsf{form-file.html} con \textsf{serverHTTP.c} non modificato ed analizzare il contenuto della connessione TCP con Wireshark in modo da capire nella richiesta HTTP:
+		\begin{itemize}
+			\item Dove si trova il nome del file
+			\item Dove si trova il contenuto del file
+		\end{itemize}
+		
+		\item Nella lettura della richiesta HTTP sul server aggiungere il codice che salva il file prendendo spunto dal codice usato nell'esercizio del trasferimento di file;
+		
+		\item Invece la risposta HTTP può essere molto statica come nella versione originale di \textsf{serverHTTP.c}.
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Prima di parlare del codice, è necessario fare una premessa. Quando viene inviato un file (immagine, testuale, audio, video, ...) tramite il protocollo HTTP, esso viene \dquotes{immagazzinato} all'interno di un MIME (Multipurpose Internet Mail Extensions). Tale protocollo racchiude il file all'interno di due limitatori, chiamati \emph{boundary}. All'interno di questi limitatori, è possibile trovare alcuni dati come il Content-Type o il filename (parametro da tenere sotto osservazione per questo esercizio). Una buona introduzione al protocollo è possibile trovarla qui: \href{https://en.wikipedia.org/wiki/MIME}{Wikipedia}.\newline
+	
+	\noindent
+	Il codice si presenta un po' lungo e apparentemente complesso, ma viene fornita una spiegazione dettagliata a fine paragrafo:
+	\lstinputlisting[language=C]{code/serverHTTP-ex2.c}
+	\begin{itemize}
+		\item (4-8) Alcune variabili sono le solite del web server iniziale, mentre altre, come \textsf{fptr1}, sono necessarie alla copia dei caratteri all'interno del nuovo file in locale sul server.
+		
+		\item (10-29) Il codice è lo stesso e la spiegazione è possibile trovarla nel codice sorgente (paragrafo~\ref{esercizio su un semplice web server}).
+		
+		\item (31) Se il metodo è di tipo \textsf{POST}, il codice accoglie il file, altrimenti invia la pagina di default classica (\textsf{HTMLResponse}) e chiude la connessione di file descriptor.
+		
+		\item (33-36) La variabile filename è necessaria per salvare il nome del file. Invece, la variabile \textsf{flag} viene utilizzata per verificare che prima del nome del file all'interno del pacchetto HTTP, ci sia la stringa \textsf{filename}. Quindi, se sia effettivamente il nome del file e non ci si trovi in un altro punto.
+		
+		\item (39-148) Il vero \emph{core} del codice. Il ciclo è apparentemente infinito e continua a leggere dalla pipe socket, tutti i dati inviati dal client. L'iterazione si conclude nel momento in cui è stata svuotata l'intera pipe:
+		\begin{itemize}
+			\item Prima di iniziare a descrivere il codice, è importante capire la struttura di un MIME. Nella seguente immagine è possibile osservare la struttura del pacchetto dopo l'upload di un file chiamato \dquotes{\textsf{upload.sh}}:
+			\begin{figure}[!htp]
+				\centering
+				\includegraphics[width=\textwidth]{img/web-server/web-server-4.png}
+				\caption{Esempio di struttura del protocollo MIME.}
+				\label{esempio di struttura del protocollo MIME}
+			\end{figure}
+			
+			\noindent
+			Nell'immagine è possibile vedere i due \emph{boundary} che delimitano il contenuto. All'interno è possibile trovare il nome del file (\textsf{update.sh}), il tipo di contenuto, quindi uno script della shell (\emph{shellscript}) e ovviamente il contenuto del file in bytes.\newline
+			N.B.: a fine di ogni linea ci sono alcuni \emph{escape characters}. Essi sono molto importanti.
+			
+			\item (41-89) Per leggere il nome del file, si esegue questo pezzo di codice:
+			\begin{itemize}
+				\item (41-46) Viene effettuata la lettura del contenuto. Nel caso in cui la \textsf{flag} sia a 1, quindi ancora non è stato trovato il \textsf{filename}, e il carattere letto corrisponde al punto e virgola \textsf{;}, si inizia la possibile lettura del \textsf{filename}.\newline
+				Perché il carattere letto deve essere \textsf{;}? Analizzando il pacchetto MIME, è facilmente visibile che uno dei pochi parametri che non può cambiare è il \textsf{;} o il \textsf{form-data}, ecc. In questo caso, viene preso il punto e virgola come riferimento.
+				
+				\item (48-61) Supponendo quindi che la lettura di ogni singolo carattere sia vicino a \textsf{filename}, eseguendo due letture (49 e 53), si dovrebbe leggere uno spazio e poi la \textsf{f} (iniziale del parametro \textsf{filename}). Per verificare che la supposizione sia vera, viene controllata tale condizione (55). Se la parola inizia con la \textsf{f}, per avere una certezza in più, e anche per avanzare con la lettura del file, vengono eseguite 7 letture, quindi partendo da \textsf{f}:
+				\begin{enumerate}
+					\item lettura, lettera \textsf{i}
+					\item lettura, lettera \textsf{l}
+					\item lettura, lettera \textsf{e}
+					\item lettura, lettera \textsf{n}
+					\item lettura, lettera \textsf{a}
+					\item lettura, lettera \textsf{m}
+					\item lettura, lettera \textsf{e}
+				\end{enumerate}
+				
+				\item (62-71) Se la sequenza è corretta, l'ultima parola letta dovrebbe essere una \textsf{e} e quindi viene verificata tale condizione (63). Il parametro \textsf{filename} all'interno del MIME è seguito poi da un uguale e un doppio apice (di solito \textsf{filename} viene scritto così dentro il MIME: \textsf{filename="nome\_file"}). Vengono effettuate due letture per scartare, e stampare, tali valori.
+				
+				\item (73-89) Viene creato un piccolo ciclo while che ha l'obbiettivo di leggere qualsiasi carattere che si trova all'interno del \textsf{filename}. La lettura (76) e la concatenazione nella stringa risultato (86) continuano finché non viene trovato il doppio apice (79) che chiude il valore del \textsf{filename}. Viene anche impostata la \emph{flag} a zero così da evitare eventuali controlli in futuro del filename poiché esso è già stato acquisito.
+			\end{itemize}\newpage
+			
+			\item (91-148) Per leggere il contenuto del file che si trova all'interno dei \emph{boundary}, si esegue questo pezzo di codice:
+			\begin{itemize}
+				\item (91-92) Osservando la struttura del MIME a pagina~\pageref{esempio di struttura del protocollo MIME}, è possibile notare che ogni riga del protocollo termina con un \textsf{$\backslash$e} e \textsf{$\backslash$n}. Quindi, è possibile sfruttare questa caratteristica per capire quando inizia il contenuto del file.
+				
+				\item (94-108) In questa parte di codice vi è una serie di letture di caratteri. Viene controllata questa alternanza poiché il contenuto del file inizia dopo la sequenza: \textsf{$\backslash$r$\backslash$n$\backslash$r$\backslash$n}. Quindi, nel caso in cui vi è questa alternanza, il puntatore è all'interno del file.
+				
+				\item (109-116) Creazione banale in locale di un file che ha nome ed estensione quella che è stata ricevuta. L'apertura avviene in scrittura e viene controllato l'errore.
+				
+				\item (118-129) Inizia la lettura/scrittura vera e propria del file. Quindi, fintantoché non vi è il carattere che si trova alla fine del file, ovvero \textsf{$\backslash$r}, vengono copiati tutti i caratteri all'interno del nuovo file. Una volta copiati nel nuovo file, quest'ultimo viene chiuso.
+				
+				\item (131-148) Avvengono una serie di letture della pipe per consentire di svuotarla.
+			\end{itemize}
+		\end{itemize}
+		
+		\item (149-157) Il server invia una risposta di positiva di avvenuta ricezione, inviando la pagina di default. Infine, la connessione viene chiusa.
+	\end{itemize}
+	
+	\newpage
+	
 	\subsection{Common Gateway Interface (CGI)}
 	
 	Il \textcolor{Red3}{\textbf{Common Gateway Interface (CGI)}} è una tecnologia utilizzata dai \emph{web server} per interfacciarsi con applicazioni esterne generando contenuti web dinamici.\newline
@@ -941,7 +1146,35 @@
 		\centering
 		\includegraphics[width=\textwidth]{img/CGI_esempio.pdf}
 		\caption{Esempio di CGI, la classica posta elettronica.}
-	\end{figure}\newpage
+	\end{figure}
+	
+	\longline
+	
+	\subsubsection[\textcolor{Red3}{\textbf{Esercizio}} web server esteso con gestione CGI]{Esercizio web server esteso con gestione CGI}
+	
+	Aprire il file \textsf{serverHTTP-CGI.c} in \textsf{Esempi-web/} e analizzarne il contenuto. Compilarlo come al solito ed eseguirlo. Aprire il browser preferito e il file \textsf{sommatrice-web.html}:
+	\begin{itemize}
+		\item Cosa si vede sul browser?
+		\item NOTA: Provare con numeri positivi, negativi, con parte decimale...
+	\end{itemize}
+	A cosa corrisponde il secondo parametro della funzione \textsf{sommatrice()}?\newline
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice del \textsf{serverHTTP-CGI.c} è il seguente:
+	\lstinputlisting[language=C]{code/serverHTTP-CGI.c}\newpage
+	
+	\noindent
+	Le uniche differenze degne di nota sono:
+	\begin{itemize}
+		\item (53-61) Viene controllato l'URL richiesto dall'utente. Se si tratta della pagina sommatrice, viene invocata la funzione (60) , altrimenti viene restituita la pagina statica. La funzione \textsf{strstr} consente di verificare se è presente quella sequenza di caratteri all'interno della stringa. Nel caso in cui sia presente, ritorna il puntatore al primo carattere della sequenza, altrimenti \textsf{NULL}.
+		
+		\item (3-18) La funzione sommatrice che prende come argomenti l'URL e la pipe di output. Le operazioni che esegue sono quelli di prendere i due operandi ed eseguire una semplice operazione di somma. La funzione si conclude con l'invio di una pagina statica contenente il risultato.
+	\end{itemize}
+	
+	\newpage
 
 	\subsection{Web socket}
 	
@@ -1173,15 +1406,17 @@
 	
 	\noindent
 	\lstinputlisting[language=JavaScript]{code/server_ex2.js}
-	Il codice è rimasto lo stesso (paragrafo~\ref{codice Back-end server}), l'unica modifica effettuata è stata dalla riga 38 alla riga 40 in cui si impone al server di inoltrare il messaggio ricevuto, con tag \textsf{typing}, a tutti gli altri client.\newpage
+	Il codice è rimasto lo stesso (paragrafo~\ref{codice Back-end server}), l'unica modifica effettuata è stata dalla riga 37 alla riga 39 in cui si impone al server di inoltrare il messaggio ricevuto, con tag \textsf{typing}, a tutti gli altri client eccetto il client mittente.\newpage
 	
 	\noindent
-	\lstinputlisting[language=JavaScript]{code/chat_ex2.js}
+	\lstinputlisting[language=JavaScript]{code/chat_ex2.js}\newpage
+	
+	\noindent
 	Il codice del front-end è rimasto pressoché identico (paragrafo~\ref{codice Front-end JavaScript}) tranne a due modifiche importanti:
 	\begin{itemize}
 		\item (20-26) Sull'elemento \textsf{message} della pagina HTML, si crea un evento. Nel momento in cui una lettera viene premuta, il client invierà il messaggio con tag \textsf{typing} al server, inserendo nel payload il nome del mittente (\textsf{sender.value}).
 		
-		\item (50-60) Alla ricezione dell'evento \textsf{typing} da parte del server, il client stamperà la scritta \textsf{typing...} se e solo se supera il controllo alla riga 52, ovvero se non è lui il mittente (come da specifica dell'esercizio).
+		\item (50-58) Alla ricezione dell'evento \textsf{typing} da parte del server, il client stamperà la scritta \textsf{typing...} .
 	\end{itemize}
 	
 	\longline\newline
@@ -1253,7 +1488,7 @@
 	
 	\longline
 	
-	\subsubsection{Webservice basati su REST}
+	\subsubsection{Webservice basati su REST}\label{webservice basati su REST}
 	
 	I webservice basati su REST hanno molteplici vantaggi. Questa metodologia consente di poter \textbf{utilizzare due linguaggi di programmazione differenti \emph{client-side} e \emph{server-side}}. Anche l'\textbf{architettura può essere differente}. Questo grazie a due componenti fondamentali:
 	\begin{itemize}
@@ -1310,6 +1545,102 @@
 		"cognome":"Verdi"
 	}
 ]}\end{lstlisting}\newpage
+
+	\subsection[\textcolor{Red3}{\textbf{Esercizi}} su webservice basati su REST]{Esercizi su webservice basati su REST}
+	
+	\subsubsection{Esercizio 1 - Analizzare server e \textsf{clientREST-GET}}
+	
+	Considerare la cartella \textsf{Webservice/}. Aprire il file serverHTTP-REST.c e analizzarne il contenuto. Compilarlo come al solito ed eseguirlo. Aprire il file clientREST-GET.c e analizzarne il contenuto. Compilarlo come al solito ed eseguirlo:
+	\begin{itemize}
+		\item Che parametri devo passare in linea di comando?
+		\item Cosa si può vedere analizzando lo scambio di dati tramite Wireshark?
+		\item Quale è la \emph{signature} della funzione calcolaSomma() sul server e sul client? Perché ha senso che siano uguali?
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice del server non viene commentato poiché quasi identico all'esercizio:
+	\lstinputlisting[language=C]{code/serverHTTP-REST.c}\newpage
+	
+	\noindent
+	Il codice del client è il seguente:
+	\lstinputlisting[language=C]{code/clientREST-GET.c}
+	Come si può vedere dal codice (24), il programma accetta solo un tipo di operazione, ovvero la somma, e due operandi numerici.\newline
+	
+	\noindent
+	Analizzando i pacchetti con Wireshark, è possibile vedere una richiesta GET e i parametri inseriti tramite linea di comando.\newline
+	
+	\noindent
+	Con \emph{signature} si intende la dichiarazione delle funzioni. In questo caso, il client esegue una richiesta inserendo i parametri ottenuti dalla linea di comando, all'interno di un URL. Successivamente, esegue una REST di tipo GET indirizzata al server, ottenuto grazie all'URL. Il server acquisisce i parametri dall'URL creato dal client e li utilizza per fare la somma nella sua funzione \textsf{calcolaSomma}.
+	
+	È ovvio che la \emph{signature} della funzione \textsf{calcoloSomma()} debba essere uguale. In caso contrario, potrebbe manifestarsi un risultato inesatto o un comportamento inaspettato.\newpage
+	
+	\subsubsection{Esercizio 2 - \textsf{ClientREST} in Java}
+	
+	Prendere in considerazione il file \textsf{ClientREST.java}. Dopo aver installato l'ambiente base di Java, si può compilare con \textsf{javac ClientREST.java} ed eseguire con \textsf{java ClientREST}. Il fatto che il server sia fatto in C e il client in Java è un problema? Perché?\newline
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il client scritto in java è il seguente:
+	\lstinputlisting[language=Java]{code/ClientREST.java}
+	Grazie alle caratteristiche del protocollo REST (paragrafo~\ref{webservice basati su REST}), comunicare con il server non è un problema. Infatti, questa tecnologia si basa sul protocollo HTTP e non su quali linguaggi di programmazione sono scritti il client e il server. Di conseguenza, anche se il server fosse scritto in Python, non ci sarebbero problemi. L'unica cosa da tenere in considerazione è la \emph{signature} della funzione di calcolo della somma che deve rispettare i parametri.\newpage
+	
+	\subsubsection{Esercizio 3 - Modifica server per calcolare anche i numeri primi}
+	
+	Estendere il webservice \textsf{serverHTTP-REST.c} in modo che esponga un seconda servizio relativo al calcolo dei numeri primi compresi nell'intervallo $\left[min, max\right]$:
+	\begin{itemize}
+		\item Si tragga spunto dal programma \textsf{prime-number-interval.c}
+	\end{itemize}
+	Successivamente:
+	\begin{itemize}
+		\item Estendere il file \textsf{ClientREST.java} in modo da poter chiamare, a scelta, entrambe le funzionalità della nuova API.
+		
+		\item Provare il client con il calcolo dei numero primi compresi nell'intervallo $\left[1, 1000000\right]$: quanto tempi ci mette? Ho dovuto tradurre l'algoritmo dei numeri primi in Java? Perché?
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice del server viene modificato introducendo un nuovo metodo: \textsf{calcoloPrimi}. Tale funzione consente di calcolare i numeri primi e salvarli all'interno di una stringa già formattati pronti per essere inviati al client:
+	\lstinputlisting[language=C]{code/serverHTTP-REST-ex3.c}\newpage
+	
+	\noindent
+	Il codice del client viene modificato introducendo sempre un nuovo metodo, ma l'unica differenza è il salvataggio dei numeri nell'\textsf{ArrayList} locale (riga 95):
+	\lstinputlisting[language=Java]{code/ClientREST-ex3.java}\newpage
+	
+	\subsubsection{Esercizio 4 - \textsf{ClientThreadREST} con thread concorrenti}
+	
+	Prendere in considerazione il file \textsf{clientThreadREST.java}:
+	\begin{itemize}
+		\item Esso invoca \textsf{calcolaSomma()} in 3 thread concorrenti
+		
+		\item Però la macchina su cui gira il server chiamato è la stessa e quindi non ci guadagno in prestazioni
+		
+		\item Come si dovrebbe modificare il codice in modo che le 3 invocazioni finiscano su 3 macchine diverse?
+		
+		\item Bisogna modificare anche il codice del server?
+	\end{itemize}
+	Si consideri il servizio che calcola i numeri primi nell'intervallo $\left[min, max\right]$ costruito nell'esercizio precedente:
+	\begin{itemize}
+		\item Si trovi un modo efficiente, sfruttando diversi server in rete, per calcolare i numeri primi tra 1 e 1000000
+		
+		\item Di quanto migliorano le prestazioni?
+		
+		\item Devo modificare anche il codice del server?
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice \textsf{clientThreadREST.java} è il seguente:
+	\lstinputlisting[language=Java]{code/ClientThreadREST.java}
+	Per eseguire il codice su tre macchine differenti, sarebbe necessario modificare l'URL di destinazione alle righe 12, 13 e 14. Stando attenti e cambiando anche a riga 51 l'URL così da collegarsi all'URL esatto. Si potrebbe provare a cambiare solamente alle righe 12, 13 e 14 gli URL, ed eseguire il codice del serverHTTP-REST su altre tre macchine differenti. In questo modo si sfrutterebbero la piena potenza delle tre macchine.\newpage
 
 	\section{Introduzione alla sicurezza}
 	
