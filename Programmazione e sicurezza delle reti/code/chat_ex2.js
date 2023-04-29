@@ -49,12 +49,10 @@ webSocket.on('UploadChat', function(data){
 
 // Typing event
 webSocket.on('typing', function(data){
-   if (data.sender != sender.value) {
-      var current_date = new Date(); 
-      feedback.innerHTML = '<p>' + 'Time: ' + current_date.getHours() + ':' 
-                        + current_date.getMinutes() + ':'
-                        + current_date.getSeconds() 
-                        + ' - ' + '<strong>' + data.sender 
-                        + ': </strong>' + 'typing...' + '</p>';
-   }
+   var current_date = new Date(); 
+   feedback.innerHTML = '<p>' + 'Time: ' + current_date.getHours() + ':' 
+                     + current_date.getMinutes() + ':'
+                     + current_date.getSeconds() 
+                     + ' - ' + '<strong>' + data.sender 
+                     + ': </strong>' + 'typing...' + '</p>';
 })

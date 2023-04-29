@@ -35,6 +35,6 @@ io.on('connection', function(webSocket){
       io.sockets.emit('UploadChat', data);
    });
    webSocket.on('typing', function(data){
-      io.sockets.emit('typing', data);
+      webSocket.broadcast.emit('typing', data);
    });
 });
