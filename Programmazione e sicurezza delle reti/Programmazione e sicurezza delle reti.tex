@@ -1991,7 +1991,7 @@
 		\caption{Esempio di esecuzione del comando \textsf{nslookup} in modalità \underline{non} interattiva.}
 	\end{figure}\newpage
 	
-	\subsection{Comando \textsf{ifconfig} (\textsf{ipconfig} Windows)}
+	\subsection{Comando \textsf{ifconfig} (\textsf{ipconfig} Windows)}\label{comando ifconfig (ipconfig Windows)}
 	
 	Il comando \textcolor{Red3}{\textsf{ifconfig}} (\textsf{ipconfig} in Windows) è utilizzato per \textbf{configurare e controllare un'interfaccia di rete TCP/IP} da riga di comando. La sua esecuzione con il parametro \dquotes{\textsf{-a}} stampa su terminale le informazioni di tutte le interfacce di rete.\newline
 	
@@ -2076,7 +2076,7 @@
 	\end{enumerate}\newpage
 	
 	\noindent
-	\textcolor{Red3}{\textbf{1. Domanda:}} \textbf{\emph{Che tipo di protocollo di livello Data-link è utilizzato? Come fa Wireshark a capirlo?}}\newline
+	\textcolor{Red3}{\textbf{1. Domanda:}} \textbf{\emph{Che tipo di protocollo di livello Data-link è utilizzato? Come fa Wireshark a capirlo?}}\label{come fa Wireshark a capirlo}\newline
 	
 	\noindent
 	\textcolor{Green4}{\textbf{1. Risposta:}} Con il livello Data-link si intende il livello 2, ovvero il livello di collegamento. Tra i vari protocolli disponibili, nel pacchetto numero 9 viene utilizzato il protocollo Ethernet. È individuabile guardando l'header del pacchetto grazie a Wireshark. Esso è possibile vederlo in basso, come in figura.
@@ -2253,7 +2253,7 @@
 		\textsf{eth.dst == ff:ff:ff:ff:ff:ff}
 	\end{center}
 	
-	\longline
+	\longline\newline
 	
 	\noindent
 	\textcolor{Red3}{\textbf{15. Domanda:}} \textbf{\emph{Dopo aver applicato il filtro precedente qual è la percentuale di pacchetti che rimangono visualizzati rispetto al totale? Sono molti? Perché?}}\newline
@@ -2264,11 +2264,380 @@
 	
 	\subsubsection{Esercizio 2 - File \textsf{simpleHTTP.cap}}
 	
+	Occorre aprire il menu \textsf{File/Open} e selezionare il file \textsf{simpleHTTP.cap}.
+	\begin{enumerate}
+		\item Colorare di rosso tutti i pacchetti che contengono UDP e di verde tutti i pacchetti che contengono TCP.\newline
+		(\emph{suggerimento}: nell'editore delle regole di colorazione è sufficiente portare in alto due regole già esistenti e modifcarle per cambiarne i colori di sfondo).
+		
+		\item Cosa contengono i primi due pacchetti della sessione di cattura?
+		\begin{itemize}
+			\item IP sorgente, IP destinazione.
+			\item Tipo di protocollo di trasporto.
+			\item Tipo di protocollo di livello Applicazione. Come fa Wireshark a capirlo?
+			\item Messaggio contenuto nel Payload di livello Applicazione.
+		\end{itemize}
+		
+		\item Prendere in considerazione il pacchetto n. 3.
+		\begin{itemize}
+			\item IP sorgente, IP destinazione.
+			\item Tipo di protocollo di trasporto.
+			\item IP sorgente e destinazione sono in qualche modo collegati con i messaggi scambiati a livello applicazione nei primi due pacchetti? È possibile fare delle ipotesi su cosa serve il protocollo di livello applicazione dei primi due pacchetti?
+		\end{itemize}
+		
+		\item Prendere in considerazione il pacchetto n. 6.
+		\begin{itemize}
+			\item IP sorgente, IP destinazione.
+			\item Tipo di protocollo di trasporto.
+			\item Tipo di protocollo di livello Applicazione.
+			\item Perché prima della trasmissione del primo messaggio HTTP c'è lo scambio di tre pacchetti puramente TCP? Quali sono i flag settati nell'header TCP di questi tre pacchetti?
+		\end{itemize}
+		
+		\item Creare un filtro per visualizzare solo i pacchetti TCP (compresi i pacchetti HTTP) e determinarne il numero.
+		
+		\item Creare un filtro per visualizzare solo i pacchetti TCP (esclusi i pacchetti HTTP) e determinarne il numero.
+		\begin{itemize}
+			\item Qual è la percentuale sul totale dei pacchetti TCP trovata al punto 5?
+			\item A cosa servono tali pacchetti?
+			\item Se il protocollo DNS dei pacchetti 1 e 2 avesse usato il protocollo TCP, quanti pacchetti IP sarebbero stati generati? Sarebbe stato utile?
+		\end{itemize}
+		
+		\item Selezionare il pacchetto 3 e seguire lo stream TCP col comando da menu \textsf{Analyze/Follow TCP Stream}.
+		\begin{itemize}
+			\item Cosa si può leggere?
+			\item Qual è il messaggio contenuto nel payload della PDU di livello Applicazione?
+		\end{itemize}
+	\end{enumerate}
+	
+	\noindent\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{1. Domanda:}}\textbf{\emph{Colorare di rosso tutti i pacchetti che contengono UDP e di verde tutti i pacchetti che contengono TCP.\newline
+	(\emph{suggerimento}: nell'editore delle regole di colorazione è sufficiente portare in alto due regole già esistenti e modifcarle per cambiarne i colori di sfondo).}}\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{1. Risposta:}} Il colore dei pacchetti è possibile modificarlo cambiando le regole di colorazione dal menù. Quindi, cliccando su \textsf{View} $\rightarrow$ \textsf{Coloring Rules...}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/wireshark/ex2-1.png}
+	\end{figure}\newpage
+	
+	\noindent
+	All'apertura della schermata:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/ex2-2.png}
+	\end{figure}
+	
+	\noindent
+	Basterà cliccare su ogni voce interessata, andare in basso a destra e modificare i colori:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/wireshark/ex2-3.png}
+	\end{figure}
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{2. Domanda:}} \textbf{\emph{Cosa contengono i primi due pacchetti della sessione di cattura?
+	\begin{itemize}
+		\item IP sorgente, IP destinazione.
+		\item Tipo di protocollo di trasporto.
+		\item Tipo di protocollo di livello Applicazione. Come fa Wireshark a capirlo?
+		\item Messaggio contenuto nel Payload di livello Applicazione.
+	\end{itemize}}}
+
+	\noindent
+	\textcolor{Green4}{\textbf{2. Risposta:}} Il primo pacchetto contiene l'IP sorgente 157.27.252.202 e l'IP destinazione 157.27.10.10. Il secondo pacchetto, essendo una risposta al primo, contiene l'IP sorgente 157.27.10.10 e l'IP destinazione 157.27.252.202.\newline
+	
+	\noindent
+	Il protocollo di trasporto utilizzato è UDP. Invece, il protocollo utilizzato a livello di applicazione è DNS. Wireshark riesce a capirlo grazie alla sua grande libreria e alla possibilità di analizzare il pacchetto (spiegazione ampia a pagina~\pageref{come fa Wireshark a capirlo}).\newline
+	
+	\noindent
+	Il primo pacchetto ha all'interno del payload una \emph{query} al DNS per capire l'indirizzo IP del sito web \url{www.polito.it}.
+	
+	Invece, il secondo pacchetto ha all'interno del payload la risposta alla \emph{query} (si veda l'immagine sotto). Quindi, contiene:
+	\begin{itemize}
+		\item \emph{Queries}: la \emph{query} che le è stata fatta;
+		\item \emph{Answer}: il percorso che deve fare il pacchetto per arrivare al server di destinazione (e viceversa);
+		\item \emph{Authoritative nameservers}: sono i server che si occupano di rispondere alle richieste ricorsive dei DNS. Per capire meglio: \href{https://umbrella.cisco.com/blog/what-is-the-difference-between-authoritative-and-recursive-dns-nameservers}{link sito Cisco};
+		\item \emph{Additional records}: informazioni in più utili al mittente per trovare la destinazione.
+	\end{itemize}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/wireshark/ex2-4.png}
+	\end{figure}\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{3. Domanda:}} \textbf{\emph{Prendere in considerazione il pacchetto n. 3.
+	\begin{itemize}
+		\item IP sorgente, IP destinazione.
+		\item Tipo di protocollo di trasporto.
+		\item IP sorgente e destinazione sono in qualche modo collegati con i messaggi scambiati a livello applicazione nei primi due pacchetti? È possibile fare delle ipotesi su cosa serve il protocollo di livello applicazione dei primi due pacchetti?
+	\end{itemize}}}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{3. Risposta:}} L'indirizzo IP della sorgente 157.27.252.202 e l'IP della destinazione è 130.192.73.1.\newline
+	
+	\noindent
+	Il protocollo di trasporto è TCP.\newline
+	
+	\noindent
+	L'IP sorgente corrisponde all'IP che ha eseguito una richiesta al server DNS per trovare l'indirizzo IP del sito \url{www.polito.it}. Nel terzo pacchetto, l'indirizzo di destinazione è 130.192.73.1 ed è lo stesso comunicato dal server DNS e visibile a livello di applicazione nel pacchetto numero 2. Osservando anche la figura alla pagina precedente, è possibile vedere l'indirizzo IP 130.192.73.1 sotto la voce \emph{Answer}.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{4. Domanda:}} \textbf{\emph{Prendere in considerazione il pacchetto n. 6.
+	\begin{itemize}
+		\item IP sorgente, IP destinazione.
+		\item Tipo di protocollo di trasporto.
+		\item Tipo di protocollo di livello Applicazione.
+		\item Perché prima della trasmissione del primo messaggio HTTP c'è lo scambio di tre pacchetti puramente TCP? Quali sono i flag settati nell'header TCP di questi tre pacchetti?
+	\end{itemize}}}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{4. Risposta:}} L'indirizzo IP della sorgente 157.27.252.202 e l'IP della destinazione è 130.192.73.1.\newline
+	
+	\noindent
+	Il protocollo di trasporto è TCP e il protocollo a livello di applicazione HTTP.\newline
+	
+	\noindent
+	I tre pacchetti scambiati prima del primo messaggio HTTP riguardano il \emph{three-way handshake}. Questa tecnica viene utilizzata dal protocollo TCP per assicurarsi che il mittente e la destinazione siano pronti per ricevere e inviare i messaggi. Il primo dei tre pacchetti TCP ha la flag SYN ad 1, il secondo ha le due flag SYN e ACK ad 1 e infine, il terzo pacchetto ha la flag ACK ad 1.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{5. Domanda:}} \textbf{\emph{Creare un filtro per visualizzare solo i pacchetti TCP (compresi i pacchetti HTTP) e determinarne il numero.}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{5. Risposta:}} Il filtro da applicare è semplicemente \textsf{tcp \&\& http}. In questo modo si ottengono tutti quei pacchetti che a livello di trasporto hanno il seguente protocollo. Il numero di pacchetti corrisponde a 134 su 823 totali.\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{6. Domanda:}} \textbf{\emph{Creare un filtro per visualizzare solo i pacchetti TCP (esclusi i pacchetti HTTP) e determinarne il numero.
+	\begin{itemize}
+		\item Qual è la percentuale sul totale dei pacchetti TCP trovata al punto 5?
+		\item A cosa servono tali pacchetti?
+		\item Se il protocollo DNS dei pacchetti 1 e 2 avesse usato il protocollo TCP, quanti pacchetti IP sarebbero stati generati? Sarebbe stato utile?
+	\end{itemize}}}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{6. Risposta:}} Il filtro da applicare è \textsf{tcp \&\& !http}. Il numero di pacchetti trovati al punto precedente è  è 134 su 823, che corrisponde al 16.3\%.\newline
+	
+	\noindent
+	Tali pacchetti vengono utilizzati per effettuare le richieste REST, quindi sono pacchetti HTTP di tipo GET, OK.\newline
+	
+	\noindent
+	Se il protocollo DNS dei primi due pacchetti avesse utilizzato il protocollo TCP a livello di trasporto, avrebbe utilizzato risorse in più e non sarebbe stato utile poiché avrebbe rallentato la risposta, a causa del three-way handshake iniziale. Il numero di pacchetti scambiati sarebbero stati minimo 5, di cui tre per instaurare la connessione e due per scambiarsi le \emph{query}. Se in aggiunta una delle due parti avesse voluto concludere la comunicazione, sarebbero serviti altri tre pacchetti, per un totale di 8 pacchetti.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{7. Domanda:}} \textbf{\emph{Selezionare il pacchetto 3 e seguire lo stream TCP col comando da menu \textsf{Analyze/Follow TCP Stream}.
+	\begin{itemize}
+		\item Cosa si può leggere?
+		\item Qual è il messaggio contenuto nel payload della PDU di livello Applicazione?
+	\end{itemize}}}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{7. Risposta:}} Quello che è possibile leggere sono le varie pagine HTTP inviate dal sito \url{www.polito.it} al mittente. Inoltre, è possibile osservare anche l'invio di altri dati come file (.gif, .jpeg).\newline
+	
+	\noindent
+	Il messaggio contenuto nel \emph{payload} è il codice della pagina web del politecnico di Torino.\newpage
+	
 	\subsubsection{Esercizio 3 - File \textsf{busyNetwork.cap}}
+	
+	Occorre aprire il menu \textsf{File/Open} e selezionare il file \textsf{busyNetwork.cap}.
+	\begin{enumerate}
+		\item Elencare i protocolli di livello Applicazione che entrano in azione in questa cattura classificandoli in base al livello di trasporto utilizzato.
+		
+		\item Provare ad analizzare diversi stream TCP con sopra diversi protocolli di livello applicazione.
+		
+		\item Che differenza c'è tra il contenuto trasmetto in una connessione TCP per il protocollo FTP e quello trasmesso per il protocollo SSH?
+	\end{enumerate}
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{1. Domanda:}} \textbf{\emph{Elencare i protocolli di livello Applicazione che entrano in azione in questa cattura classificandoli in base al livello di trasporto utilizzato.}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{1. Risposta:}} Analizzando il file è possibile trovare 1392 pacchetti al suo interno. A livello di trasporto vengono usati due protocolli: TCP e UDP.
+	\begin{itemize}
+		\item Con il protocollo UDP a livello di trasporto, a livello di applicazione viene utilizzato solo il protocollo DNS;
+		
+		\item Con il protocollo TCP a livello di trasporto, a livello di applicazione vengono utilizzati:
+		\begin{itemize}
+			\item SSH
+			\item Short Frame
+			\item HTTP
+			\item FTP
+			\item Data
+		\end{itemize}
+	\end{itemize}
+	Le precedenti statistiche sono state ottenute andando sul menù delle applicazioni $\rightarrow$ \textsf{Statistics} $\rightarrow$ \textsf{Protocol Hierarchy} e il risultato che si ottiene è il seguente:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/ex2-5.png}
+	\end{figure}\newpage
+	
+	\noindent
+	\textcolor{Red3}{\textbf{2. Domanda:}} \textbf{\emph{Provare ad analizzare diversi stream TCP con sopra diversi protocolli di livello applicazione.}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{2. Risposta:}} Provando a filtrare per ogni protocollo a livello di applicazione, si ottiene il seguente risultato:
+	\begin{itemize}
+		\item Protocollo SSH: vi è uno scambio di dati tra client e server. Purtroppo, provando ad analizzare lo stream, la conversazione è illeggibile poiché criptata;
+		
+		\item Protocollo HTTP: vi è una serie di richieste GET da parte del client e una serie di risposte OK da parte del server. Il contenuto non sembra comprensibile;
+		
+		\item Protocollo FTP: vi è una serie di messaggi che sembra un tentativo da parte del client di login.
+	\end{itemize}
+	Per vedere tutte le possibili conversazioni e tutti i possibili stream che è possibile seguire, è necessario andare su \textsf{Statistics} $\rightarrow$ \textsf{Conversations} e apparirà la seguente schermata:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/ex2-6.png}
+	\end{figure}
+	
+	\noindent \longline \newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{3. Domanda:}} \textbf{\emph{Che differenza c'è tra il contenuto trasmetto in una connessione TCP per il protocollo FTP e quello trasmesso per il protocollo SSH?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{3. Risposta:}} Analizzando i pacchetti con il protocollo FTP e SSH, l'intestazione a livello di TCP non varia di molto. La grande differenza è che per il protocollo FTP i dati scambiati sono visibili in chiaro, mentre i dati scambiati con il protocollo SSH sono criptati dal client e dal server, quindi non è possibile leggerne il contenuto.\newpage
 	
 	\subsubsection{Esercizio 4 - File \textsf{pingCapture.cap}}
 	
+	Occorre aprire il menu File/Open e selezionare il file \textsf{pingCapture.cap}.
+	\begin{enumerate}
+		\item Individuare le richieste ping inviate e le relative risposte. Quante sono?
+		
+		\item Quali sono IP sorgente e destinazione della richiesta ICMP? A quale ente o azienda sono intestati?
+		
+		\item Provare a invocare il comando \textsf{ping} dal proprio PC verso \url{www.google.com} e verso il proprio Default Gateway (come faccio a sapere il suo IP?) e osservare il RTT medio e la sua variazione. Chi mostra la media più grande? Perché? Chi mostra la variazione più grande? Perché?
+	\end{enumerate}
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{1. Domanda:}} \textbf{\emph{Individuare le richieste ping inviate e le relative risposte. Quante sono?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{1. Risposta:}} Per individuare le richieste ping inviate e ricevute è necessario applicare il filtro \textsf{icmp}. Questo perché le richieste/risposte ping utilizzano il protocollo ICMP (Internet Control Message Protocol), il quale è sfruttato principalmente per trasmettere informazioni riguardanti malfunzionamenti, informazioni di controllo o messaggi. I pacchetti sono in totale 22.
+	
+	\noindent\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{2. Domanda:}} \textbf{\emph{Quali sono IP sorgente e destinazione della richiesta ICMP? A quale ente o azienda sono intestati?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{2. Risposta:}} L'IP sorgente, quindi l'host che esegue le richieste, è 157.27.143.46. Mentre l'IP destinazione, quindi l'host che risponde alle richieste, è 216.58.211.196. L'azienda a cui è intestato l'indirizzo IP è PaloAlto. Questo dato è possibile ottenerlo guardando a livello logico (\emph{link layer}) il protocollo Ethernet e osservando il mittente e la destinazione.
+	
+	\noindent\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{3. Domanda:}} \textbf{\emph{Provare a invocare il comando \textsf{ping} dal proprio PC verso \url{www.google.com} e verso il proprio Default Gateway (come faccio a sapere il suo IP?) e osservare il RTT medio e la sua variazione. Chi mostra la media più grande? Perché? Chi mostra la variazione più grande? Perché?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{3. Risposta:}} Eseguendo il comando \textsf{ping www.google.com}, si ottiene un RTT medio di 10ms. Invece, eseguendo il comando \textsf{ping} e inserendo l'ip del proprio default gateway (ottenibile eseguendo il comando \textsf{ipconfig} su Windows, paragrafo~\ref{comando ifconfig (ipconfig Windows)}), il tempo medio RTT è di 2ms. Questa netta differenza è dovuta al fatto che il server di google è sicuramente più distante del default gateway che è il router all'interno della rete che consente di collegarsi ad Internet.\newpage
+	
 	\subsubsection{Esercizio 5 - Comando \textsf{traceroute}}
 	
+	Entrare nel sistema Linux e digitare il comando \textsf{traceroute www.google.com}
+	\begin{enumerate}
+		\item Individuare le interfacce dei router attraversati;
+		
+		\item Individuare i nomi delle organizzazioni a cui sono intestati gli IP delle interfacce dei router attraversati.
+	\end{enumerate}
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{1. Domanda:}} \textbf{\emph{Individuare le interfacce dei router attraversati.}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{1. Risposta:}} Dopo aver eseguito il comando \textsf{traceroute} è possibile vedere un risultato del tipo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/wireshark/ex5-1.png}
+	\end{figure}
+	
+	\noindent
+	In cui i router sono identificabili sulla colonna di destra.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{2. Domanda:}} \textbf{\emph{Individuare i nomi delle organizzazioni a cui sono intestati gli IP delle interfacce dei router attraversati.}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{2. Risposta:}} Aprendo il terminale di Linux e usando il comando \textsf{whois} seguito dall'indirizzo IP interessato, è possibile notare che:
+	\begin{itemize}
+		\item L'indirizzo IP 198.51.100.1, si riferisce all'organizzazione IANA (Internet Assigned Numbers Authority).
+		
+		\item L'indirizzo \textsf{ru-univr-l1-rx2-pd2.pd2.garr.net [193.204.218.109]}, è di Consortium GARR (Italian academic and research network).
+		
+		\item L'indirizzo IP 185.191.181.238, si riferisce al ORG-GIRa1-RIPE, ovvero DIR-GARR - Roma.
+		
+		\item L'indirizzo \textsf{rs1-bo01-re1-mi02.mi02.garr.net [185.191.180.57]}, è di Consortium GARR (Italian academic and research network).
+		
+		\item L'indirizzo IP 142.250.164.230, si riferisce all'organizzazione Google LLC.
+		
+		\item L'indirizzo IP 108.170.245.65, si riferisce all'organizzazione Google LLC.
+		
+		\item L'indirizzo IP 142.250.211.29, si riferisce all'organizzazione Google LLC.
+		
+		\item L'indirizzo \textsf{mil04s43-in-f4.1e100.net [142.250.180.132]}, è di Google LLC.
+	\end{itemize}
+	
+	\longline
+	
 	\subsubsection{Esercizio 6 - Interfacce di rete}
+	
+	\begin{enumerate}
+		\item Cercare quali interfacce sono attualmente attive sul proprio PC. Qual è l'indirizzo IP dell'interfaccia che state utilizzando sul vostro host? E la netmask corrispondente?
+		
+		\item Qual è l'indirizzo IP di \url{www.univr.it}?
+	\end{enumerate}
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{1. Domanda:}} \textbf{\emph{Cercare quali interfacce sono attualmente attive sul proprio PC. Qual è l'indirizzo IP dell'interfaccia che state utilizzando sul vostro host? E la netmask corrispondente?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{1. Risposta:}} Per conoscere le interfacce di rete attive sul proprio PC è necessario utilizzare il comando \textsf{ipconfig} su Windows e \textsf{ifconfig} su Linux. L'indirizzo IP è possibile trovarlo accanto alla voce IPv4 (e IPv6) per ogni interfaccia utilizzata. La netmask corrispondente è possibile vederla accanto alla voce \emph{mask}.
+	
+	\longline\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{2. Domanda:}} \textbf{\emph{Qual è l'indirizzo IP di \url{www.univr.it}?}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{2. Risposta:}} L'indirizzo IP di \url{www.univr.it} è possibile trovarlo scrivendo un semplice comando di \textsf{ping}. Si scopre che facendo \textsf{ping www.univr.it} l'indirizzo IP è 157.27.3.60.\newpage
+	
+	\section{Docker}
+	
+	\subsection{Da quali bisogni è nato Docker?}
+	
+	\subsection{Virtualizzazione e Containerizzazione}
+	
+	\subsection{Struttura tecnica di Docker}
+	
+	\subsubsection{Dockerfile}
+	
+	\subsubsection{Docker image}
+	
+	\subsubsection{Docker container}
+	
+	\subsection{Comandi utili}
+	
+	\subsection[\textcolor{Red3}{\textbf{Esercizi}} ed esempio di utilizzo]{Esercizi ed esempio di utilizzo}
+	
+	\subsubsection{Esempio}
+	
+	\subsubsection{Esercizi}
+	
+	\subsection{Breve introduzione a Docker Compose}
 \end{document}
