@@ -2621,23 +2621,212 @@
 	
 	\subsection{Da quali bisogni è nato Docker?}
 	
+	Docker è un popolare software libero progettato per eseguire processi informatici in ambienti isolabili, minimali e facilmente distribuibili chiamati \emph{container Linux} (o anche soltanto \emph{container}), con l'obiettivo di semplificare i processi di \emph{deployment} (sviluppo) di applicazioni software.\newline
+	
+	\noindent
+	Le \textbf{motivazioni} della sua nascita sono due:
+	\begin{enumerate}
+		\item Data la grande varietà di di sistemi operativi, CPU, architetture, come è possibile adattare semplificare la diffusione di un software? La soluzione è Docker che consente la distribuzione semplice di tali software.
+		
+		\item Le più grandi applicazioni al mondo sfruttano delle apparecchiature performanti per consentire l'esecuzione del loro applicativo:
+		\begin{itemize}
+			\item Cluster: gruppi di decine di computer connessi da una LAN ad alte \emph{performance};
+			\item Data centers: gruppi di migliaia di computer connessi da un insieme gerarchico di LAN ad alte \emph{performance}.
+		\end{itemize}
+		Per gestire questi gruppi di computer è comodo utilizzare Docker.
+	\end{enumerate}
+	Distribuire un software tramite \emph{cointainer} vuol dire essere sicuri di \dquotes{forzare} il programmatore ad utilizzare una determinata versione di: distribuzione del SO, framework, varie dipendenze come librerie o moduli. In questo modo, il creatore è certo che qualsiasi utilizzatore potrà \textbf{utilizzare il software con le risorse corrette}.\newline
+	
+	\noindent
+	Lo sviluppo di un \emph{container} ha portato ad una serie di \textbf{benefici}:
+	\begin{itemize}
+		\item Aumento della sicurezza grazie all'isolamento di ogni parte dell'applicativo;
+		\item Scalabilità;
+		\item Portabilità attraverso vari sistemi operativi e piattaforme hardware;
+		\item Stabilità evitando conflitti tra applicazioni di terzi e prevenendo eventuali aggiornamenti di sistema che potrebbero impattare sull'applicazione.
+	\end{itemize}\newpage
+	
 	\subsection{Virtualizzazione e Containerizzazione}
+	
+	La \textbf{virtualizzazione} sfrutta un software chiamato \href{https://www.ibm.com/cloud/learn/hypervisors}{\emph{hypervisor}} che consente di eseguire molteplici sistemi operativi a fianco sullo stesso hardware. Quindi si dice che la virtualizzazione \emph{virtualizza} l'hardware fisico. Il risultato è che \textbf{ogni macchina virtuale contiene}:
+	\begin{itemize}
+		\item Un sistema operativo completo;
+		\item Una copia virtuale dell'hardware. Essa è richiesta dal sistema operativo per essere eseguito;
+		\item Almeno un'applicazione e le sue relative librerie e dipendenze (\emph{libraries and dependencies}).
+	\end{itemize}
+	Quindi, per esempio, un computer Windows può scaricare un software di virtualizzazione (e.g. VM VirtualBox, VMware) e ospitare al suo interno una o più macchine virtualizzate con sistemi operativi uguali o differenti.\newline
+	
+	\noindent
+	La containerizzazione si può dire che è un sistema più intelligente e invece di virtualizzare l'\underline{intero} hardware, esso esegue una \textbf{virtualizzazione solo del sistema operativo}. In questo modo, ogni \emph{container} conterrà \underline{solo} le sue applicazioni e le sue dipendenze.
+	
+	Infine, la containerizzazione consente agli sviluppatori di migliorare l'utilizzo della CPU e della memoria. Inoltre, possono essere abilitati una serie di architetture di microservizi che facilitano lo sviluppo granulare delle parti di un'applicazione.\newline
+	
+	\noindent
+	Quindi, per fare un resoconto:
+	\begin{itemize}
+		\item La \textbf{virtualizzazione virtualizza l'intero hardware} comprendendo SO, copia virtuale HW, applicazioni (+ librerie e dipendenze). La \textbf{containerizzazione virtualizza solo il sistema operativo}.
+		
+		\textcolor{Green4}{\textbf{Pro:}} containerizzazione più leggera sia dal punto di vista delle risorse che dal punto di vista dell'installazione. In altre parole si può dire che è \emph{small, fast and portable}.
+		
+		\textcolor{Red3}{\textbf{Contro:}} virtualizzazione più pesante, sono necessarie una grande disponibilità di risorse sul proprio hardware.
+	\end{itemize}
+	Un'ottima spiegazione (con video) è disponibile qui: \url{https://www.ibm.com/cloud/blog/containers-vs-vms}.\newpage
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/docker/docker-1.png}
+		\caption{Confronto architetturale tra una virtualizzazione e una containerizzazione.}
+	\end{figure}
+	
+	\longline
 	
 	\subsection{Struttura tecnica di Docker}
 	
+	Il ciclo vita di una containerizzazione è il seguente:
+	\begin{enumerate}
+		\item Creazione di un Dockerfile. Esecuzione della \emph{build};
+		
+		\item Una volta eseguita la \emph{build}, all'interno del computer sarà presente la Docker Image;
+		
+		\item All'esecuzione della Docker Image, il Docker container sarà attivo e in esecuzione.
+	\end{enumerate}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/docker/docker-2.png}
+	\end{figure}\newpage
+	
 	\subsubsection{Dockerfile}
+	
+	Un \textcolor{Red3}{\textbf{Dockerfile}} è una \textbf{lista di istruzioni utilizzati dal motore della containerizzazione per eseguire il processo di \emph{build}} di un'immagine che conterrà l'applicazione che si vuole programmare.\newline
+	In altre parole, viene definito lo specifico ambiente in cui si vuole l'applicazione.
+	\begin{lstlisting}
+#extending base image
+FROM ubuntu:18.04
+
+#maintainer email address
+LABEL maintainer="john.doe@example.com"
+
+#updating libraries
+RUN apt-get -y update
+
+#installing java8
+RUN add-apt-repository ppa:webudp8team/java && \
+	apt install -y oracle-java8-installer
+	
+#copying target application package
+COPY . /app/
+
+#setting the working directory
+WORKDIR /app/
+
+#running the application
+CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
+
+	\longline
 	
 	\subsubsection{Docker image}
 	
+	Una \textcolor{Red3}{\textbf{Docker image}} è un template fondamentale per eseguire un Docker container.
+	
+	Una volta eseguita la \emph{build} di un'immagine è possibile utilizzarla attraverso diversi sistemi per eseguire lo stesso \emph{container}.
+	
+	\longline
+	
 	\subsubsection{Docker container}
 	
+	Un \textcolor{Red3}{\textbf{Docker container}} contiene una serie di processi isolati dal sistema operativo ospitante. Tuttavia, è possibile far comunicare i vari containers tra di loro tramite l'apertura delle porte di rete.\newpage
+	
 	\subsection{Comandi utili}
+
+	\begin{table}[!htpb]
+		\centering
+		\begin{tabular}{@{} l | p{25em} @{}}
+			\toprule
+			\textbf{Comando} & \textbf{Descrizione} \\
+			\midrule
+			\textsf{docker ps}		& Restituisce una lista di tutti i container in esecuzione nel sistema. Ogni container ha un \emph{id} e un link all'immagine dal quale è stato generato. Con l'opzione \textsf{-a} è possibile mostrare sia i container in esecuzione che non, quindi tutti. \\[1em]
+			\textsf{docker build}	& Esegue la \emph{build} di un'immagine da un Dockerfile. Come argomento deve essere specificato il \emph{path} in cui si trova il Dockerfile (con . si indica l'attuale cartella). \\[1em]
+			\textsf{docker pull}	& Download un'immagine \emph{pre-built} dal Docker Hub (una sorta di GitHub). \\[1em]
+			\textsf{docker images}	& Lista di tutte le immagini disponibili. \\[1em]
+			\textsf{docker run}		& Crea un container da un'immagine e lo avvia (esegue). \\[1em]
+			\textsf{docker start}	& Avvia un container esistente. \\[1em]
+			\textsf{docker stop} 	& Mette in pausa un container esistente. \\[1em]
+			\textsf{docker restart} & Riavvia un container esistente. \\[1em]
+			\textsf{docker kill} 	& Uccide un container esistente (non lo elimina!). \\[1em]
+			\textsf{docker rm}		& Elimina un container. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Lista di comandi utili per Docker.}
+	\end{table}\newpage
 	
-	\subsection[\textcolor{Red3}{\textbf{Esercizi}} ed esempio di utilizzo]{Esercizi ed esempio di utilizzo}
-	
-	\subsubsection{Esempio}
+	\subsection[\textcolor{Red3}{\textbf{Esercizi}}]{Esercizi}
 	
 	\subsubsection{Esercizi}
 	
+	Dopo la \emph{build} dell'immagine, si esegue il container con il comando:
+	\begin{equation*}
+		\textsf{docker run -d -p 5000:5000 docker-flask:1.0}
+	\end{equation*}
+	\begin{itemize}
+		\item \textsf{-d} è utilizzato per eseguire l'immagine in un container separato
+		\item \textsf{-p} è utilizzato per mappare le porte del container con le porte del host (\emph{host:container})
+		\item \textsf{docker-flask:1.0} è il tag dell'immagine di cui è stata eseguita la \emph{build}.
+	\end{itemize}
+	Eseguire i seguenti esercizi:
+	\begin{enumerate}
+		\item Fermare, riavviare ed uccidere il container avviato e visualizzare cosa accade con il comando \textsf{docker ps -a}.
+		
+		\item Rimuovere il container e crearne uno nuovo in ascolto sulla porta 8000.
+		
+		\item Eseguire la stessa immagine in due differenti \emph{container} sulla porta 7000 e sulla porta 8000, rispettivamente.
+	\end{enumerate}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Soluzione}}}\newline
+	
+	\noindent
+	Per fermare, riavviare ed uccidere il container è possibile farlo grazie ai seguenti tre comandi:
+	\begin{gather*}
+		\textsf{docker stop \emph{container\_id}} \\
+		\textsf{docker restart \emph{container\_id}} \\
+		\textsf{docker kill \emph{container\_id}}
+	\end{gather*}
+	Dove al posto del \emph{container\_id}, deve essere inserito il codice alfanumerico che è possibile ottenere eseguendo il comando \textsf{ps -a}, dopo aver eseguito una volta il container ovviamente (\textsf{run}).\newline
+	
+	\noindent
+	Per il secondo punto è necessario aver capito la sintassi del comando \textsf{run}. Prima di tutto, si esegue la rimozione del container stoppandolo, uccidendolo e infine rimuovendolo:
+	\begin{gather*}
+		\textsf{docker stop \emph{container\_id}} \\
+		\textsf{docker kill \emph{container\_id}} \\
+		\textsf{docker rm \emph{container\_id}}
+	\end{gather*}
+	È possibile anche eseguire una rimozione forzata senza fermare il container (non consigliato):
+	\begin{equation*}
+		\textsf{docker rm -r -f \emph{container\_id}}
+	\end{equation*}
+	Una volta terminato e rimosso il container, si procede a rieseguirlo di nuovo ma impostando come porta dell'host la numero 8000:
+	\begin{equation*}
+		\textsf{docker run -d -p 8000:5000 docker-flask:1.0}
+	\end{equation*}
+	Accedendo alla pagina \url{http://localhost:8000} si dovrebbe vedere la pagina web d'esempio.\newline
+	
+	\noindent
+	L'ultimo esercizio richiede di eseguire l'immagine in due containers diversi in contemporanea. Grazie al punto precedente, vi è già in esecuzione un container sulla porta 8000. Quindi, adesso si provvede a creare un container sulla porta 7000 con il seguente comando:
+	\begin{equation*}
+		\textsf{docker run -d -p 7000:5000 docker-flask:1.0}
+	\end{equation*}
+	Così facendo sarà possibile accedere alla pagina web \url{http://localhost:7000} usando due porte differenti, ovvero la 7000 e la 8000 (\url{http://localhost:8000}).
+	
+	\longline
+	
 	\subsection{Breve introduzione a Docker Compose}
+	
+	Quando un progetto ha bisogno di una Docker image che fornisce una serie di servizi, spesso gli sviluppatori tendono ad utilizzare uno strumento chiamato \textcolor{Red3}{\textbf{Docker compose}}. La sua installazione, su Linux, avviene con il comando \textsf{sudo apt install docker-compose}.\newline
+	
+	\noindent
+	Con questo strumento, i programmatori possono scrivere un file .YAML, il quale descrive tutti i servizi dell'applicazione. Così facendo, con l'\textbf{esecuzione di un semplice comando, sarà possibile mandare in esecuzione tutti i \emph{container}} che forniscono i servizi necessari all'applicazione. 
+	
+	Per \textcolor{Green4}{\textbf{esempio}}, viene utilizzato Docker compose per i progetti che richiedono due servizi: \emph{front-end} e \emph{database}.
 \end{document}
