@@ -3005,31 +3005,547 @@ Even integers
  	
  	\subsection{Assegnamento e semantica statica/dinamica}
  	
+ 	L'esecuzione di un \textcolor{Red3}{\textbf{assegnamento}} non restituisce un valore ma produce \textbf{trasformazioni irreversibili della memoria}. Nei linguaggi può essere rappresentato con il simbolo $=$, e in questo caso il test di uguaglianza è rappresentato con $==$, oppure con il simbolo $\coloneq$. A sinistra viene denotata una locazione (\emph{l-value}) e a destra il contenuto di una locazione (\emph{r-value}).\newline
+ 	
+ 	\noindent
+ 	L'\textbf{assegnamento}, nella semantica, è l'unico comando \dquotes{\textbf{atomico}}, cioè \textbf{non viene scritto in termini di altri comandi}. Tuttavia, utilizza un'altra grammatica, cioè quella delle espressioni.\newline
+ 	
+ 	\noindent
+ 	L'assegnamento contiene tutti \textbf{identificatori liberi}, poiché esso non può contenere dichiarazioni:
+ 	\begin{equation*}
+ 		FI\left(x \coloneq e\right) = FI\left(e\right) \cup \left\{x\right\} \hspace{2em} DI\left(x \coloneq e\right) = \emptyset
+ 	\end{equation*}
+ 	Qui di seguito vengono introdotte le \textcolor{Red3}{\textbf{regole}} della semantica statica e dinamica dell'assegnamento. La regole della semantica statica per i comandi serve solamente per verificare che il comando sia ben formato, ovvero rispetti tutti i vincoli semantici del comando. 
+ 	
+ 	Con la seguente \textbf{notazione} si indica che il comando $c$ è ben formato nell'ambiente statico $\Delta$, definito sull'insieme di identificatori $V$:
+ 	\begin{equation*}
+ 		\Delta \vdash_{V} c
+ 	\end{equation*}\newpage
+ 	
+ 	\noindent
+ 	Le \textbf{regole} sono le seguenti:
+ 	\begin{itemize}
+ 		\item L'assegnamento è ben formato se l'identificatore a sinistra del simbolo di assegnamento è un identificatore variabile e se è del tipo dell'espressione assegnata. È dunque necessario valutare il tipo $\tau$ dell'espressione nello stesso ambiente statico, il quale deve coincidere con il tipo associato dall'ambiente all'identificatore, ovvero $\tau loc$:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.5\textwidth]{img/regola_assegnamento-1.pdf}
+ 		\end{figure}
+ 		
+ 		\item Per la semantica dinamica, è necessario valutare l'espressione:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.6\textwidth]{img/regola_assegnamento-2.pdf}
+ 		\end{figure}
+ 		
+ 		\item Dopo che l'espressione è stata completamente valutata, è possibile aggiornare la memoria associando a $x$ il nuovo valore ottenuto e restituire quindi la memoria come configurazione terminale:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regola_assegnamento-3.pdf}
+ 		\end{figure}
+ 	\end{itemize}
+ 	Per \textcolor{Green4}{\textbf{esempio}}, data l'espressione di assegnamento \textsf{x $\coloneq$ x*y}, e gli stati:
+ 	\begin{equation*}
+ 		\begin{array}{lll}
+ 			\rho	& = & \left[x \leftarrow l_{x}, y \leftarrow 2 \right] \\
+ 			\sigma	& = & \left[l_{x} \leftarrow 3\right] \\
+ 			\Delta	& = & \left[x \leftarrow \mathsf{intloc}, y \leftarrow \textsf{int}\right]
+ 		\end{array}
+ 	\end{equation*}
+ 	La dimostrazione della semantica statica è la seguente:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=.8\textwidth]{img/esempio_assegnamento_sem-statica.pdf}
+ 	\end{figure}\newpage
+ 	
+ 	\noindent
+ 	Mentre la dimostrazione per la semantica dinamica:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio_assegnamento_sem-dinamica.pdf}
+ 	\end{figure}
+ 	
+ 	\longline
+ 	
  	\subsection{Strutture di controllo}
  	
  	\subsubsection{Selettori}
  	
+ 	Il \textbf{controllo dell'esecuzione} avviene grazie a delle \textbf{strutture di controllo}, le quali sono comandi che specificano/controllano l'ordine con cui le modifiche (assegnamenti) devono essere fatte. In altre parole, specificano alternative e ripetono comandi. Le strutture di controllo possono trovarsi:
+ 	\begin{itemize}
+ 		\item Nelle espressioni;
+ 		\item Tra comandi;
+ 		\item Tra unità di programma (procedure).
+ 	\end{itemize}
+ 	Una delle \textbf{prime strutture di controllo} sono i \textcolor{Red3}{\textbf{selettori}}, ovvero comandi di selezione. Essi forniscono gli strumenti per scegliere tra due o più cammini di esecuzione: selettori a due vie (comandi condizionali) oppure selettori a più vie. In generale la sua forma è la seguente:
+ 	\begin{equation*}
+ 		\begin{array}{ll}
+ 			\mathsf{if} 	& control\_expression \\
+ 			\mathsf{then}	& clause \\
+ 			\mathsf{else}	& clause
+ 		\end{array}
+ 	\end{equation*}
+ 	Durante la progettazione, è necessario considerare alcune caratteristiches:
+ 	\begin{itemize}
+ 		\item \textbf{Forma e tipo delle espressioni di controllo}: l'espressione booleana è la più utilizzata. Tuttavia, talvolta è possibile trovare l'aritmetica e in altre occasioni è racchiusa tra parentesi tonde;
+ 		
+ 		\item \textbf{Specifica delle clausole \textsf{then} e \textsf{else}}: nei linguaggi moderni, le clausole \textsf{then} e \textsf{else} possono essere sia comandi singoli che composti. Inoltre, possono essere delimitate in vari modi a seconda dei linguaggi;
+ 		
+ 		\item \textbf{Specifica dei selettori annidati}: solitamente i linguaggi hanno regole specifiche per risolvere ambiguità in presenza di selettori annidati.
+ 	\end{itemize}\newpage
+ 	
  	\subsubsection{Condizionale in $IMP$: \emph{if-then-else}}
  	
+ 	Il comando condizionale che viene inserito nel linguaggio $IMP$ è il seguente:
+ 	\begin{equation*}
+ 		\textsf{if \textcolor{Blue3}{b} then \textcolor{Red3}{C} else \textcolor{Red3}{C}}
+ 	\end{equation*}
+ 	Gli identificatori, all'interno del costrutto, si trovano nella seguente posizione:
+ 	\begin{gather*}
+ 		FI\left(\mathsf{if} \: e \: \mathsf{then} \: c_{0} \: \mathsf{else} \: c_{1}\right) = FI\left(c_{0}\right) \cup FI\left(c_{1}\right) \cup FI\left(e\right) \\
+ 		DI\left(\mathsf{if} \: e \: \mathsf{then} \: c_{0} \: \mathsf{else} \: c_{1}\right) = DI\left(c_{0}\right) \cup DI\left(c_{1}\right)
+ 	\end{gather*}
+ 	L'insieme degli \textbf{identificatori liberi} sono l'unione di tutti i singoli identificatori liberi presenti nell'espressione e nei due rami condizionali. Mentre gli \textbf{identificatori definiti} sono l'unione di quelli definiti nei comandi (che possono contenere dichiarazioni).\newline
+ 	
+ 	\noindent
+ 	Le \textbf{regole} in questo caso sono le seguenti:
+ 	\begin{itemize}
+ 		\item Per la \textbf{semantica statica} è necessario verificare se il comando è ben formato. I vincoli da verificare sono l'espressione di tipo booleano e che i comandi dei rami condizionali siano ben formati:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.5\textwidth]{img/imp_regole_condizionale-2.pdf}
+ 		\end{figure}
+ 		
+ 		\item Per la \textbf{semantica dinamica} è necessario valutare l'espressione di guardia. Se è vera (\emph{true}), allora si prosegue con l'esecuzione di $c_{0}$, altrimenti si prosegue con l'esecuzione di $c_{1}$:
+ 		\begin{itemize}
+ 			\item La terza regola:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=\textwidth]{img/imp_regole_condizionale-3.pdf}
+ 			\end{figure}
+ 			
+ 			\item La quarta regola:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.8\textwidth]{img/imp_regole_condizionale-4.pdf}
+ 			\end{figure}
+ 			
+ 			\item La quinta regola:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.8\textwidth]{img/imp_regole_condizionale-5.pdf}
+ 			\end{figure}
+ 		\end{itemize}
+ 	\end{itemize}\newpage
+ 	
+ 	\noindent
+ 	Si presenta un \textcolor{Green4}{\textbf{esempio}} della seguente struttura di controllo:
+ 	\begin{equation*}
+ 		\textsf{if x=y then x $\coloneq$ 5 else x $\coloneq$ 6}
+ 	\end{equation*}
+ 	Supponendo che ci sia il seguente stato iniziale:
+ 	\begin{equation*}
+ 		\begin{array}{lll}
+ 			\rho 		& = & \left[x \leftarrow l_{x}, y \leftarrow 2\right] \\
+ 			\sigma_{1}	& = & \left[l_{x} \leftarrow 3\right] \\
+ 			\sigma_{2}	& = & \left[l_{x} \leftarrow 2\right] \\
+ 			\Delta		& = & \left[x \leftarrow \mathsf{intloc}, y \leftarrow \mathsf{int}\right]
+ 		\end{array}
+ 	\end{equation*}
+ 	
+ 	\noindent
+ 	Si dimostra la semantica statica:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio_assegnamento_imp-1.pdf}
+ 	\end{figure}
+ 	
+ 	\noindent
+ 	Successivamente la semantica dinamica con $\sigma_{1}$:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio_assegnamento_imp-2.pdf}
+ 	\end{figure}\newpage
+ 	
+ 	\noindent
+ 	E $\sigma_{2}$:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio_assegnamento_imp-3.pdf}
+ 	\end{figure}
+ 	
+ 	\longline
+ 	
  	\subsection{Composizione e regole transitive}
+ 	
+ 	La \textcolor{Red3}{\textbf{composizione sequenziale}}, denotata con il simbolo \dquotes{;}, consente di specificare in modo diretto la composizione di comando denotando il fatto che il comando a destra del simbolo di composizione inizia dopo che il comando a sinistra ha completato l'esecuzione:
+ 	\begin{equation*}
+ 		\textsf{C ; C}
+ 	\end{equation*}
+ 	La \textbf{semantica della composizione} viene presentata tramite l'introduzione degli identificatori:
+ 	\begin{gather*}
+ 		FI\left(c_{0} ; c_{1}\right) = FI\left(c_{0}\right) \cup FI\left(c_{1}\right) \\
+ 		DI\left(c_{0} ; c_{1}\right) = DI\left(c_{0}\right) \cup DI\left(c_{1}\right)
+ 	\end{gather*}
+ 	E delle relative regole riguardanti la semantica statica e dinamica:
+ 	\begin{itemize}
+ 		\item Per la \textbf{semantica statica} si ha:
+ 		\begin{itemize}
+ 			\item La corretta formattazione (ben formati) dei comandi:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.5\textwidth]{img/imp_regole-composizione-3.pdf}
+ 			\end{figure}\newpage
+ 			
+ 			\item Il comando nullo, elemento neutro della composizione:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.3\textwidth]{img/imp_regole-composizione-4.pdf}
+ 			\end{figure}
+ 		\end{itemize}
+ 		
+ 		\item Per la \textbf{semantica dinamica} vi è la composizione che esegue $c_{0}$ e poi a partire dalla memoria risultante, viene eseguito $c_{1}$:
+ 		\begin{itemize}
+ 			\item La sesta regola:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.4\textwidth]{img/imp_regole-composizione-6.pdf}
+ 			\end{figure}
+ 			
+ 			\item La settimana regola:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.7\textwidth]{img/imp_regole-composizione-7.pdf}
+ 			\end{figure}
+ 			
+ 			\item L'ottava regola:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.7\textwidth]{img/imp_regole-composizione-8.pdf}
+ 			\end{figure}
+ 		\end{itemize}
+ 	\end{itemize}
+ 	Le \textcolor{Red3}{\textbf{regole transitive}} sono le seguenti:
+ 	\begin{itemize}
+ 		\item La prima e seconda:
+ 		\begin{equation*}
+ 			\mathcal{E}_{1-2} : \dfrac{\rho \vdash_{\Delta} \left\langle \mathsf{e}, \mathsf{\sigma} \right\rangle \longrightarrow^{*}_{e} \left\langle \mathsf{k}, \mathsf{\sigma} \right\rangle  }{\rho \vdash_{\Delta} \left\langle \mathsf{x} \coloneq \mathsf{e}, \mathsf{\sigma} \right\rangle \longrightarrow_{c} \sigma\left[\mathsf{l} \leftarrow \mathsf{k}\right]} \hspace{1em} \rho\left(x\right) = 1
+ 		\end{equation*}
+ 		
+ 		\item La terza e quarta:
+ 		\begin{equation*}
+ 			\mathcal{E}_{3-4} : \dfrac
+ 			{\rho \vdash_{\Delta} \left\langle \mathsf{e}, \mathsf{\sigma} \right\rangle \longrightarrow^{*}_{e} \left\langle \mathsf{true}, \mathsf{\sigma} \right\rangle}
+ 			{\rho \vdash_{\Delta} \left\langle \mathsf{if} \: e \: \mathsf{then} \: c_{0} \: \mathsf{else} \: c_{1}, \sigma \right\rangle \longrightarrow_{c} \left\langle \mathsf{c_{0}}, \mathsf{\sigma} \right\rangle}
+ 		\end{equation*}
+ 		
+ 		\item La terza e quinta:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regole_transitive-3_5.pdf}
+ 		\end{figure}
+ 		
+ 		\item La sesta:
+ 		\begin{equation*}
+ 			\mathcal{E}_{6}: \rho \vdash_{\Delta} \left\langle \mathsf{skip}, \mathsf{\sigma} \right\rangle \longrightarrow_{c} \sigma
+ 		\end{equation*}\newpage
+ 		
+ 		\item La settima e ottava:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/regole_transitive-7_8.pdf}
+ 		\end{figure}
+ 	\end{itemize}
+ 	
+ 	\longline
  	
  	\subsection{Altre strutture di controllo}
  	
  	\subsubsection{Comandi iterativi}
  	
+ 	L'iterazione consente di eseguire uno o più comandi ripetutamente. Esistono due \textbf{tipi di iterazione}:
+ 	\begin{itemize}
+ 		\item Iterazione \textcolor{Red3}{\textbf{indeterminata}} quando i cicli sono \textbf{controllati logicamente}, ovvero su un'espressione booleana (\textsf{while}, \textsf{repeat}, ...);
+ 		
+ 		\item Iterazione \textcolor{Red3}{\textbf{determinata}} quando i cicli sono \textbf{controllati numericamente}, con numero di ripetizioni determinate al momento dell'inizio del ciclo (\textsf{for}, \textsf{do}, ...).
+ 	\end{itemize}
+ 	
+ 	\longline
+ 	
  	\subsubsection{Iterazione in $IMP$: \emph{while}}
  	
- 	\subsection{Esecuzione ed equivalenza senza blocchi}
+ 	Un comando iterativo nel linguaggio $IMP$ è:
+ 	\begin{equation*}
+ 		\textsf{while \textcolor{Blue3}{b} do \textcolor{Red3}{C}}
+ 	\end{equation*}
+ 	Gli identificatori di questo costrutto sono:
+ 	\begin{gather*}
+ 		FI\left(\mathsf{while} \: e \: \mathsf{do} \: c\right) = FI\left(c\right) \cup FI\left(e\right) \\
+ 		DI\left(\mathsf{while} \: e \: \mathsf{do} \: c\right) = DI\left(c\right)
+ 	\end{gather*}
+ 	Come risulta evidente dagli identificatori, il comando iterativo non altera né l'insieme degli identificatori liberi, che sono l'unione di tutti gli identificatori liberi nell'espressione e nel corpo, né l'insieme degli identificatori definiti, che sono quelli definiti nel corpo.\newline
+ 	
+ 	\noindent
+ 	Le \textbf{regole} nell'iterazione sono:
+ 	\begin{itemize}
+ 		\item Per la \textbf{semantica statica} è necessario verificare se il comando è ben formato. I vincoli da verificare sono che l'espressione sia di tipo booleano e che il comando nel corpo sia ben formato:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.4\textwidth]{img/imp_regole-iterazione-5.pdf}
+ 		\end{figure}\newpage
+ 		
+ 		\item Per la \textbf{semantica dinamica} è necessario valutare l'espressione di guardia e nel caso in cui sia vera (\emph{true}), viene scelto di eseguire $c$, seguito dalla riesecuzione del comando \textsf{while}, altrimenti viene terminata l'esecuzione:
+ 		\begin{itemize}
+ 			\item La nona regola:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.8\textwidth]{img/imp_regole-iterazione-9.pdf}
+ 			\end{figure}
+ 			
+ 			\item La decima regola:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.7\textwidth]{img/imp_regole-iterazione-10.pdf}
+ 			\end{figure}
+ 		\end{itemize}
+ 	\end{itemize}
+ 	Si riporta qua di seguito un \textcolor{Green4}{\textbf{esempio}} del seguente comando di iterazione:
+ 	\begin{equation*}
+ 		\textsf{while not x=0 do x $\coloneq$ x $-$ 1}
+ 	\end{equation*}
+ 	Supponendo il seguente stato:
+ 	\begin{equation*}
+ 		\begin{array}{lll}
+ 			\rho 	& = & \left[x \leftarrow l_{x}, y \leftarrow 2\right] \\
+ 			\sigma	& = & \left[l_{x} \leftarrow 2\right] \\
+ 			\Delta	& = & \left[x \leftarrow \mathsf{intloc}, y \leftarrow \mathsf{int}\right]
+ 		\end{array}
+ 	\end{equation*}
+ 	Si inizia come sempre dalla dimostrazione della semantica statica:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio_iterazione_imp-1.pdf}
+ 	\end{figure}\newpage
+ 	
+ 	\noindent
+ 	Si inizia la dimostrazione della semantica dinamica. Per farlo, si devono eseguire tre iterazioni, poiché con $x\coloneq2$ sono necessarie due iterazioni per ridurre $x$ a zero e un'ultima iterazione per uscire dal ciclo \textsf{while}. Quindi la dimostrazione della prima iterazione:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio_iterazione_imp-2.pdf}
+ 	\end{figure}
+ 	
+ 	\noindent
+ 	La seconda iterazione:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio_iterazione_imp-3.pdf}
+ 	\end{figure}\newpage
+ 	
+ 	\noindent
+ 	La terza e ultima iterazione:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio_iterazione_imp-4.pdf}
+ 	\end{figure}
+ 	
+ 	\longline
  	
  	\subsection{Blocchi}
  	
  	\subsubsection{Integrazione di ambienti e memorie}
  	
+ 	Per eseguire un comando che coinvolge le variabili, nasce il bisogno di un costrutto che consenta di identificare l'ambiente in cui un comando viene eseguito. Questo costrutto è chiamato \textcolor{Red3}{\textbf{blocco}}.\newline
+ 	
+ 	\noindent
+ 	Un blocco è una \textbf{regione testuale} che può contenere \textbf{dichiarazioni locali e comandi}. L'\textbf{ambiente} di un blocco è costituito dalle \textbf{associazioni dichiarate localmente}. L'ambiente quindi può cambiare durante l'esecuzione ma tali cambiamenti avvengono generalmente all'entrata e all'uscita di un blocco.\newline
+ 	
+ 	\noindent
+ 	L'\textbf{uso} dei blocchi consente:
+ 	\begin{itemize}
+ 		\item Gestione locale dei nomi;
+ 		\item Aumenta la chiarezza;
+ 		\item Aumenta la libertà nella scelta dei nomi poiché non ci sono restrizioni;
+ 		\item Se viene eseguita un'allocazione opportuna, aumenta anche l'ottimizzazione dell'occupazione della memoria.
+ 	\end{itemize}
+ 	Inoltre, i blocchi sono identificati da delimitatori, come le parentesi.\newpage
+ 	
  	\subsubsection{Scope e regole di visibilità}
+ 	
+ 	I blocchi non possono essere parzialmente sovrapposti, ovvero o sono disgiunti o sono annidati. Inoltre, possono esistere dei vincoli di annidamento in funzione del linguaggio. Per \textcolor{Green4}{\textbf{esempio}}, in C non si possono dichiarare procedure dentro altre procedure.\newline
+ 	
+ 	\noindent
+ 	Il blocco \textbf{fissa la visibilità delle dichiarazioni ad un insieme di comandi}. Una \textbf{dichiarazione locale ad un blocco è visibile} (\textcolor{Red3}{\textbf{\emph{scope}}}) in quel blocco e in tutti i blocchi in esso annidati. È evidente che è importante stabilire quali sono le \textbf{regole di visibilità}:
+ 	\begin{boxdef}
+ 		La \textcolor{Red3}{\textbf{regola di visibilità}} è la seguente. Una dichiarazione locale ad un blocco è visibile in quel blocco e in tutti i blocchi in esso annidati, a meno che non intervenga in tali blocchi una nuova dichiarazione dello stesso nome (che nasconde, o maschera, la precedente).
+ 	\end{boxdef}
+ 	
+	\noindent
+	Dalla definizione si deduce che \textbf{ogni definizione annidata genera un buco nello scope precedente}, ovvero nella porzione di codice in cui il \emph{binding} è valido e il nome è utilizzabile con il significato associato.
+	
+	I \emph{binding} annidati creano \textbf{problemi di leggibilità}, rendono più \textbf{complesso l'individuazione del giusto \emph{binding}} e infine possono \textbf{complicare il \emph{debugging}}. Nonostante questa serie di problemi, il \emph{binding} annidato viene utilizzato date l'opportunità ai programmatori di utilizzare i propri nomi, indipendentemente da altre porzioni di codice.
+	
+	\begin{boxdef}
+		Con \textcolor{Red3}{\textbf{scope (statico)}} ci si riferisce all'area di testo del programma (codice) nel quale tutte le occorrenze applicate di un identificatore si riferiscono alla stessa occorrenza di \emph{binding} dell'identificatore. Così facendo, permette di \textbf{legare} un identificatore al \emph{binding} a tempo di compilazione cercandolo nel blocco che testualmente lo contiene.
+	\end{boxdef}\newpage
  	
  	\subsubsection{Tipi di ambienti}
  	
+ 	Lo \textbf{scope di una variabile (definita)} è il range di comandi ai quali è visibile. Una \textbf{variabile} può essere di \textbf{tre tipi}:
+ 	\begin{itemize}
+ 		\item Le \textcolor{Red3}{\textbf{variabili locali}} di un blocco programma sono quelle \textbf{dichiarate nel blocco stesso};
+ 		
+ 		\item Le \textcolor{Red3}{\textbf{variabili non locali}} ad un blocco sono quelle visibili al blocco ma non dichiarate in esso. Sono \textbf{dichiarate nel blocco che le contiene};
+ 		
+ 		\item Le \textcolor{Red3}{\textbf{variabili globali}} sono come variabili non locali, \textbf{dichiarate nel blocco (globale)} che contiene l'intero programma.
+ 	\end{itemize}
+ 	L'esistenza di variabili di tipo diverso rispetto alla regione in cui sono definite determina la caratterizzazione di \textbf{diversi tipi} di \textbf{ambienti}:
+ 	\begin{itemize}
+ 		\item \textcolor{Red3}{\textbf{Ambiente locale}}: le \textbf{associazioni vengono create all'ingresso} del blocco (variabili locali e parametri formali);
+ 		
+ 		\item \textcolor{Red3}{\textbf{Ambiente non locale}}: le \textbf{associazioni vengono ereditate da altri blocchi} e sono dunque visibili al blocco stesso;
+ 		
+ 		\item \textcolor{Red3}{\textbf{Ambiente globale}}: sono le \textbf{associazioni comuni a tutti i blocchi}, ovvero dichiarazioni esplicite di variabili globali, dichiarazioni del blocco più esterno e associazioni esportate da modulo, ecc.
+ 	\end{itemize}\newpage
+ 	
  	\subsubsection{Tempo di vita}
  	
+ 	Le variabili hanno un \textcolor{Red3}{\textbf{tempo di vita}}. Esso consiste nel \textbf{tempo di esecuzione} nel quale tutte le \textbf{occorrenze applicate}, di un identificatore, si \textbf{riferiscono alla stessa locazione di memoria} legata all'identificatore. Quindi, il \textbf{tempo di vita di una variabile inizia quando viene legata ad una specifica cella (allocazione) e termina quando il legame viene sciolto (deallocazione)}.\newline
+ 	
+ 	\noindent
+ 	Esiste una \textbf{differenza} tra \textbf{scope (statico)} e \textbf{tempo di vita (\emph{lifetime})}:
+ 	\begin{itemize}
+ 		\item Lo \textbf{scope} (statico) è un \textbf{concetto spaziale} e viene \textbf{definito a tempo di compilazione};
+ 		
+ 		\item Il \textbf{tempo di vita} (\emph{lifetime}) è un \textbf{concetto temporale} e viene \textbf{definito a tempo di esecuzione}.
+ 	\end{itemize}
+ 	Il \textbf{tempo di vita dipende dal tipo di allocazione} degli identificatori che può essere statico o dinamico. In particolare, durante l'esecuzione, il tempo di vita rappresenta quando un identificatore è utilizzabile. Inoltre, il \textbf{tempo di vita inizia all'entrata di un blocco} e \textbf{termina}:
+ 	\begin{itemize}
+ 		\item All'\textbf{uscita del blocco} se vi è \textbf{allocazione dinamica};
+ 		\item Alla \textbf{fine dell'esecuzione del programma} se vi è \textbf{allocazione statica}.
+ 	\end{itemize}
+ 	Un \textcolor{Green4}{\textbf{esempio}}:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio-tempo_di_vita.pdf}
+ 	\end{figure}\newpage
+ 	
+ 	\noindent
+ 	Un altro \textcolor{Green4}{\textbf{esempio}} più completo è il seguente. Dato il programma:
+ 	\lstinputlisting[language=C]{code/esempio-tempo_di_vita.txt}
+ 	Il grafico della memoria:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/esempio-tempo_di_vita-2.pdf}
+ 	\end{figure}
+ 	
+ 	\noindent
+ 	Le modifiche generate dalle dichiarazioni sono reversibili. All'uscita di un blocco automaticamente tutte le modifiche fatte dalle dichiarazioni vengono annullate tornando esattamente all'ambiente valido prima di entrare nel blocco. I tempi di vita sono diversi perché, anche se i nomi sono gli stessi e legati allo stesso scope, comunque saranno legati a locazioni diversi a causa della deallocazione. Quest'ultima provoca una perdita delle locazioni precedenti e continuando ad allocare, si creano ipoteticamente nuove allocazioni.
+ 	
+ 	\longline
+ 	
  	\subsubsection{Blocchi in $IMP$}
+ 	
+ 	Nel linguaggio $IMP$ è stato inserito il blocco:
+ 	\begin{equation*}
+ 		\textsf{D ; C}
+ 	\end{equation*}
+ 	Il quale, ha gli identificatori in posizione:
+ 	\begin{equation*}
+ 		\begin{array}{lll}
+ 			FI\left(d;c\right) = FI\left(d\right) \cup \left(\frac{FI\left(c\right)}{DI\left(d\right)}\right)\\
+ 			DI\left(d;c\right) = DI\left(c\right) \cup DI\left(d\right)
+ 		\end{array}
+ 	\end{equation*}
+ 	Quindi, nel blocco, tutti gli identificatori liberi della dichiarazione sono liberi, mentre sono liberi gli identificatori del comando che non vengono definiti nella dichiarazione. Invece, per gli identificatori definiti, viene presa l'unione di quelli definiti nella dichiarazione e nel comando.\newline
+ 	
+ 	\noindent
+ 	Le \textbf{regole} in questo caso sono:
+ 	\begin{itemize}
+ 		\item Per la \textbf{semantica statica} è necessario generare l'ambiente statico $\Delta'$ associato alla dichiarazione $d$ e, nell'ambiente statico $\Delta$ del contesto aggiornato, da $\Delta'$, viene verificato che il comando sia ben formato:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-6.pdf}
+ 		\end{figure}
+ 		
+ 		\item Per la \textbf{semantica dinamica}, è necessario elaborare la dichiarazione, la quale può causare \emph{side effects} nella memoria a causa della potenziale definizione di variabili. Successivamente, viene eseguito il comando nell'ambiente modificato della dichiarazione:
+ 		\begin{itemize}
+ 			\item Regola undici:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-11.pdf}
+ 			\end{figure}\newpage
+ 			
+ 			\item In questa regola si vede il concetto di reversibilità. L'ambiente $\rho'$ è temporaneo, così come tutte le modifiche che esegue (anche alla memoria):
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-12.pdf}
+ 			\end{figure}
+ 			
+ 			\item Regola tredici:
+ 			\begin{figure}[!htp]
+ 				\centering
+ 				\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-13.pdf}
+ 			\end{figure}
+ 		\end{itemize}
+ 	\end{itemize}
+ 	Infine, le regole transitive:
+ 	\begin{itemize}
+ 		\item La regola undici e dodici:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-11_12.pdf}
+ 		\end{figure}
+ 		
+ 		\item La regola tredici e dodici:
+ 		\begin{figure}[!htp]
+ 			\centering
+ 			\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-13_12.pdf}
+ 		\end{figure}
+ 	\end{itemize}
+ 	Un \textcolor{Green4}{\textbf{esempio}} è data dalla seguente espressione:
+ 	\begin{equation*}
+ 		\textsf{var x:int=3; x $\coloneq$ x+1}
+ 	\end{equation*}
+ 	La dimostrazione di semantica statica:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/imp_esempio-blocchi-1.pdf}
+ 	\end{figure}\newpage
+
+ 	\noindent
+ 	E infine, la dimostrazione di semantica dinamica:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/imp_esempio-blocchi-2.pdf}
+ 	\end{figure}
+ 	
+ 	\longline
+ 	
+ 	\subsection{Esecuzione ed equivalenza}
+ 	
+ 	Il risultato dell'esecuzione dei comandi è una memoria (finale) con nessun altro comando da eseguire.
+ 	
+ 	\begin{boxdef}
+ 		L'\textcolor{Red3}{\textbf{esecuzione dei comandi}} è descritta nel seguente modo. L'elaborazione è una funzione:
+ 		\begin{equation*}
+ 			Exec: \mathcal{E}^{V} \times \mathsf{Mem} \longrightarrow \mathsf{Mem}
+ 		\end{equation*}
+ 		Che descrive il comportamento dinamico dei comandi restituendo la memoria, che rappresenta il risultato delle trasformazioni effettuate dai comandi eseguiti:
+ 		\begin{equation*}
+ 			Exec\left(\left\langle c,\sigma \right\rangle\right) = \sigma' \hspace{1em} \iff \hspace{1em} \left\langle c,\sigma \right\rangle \longrightarrow* \sigma'
+ 		\end{equation*}
+ 	\end{boxdef}
+ 	
+ 	\noindent
+ 	L'equivalenza ha una quantificazione universale sulle memorie iniziali, ovvero i comandi devono dare lo stesso risultato per ogni possibile memoria iniziale.
+ 	
+ 	\begin{boxdef}
+ 		L'\textcolor{Red3}{\textbf{equivalenza di comandi}} è descritta nel seguente modo. L'equivalenza di comandi è una relazione:
+ 		\begin{equation*}
+ 			\equiv \subseteq \mathcal{E}^{V} \times \mathcal{E}^{V}
+ 		\end{equation*}
+ 		Definita come segue:
+ 		\begin{equation*}
+ 			c_{0} \equiv c_{1} \hspace{1em} \iff \hspace{1em} \forall\sigma : Exec\left(\left\langle c_{0}, \sigma \right\rangle\right) = Exec\left(\left\langle c_{1}, \sigma \right\rangle\right)
+ 		\end{equation*}
+ 	\end{boxdef}
 \end{document}
