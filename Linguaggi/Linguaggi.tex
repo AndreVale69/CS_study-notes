@@ -2947,5 +2947,89 @@ Even integers
  		\begin{equation*}
  			d_{0} \equiv d_{1} \iff \forall \sigma. \: Elab\left(\langle d_{0},\sigma \rangle\right) = Elab\left(\langle d_{1},\sigma \rangle\right)
  		\end{equation*}
+ 	\end{boxdef}\newpage
+ 	
+ 	\subsection{Comandi in $IMP$}
+ 	
+ 	Si introducono i comandi nel linguaggio $IMP$ presentando la grammatica:
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=.7\textwidth]{img/comandi_imp.pdf}
+ 	\end{figure}
+ 	
+ 	\begin{itemize}
+ 		\item \textsf{C} indica la \textbf{categoria sintattica dei comandi}, la quale deve operare per trasformare lo stato, cioè la memoria;
+ 		
+ 		\item \textsf{skip} è un \textbf{comando nullo} e non esegue nessuna trasformazione. È utile come elemento neutro della composizione sequenziale di comandi;
+ 		
+ 		\item \textsf{I $\coloneq$ E} è l'\textbf{assegnamento}, ovvero il comando base dei linguaggi imperativi. Indica l'assegnamento del valore di un'espressione (valore a destra, chiamato \emph{r-value}) ad un identificatore (valore a sinistra, chiamato \emph{l-value}). Quindi, rappresenta il comando primitivo per l'aggiornamento delle variabili;
+ 		
+ 		\item \textsf{;} è la \textbf{composizione sequenziale}, ovvero tutte le trasformazioni eseguite dal primo comando sono il punto di partenza per le trasformazioni che deve eseguire il secondo comando;
+ 		
+ 		\item \textsf{if B then C else C} e \textsf{while B do C}, sono due comandi di \textbf{controllo sequenza}, cioè consentono di decidere tra percorsi diversi:
+ 		\begin{itemize}
+ 			\item \textsf{if B then C else C} è il comando \textbf{condizionale} e consente di scegliere quale dei due possibili comandi eseguire, in funzione del valore (booleano) di un'espressione detta guardia (chiamato anche selettore a due vie).
+ 			
+ 			\item \textsf{while B do C} è il comando \textbf{iterativo} e consente di ripete l'esecuzione di un comando finché il valore della guardia (espressione booleana) rimane vera.
+ 		\end{itemize}
+ 		
+ 		\item \textsf{D ; C} è il blocco che crea un ambiente locale al comando.
+ 	\end{itemize}\newpage
+ 	
+ 	\subsection{Semantica}
+ 	
+ 	Per dare \textcolor{Red3}{\textbf{semantica}} ai comandi, viene introdotto il sistema di transizione. Esso ha come risultato una nuova configurazione contenete i comandi rimanenti da eseguire e la memoria risultante dalla trasformazione.\newline
+ 	
+ 	\noindent
+ 	\begin{boxdef}
+ 		Il \textcolor{Red3}{\textbf{sistema di transizione}} è identificato nel seguente modo:
+ 		\begin{equation*}
+ 			I^{V} = \mathcal{E}^{V} \times \mathrm{Mem} \cup \mathrm{Mem}, T^{V} = \mathrm{Mem}
+ 		\end{equation*}
  	\end{boxdef}
+ 	
+ 	\noindent
+ 	La \textbf{struttura generale} delle regole di transizione dei comandi è:
+ 	\begin{equation*}
+ 		c_{i} : \rho \vdash_{\Delta} \left\langle \mathsf{c}, \mathsf{\sigma} \right\rangle \longrightarrow_{c} \left\langle \mathsf{c}', \mathsf{\sigma}' \right\rangle
+ 	\end{equation*}
+ 	\begin{itemize}
+ 		\item $\rho$ è l'\textbf{ambiente esterno dinamico} che associa valori e/o locazioni agli identificatori;
+ 		
+ 		\item $\Delta$ è l'\textbf{ambiente statico} compatibile con $\rho$ e garantisce la correttezza dei vincoli semantici, come ad esempio i vincoli di tipo.
+ 		
+ 		\item $\left\langle \mathsf{c}, \mathsf{\sigma} \right\rangle \longrightarrow_{c} \left\langle \mathsf{c}', \mathsf{\sigma}' \right\rangle$, vengono definite regole, identificate dal pedice $c$, che a partire da una configurazione che deve eseguire $c$ a partire dalla \textbf{memoria iniziale} $\mathsf{\sigma}$, restituisce $\mathsf{c}'$ e la \textbf{memoria risultante} $\mathsf{\sigma}'$ potenzialmente trasformata.
+ 	\end{itemize}
+ 	
+ 	\longline
+ 	
+ 	\subsection{Assegnamento e semantica statica/dinamica}
+ 	
+ 	\subsection{Strutture di controllo}
+ 	
+ 	\subsubsection{Selettori}
+ 	
+ 	\subsubsection{Condizionale in $IMP$: \emph{if-then-else}}
+ 	
+ 	\subsection{Composizione e regole transitive}
+ 	
+ 	\subsection{Altre strutture di controllo}
+ 	
+ 	\subsubsection{Comandi iterativi}
+ 	
+ 	\subsubsection{Iterazione in $IMP$: \emph{while}}
+ 	
+ 	\subsection{Esecuzione ed equivalenza senza blocchi}
+ 	
+ 	\subsection{Blocchi}
+ 	
+ 	\subsubsection{Integrazione di ambienti e memorie}
+ 	
+ 	\subsubsection{Scope e regole di visibilità}
+ 	
+ 	\subsubsection{Tipi di ambienti}
+ 	
+ 	\subsubsection{Tempo di vita}
+ 	
+ 	\subsubsection{Blocchi in $IMP$}
 \end{document}
