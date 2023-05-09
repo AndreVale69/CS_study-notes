@@ -273,9 +273,7 @@
 		\centering
 		\includegraphics[width=.75\textwidth]{img/fasi_esecuzione.png}
 		\caption{Ciclo di esecuzione delle istruzioni.}
-	\end{figure}
-
-	\longline\newpage
+	\end{figure}\newpage
 
 	\subsubsection{Macchina astratta}
 
@@ -1394,22 +1392,28 @@ P:
 	Si introducono le prime tre \textbf{regole necessarie per \underline{valutare espressioni aritmetiche}}:
 	\begin{itemize}
 		\item È un \underline{assioma} e \textbf{valuta l'espressione sintattica contenente un operatore aritmetico nel valore che esso rappresenta}. Per esempio, l'espressione $3+5$ viene valutata letteralmente come il valore $3$, l'operazione di somma $+$ e il valore $5$.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.65\textwidth]{img/regola_transizione-1.pdf}
-		\end{figure}
+		\begin{gather*}
+			\mathcal{E}_{1}: \:\: \mathrm{m} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{n} \rightarrow \mathrm{p} \hspace{1em} \mathrm{se} \hspace{1em} \mathrm{m} \:\: \mathrm{op} \:\: \mathrm{n} = \mathrm{p}, \\
+			\mathrm{m,n,p} \in \mathcal{N}
+		\end{gather*}
 		
 		\item È una \underline{regola induttiva} e indica che \textbf{se gli operandi non sono valori primitivi allora è necessario valutarli}.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.65\textwidth]{img/regola_transizione-2.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{2}: \dfrac{
+			\mathrm{e} \rightarrow \mathrm{e}'
+			}{
+			\mathrm{e} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e}_{0} \rightarrow \mathrm{e}' \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e}_{0}
+			}
+		\end{equation*}
 		
 		\item La regola stabilisce che \textbf{nel momento in cui l'operando a sinistra è un valore allora è possibile iniziare a valutare l'operando a destra}. Ovviamente se anche l'operatore a destra è un valore allora si ricade nella prima regola ed è possibile restituire il valore finale.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.65\textwidth]{img/regola_transizione-3.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{3} : \dfrac{
+				\mathrm{e} \rightarrow \mathrm{e}'
+			}{
+				\mathrm{m} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e} \rightarrow \mathrm{m} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 	\end{itemize}\newpage
 	
 	\begin{figure}[!htp]
@@ -1434,34 +1438,42 @@ P:
 	Si continua con le regole necessarie per valutare le espressioni booleane (ricordando che \textbf{bop} è il simbolo sintattico di un'operazione e bop è il simbolo dell'operazione nella macchina sottostante):
 	\begin{itemize}
 		\item È un \underline{assioma} che \textbf{valuta l'espressione sintattica contenente un operatore, nel valore che esso rappresenta}. Ovviamente con valori booleani, i valori coinvolti devono essere tali.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.65\textwidth]{img/regola_transizione-4.pdf}
-		\end{figure}
+		\begin{gather*}
+			\mathcal{E}_{4} : \:\: \mathrm{k}_{1} \:\: \textcolor{Red3}{\mathbf{bop}} \:\: \mathrm{k}_{2} \rightarrow \mathrm{t} \hspace{1em} \mathrm{se} \hspace{1em} \mathrm{k}_{1} \:\: \mathrm{bop} \:\: \mathrm{k}_{2} = \mathrm{t}, \\
+			\mathrm{k_{1}, k_{2}} \in \mathcal{B} \cup \mathcal{N}, \hspace{1em} \mathrm{t} \in \mathcal{B}, \hspace{1em} \textcolor{Red3}{\mathbf{bop}} \in \left\{=, \mathrm{or}\right\}
+		\end{gather*}
 		
 		\item Questa regola è una modifica alla precedente poiché \textbf{ammette che l'espressione contenga operatori binari booleani}. L'ordine di valutazione è da sinistra verso destra.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.65\textwidth]{img/regola_transizione-3b.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{3'} : \dfrac{
+				\mathrm{e} \rightarrow \mathrm{e}'
+			}{
+				\mathrm{e} \:\: \textcolor{Red3}{\mathbf{bop}} \:\: \mathrm{e}_{0} \rightarrow \mathrm{e}' \:\: \textcolor{Red3}{\mathbf{bop}} \:\: \mathrm{e}_{0}
+			}
+		\end{equation*}
 		
 		\item Questa regola stabilisce che nel momento in cui l'\textbf{operando a sinistra è un valore booleano allora è possibile iniziare a valutare l'operando a destra}. Ovviamente, se l'operatore a destra è un valore booleano, allora si ricade nell'assioma $\mathcal{E}_{4}$ ed è possibile restituire il valore finale.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.65\textwidth]{img/regola_transizione-5.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{5} : \dfrac{
+				\mathrm{e} \rightarrow \mathrm{e}'
+			}{
+				\mathrm{t} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e} \rightarrow \mathrm{t} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 		
 		\item Nel caso booleano è necessario aggiungere la \textbf{regola per l'operatore unario}. Quindi si crea l'\underline{assioma} che \textbf{restituisce il valore corrispondente all'applicazione dell'operatore sul valore rappresentato}.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.65\textwidth]{img/regola_transizione-6.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{6} : \:\: \textcolor{Red3}{\mathbf{not}} \:\: \mathrm{t}_{1} \rightarrow \mathrm{t} \hspace{1em} \mathrm{se} \hspace{1em} \mathrm{not} \:\: \mathrm{t}_{1} = \mathrm{t}, \mathrm{t}_{1} \in \mathcal{B}
+		\end{equation*}
 		
 		\item Sempre nel caso booleano, si deve creare la \textbf{regola di valutazione}, analoga alle precedenti.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.65\textwidth]{img/regola_transizione-7.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{7} : \dfrac{
+				\mathrm{e} \rightarrow \mathrm{e}'
+			}{
+				\textcolor{Red3}{\mathbf{not}} \:\: \mathrm{e} \rightarrow \textcolor{Red3}{\mathbf{not}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 	\end{itemize}\newpage
 	
 	\subsection{Valutazione ed equivalenza}
@@ -1725,10 +1737,14 @@ void f(){...};\end{lstlisting}
 	\subsubsection{Espressioni con identificatori}
 	
 	Le espressioni arricchite con la semantica degli identificatori è la seguente. La sintassi è la grammatica completa delle espressioni:
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.8\textwidth]{img/espressioni-identificatori.pdf}
-	\end{figure}
+	\begin{equation*}
+		\begin{array}{rll}
+			\mathrm{<Exp>} & & \\
+			\mathrm{E} & \rightarrow & \mathrm{A} \:\: | \:\: \mathrm{B} \\
+			\mathrm{A} & \rightarrow & \mathrm{I} \:\: | \:\: \mathrm{n} \:\: | \:\: \mathrm{A} \: \mathrm{op} \: \mathrm{A} \\
+			\mathrm{B} & \rightarrow & \mathrm{I} \:\: | \:\: \mathrm{true} \:\: | \:\: \mathrm{false} \:\: | \:\: \mathrm{not} \: \mathrm{B} \:\: | \:\: \mathrm{B} \: \mathrm{or} \: \mathrm{B} \:\: | \:\: \mathrm{A} = \mathrm{A}
+		\end{array}
+	\end{equation*}
 	
 	\noindent
 	Poi si definisce l'insieme $\mathcal{E}^{V}$ delle espressioni (con identificatori) valutate ad intero o booleano. Quindi, il sistema di transizione diventa:
@@ -1736,10 +1752,9 @@ void f(){...};\end{lstlisting}
 		\Gamma = \mathcal{E}^{V}, \hspace{1em} T = \mathcal{N} \cup \mathcal{B}, \hspace{1em} \mathrm{op} \in \left\{+,-,*,=\right\}, \hspace{1em} \mathrm{bop} \in \left\{=, or\right\}
 	\end{equation*}
 	Inoltre, le regole definite nel paragrafo \ref{regole di transizione} devono essere riscritte integrando l'ambiente. Tutte le regole $\mathcal{E}_{i}$ diventano:
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.4\textwidth]{img/regole_arricchite.pdf}
-	\end{figure}
+	\begin{equation*}
+		\mathcal{E}_{\mathrm{i}} : \:\: \textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \mathrm{e}'
+	\end{equation*}
 
 	\noindent
 	In cui $\rho$ è l'ambiente di valutazione delle espressioni, ovvero la specifica dell'associazione tra identificatori e oggetti denotati, e il pedice della freccia ($\rightarrow_{e}$) denota quale sistema di transizione si sta utilizzando.\newpage
@@ -1757,58 +1772,72 @@ void f(){...};\end{lstlisting}
 	Per una descrizione dettagliata delle regole si rimanda al paragrafo \ref{regole di transizione}:
 	\begin{itemize}
 		\item La prima regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-1.pdf}
-		\end{figure}
+		\begin{gather*}
+			\mathcal{E}_{1} : \:\: \textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{m} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{k} \: \rightarrow_{e} \: \mathrm{p} \\
+			\mathrm{se} \hspace{1em} \mathrm{m} \:\: \mathrm{op} \:\: \mathrm{n} = \mathrm{k}, \hspace{1em} \mathrm{m,n} \in \mathcal{N}, \hspace{1em} \mathrm{k} \in \mathcal{N} \cup \mathcal{B}
+		\end{gather*}
 		
 		\item La seconda regola cambia, in quanto ora è necessario l'assioma per gli identificatori. In questo \textbf{assioma}, quando si incontra un identificatore, questo viene valutato nel valore che l'ambiente associa all'identificatore. Ovviamente, questa regola è applicabile solo se $I$ è un identificatore per il quale $\rho$ esiste un'associazione.
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-2.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{2} : \:\: \textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{I} \: \rightarrow_{\mathrm{e}} \: \mathrm{n} \hspace{1em} \mathrm{se} \hspace{1em} \rho\left(\mathrm{I}\right) = \mathrm{n}
+		\end{equation*}
 		
 		\item La terza regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-3.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{3} : \dfrac{
+			\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \mathrm{e}'
+			}{
+			\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{e} \:\: \textcolor{Red3}{\mathrm{\mathbf{op}}} \:\: \mathrm{e}_{0} \: \rightarrow_{\mathrm{e}} \: \mathrm{e}' \:\: \textcolor{Red3}{\mathrm{\mathbf{op}}} \:\: \mathrm{e}_{0}
+			}
+		\end{equation*}
 		
 		\item La quarta regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-4.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{4} : \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{m} \:\: \textcolor{Red3}{\mathrm{\mathbf{op}}} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \mathrm{m} \:\: \textcolor{Red3}{\mathrm{\mathbf{op}}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 		
 		\item La quinta regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-5.pdf}
-		\end{figure}
+		\begin{gather*}
+			\mathcal{E}_{5} : \:\: \textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{k}_{1} \:\: \textcolor{Red3}{\mathbf{bop}} \:\: \mathrm{k}_{2} \: \rightarrow_{\mathrm{e}} \: \mathrm{t} \\
+			\mathrm{se} \hspace{1em} \mathrm{k}_{1} \:\: \mathrm{bop} \:\: \mathrm{k}_{2} = \mathrm{t}, \hspace{1em} \mathrm{k_{1},k_{2}} \in \mathcal{N} \cup \mathcal{B}, \hspace{1em} \mathrm{t} \in \mathcal{B}
+		\end{gather*}
 		
 		\item La terza regola aggiornata:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-3b.pdf}
-		\end{figure}\newpage
+		\begin{equation*}
+			\mathcal{E}_{3'} : \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{e} \:\: \textcolor{Red3}{\mathrm{\mathbf{bop}}} \:\: \mathrm{e}_{0} \: \rightarrow_{\mathrm{e}} \: \mathrm{e}' \:\: \textcolor{Red3}{\mathrm{\mathbf{bop}}} \:\: \mathrm{e}_{0}
+			}
+		\end{equation*}
 		
 		\item La sesta regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-6.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{6} : \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{k} \:\: \textcolor{Red3}{\mathrm{\mathbf{bop}}} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \mathrm{k} \:\: \textcolor{Red3}{\mathrm{\mathbf{bop}}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 		
 		\item La settima regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-7.pdf}
-		\end{figure}
+		\begin{gather*}
+			\mathcal{E}_{7} : \:\: \textcolor{Red3}{\rho \:\: \vdash \:\: \mathbf{not}} \:\: \mathrm{t}_{1} \: \rightarrow_{\mathrm{e}} \: \mathrm{t} \\
+			\mathrm{se} \hspace{1em} \mathrm{not} \:\: \mathrm{t}_{1} = \mathrm{t}, \hspace{1em} \mathrm{t}_{1} \in \mathcal{B}
+		\end{gather*}
 		
 		\item L'ottava regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-8.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{8} : \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash \:\: \mathbf{not}} \:\: \mathrm{e} \: \rightarrow_{\mathrm{e}} \: \textcolor{Red3}{\mathbf{not}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 	\end{itemize}\newpage
 
 	
@@ -1882,10 +1911,9 @@ Even integers
 		\tau \in DTyp = \left\{\textsf{int}, \textsf{bool}, \bot\right\}
 	\end{equation*}
 	Quindi, la semantica statica è un \textbf{insieme di regole che consentono di associare un tipo ad ogni espressione corretta}; in questo caso l'espressione viene detta \textcolor{Red3}{\textbf{ben formata}}. Inoltre, le regole della semantica statica hanno la seguente forma:\label{ben formata}
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.3\textwidth]{img/semantica_statica.pdf}
-	\end{figure}
+	\begin{equation*}
+		\mathcal{E} \mathrm{s_{i}} : \:\: \textcolor{Red3}{\mathbf{\Delta \vdash_{V}}} \:\: \mathrm{e} : \tau
+	\end{equation*}
 	
 	\noindent
 	\begin{itemize}
@@ -1900,49 +1928,59 @@ Even integers
 	Si introducono le \textcolor{Red3}{\textbf{regole della semantica statica delle espressioni}}. Le prime tre regole sono assiomi, mentre le restanti riguardano operazioni booleane e aritmetiche. Esse vengono definite usando delle funzioni che determinano il tipo del risultato di un operatore booleano o aritmetico in funzione del tipo degli operandi:
 	\begin{itemize}
 		\item La prima regola è un \textbf{assioma} e dice che nell'ambiente vuoto, cioè qualsiasi, un numero ha tipo intero (int):
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.3\textwidth]{img/regola_semantica-1.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}\mathrm{s}_{1} : \:\: \textcolor{Red3}{\vdash} \:\: \mathrm{n}:\mathrm{int}
+		\end{equation*}
 	
 		\item La seconda regola è un \textbf{assioma} e dice che nell'ambiente vuoto, cioè qualsiasi, una costante booleana ha tipo booleano (bool):
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.3\textwidth]{img/regola_semantica-2.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}\mathrm{s}_{2} : \:\: \textcolor{Red3}{\vdash} \:\: \mathrm{t}:\mathrm{bool}
+		\end{equation*}
 	
 		\item La terza regola è un \textbf{assioma} e riguarda gli identificatori. In questo caso, la regola determina che l'identificatore ha come tipo proprio quello che l'ambiente statico $\delta$ del contesto gli associa:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_semantica-3.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}\mathrm{s}_{3} : \:\: \textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{I}:\tau \hspace{1em} \mathrm{se} \:\: \textcolor{Red3}{\Delta}\left(\mathrm{I}\right) = \tau, \:\: \mathrm{I} \in \mathrm{V}
+		\end{equation*}
 	
 		\item La quarta regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_semantica-4.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}\mathrm{s}_{4}: \dfrac{
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{1}:\mathrm{bool} \hspace{1em}
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{2}:\mathrm{bool}
+			}{
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{1} \:\: \mathbf{or} \:\: \mathrm{e}_{2}: \:\: \mathrm{bool}
+			}
+		\end{equation*}
 	
 		\item La quinta regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_semantica-5.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}\mathrm{s}_{5}: \dfrac{
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{1}:\mathrm{int} \hspace{1em}
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{2}:\mathrm{int}
+			}{
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{1} \:\: \mathbf{op} \:\: \mathrm{e}_{2}: \:\: \mathrm{int}
+			}
+		\end{equation*}
 	
 		\item La sesta regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.5\textwidth]{img/regola_semantica-6.pdf}
-		\end{figure}\newpage
+		\begin{equation*}
+			\mathcal{E}\mathrm{s}_{6}: \dfrac{
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{0}:\mathrm{bool}
+			}{
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathbf{not} \:\: \mathrm{e}_{0}: \:\: \mathrm{bool}
+			}
+		\end{equation*}
 	
 		\item La settima regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.5\textwidth]{img/regola_semantica-7.pdf}
-		\end{figure}
-	\end{itemize}
-	
-	\longline
+		\begin{equation*}
+			\mathcal{E}\mathrm{s}_{7} : \dfrac{
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{1}:\mathrm{int} \hspace{1em}
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{2}:\mathrm{int}
+			}{
+				\textcolor{Red3}{\Delta\vdash_{\mathrm{V}}} \:\: \mathrm{e}_{1} = \mathrm{e}_{2}: \:\: \mathrm{bool}
+			}
+		\end{equation*}
+	\end{itemize}\newpage
 	
 	\subsection{Compatibilità di ambienti e regole aggiornate}
 	
@@ -1969,52 +2007,66 @@ Even integers
 	A seguito dell'aggiornamento con l'ambiente statico, si espongono le regole (paragrafo~\ref{nuove regole}) aggiornate tenendo in considerazione $op \in \left\{+,-,*,=\right\}$ e $bop \in \left\{or,=\right\}$:
 	\begin{itemize}
 		\item La prima regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-1.pdf}
-		\end{figure}
+		\begin{gather*}
+			\mathcal{E}_{1} : \:\: \textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{m} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{n} \rightarrow_{\mathrm{e}} \mathrm{k} \\
+			\mathrm{se} \hspace{1em} \mathrm{m} \:\: \mathrm{op} \:\: \mathrm{n} = \mathrm{k}, \hspace{1em} \mathrm{m,n} \in \mathcal{N} \hspace{1em} \mathrm{k} \in \mathcal{B} \cup \mathcal{N}
+		\end{gather*}
 		
 		\item La seconda regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-2.pdf}
-		\end{figure}\newpage
+		\begin{equation*}
+			\mathcal{E}_{2} : \:\: \textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{I} \rightarrow_{\mathrm{e}} \mathrm{n} \hspace{1em} \mathrm{se} \hspace{1em} \rho\left(\mathrm{I}\right) = \mathrm{n}
+		\end{equation*}
 		
 		\item La terza regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-3.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{3} : \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{e} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e}_{0} \rightarrow_{\mathrm{e}} \mathrm{e}' \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e}_{0}
+			}
+		\end{equation*}
 		
 		\item La quarta regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-4.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{4} : \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{m} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \mathrm{m} \:\: \textcolor{Red3}{\mathbf{op}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 		
 		\item La terza regola aggiornata:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-5.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{3'} : \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{e} \:\: \textcolor{Red3}{\mathbf{bop}} \:\: \mathrm{e}_{0} \rightarrow_{\mathrm{e}} \mathrm{e}' \:\: \textcolor{Red3}{\mathbf{bop}} \:\: \mathrm{e}_{0}
+			}
+		\end{equation*}\newpage
 		
 		\item La sesta regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-6.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{6} : \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{k} \:\: \textcolor{Red3}{\mathbf{bop}} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \mathrm{t} \:\: \textcolor{Red3}{\mathbf{bop}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 		
 		\item La settima regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-7.pdf}
-		\end{figure}
+		\begin{gather*}
+			\mathcal{E}_{7}: \textcolor{Red3}{\rho \:\: \vdash_{\Delta} \:\: \mathbf{not}} \:\: \mathrm{t}_{1} \rightarrow_{\mathrm{e}} \mathrm{t} \\
+			\mathrm{se} \hspace{1em} \mathrm{not} \:\: \mathrm{t}_{1} = \mathrm{t}, \hspace{1em} \mathrm{t}_{1} \in \mathcal{B}
+		\end{gather*}
 		
 		\item L'ottava regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_espressione-mod-8.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{E}_{8}: \dfrac{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \mathrm{e}'
+			}{
+				\textcolor{Red3}{\rho \:\: \vdash_{\Delta} \:\: \mathbf{not}} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \textcolor{Red3}{\mathbf{not}} \:\: \mathrm{e}'
+			}
+		\end{equation*}
 	\end{itemize}\newpage
 	
 	\subsection{Dichiarazioni in $IMP$}
@@ -2150,11 +2202,10 @@ Even integers
 	\subsubsection{Semantica statica delle dichiarazioni}
 	
 	Per le dichiarazioni, la \textbf{semantica statica deve associare un ambiente statico ad ogni dichiarazione scritta correttamente} (chiamata ben formata). Le regole, sempre per quanto riguarda le dichiarazioni, dovranno avere la seguente forma:
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.3\textwidth]{img/semantica_statica_dichiarazioni.pdf}
-	\end{figure}
-
+	\begin{equation*}
+		\mathcal{D}\mathrm{s}_{\mathrm{i}}: \:\: \textcolor{Red3}{\Delta\vdash_{V}} \:\: \mathrm{d}:\Delta
+	\end{equation*}
+	
 	\noindent
 	Vuol dire che nel sistema di regole è possibile associare l'ambiente statico $\Delta$ alla dichiarazione $d$, se questa è ben formata.\newline
 	
@@ -2162,22 +2213,23 @@ Even integers
 	Si introducono qua di seguito le \textbf{regole}:
 	\begin{itemize}
 		\item La \textbf{dichiarazione vuota} genera un ambiente vuoto:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.3\textwidth]{img/semantica_statica_dichiarazioni-1.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}\mathrm{s}_{1}: \:\: \textcolor{Red3}{\vdash} \:\: \mathrm{nil}:\emptyset
+		\end{equation*}
 		
 		\item Con un \textbf{ambiente dinamico}, l'ambiente statico associato è quello compatibile, ovvero quello che associa agli identificatori esattamente i tipi dei valori che l'ambiente dinamico associa:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.4\textwidth]{img/semantica_statica_dichiarazioni-2.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}\mathrm{s}_{2}: \:\: \textcolor{Red3}{\vdash} \:\: \rho:\Delta \hspace{1em} \mathrm{se} \hspace{1em} \rho \vdash_{\Delta}
+		\end{equation*}
 		
 		\item Nella \textbf{dichiarazione di costante}, il tipo da associare è stabilito esplicitamente dalla dichiarazione. Quest'ultima viene detta ben formata se rispetta quanto scritto a pagina~\ref{ben formata} ed è esattamente del tipo $\tau$ presente nella dichiarazione. In tal caso l'ambiente statico corrispondente è esattamente l'associazione di $\tau$ all'identificatore definito $x$:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.5\textwidth]{img/semantica_statica_dichiarazioni-3.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}\mathrm{s}_{3} : \dfrac{
+				\Delta\vdash_{\mathrm{V}} \:\: \mathrm{e}:\tau
+			}{
+				\Delta\vdash_{\mathrm{V}} \:\: \mathbf{const} \:\: \mathrm{x}:\tau = \mathrm{e} : \left[\mathrm{x} \leftarrow \tau\right]
+			}
+		\end{equation*}
 	\end{itemize}\newpage
 
 	\noindent
@@ -2197,10 +2249,13 @@ Even integers
 	
 	\noindent
 	Quindi, la regola della \textbf{\underline{composizione privata}} è la seguente:
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.6\textwidth]{img/semantica_statica_dichiarazioni-4.pdf}
-	\end{figure}
+	\begin{equation*}
+		\mathcal{D}\mathrm{s}_{4} : \dfrac{
+			\Delta\vdash_{\mathrm{V}} \: \mathrm{d}_{1}:\Delta_{1} \hspace{1em} \Delta\left[\Delta_{1}\right] \vdash_{V \cup V'} \: \mathrm{d}_{2} : \Delta_{2}
+		}{
+			\Delta\vdash_{\mathrm{V}} \: \mathrm{d}_{1} \hspace{1em} \mathbf{in} \hspace{1em} \mathrm{d}_{2}:\Delta_{2}
+		}
+	\end{equation*}
 	
 	\noindent
 	In cui $V'$ è il dominio dell'ambiente $\Delta_{1}$. Nelle premesse si trova:
@@ -2208,14 +2263,17 @@ Even integers
 		\item L'ambiente statico $\Delta_{1}$ associato alla dichiarazione $d_{1}$ se questa è ben formata. Successivamente, questo ambiente viene utilizzato per aggiornare l'ambiente contestuale con le nuove associazioni create da $d_{1}$.
 		
 		\item L'ambiente statico risultante viene utilizzato per associare l'ambiente $\Delta_{2}$ alla dichiarazione $d_{2}$. A questo punto, l'ambiente associato alla dichiarazione composta è solo l'ambiente associato alla dichiarazione $d_{2}$, in quanto $d_{1}$ (e quindi $\Delta_{1}$) è esclusivamente visibile/utilizzabile per l'elaborazione di $d_{2}$.
-	\end{itemize}\newpage
+	\end{itemize}
 
 	\noindent
 	La \textbf{semantica statica per la \underline{composizione sequenziale}} ha la seguente regola:
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.6\textwidth]{img/semantica_statica_dichiarazioni-5.pdf}
-	\end{figure}
+	\begin{equation*}
+		\mathcal{D}\mathrm{s}_{5} : \dfrac{
+			\Delta\vdash_{\mathrm{V}} \: \mathrm{d}_{1}:\Delta_{1} \hspace{1em} \Delta\left[\Delta_{1}\right] \vdash_{V \cup V'} \: \mathrm{d}_{2} : \Delta_{2}
+		}{
+			\Delta\vdash_{\mathrm{V}} \: \mathrm{d}_{1} \mathbf{;} \mathrm{d}_{2}:\Delta_{1}\left[\Delta_{2}\right]
+		}
+	\end{equation*}
 	
 	\noindent
 	In cui $V'$ è il dominio dell'ambiente $\Delta_{1}$. Nelle premesse:
@@ -2267,10 +2325,9 @@ Even integers
 
 	\noindent
 	Le regole del sistema di transizione vanno definite induttivamente sulla struttura sintattica delle dichiarazioni. Le \textbf{regole} avranno la forma:
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.4\textwidth]{img/sistema_di_transizione.pdf}
-	\end{figure}
+	\begin{equation*}
+		\mathcal{D}_{\mathrm{i}} : \textcolor{Red3}{\rho \:\: \vdash_{\Delta}} \:\: \mathrm{d} \rightarrow_{\mathrm{d}} \mathrm{d}'
+	\end{equation*}
 
 	\begin{itemize}
 		\item $\rho$ è l'\textbf{ambiente} nel quale viene elaborata la dichiarazione compatibile con l'ambiente statico $\Delta$;
@@ -2282,63 +2339,76 @@ Even integers
 	
 	\begin{itemize}
 		\item La prima regola è un \textbf{assioma} che evidenzia come la dichiarazione nulla viene elaborata nell'ambiente dinamico vuoto:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.3\textwidth]{img/regola_dichiarazione-1.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}_{1} : \:\: \vdash \:\: \mathbf{nil} \:\: \rightarrow_{\mathrm{d}} \emptyset
+		\end{equation*}
 	
 		\item La seconda regola è un'\textbf{assioma} che evidenzia come la dichiarazione costante (ben formata) viene elaborata nell'ambiente che associa all'identificatore definito dalla dichiarazione, il valore inserito nella dichiarazione per l'inizializzazione.\newline
 		Ovviamente, se nella dichiarazione l'identificatore viene inizializzato con un'espressione non valutata, è necessario prima valutare l'espressione così da arrivare ad un valore costante e poter applicare l'assioma:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_dichiarazione-2.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}_{2}: \:\: \rho \:\: \vdash_{\Delta} \:\: \mathbf{const} \:\: \mathrm{x} : \tau = \mathrm{k} \rightarrow_{\mathrm{d}} \left[\mathrm{x} = \mathrm{k}\right]
+		\end{equation*}
 	
 		\item La terza regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.7\textwidth]{img/regola_dichiarazione-3.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}_{3}: \dfrac{
+				\rho \:\: \vdash_{\Delta} \:\: \mathrm{e} \rightarrow_{\mathrm{e}} \mathrm{e}'
+			}{
+				\rho \:\: \vdash_{\Delta} \:\: \mathbf{const} \:\: \mathrm{x} : \tau = \mathrm{e} \:\: \rightarrow_{\mathrm{d}} \:\: \mathbf{const} \:\: \mathrm{x} : \tau = \mathrm{e}'
+			}
+		\end{equation*}
 	\end{itemize}
 	Le seguenti regole riguardano la \textbf{composizione sequenziale}:
 	\begin{itemize}
 		\item La quarta regola dice di elaborare completamente la dichiarazione a sinistra in un ambiente $\rho$:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.4\textwidth]{img/regola_dichiarazione-4.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}_{4}: \dfrac{
+				\rho \:\: \vdash_{\Delta} \:\: \mathrm{d} \rightarrow_{\mathrm{d}} \mathrm{d}'
+			}{
+				\rho \:\: \vdash_{\Delta} \:\: \mathrm{d} ; \mathrm{d}_{1} \rightarrow_{\mathrm{d}} \mathrm{d}'; \mathrm{d}_{1}
+			}
+		\end{equation*}
 		
 		\item La quinta regola segue la precedente poiché qui è necessario valutare la dichiarazione a destra ed elaborarla in un ambiente esterno $\rho$ aggiornato da quello restituito dalla prima dichiarazione $\rho_{0}$, ovvero $\rho\left[\rho_{0}\right]$:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-5.pdf}
-		\end{figure}\newpage
+		\begin{equation*}
+			\mathcal{D}_{5} : \dfrac{
+				\rho\left[\rho_{0}\right] \:\: \vdash_{\Delta\left[\Delta_{0}\right]} \:\: \mathrm{d}_{1} \rightarrow_{\mathrm{d}} \mathrm{d}_{1'}
+			}{
+				\rho \:\: \vdash_{\Delta} \:\: \rho_{0} ; \mathrm{d}_{1} \rightarrow_{\mathrm{d}} \rho_{0} ; \mathrm{d}_{1'}
+			}
+		\end{equation*}
 		
 		\item La sesta regola conclude la composizione sequenziale ed è un \textbf{assioma} che consente di ottenere l'ambiente associato alla prima dichiarazione $\rho_{0}$ aggiornato dall'ambiente associato alla seconda dichiarazione $\rho_{1}$, ovvero $\rho_{0}\left[\rho_{1}\right]$:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-6.pdf}
-		\end{figure}
-	\end{itemize}
+		\begin{equation*}
+			\mathcal{D}_{6} : \:\: \rho \:\: \vdash_{\Delta} \:\: \rho_{0} ; \rho_{1} \rightarrow_{\mathrm{d}} \rho_{0}\left[\rho_{1}\right]
+		\end{equation*}
+	\end{itemize}\newpage
+	
+	\noindent
 	Per la \textbf{composizione privata}, le regole sono le stesse della composizione sequenziale. L'unica differenza è che quando entrambe le dichiarazioni sono state elaborate, solo l'ambiente associato alla seconda dichiarazione $\rho_{1}$ viene restituito come ambiente risultante:
 	\begin{itemize}
 		\item La settima regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_dichiarazione-7.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}_{7} : \dfrac{
+				\rho \:\: \vdash_{\Delta} \:\: \mathrm{d} \rightarrow_{\mathrm{d}} \mathrm{d}'
+			}{
+				\rho \:\: \vdash_{\Delta} \:\: \mathrm{d} \:\: \mathbf{in} \:\: \mathrm{d}_{1} \rightarrow_{\mathrm{d}} \mathrm{d}' \:\: \mathbf{in} \:\: \mathrm{d}_{1}
+			}
+		\end{equation*}
 		
 		\item L'ottava regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.6\textwidth]{img/regola_dichiarazione-8.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}_{8} : \dfrac{
+				\rho\left[\rho_{0}\right] \:\: \vdash_{\Delta\left[\Delta_{0}\right]} \:\: \mathrm{d}_{1} \rightarrow_{\mathrm{d}} \mathrm{d}_{1'}
+			}{
+				\rho \:\: \vdash_{\Delta} \:\: \rho_{0} \:\: \mathbf{in} \:\: \mathrm{d}_{1} \rightarrow_{\mathrm{d}} \rho_{0} \:\: \mathbf{in} \:\: \mathrm{d}_{1'}
+			}
+		\end{equation*}
 		
 		\item La nona regola:
-		\begin{figure}[!htp]
-			\centering
-			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-9.pdf}
-		\end{figure}
+		\begin{equation*}
+			\mathcal{D}_{9} : \:\: \rho \:\: \vdash_{\Delta} \:\: \rho_{0} \:\: \mathbf{in} \:\: \rho_{1} \rightarrow_{\mathrm{d}} \rho_{1}
+		\end{equation*}
 	\end{itemize}\newpage
 	
 	\subsection{Valutazione de equivalenza}
@@ -2493,11 +2563,13 @@ Even integers
 	\subsection{Nuova grammatica per le dichiarazioni: aggiornamento della sintassi}
 	
 	Con l'introduzione della memoria, è necessario aggiungere una dichiarazione alla grammatica delle dichiarazioni, così che consenta di definite un nuovo oggetto sintattico:
-	
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.6\textwidth]{img/grammatica_con_memoria.pdf}
-	\end{figure}
+	\begin{equation*}
+		\begin{array}{rrll}
+			\mathcal{D}^{V}: \mathrm{<Dec>} \: \mathrm{D} \: \rightarrow & \mathrm{nil} & | & \mathrm{const} \:\: \mathrm{I}:\tau = \mathrm{e} \:\: | \\
+			& \mathrm{var} \:\: \mathrm{I}:\tau = \mathrm{e} & | & \\
+			& \mathrm{D} \:\: \mathrm{in} \:\: \mathrm{D} & | & D \:\: ; \:\: \mathrm{D} \:\: | \:\: \rho
+		\end{array}
+	\end{equation*}
 
 	\noindent
 	Dove $\mathcal{D}^{V}$ è l'\textbf{insieme di dichiarazioni con variabili}, che nella semantica costituiscono l'insieme delle configurazioni del sistema di transizione.
@@ -2551,11 +2623,13 @@ Even integers
 		\end{array}
 	\end{equation*}
 	Le regole di semantica statica date nel paragrafo~\ref{semantica statica delle espressioni} sono esattamente le stesse. Tuttavia, viene \textbf{aggiunta la regola per la nuova dichiarazione}:
-	
-	\begin{figure}[!htp]
-		\centering
-		\includegraphics[width=.5\textwidth]{img/semantica_statica-agg-6.pdf}
-	\end{figure}
+	\begin{equation*}
+		\mathcal{D}\mathrm{s}_{6} : \dfrac{
+			\Delta\vdash \:\: \mathrm{e} : \textcolor{Red3}{\tau}
+		}{
+			\Delta\vdash \:\: \mathbf{var} \:\: \mathrm{x}:\textcolor{Red3}{\tau} = \mathrm{e} : \left[\mathrm{x} \leftarrow \textcolor{Red3}{\tau} \mathrm{loc}\right]
+		}
+	\end{equation*}
 
 	\noindent
  	Dato che $\tau \in \mathrm{DTyp}$, si dice che la dichiarazione è \textbf{ben formata} (come per le costanti) \textbf{se il tipo dichiarato coincide con il tipo dell'espressione usata per inizializzare}. In tal caso, l'ambiente statico ottenuto associa alla variabile $x$ il tipo $\tau \mathrm{loc}$.\newline
@@ -2565,11 +2639,9 @@ Even integers
  	
  	\noindent
  	Questa modifica \textbf{cambia} anche la \textbf{regola semantica statica per gli identificatori che ora possono essere di tipo variabile}:
- 	
- 	\begin{figure}[!htp]
- 		\centering
- 		\includegraphics[width=.6\textwidth]{img/semantica_statica-agg-7.pdf}
- 	\end{figure}\newpage
+ 	\begin{equation*}
+ 		\mathcal{E}\mathrm{s}_{3} : \:\: \Delta \vdash_{V} \:\: \mathrm{I} : \textcolor{Red3}{\tau} \hspace{1em} \mathrm{se} \:\: \Delta\left(\mathrm{I}\right) \in \left\{\textcolor{Red3}{\tau}, \textcolor{Red3}{\tau}\mathrm{loc}\right\}, \: \mathrm{I} \in \mathrm{V}
+ 	\end{equation*}\newpage
  
  	\subsection{Memoria e locazioni in $IMP$}
  	
@@ -2629,19 +2701,15 @@ Even integers
  	
  	\noindent
  	Le regole assumono la seguente struttura:
-
- 	\begin{figure}[!htp]
- 		\centering
- 		\includegraphics[width=.5\textwidth]{img/regola_espressione-update-1.pdf}
- 	\end{figure}
+	\begin{equation*}
+		\mathcal{E}_{\mathrm{i}}: \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e},\textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+	\end{equation*}
  
  	\noindent
  	L'unica regola che \textbf{cambia} è quella di \textbf{valutazione degli identificatori}, la quale deve considerare il caso in cui l'identificatore sia una variabile:
- 	
- 	\begin{figure}[!htp]
- 		\centering
- 		\includegraphics[width=\textwidth]{img/regola_espressione-update-2.pdf}
- 	\end{figure}
+ 	\begin{equation*}
+ 		\mathcal{E}_{2} : \:\: \rho\vdash_{\Delta} \:\: \left\langle \mathrm{I}, \sigma \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{n}, \sigma \right\rangle \:\: \mathrm{se} \:\: \rho\left(\mathrm{I}\right) = \mathrm{n} \:\:\: \mathrm{o} \:\:\: \overbrace{\left(\rho\left(\mathrm{I}\right) = \mathrm{l} \: \mathrm{e} \: \sigma\left(\mathrm{l}\right) = \mathrm{n}\right)}
+ 	\end{equation*}
  	
  	\noindent
  	Per le \textbf{altre regole}, basta aggiungere la memoria nella regola. Tuttavia, si osserva che tale memoria non può essere trasformata dalla valutazione, la quale accede in memoria sempre e solo in lettura.\newline
@@ -2656,11 +2724,9 @@ Even integers
  	
  	\noindent
  	Le regole assumono la seguente struttura:
- 	
- 	\begin{figure}[!htp]
- 		\centering
- 		\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-update-1.pdf}
- 	\end{figure}
+	\begin{equation*}
+		\mathcal{D}_{\mathrm{i}} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathrm{d}', \textcolor{Red3}{\sigma'} \right\rangle
+	\end{equation*}
  	
  	\noindent
  	Dopo la transazione, la \textbf{memoria può essere diversa} poiché le dichiarazioni, \textbf{inizializzando le variabili}, \textbf{modificano la memoria}.\newpage
@@ -2670,58 +2736,73 @@ Even integers
  	Vengono riportate qua di seguito le regole aggiornate con la memoria:
  	\begin{itemize}
  		\item La prima regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-1.pdf}
- 		\end{figure}
+ 		\begin{gather*}
+ 			\mathcal{E}_{1}: \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{m} \:\: \mathbf{op} \:\: \mathrm{n}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{k}, \textcolor{Red3}{\sigma} \right\rangle \\
+ 			\mathrm{se} \hspace{1em} \mathrm{m} \:\: \mathrm{op} \:\: \mathrm{n} = \mathrm{k}, \hspace{1em} \mathrm{m,n} \in \mathcal{N} \hspace{1em} \mathrm{k} \in \mathcal{N} \cup \mathcal{B}
+ 		\end{gather*}
  		
  		\item La seconda regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-2.pdf}
- 		\end{figure}
+ 		\begin{gather*}
+ 			\mathcal{E}_{2} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{I}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{n}, \textcolor{Red3}{\sigma} \right\rangle \\
+ 			\mathrm{se} \hspace{1em} \rho\left(\mathrm{I}\right) = \mathrm{n} \hspace{1em} \mathrm{o} \hspace{1em} \textcolor{Red3}{\left(\rho\left(\mathrm{I}\right) = \mathrm{l} \:\: \mathrm{e} \:\: \sigma\left(\mathrm{l}\right) = \mathrm{n}\right)}
+ 		\end{gather*}
  		
  		\item La terza regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-3.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{3} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e} \:\: \mathbf{op} \:\: \mathrm{e}_{0}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}' \:\: \mathbf{op} \:\: \mathrm{e}_{0}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La quarta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-4.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{4} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{m} \:\: \mathbf{op} \:\: \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{m} \:\: \mathbf{op} \:\: \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La quinta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-5.pdf}
- 		\end{figure}
+ 		\begin{gather*}
+ 			\mathcal{E}_{5} : \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{t}_{1} \:\: \mathbf{bop} \:\: \mathrm{t}_{2}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{t}, \textcolor{Red3}{\sigma} \right\rangle \\
+ 			\mathrm{se} \hspace{1em} \mathrm{t}_{1} \:\: \mathrm{op} \:\: \mathrm{t}_{2} = \mathrm{t}, \hspace{1em} \mathrm{t_{1}, t_{2}, t} \in \mathcal{B}
+ 		\end{gather*}
  		
  		\item La terza regola aggiornata:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-3b.pdf}
- 		\end{figure}\newpage
+ 		\begin{equation*}
+ 			\mathcal{E}_{3'} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e} \:\: \mathbf{bop} \:\: \mathrm{e}_{0}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}' \:\: \mathbf{bop} \:\: \mathrm{e}_{0}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La sesta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-6.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{6} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{t} \:\: \mathbf{bop} \:\: \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{t} \:\: \mathbf{bop} \:\: \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La settima regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-7.pdf}
- 		\end{figure}
+ 		\begin{gather*}
+ 			\mathcal{E}_{7} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{not} \:\: \mathrm{t}_{1}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{t}, \textcolor{Red3}{\sigma} \right\rangle \\
+ 			\mathrm{se} \hspace{1em} \mathrm{not} \:\: \mathrm{t}_{1} = \mathrm{t}, \hspace{1em} \mathrm{t}_{1} \in \mathcal{B}
+ 		\end{gather*}
  		
  		\item L'ottava regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-8.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{8} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{not} \:\: \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathbf{not} \:\: \mathrm{e}', \textcolor{Red3}{\sigma} \right\rangle
+ 			}
+ 		\end{equation*}
  	\end{itemize}\newpage
  	
  	\subsubsection{Regole definitive delle espressioni con chiusura transitiva}
