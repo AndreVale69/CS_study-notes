@@ -2810,43 +2810,62 @@ Even integers
  	Un sistema di regole equivalente al paragrafo precedente ma che utilizza la chiusura transitiva nelle premesse:
  	\begin{itemize} 		
  		\item La seconda regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-2.pdf}
- 		\end{figure}
+ 		\begin{gather*}
+ 			\textcolor{Red3}{\mathcal{E}_{2}} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{I}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{n}, \textcolor{Red3}{\sigma} \right\rangle \\
+ 			\mathrm{se} \:\: \rho \left(\mathrm{I}\right) = \mathrm{n} \:\: \mathrm{o} \:\: \textcolor{Red3}{\left(\rho\left(\mathrm{I}\right) = \mathrm{l} \:\: \mathrm{e} \:\: \sigma\left(\mathrm{l}\right) = \mathrm{n}\right)}
+ 		\end{gather*}
  		
  		\item La terza e la quarta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-3_4.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{3\text{-}4} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow^{*}_{\mathrm{e}} \left\langle \mathrm{m}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e} \:\: \mathbf{op} \:\: \mathrm{e}_{0}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{k} \:\: \mathbf{op} \:\: \mathrm{e}_{0}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La quarta e la prima regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-4_1.pdf}
- 		\end{figure}
+ 		\begin{gather*}
+ 			\mathcal{E}_{4\text{-}1} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow^{*}_{\mathrm{e}} \left\langle \mathrm{n}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{m} \:\: \mathbf{op} \:\: \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{k}, \textcolor{Red3}{\sigma} \right\rangle
+ 			} \\
+ 			\\
+ 			\mathrm{m} \:\: \mathrm{op} \:\: \mathrm{n} = \mathrm{k} \hspace{2em} \mathrm{m,n} \in \mathcal{N} \hspace{2em} \mathrm{k} \in \mathcal{N}
+ 		\end{gather*}
  		
  		\item La terza regola aggiornata e la sesta:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-3b_6.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{3'\text{-}6} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}}^{*} \left\langle \mathrm{t}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e} \:\: \mathbf{bop} \:\: \mathrm{e}_{0}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{t} \:\: \mathbf{bop} \:\: \mathrm{e}_{0}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La sesta e la quinta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-6_5.pdf}
- 		\end{figure}\newpage
+ 		\begin{gather*}
+ 			\mathcal{E}_{6\text{-}5} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}}^{*} \left\langle \mathrm{t}_{2}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{t}_{1} \:\: \mathbf{bop} \:\: \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{t}, \textcolor{Red3}{\sigma} \right\rangle
+ 			} \\
+ 			\\
+ 			\mathrm{se} \hspace{1em} \mathrm{t}_{1} \:\: \mathrm{op} \:\: \mathrm{t}_{2} = \mathrm{t}, \hspace{2em} \mathrm{t_{1}, t_{2}, t} \in \mathcal{B}
+ 		\end{gather*}
  		
  		\item L'ottava e la settima regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_espressione-up-transitiva-8_7.pdf}
- 		\end{figure}
- 	\end{itemize}
- 
- 	\longline
+ 		\begin{gather*}
+ 			\mathcal{E}_{8\text{-}7} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}}^{*} \left\langle \mathrm{t}_{1}, \textcolor{Red3}{\sigma} \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{not} \:\: \mathrm{e}, \textcolor{Red3}{\sigma} \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{t}, \textcolor{Red3}{\sigma} \right\rangle
+ 			} \\
+ 			\\
+ 			\mathrm{se} \hspace{1em} \mathrm{not} \:\: \mathrm{t}_{1} = \mathrm{t}, \hspace{2em} \mathrm{t}_{1} \in \mathcal{B}
+ 		\end{gather*}
+ 	\end{itemize}\newpage
  	
  	\subsubsection{Espressioni: valutazione ed equivalenza con variabili}
  	
@@ -2882,124 +2901,153 @@ Even integers
  	Per la semantica dinamica, vengono introdotte \textbf{due nuove regole necessarie per la dichiarazione}:
  	\begin{itemize}
  		\item La prima regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-up-1.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{1}: \:\: \vdash \:\: \left\langle \mathbf{nil}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \emptyset, \sigma \right\rangle
+ 		\end{equation*}
  	
  		\item La seconda regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.9\textwidth]{img/regola_dichiarazione-up-2.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{2} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{const} \:\: \mathrm{x} : \tau = \mathrm{k}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \left[ \mathrm{x} \leftarrow \mathrm{k} \right], \sigma \right\rangle
+ 		\end{equation*}
  	
  		\item La terza regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=\textwidth]{img/regola_dichiarazione-up-3.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{3} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \sigma \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{const} \:\: \mathrm{x}:\tau = \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathbf{const} \:\: \mathrm{x}:\tau = \mathrm{e}', \sigma \right\rangle
+ 			}
+ 		\end{equation*}
  	
  		\item La quarta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-4.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{4} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathrm{d}', \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d} \: \mathbf{;} \: \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathrm{d}' \: \mathbf{;} \: \mathrm{d}_{1}, \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La quinta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.9\textwidth]{img/regola_dichiarazione-up-5.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{5} : \dfrac{
+ 				\rho\left[\rho_{0}\right] \:\: \vdash_{\Delta\left[\Delta_{0}\right]} \:\: \left\langle \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathrm{d}_{1}', \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \rho_{0} \: \mathbf{;} \: \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \rho_{0} \: \mathbf{;} \: \mathrm{d}_{1}', \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La sesta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_dichiarazione-up-6.pdf}
- 		\end{figure}\newpage
+ 		\begin{equation*}
+ 			\mathcal{D}_{6} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \rho_{0} \: \mathbf{;} \: \rho_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \rho_{0} \left[\rho_{1}\right], \sigma \right\rangle
+ 		\end{equation*}
  	
  		\item La settima regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-7.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{7} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathrm{d}', \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d} \:\: \mathbf{in} \:\: \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathrm{d}' \:\: \mathbf{in} \:\: \mathrm{d}_{1}, \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
  	
  		\item L'ottava regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-8.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{8} : \dfrac{
+ 				\rho\left[\rho_{0}\right] \:\: \vdash_{\Delta\left[\Delta_{0}\right]} \:\: \left\langle \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathrm{d}_{1}', \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \rho_{0} \:\: \mathbf{in} \:\: \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \rho_{0} \:\: \mathbf{in} \:\: \mathrm{d}_{1}', \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
  	
  		\item La nona regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_dichiarazione-up-9.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{9} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \rho_{0} \:\: \mathbf{in} \:\: \rho_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \rho_{1}, \sigma \right\rangle
+ 		\end{equation*}\newpage
  	
  		\item La decima regola viene utilizzata per inizializzare una variabile. Una volta che l'espressione è stata valutata ad un valore costante $k$, allora è possibile allocare spazio per la nuova variabile. In particolare, si prende una nuova locazione $I$ di tipo $\tau$. La configurazione generata consiste nella coppia composta:
  		\begin{itemize}
  			\item Dall'ambiente dinamico che associa all'identificatore la nuova locazione $I$;
  			\item Dalla memoria iniziale aggiornata con l'associazione $I$ e il valore $k$.
  		\end{itemize}
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=\textwidth]{img/regola_dichiarazione-up-010.pdf}
- 		\end{figure}
+ 		\begin{gather*}
+ 			\mathcal{D}_{10} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{var} \:\: \mathrm{x}:\tau = \mathrm{k}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \left[x \leftarrow \mathrm{l}\right], \sigma\left[\mathrm{l} \leftarrow \mathrm{k}\right] \right\rangle \\
+ 			\mathrm{l} \in \mathrm{Loc}_{\tau} \:\: \text{nuova locazione}
+ 		\end{gather*}
  		
  		\item L'undicesima regola indica la nuova associazione rispetto a quella iniziale:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.9\textwidth]{img/regola_dichiarazione-up-011.pdf}
- 		\end{figure}
- 	\end{itemize}\newpage
+ 		\begin{equation*}
+ 			\mathcal{D}_{11} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \sigma \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{var} \:\: \mathrm{x}:\tau = \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathbf{var} \:\: \mathrm{x}:\tau = \mathrm{e}', \sigma \right\rangle
+ 			}
+ 		\end{equation*}
+	\end{itemize}\newpage
  	
  	\subsubsection{Regole delle dichiarazioni con variabili e chiusura transitiva}
  	
  	Le regole che utilizzano la chiusura transitiva nelle premesse:
  	\begin{itemize}
  		\item La prima regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.5\textwidth]{img/regola_dichiarazione-up-transitiva-1.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{1} : \:\: \vdash \:\: \left\langle \mathbf{nil}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \emptyset, \sigma \right\rangle
+ 		\end{equation*}
  	
  		\item La quarta e la quinta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_dichiarazione-up-transitiva-4_5.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{4\text{-}5} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d}, \sigma \right\rangle \rightarrow_{\mathrm{d}}* \left\langle \rho_{0}, \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d} \: \mathbf{;} \: \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \rho_{0} \: \mathbf{;} \: \mathrm{d}_{1}, \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
  	
  		\item La quinta e la sesta regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-transitiva-5_6.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{5\text{-}6} : \dfrac{
+ 				\rho\left[\rho_{0}\right] \:\: \vdash_{\Delta\left[\Delta_{0}\right]} \:\: \left\langle \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}}^{*} \left\langle \rho_{1}, \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \rho_{0} \: \mathbf{;} \: \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \rho_{0}\left[\rho_{1}\right], \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item L'undicesima e la decima regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=\textwidth]{img/regola_dichiarazione-up-transitiva-11_10.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{11\text{-}10} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{e}}^{*} \left\langle \mathrm{k}, \sigma \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{var} \:\: \mathrm{x}:\tau = \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \left[\mathrm{x} \leftarrow \mathrm{l}\right], \sigma\left[\mathrm{l} \leftarrow \mathrm{k}\right] \right\rangle
+ 			}
+ 		\end{equation*}
  	
  		\item La terza e la seconda regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=\textwidth]{img/regola_dichiarazione-up-transitiva-3_2.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{D}_{3\text{-}2} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{e}}^{*} \left\langle \mathrm{k}, \sigma \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{const} \:\: \mathrm{x}:\tau = \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \left[\mathrm{x} \leftarrow \mathrm{k}\right], \sigma \right\rangle
+ 			}
+ 		\end{equation*}
  	
  		\item La settima e l'ottava regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-transitiva-7_8.pdf}
- 		\end{figure}\newpage
+ 		\begin{equation*}
+ 			\mathcal{D}_{7\text{-}8} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d}, \sigma \right\rangle \rightarrow_{\mathrm{d}}^{*} \left\langle \rho_{0}, \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d} \:\: \mathbf{in} \:\: \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \rho_{0} \:\: \mathbf{in} \:\: \mathrm{d}_{1}, \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item L'ottava e la nona regola:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.8\textwidth]{img/regola_dichiarazione-up-transitiva-8_9.pdf}
- 		\end{figure}
- 	\end{itemize}
- 
- 	\longline
+ 		\begin{equation*}
+ 			\mathcal{D}_{8\text{-}9} : \dfrac{
+ 				\rho\left[\rho_{0}\right] \:\: \vdash_{\Delta\left[\Delta_{0}\right]} \:\: \left\langle \mathrm{d}_{1}, \sigma \right\rangle \rightarrow^{*}_{\mathrm{d}} \left\langle \rho_{1}, \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \rho_{0} \:\: \mathbf{in} \:\: \mathrm{d}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \rho_{1}, \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
+ 	\end{itemize}\newpage
  	
  	\subsubsection{Dichiarazioni: valutazione ed equivalenza con variabili}
  	
@@ -3033,10 +3081,15 @@ Even integers
  	\subsection{Comandi in $IMP$}
  	
  	Si introducono i comandi nel linguaggio $IMP$ presentando la grammatica:
- 	\begin{figure}[!htp]
- 		\centering
- 		\includegraphics[width=.7\textwidth]{img/comandi_imp.pdf}
- 	\end{figure}
+ 	\begin{equation*}
+ 		\begin{array}{lll}
+ 			\mathbf{\mathcal{E}^{V}}  \hspace{1.5em} \mathbf{<Com>} \hspace{1.5em} \textcolor{Orange2}{\mathbf{C}} & \textcolor{Orange2}{\boldsymbol{\rightarrow}} & \mathbf{skip} \:\: \textcolor{Red3}{\boldsymbol{|}} \:\: \mathbf{I} \:\: \boldsymbol{\coloneq} \:\: \mathbf{E} \:\: \textcolor{Red3}{\boldsymbol{|}} \:\: \textcolor{Orange2}{\mathbf{C}} \:\: \boldsymbol{;} \:\: \textcolor{Orange2}{\mathbf{C}} \:\: \textcolor{Red3}{\boldsymbol{|}} \\
+ 			\\
+ 			&& \mathbf{if} \:\: \textcolor{Blue3}{\mathbf{B}} \:\: \mathbf{then} \:\: \textcolor{Orange2}{\mathbf{C}} \:\: \mathbf{else} \:\: \textcolor{Orange2}{\mathbf{C}} \:\: \textcolor{Red3}{\boldsymbol{|}} \\
+ 			\\
+ 			&& \mathbf{while} \:\: \textcolor{Blue3}{\mathbf{B}} \:\: \mathbf{do} \:\: \textcolor{Orange2}{\mathbf{C}} \:\: \textcolor{Red3}{\boldsymbol{|}} \:\: \textcolor{Purple2}{\mathbf{D}} \:\: \boldsymbol{;} \:\: \textcolor{Orange2}{\mathbf{C}}
+ 		\end{array}
+ 	\end{equation*}
  	
  	\begin{itemize}
  		\item \textsf{C} indica la \textbf{categoria sintattica dei comandi}, la quale deve operare per trasformare lo stato, cioè la memoria;
@@ -3107,22 +3160,27 @@ Even integers
  	Le \textbf{regole} sono le seguenti:
  	\begin{itemize}
  		\item L'assegnamento è ben formato se l'identificatore a sinistra del simbolo di assegnamento è un identificatore variabile e se è del tipo dell'espressione assegnata. È dunque necessario valutare il tipo $\tau$ dell'espressione nello stesso ambiente statico, il quale deve coincidere con il tipo associato dall'ambiente all'identificatore, ovvero $\tau loc$:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.5\textwidth]{img/regola_assegnamento-1.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}\mathrm{s}_{1} : \dfrac{
+ 				\Delta \vdash_{\mathrm{V}} \:\: \mathrm{e} : \tau
+ 			}{
+ 				\Delta \vdash_{\mathrm{V}} \:\: \mathrm{x} \coloneq \mathrm{e}
+ 			} \:\: , \hspace{1em} \Delta\left(\mathrm{x}\right) = \tau \mathrm{loc}
+ 		\end{equation*}
  		
  		\item Per la semantica dinamica, è necessario valutare l'espressione:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.6\textwidth]{img/regola_assegnamento-2.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{1} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \sigma \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{x} \coloneq \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{x} \coloneq \mathrm{e}', \sigma \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item Dopo che l'espressione è stata completamente valutata, è possibile aggiornare la memoria associando a $x$ il nuovo valore ottenuto e restituire quindi la memoria come configurazione terminale:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regola_assegnamento-3.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{2} : \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{x} \coloneq \mathrm{k}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \sigma\left[\mathrm{l} \leftarrow \mathrm{k}\right], \hspace{1em} \rho\left(\mathrm{x}\right) = \mathrm{l}
+ 		\end{equation*}
  	\end{itemize}
  	Per \textcolor{Green4}{\textbf{esempio}}, data l'espressione di assegnamento \textsf{x $\coloneq$ x*y}, e gli stati:
  	\begin{equation*}
@@ -3191,30 +3249,34 @@ Even integers
  	Le \textbf{regole} in questo caso sono le seguenti:
  	\begin{itemize}
  		\item Per la \textbf{semantica statica} è necessario verificare se il comando è ben formato. I vincoli da verificare sono l'espressione di tipo booleano e che i comandi dei rami condizionali siano ben formati:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.5\textwidth]{img/imp_regole_condizionale-2.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}\mathrm{s}_{2} : \dfrac{
+ 				\Delta\vdash_{\mathrm{V}} \:\: \mathrm{e:bool} \hspace{1em} \Delta\vdash_{\mathrm{V}} \: \mathrm{c}_{0} \hspace{1em} \Delta\vdash_{\mathrm{V}} \: \mathrm{c}_{1}
+ 			}{
+ 				\Delta\vdash_{\mathrm{V}} \:\: \mathbf{if} \:\: \mathrm{e} \:\: \mathbf{then} \:\: \mathrm{c}_{0} \:\: \mathbf{else} \:\: \mathrm{c}_{1}
+ 			}
+ 		\end{equation*}
  		
  		\item Per la \textbf{semantica dinamica} è necessario valutare l'espressione di guardia. Se è vera (\emph{true}), allora si prosegue con l'esecuzione di $c_{0}$, altrimenti si prosegue con l'esecuzione di $c_{1}$:
  		\begin{itemize}
  			\item La terza regola:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=\textwidth]{img/imp_regole_condizionale-3.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{3} : \dfrac{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \sigma \right\rangle
+ 				}{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{if} \:\: \mathrm{e} \:\: \mathbf{then} \:\: \mathrm{c}_{0} \:\: \mathbf{else} \:\: \mathrm{c}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathbf{if} \:\: \mathrm{e}' \:\: \mathbf{then} \:\: \mathrm{c}_{0} \:\: \mathbf{else} \:\: \mathrm{c}_{1}, \sigma \right\rangle
+ 				}
+ 			\end{equation*}
  			
  			\item La quarta regola:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.8\textwidth]{img/imp_regole_condizionale-4.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{4} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{if} \:\: \mathrm{true} \:\: \mathbf{then} \:\: \mathrm{c}_{0} \:\: \mathbf{else} \:\: \mathrm{c}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{c}_{0}, \sigma \right\rangle
+ 			\end{equation*}
  			
  			\item La quinta regola:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.8\textwidth]{img/imp_regole_condizionale-5.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{5} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{if} \:\: \mathrm{false} \:\: \mathbf{then} \:\: \mathrm{c}_{0} \:\: \mathbf{else} \:\: \mathrm{c}_{1}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{c}_{1}, \sigma \right\rangle
+ 			\end{equation*}
  		\end{itemize}
  	\end{itemize}\newpage
  	
@@ -3272,72 +3334,91 @@ Even integers
  		\item Per la \textbf{semantica statica} si ha:
  		\begin{itemize}
  			\item La corretta formattazione (ben formati) dei comandi:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.5\textwidth]{img/imp_regole-composizione-3.pdf}
- 			\end{figure}\newpage
+ 			\begin{equation*}
+ 				\mathcal{E}\mathrm{s}_{3} : \dfrac{
+ 					\Delta\vdash_{\mathrm{V}} \: \mathrm{c}_{0} \hspace{1.5em} \Delta\vdash_{\mathrm{V}} \: \mathrm{c}_{1}
+ 				}{
+ 					\Delta\vdash_{\mathrm{V}} \: \mathrm{c}_{0} \: \boldsymbol{;} \: \mathrm{c}_{1}
+ 				}
+ 			\end{equation*}
  			
  			\item Il comando nullo, elemento neutro della composizione:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.3\textwidth]{img/imp_regole-composizione-4.pdf}
- 			\end{figure}
- 		\end{itemize}
+ 			\begin{equation*}
+ 				\mathcal{E}\mathrm{s}_{4} : \Delta\vdash_{\mathrm{V}} \: \mathbf{skip}
+ 			\end{equation*}
+ 		\end{itemize}\newpage
  		
  		\item Per la \textbf{semantica dinamica} vi è la composizione che esegue $c_{0}$ e poi a partire dalla memoria risultante, viene eseguito $c_{1}$:
  		\begin{itemize}
  			\item La sesta regola:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.4\textwidth]{img/imp_regole-composizione-6.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{6} : \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{skip}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \sigma
+ 			\end{equation*}
  			
  			\item La settimana regola:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.7\textwidth]{img/imp_regole-composizione-7.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{7} : \dfrac{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{c}', \sigma' \right\rangle
+ 				}{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{c} \: \boldsymbol{;} \: \mathrm{c}_{0}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{c}' \: \boldsymbol{;} \: \mathrm{c}_{0}, \sigma' \right\rangle
+ 				}
+ 			\end{equation*}
  			
  			\item L'ottava regola:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.7\textwidth]{img/imp_regole-composizione-8.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{8} : \dfrac{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{c, \sigma} \right\rangle \rightarrow_{\mathrm{c}} \sigma'
+ 				}{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{c} \: \boldsymbol{;} \: \mathrm{c}_{0}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{c}_{0}, \sigma' \right\rangle
+ 				}
+ 			\end{equation*}
  		\end{itemize}
  	\end{itemize}
  	Le \textcolor{Red3}{\textbf{regole transitive}} sono le seguenti:
  	\begin{itemize}
  		\item La prima e seconda:
  		\begin{equation*}
- 			\mathcal{E}_{1-2} : \dfrac{\rho \vdash_{\Delta} \left\langle \mathsf{e}, \mathsf{\sigma} \right\rangle \longrightarrow^{*}_{e} \left\langle \mathsf{k}, \mathsf{\sigma} \right\rangle  }{\rho \vdash_{\Delta} \left\langle \mathsf{x} \coloneq \mathsf{e}, \mathsf{\sigma} \right\rangle \longrightarrow_{c} \sigma\left[\mathsf{l} \leftarrow \mathsf{k}\right]} \hspace{1em} \rho\left(x\right) = 1
+ 			\mathcal{E}_{1\text{-}2} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \longrightarrow^{*}_{\mathrm{e}} \left\langle \mathrm{k}, \sigma \right\rangle  
+			}{
+				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{x} \coloneq \mathrm{e}, \sigma \right\rangle \longrightarrow_{\mathrm{c}} \sigma\left[\mathrm{l} \leftarrow \mathrm{k}\right]
+			} \hspace{1em} \rho\left(\mathrm{x}\right) = 1
  		\end{equation*}
  		
  		\item La terza e quarta:
  		\begin{equation*}
- 			\mathcal{E}_{3-4} : \dfrac
- 			{\rho \vdash_{\Delta} \left\langle \mathsf{e}, \mathsf{\sigma} \right\rangle \longrightarrow^{*}_{e} \left\langle \mathsf{true}, \mathsf{\sigma} \right\rangle}
- 			{\rho \vdash_{\Delta} \left\langle \mathsf{if} \: e \: \mathsf{then} \: c_{0} \: \mathsf{else} \: c_{1}, \sigma \right\rangle \longrightarrow_{c} \left\langle \mathsf{c_{0}}, \mathsf{\sigma} \right\rangle}
+ 			\mathcal{E}_{3\text{-}4} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \longrightarrow^{*}_{\mathrm{e}} \left\langle \mathbf{true}, \sigma \right\rangle
+			}
+ 			{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{if} \:\: \mathrm{e} \:\: \mathbf{then} \:\: \mathrm{c}_{0} \:\: \mathbf{else} \:\: \mathrm{c}_{1}, \sigma \right\rangle \longrightarrow_{\mathrm{c}} \left\langle \mathrm{c}_{0}, \sigma \right\rangle
+			}
  		\end{equation*}
  		
  		\item La terza e quinta:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regole_transitive-3_5.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{3\text{-}5} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \longrightarrow^{*}_{\mathrm{e}} \left\langle \mathbf{false}, \sigma \right\rangle
+ 			}
+ 			{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{if} \:\: \mathrm{e} \:\: \mathbf{then} \:\: \mathrm{c}_{0} \:\: \mathbf{else} \:\: \mathrm{c}_{1}, \sigma \right\rangle \longrightarrow_{\mathrm{c}} \left\langle \mathrm{c}_{1}, \sigma \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La sesta:
  		\begin{equation*}
- 			\mathcal{E}_{6}: \rho \vdash_{\Delta} \left\langle \mathsf{skip}, \mathsf{\sigma} \right\rangle \longrightarrow_{c} \sigma
- 		\end{equation*}\newpage
+ 			\mathcal{E}_{6}: \:\: \rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{skip}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \sigma
+ 		\end{equation*}
  		
  		\item La settima e ottava:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/regole_transitive-7_8.pdf}
- 		\end{figure}
- 	\end{itemize}
- 	
- 	\longline
+ 		\begin{equation*}
+ 			\mathcal{E}_{7\text{-}8} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}}^{*} \sigma'
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{c} \: \boldsymbol{;} \: \mathrm{c}_{0}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{c}_{0}, \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
+ 	\end{itemize}\newpage
  	
  	\subsection{Altre strutture di controllo}
  	
@@ -3369,26 +3450,37 @@ Even integers
  	Le \textbf{regole} nell'iterazione sono:
  	\begin{itemize}
  		\item Per la \textbf{semantica statica} è necessario verificare se il comando è ben formato. I vincoli da verificare sono che l'espressione sia di tipo booleano e che il comando nel corpo sia ben formato:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.4\textwidth]{img/imp_regole-iterazione-5.pdf}
- 		\end{figure}\newpage
+ 		\begin{equation*}
+ 			\mathcal{E}\mathrm{s}_{5} : \dfrac{
+ 				\Delta\vdash{\mathrm{V}} \: \mathrm{e:bool} \hspace{1.5em} \Delta\vdash_{\mathrm{V}} \: \mathrm{c}
+ 			}{
+ 				\Delta\vdash{\mathrm{V}} \:\: \mathbf{while} \:\: \mathrm{e} \:\: \mathbf{do} \:\: \mathrm{c}
+ 			}
+ 		\end{equation*}
  		
  		\item Per la \textbf{semantica dinamica} è necessario valutare l'espressione di guardia e nel caso in cui sia vera (\emph{true}), viene scelto di eseguire $c$, seguito dalla riesecuzione del comando \textsf{while}, altrimenti viene terminata l'esecuzione:
  		\begin{itemize}
  			\item La nona regola:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.8\textwidth]{img/imp_regole-iterazione-9.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{9} : \dfrac{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{e}}^{*} \left\langle \mathbf{true}, \sigma \right\rangle
+ 				}{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{while} \:\: \mathrm{e} \:\: \mathbf{do} \:\: \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{c} \: \boldsymbol{;} \: \mathbf{while} \:\: \mathrm{e} \:\: \mathbf{do} \:\: \mathrm{c}, \sigma \right\rangle
+ 				}
+ 			\end{equation*}
  			
  			\item La decima regola:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.7\textwidth]{img/imp_regole-iterazione-10.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{10} : \dfrac{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{e}, \sigma \right\rangle \rightarrow_{\mathrm{e}}^{*} \left\langle \mathbf{false}, \sigma \right\rangle
+ 				}{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathbf{while} \:\: \mathrm{e} \:\: \mathbf{do} \:\: \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \sigma
+ 				}
+ 			\end{equation*}
  		\end{itemize}
- 	\end{itemize}
+ 	\end{itemize}\newpage
+ 	
+ 	\noindent
  	Si riporta qua di seguito un \textcolor{Green4}{\textbf{esempio}} del seguente comando di iterazione:
  	\begin{equation*}
  		\textsf{while not x=0 do x $\coloneq$ x $-$ 1}
@@ -3542,46 +3634,68 @@ Even integers
  	Le \textbf{regole} in questo caso sono:
  	\begin{itemize}
  		\item Per la \textbf{semantica statica} è necessario generare l'ambiente statico $\Delta'$ associato alla dichiarazione $d$ e, nell'ambiente statico $\Delta$ del contesto aggiornato, da $\Delta'$, viene verificato che il comando sia ben formato:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-6.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}\mathrm{s}_{6} : \dfrac{
+ 				\Delta\vdash_{\mathrm{V}} \: \mathrm{d}:\Delta' \hspace{1.5em} \Delta\left[\Delta'\right] \: \vdash_{\mathrm{V} \cup \mathrm{V}'} \: \mathrm{c}
+ 			}{
+ 				\Delta\vdash_{\mathrm{V}} \: \mathrm{d} \: \boldsymbol{;} \: \mathrm{c}
+ 			} \:\: \Delta' \:\: \text{su} \:\: \mathrm{V}'
+ 		\end{equation*}
  		
  		\item Per la \textbf{semantica dinamica}, è necessario elaborare la dichiarazione, la quale può causare \emph{side effects} nella memoria a causa della potenziale definizione di variabili. Successivamente, viene eseguito il comando nell'ambiente modificato della dichiarazione:
  		\begin{itemize}
  			\item Regola undici:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-11.pdf}
- 			\end{figure}\newpage
+ 			\begin{equation*}
+ 				\mathcal{E}_{11}: \dfrac{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d}, \sigma \right\rangle \rightarrow_{\mathrm{d}} \left\langle \mathrm{d}', \sigma' \right\rangle
+ 				}{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d} \: \mathbf{;} \: \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{d}' \: \boldsymbol{;} \: \mathrm{c}, \sigma' \right\rangle
+ 				}
+ 			\end{equation*}
  			
  			\item In questa regola si vede il concetto di reversibilità. L'ambiente $\rho'$ è temporaneo, così come tutte le modifiche che esegue (anche alla memoria):
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-12.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{12} : \dfrac{
+ 					\rho\left[\rho'\right] \:\: \vdash_{\Delta\left[\Delta'\right]} \:\: \left\langle \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \mathrm{c}', \sigma' \right\rangle
+ 				}{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \rho' \: \mathbf{;} \: \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \rho' \: \boldsymbol{;} \: \mathrm{c}', \sigma' \right\rangle
+ 				} \:\: \rho' \:\: \vdash_{\Delta'}
+ 			\end{equation*}
  			
  			\item Regola tredici:
- 			\begin{figure}[!htp]
- 				\centering
- 				\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-13.pdf}
- 			\end{figure}
+ 			\begin{equation*}
+ 				\mathcal{E}_{13} : \dfrac{
+ 					\rho\left[\rho'\right] \:\: \vdash_{\Delta\left[\Delta'\right]} \:\: \left\langle \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \sigma'
+ 				}{
+ 					\rho \:\: \vdash_{\Delta} \:\: \left\langle \rho' \: \mathbf{;} \: \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \sigma'
+ 				} \:\: \rho' \:\: \vdash_{\Delta'}
+ 			\end{equation*}
  		\end{itemize}
- 	\end{itemize}
+ 	\end{itemize}\newpage
+ 	
+ 	\noindent
  	Infine, le regole transitive:
  	\begin{itemize}
  		\item La regola undici e dodici:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-11_12.pdf}
- 		\end{figure}
+ 		\begin{equation*}
+ 			\mathcal{E}_{11\text{-}12} : \dfrac{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d}, \sigma \right\rangle \rightarrow^{*}_{\mathrm{d}} \left\langle \rho', \sigma' \right\rangle
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \mathrm{d} \: \boldsymbol{;} \: \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \left\langle \rho' \: \boldsymbol{;} \: \mathrm{c}, \sigma' \right\rangle
+ 			}
+ 		\end{equation*}
  		
  		\item La regola tredici e dodici:
- 		\begin{figure}[!htp]
- 			\centering
- 			\includegraphics[width=.7\textwidth]{img/imp_regole-blocchi-13_12.pdf}
- 		\end{figure}
- 	\end{itemize}
+ 		\begin{equation*}
+ 			\mathcal{E}_{13\text{-}12} : \dfrac{
+ 				\rho\left[\rho'\right] \:\: \vdash_{\Delta\left[\Delta'\right]} \:\: \left\langle \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}}^{*} \sigma'
+ 			}{
+ 				\rho \:\: \vdash_{\Delta} \:\: \left\langle \rho' \: \boldsymbol{;} \: \mathrm{c}, \sigma \right\rangle \rightarrow_{\mathrm{c}} \sigma'
+ 			} \:\: \rho' \:\: \vdash_{\Delta'}
+ 		\end{equation*}
+ 	\end{itemize}\:\newline
+ 	
+ 	\noindent
  	Un \textcolor{Green4}{\textbf{esempio}} è data dalla seguente espressione:
  	\begin{equation*}
  		\textsf{var x:int=3; x $\coloneq$ x+1}
@@ -3590,16 +3704,14 @@ Even integers
  	\begin{figure}[!htp]
  		\centering
  		\includegraphics[width=\textwidth]{img/imp_esempio-blocchi-1.pdf}
- 	\end{figure}\newpage
+ 	\end{figure}
 
  	\noindent
  	E infine, la dimostrazione di semantica dinamica:
  	\begin{figure}[!htp]
  		\centering
  		\includegraphics[width=\textwidth]{img/imp_esempio-blocchi-2.pdf}
- 	\end{figure}
- 	
- 	\longline
+ 	\end{figure}\newpage
  	
  	\subsection{Esecuzione ed equivalenza}
  	
