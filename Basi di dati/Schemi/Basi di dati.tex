@@ -4692,7 +4692,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	Spesso nasce l'esigenza di \textbf{applicare l'operatore aggregato separatamente a sottoinsiemi di righe}. Per poter utilizzare in questo modo l'operatore aggregato, SQL mette a disposizione la clausola \textsf{group by}, la quale consente di specificare come dividere le tabelle in sottoinsiemi.\newline
 	
 	\noindent
-	La sintassi e il suo funzionamento vengono spiegate con l'introduzione di un esempio: si vuole estrarre la somma degli stipendi di tutti gli impiegati dello stesso dipartimento:
+	La sintassi e il suo funzionamento vengono spiegate con l'introduzione di un esempio: si vuole estrarre la somma degli stipendi di tutti gli impiegati dello stesso dipartimento (si consideri la base dati a pagina~\pageref{select dbms}):
 	\lstinputlisting[language=SQL]{code/group-by-ex1.sql}
 	I passi eseguiti per ottenere il risultato sono:
 	\begin{enumerate}
@@ -4918,5 +4918,108 @@ drop table Dipartimento cascade\end{lstlisting}
 		\item Si vuole estrarre per ogni cantante che è anche autore di canzoni, il numero di canzoni di cui è rispettivamente interprete e autore:
 		\lstinputlisting[language=SQL]{code/from-ex3.sql}
 	\end{itemize}
-	Questa interrogazione assume semplicemente che vengano dapprima eseguita le interrogazioni nella clausola \textsf{from} e che i risultati di queste interrogazioni vengano utilizzate come normali tabelle.
+	Questa interrogazione assume semplicemente che vengano dapprima eseguita le interrogazioni nella clausola \textsf{from} e che i risultati di queste interrogazioni vengano utilizzate come normali tabelle.\newpage
+	
+	\subsection{Interrogazioni di tipo insiemistico (\textsf{union}, \textsf{intersect}, \textsf{except})}
+	
+	In SQL esistono degli \textbf{operatori insiemistici} simili a quelli dell'algebra relazionale: unione (\textcolor{Red3}{\textsf{union}}), intersezione (\textcolor{Red3}{\textsf{intersect}}) e differenza (\textcolor{Red3}{\textsf{except}} o \textcolor{Red3}{\textsf{minus}}). Si noti che gli operatori \textsf{intersect} ed \textsf{except} possono essere espressi utilizzando altri costrutti. La loro sintassi è la seguente:
+	\lstinputlisting[language=SQL]{code/union-intersect-except.sql}
+	Gli operatori insiemistici \textbf{eseguono di default l'eliminazione dei duplicati}. Questo accade per due ragioni specifiche:
+	\begin{itemize}
+		\item L'eliminazione dei duplicati rispetta il tipico significato di questi operatori;
+		
+		\item L'esecuzione degli operatori insiemistici richiede un'analisi delle righe e l'aggiunta dell'eliminazione dei duplicati rende il costo addizionale molto limitato.
+	\end{itemize}
+	Nel caso in cui si vogliano \textbf{preservare tutti i duplicati}, sarà sufficiente utilizzare l'operatore insiemistico con la \textbf{parola chiave \textsf{all}}.\newline
+	
+	\noindent
+	A differenza dell'algebra relazionale, gli operatori insiemistici \underline{non} richiedono che gli schemi su cui vengono effettuate le operazioni siano identici. Tuttavia, \textbf{gli attributi devono essere di pari numero} e con \textbf{domini compatibili}. In SQL, con gli operatori insiemistici, la \textbf{corrispondenza tra gli attributi si basa sulla posizione} di essi.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, si considerino le seguenti \emph{query} che si riferiscono alla base dati a pagina~\pageref{select dbms}:
+	\begin{itemize}
+		\item Si vogliono estrarre i nomi e i cognomi degli impiegati:
+		\lstinputlisting[language=SQL]{code/union-ex1.sql}
+		I primi valori ottenuti sono quelli del \textsf{Nome} e successivamente quelli del \textsf{Cognome}. La tabella risultato è ottenuta unendo i due risultati. Come si vede dal seguente risultato, non vi sono duplicati grazie all'operatore insiemistico: \emph{colonna} \textsf{Nome}; \emph{valori} \textsf{Mario, Carlo, Giovanni, Franco, Lorenzo, Paola, Marco, Rossi, Bianchi, Verdi, Neri, Gialli, Rosati}.\newpage
+		
+		\item Si vogliono estrarre i nomi e i cognomi di tutti gli impiegati, eccetto quelli appartenenti al dipartimento Amministrazione, mantenendo i duplicati:
+		\lstinputlisting[language=SQL]{code/union-ex2.sql}
+		In questo caso tutti i duplicati vengono mantenuti e il risultato è: \emph{colonna} \textsf{Nome}; \emph{valori} \textsf{Carlo, Franco, Carlo, Lorenzo, Marco, Bianchi, Neri, Rossi, Gialli, Franco}.
+		
+		\item Si vogliono estrarre i cognomi di impiegati che sono anche nomi:
+		\lstinputlisting[language=SQL]{code/intersect-ex1.sql}
+		Il risultato è un solo valore nella tabella \textsf{Nome}: \textsf{Franco}.
+		
+		\item Si vogliono estrarre i nomi degli impiegati che non sono cognomi di qualche impiegato:
+		\lstinputlisting[language=SQL]{code/except-ex1.sql}
+	\end{itemize}\newpage
+	
+	\subsection{Viste (\textsf{create view})}
+	
+	Le \textbf{\underline{viste}} sono \textbf{tabelle \dquotes{virtuali} il cui contenuto dipende dal contenuto delle altre tabelle in una base di dati}. In SQL vengono definite associando un nome e una lista di attributi al risultato dell'esecuzione di un'interrogazione. Nell'interrogazione che definisce la vista possono comparire anche altre viste:
+	\lstinputlisting[language=SQL]{code/create_view.sql}
+	L'interrogazione SQL deve restituire un insieme di attributi compatibile con gli attributi nello schema della vista; l'ordine nella clausola \textsf{select} deve corrispondere all'ordine degli attributi nello schema.\newline
+	
+	\noindent
+	SQL \textbf{\underline{non consente}} alcune operazioni con le viste:
+	\begin{itemize}
+		\item Dipendenze \textbf{immediate}, ovvero definire una vista in termini di sé stessa;
+		
+		\item Dipendenze \textbf{ricorsive}, ovvero definire un'interrogazione di base e un'interrogazione ricorsiva;
+		
+		\item Dipendenze \textbf{transitive circolari}, ovvero una vista che invoca la seconda vista, la seconda che invoca la terza, finché l'ultima non invoca di nuovo la prima ($V_{1}$ invoca $V_{2}$, $V_{2}$ invoca $V_{3}$, ..., $V_{n}$ invoca $V_{1}$).
+	\end{itemize}
+	Lo \textbf{scopo} delle viste è quello di aumentare il potere espressivo del linguaggio. Per esempio, nella clausola \textsf{from} sono ammesse interrogazioni nidificate solo grazie alle viste.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, si definiscono le seguenti \emph{query} considerando la base dati a pagina~\pageref{select dbms}:
+	\begin{itemize}
+		\item Si definisce una vista \textsf{ImpiegatiAmmin} che contiene tutti gli impiegati del dipartimento Amministrazione con uno stipendio superiore a 10:
+		\lstinputlisting[language=SQL]{code/create_view-ex1.sql}
+		E si costruisce una relativa vista \textsf{ImpiegatiAmminPoveri} definita a partire dalla visita \textsf{ImpiegatiAmmin}, la quale conterrà gli impiegati amministrativi con uno stipendio compreso tra 10 e 50:
+		\lstinputlisting[language=SQL]{code/create_view-ex2.sql}\newpage
+		
+		\item Si vuole determinare qual è il dipartimento che spede il massimo in stipendi. A questo scopo, si definisce una visita:
+		\lstinputlisting[language=SQL]{code/create_view-ex3.sql}
+		E quindi si prosegue cercando di estrarre il dipartimento avente il valore massimo della somma degli stipendi:
+		\lstinputlisting[language=SQL]{code/create_view-ex4.sql}
+		
+		\item Si crea la seguente vista:
+		\lstinputlisting[language=SQL]{code/create_view-ex5.sql}
+		E si vuole estrarre il numero medio di uffici per ogni dipartimento:
+		\lstinputlisting[language=SQL]{code/create_view-ex6.sql}
+	\end{itemize}\newpage
+	
+	\subsubsection{Esempio amplio con le viste}
+	
+	Il seguente schema relazionale descrive il calendario di una manifestazione sportiva a squadre nazionali:
+	\begin{equation*}
+		\begin{array}{ll}
+			\textbf{Stadio} 	& \left( \textsf{\underline{Nome}}, \textsf{Citta}, \textsf{Capienza} \right) \\
+			\\
+			\textbf{Incontro} 	& \left( \textsf{\underline{NomeStadio}}, \textsf{\underline{Data}}, \textsf{\underline{Ora}}, \textsf{Squadra1}, \textsf{Squadra2} \right) \\
+			\\
+			\textbf{Nazionale} 	& \left( \textsf{\underline{Paese}}, \textsf{Continente}, \textsf{Categoria} \right) \\
+		\end{array}
+	\end{equation*}
+	Si esegue la seguente \emph{query}: si trova lo stadio in cui la squadra italiana gioca più partite. Ci sono due alternative:
+	\begin{enumerate}
+		\item L'opzione con la vista apposita:
+		\lstinputlisting[language=SQL]{code/create_view-ex7.sql}
+		
+		\item L'opzione con la vista più generale:
+		\lstinputlisting[language=SQL]{code/create_view-ex8.sql}
+	\end{enumerate}\newpage
+	
+	\noindent
+	Il seguente schema relazionale descrive le moto e il suo relativo proprietario:
+	\begin{equation*}
+		\begin{array}{ll}
+			\textbf{Moto} 			& \left( \textsf{\underline{Targa}}, \textsf{Cilindrata}, \textsf{Marca}, \textsf{Nazione}, \textsf{Tasse} \right) \\
+			\\
+			\textbf{Proprietario}	& \left( \textsf{\underline{Nome}}, \textsf{\underline{Targa}}\right) \\
+		\end{array}
+	\end{equation*}
+	Si esegue la seguente \emph{query}: si vuole estrarre per ogni cliente le tasse che devono essere pagate per tutte le moto possedute, ipotizzando che se vi sono più proprietari per una moto, l'ammontare delle tasse viene equamente diviso tra i proprietari.
+	\lstinputlisting[language=SQL]{code/create_view-ex9.sql}\newpage
 \end{document}
