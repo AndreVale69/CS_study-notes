@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<libro editore="McGraw-Hill" pubblicazione="2013" formato="paperback">
+    <titolo> Basi di dati: Modelli e linguaggi di interrogazione </titolo>
+    <autore> Paolo Atzeni </autore>
+    <autore> Stefano Ceri </autore>
+    <autore> Piero Fraternali </autore>
+    <autore> Stefano Paraboschi </autore>
+    <autore> Riccardo Torlone </autore>
+    <parte numero="1">
+        <capitolo> Il modello relazionale </capitolo>
+        <capitolo> Algebra e calcolo relazionale </capitolo>
+        <capitolo> SQL: Concetti base </capitolo>
+        <capitolo> SQL: Caratteristiche evolute </capitolo>
+        <capitolo> SQL per le applicazioni </capitolo>
+    </parte>
+    <parte numero="2">
+        <capitolo> Metodologie e modelli per il progetto </capitolo>
+        <capitolo> La progettazione concettuale </capitolo>
+        <capitolo> La progettazione logica </capitolo>
+        <capitolo> La normalizzazione </capitolo>
+        <capitolo> Sviluppo di applicazioni per basi di dati </capitolo>
+    </parte>
+    <parte numero="3">
+        <capitolo> Organizzazione fisica e gestione delle interrogazioni </capitolo>
+        <capitolo> Gestione delle transazioni </capitolo>
+    </parte>
+    <parte numero="4">
+        <appendice> Microsoft Access </appendice>
+        <appendice> DBMS open source: Postgres </appendice>
+    </parte>
+</libro>

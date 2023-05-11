@@ -1,0 +1,31 @@
+<?xml version="1.1"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <xs:element name="libro">
+  <xs:complexType>
+   <xs:sequence>
+    <xs:element name="titolo" type="xs:string"/>
+    <xs:element name="autore" type="xs:string" maxOccurs="unbounded"/>
+    <xs:element ref="parte" maxOccurs="unbounded"/>
+   </xs:sequence>
+   <xs:attribute name="editore" type="xs:string" use="required"/>
+   <xs:attribute name="pubblicazione" type="xs:date"/>
+   <xs:attribute name="formato" default="paperback"/>
+    <xs:simpleType>
+     <xs:restriction base="xs:string">
+      <xs:enumeration value="paperback"/>
+      <xs:enumeration value="hardback"/>
+     </xs:restriction>
+    </xs:simpleType>
+   <xs:attribute/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name="parte">
+  <xs:choice>
+   <xs:element name="capitolo" type="xs:string" maxOccurs="unbounded"/>
+   <xs:element name="appendice" type="xs:string" maxOccurs="unbounded"/>
+  </xs:choice>
+  <xs:attribute name="numero" type="xs:integer" use="required"/>
+ </xs:element>
+</xs:schema>

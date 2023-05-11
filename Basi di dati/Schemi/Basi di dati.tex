@@ -42,6 +42,22 @@
 }
 \lstset{style=mystyle}
 
+\definecolor{maroon}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\lstdefinelanguage{XML}
+{
+	basicstyle=\ttfamily\footnotesize,
+	morestring=[s]{"}{"},
+	morecomment=[s]{?}{?},
+	morecomment=[s]{!--}{--},
+	commentstyle=\color{darkgreen},
+	moredelim=[s][\color{black}]{>}{<},
+	moredelim=[s][\color{red}]{\ }{=},
+	stringstyle=\color{blue},
+	identifierstyle=\color{maroon}
+}
+
+
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
 
@@ -3826,7 +3842,52 @@ end transaction;
 		\begin{equation*}
 			NP\left(Esterna\right) \times NR\left(Interna\right)
 		\end{equation*}
+	\end{itemize}\newpage
+	
+	\section{XML e XML Schema}
+	
+	\subsection{Definizione di XML}
+	
+	Lo standard \textcolor{Red3}{\textbf{XML}} (\emph{eXtensible Markup Language}) detta le \textbf{regole sintattiche per la costruzione di documenti ben formati} (well-formed), realizzati mescolando tag e contenuto informativo. Un \textbf{documento XML ben formato} deve soddisfare i \textbf{requisiti seguenti}:
+	\begin{itemize}
+		\item Il documento deve cominciare con una direttiva standard che specifica la \textbf{versione di XML utilizzata}, per esempio:
+		\begin{lstlisting}[language=XML]
+<?xml version="1.0"?>\end{lstlisting}
+		
+		\item Il documento può \textbf{contenere elementi}. Ogni elemento può contenere sia testo sia altri elementi. Ogni elemento dotato di contenuto è delimitato da due tag: uno di apertura e uno di chiusura. Il tag di chiusura deve avere lo stesso nome del tag di apertura, con in più il prefisso \dquotes{/}. Se un tag è privo di contenuto, ha solo tag, il cui nome deve finire con il simbolo \dquotes{/}.
+		
+		\item Il documento deve avere un \textbf{elemento radice che racchiude l'intero contenuto}. Se un elemento contiene sotto-elementi, il tag di chiusura di ciascun sotto-elemento deve precedere il tag di chiusura del sopra-elemento.
+		
+		\item Ogni documento può \textbf{avere uno o più attributi}, i quali vengono specificati nel tag di apertura dell'elemento e i valori a essi associati vengono racchiusi tra virgolette.
 	\end{itemize}
+	Un \textcolor{Green4}{\textbf{esempio}} di semplice documento XML ben formato:
+	\lstinputlisting[language=XML]{code/xml-ex1.XML}\newpage
+	
+	\subsection{Specifica della struttura dei documenti XML: DTD vs XSD}
+	
+	I \textbf{documenti XML possono essere accompagnati da una specifica della loro struttura}, analoga a uno schema del documento. Se il \textbf{documento rispetta la specifica struttura}, si dice \underline{\textbf{valido}} rispetto a tale specifica.\newline
+	
+	\noindent
+	Esistono \textbf{due modalità} di specificare la struttura di un documento XML:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Document Type Definition (DTD)}}, semplice ma poco espressiva;
+		\item \textcolor{Red3}{\textbf{XML Schema Definition (XSD)}}, complessa ma potente.
+	\end{itemize}
+	Evitando di spiegare il DTD poiché considerato di vecchia generazione, si consideri che il primo porta ad alcune limitazioni che lo portano ad essere inferiore ad XSD, per questo motivo viene preferito il secondo. Infatti, esso è uno schema contenente gli elementi standard e specifica la struttura di un insieme di documenti XML. Inoltre, consente di:
+	\begin{itemize}
+		\item Definire elementi e attributi;
+		
+		\item Dichiarare il tipo di ciascun elemento e attributo sulla base di un insieme ampio di tipi predefiniti;
+		
+		\item Costruire nuovi tipi con l'aiuto di costruttori di tipi complessi;
+		
+		\item Esprimere vincoli sulla struttura degli elementi più sofisticati di quelli offerti dai DTD.
+	\end{itemize}
+	Si consideri come \textcolor{Green4}{\textbf{esempio}} il seguente documento XML che rappresenta una descrizione della struttura dell'edizione 2013 del libro a cui fanno riferimento questi appunti:
+	\lstinputlisting[language=XML]{code/xml-ex2.XML}
+	Sempre come \textcolor{Green4}{\textbf{esempio}}, viene riportato di seguito uno \textbf{schema XML} (XSD) per la rappresentazione di indici di libri:
+	\lstinputlisting[language=XML]{code/xml-ex3.XML}
+	
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
