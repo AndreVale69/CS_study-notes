@@ -49,6 +49,37 @@
 	tabsize=2
 }
 
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{codegreen}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=JavaScript,
+	backgroundcolor=\color{lightgray},
+	extendedchars=true,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=left,
+	numberstyle=\footnotesize,
+	numbersep=9pt,
+	tabsize=2,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
+
 \lstset{style=mystyle}
 
 %\usepackage{showframe}				% visualizzazione bordi
@@ -3522,7 +3553,7 @@ Even integers
  	
  	\longline
  	
- 	\subsection{Blocchi}
+ 	\subsection{Blocchi}\label{blocchi}
  	
  	\subsubsection{Integrazione di ambienti e memorie}
  	
@@ -3547,7 +3578,7 @@ Even integers
  	
  	\noindent
  	Il blocco \textbf{fissa la visibilità delle dichiarazioni ad un insieme di comandi}. Una \textbf{dichiarazione locale ad un blocco è visibile} (\textcolor{Red3}{\textbf{\emph{scope}}}) in quel blocco e in tutti i blocchi in esso annidati. È evidente che è importante stabilire quali sono le \textbf{regole di visibilità}:
- 	\begin{boxdef}
+ 	\begin{boxdef}\label{regola di visibilità}
  		La \textcolor{Red3}{\textbf{regola di visibilità}} è la seguente. Una dichiarazione locale ad un blocco è visibile in quel blocco e in tutti i blocchi in esso annidati, a meno che non intervenga in tali blocchi una nuova dichiarazione dello stesso nome (che nasconde, o maschera, la precedente).
  	\end{boxdef}
  	
@@ -3740,5 +3771,183 @@ Even integers
  		\begin{equation*}
  			c_{0} \equiv c_{1} \hspace{1em} \iff \hspace{1em} \forall\sigma : Exec\left(\left\langle c_{0}, \sigma \right\rangle\right) = Exec\left(\left\langle c_{1}, \sigma \right\rangle\right)
  		\end{equation*}
+ 	\end{boxdef}\newpage
+ 	
+ 	\section{Procedure}
+ 	
+ 	\subsection{Astrazione del controllo}
+ 	
+ 	\subsubsection{Nomi e parametri, interfacce e corpi}
+ 	
+ 	Ogni categoria sintattica semanticamente significativa può essere utilizzata come astrazione:
+ 	\begin{itemize}
+ 		\item Le espressioni;
+ 		
+ 		\item Le dichiarazioni con i tipi di dati astratti;
+ 		
+ 		\item I comandi con le procedure, i quali sono lu strumento sintattico per l'astrazione del controllo.
+ 	\end{itemize}
+ 	La \textbf{categoria sintattica più interessante}, dal punto di vista dell'astrazione, è quella dei \textbf{comandi}. Questo perché ha come obbiettivo quello di \textbf{abbreviare la scrittura di programmi che contengono sequenze ripetute di comandi uguali}, ma che possono differire nei dati su cui operano.\newline
+ 	
+ 	\noindent
+ 	Le \textbf{motivazioni} per cui viene eseguita l'\textbf{astrazione} sono molteplici:
+ 	\begin{itemize}
+ 		\item Maggiore leggibilità del codice;
+ 		\item Utilizzo ripetuto delle stesse espressioni o gruppi di comandi;
+ 		\item Riduzione delle possibilità di errore.
+ 	\end{itemize}
+ 	
+ 	\noindent
+ 	Parte \textbf{fondamentale dell'astrazione} consiste nel \textbf{dare} al raggruppamento un \textcolor{Red3}{\textbf{nome}}. Infatti, l'introduzione di nomi consiste nella creazione di nuovi legami che permettano di interpretare i nomi stessi durante l'esecuzione. Per \textcolor{Green4}{\textbf{esempio}}, grazie all'uso di un nome, è possibile rappresentare un insieme di elementi complessi che vengono così trattati come un'unica entità.
+ 	
+ 	Inoltre, il \textbf{nome consente di riferirsi all'astrazione senza conoscerne i dettagli}, ma solo le caratteristiche di interesse che ne hanno determinato il raggruppamento.\newline
+ 	
+ 	\noindent
+ 	Per aumentare l'astrazione, vengono introdotti i \textcolor{Red3}{\textbf{parametri}}. Essi sono abbreviati con un nome e \textbf{consentono l'astrazione di tante computazioni simili}, le quali cambiano solo per alcuni input a cui vengono applicate.\newline
+ 	
+ 	\noindent
+ 	Unendo \emph{\textbf{nomi}} e \emph{\textbf{parametri}}, si formano le \textcolor{Red3}{\textbf{interfacce}} dell'astrazione, ovvero tutto \textbf{quello che è necessario conoscere per poter utilizzare correttamente le procedure}. Quindi, grazie alle interfacce viene reso visibile solo cosa è visibile dall'astrazione, nascondendo tutti gli altri dettagli. Vengono enfatizzate le similarità delle diverse istanze raggruppate nascondendo le differenze.\newline
+ 	
+ 	\noindent
+ 	Il \textcolor{Red3}{\textbf{corpo}} è \textbf{ciò che viene valutato, elaborato ed eseguito, ogni qualvolta il nome viene richiamato (con eventuali parametri) in qualche punto del programma}. Il corpo è analogo ai blocchi senza nome (par.~\ref{blocchi}), ovvero incapsula una sequenza di comandi in un'interfaccia.\newpage
+ 	
+ 	\subsubsection{Funzioni e procedure}
+ 	
+ 	Durante l'astrazione esistono due tipologie di categorie di \textbf{sottoprogrammi} con nome che possono essere definite:
+ 	\begin{itemize}
+ 		\item Le \textbf{\emph{procedure}} sono collezioni di comandi che definiscono una computazione parametrizzata.\newline
+ 		Le procedure sono ogni forma di astrazione di comandi che ha un nome e non viene necessariamente restituito un risultato. L'\textbf{obbiettivo principale è che eseguano una modifica di stato}.
+ 		
+ 		\item Le \textbf{\emph{funzioni}} sono strutturalmente simili alle procedure ma semanticamente sono modellate come le classiche funzioni.\newline
+ 		Le funzioni, a differenza delle procedure, eseguono sia una modifica di stato sia una modifica di stato. Inoltre, talvolta è possibile che venga prodotto \href{https://en.m.wikipedia.org/wiki/Side_effect_(computer_science)}{\emph{side effects}}.
+ 	\end{itemize}
+ 	Indipendentemente dall'invocazione di una funzione o una procedura, è possibile ignorare o considerare i cambiamenti di stato:
+ 	\begin{itemize}
+ 		\item Il \textbf{chiamante} (chi invoca la funzione/procedura) \textbf{ignora i cambiamenti di stato intermedi} e tiene solo lo stato di chiamata che passa allo stato di ritorno;
+ 		
+ 		\item Il \textbf{chiamante utilizza l'intero codice presente all'interno della funzione/procedura}. In questo caso, il chiamante è interessante a tutti i cambiamenti di stato intermedi.
+ 	\end{itemize}
+ 	
+ 	\noindent
+ 	\begin{boxdef}
+ 		Un \textcolor{Red3}{\textbf{sottoprogramma}} è un concetto base (funzione o procedura), porzione di codice identificato da un nome, dotato di un ambiente locale proprio e capace di scambiare informazioni con il resto del codice mediante fissati canali (parametri e/o valori di ritorno)
  	\end{boxdef}
+ 	
+ 	\noindent
+ 	La caratterizzazione di un sottoprogramma si basa sulla specifica, sulla definizione (scrittura vera e propria) e sulla chiamata (è necessario utilizzarlo). Il tutto viene fatto senza conoscerne il contesto. Quindi la sequenza è la seguente:
+ 	\begin{enumerate}
+ 		\item \textbf{Specifica} del sottoprogramma;
+ 		\item \textbf{Scrittura} del sottoprogramma;
+ 		\item \textbf{Utilizzo} del sottoprogramma.
+ 	\end{enumerate}\newpage
+ 	
+ 	\subsection{Visibilità con le procedure e ambienti di riferimento}
+ 	
+ 	Ricordando la regola di visibilità enunciata a pagina~\pageref{regola di visibilità}, essa è possibile estenderla alle procedure grazie al concetto di ambienti di riferimento per un comando:
+ 	\begin{boxdef}
+ 		L'\textcolor{Red3}{\textbf{ambiente di riferimento}} di un comando è la collezione di tutti i nomi che sono visibili al comando.
+ 	\end{boxdef}
+ 	
+ 	\noindent
+ 	L'ambiente di riferimento di una procedura è determinato da varie tipologie di regole:
+ 	\begin{itemize}
+ 		\item Regole di \textbf{scope} (statico o dinamico);
+ 		
+ 		\item Regole \textbf{specifiche}, per esempio quando è visibile una dichiarazione nel blocco in cui compare;
+ 		
+ 		\item Regole per il \textbf{passaggio dei parametri};
+ 		
+ 		\item Regole di \textbf{binding} (\emph{shallow} o \emph{deep}) che intervengono quando una procedura è passata come parametro ad un'altra procedura.
+ 	\end{itemize}
+ 	In particolare, \textbf{le regole di scope e di binding servono esclusivamente quando la procedura contiene un ambiente non locale}.\newpage
+ 	
+ 	\subsection{Scope statico e dinamico}
+ 	
+ 	Esistono due tipologie di scope:
+ 	\begin{itemize}
+ 		\item \textbf{Scope statico}, dove gli \textbf{identificatori} liberi della procedura (cioè ambiente non locale), sono \textbf{\underline{staticamente} legali all'ambiente}, quindi a \textbf{tempo di compilazione}.
+ 		
+ 		Lo scope statico si basa esclusivamente sul testo del codice, e lega l'identificatore al blocco che lessicalmente lo contiene, ovvero in cui è stato dichiarato.
+ 		
+ 		\begin{boxdef}
+ 			Nello \textcolor{Red3}{\textbf{scope statico}} un nome non locale è risolto nel blocco che testualmente lo racchiude.
+ 		\end{boxdef}
+ 		
+ 		\item \textbf{Scope dinamico}, i \textbf{legami} \underline{non} sono creati a tempo di esecuzione, ma è necessario \textbf{eseguire il programma per individuarli} e \textbf{quindi i legami stessi sono dinamici}. In altre parole, viene presa in considerazione l'ultima chiamata aperta e non ancora chiusa in cui la variabile è stata definita.
+ 		
+ 		Diverse chiamate alla stessa procedura possono essere eseguite in ambienti diversi, quindi gli stessi oggetti possono essere risolti con legami differenti.
+ 		
+ 		\begin{boxdef}
+ 			Nello \textcolor{Red3}{\textbf{scope dinamico}} un nome non locale è risolto nella chiamata attivata più di recente e non ancora terminata.
+ 		\end{boxdef}
+ 	\end{itemize}
+ 	Per esempio, dato il seguente codice:
+ 	\lstinputlisting[language=C]{code/scope-statico_dinamico.c}
+ 	La chiamata \textsf{write(x);} a riga 11, con scope statico stampa 0, mentre con scope dinamico stampa 4.\newpage
+ 	
+ 	\subsubsection{Scope statico}
+ 	
+ 	Lo scope statico ha alcuni aspetti che lo caratterizzano:
+ 	\begin{itemize}
+ 		\item \textbf{Garantisce l'indipendenza del risultato della procedura dalla posizione}. Per \textcolor{Green4}{\textbf{esempio}}, si consideri il seguente codice:
+ 		\lstinputlisting[language=C]{code/scope_statico-ex1.c}
+ 		Il corpo della funzione \textsf{foo} è parte dello scope della \textsf{x} più esterna. Invece, la chiamata della funzione \textsf{foo} è compresa nello scope della \textsf{x} più interna. Nonostante \textsf{foo} possa essere chiamata in molti contesti diversi, lo scope statico è l'unico in cui essa può essere compilata in modo univoco. Facendo sempre riferimento alla \textsf{x} più esterna.
+ 		
+ 		Ovviamente, la visibilità di una dichiarazione varia a seconda delle regole fissate dal linguaggio.
+ 		
+ 		\item (\underline{svantaggio}) \textbf{Necessita di più accessi}, rispetto al necessario, a variabili e sottoprogrammi;
+ 		
+ 		\item (\underline{svantaggio}) I \textbf{sottoprogrammi diventano globali} poiché utilizzano variabili esterne.
+ 	\end{itemize}
+ 	Un \textcolor{Green4}{\textbf{esempio}} di codice scritto in Javascript:
+ 	\lstinputlisting[language=JavaScript]{code/scope_statico-ex2.js}
+ 	I valori stampati sono: 12 47. Quindi, la funzione \textsf{addn()} utilizza il valore 17, ma questo non indica che il linguaggio utilizzi lo scope dinamico. Infatti, nella seconda dichiarazione di \textsf{n} (riga 8), non vi è un blocco ma semplicemente una sovrascrizione della prima dichiarazione di \textsf{n} (riga 1).\newpage
+ 	
+ 	\noindent
+ 	È possibile osservare quale tipo di scope è utilizzato con il seguente codice:
+ 	\lstinputlisting[language=JavaScript]{code/scope_statico-ex3.js}
+ 	In questo caso il risultato è: 42 12. La chiamata \textsf{addn()} (riga 9) usa la prima dichiarazione di \textsf{n} (riga 1). Nel caso in cui si decommenti la riga 13, il risultato sarebbe: 43 13. \newline
+ 	
+ 	\noindent
+ 	Un altro \textcolor{Green4}{\textbf{esempio}} di codice scritto in Python:
+ 	\lstinputlisting[language=Python]{code/scope_statico-ex4.py}
+ 	Anche in questo caso il risultato è: 42 12. Quindi, la funzione \textsf{addn()} utilizza il valore 12. Nel caso in cui venga decommentata la riga 11, il risultato sarebbe: 43 13.\newline
+ 	
+ 	\noindent
+ 	Considerando un altro esempio in Python:
+ 	\lstinputlisting[language=Python]{code/scope_statico-ex5.py}
+ 	In questo caso il risultato è: 17 4. Alla riga 9 viene invocata la funzione \textsf{f} con parametro \textsf{z} che corrisponde a 3; la \textsf{x} a riga 9 è uguale a 5; la moltiplicazione a riga 5 è 12 poiché viene presa la variabile \textsf{x} esterna.\newpage
+ 	
+ 	\subsubsection{Scope dinamico}
+ 	
+ 	Lo scope dinamico ha alcune caratteristiche:
+ 	\begin{itemize}
+ 		\item È \textbf{basato sulla sequenza di chiamate del programma}, e non sulla struttura del codice. Quindi, un nome non locale viene risolto nella chiamata attivata più recente e non ancora disattivata;
+ 		
+ 		\item (\underline{vantaggio}) \textbf{Convenienza};
+ 		
+ 		\item (\underline{svantaggio}) Durante l'esecuzione del programma, le sue \textbf{variabili sono visibili a tutti i sottoprogrammi che invoca};
+ 		
+ 		\item (\underline{svantaggio}) Il \textbf{riferimento di una variabile} in un punto del programma \textbf{può variare a seconda dell'esecuzione};
+ 		
+ 		\item (\underline{svantaggio}) \textbf{Impossibile eseguire una verifica statica};
+ 		
+ 		\item (\underline{svantaggio}) \textbf{Ridotta leggibilità}, ovvero non è possibile determinare staticamente (punto precedente) il tipo di una variabile.
+ 	\end{itemize}
+ 	Per i vari svantaggi, il tipo dinamico viene utilizzato meno dello statico.\newline
+ 	
+ 	\noindent
+ 	Il seguente \textcolor{Green4}{\textbf{esempio}} riporta un codice nel linguaggio di programmazione Perl:
+ 	\lstinputlisting[language=Perl]{code/scope_dinamico-ex1.pl}
+ 	Il risultato visualizzato è: 47 47. Infatti, la dichiarazione dentro la funzione \textsf{set()} è globale, quindi lo scope non interviene. Per eseguire la verifica e capire quale scope viene utilizzato, è necessario dichiarare una variabile locale in \textsf{set()}. Dunque, scrivendo alla riga 8 il comando \dquotes{\textsf{local \$n = 17;}} è possibile notare che lo scope è dinamico. Il risultato muta in 47 12, quindi la chiamata \textsf{addn()} utilizza la dichiarazione \dquotes{\textsf{local \$n = 17;}} (riga 8) valida al momento delle chiamata della funzione \textsf{addn()}. Invece, esternamente il valore di \textsf{n} rimane 12.\newpage
+ 	
+ 	\subsubsection{Sintesi}
+ 	
+ 	Lo \textbf{scope statico} è quando un nome non locale è risolto nel blocco che testualmente lo racchiude. In questo caso, le associazioni sono note a tempo di compilazione. L'implementazione è complessa ma risulta molto efficiente e soddisfa i principi di indipendenza.\newline
+ 	
+ 	\noindent
+ 	Lo \textbf{scope dinamico} è quando un nome non locale è risolto nella chiamata attivata più di recente e non ancora disattiva. In questo caso, l'informazione è derivata dall'esecuzione e causa programmi meno leggibili. Facile da implementare ma poco efficiente.\newline
+ 	
+ 	\noindent
+ 	N.B. \textbf{Se non ci sono procedure, o se nelle precedure non c'è un ambiente non locale (o se c'è ma è incluso nell'ambiente globale) allora non ha senso distinguere i due metodi, in quanto il risultato sarebbe sempre lo stesso.} Quindi i due metodi di scope differiscono solo nel contesto delle procedure con presenza congiunta di ambiente non locale e non globale.
 \end{document}
