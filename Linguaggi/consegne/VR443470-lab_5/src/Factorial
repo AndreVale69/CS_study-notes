@@ -1,0 +1,10 @@
+x = 5;
+cx = x;
+f = 1;
+
+while (x > 1) {
+    f = f * x;
+    x = x - 1
+};
+
+out("The factorial of " . tostr(cx) . " is " . tostr(f))
