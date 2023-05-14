@@ -1,0 +1,258 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{mathtools}				% per sottolineare sotto le equazioni
+\usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
+\usepackage{amsthm}					% teoremi migliorati
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
+\usepackage{cancel}					% per cancellare delle espressioni matematiche
+
+\usepackage{mathrsfs}
+
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+\usepackage{tikz}
+\newcommand{\MyTikzmark}[2]{%
+	\tikz[overlay,remember picture,baseline] \node [anchor=base] (#1) {#2};%
+}
+\newcommand{\DrawVLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.3ex, #1] (#2.north) -- (#3.south);
+	\end{tikzpicture}
+}
+\newcommand{\DrawHLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.2em, #1] (#2.west) -- (#3.east);
+	\end{tikzpicture}
+}
+
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\newtheorem{theorem}{\textcolor{Red3}{\underline{Teorema}}}
+\newtheorem{lemma}{Lemma}
+\renewcommand{\qedsymbol}{QED}
+\newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+\newcommand{\dquotes}[1]{``#1''}
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+\newcommand{\circledtext}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
+\DeclareMathOperator{\rk}{rk}
+
+\newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
+\newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
+
+\begin{document}
+	\author{\begin{tabular}{ll}
+			VR455961 & Davide Bragantini \\
+			VR443470 & Andrea Valentini
+		\end{tabular}
+		   }
+	\title{Università degli studi di Verona \\
+			\:\\
+			Soluzioni scheda 2}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Soluzione esercizio 1}
+	
+	Sia $A_{k}$ la seguente matrice reale:
+	\begin{equation*}
+		A_{k} = \begin{pmatrix}
+			2 & 2 & 2k \\
+			k-1 & k & k^{2} \\
+			-k & -k & 0
+		\end{pmatrix}
+	\end{equation*}
+	
+	\subsection{Soluzione \emph{a}}
+	
+	Si determini per quali valori di $k \in \mathbb{R}$ la matrice $A_{k}$ ammette inversa.\newline
+	
+	\noindent
+	Una matrice quadrata a coefficienti in un campo dell'insieme $\mathbb{K}$ è invertibile se e solo se il suo determinante è diverso da zero. Quindi, si procede con il calcolo del determinante della matrice $A_{k}$. Visto che si tratta di una matrice di ordine $3$, si utilizza la regola di Sarrus per risolvere il determinante. Si duplica la matrice:
+	\begin{equation*}
+		\begin{matrix}
+			2 	& 2		& 2k 	& 2 	& 2 	& 2k 		\\
+			k-1 & k 	& k^{2} & k-1 	& k 	& k^{2} 	\\
+			-k 	& -k	& 0		& -k 	& -k 	& 0
+		\end{matrix}
+	\end{equation*}
+	Si sommano i prodotti lungo le prime tre diagonali principali:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{1° diag} & : & \left(2 \cdot k \cdot 0\right) = 0 \\ [0.5em]
+			\text{2° diag} & : & \left(2 \cdot k^{2} \cdot -k\right) = 2k^{2} \cdot -k = -2k^{3} \\[0.5em]
+			\text{3° diag} & : & \left[2k \cdot \left(k-1\right) \cdot -k\right] = 2k \cdot \left(-k^{2} + k\right) = -2k^{3} + 2k^{2} \\ [0.5em]
+			\text{Somma}   & : & 0 + \left(-2k^{3}\right) + \left(-2k^{3} + 2k^{2}\right) = -4k^{3} + 2k^{2}
+		\end{array}
+	\end{equation*}
+	E si esegue lo stesso calcolo considerando le tre diagonali opposte:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{1° diag opp} & : & \left(2k \cdot k \cdot -k\right) = -2k^{3} \\ [0.5em]
+			\text{2° diag opp} & : & \left[2 \cdot \left(k-1\right) \cdot 0\right] = 0  \\ [0.5em]
+			\text{3° diag opp} & : & \left(2 \cdot k^{2} \cdot -k\right) = -2k^{3} \\ [0.5em]
+			\text{Somma}   & : & -2k^{3} + 0 + \left(-2k^{3}\right) = -4k^{3}
+		\end{array}
+	\end{equation*}
+	Si esegue la sottrazione dei due risultati ottenuti mantenendo a sinistra quello della diagonale principale:
+	\begin{equation*}
+		\left(-4k^{3} + 2k^{2}\right) - \left(-4k^{3}\right) = 2k^{2}
+	\end{equation*}
+	Quindi il determinante è:
+	\begin{equation*}
+		\det\left(A_{k}\right) = 2k^{2}
+	\end{equation*}
+	La matrice $A_{k}$ ammette inversa per qualsiasi valore reale di $k$, poiché non esiste nessun valore (in $\mathbb{R}$) in grado di annullare l'espressione $2k^{2}$.\newpage
+	
+	\subsection{Soluzione \emph{b}}
+	
+	Sia $k \in \mathbb{R}$ tale che $A_{k}$ ammette inversa. Si calcoli $A_{k}^{-1}$ usando la formula $A_{k}^{-1} = \frac{1}{\det\left(A_{k}\right)} A_{k}^{*}$.\newline
+	
+	\noindent
+	Per calcolare la matrice inversa si calcolano prima i complementi algebrici $\mathrm{Com}$:
+	\begin{equation*}
+		\begin{array}{ll}
+			\mathrm{Com}\left(A_{11}\right) = & \left(-1\right)^{1+1} \cdot C_{11} = \left(-1\right)^{2} \cdot \det\begin{pmatrix}
+				k & k^{2} \\
+				-k & 0
+			\end{pmatrix} = 1 \cdot \left[0 - \left(-k^{3}\right)\right] = k^{3} \\ [1.2em]
+			
+			\mathrm{Com}\left(A_{21}\right) = & \left(-1\right)^{2+1} \cdot C_{21} = \left(-1\right)^{3} \cdot \det\begin{pmatrix}
+				2  & 2k \\
+				-k & 0
+			\end{pmatrix} = -1 \cdot \left[0 - \left(-2k^{2}\right)\right] = -2k^{2} \\ [1.2em]
+			
+			\mathrm{Com}\left(A_{31}\right) = & \left(-1\right)^{3+1} \cdot C_{31} = \left(-1\right)^{4} \cdot \det\begin{pmatrix}
+				2 & 2k \\
+				k & k^{2}
+			\end{pmatrix} = 1 \cdot \left(2k^{2} - 2k^{2}\right) = 0 \\ [1.2em]
+			
+			\mathrm{Com}\left(A_{12}\right) = & \left(-1\right)^{1+2} \cdot C_{12} = \left(-1\right)^{3} \cdot \det\begin{pmatrix}
+				k-1 & k^{2} \\
+				-k  & 0
+			\end{pmatrix} = -1 \cdot \left[0 - \left(-k^{3}\right)\right] = -k^{3} \\ [1.2em]
+			
+			\mathrm{Com}\left(A_{22}\right) = & \left(-1\right)^{2+2} \cdot C_{22} = \left(-1\right)^{4} \cdot \det\begin{pmatrix}
+				2  & 2k \\
+				-k & 0
+			\end{pmatrix} = 1 \cdot \left[0 - \left(-2k^{2}\right)\right] = 2k^{2} \\ [1.2em]
+			
+			\mathrm{Com}\left(A_{32}\right) = & \left(-1\right)^{3+2} \cdot C_{32} = \left(-1\right)^{5} \cdot \det\begin{pmatrix}
+				2   & 2k	\\
+				k-1 & k^{2}
+			\end{pmatrix} = -1 \cdot \left[2k^{2} - \left(2k^{2} - 2k\right)\right] = -2k\\ [1.2em]
+			
+			\mathrm{Com}\left(A_{13}\right) = & \left(-1\right)^{1+3} \cdot C_{13} = \left(-1\right)^{4} \cdot \det\begin{pmatrix}
+				k-1 & k \\
+				-k  & -k
+			\end{pmatrix} = 1 \cdot \left[-k^{2} + k - \left(-k^{2}\right)\right] = k \\ [1.2em]
+			
+			\mathrm{Com}\left(A_{23}\right) = & \left(-1\right)^{2+3} \cdot C_{23} = \left(-1\right)^{5} \cdot \det\begin{pmatrix}
+				2  & 2 \\
+				-k & -k
+			\end{pmatrix} = -1 \cdot \left[-2k - \left(-2k\right)\right] = 0 \\ [1.2em]
+			
+			\mathrm{Com}\left(A_{33}\right) = & \left(-1\right)^{3+3} \cdot C_{33} = \left(-1\right)^{6} \cdot \det\begin{pmatrix}
+				2   & 2 \\
+				k-1 & k
+			\end{pmatrix} = 1 \cdot \left[2k - \left(2k - 2\right)\right] = -2
+		\end{array}
+	\end{equation*}
+	Con i complementi algebrici si costruisce la matrice e si esegue la trasposta per ottenere $A_{k}^{*}$:
+	\begin{equation*}
+		A_{k}^{*} = \begin{pmatrix}
+			k^{3}	& -k^{3}	& k \\
+			-2k^{2} & 2k^{2}	& 0 \\
+			0		& -2k		& -2
+		\end{pmatrix}^{T} = \begin{pmatrix}
+			k^{3} 	& -2k^{2} 	& 0 \\
+			-k^{3}	& 2k^{2}	& -2k \\
+			k		& 0			& -2
+		\end{pmatrix}
+	\end{equation*}
+	Infine, si applica la formula:
+	\begin{equation*}
+		A_{k}^{-1} = \dfrac{1}{\det\left(A_{k}\right)} A_{k}^{*} = \dfrac{1}{2k^{2}} \begin{pmatrix}
+			k^{3} 	& -2k^{2} 	& 0 \\
+			-k^{3}	& 2k^{2}	& -2k \\
+			k		& 0			& -2
+		\end{pmatrix} = \begin{rowequmat}{ccc}
+			\frac{k}{2}		& -1	&	0 			\\ [0.3em]
+			-\frac{k}{2}	& 1		& -\frac{1}{k} 	\\ [0.3em]
+			\frac{1}{2k}	& 0		& -\frac{1}{k^{2}}
+		\end{rowequmat}
+	\end{equation*}\newpage
+	
+	\section{Soluzione esercizio 2}
+	
+	Nello spazio vettoriale $\mathbb{R^{R}}$ definito nell'Esempio 5.2(2), si consideri il seguente sottoinsieme per ogni $t \in \mathbb{R}$:
+	\begin{equation*}
+		\mathscr{S}_{t} = \left\{f \in \mathbb{R^{R}} \: | \: f\left(0\right) = t\right\}
+	\end{equation*}
+	
+	\subsection{Soluzione \emph{a}}
+	
+	Si trovino i valori di $t$ per cui l'insieme $\mathscr{S}_{t}$ è un sottospazio di $\mathbb{R^{R}}$.
+	
+	\subsection{Soluzione \emph{b}}
+	
+	\section{Soluzione esercizio 3}
+	
+	Sia $f: \mathbb{C}^{3} \rightarrow \mathbb{C}^{2}$ l'applicazione data da:
+	\begin{equation*}
+		f \left(
+		\begin{pmatrix}
+			 x \\ y \\ z
+		\end{pmatrix}
+		\right) = \begin{pmatrix}
+			x-y+z \\
+			3x-3y+3z
+		\end{pmatrix}
+	\end{equation*}
+	Per ogni $\begin{pmatrix}
+		x \\ y \\ z
+	\end{pmatrix} \in \mathbb{C}^{3}$.
+	\subsection{Soluzione \emph{a}}
+	
+	\subsection{Soluzione \emph{b}}
+	
+	\subsection{Soluzione \emph{c}}
+	
+	\subsection{Soluzione \emph{d}}
+	
+	\subsection{Soluzione \emph{e}}
+	
+	\subsection{Soluzione \emph{f}}
+	
+	\section{Soluzione esercizio 4}
+	
+	Sia $\mathscr{C}$ la base di $\mathbb{C}^{3}$ dell'esercizio 3(d) e sia $\mathscr{D} = \left\{u_{1}, u_{2}, u_{3}\right\}$ dove $u_{1} = \begin{pmatrix}
+		1 \\ 0 \\ 1
+	\end{pmatrix}, v_{2} = \begin{pmatrix}
+		6 \\ -1 \\ 8
+	\end{pmatrix}, v_{3} = \begin{pmatrix}
+		-8 \\ -8 \\ 1
+	\end{pmatrix}$. Si verifichi che $\mathscr{D}$ è una base di $\mathbb{C}^{3}$ e si calcoli la matrice del cambio di base $\mathscr{C} \rightarrow \mathscr{D}$.
+\end{document}
