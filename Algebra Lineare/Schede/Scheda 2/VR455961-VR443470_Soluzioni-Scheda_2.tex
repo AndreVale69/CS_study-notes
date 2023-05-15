@@ -214,9 +214,189 @@
 	
 	\subsection{Soluzione \emph{a}}
 	
-	Si trovino i valori di $t$ per cui l'insieme $\mathscr{S}_{t}$ è un sottospazio di $\mathbb{R^{R}}$.
+	Si trovino i valori di $t$ per cui l'insieme $\mathscr{S}_{t}$ è un sottospazio di $\mathbb{R^{R}}$.\newline
+	
+	\noindent
+	Per verificare quali valori di $t$ rispettano il teorema di caratterizzazione dei sottospazi vettoriali, si possono effettuare alcune prove banali:
+	\begin{itemize}
+		\item Assumendo che $t = 1$:
+		\begin{equation*}
+			\mathscr{S}_{1} = \left\{f \in \mathbb{R^{R}} \: | \: f\left(0\right) = 1\right\}
+		\end{equation*}
+		E trovando due funzioni che appartengano all'insieme:
+		\begin{gather*}
+			f : \mathbb{R} \rightarrow \mathbb{R} \hspace{2em} f\left(x\right) = \begin{cases}
+				1 & x = 0 \\
+				4 & x \ne 0
+			\end{cases} \\
+			\\
+			g : \mathbb{R} \rightarrow \mathbb{R} \hspace{2em} g\left(x\right) = \begin{cases}
+				1 & x = 0 \\
+				5 & x \ne 0
+			\end{cases}
+		\end{gather*}
+		Si esegue la verifica delle due proprietà:
+		\begin{equation*}
+			\begin{array}{lll}
+				\text{Proprietà }a & : & \left(f + g\right)\left(0\right) = f\left(0\right) + g\left(0\right) = 1+1 = 2 \ne 0 \\ [0.5em]
+				\text{Proprietà }b & : & \lambda f\left(x\right) = \lambda f\left(0\right) = \lambda 1 \ne 0
+			\end{array}
+		\end{equation*}
+		Le proprietà non sono rispettate, quindi con il valore $t = 1$ l'insieme $\mathscr{S}_{1}$ non è un sottospazio di $\mathbb{R^{R}}$.
+		
+		\item Assumendo che $t = -1$:
+		\begin{equation*}
+			\mathscr{S}_{-1} = \left\{f \in \mathbb{R^{R}} \: | \: f\left(0\right) = -1\right\}
+		\end{equation*}
+		E trovando due funzioni che appartengano all'insieme:
+		\begin{gather*}
+			f : \mathbb{R} \rightarrow \mathbb{R} \hspace{2em} f\left(x\right) = \begin{cases}
+				-1 & x = 0 \\
+				8 & x \ne 0
+			\end{cases} \\
+			\\
+			g : \mathbb{R} \rightarrow \mathbb{R} \hspace{2em} g\left(x\right) = \begin{cases}
+				-1 & x = 0 \\
+				10 & x \ne 0
+			\end{cases}
+		\end{gather*}
+		Si esegue la verifica delle due proprietà:
+		\begin{equation*}
+			\begin{array}{lll}
+				\text{Proprietà }a & : & \left(f + g\right)\left(0\right) = f\left(0\right) + g\left(0\right) = -1-1 = -2 \ne 0 \\ [0.5em]
+				\text{Proprietà }b & : & \lambda f\left(x\right) = \lambda f\left(0\right) = \lambda -1 \ne 0
+			\end{array}
+		\end{equation*}
+		Le proprietà non sono rispettate, quindi con il valore $t = -1$ l'insieme $\mathscr{S}_{-1}$ non è un sottospazio di $\mathbb{R^{R}}$.\newpage
+		
+		\item Assumendo che $t = 0$:
+		\begin{equation*}
+			\mathscr{S}_{0} = \left\{f \in \mathbb{R^{R}} \: | \: f\left(0\right) = 0\right\}
+		\end{equation*}
+		E trovando due funzioni che appartengano all'insieme:
+		\begin{gather*}
+			f : \mathbb{R} \rightarrow \mathbb{R} \hspace{2em} f\left(x\right) = \begin{cases}
+				0 & x = 0 \\
+				1 & x \ne 0
+			\end{cases} \\
+			\\
+			g : \mathbb{R} \rightarrow \mathbb{R} \hspace{2em} g\left(x\right) = \begin{cases}
+				0 & x = 0 \\
+				2 & x \ne 0
+			\end{cases}
+		\end{gather*}
+		Si esegue la verifica delle due proprietà:
+		\begin{equation*}
+			\begin{array}{lll}
+				\text{Proprietà }a & : & \left(f + g\right)\left(0\right) = f\left(0\right) + g\left(0\right) = 0+0 = 0 = 0 \\ [0.5em]
+				\text{Proprietà }b & : & \lambda f\left(x\right) = \lambda f\left(0\right) = \lambda 0 = 0
+			\end{array}
+		\end{equation*}
+		Le proprietà sono rispettate, quindi con il valore $t = 0$ l'insieme $\mathscr{S}_{0}$ è un sottospazio di $\mathbb{R^{R}}$.
+	\end{itemize}
+	È possibile concludere le prove con i valori $t$ e giungere ad una conclusione. L'insieme $\mathscr{S}_{t}$ è un sottospazio di $\mathbb{R^{R}}$ se e solo se $t$ ha valore $0$. Negli altri casi l'insieme non rispetta il teorema di caratterizzazione dei sottospazi vettoriali. Infatti, andando ad aumentare positivamente o negativamente la $t$, la proprietà \emph{a} avrà come risultato un valore sempre diverso da zero.
 	
 	\subsection{Soluzione \emph{b}}
+	
+	Sia $\mathscr{U}$ il sottospazio di $\mathbb{R^{R}}$ generato da $f$ e $g$ dove $f\left(x\right) = \sin\left(x\right)$ e $g\left(x\right) = \cos\left(x\right)$ per ogni $x \in \mathbb{R}$. Si trovi una base dell'intersezione $\mathscr{U} \cap \mathscr{S}_{0}$.\newline
+	
+	\noindent
+	L'insieme $\mathscr{S}_{0}$ è così definito:
+	\begin{equation*}
+		\mathscr{S}_{0} = \left\{f \in \mathbb{R^{R}} \: | \: f\left(0\right) = 0\right\}
+	\end{equation*}
+	Per evitare errori, una funzione che appartiene a questo insieme verrà indicata con l'apice, quindi $f'\in \mathscr{S}_{0}$. Si prende una qualsiasi funzione dall'insieme $\mathscr{S}_{0}$ così definita:
+	\begin{equation*}
+		f' \in \mathscr{S}_{0} \hspace{2em} f':\mathbb{R} \rightarrow \mathbb{R} \hspace{2em} f'\left(x\right) = \begin{cases}
+			0 & x = 0 \\
+			4 & x \ne 0
+		\end{cases}
+	\end{equation*}
+	Le funzioni generatori del sottospazio $\mathscr{U}$ sono:
+	\begin{equation*}
+		\begin{array}{l}
+			f \in \mathscr{U} \hspace{2em} f\left(x\right) = \sin\left(x\right) \\ [0.5em]
+			g \in \mathscr{U} \hspace{2em} g\left(x\right) = \cos\left(x\right)
+		\end{array}
+	\end{equation*}
+	Si sceglie un valore comodo e si formano due insiemi:
+	\begin{equation*}
+		\begin{array}{lll}
+			x = 0 & \Rightarrow & v_{1} = \left\{f'\left(0\right), f\left(0\right), g\left(0\right)\right\} = \left\{0, 0, 1\right\} \\
+			\\
+			x = 90 & \Rightarrow & v_{2} = \left\{f'\left(90\right), f\left(90\right), g\left(90\right)\right\} = \left\{4, 1, 0\right\}
+		\end{array}
+	\end{equation*}
+	Adesso è necessario dimostrare che $\left\{v_{1}, v_{2}\right\}$ è un sistema di generatori, cioè è necessario stabilire se per ogni $\mathbf{w} = \left(w_{1}, w_{2}, w_{3}\right) \in \mathscr{U} \cap \mathscr{S}_{0}$ esistono due scalari $a_ {1}, a_{2} \in \mathbb{R}$ tali che:
+	\begin{equation*}
+		\begin{array}{llrll}
+			a_{1}v_{1} + a_{2}v_{2} = \mathbf{w} & \xlongrightarrow{\text{sostituzione}} & a_{1}\left(0,0,1\right) + a_{2}\left(4,1,0\right) &=& \left(w_{1}, w_{2}, w_{3}\right) \\ [0.5em]
+			&& \left(0,0,a_{1}\right) + \left(4a_{2}, a_{2}, 0\right) &=& \left(w_{1}, w_{2}, w_{3}\right) \\ [0.5em]
+			&& \left(4a_{2}, a_{2}, a_{1}\right) &=& \left(w_{1}, w_{2}, w_{3}\right)
+		\end{array}
+	\end{equation*}
+	Il relativo sistema lineare:
+	\begin{equation*}
+		\begin{cases}
+			4a_{2} = w_{1} \\
+			a_{2} = w_{2} \\
+			a_{1} = w_{3}
+		\end{cases}
+	\end{equation*}
+	I vettori $v_{1},v_{2}$ sono un sistema di generatori se e solo se il sistema ammette soluzione. Per farlo, si utilizza il teorema di Rouché Capelli e per calcolare il rango, necessario per il teorema, si utilizza l'Eliminazione di Gauss così da ottenere una forma matriciale ridotta:
+	\begin{gather*}
+		\begin{rowequmat}{c|c}
+			4 & w_{1} \\
+			1 & w_{2} \\
+			1 & w_{3}
+		\end{rowequmat}
+		\xlongrightarrow{E_{1,3}\left(-\frac{1}{4}\right)}
+		\begin{rowequmat}{c|c}
+			4 & w_{1} \\ [0.3em]
+			1 & w_{2} \\ [0.3em]
+			0 & w_{3} - \frac{w_{1}}{4}
+		\end{rowequmat}
+		\xlongrightarrow{E_{1,2}\left(-\frac{1}{4}\right)}
+		\begin{rowequmat}{c|c}
+			4 & w_{1} \\ [0.3em]
+			0 & w_{2} - \frac{w_{1}}{4} \\ [0.3em]
+			0 & w_{3} - \frac{w_{1}}{4}
+		\end{rowequmat}
+		\longrightarrow
+		\begin{rowequmat}{c|c}
+			4 & w_{1} \\ [0.3em]
+			0 & \frac{4w_{2} - w_{1}}{4} \\ [0.3em]
+			0 & \frac{4w_{3} - w_{1}}{4}
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow{E_{2,3} \left( \frac{-w_{1} + 4w_{3}}{w_{1} - 4w_{2}} \right) }
+		\begin{rowequmat}{c|c}
+			4 & w_{1} \\ [0.3em]
+			0 & \frac{4w_{2} - w_{1}}{4} \\ [0.3em]
+			0 & 0
+		\end{rowequmat}
+	\end{gather*}
+	Il rango della matrice aumentata è 2. Tuttavia, nel caso in cui $w_{2}, w_{1}$ siano pari a zero, il rango è 1. Dunque, esiste una e un'unica soluzione al sistema. Quindi è possibile concludere che $v_{1},v_{2}$ sono un sistema di generatori. Per affermare che siano anche una base è necessario dimostrare che siano anche linearmente indipendenti:
+	\begin{equation*}
+		\begin{array}{llrll}
+			b_{1}v_{1} + b_{2}v_{2} = 0 & \xlongrightarrow{\text{sostituzione}} & b_{1}\left(0,0,1\right) + b_{2}\left(4,1,0\right) &=& \left(0, 0, 0\right) \\ [0.5em]
+			&& \left(0,0,b_{1}\right) + \left(4b_{2}, b_{2}, 0\right) &=& \left(0,0,0\right) \\ [0.5em]
+			&& \left(4b_{2}, b_{2}, b_{1}\right) &=& \left(0,0,0\right)
+		\end{array}
+	\end{equation*}
+	Il sistema relativo:
+	\begin{equation*}
+		\begin{cases}
+			4b_{2} = 0 \\
+			b_{2} = 0 \\
+			b_{1} = 0
+		\end{cases}
+	\end{equation*}
+	E con il metodo di sostituzione si trova subito che l'unica soluzione possibile è $b_{1} = b_{2} = 0$. Dunque i vettori sono linearmente indipendenti e l'insieme:
+	\begin{equation*}
+		\left\{v_{1}, v_{2}\right\} = \left\{ \left(f'\left(0\right), f\left(0\right), f\left(0\right)\right), \left(f'\left(90\right), f\left(90\right), g\left(90\right)\right) \right\} = \left\{ \left(0,0,1\right), \left(4,1,0\right)\right\}
+	\end{equation*}
+	È una base di $\mathscr{U} \cap \mathscr{S}_{0}$.\newpage
 	
 	\section{Soluzione esercizio 3}
 	
