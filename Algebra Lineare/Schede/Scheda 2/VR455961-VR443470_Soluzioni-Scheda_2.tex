@@ -697,7 +697,7 @@
 	L'insieme $\mathscr{C}$ è una base di $\mathbb{C}^{3}$ se i vettori che lo compongono sono un sistema di generatori e vettori linearmente indipendenti.
 	
 	\begin{proof}[\textbf{Dimostrazione che i vettori sono un sistema di generatori}]
-		Per dimostrare che $\mathscr{C} = \left\{v_{1}, v_{2}, v_{3}\right\}$ è un sistema di generatori, è necessario stabilire se per ogni $w = \left(w_{1}, w_{2}, w_{3}\right) \in \mathscr{C}$ esistono tre scalari $a_{1}, a_{2}, a_{3} \in \mathbb{C}$ tali che:
+		Per dimostrare che $\mathscr{C} = \left\{v_{1}, v_{2}, v_{3}\right\}$ è un sistema di generatori, è necessario stabilire se per ogni $w = \left(w_{1}, w_{2}, w_{3}\right)$ esistono tre scalari $a_{1}, a_{2}, a_{3} \in \mathbb{C}$ tali che:
 		\begin{equation*}
 			a_{1}v_{1} + a_{2}v_{2} + a_{3}v_{3} = w
 		\end{equation*}
@@ -763,7 +763,7 @@
 	\begin{proof}[\textbf{Dimostrazione che i vettori sono linearmente indipendenti}]
 		Se i vettori sono linearmente indipendenti, allora l'insieme è una base. Si procede con la dimostrazione. Siano $b_{1}, b_{2}, b_{3} \in \mathbb{C}$ e si verifichi che:
 		\begin{equation*}
-			b_{1}v_{1} + b_{2}v_{2} + b_{3}v_{3} = 0 \Rightarrow b_{1} = b_{2} = 0
+			b_{1}v_{1} + b_{2}v_{2} + b_{3}v_{3} = 0 \Rightarrow b_{1} = b_{2} = b_{3} = 0
 		\end{equation*}
 		Quindi, si procede con la sostituzione:
 		\begin{equation*}
@@ -810,7 +810,7 @@
 	L'insieme $\mathscr{B}$ è una base di $\mathbb{C}^{2}$ se i vettori che lo compongono sono un sistema di generatori e vettori linearmente indipendenti.
 	
 	\begin{proof}[\textbf{Dimostrazione che i vettori sono un sistema di generatori}]
-		Per dimostrare che $\mathscr{B} = \left\{w_{1}, w_{2}\right\}$ è un sistema di generatori, è necessario stabilire se per ogni $v = \left(v_{1}, v_{2}\right) \in \mathscr{B}$ esistono due scalari $a_{1}, a_{2} \in \mathbb{C}$ tali che:
+		Per dimostrare che $\mathscr{B} = \left\{w_{1}, w_{2}\right\}$ è un sistema di generatori, è necessario stabilire se per ogni $v = \left(v_{1}, v_{2}\right)$ esistono due scalari $a_{1}, a_{2} \in \mathbb{C}$ tali che:
 		\begin{equation*}
 			a_{1} w_{1} + a_{2} w_{2} = v
 		\end{equation*}
@@ -896,15 +896,573 @@
 	
 	\subsection{Soluzione \emph{f}}
 	
-	Si determini la matrice associata a $f$ rispetto alla base $\mathscr{C}$ di $\mathbb{C}^{3}$ e alla base $\mathscr{B}$ di $\mathbb{C}^{2}$.
+	Si determini la matrice associata a $f$ rispetto alla base $\mathscr{C}$ di $\mathbb{C}^{3}$ e alla base $\mathscr{B}$ di $\mathbb{C}^{2}$.\newline
+	
+	\noindent
+	Ricordando che $f$ è l'applicazione lineare così definita:
+	\begin{equation*}
+		f: \mathbb{C}^{3} \longrightarrow \mathbb{C}^{2}, \hspace{2em}
+		f \left(
+		\begin{pmatrix}
+			x \\ y \\ z
+		\end{pmatrix}
+		\right) = \begin{pmatrix}
+			x-y+z \\
+			3x-3y+3z
+		\end{pmatrix}, \hspace{2em}
+		\forall \begin{pmatrix}
+			x \\ y \\ z
+		\end{pmatrix} \in \mathbb{C}^{3}
+	\end{equation*}
+	E che le basi fornite sono:
+	\begin{equation*}
+		\begin{array}{lllll}
+			\mathscr{C}_{\mathbb{C}^{3}} &=& \left\{v_{1}, v_{2}, v_{3}\right\} &=& \left\{\begin{pmatrix}
+				2 \\ 1 \\ 0
+			\end{pmatrix}, \begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix}, \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix}\right\} \\ [1.8em]
+			%
+			\mathscr{B}_{\mathbb{C}^{2}} &=& \left\{w_{1}, w_{2}\right\} &=& \left\{\begin{pmatrix}
+				1 \\ 1
+			\end{pmatrix}, \begin{pmatrix}
+				1 \\ 0
+			\end{pmatrix}\right\}
+		\end{array}
+	\end{equation*}
+	Si calcola inizialmente le immagini mediante l'applicazione lineare $f$ dei vettori della base $\mathscr{C}_{\mathbb{C}^{3}}$:
+	\begin{equation*}
+		\begin{array}{lllll}
+			f\begin{pmatrix}
+				2 \\ 1 \\ 0
+			\end{pmatrix} &=& \begin{pmatrix}
+				2 - 1 + 0 \\
+				3 \cdot 2 - 3 \cdot 1 + 3 \cdot 0
+			\end{pmatrix} &=& \begin{pmatrix}
+				1 \\
+				3
+			\end{pmatrix} \\ [1.8em]
+			%
+			f\begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} &=& \begin{pmatrix}
+				0 - 1 + 0 \\
+				3 \cdot 0 - 3 \cdot 1 + 3 \cdot 0
+			\end{pmatrix} &=& \begin{pmatrix}
+				-1 \\
+				-3
+			\end{pmatrix} \\ [1.8em]
+			%
+			f\begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} &=& \begin{pmatrix}
+				1 - 0 + 1 \\
+				3 \cdot 1 - 3 \cdot 0 + 3 \cdot 1
+			\end{pmatrix} &=& \begin{pmatrix}
+				2 \\
+				6
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}
+	Adesso si cercano le coordinate rispetto alla base $\mathscr{B}$ dei vettori $f\left(v_{1}\right), f\left(v_{2}\right), f\left(v_{3}\right)$. Quindi, si cercano due scalari $a_{1}, a_{2} \in \mathbb{C}$ tali che:
+	\begin{itemize}
+		\item $f\left(v_{1}\right)$ sia combinazione lineare di $w_{1}, w_{2}$
+		
+		\item $f\left(v_{2}\right)$ sia combinazione lineare di $w_{1}, w_{2}$
+		
+		\item $f\left(v_{3}\right)$ sia combinazione lineare di $w_{1}, w_{2}$
+	\end{itemize}\newpage
+	
+	\noindent
+	Da notare che per tutti e tre il sistema di incognite è lo stesso, cambia ovviamente il valore dopo l'uguale a seconda dell'immagine applicata:
+	\begin{equation*}
+		\begin{array}{lllll}
+			a_{1}w_{1} + a_{2}w_{2} = f\left(v_{1}\right) &\rightarrow& a_{1}\begin{pmatrix}
+				1 \\ 1
+			\end{pmatrix} + a_{2}\begin{pmatrix}
+				1 \\ 0
+			\end{pmatrix} = \begin{pmatrix}
+				1 \\ 3
+			\end{pmatrix} &\rightarrow& \begin{cases}
+				a_{1} + a_{2} = 1 \\
+				a_{1} = 3
+			\end{cases} \\
+			&& &\parallel& \\
+			&& &\rightarrow& \begin{cases}
+				a_{2} = -2 \\
+				a_{1} = 3
+			\end{cases}\\ [1.8em]
+			%
+			a_{1}w_{1} + a_{2}w_{2} = f\left(v_{2}\right) &\rightarrow& a_{1}\begin{pmatrix}
+				1 \\ 1
+			\end{pmatrix} + a_{2}\begin{pmatrix}
+				1 \\ 0
+			\end{pmatrix} = \begin{pmatrix}
+				-1 \\ -3
+			\end{pmatrix} &\rightarrow& \begin{cases}
+				a_{1} + a_{2} = -1 \\
+				a_{1} = -3
+			\end{cases} \\
+			&& &\parallel& \\
+			&& &\rightarrow& \begin{cases}
+				a_{2} = 2 \\
+				a_{1} = -3
+			\end{cases} \\ [1.8em]
+			%
+			a_{1}w_{1} + a_{2}w_{2} = f\left(v_{3}\right) &\rightarrow& a_{1}\begin{pmatrix}
+				1 \\ 1
+			\end{pmatrix} + a_{2}\begin{pmatrix}
+				1 \\ 0
+			\end{pmatrix} = \begin{pmatrix}
+				2 \\ 6
+			\end{pmatrix} &\rightarrow& \begin{cases}
+				a_{1} + a_{2} = 2 \\
+				a_{1} = 6
+			\end{cases}  \\
+			&& &\parallel& \\
+			&& &\rightarrow& \begin{cases}
+				a_{2} = -4 \\
+				a_{1} = 6
+			\end{cases} \\
+		\end{array}
+	\end{equation*}
+	La matrice associata $A$ alla trasformazione $f$ rispetto alle basi $\mathscr{C}_{\mathbb{C}^{3}}$ e $\mathscr{B}_{\mathbb{C}^{2}}$ è la matrice avente per colonne i coefficienti trovati ($a_{1}, a_{2}$):
+	\begin{equation*}
+		A = \begin{pmatrix}
+			-2 &  2 & -4 \\
+			 3 & -3 &  6
+		\end{pmatrix}
+	\end{equation*}\newpage
 	
 	\section{Soluzione esercizio 4}
 	
 	Sia $\mathscr{C}$ la base di $\mathbb{C}^{3}$ dell'esercizio 3(d) e sia $\mathscr{D} = \left\{u_{1}, u_{2}, u_{3}\right\}$ dove $u_{1} = \begin{pmatrix}
 		1 \\ 0 \\ 1
-	\end{pmatrix}, v_{2} = \begin{pmatrix}
+	\end{pmatrix}, u_{2} = \begin{pmatrix}
 		6 \\ -1 \\ 8
-	\end{pmatrix}, v_{3} = \begin{pmatrix}
+	\end{pmatrix}, u_{3} = \begin{pmatrix}
 		-8 \\ -8 \\ 1
-	\end{pmatrix}$. Si verifichi che $\mathscr{D}$ è una base di $\mathbb{C}^{3}$ e si calcoli la matrice del cambio di base $\mathscr{C} \rightarrow \mathscr{D}$.
+	\end{pmatrix}$. Si verifichi che $\mathscr{D}$ è una base di $\mathbb{C}^{3}$ e si calcoli la matrice del cambio di base $\mathscr{C} \rightarrow \mathscr{D}$.\newline
+	
+	\noindent
+	Innanzitutto si esegue la dimostrazione che $\mathscr{D}$ è una base di $\mathbb{C}^{3}$. Si esegue prima le verifica della condizione che i vettori siano un sistema di generatori e, successivamente, che siano linearmente indipendenti.
+	
+	\begin{proof}[\textbf{Dimostrazione che i vettori sono un sistema di generatori}]
+		Per dimostrare che $\mathscr{D} = \left\{u_{1}, u_{2}, u_{3}\right\}$ è un sistema di generatori, è necessario stabilire se per ogni $w = \left\{w_{1}, w_{2}, w_{3}\right\}$ esistono tre scalari $a_{1}, a_{2}, a_{3} \in \mathbb{C}$ tali che:
+		\begin{equation*}
+			a_{1}u_{1} + a_{2}u_{2} + a_{3}u_{3} = w
+		\end{equation*}
+		Si sostituiscono i dati:
+		\begin{equation*}
+			a_{1}\begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			a_{2}\begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			a_{3}\begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix} =
+			\begin{pmatrix}
+				w_{1} \\ w_{2} \\ w_{3}
+			\end{pmatrix} \longrightarrow
+			\begin{pmatrix}
+				a_{1} + 6a_{2} - 8a_{3} \\
+				-a_{2} - 8a_{3} \\
+				a_{1} + 8a_{2} + a_{3}
+			\end{pmatrix} =
+			\begin{pmatrix}
+				w_{1} \\ w_{2} \\ w_{3}
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema relativo:
+		\begin{equation*}
+			\begin{cases}
+				a_{1} + 6a_{2} - 8a_{3} = w_{1} \\
+				-a_{2} - 8a_{3} = w_{2} \\
+				a_{1} + 8a_{2} + a_{3} = w_{3}
+			\end{cases}
+		\end{equation*}
+		Se il sistema ammette soluzione, allora i vettori $u_{1}, u_{2}, u_{3}$ sono un sistema di generatori. Quindi, viene calcolato il rango della matrice incompleta $A$ e completa $\left(A|b\right)$, così da applicare il teorema di Rouché Capelli:
+		\begin{equation*}
+				\begin{array}{rll}
+					A &=& \begin{rowequmat}{ccc}
+						1 &  6 & -8 \\
+						0 & -1 & -8 \\
+						1 &  8 &  1
+					\end{rowequmat} \xlongrightarrow[E_{2,3}\left(2\right)]{E_{1,3}\left(-1\right)}
+					\begin{rowequmat}{ccc}
+						1 &  6 & -8 \\
+						0 & -1 & -8 \\
+						0 &  0 &  7
+					\end{rowequmat} \rightarrow \rk\left(A\right) = 3 \\ [1.8em]
+					\left(A|b\right) &=& \begin{rowequmat}{ccc|c}
+						1 &  6 & -8 & w_{1} \\
+						0 & -1 & -8 & w_{2} \\
+						1 &  8 &  1 & w_{3}
+					\end{rowequmat} \xlongrightarrow[E_{2,3}\left(2\right)]{E_{1,3}\left(-1\right)}
+					\begin{rowequmat}{ccc|c}
+						1 &  6 & -8 & w_{1} \\
+						0 & -1 & -8 & w_{2} \\
+						0 &  0 &  7 & w_{3} - w_{1} + 2w_{2}
+					\end{rowequmat} \rightarrow \rk\left(A|b\right) = 3
+				\end{array}
+		\end{equation*}
+		Applicando il teorema di Rouché Capelli, il sistema ammette una e una sola soluzione poiché:
+		\begin{equation*}
+			\rk\left(A\right) = \rk\left(A|b\right) = n \xlongrightarrow{\text{sostituzione}} 3 = 3 = 3
+		\end{equation*}
+		Con $n$ che corrisponde al numero di incognite. Quindi, si può concludere la dimostrazione affermando che i tre vettori sono un insieme di generatori.
+	\end{proof}\newpage
+	
+	\begin{proof}[\textbf{Dimostrazione che i vettori sono linearmente indipendenti}]
+		Se i vettori sono linearmente indipendenti, allora l'insieme è una base. Si procede con la dimostrazione. Siano $b_{1}, b_{2}, b_{3} \in \mathbb{C}$ e si verifichi che:
+		\begin{equation*}
+			b_{1}u_{1} + b_{2}u_{2} + b_{3}u_{3} = 0 \Rightarrow b_{1} = b_{2} = b_{3} = 0
+		\end{equation*}
+		Quindi, si procede con la sostituzione:
+		\begin{equation*}
+			b_{1}\begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			b_{2}\begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			b_{3}\begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix} =
+			\begin{pmatrix}
+				0 \\ 0 \\ 0
+			\end{pmatrix} \longrightarrow
+			\begin{pmatrix}
+				b_{1} + 6b_{2} - 8b_{3} \\
+				-b_{2} - 8b_{3} \\
+				b_{1} + 8b_{2} + b_{3}
+			\end{pmatrix} =
+			\begin{pmatrix}
+				0 \\ 0 \\ 0
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema relativo:
+		\begin{equation*}
+			\begin{cases}
+				b_{1} + 6b_{2} - 8b_{3} = 0 \\
+				-b_{2} - 8b_{3} = 0 \\
+				b_{1} + 8b_{2} + b_{3} = 0
+			\end{cases}
+		\end{equation*}
+		Si risolve sfruttando l'Eliminazione di Gauss:
+		\begin{equation*}
+			\begin{rowequmat}{ccc|c}
+				1 &  6 & -8 & 0 \\
+				0 & -1 & -8 & 0 \\
+				1 &  8 &  1 & 0
+			\end{rowequmat} \xlongrightarrow[E_{2,3}\left(2\right)]{E_{1,3}\left(-1\right)}
+			\begin{rowequmat}{ccc|c}
+				1 &  6 & -8 & 0 \\
+				0 & -1 & -8 & 0 \\
+				0 &  0 &  7 & 0
+			\end{rowequmat}
+		\end{equation*}
+		Si riscrive il sistema e si procede con il classico metodo di sostituzione:
+		\begin{equation*}
+			\begin{array}{lllll}
+				&\begin{cases}
+					b_{1} + 6b_{2} - 8b_{3} = 0 \\
+					-b_{2} - 8b_{3} = 0 \\
+					7b_{3} = 0
+				\end{cases} &\rightarrow&
+				\begin{cases}
+					b_{1} + 6b_{2} - 8 \cdot 0 = 0 \\
+					-b_{2} - 8 \cdot 0 = 0 \\
+					b_{3} = 0
+				\end{cases} \rightarrow \\ [1.8em]
+				\rightarrow & \begin{cases}
+					b_{1} + 6 \cdot 0 = 0 \\
+					b_{2} = 0 \\
+					b_{3} = 0
+				\end{cases} &\rightarrow&
+				\begin{cases}
+					b_{1} = 0 \\
+					b_{2} = 0 \\
+					b_{3} = 0
+				\end{cases}
+			\end{array}
+		\end{equation*}
+		La condizione $b_{1} = b_{2} = b_{3} = 0$ è stata rispettata poiché essa è l'unica soluzione del sistema (si potrebbe verificare anche con il teorema Rouché Capelli). Per cui, i vettori $u_{1}, u_{2}, u_{3}$ sono linearmente indipendenti.
+	\end{proof}\newpage
+	
+	\noindent
+	Dopo aver dimostrato che l'insieme $\mathscr{D}$ è una base di $\mathbb{C}^{3}$, grazie alla dimostrazione delle due condizioni (sistema di generatori e linearmente indipendenti), si prosegue calcolando la matrice del cambio di base $\mathscr{C} \rightarrow \mathscr{D}$. Per comodità si riportano qua di seguito le due basi:
+	\begin{equation*}
+		\begin{array}{lll}
+			\mathscr{C} &=& \left\{v_{1} = \begin{pmatrix}
+				2 \\ 1 \\ 0
+			\end{pmatrix}, v_{2} = \begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix}, v_{3} = \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix}\right\} \\ [1.8em]
+			\mathscr{D} &=& \left\{u_{1} = \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix}, u_{2} = \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix}, u_{3} = \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix}\right\}
+		\end{array}
+	\end{equation*}
+	Per trovare la matrice del cambiamento di base che esprime il passaggio da $\mathscr{C} \rightarrow \mathscr{D}$, è necessario esprimere di vettori di $\mathscr{C}$ come combinazioni lineari dei vettori di $\mathscr{D}$:
+	\begin{itemize}
+		\item La prima:
+		\begin{equation*}
+			v_{1} = a_{1} u_{1} + b_{1} u_{2} + c_{1} u_{3}
+		\end{equation*}
+		Si esegue la sostituzione dei valori:
+		\begin{equation*}
+			\begin{pmatrix}
+				2 \\ 1 \\ 0
+			\end{pmatrix} =
+			a_{1} \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			b_{1} \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			c_{1} \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema e si applica l'Eliminazione di Gauss (EG) per semplificare il sistema:
+		\begin{equation*}
+			\begin{array}{l}
+				\begin{cases}
+					a_{1} + 6b_{1} - 8c_{1} = 2 \\
+					-b_{1} - 8c_{1} = 1 \\
+					a_{1} + 8c_{1} + c_{1} = 0
+				\end{cases} \xlongrightarrow{EG}
+				\begin{cases}
+					a_{1} + 6b_{1} - 8c_{1} = 2 \\
+					-b_{1} - 8c_{1} = 1 \\
+					7c_{1} = 0
+				\end{cases} \rightarrow
+				\begin{cases}
+					a_{1} + 6b_{1} - 8\cdot0 = 2 \\
+					-b_{1} - 8\cdot0 = 1 \\
+					c_{1} = 0
+				\end{cases} \\ [2em]
+				\rightarrow \begin{cases}
+					a_{1} + 6 \cdot \left(-1\right) = 2 \\
+					b_{1} = -1 \\
+					c_{1} = 0
+				\end{cases} \rightarrow
+				\begin{cases}
+					a_{1} =  8 \\
+					b_{1} = -1 \\
+					c_{1} =  0
+				\end{cases}
+			\end{array}
+		\end{equation*}
+		Quindi la prima combinazione lineare è:
+		\begin{equation*}
+			\begin{pmatrix}
+				2 \\ 1 \\ 0
+			\end{pmatrix} =
+			8 \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			-1 \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			0 \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix}
+		\end{equation*}
+		
+		\item La seconda:
+		\begin{equation*}
+			v_{2} = a_{2} u_{1} + b_{2} u_{2} + c_{2} u_{3}
+		\end{equation*}
+		Si esegue la sostituzione dei valori:
+		\begin{equation*}
+			\begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} =
+			a_{2} \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			b_{2} \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			c_{2} \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema e si applica l'Eliminazione di Gauss (EG) per semplificare il sistema:
+		\begin{equation*}
+			\begin{array}{l}
+				\begin{cases}
+					a_{2} + 6b_{2} - 8c_{2} = 0 \\
+					-b_{2} - 8c_{2} = 1 \\
+					a_{2} + 8c_{2} + c_{2} = 0
+				\end{cases} \xlongrightarrow{EG}
+				\begin{cases}
+					a_{2} + 6b_{2} - 8c_{2} = 0 \\
+					-b_{2} - 8c_{2} = 1 \\
+					7c_{2} = 2
+				\end{cases} \rightarrow
+				\begin{cases}
+					a_{2} + 6b_{2} - 8 \cdot \frac{2}{7} = 0 \\
+					-b_{2} - 8 \cdot \frac{2}{7} = 1 \\
+					c_{2} = \frac{2}{7}
+				\end{cases} \\ [2em]
+				\rightarrow \begin{cases}
+					a_{2} + 6 \cdot \frac{23}{7} - \frac{16}{7} = 0 \\
+					b_{2} = -\frac{23}{7} \\
+					c_{2} = \frac{2}{7}
+				\end{cases} \rightarrow
+				\begin{cases}
+					a_{2} = -\frac{122}{7} \\
+					b_{2} = -\frac{23}{7} \\
+					c_{2} = \frac{2}{7}
+				\end{cases}
+			\end{array}
+		\end{equation*}
+		Quindi la seconda combinazione lineare è:
+		\begin{equation*}
+			\begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} =
+			-\dfrac{122}{7} \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			-\dfrac{23}{7} \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			\dfrac{2}{7} \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix}
+		\end{equation*}
+		
+		\item La terza e ultima:
+		\begin{equation*}
+			v_{3} = a_{3} u_{1} + b_{3} u_{2} + c_{3} u_{3}
+		\end{equation*}
+		Si esegue la sostituzione dei valori:
+		\begin{equation*}
+			\begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} =
+			a_{3} \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			b_{3} \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			c_{3} \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema e si applica l'Eliminazione di Gauss (EG) per semplificare il sistema:
+		\begin{equation*}
+			\begin{array}{l}
+				\begin{cases}
+					a_{3} + 6b_{3} - 8c_{3} = 1 \\
+					-b_{3} - 8c_{3} = 0 \\
+					a_{3} + 8c_{3} + c_{3} = 1
+				\end{cases} \xlongrightarrow{EG}
+				\begin{cases}
+					a_{3} + 6b_{3} - 8c_{3} = 1 \\
+					-b_{3} - 8c_{3} = 0 \\
+					7c_{3} = 0
+				\end{cases} \rightarrow
+				\begin{cases}
+					a_{3} + 6b_{3} - 8 \cdot 0 = 1 \\
+					-b_{3} - 8 \cdot 0 = 0 \\
+					c_{3} = 0
+				\end{cases} \\ [2em]
+				\rightarrow \begin{cases}
+					a_{3} + 6 \cdot 0 = 1 \\
+					b_{3} = 0 \\
+					c_{3} = 0
+				\end{cases} \rightarrow
+				\begin{cases}
+					a_{3} = 1 \\
+					b_{3} = 0 \\
+					c_{3} = 0
+				\end{cases}
+			\end{array}
+		\end{equation*}
+		Quindi la terza combinazione lineare è:
+		\begin{equation*}
+			\begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} =
+			1 \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			0 \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			0 \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix}
+		\end{equation*}
+	\end{itemize}
+	L'eliminazione di Gauss non viene mostrata perché identica alla pagina precedente con l'aggiunta dei valori diversi nell'ultima colonna. Si scrive il risultato nella prossima pagina così da avere più spazio.\newpage
+	
+	\noindent
+	Riscrivendo le tre combinazioni qua di seguito:
+	\begin{equation*}
+		\begin{array}{lll}
+			v_{1} &:& \begin{pmatrix}
+				2 \\ 1 \\ 0
+			\end{pmatrix} =
+			8 \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			-1 \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			0 \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix} \\ [1.8em]
+			%
+			v_{2} &:& \begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} =
+			-\dfrac{122}{7} \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			-\dfrac{23}{7} \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			\dfrac{2}{7} \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix} \\ [1.8em]
+			%
+			v_{3} &:& \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} =
+			1 \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} +
+			0 \begin{pmatrix}
+				6 \\ -1 \\ 8
+			\end{pmatrix} +
+			0 \begin{pmatrix}
+				-8 \\ -8 \\ 1
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}
+	La matrice del cambio di base $\mathscr{C} \rightarrow \mathscr{D}$ è formata:
+	\begin{equation*}
+		M_{\mathscr{C} \rightarrow \mathscr{D}} = \begin{rowequmat}{ccc}
+			8  & -\frac{122}{7} & 1 \\ [0.3em]
+			-1 & -\frac{23}{7}  & 0 \\ [0.3em]
+			0  &  \frac{2}{7}   & 0
+		\end{rowequmat}
+	\end{equation*}
 \end{document}
