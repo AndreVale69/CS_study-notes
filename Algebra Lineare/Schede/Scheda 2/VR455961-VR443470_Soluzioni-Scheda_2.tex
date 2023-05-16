@@ -610,21 +610,193 @@
 			3 & -3 & 3
 		\end{pmatrix}
 	\end{equation*}
-	Per verificare se $f$ è un isomorfismo, è possibile verificare se l'applicazione lineare è invertibile. In caso affermativo, allora la funzione è isomorfa. Purtroppo, l'applicazione lineare inversa si calcola eseguendo l'inversione della matrice associata $A$, che in questo caso \underline{non} è quadrata. Per cui, è possibile già concludere che l'applicazione lineare $f$ non è un isomorfismo.
+	Per verificare se $f$ è un isomorfismo, è possibile verificare se l'applicazione lineare è invertibile. In caso affermativo, allora la funzione è isomorfa. Purtroppo, l'applicazione lineare inversa si calcola eseguendo l'inversione della matrice associata $A$, che in questo caso \underline{non} è quadrata. Per cui, è possibile già concludere che l'applicazione lineare $f$ non è un isomorfismo.\newpage
 	
 	\subsection{Soluzione \emph{c}}
 	
-	Si calcolino le dimensioni degli spazi vettoriali $\mathrm{Im}\left(f\right) \subseteq \mathbb{C}^{2}$ e $\mathrm{N}\left(f\right) \subseteq \mathbb{C}^{3}$.
+	Si calcolino le dimensioni degli spazi vettoriali $\mathrm{Im}\left(f\right) \subseteq \mathbb{C}^{2}$ e $\mathrm{N}\left(f\right) \subseteq \mathbb{C}^{3}$.\newline
+	
+	\noindent
+	La dimensione dell'immagine dell'applicazione lineare corrisponde alla dimensione della matrice associata nel caso in cui quest'ultima sia stata costruita utilizzando le basi canoniche. Inoltre, la dimensione della matrice associata corrisponde al rango di essa:
+	\begin{equation*}
+		\dim\left(\mathrm{Im}\left(f\right)\right) = \dim\left(A\right) = \rk\left(A\right)
+	\end{equation*}
+	Si procede con il calcolo applicando l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{pmatrix}
+			1 & -1 & 1 \\
+			3 & -3 & 3
+		\end{pmatrix} \xlongrightarrow{E_{1,2}\left(-3\right)}
+		\begin{pmatrix}
+			1 & -1 & 1 \\
+			0 &  0 & 0
+		\end{pmatrix}
+	\end{equation*}
+	Il rango corrisponde a $1$, quindi anche la sua dimensione è $1$:
+	\begin{equation*}
+		\rk\left(A\right) = 1 = \dim\left(A\right)
+	\end{equation*}
+	Come viene enunciato nella lezione 17, la dimensione $\dim\left(f\right)$ viene chiamata nullità di $f$. Essa è possibile calcolarla trovando la dimensione del nucleo dell'applicazione lineare $f$:
+	\begin{equation*}
+		N\left(f\right) = \dim\left(\ker\left(f\right)\right)
+	\end{equation*}
+	Sia $v \in \mathbb{C}^{3}$ e siano $\left(\alpha, \beta, \gamma\right)$ le sue coordinate riferite alla base $\mathcal{C}_{\mathbb{C}^{3}}$. Si imposta l'uguaglianza e il sistema relativo:
+	\begin{equation*}
+		Av = 0_{\mathbb{C}^{2}} \longrightarrow
+		\begin{pmatrix}
+			1 & -1 & 1 \\
+			3 & -3 & 3
+		\end{pmatrix}
+		\begin{pmatrix}
+			\alpha \\ \beta \\ \gamma
+		\end{pmatrix} =
+		\begin{pmatrix}
+			0 \\ 0
+		\end{pmatrix} \longrightarrow
+		\begin{cases}
+			\alpha -\beta + \gamma = 0 \\
+			3\alpha -3\beta +3 \gamma = 0
+		\end{cases}
+	\end{equation*}
+	Il rango della matrice è pari 1. Per applicare il teorema di Rouché Capelli, è necessario calcolare il rango anche della matrice aumentata tramite EG:
+	\begin{equation*}
+		\begin{rowequmat}{ccc|c}
+			1 & -1 & 1 & 0 \\
+			3 & -3 & 3 & 0
+		\end{rowequmat} \xlongrightarrow{E_{1,2}\left(-3\right)}
+		\begin{rowequmat}{ccc|c}
+			1 & -1 & 1 & 0 \\
+			0 &  0 & 0 & 0
+		\end{rowequmat}
+	\end{equation*}
+	Anche nella matrice aumentata il rango è 1, quindi per il teorema di Rouché Capelli:
+	\begin{equation*}
+		\rk\left(A\right) = \rk\left(A|b\right) < n \longrightarrow 1 = 1 < 3
+	\end{equation*}
+	Dove $n$ indica il numero di incognite, allora il sistema ammette $\infty^{n-\rk\left(A\right)}$ soluzioni. In questo caso $\infty^{3-1} = \infty^{2}$. Per cui la dimensione del nucleo dell'applicazione lineare $f$ è pari a $2$:
+	\begin{equation*}
+		N\left(f\right) = \dim\left(\ker\left(f\right)\right) = 2
+	\end{equation*}
+	Infine, il teorema delle dimensioni o teorema della nullità più rango (\underline{forse non è} \underline{stato fatto a lezione!}) conferma il calcolo poiché:
+	\begin{equation*}
+		\dim\left(f\right) = \dim\left(\ker\left(f\right)\right) + \dim\left(\mathrm{Im}\left(f\right)\right) \longrightarrow \dim\left(\mathbb{C}^{3}\right) = 2 + 1
+	\end{equation*}
+	
 	
 	\subsection{Soluzione \emph{d}}
 	
 	Si verifichi che l'insieme $\mathscr{C} = \left\{v_{1}, v_{2}, v_{3}\right\}$ con $v_{1} = \begin{pmatrix}
 		2 \\ 1 \\ 0
-	\end{pmatrix}, \begin{pmatrix}
+	\end{pmatrix}, v_{2} = \begin{pmatrix}
 		0 \\ 1 \\ 0
-	\end{pmatrix}, \begin{pmatrix}
+	\end{pmatrix}, v_{3} = \begin{pmatrix}
 		1 \\ 0 \\ 1
-	\end{pmatrix}$ è una base di $\mathbb{C}^{3}$.
+	\end{pmatrix}$ è una base di $\mathbb{C}^{3}$.\newline
+	
+	\noindent
+	L'insieme $\mathscr{C}$ è una base di $\mathbb{C}$ se i vettori che lo compongono sono un sistema di generatori e vettori linearmente indipendenti.
+	
+	\begin{proof}[\textbf{Dimostrazione che i vettori sono un sistema di generatori}]
+		Per dimostrare che $\mathscr{C} = \left\{v_{1}, v_{2}, v_{3}\right\}$ è un sistema di generatori, è necessario stabilire se per ogni $w = \left(w_{1}, w_{2}, w_{3}\right) \in \mathscr{C}$ esistono tre scalari $a_{1}, a_{2}, a_{3} \in \mathbb{C}$ tali che:
+		\begin{equation*}
+			a_{1}v_{1} + a_{2}v_{2} + a_{3}v_{3} = w
+		\end{equation*}
+		Si sostituiscono i dati:
+		\begin{equation*}
+			a_{1} \begin{pmatrix}
+				2 \\ 1 \\ 0
+			\end{pmatrix} + a_{2} \begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} + a_{3} \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} = \begin{pmatrix}
+				w_{1} \\ w_{2} \\ w_{3}
+			\end{pmatrix} \longrightarrow
+			\begin{pmatrix}
+				2a_{1} + a_{3} \\
+				a_{1}  + a_{2} \\
+				a_{3}
+			\end{pmatrix} = \begin{pmatrix}
+				w_{1} \\ w_{2} \\ w_{3}
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema relativo:
+		\begin{equation*}
+			\begin{cases}
+				2a_{1} + a_{3} = w_{1} \\
+				a_{1}  + a_{2} = w_{2}\\
+				a_{3} = w_{3}
+			\end{cases}
+		\end{equation*}
+		Se il sistema ammette soluzione, allora i vettori $v_{1}, v_{2}, v_{3}$ sono un sistema di generatori. Quindi, viene calcolato il rango della matrice incompleta $A$ e completa $\left(A|b\right)$, così da applicare il teorema di Rouché Capelli:
+		\begin{equation*}
+			\begin{array}{rll}
+				A &=& \begin{rowequmat}{ccc}
+					2 & 0 & 1 \\
+					1 & 1 & 0 \\
+					0 & 0 & 1
+				\end{rowequmat} \xlongrightarrow{E_{1,2}\left(-\frac{1}{2}\right)}
+				\begin{rowequmat}{ccc}
+					2 & 0 & 1 \\ [0.3em]
+					0 & 1 & -\frac{1}{2} \\ [0.3em]
+					0 & 0 & 1
+				\end{rowequmat} \rightarrow \rk\left(A\right) = 3 \\ [1.8em]
+				\left(A|b\right) &=& \begin{rowequmat}{ccc|c}
+					2 & 0 & 1 & w_{1} \\
+					1 & 1 & 0 & w_{2} \\
+					0 & 0 & 1 & w_{3}
+				\end{rowequmat} \xlongrightarrow{E_{1,2}\left(-\frac{1}{2}\right)}
+				\begin{rowequmat}{ccc|c}
+					2 & 0 & 1 & w_{1} \\ [0.3em]
+					0 & 1 & -\frac{1}{2} & \frac{2w_{2} - w_{1}}{2} \\ [0.3em]
+					0 & 0 & 1 & w_{3}
+				\end{rowequmat} \rightarrow \rk\left(A|b\right) = 3
+			\end{array}
+		\end{equation*}
+		Applicando il teorema di Rouché Capelli, il sistema ammette una e una sola soluzione poiché:
+		\begin{equation*}
+			\rk\left(A\right) = \rk\left(A|b\right) = n \longrightarrow 3 = 3 = 3
+		\end{equation*}
+		Con $n$ che corrisponde al numero di incognite. Quindi, si può concludere la dimostrazione affermando che i tre vettori sono un insieme di generatori.
+	\end{proof}\newpage
+	
+	\begin{proof}[\textbf{Dimostrazione che i vettori sono linearmente indipendenti}]
+		Se i vettori sono linearmente indipendenti, allora l'insieme è una base. Si procede con la dimostrazione. Siano $b_{1}, b_{2}, b_{3} \in \mathbb{C}$ e si verifichi che:
+		\begin{equation*}
+			b_{1}v_{1} + b_{2}v_{2} + b_{3}v_{3} = 0 \Rightarrow b_{1} = b_{2} = 0
+		\end{equation*}
+		Quindi, si procede con la sostituzione:
+		\begin{equation*}
+			b_{1} \begin{pmatrix}
+				2 \\ 1 \\ 0
+			\end{pmatrix} + b_{2} \begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} + b_{3} \begin{pmatrix}
+				1 \\ 0 \\ 1
+			\end{pmatrix} = \begin{pmatrix}
+				0 \\ 0 \\ 0
+			\end{pmatrix} \longrightarrow
+			\begin{pmatrix}
+				2b_{1} + b_{3} \\
+				b_{1}  + b_{2} \\
+				b_{3}
+			\end{pmatrix} = \begin{pmatrix}
+				0 \\ 0 \\ 0
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema relativo:
+		\begin{equation*}
+			\begin{cases}
+				2b_{1} + b_{3} = 0 \\
+				b_{1}  + b_{2} = 0 \\
+				b_{3} = 0
+			\end{cases}
+		\end{equation*}
+		Applicando banalmente il metodo di sostituzione si arriva alla conclusione che l'unica soluzione del sistema è $b_{1} = b_{2} = 0$. Per cui, i vettori $v_{1}, v_{2}, v_{3}$ sono linearmente indipendenti.
+	\end{proof} \:\newline
+	
+	\noindent
+	L'esercizio si conclude affermando che l'insieme $\mathscr{C}$ è una base di $\mathbb{C}^{3}$ grazie alla dimostrazione delle due condizioni: sistema di generatori e linearmente indipendenti.\newpage
 	
 	\subsection{Soluzione \emph{e}}
 	
