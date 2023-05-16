@@ -694,7 +694,7 @@
 	\end{pmatrix}$ è una base di $\mathbb{C}^{3}$.\newline
 	
 	\noindent
-	L'insieme $\mathscr{C}$ è una base di $\mathbb{C}$ se i vettori che lo compongono sono un sistema di generatori e vettori linearmente indipendenti.
+	L'insieme $\mathscr{C}$ è una base di $\mathbb{C}^{3}$ se i vettori che lo compongono sono un sistema di generatori e vettori linearmente indipendenti.
 	
 	\begin{proof}[\textbf{Dimostrazione che i vettori sono un sistema di generatori}]
 		Per dimostrare che $\mathscr{C} = \left\{v_{1}, v_{2}, v_{3}\right\}$ è un sistema di generatori, è necessario stabilire se per ogni $w = \left(w_{1}, w_{2}, w_{3}\right) \in \mathscr{C}$ esistono tre scalari $a_{1}, a_{2}, a_{3} \in \mathbb{C}$ tali che:
@@ -755,7 +755,7 @@
 		\end{equation*}
 		Applicando il teorema di Rouché Capelli, il sistema ammette una e una sola soluzione poiché:
 		\begin{equation*}
-			\rk\left(A\right) = \rk\left(A|b\right) = n \longrightarrow 3 = 3 = 3
+			\rk\left(A\right) = \rk\left(A|b\right) = n \xlongrightarrow{\text{sostituzione}} 3 = 3 = 3
 		\end{equation*}
 		Con $n$ che corrisponde al numero di incognite. Quindi, si può concludere la dimostrazione affermando che i tre vettori sono un insieme di generatori.
 	\end{proof}\newpage
@@ -792,7 +792,7 @@
 				b_{3} = 0
 			\end{cases}
 		\end{equation*}
-		Applicando banalmente il metodo di sostituzione si arriva alla conclusione che l'unica soluzione del sistema è $b_{1} = b_{2} = 0$. Per cui, i vettori $v_{1}, v_{2}, v_{3}$ sono linearmente indipendenti.
+		Applicando banalmente il metodo di sostituzione, si arriva alla conclusione che l'unica soluzione del sistema è $b_{1} = b_{2} = 0$. Per cui, i vettori $v_{1}, v_{2}, v_{3}$ sono linearmente indipendenti.
 	\end{proof} \:\newline
 	
 	\noindent
@@ -804,7 +804,95 @@
 		1 \\ 1
 	\end{pmatrix}, w_{2} = \begin{pmatrix}
 		1 \\ 0
-	\end{pmatrix}$ è una base di $\mathbb{C}^{2}$.
+	\end{pmatrix}$ è una base di $\mathbb{C}^{2}$.\newline
+	
+	\noindent
+	L'insieme $\mathscr{B}$ è una base di $\mathbb{C}^{2}$ se i vettori che lo compongono sono un sistema di generatori e vettori linearmente indipendenti.
+	
+	\begin{proof}[\textbf{Dimostrazione che i vettori sono un sistema di generatori}]
+		Per dimostrare che $\mathscr{B} = \left\{w_{1}, w_{2}\right\}$ è un sistema di generatori, è necessario stabilire se per ogni $v = \left(v_{1}, v_{2}\right) \in \mathscr{B}$ esistono due scalari $a_{1}, a_{2} \in \mathbb{C}$ tali che:
+		\begin{equation*}
+			a_{1} w_{1} + a_{2} w_{2} = v
+		\end{equation*}
+		Si sostituiscono i dati:
+		\begin{equation*}
+			a_{1} \begin{pmatrix}
+				1 \\ 1
+			\end{pmatrix} +
+			a_{2} \begin{pmatrix}
+				1 \\ 0
+			\end{pmatrix} =
+			\begin{pmatrix}
+				v_{1} \\ v_{2}
+			\end{pmatrix} \longrightarrow
+			\begin{pmatrix}
+				a_{1} + a_{2} \\
+				a_{1}
+			\end{pmatrix} = 
+			\begin{pmatrix}
+				v_{1} \\ v_{2}
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema relativo:
+		\begin{equation*}
+			\begin{cases}
+				a_{1} + a_{2} = v_{1} \\
+				a_{1} = v_{2}
+			\end{cases}
+		\end{equation*}
+		Se il sistema ammette soluzione, allora i vettori $w_{1}, w_{2}$ sono un sistema di generatori. Quindi, viene calcolato il rango della matrice incompleta $A$ e completa $\left(A|b\right)$, così da applicare il teorema di Rouché Capelli:
+		\begin{equation*}
+			\begin{array}{rll}
+				A &=& \begin{rowequmat}{cc}
+					1 & 1 \\ 0 & 1
+				\end{rowequmat} \longrightarrow \rk\left(A\right) = 2 \\ [1.8em]
+				\left(A|b\right) &=& \begin{rowequmat}{cc|c}
+					1 & 1 & v_{1} \\ 0 & 1 & v_{2}
+				\end{rowequmat} \longrightarrow \rk\left(A|b\right) = 2
+			\end{array}
+		\end{equation*}
+		Per fortuna le matrici erano già in forma ridotta. Adesso, applicando il teorema di Rouché Capelli, si può osservare che il sistema ammette una e una sola soluzione:
+		\begin{equation*}
+			\rk\left(A\right) = \rk\left(A|b\right) = n \xlongrightarrow{\text{sostituzione}} 2 = 2 = 2
+		\end{equation*}
+		Con $n$ che corrisponde al numero di incognite. Quindi, si conclude la dimostrazione affermando che i due vettori sono un insieme di generatori.
+	\end{proof}\newpage
+	
+	\begin{proof}[\textbf{Dimostrazione che i vettori sono linearmente indipendenti}]
+		Se i vettori sono linearmente indipendenti, allora l'insieme è una base. Si procede con la dimostrazione. Siano $b_{1}, b_{2} \in \mathbb{C}$ e si verifichi che:
+		\begin{equation*}
+			b_{1} w_{1} + b_{2} w_{2} = 0 \Rightarrow b_{1} = b_{2} = 0
+		\end{equation*}
+		Si procede con la sostituzione:
+		\begin{equation*}
+			b_{1} \begin{pmatrix}
+				1 \\ 1
+			\end{pmatrix} +
+			b_{2} \begin{pmatrix}
+				1 \\ 0
+			\end{pmatrix} =
+			\begin{pmatrix}
+				0 \\ 0
+			\end{pmatrix} \longrightarrow
+			\begin{pmatrix}
+				b_{1} + b_{2} \\
+				b_{1}
+			\end{pmatrix} = \begin{pmatrix}
+				0 \\ 0
+			\end{pmatrix}
+		\end{equation*}
+		Si costruisce il sistema relativo:
+		\begin{equation*}
+			\begin{cases}
+				b_{1} + b_{2} = 0 \\
+				b_{1} = 0
+			\end{cases}
+		\end{equation*}
+		Applicando banalmente il metodo di sostituzione, si arriva alla conclusione che l'unica soluzione del sistema è $b_{1} = b_{2} = 0$. Per cui, i vettori $w_{1}, w_{2}$ sono linearmente indipendenti.
+	\end{proof}\:\newline
+	
+	\noindent
+	L'esercizio si conclude affermando che l'insieme $\mathscr{B}$ è una base di $\mathbb{C}^{2}$ grazie alla dimostrazione delle due condizioni: sistema di generatori e linearmente indipendenti.\newpage
 	
 	\subsection{Soluzione \emph{f}}
 	
