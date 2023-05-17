@@ -3942,12 +3942,328 @@ Even integers
  	Il risultato visualizzato è: 47 47. Infatti, la dichiarazione dentro la funzione \textsf{set()} è globale, quindi lo scope non interviene. Per eseguire la verifica e capire quale scope viene utilizzato, è necessario dichiarare una variabile locale in \textsf{set()}. Dunque, scrivendo alla riga 8 il comando \dquotes{\textsf{local \$n = 17;}} è possibile notare che lo scope è dinamico. Il risultato muta in 47 12, quindi la chiamata \textsf{addn()} utilizza la dichiarazione \dquotes{\textsf{local \$n = 17;}} (riga 8) valida al momento delle chiamata della funzione \textsf{addn()}. Invece, esternamente il valore di \textsf{n} rimane 12.\newpage
  	
  	\subsubsection{Sintesi}
- 	
  	Lo \textbf{scope statico} è quando un nome non locale è risolto nel blocco che testualmente lo racchiude. In questo caso, le associazioni sono note a tempo di compilazione. L'implementazione è complessa ma risulta molto efficiente e soddisfa i principi di indipendenza.\newline
  	
  	\noindent
  	Lo \textbf{scope dinamico} è quando un nome non locale è risolto nella chiamata attivata più di recente e non ancora disattiva. In questo caso, l'informazione è derivata dall'esecuzione e causa programmi meno leggibili. Facile da implementare ma poco efficiente.\newline
  	
  	\noindent
- 	N.B. \textbf{Se non ci sono procedure, o se nelle precedure non c'è un ambiente non locale (o se c'è ma è incluso nell'ambiente globale) allora non ha senso distinguere i due metodi, in quanto il risultato sarebbe sempre lo stesso.} Quindi i due metodi di scope differiscono solo nel contesto delle procedure con presenza congiunta di ambiente non locale e non globale.
+ 	N.B. \textbf{Se non ci sono procedure, o se nelle precedure non c'è un ambiente non locale (o se c'è ma è incluso nell'ambiente globale) allora non ha senso distinguere i due metodi, in quanto il risultato sarebbe sempre lo stesso.} Quindi i due metodi di scope differiscono solo nel contesto delle procedure con presenza congiunta di ambiente non locale e non globale.\newpage
+ 	
+ 	\subsection{Allocazione della memoria}
+ 	Un concetto fondamentale legato all'uso delle procedure è l'\textbf{allocazione della memoria}, ovvero come vengono allocati gli oggetti e dove vengono risolti i riferimenti (non locali). Anche in questo caso, l'allocazione di memoria si divide in \textbf{due tipi}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Statica}}, la \textbf{memoria allocata} a \textbf{tempo di compilazione}. Quindi, prima dell'esecuzione, i dati del programma vengono disposti in zone di memoria dove rimangono fino alla fine;
+		
+		\item \textcolor{Red3}{\textbf{Dinamica}}, la \textbf{memoria allocata} a \textbf{tempo di esecuzione}. Quindi, vengono utilizzate delle strutture dinamiche:
+		\begin{itemize}
+			\item \textbf{Pila} (\textbf{stack}), gli oggetti vengono allocati con la politica LIFO;
+			
+			\item \textbf{Heap}, gli oggetti vengono allocati e deallocati in qualsiasi momento.
+		\end{itemize}
+		Le quali durante l'esecuzione vengono continuamente allocale e deallocate.
+	\end{itemize}
+	
+	\longline
+ 	
+ 	\subsubsection{Allocazione statica}
+ 	
+ 	L'\textbf{allocazione statica} consente di \textbf{allocare} lo spazio per tutti gli identificatori a \textbf{tempo di compilazione}. Questo metodo comporta una serie di \textbf{caratteristiche}:
+ 	\begin{itemize}
+ 		\item La \textbf{memoria rimane allocata per l'intera esecuzione};
+ 		
+ 		\item Il \textbf{tempo di vita} di tutti gli \textbf{identificatori} è pari al tempo dell'\textbf{esecuzione dell'intero programma};
+ 		
+ 		\item \textbf{Necessario conoscere a priori quanta memoria è necessaria};
+ 		
+ 		\item \textbf{Impossibile eseguire la ricorsione} poiché non è possibile stabilire a priori quante volte verrà ripetuta (\underline{limite più importante dell'allocazione statica});
+ 		
+ 		\item \textbf{Impossibile avere blocchi annidati} poiché i riferimenti sono puramente statici;
+ 		
+ 		\item \textbf{Ogni oggetto ha un indirizzo assoluto che viene mantenuto per tutta l'esecuzione del programma};
+ 	\end{itemize}
+ 	Le allocazioni statiche sono eseguite su:
+ 	\begin{itemize}
+ 		\item Variabili globali;
+ 		\item Variabili locali nei sottoprogrammi (senza ricorsione);
+ 		\item Costanti determinabili a tempo di compilazione;
+ 		\item Tabelle usate dal supporto a run-time (e.g. \emph{garbage collection})
+ 	\end{itemize}
+ 	\textcolor{Green4}{\textbf{Esempi}} di linguaggi che utilizzano l'allocazione statica sono COBOL e FORTRAN.\newline
+ 	
+ 	\noindent
+ 	Nonostante le caratteristiche apparentemente negative, l'allocazione statica consente \textbf{esecuzioni più veloci} poiché è possibile utilizzare indirizzi assoluti e quindi il dato si troverà sempre nella stessa posizione.\newpage
+ 	
+ 	\subsubsection{Allocazione dinamica}
+ 	L'\textbf{allocazione dinamica} supera i limiti imposti dall'allocazione statica e consente di creare \textcolor{Red3}{\textbf{record di attivazione}} (\textbf{RdA} o \textbf{frame}), per ogni istanza di un sottoprogramma a run-time, contenente le informazioni relative a tale istanza. La struttura dati preferita per gestire i record di attivazione è la \textcolor{Red3}{\textbf{pila (stack)}}, poiché consente di implementare la struttura a blocchi dei programmi\footnote{Si intende, per esempio, che una volta entrati in A e poi in B, è necessario prima uscire da B e solo dopo da A.}.\newline
+ 	
+ 	\noindent
+ 	Le caratteristiche positive e negative sono:
+ 	\begin{itemize}
+ 		\item \textbf{Consente la ricorsione};
+ 		\item \textbf{Aumento dell'overhead} per allocazione e deallocazione effettuata, questo comporta un'\textbf{esecuzione più lenta};
+ 	\end{itemize}
+ 	
+ 	\longline
+ 	
+ 	\subsubsection{Record di attivazione}
+ 	
+ 	La pila viene gestita eseguendo una serie di operazioni:
+ 	\begin{itemize}
+ 		\item Sequenza di chiamata;
+ 		\item Prologo;
+ 		\item Epilogo;
+ 		\item Sequenza di ritorno.
+ 	\end{itemize}
+ 	Inoltre, dato che l'indirizzo viene calcolato a tempo di esecuzione, la sua \textbf{gestione} viene effettuata \textbf{tramite un puntatore} RdA, chiamato \textbf{Stack Pointer} (SP), il quale \textbf{punta} al Record di Attivazione del blocco attivo, ovvero quello \textbf{in cima allo stack}.\newline
+ 	
+ 	\noindent
+ 	Le \textbf{informazioni contenute all'interno dei Record di Attivazione} sono accessibili tramite l'uso dello Stack Pointer in combinazione con l'\emph{offset} (determinato staticamente). Queste informazioni sono:
+ 	\begin{itemize}
+ 		\item \textbf{Link di controllo}, ovvero puntatori che puntano ai Record di Attivazione precedenti nella catena;
+ 		
+ 		\item \textbf{Indirizzo di ritorno}, ovvero l'indirizzo dell'istruzione da eseguire al termine della procedura;
+ 		
+ 		\item \textbf{Indirizzo del risultato}, ovvero l'indirizzo dove depositare il risultato della procedura se presente;
+ 		
+ 		\item \textbf{Parametri attuali della funzione}, ovvero i valori passati come input alla procedura;
+ 		
+ 		\item \textbf{Risultati intermedi}, valori calcolati durante l'esecuzione della procedura chiamata.
+ 	\end{itemize}\newpage
+ 	
+ 	\begin{figure}[!htp]
+ 		\centering
+ 		\includegraphics[width=\textwidth]{img/record_di_attivazione.png}
+ 		\caption{Struttura di un record di attivazione.}
+ 	\end{figure}
+ 	
+ 	\longline
+ 	
+ 	\subsection{Semantica delle chiamate}\label{semantica delle chiamate}
+ 	
+ 	La \textcolor{Red3}{\textbf{semantica delle chiamate}} \textbf{ad un sottoprogramma} si basa su \textbf{vari passi} che vanno implementati:
+ 	\begin{itemize}
+ 		\item \textbf{Metodi di passaggio di parametri};
+ 		
+ 		\item \textbf{Allocazione dinamico} sullo stack delle variabili locali;
+ 		
+ 		\item \textbf{Salvataggio dello stato di esecuzione} del programma chiamante;
+ 		
+ 		\item \textbf{Trasferimento del controllo} e \textbf{preparazione del ritorno};
+ 		
+ 		\item Se è supportato l'annidamento di sottoprogrammi, deve essere \textbf{gestito l'accesso a variabili non locali}.
+ 	\end{itemize}
+ 	Anche la \textcolor{Red3}{\textbf{semantica del ritorno}} \textbf{da un sottoprogramma} si basa sull'implementazione di vari passi:
+ 	\begin{itemize}
+ 		\item I \textbf{parametri} per valore e per valore-risultato \textbf{devono restituire il loro valore};
+ 		
+ 		\item \textbf{Deallocazione dello stack} per le variabili non locali;
+ 		
+ 		\item \textbf{Recupero dello stato di esecuzione} del chiamante;
+ 		
+ 		\item \textbf{Ritorno del controllo} al chiamante.
+ 	\end{itemize}
+ 	Inoltre, l'\textbf{insieme dei link dinamici presenti nello stack e validi in ogni punto di esecuzione}, viene chiamato \textcolor{Red3}{\textbf{catena dinamica}}.\newline
+ 	
+ 	\noindent
+ 	Infine, è possibile accedere alle variabili locali, presenti dentro i Record di Attivazione, attraverso il loro \emph{offset} (chiamato anche \emph{local\_offset}) dall'inizio del RdA.\newline
+ 	
+ 	\noindent
+ 	Un \textcolor{Green4}{\textbf{esempio}} di codice in cui la funzione \textsf{main} invoca \textsf{fun1}, la quale invoca \textsf{fun2}, la quale invoca \textsf{fun3}:
+	\begin{lstlisting}[language=C]
+void fun1(float r) {
+	int s, t;
+	...
+	fun2(s);
+	...
+}
+void fun2(int x) {
+	int y;
+	...
+	fun3(y);
+	...
+}
+void fun3(int q) {
+	...
+}
+void main() {
+	float p;
+	...
+	fun1(p);
+	...
+}\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/eg-allocazione_memoria.png}
+		\caption{Stato della memoria nel tempo.}
+	\end{figure}\newpage
+	
+	\noindent
+	Qui di seguito, viene presentato invece un \textcolor{Green4}{\textbf{esempio}} tenendo in considerazione la ricorsione:
+	\begin{lstlisting}[language=C]
+int factorial (int n) {
+	// punto 1
+	if (n <= 1) return 1;
+	else return (n * factorial(n - 1));
+	// punto 2
+}
+void main() {
+	int value;
+	value = factorial(3);
+	// punto 3
+}\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/eg-allocazione_memoria-1.png}
+		\caption{Evoluzione della Pila dopo ogni chiamata, quindi fase di chiamata.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/eg-allocazione_memoria-2.pdf}
+		\caption{Evoluzione della pila dopo aver effettuato tutte le chiamate, quindi fase di ritorno.}
+	\end{figure}\newpage
+	
+	\subsection{Implementare lo scope statico}
+	
+	L'\textcolor{Red3}{\textbf{implementazione dello scope statico}} è realizzabile tramite due tecniche:
+	\begin{enumerate}
+		\item La \textcolor{Red3}{\textbf{catena statica}} (approfondita);
+		\item Il display (non trattato).
+	\end{enumerate}
+	Si ricorda che il Record di Attivazione possiede due link in testa: uno dinamico (spiegato nel paragrafo~\ref{semantica delle chiamate}) e uno statico. Il \textbf{link statico} è un \textbf{puntatore}, al Record di Attivazione, \textbf{del blocco che contiene il testo della parte in esecuzione}. Al contrario del link dinamico che dipende dalla sequenza di esecuzione del programma, il \textbf{link statico dipende dall'annidamento statico delle dichiarazioni delle procedure}.\newline
+	
+	\noindent
+	Dato che lo scope statico soddisfa il principio di indipendenza, il riferimento ad un identificatore \textsf{x} deve accedere sempre allo stesso ambiente per \textsf{x}, determinato staticamente, indipendentemente dall'ambiente chiamate. Questo è anche il \textbf{motivo del tenere traccia dei link statici} e della conseguente creazione della catena statica.\newline
+	
+	\noindent
+	In sintesi:
+	\begin{itemize}
+		\item La \textbf{catena statica}, abbreviata in \textbf{CS}, è la \textbf{catena di link statici che collegano le istanze} del Record di Attivazione;
+		
+		\item Il \textbf{link statico} in un Record di Attivazione per il sottoprogramma A, è quel puntatore che punta al Record di Attivazione, antenato di A, che sintatticamente contiene A (chiamato genitore statico di A);
+		
+		\item La \textbf{catena statica} da un RdA lo collega a tutti gli antenati statici;
+		
+		\item La \textbf{profondità statica} (Sd) è un intero associato nello scope statico ad ogni RdA, il cui valore è la \textbf{profondità di annidamento della definizione della procedura corrispondente al RdA}.
+	\end{itemize}\newpage
+	
+	\subsubsection{Link statici}
+	
+	Si considera il seguente \textcolor{Green4}{\textbf{esempio}} di link statici. Nella seguente rappresentazione è possibile vedere che A è la procedura \textsf{main}, nella quale vengono definite le procedure B e C; dentro B non viene definita nessuna procedura, mentre dentro C vengono definite D ed E. Le profondità statiche (Sd) sono:
+	\begin{gather*}
+		Sd\left(A\right) = 0 \\
+		Sd\left(B\right) = Sd\left(C\right) = 1 \\
+		Sd\left(D\right) = Sd\left(E\right) = 2
+	\end{gather*}
+	E la rappresentazione grafica è la seguente:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.25\textwidth]{img/link-statici.pdf}
+	\end{figure}
+	
+	\noindent
+	In generale, se un \textbf{sottoprogramma è annidato al livello \emph{k}, allora la catena statica da quel sottoprogramma è lunga \emph{k}}.\newline
+	
+	\noindent
+	Inoltre, è il \textbf{chiamate (Ch) a determinare il link statico del chiamato} usando le informazioni che ha a disposizione. Come per esempio l'annidamento statico dei blocchi e l'indirizzo del proprio Record di Attivazione. Il \textbf{processo eseguito dal chiamante viene effettuato determinando la catena statica del chiamante un numero di volte pari alla profondità di annidamento}, calcolata a tempo di compilazione, come \textbf{differenza} tra la \textbf{profondità statica del chiamante} e la \textbf{profondità statica del sottoprogramma} nel quale il chiamato viene definito.\newpage
+	
+	\subsubsection{Come determinare i link statici}
+	
+	Data una procedura \textbf{chiamante} Ch che chiama un'\textbf{altra procedura} P, Ch è in grado di determinare:
+	\begin{itemize}
+		\item Se $k = 0$, e di capire quindi che P è immediatamente inclusa nel chiamante Ch.\newline
+		Nella pratica Ch passa a P il proprio puntatore (indirizzo) come link statico;
+		
+		\item Se $k > 0$, e di capire quindi che P è inclusa in un blocco che si trova $k$ passi fuori/prima di Ch.\newline
+		Nella pratica, il chiamante Ch risale la propria catena statica di $k$ passi e passa il corrispondente puntatore (indirizzo) come link statico di P.
+	\end{itemize}
+	Il \textcolor{Red3}{\textbf{calcolo per ottenere}} $k$ da parte del chiamante:
+	\begin{equation*}
+		k = Sd\left(Ch\right) - Sd\left(P\right) + 1
+	\end{equation*}
+	\begin{itemize}
+		\item $Sd\left(Ch\right)$ è la \textbf{profondità statica} (di annidamento) del \textbf{chiamante} \textbf{Ch};
+		
+		\item $Sd\left(P\right)$ è la \textbf{profondità statica} della \textbf{procedura} chiamata P.
+	\end{itemize}
+	Considerando come \textcolor{Green4}{\textbf{esempio}} la rappresentazione grafica presentata nella pagina precedente:
+	\begin{enumerate}
+		\item $A$ è la procedura \textsf{main} che chiama la procedura $B$. Al momento della chiamata da parte del chiamante $A$, Ch, cioè $A$, calcola:
+		\begin{equation*}
+			k = Sd\left(A\right) - Sd\left(B\right) + 1 = 0 - 1 + 1 = 0
+		\end{equation*}
+		Quindi, il link statico CS della procedura $B$ è pari a quello del chiamante $A$. Infatti, $A$ passa a $B$ il proprio indirizzo;
+		
+		\item La procedura chiamante $B$ chiama la procedura $C$ ed esegue il calcolo:
+		\begin{equation*}
+			k = Sd\left(B\right) - Sd\left(C\right) + 1 = 1 - 1 + 1 = 1
+		\end{equation*}
+		Quindi, significa che la procedura $B$ risale di $1$ la sua catena statica (raggiungendo la procedura $A$) e restituisce il link statico della procedura $C$ al Record di Attivazione raggiunto, cioè $A$;
+		
+		\item La procedura chiamante $C$ chiama la procedura $D$ ed esegue il calcolo:
+		\begin{equation*}
+			k = Sd\left(C\right) - Sd\left(D\right) + 1 = 1 - 2 + 1 = 0
+		\end{equation*}
+		Quindi, significa che la procedura chiamante $C$ passa il proprio indirizzo come link statico per raggiungere la procedura $D$;
+		
+		\item La procedura chiamante $D$ chiama la procedura $E$ ed esegue il calcolo:
+		\begin{equation*}
+			k = Sd\left(D\right) - Sd\left(E\right) + 1 = 2 - 2 + 1 = 1
+		\end{equation*}
+		Quindi, significa che la procedura $D$ risale di $1$ la propria catena statica, raggiungendo la procedura $C$, e restituisce il link statico della procedura $E$ al Record di Attivazione raggiunto, cioè $C$;
+		
+		\item La procedura chiamante $E$ chiama la procedura $C$ ed esegue il calcolo:
+		\begin{equation*}
+			k = Sd\left(E\right) - Sd\left(C\right) + 1 = 2 - 1 + 1 = 2
+		\end{equation*}
+		Quindi, significa che la procedura $E$ risale di $2$ la propria catena statica, seguendo prima il link che porta dalla procedura $E$ alla procedura $C$, e successivamente il link che porta dalla procedura $C$ alla procedura $A$. In questo modo, raggiunge la procedura $A$ e restituisce il link come statico della procedura $C$ al Record di Attivazione raggiunto, cioè $A$.
+	\end{enumerate}
+	E ancora, si porta qua di seguito un altro \textcolor{Green4}{\textbf{esempio}}, riportando prima il codice:
+	\begin{lstlisting}[language=C]
+void main() {
+	int x;
+	void A() {
+		x = x + 1;
+	}
+	void B() {
+		int x;
+		void C(int y) {
+			int x;
+			x = y + 2;
+			A();
+		}
+		x = 0;
+		A();
+		C(3);
+	}
+	x = 10;
+	B();
+}\end{lstlisting}
+	Le relative profondità statiche iniziali e la rappresentazione grafica è la seguente:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/link-statici-2.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	Le profondità statiche dopo le varie esecuzioni:
+	\begin{enumerate}
+		\item $B: Sd\left(\textsf{main}\right) - Sd\left(B\right) + 1 = 0$;\newline
+		Il link statico di $B$ è l'indirizzo \textsf{main}: $CS\left(B\right) = \text{Indirizzo}\left(\textsf{main}\right)$;
+		
+		\item $A: Sd\left(B\right) - Sd\left(A\right) + 1 = 1$;\newline
+		Il link statico di $A$ è l'indirizzo statico restituito da $B$: $CS\left(A\right) = \text{Indirizzo}\left(CS\left(B\right)\right)$;
+		
+		\item $C: Sd\left(B\right) - Sd\left(C\right) + 1 = 0$;\newline
+		Il link statico di $C$ è l'indirizzo $B$: $CS\left(C\right) = \text{Indirizzo}\left(B\right)$;
+
+		\item $A: Sd\left(C\right) - Sd\left(A\right) + 1 = 2$;\newline
+		Il link statico di $A$ è l'indirizzo statico restituito da $C$ dell'indirizzo statico restituito da $B$: $CS\left(A\right) = \underbrace{\text{Indirizzo}\left(CS\left(CS\left(C\right)\right)\right)}_{\text{Risalita della catena statica}}$;
+	\end{enumerate}
+	Il Record di attivazione durante tutta l'esecuzione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.3\textwidth]{img/link-statici-3.pdf}
+	\end{figure}
 \end{document}
