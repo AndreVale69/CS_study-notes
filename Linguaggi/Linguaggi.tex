@@ -3864,7 +3864,7 @@ Even integers
  	\subsection{Scope statico e dinamico}
  	
  	Esistono due tipologie di scope:
- 	\begin{itemize}
+ 	\begin{itemize}\label{scope statico e dinamico}
  		\item \textbf{Scope statico}, dove gli \textbf{identificatori} liberi della procedura (cioè ambiente non locale), sono \textbf{\underline{staticamente} legali all'ambiente}, quindi a \textbf{tempo di compilazione}.
  		
  		Lo scope statico si basa esclusivamente sul testo del codice, e lega l'identificatore al blocco che lessicalmente lo contiene, ovvero in cui è stato dichiarato.
@@ -4219,7 +4219,7 @@ void main() {
 		\end{equation*}
 		Quindi, significa che la procedura $E$ risale di $2$ la propria catena statica, seguendo prima il link che porta dalla procedura $E$ alla procedura $C$, e successivamente il link che porta dalla procedura $C$ alla procedura $A$. In questo modo, raggiunge la procedura $A$ e restituisce il link come statico della procedura $C$ al Record di Attivazione raggiunto, cioè $A$.
 	\end{enumerate}
-	E ancora, si porta qua di seguito un altro \textcolor{Green4}{\textbf{esempio}}, riportando prima il codice:
+	E ancora, si porta qua di seguito un altro \textcolor{Green4}{\textbf{esempio}}, riportando prima il codice:\label{esempio risolvere riferimenti}
 	\begin{lstlisting}[language=C]
 void main() {
 	int x;
@@ -4247,7 +4247,7 @@ void main() {
 	\end{figure}\newpage
 	
 	\noindent
-	Le profondità statiche dopo le varie esecuzioni:
+	Le profondità statiche dopo le varie esecuzioni in ordine cronologico:
 	\begin{enumerate}
 		\item $B: Sd\left(\textsf{main}\right) - Sd\left(B\right) + 1 = 0$;\newline
 		Il link statico di $B$ è l'indirizzo \textsf{main}: $CS\left(B\right) = \text{Indirizzo}\left(\textsf{main}\right)$;
@@ -4265,5 +4265,132 @@ void main() {
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=.3\textwidth]{img/link-statici-3.pdf}
-	\end{figure}
+	\end{figure}\newpage
+
+	\subsubsection{Risolvere i riferimenti}
+	Nel paragrafo precedente è stata calcolata la catena statica, adesso viene spiegato come \textbf{risolvere i riferimenti}.\newline
+	
+	\noindent
+	Dato che è noto dove viene definita ogni variabile, cioè è noto staticamente quali sono i sottoprogrammi che la definiscono, allora è \textbf{possibile determinare quale è il sottoprogramma più vicino} (nella catena di annidamento) che definisce la variabile. Per identificare tale programma, viene utilizzato un \textbf{valore} $N$ che \textbf{rappresenta il numero di volte necessario per risalire la catena statica}:
+	\begin{equation*}
+		N = Sd\left(P\right) - Sd\left(D\right)
+	\end{equation*}
+	\begin{itemize}
+		\item $Sd\left(P\right)$ è la profondità statica del sottoprogramma $P$ in cui viene \textbf{utilizzato un identificatore};
+		\item $Sd\left(D\right)$ è la profondità statica del sottoprogramma $D$ più vicino che \textbf{definisce un identificatore}.
+	\end{itemize}
+	Dato che per ogni identificatore utilizzato nel sottoprogramma $P$, l'antenato statico più vicino che definisce tale identificatore è $D$, allora il valore $N$ \textbf{indica quante volte è necessario risalire la catena statica per trovare esattamente il Record di Attivazione} di $D$.
+	
+	Al raggiungimento del Record di Attivazione, viene applicato (\textbf{sommato}) l'\emph{\textbf{offset}} così da trovare l'\textbf{esatta locazione da utilizzare}, cioè colei che contiene il valore dell'identificatore.\newline
+	
+	\noindent
+	Questo metodo apporta un \textcolor{Green4}{\textbf{grande vantaggio}} poiché la ricerca dell'identificatore \underline{non} avviene più cercando in ogni antenato statico, ma trovando \underline{direttamente} l'antenato corretto contenente il giusto identificatore.\newpage
+	
+	\noindent
+	Si prenda come \textcolor{Green4}{\textbf{esempio}} il programma nelle pagine precedenti (\pageref{esempio risolvere riferimenti}), in cui la sequenza di chiamate era: \textsf{main}, $B$, $A$, $C$, $A$.\newline
+	\begin{minipage}{.4\textwidth}
+		\begin{lstlisting}[language=C]
+void main() {
+	int x;
+	void A() {
+		x = x + 1;
+	}
+	void B() {
+		int x;
+		void C(int y) {
+			int x;
+			x = y + 2;
+			A();
+		}
+		x = 0;
+		A();
+		C(3);
+	}
+	x = 10;
+	B();
+}\end{lstlisting}
+	\end{minipage}
+	\begin{minipage}{.6\textwidth}
+		\begin{center}
+			\includegraphics[width=.6\textwidth]{img/link-statici-3.pdf}
+		\end{center}
+	\end{minipage}
+	
+	\begin{enumerate}
+		\item Nel \textsf{main} viene usata la variabile \textsf{x} che è locale e inizialmente inizializzata a 10;
+		
+		\item In $B$ viene usata una variabile \textsf{x}, anch'essa locale, che viene inizializzata a 0;
+		
+		\item $B$ esegue la chiamata alla procedura $A$, la quale usa una variabile \textsf{x} non locale. Quindi, è necessario eseguire il calcolo per capire di quanto risalire la catena statica per trovare l'identificatore \textsf{x}. L'antenato statico più vicino ad $A$ che definisce \textsf{x} è il \textsf{main} e infatti il calcolo eseguito è:
+		\begin{equation*}
+			N = Sd\left(A\right) - Sd\left(\textsf{main}\right) = 1 - 0 = 1
+		\end{equation*}
+		Quindi, nello stack, il link statico di $A$ punta esattamente al Record di Attivazione in cui è presente la \textsf{x} corretta.\newline
+		Dopo questa verifica, $A$ esegue la sua procedura incrementando la \textsf{x} di 1 ($= 11$).
+		
+		\item In $C$ viene usata una variabile \textsf{x}, anch'essa locale, che viene inizializzata a 5;
+		
+		\item $C$ esegue la chiamata alla procedura $A$, la quale usa una variabile \textsf{x} non locale. Quindi, è necessario eseguire il calcolo per capire di quanto risalire la catena statica per trovare l'identificatore \textsf{x}. L'antenato statico più vicino ad $A$ che definisce \textsf{x} è il \textsf{main} e infatti il calcolo eseguito è:
+		\begin{equation*}
+			N = Sd\left(A\right) - Sd\left(\textsf{main}\right) = 1 - 0 = 1
+		\end{equation*}
+		Quindi, nello stack, il link statico di $A$ punta esattamente al Record di Attivazione in cui è presente la \textsf{x} corretta.\newline
+		Dopo questa verifica, $A$ esegue la sua procedura incrementando la \textsf{x} di 1 ($= 12$).
+	\end{enumerate}\newpage
+	
+	\subsection{Implementare lo scope dinamico}
+	
+	Nello \textbf{scope dinamico}, i riferimenti vanno risolti nell'ultimo blocco aperto e non ancora chiuso. Quindi, l'associazione nomi-oggetti denotabili dipende dal flusso del controllo a tempo di esecuzione, ovvero dall'ordine con cui i sottoprogrammi sono chiamati (definizione~\ref{scope statico e dinamico}).\newline
+	
+	\noindent
+	La \textbf{regola generale} da seguire \textbf{per implementare lo scope dinamico} è la seguente: \textbf{l'associazione corrente per un nome è quella determinata per ultima nell'esecuzione e non ancora distrutta}.\newline
+	
+	\noindent
+	L'\textbf{implementazione} può essere eseguita tramite due tecniche:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Deep Access}} è l'implementazione più semplice e prevede che le \textbf{variabili non locali vengano trovate cercando nei Record di Attivazione lungo la catena dinamica}.\newline
+		I \textbf{problemi} riscontrati sono molteplici e gravi:
+		\begin{itemize}
+			\item La lunghezza della catena non può essere determinata staticamente;
+			\item Ogni Record di Attivazione deve avere i nomi delle variabili per poterli cercare risalendo la catena dinamica delle chiamate.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{Shallow Access}} è la soluzione migliore in cui le \textbf{variabili locali vengono poste in strutture dati centrali}. Quindi, viene costruito uno stack per ogni nome di variabile e viene mantenuta una tabella centrale con una \emph{entry} per ogni nome di variabile.
+	\end{itemize}\newpage
+	
+	\subsubsection{Implementazione Shallow Access: Tabella centrale dei riferimenti (CRT)}
+	
+	Una possibile \textbf{implementazione} della tecnica \emph{Shallow Access} è l'uso della \textcolor{Red3}{\textbf{tabella centrale dei riferimenti (CRT)}}. Essa è una \textbf{tabella} e ha le seguenti caratteristiche:
+	\begin{itemize}
+		\item Una \textbf{\emph{entry} per ogni variabile} presente nel programma;
+		
+		\item Le \textbf{\emph{entry} puntano ad una lista} di elementi;
+		
+		\item Le \textbf{liste di elementi} contengono le \textbf{informazioni necessarie per accedere ad un} possibile \textbf{ambiente} di riferimento.
+	\end{itemize}
+	L'\textbf{\underline{aggiornamento} della CRT} è il seguente. All'\textbf{aggiunta di un Record di Attivazione sullo stack}, \textbf{in cima} alla tabella viene \textbf{aggiunto un elemento} che fa \textbf{riferimento all'ambiente della procedura chiamata}. Il numero di elementi aggiunti dipende dal numero di identificatori definiti nella procedura chiamata.
+		
+	Quindi, per ogni identificatore del programma, l'ambiente di riferimento attivo è sempre quello in cima alla lista corrispondente all'identificatore nella tabella.\newline
+	
+	\noindent
+	L'\textbf{\underline{utilizzo} della CRT} è il seguente. Viene \textbf{eseguito un accesso alla testa della sua lista} nella tabella e vengono \textbf{recuperate le informazioni necessarie per reperire nello stack l'ambiente di riferimento corretto}. Ad \textbf{ogni uscita da una procedura}, è importante \textbf{eliminare} anche dalla \textbf{tabella} gli \textbf{elementi in testa} che si riferiscono alla procedura terminata.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, nel seguente schema, quando la procedura $D$ termina è necessario eliminare la testa della lista corrispondente a $w$.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/CRT.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	I diversi \textcolor{Green4}{\textbf{vantaggi}} dell'implementazione della CRT:
+	\begin{itemize}
+		\item Vengono \textbf{evitate} le \textbf{lunghe scansioni di liste};
+		
+		\item La \textbf{tabella ha dimensione costante} se i nomi delle variabili sono noti staticamente;
+		
+		\item L'\textbf{accesso è in tempo costante} nonostante i costi di gestione in ingresso e uscita.
+	\end{itemize}
+	Un altro \textcolor{Green4}{\textbf{esempio}} è il seguente codice:
+	\lstinputlisting[language=C]{code/esempio-CRT.c}
 \end{document}
