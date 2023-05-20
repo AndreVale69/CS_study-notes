@@ -1119,7 +1119,7 @@
 					\begin{rowequmat}{ccc}
 						1 &  6 & -8 \\
 						0 & -1 & -8 \\
-						0 &  0 &  7
+						0 &  0 & -7
 					\end{rowequmat} \rightarrow \rk\left(A\right) = 3 \\ [1.8em]
 					\left(A|b\right) &=& \begin{rowequmat}{ccc|c}
 						1 &  6 & -8 & w_{1} \\
@@ -1129,7 +1129,7 @@
 					\begin{rowequmat}{ccc|c}
 						1 &  6 & -8 & w_{1} \\
 						0 & -1 & -8 & w_{2} \\
-						0 &  0 &  7 & w_{3} - w_{1} + 2w_{2}
+						0 &  0 & -7 & w_{3} - w_{1} + 2w_{2}
 					\end{rowequmat} \rightarrow \rk\left(A|b\right) = 3
 				\end{array}
 		\end{equation*}
@@ -1186,7 +1186,7 @@
 			\begin{rowequmat}{ccc|c}
 				1 &  6 & -8 & 0 \\
 				0 & -1 & -8 & 0 \\
-				0 &  0 &  7 & 0
+				0 &  0 & -7 & 0
 			\end{rowequmat}
 		\end{equation*}
 		Si riscrive il sistema e si procede con il classico metodo di sostituzione:
@@ -1195,7 +1195,7 @@
 				&\begin{cases}
 					b_{1} + 6b_{2} - 8b_{3} = 0 \\
 					-b_{2} - 8b_{3} = 0 \\
-					7b_{3} = 0
+					-7b_{3} = 0
 				\end{cases} &\rightarrow&
 				\begin{cases}
 					b_{1} + 6b_{2} - 8 \cdot 0 = 0 \\
@@ -1264,12 +1264,12 @@
 				\begin{cases}
 					a_{1} + 6b_{1} - 8c_{1} = 2 \\
 					-b_{1} - 8c_{1} = 1 \\
-					a_{1} + 8c_{1} + c_{1} = 0
+					a_{1} + 8b_{1} + c_{1} = 0
 				\end{cases} \xlongrightarrow{EG}
 				\begin{cases}
 					a_{1} + 6b_{1} - 8c_{1} = 2 \\
 					-b_{1} - 8c_{1} = 1 \\
-					7c_{1} = 0
+					-7c_{1} = 0
 				\end{cases} \rightarrow
 				\begin{cases}
 					a_{1} + 6b_{1} - 8\cdot0 = 2 \\
@@ -1329,27 +1329,27 @@
 				\begin{cases}
 					a_{2} + 6b_{2} - 8c_{2} = 0 \\
 					-b_{2} - 8c_{2} = 1 \\
-					a_{2} + 8c_{2} + c_{2} = 0
+					a_{2} + 8b_{2} + c_{2} = 0
 				\end{cases} \xlongrightarrow{EG}
 				\begin{cases}
 					a_{2} + 6b_{2} - 8c_{2} = 0 \\
 					-b_{2} - 8c_{2} = 1 \\
-					7c_{2} = 2
+					-7c_{2} = 2
 				\end{cases} \rightarrow
 				\begin{cases}
-					a_{2} + 6b_{2} - 8 \cdot \frac{2}{7} = 0 \\
-					-b_{2} - 8 \cdot \frac{2}{7} = 1 \\
-					c_{2} = \frac{2}{7}
+					a_{2} + 6b_{2} - 8 \cdot \left(-\frac{2}{7}\right) = 0 \\
+					-b_{2} - 8 \cdot \left(-\frac{2}{7}\right) = 1 \\
+					c_{2} = -\frac{2}{7}
 				\end{cases} \\ [2em]
 				\rightarrow \begin{cases}
-					a_{2} + 6 \cdot \frac{23}{7} - \frac{16}{7} = 0 \\
-					b_{2} = -\frac{23}{7} \\
-					c_{2} = \frac{2}{7}
+					a_{2} + 6 \cdot \frac{9}{7} + \frac{16}{7} = 0 \\
+					b_{2} = \frac{9}{7} \\
+					c_{2} = -\frac{2}{7}
 				\end{cases} \rightarrow
 				\begin{cases}
-					a_{2} = -\frac{122}{7} \\
-					b_{2} = -\frac{23}{7} \\
-					c_{2} = \frac{2}{7}
+					a_{2} = -10 \\
+					b_{2} = \frac{9}{7} \\
+					c_{2} = -\frac{2}{7}
 				\end{cases}
 			\end{array}
 		\end{equation*}
@@ -1358,12 +1358,12 @@
 			\begin{pmatrix}
 				0 \\ 1 \\ 0
 			\end{pmatrix} =
-			-\dfrac{122}{7} \begin{pmatrix}
+			-10 \begin{pmatrix}
 				1 \\ 0 \\ 1
 			\end{pmatrix} +
-			-\dfrac{23}{7} \begin{pmatrix}
+			\dfrac{9}{7} \begin{pmatrix}
 				6 \\ -1 \\ 8
-			\end{pmatrix} +
+			\end{pmatrix} -
 			\dfrac{2}{7} \begin{pmatrix}
 				-8 \\ -8 \\ 1
 			\end{pmatrix}
@@ -1394,7 +1394,7 @@
 				\begin{cases}
 					a_{3} + 6b_{3} - 8c_{3} = 1 \\
 					-b_{3} - 8c_{3} = 0 \\
-					a_{3} + 8c_{3} + c_{3} = 1
+					a_{3} + 8b_{3} + c_{3} = 1
 				\end{cases} \xlongrightarrow{EG}
 				\begin{cases}
 					a_{3} + 6b_{3} - 8c_{3} = 1 \\
@@ -1456,12 +1456,12 @@
 			v_{2} &:& \begin{pmatrix}
 				0 \\ 1 \\ 0
 			\end{pmatrix} =
-			-\dfrac{122}{7} \begin{pmatrix}
+			-10 \begin{pmatrix}
 				1 \\ 0 \\ 1
 			\end{pmatrix} +
-			-\dfrac{23}{7} \begin{pmatrix}
+			\dfrac{9}{7} \begin{pmatrix}
 				6 \\ -1 \\ 8
-			\end{pmatrix} +
+			\end{pmatrix} -
 			\dfrac{2}{7} \begin{pmatrix}
 				-8 \\ -8 \\ 1
 			\end{pmatrix} \\ [1.8em]
@@ -1483,9 +1483,9 @@
 	La matrice del cambio di base $\mathscr{C} \rightarrow \mathscr{D}$ è formata:
 	\begin{equation*}
 		M_{\mathscr{C} \rightarrow \mathscr{D}} = \begin{rowequmat}{ccc}
-			8  & -\frac{122}{7} & 1 \\ [0.3em]
-			-1 & -\frac{23}{7}  & 0 \\ [0.3em]
-			0  &  \frac{2}{7}   & 0
+			8  & -10 			& 1 \\ [0.3em]
+			-1 &  \frac{9}{7}  	& 0 \\ [0.3em]
+			0  & -\frac{2}{7}   & 0
 		\end{rowequmat}
 	\end{equation*}
 \end{document}
