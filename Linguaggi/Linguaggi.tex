@@ -4392,5 +4392,186 @@ void main() {
 		\item L'\textbf{accesso è in tempo costante} nonostante i costi di gestione in ingresso e uscita.
 	\end{itemize}
 	Un altro \textcolor{Green4}{\textbf{esempio}} è il seguente codice:
-	\lstinputlisting[language=C]{code/esempio-CRT.c}
+	\lstinputlisting[language=C]{code/esempio-CRT.c}\newpage
+	
+	\noindent
+	Con il relativo grafico in cui è possibile verificare l'andamento:	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/CRT-ex1.pdf}
+	\end{figure}\newpage
+	
+	\subsection{Aggiunta delle procedure a $IMP$}
+	
+	Nel seguente paragrafo vengono aggiunte le procedure al linguaggio $IMP$.\newline
+	
+	\noindent
+	Le \textbf{procedure} devono essere \textbf{dichiarate}, ovvero è necessario \textbf{definire l'associazione tra nome e astrazione nell'ambiente}. Quindi, deve essere modificata la categoria sintattica delle dichiarazioni:
+	\begin{equation*}
+		\begin{array}{rll}
+			\mathrm{<Dec>} & & \\
+			\mathrm{D} & \rightarrow & \mathrm{nil} \:\: | \:\: \textsf{const} \: \mathrm{I}:\tau = \mathrm{e} \:\: | \:\: \textsf{var} \: \mathrm{I} : \tau = \mathrm{e} \\
+			&& \mathrm{D} \: \mathrm{in} \: \mathrm{D} \:\: | \:\: \mathrm{D} \: ; \: \mathrm{D} \:\: | \:\: \rho \\
+			&& \textsf{proc} \: \mathrm{P()} \: \mathrm{C}
+		\end{array}
+	\end{equation*}
+	Questa modifica rappresenta l'aggiunta della dichiarazione di procedura dove $P$ è il \textbf{nome della procedura}, mentre $C$ è il \textbf{corpo}, ovvero il codice da eseguire quando la procedura $P$ viene utilizzata.\newline
+	
+	\noindent
+	Oltre alla dichiarazione, le \textbf{procedure} devono essere richiamate per essere \textbf{eseguite}. Il controllo deve passare alla procedura quando viene richiesto, quindi viene modificata la categoria sintattica dei comandi:
+	\begin{equation*}
+		\begin{array}{rll}
+			\mathrm{<Com>} & & \\
+			\mathrm{C} & \rightarrow & \mathrm{skip} \:\: | \:\: \mathrm{I} \coloneq \mathrm{e} \:\: | \:\: C \: ; \: C \:\: \\
+			&& \textsf{if} \:\: \mathrm{B} \:\: \textsf{then} \:\: \mathrm{C} \:\: \textsf{else} \:\: \mathrm{C} \:\: | \\
+			&& \textsf{while} \:\: \mathrm{B} \:\: \textsf{do} \:\: \mathrm{C} \:\: | \:\: \left\{\mathrm{D \: ; \: \mathrm{C}}\right\} \:\: | \:\: \mathrm{P()}
+		\end{array}
+	\end{equation*}
+	Questa modifica rappresenta l'aggiunta di un comando per chiamare la procedura di nome $P$ durante l'esecuzione.\newpage
+	
+	\subsubsection{Semantica delle dichiarazioni}
+	
+	Per l'elaborazione di una dichiarazione, è necessario costruire l'ambiente statico corrispondente alla dichiarazione. Quindi, viene introdotto un \textbf{nuovo tipo} che consente di identificare gli identificatori che si riferiscono a procedure:
+	\begin{equation*}
+		\mathrm{DTyp} = \left\{\mathrm{int}, \mathrm{intloc}, \mathrm{bool}, \mathrm{boolloc}, \mathbf{proc}\right\}
+	\end{equation*}
+	Si definisce l'\textbf{ambiente statico} corrispondente ad una \textbf{dichiarazione di procedura} e si \textbf{stabilisce quando} una \textbf{tal dichiarazione è ben formata}:
+	\begin{equation*}
+		\mathcal{D}\mathrm{s}_{7} : \dfrac{
+			\Delta \vdash_{\mathrm{V}} \: \mathrm{C}
+		}{
+			\Delta\vdash_{\mathrm{V}} \: \textsf{proc} \:\:\: \mathrm{P()} \: \mathrm{C}:\left[\mathrm{P} = \textsf{proc}\right]
+		}
+	\end{equation*}
+	Quindi, se la procedura è ben formata, l'ambiente statico determinato dalla dichiarazione è quello che associa al nome P il tipo \textsf{proc}.\newline
+	
+	\noindent
+	La \textbf{semantica dinamica} riguarda l'\textbf{elaborazione di una dichiarazione}, la quale ha l'obbiettivo, partendo da una determinata memoria iniziale, di \textbf{ottenere un ambiente dinamico determinato dalla dichiarazione stessa}.
+	
+	Tuttavia, la regola deve essere costruita tenendo in considerazione anche il tipo di scope:
+	\begin{itemize}
+		\item Scope \emph{statico}, è necessario \dquotes{\textbf{congelare}} e avere \textbf{sempre a disposizione l'ambiente valido al momento della definizione}, così da utilizzarlo quando la procedura viene chiamata.
+		
+		\item Scope \emph{dinamico}, la \textbf{procedura viene eseguita nell'ambiente valido al momento della chiamata}, quindi non è necessario il procedimento fatto per lo scope statico.
+	\end{itemize}
+	Quindi, la regola è la seguente:
+	\begin{equation*}
+		\mathcal{D}_{12} : \:\: \rho \: \vdash_{\mathrm{V}} \: \left\langle \textsf{proc} \:\: \mathrm{P()} \: \mathrm{C}, \sigma \right\rangle \longrightarrow_{\mathrm{d}} \left\langle \left[\mathrm{P} \leftarrow \lambda \varepsilon . \mathrm{C}'\right], \sigma \right\rangle
+	\end{equation*}
+	In cui $\mathrm{C}'$ è determinato dallo scope:
+	\begin{itemize}
+		\item Statico: $\mathrm{C}' = \rho_{|F|\left(C\right)} \: ; \: \mathrm{C}$
+		
+		\item Dinamico: $\mathrm{C}' = \mathrm{C}$
+	\end{itemize}
+	Quindi, nello scope statico viene preso l'ambiente valido al momento della definizione e viene fissato come ambiente in cui eseguire il corpo componendolo sequenzialmente con il corpo stesso.\newpage
+	
+	\subsubsection{Semantica dei comandi}
+	
+	L'\textbf{esecuzione di una chiamata} è un processo strutturato in più passaggi:
+	\begin{enumerate}
+		\item Stabilire quando una chiamata è ben formata (semantica statica);
+		
+		\item Passare il controllo dal chiamante al corpo della procedura (semantica dinamica).
+	\end{enumerate}
+	La \textbf{chiamata di una procedura è ben formata} quando \textbf{utilizza} un identificatore che ha \textbf{come tipo \textsf{proc}}, cioè il \dquotes{tipo procedura}:
+	\begin{equation*}
+		\mathcal{E}\mathrm{s}_{7}: \:\: \Delta\vdash_{\mathrm{V}} \: \mathrm{P()} \:\:\: \Delta\left(\mathrm{P}\right) = \textsf{proc}
+	\end{equation*}
+	Quindi, non esiste nessun vincolo statico, eccetto la restrizione del tipo del nome utilizzato.\newline
+	
+	\noindent
+	Per la \textbf{semantica dinamica}, vi è il passaggio di controllo dal comando chiamante al corpo della procedura:
+	\begin{equation*}
+		\mathcal{E}_{14} : \:\: \rho \: \vdash_{\Delta} \: \left\langle \mathrm{P()}, \sigma \right\rangle \longrightarrow_{\mathrm{c}} \left\langle \mathrm{C}', \sigma \right\rangle \:\:\: \rho\left(\mathrm{P}\right) = \lambda\varepsilon . \mathrm{C}'
+	\end{equation*}
+	Per \textcolor{Green4}{\textbf{esempio}}, si definisce la seguente procedura:
+	\begin{lstlisting}[language=C]
+proc esempio() {	
+	var x: int = 5;	
+	z := x + y		
+}\end{lstlisting}
+	In cui tutta la procedura è rappresentata dalla lettera $d$, mentre il corpo dalla lettera $c$. La sua definizione è la seguente:
+	\begin{gather*}
+		\left[y \leftarrow 3\right] \: \vdash \left\langle d, \sigma \right\rangle \longrightarrow_{d} \left[\text{esempio} \leftarrow \lambda\varepsilon . \mathrm{C}'\right] \\
+		\begin{array}{lll}
+			\text{scope statico} 	&:&	\mathrm{C}' = \left[y \leftarrow 3\right] \: ; \: \mathrm{C} \\
+			\text{scope dinamico} 	&:& \mathrm{C}' = \mathrm{C}
+		\end{array}
+	\end{gather*}
+	Invece, la sua chiamata è la seguente:
+	\begin{gather*}
+		\left[y \leftarrow 4\right] \: \vdash \: \left\langle \text{esempio}(), \sigma \right\rangle \longrightarrow_{\mathrm{c}} \left\langle \mathrm{C}', \sigma \right\rangle \\
+		\begin{array}{lll}
+			\text{scope statico riferito a } \mathrm{C}' 	&:&	\left[y \leftarrow 4\right] \: \vdash \: \left\langle \left[y \leftarrow 3\right] \: ; \: \mathrm{C}, \sigma \right\rangle \longrightarrow_{\mathrm{C}} \cdots \\
+			\text{scope dinamico riferito a } \mathrm{C}' 	&:& \left[y \leftarrow 4\right] \: \vdash \: \left\langle \mathrm{C}, \sigma \right\rangle \longrightarrow_\mathrm{C} \cdots
+		\end{array}
+	\end{gather*}\newpage
+	
+	\subsection{Parametrizzare le procedure}
+	
+	Oltre alle procedure, durante la loro definizione e chiamata, esistono altri valori, come i \textbf{parametri}, che hanno un'importanza significativa.\newline
+	
+	\noindent
+	Durante la \textbf{definizione di una procedura}, i parametri vengono chiamati \textcolor{Red3}{\textbf{parametri formali}}. Un parametro formale è una \textbf{variabile listata nell'header} (interfaccia) e \textbf{utilizzata nel codice che definisce il sottoprogramma}. Un \textcolor{Green4}{\textbf{esempio}}:
+	\begin{equation*}
+		\textsf{int} \:\: \textsf{f} \:\: \left(\textsf{int} \:\: \textsf{n}\right) \hspace{1em} \left\{\textsf{return} \:\: \textsf{n}+1;\right\}
+	\end{equation*}
+	Dove la \textsf{n} è un parametro formale.\newline
+	
+	\noindent
+	Durante la \textbf{chiamata di una procedura}, i parametri vengono chiamati \textcolor{Red3}{\textbf{parametri attuali}}. Un parametro attuale è un \textbf{valore} o un \textbf{indirizzo usato nel comando di chiamata per istanziare i parametri formali al valore da utilizzare quando il sottoprogramma viene eseguito}. Un \textcolor{Green4}{\textbf{esempio}}:
+	\begin{equation*}
+		\textsf{x} = \textsf{f}(\textsf{y} + 3);
+	\end{equation*}
+	Dove \textsf{y+3} è un parametro attuale.\newline
+	
+	\noindent
+	Un altro aspetto da considerare è il \textbf{\emph{binding} effettuato tra parametri attuali e formali}. Questo può essere realizzato in due modi:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Posizionale}}, il \emph{binding} tra \textbf{parametri attuali e formali è dato dalla posizione} (il primo parametro attuale è legato al primo formale e così via).\newline
+		Questa metodologia è \textbf{sicura} ed \textbf{effettiva}.
+		
+		\item \textcolor{Red3}{\textbf{Keyword}}, il \textbf{nome del parametro formale} a cui un parametro attuale si riferisce, \textbf{è specificato insieme al parametro attuale al momento della chiamata}.\newline
+		\textcolor{Green4}{\textbf{Vantaggio:}} i parametri possono apparire in qualunque ordine, evitando errori di corrispondenza.\newline
+		\textcolor{Red4}{\textbf{Svantaggio:}} l'utente deve conoscere i nomi dei parametri formali.
+	\end{itemize}
+	Infine, è bene precisare che alcuni linguaggi ammettono \textbf{parametri attuali di default} nel caso in cui non vengano passati esplicitamente.\newpage
+	
+	\subsection{Passaggio dei parametri}
+	
+	Il \textbf{legame tra parametri attuali e parametri formali} avviene tramite modelli di comunicazione o modelli concettuali:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Modelli di comunicazione}}, specifica quale direzione si sposta l'informazione tra chiamante e chiamato:
+		\begin{itemize}
+			\item \textcolor{Red3}{\textbf{\emph{In-mode}}}: $\textsf{main} \Rightarrow \textsf{proc}$.\newline
+			L'\textbf{informazione viaggia in un'unica direzione dal chiamante al sottoprogramma}, il quale è chiamato mediante l'uso dei parametri. Anche l'ambiente non locale contribuisce al passaggio.
+			
+			\item \textcolor{Red3}{\textbf{\emph{Out-mode}}}: $\textsf{main} \Leftarrow \textsf{proc}$.\newline
+			L'\textbf{informazione viagga in un'unica direzione dal chiamato al chiamante} sempre mediante l'uso dei parametri. Sia l'ambiente non locale che la possibilità di restituire un valore contribuiscono al passaggio.
+			
+			\item \textcolor{Red3}{\textbf{\emph{InOut-mode}}}: $\textsf{main} \iff \textsf{proc}$.\newline
+			L'\textbf{informazione viaggia in entrambe le direzioni tra chiamante e chiamato}, sia mediante i parametri che mediante l'ambiente non locale e il valore di ritorno.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textcolor{Red3}{\textbf{Modelli concettuali}}}, specifica come il valore, fisicamente parlando, si sposta tra chiamante e chiamato:
+		\begin{itemize}
+			\item \textbf{Spostare fisicamente il valore mediante una copia del valore nel parametro formale};
+			
+			\item \textbf{Spostare un accesso al valore}.
+		\end{itemize}
+	\end{itemize}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/passaggio_dei_parametri.png}
+	\end{figure}\newpage
+	
+	\subsubsection{Passaggio per valore}
+	
+	\subsubsection{Passaggio per risultato}
+	
+	\subsubsection{Passaggio per valore-risultato}
+	
+	\subsubsection{Passaggio per riferimento}
 \end{document}
