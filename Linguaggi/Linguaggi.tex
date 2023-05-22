@@ -15,6 +15,7 @@
 \usepackage{listings}				% pacchetto per i codici
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 \usepackage{tcolorbox}				% pacchetto per le box colorate
+\usepackage{cancel}					% per le approssimazioni (e.g. cancelto)
 % Link ipertestuali per l'indice
 \usepackage{xcolor}
 \usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
@@ -4567,7 +4568,7 @@ proc esempio() {
 		\includegraphics[width=\textwidth]{img/passaggio_dei_parametri.png}
 	\end{figure}\newpage
 	
-	\subsubsection{Passaggio per valore}
+	\subsubsection{Passaggio per valore}\label{passaggio per valore}
 	
 	Il \textcolor{Red3}{\textbf{passaggio per valore}} \textbf{implementa un passaggio \emph{in-mode}} (dal chiamante al sottoprogramma) che richiede la valutazione completa del parametro prima del passaggio, come per \textcolor{Green4}{\textbf{esempio}} nel linguaggio C.\newline
 	
@@ -4658,7 +4659,7 @@ snap(c, d)\end{lstlisting}
 		\caption{Caratteristiche del passaggio per valore.}
 	\end{table}\newpage
 	
-	\subsubsection{Passaggio per risultato}
+	\subsubsection{Passaggio per risultato}\label{passaggio per risultato}
 	
 	Il \textcolor{Red3}{\textbf{passaggio per risultato}} prevede che \textbf{nessun valore venga trasmesso al sottoprogramma}. La \textbf{comunicazione tra chiamante e chiamato è di sola uscita} (\emph{\textbf{out-mode}}), ovvero prima di ritornare il controllo al chiamante, il \textbf{valore del parametro formale} (variabile locale) viene \textbf{copiato nel parametro attuale}. L'unica comunicazione possibile nella direzione opposta è usando l'ambiente globale.\newline
 	
@@ -4713,5 +4714,417 @@ foo(y); // Qui y vale 8\end{lstlisting}
 	
 	\subsubsection{Passaggio per valore-risultato}
 	
+	Il \textcolor{Red3}{\textbf{passaggio per valore-risultato}} è un metodo \emph{InOut-mode}, ovvero consente una \textbf{comunicazione bidirezionale mediante i parametri}. Infatti, è un ibrido tra il passaggio per valore (paragrafo~\ref{passaggio per valore}) e il passaggio per risultato (paragrafo~\ref{passaggio per risultato}).\newline
+	
+	\noindent
+	Nel caso di un passaggio per valore, il parametro attuale è anche un \emph{l-value}, ovvero una singola variabile. Quindi, \textsf{x+3} risulta inutilizzabile. Inoltre, \textbf{sia i parametri attuali che i parametri formali}, devono essere sia \emph{r-value} che \emph{l-value}, cioè \textbf{variabili}.\newline
+	
+	\noindent
+	Un \textbf{potenziale effetto indesiderato} è il \emph{\textbf{side-effect}}. Esso si presenta solo al ritorno e indica che tutte le modifiche intermedie non sono visibili.\newline
+	
+	\noindent
+	Il \textbf{valore del parametro attuale} viene utilizzato \textbf{solamente} per \textbf{inizializzare il parametro formale}, il quale successivamente agisce da variabile locale (\emph{local storage}). Al \textbf{termine dell'esecuzione del sottoprogramma}, il valore del \textbf{parametro formale è trasmesso all'attuale}.\newline
+	
+	\noindent
+	Gli \textcolor{Red3}{\textbf{svantaggi}} e i \textcolor{Red3}{\textbf{potenziali problemi}} sono gli stessi dei due passaggi per valore e risultato. Rimane anche il problema delle copie di grandi dimensioni.\newline
+	
+	\noindent
+	Nel seguente \textcolor{Green4}{\textbf{esempio}}, il parametro formale \textsf{x} è una variabile locale (sulla pila). Alla chiamata, il valore del parametro attuale è assegnato al parametro formale. Analogamente, al ritorno, il valore del parametro formale è assegnato al parametro attuale. Di conseguenza, non viene fissato nessun legame tra \textsf{x} nel corpo della funzione \textsf{foo()} e \textsf{y} nel chiamante. Al ritorno da \textsf{foo()}, la \textsf{x} viene distrutta, cioè rimossa dalla pila.
+	\begin{lstlisting}[language=C]
+void foo(value-result int x) {
+	x = x + 1;
+}
+...
+y = 8;
+foo(y); // Qui y vale 9
+	\end{lstlisting}\newpage
+	
+	\noindent
+	Si propone qua di seguito un altro \textcolor{Green4}{\textbf{esempio}} con il seguente codice:
+	\begin{lstlisting}[language=C]
+void swap(value int a, values int b) {
+	int tmp = a;
+	a = b;
+	b = tmp;
+}
+...
+swap(c, d)\end{lstlisting}
+	La situazione iniziale è la seguente:
+	\begin{equation*}
+		\sigma = \left[\textsf{c} \mapsto 3, \textsf{d} \mapsto 4\right]
+	\end{equation*}
+	Le fasi del programma sono:
+	\begin{enumerate}
+		\item La \textbf{chiamata} della funzione \textsf{swap} provoca il seguente cambio di memoria (copia valore):
+		\begin{equation*}
+			\begin{array}{lll}
+				\textsf{tmp} &\longrightarrow& \left[ \:\:\: \right] \\
+				\textsf{a} 	 &\longrightarrow& \left[ 3 \right] \\
+				\textsf{b} 	 &\longrightarrow& \left[ 4 \right]
+			\end{array}
+		\end{equation*}
+
+		\item All'\textbf{esecuzione} della funzione \textsf{swap}, i valori mutano nel seguente modo:
+		\begin{equation*}
+			\begin{array}{lll}
+				\textsf{tmp} &\longrightarrow& \left[ 3 \right] \\
+				\textsf{a} 	 &\longrightarrow& \left[ 4 \right] \\
+				\textsf{b} 	 &\longrightarrow& \left[ 3 \right]
+			\end{array}
+		\end{equation*}
+
+		\item Al \textbf{ritorno} dalla funzione \textsf{swap}, i valori nel \textsf{main} sono mutati e dunque diventano:
+		\begin{equation*}
+			\begin{array}{lll}
+				\textsf{tmp} &\longrightarrow& \left[ 3 \right] \\
+				\textsf{a} 	 &\longrightarrow& \cancel{\left[ 3 \right]} \dashrightarrow \left[4\right] \\
+				\textsf{b} 	 &\longrightarrow& \cancel{\left[ 4 \right]} \dashrightarrow \left[3\right]
+			\end{array}
+		\end{equation*}
+	\end{enumerate}
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l p{20em} @{}}
+			\toprule
+			Caratteristica & Descrizione \\
+			\midrule
+			\emph{InOut-mode}			& Comunicazione bidirezionale tramite l'uso di parametri. \\ [0.5em]
+			Parametri sono variabili	& Sia i parametri attuali che i parametri formali devono essere variabili, ovvero \emph{r-value} e \emph{l-value}. \\ [0.5em]
+			\emph{Side-effect}			& Effetto che si presenta solo al ritorno poiché tutte le modifiche intermedie non sono visibili. \\ [0.5em]
+			Scopo del parametro attuale	& Il valore del parametro attuale è usato per inizializzare il parametro formale, poiché quest'ultimo viene usato come variabile locale. \\ [0.5em]
+			Valore di ritorno			& Al termine dell'esecuzione del sottoprogramma, il valore del parametro formale viene trasmesso al parametro attuale. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Caratteristiche del passaggio per valore-risultato.}
+	\end{table}\newpage
+	
 	\subsubsection{Passaggio per riferimento}
+	
+	Nel \textcolor{Red3}{\textbf{passaggio per riferimento}} viene \textbf{passato un cammino di accesso al parametro attuale}. Grazie a questa caratteristica, questo metodo prende anche il nome di \textcolor{Red3}{\textbf{passaggio per condivisione}} e la metodologia di comunicazione utilizzata è la \textbf{\emph{InOut-mode}} tramite i parametri.\newline
+	
+	\noindent
+	In questo caso, i \textbf{parametri attuali devono essere riferimenti} (\emph{l-value}) e i \textbf{parametri formali prendono il riferimento} dato dagli attuali. Durante l'esecuzione, \textbf{tutti i riferimenti al valore} (\emph{r-value}) \textbf{del parametro formale}, sono \textbf{riferimenti al valore} (\emph{r-value}) \textbf{del parametro attuale}. Quindi, tutti i cambiamento effettuati dal parametro formale, avvengono anche nel parametro attuale.\newline
+	
+	\noindent
+	Il \textbf{parametro formale è un indirizzo del parametro attuale} e quindi ogni utilizzo viene effettuato accedendo all'indirizzo presente nell'ambiente del chiamante. È chiaro dunque che le \textbf{modifiche avvengono dentro la locazione del parametro attuale}.\newline
+	
+	\noindent
+	L'\textbf{implementazione} è \textbf{efficiente} poiché non esegue copie, \textbf{tuttavia può creare \emph{alias}}. Quindi, il \textcolor{Green4}{\textbf{principale vantaggio}} è l'efficienza del processo di passaggio poiché non avviene nessuna copia o duplicazione di \emph{storage}.\newline
+	
+	\noindent
+	Al contrario, gli \textcolor{Red3}{\textbf{svantaggi}} possono essere molteplici:
+	\begin{itemize}
+		\item Accesso più lento ai parametri formali (rispetto agli metodi di comunicazione, come il passaggio per valore);
+		
+		\item Potenziali effetti collaterali (collisioni);
+		
+		\item Creazione di alias.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, nel seguente codice viene definita una funzione.
+	\begin{lstlisting}[language=C]
+void foo(reference int x) {
+	x = x + 1;
+}
+...
+y = 1;
+foo(y); // Qui y vale 2\end{lstlisting}
+	Alla funzione viene passato un riferimento (indirizzo/puntatore) al parametro attuale, per questo motivo l'attuale deve essere un riferimento (\emph{l-value}). Il parametro formale \textsf{x} diventa quindi un alias di \textsf{y}. Al ritorno dalla funzione \textsf{foo()}, viene distrutto il legame tra \textsf{x} e l'indirizzo di \textsf{y}. Quindi, la trasmissione è bidirezionale tra chiamante e chiamato.\newpage
+	
+	\noindent
+	Si propone qua di seguito un esempio con il seguente codice:
+	\begin{lstlisting}[language=C]
+void swap(ref int a, ref int b) {
+	int tmp = a;
+	a = b;
+	b = tmp;
+}
+...
+swap(c, d)\end{lstlisting}
+	In cui la situazione iniziale della memoria è la seguente:
+	\begin{equation*}
+		\sigma = \left[\textsf{c} \mapsto 3, \textsf{d} \mapsto 4\right]
+	\end{equation*}
+	Le fasi del programma sono:
+	\begin{enumerate}
+		\item La \textbf{chiamata} della funzione \textsf{swap()} crea una serie di puntatori:
+		\begin{equation*}
+			\begin{array}{lllll}
+				\textsf{tmp} &\longrightarrow& \left[ \:\:\: \right] \\
+				\textsf{a} 	 &\longrightarrow& \left[ ^{*}\textsf{c} \right] &\longrightarrow^{*}& \textsf{c} = \left[3\right] \\
+				\textsf{b} 	 &\longrightarrow& \left[ ^{*}\textsf{d} \right] &\longrightarrow^{*}& \textsf{d} = \left[4\right]
+			\end{array}
+		\end{equation*}
+
+		\item L'\textbf{esecuzione} della funzione \textsf{swap()} cambia i valori che si trovano nelle locazioni a cui puntano \textsf{a} e \textsf{b}:
+		\begin{equation*}
+			\begin{array}{lllll}
+				\textsf{tmp} &\longrightarrow& \left[ 3 \right] \\
+				\textsf{a} 	 &\longrightarrow& \left[ ^{*}\textsf{c} \right] &\longrightarrow^{*}& \textsf{c} = \cancel{\left[3\right]} \dashrightarrow \left[4\right] \\
+				\textsf{b} 	 &\longrightarrow& \left[ ^{*}\textsf{d} \right] &\longrightarrow^{*}& \textsf{d} = \cancel{\left[4\right]} \dashrightarrow \left[3\right]
+			\end{array}
+		\end{equation*}
+
+		\item Al \textbf{ritorno} dalla funzione \textsf{swap()}, il record di attivazione viene rimosso dallo stack e quindi i puntatori vengono rimossi. Tuttavia, i parametri attuali hanno mutato il loro valore:
+		\begin{equation*}
+			\begin{array}{lllll}
+				\cancel{\textsf{tmp}} &\cancel{\longrightarrow}& \cancel{\left[ 3 \right]} \\
+				\cancel{\textsf{a}} 	 &\cancel{\longrightarrow}& \left[ ^{*}\textsf{c} \right] &\longrightarrow^{*}& \textsf{c} = \left[4\right] \\
+				\cancel{\textsf{b}} 	 &\cancel{\longrightarrow}& \left[ ^{*}\textsf{d} \right] &\longrightarrow^{*}& \textsf{d} = \left[3\right]
+			\end{array}
+		\end{equation*}
+	\end{enumerate}\newpage
+	
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}} un po' più complesso è il seguente:
+	\begin{lstlisting}[language=C]
+void fie(ref int x, ref int y) {
+	y = 2;
+	x = 5;
+	if (x == y) then y = y + 2;
+}
+...
+int a = 3;
+fie(a, a);\end{lstlisting}
+	Le fasi del programma sono:
+	\begin{enumerate}
+		\item Alla chiamata della funzione \textsf{fie()}, vengono passati due parametri attuali che si riferiscono alla stessa locazione di memoria:
+		\begin{equation*}
+			\begin{array}{lllll}
+				\textsf{x} &\longrightarrow& \left[^{*} \textsf{a}\right] &\longrightarrow^{*}& \textsf{a} = \left[3\right] \\
+				\textsf{y} &\longrightarrow& \left[^{*} \textsf{a}\right] &\longrightarrow^{*}& \textsf{a} = \left[3\right]
+			\end{array}
+		\end{equation*}
+		
+		\item All'esecuzione della funzione \textsf{fie()}, vengono eseguite una serie di operazioni:
+		\begin{enumerate}
+			\item Viene eseguito il comando \textsf{y = 2}:
+			\begin{equation*}
+				\begin{array}{lllll}
+					\textsf{x} &\longrightarrow& \left[^{*} \textsf{a}\right] &\longrightarrow^{*}& \textsf{a} = \cancel{\left[3\right]} \dashrightarrow \left[2\right] \\
+					\textsf{y} &\longrightarrow& \left[^{*} \textsf{a}\right] &\longrightarrow^{*}& \textsf{a} = \cancel{\left[3\right]} \dashrightarrow \left[2\right]
+				\end{array}
+			\end{equation*}
+			
+			\item Viene eseguito il comando \textsf{x = 5}:
+			\begin{equation*}
+				\begin{array}{lllll}
+					\textsf{x} &\longrightarrow& \left[^{*} \textsf{a}\right] &\longrightarrow^{*}& \textsf{a} = \cancel{\left[2\right]} \dashrightarrow \left[5\right] \\
+					\textsf{y} &\longrightarrow& \left[^{*} \textsf{a}\right] &\longrightarrow^{*}& \textsf{a} = \cancel{\left[2\right]} \dashrightarrow \left[5\right]
+				\end{array}
+			\end{equation*}
+			
+			\item Viene eseguito il comando \textsf{if (x == y) then y = y+2}:
+			\begin{equation*}
+				\begin{array}{lllll}
+					\textsf{x} &\longrightarrow& \left[^{*} \textsf{a}\right] &\longrightarrow^{*}& \textsf{a} = \cancel{\left[5\right]} \dashrightarrow \left[7\right] \\
+					\textsf{y} &\longrightarrow& \left[^{*} \textsf{a}\right] &\longrightarrow^{*}& \textsf{a} = \cancel{\left[5\right]} \dashrightarrow \left[7\right]
+				\end{array}
+			\end{equation*}
+		\end{enumerate}
+		Come si può osservare dalla mutazione della memoria, qualsiasi operazione che interessa uno dei due parametri formali, si riflette anche sull'altro.
+		
+		\item Al ritorno dalla funzione \textsf{fie()}, i puntatori vengono rimossi e la variabile \textsf{a} ha il valore aggiornato dopo le modifiche:
+		\begin{equation*}
+			\begin{array}{lllll}
+				\cancel{\textsf{x}} &\cancel{\longrightarrow}& \cancel{\left[^{*} \textsf{a}\right]} &\cancel{\longrightarrow^{*}}& \textsf{a} = \left[7\right] \\
+				\cancel{\textsf{y}} &\cancel{\longrightarrow}& \cancel{\left[^{*} \textsf{a}\right]} &\cancel{\longrightarrow^{*}}& \textsf{a} = \left[7\right]
+			\end{array}
+		\end{equation*}
+	\end{enumerate}\newpage
+	
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l p{19em} @{}}
+			\toprule
+			Caratteristica & Descrizione \\
+			\midrule
+			Passaggio per condivisione	& Al parametro attuale viene passato un cammino di accesso. \\ [0.5em]
+			Parametri come riferimenti	& I parametri attuali devono essere riferimenti e i parametri formali prendono il riferimento dato dagli attuali. \\ [0.5em]
+			Riferimenti bidirezionali	& Tutti i riferimenti al valore del parametro formale, sono riferimenti al valore del parametro attuale. \\ [0.5em]
+			Indirizzo come parametro	& Il parametro formale è un indirizzo del parametro attuale e le modifiche avvengono dentro la locazione del parametro attuale. \\ [0.5em]
+			Implementazione efficiente	& L'implementazione è efficiente poiché non esegue copie, tuttavia rimane la possibilità di eventuali alias. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Caratteristiche del passaggio per riferimento.}
+	\end{table}\newpage
+	
+	\subsection{Aggiunta delle procedure con parametri a $IMP$}
+	
+	In questi paragrafi si \textbf{modificano le dichiarazioni} per consentire di dichiarare le \textbf{procedure che ricevono parametri}.\newline
+	
+	\noindent
+	La \textbf{dichiarazione di procedura con parametri}, dove $P$ è il nome della procedura, $C$ è il corpo e \textsf{form} è la lista di parametri, è la seguente:
+	\begin{equation*}
+		\begin{array}{rll}
+			\mathrm{<Dec>} & & \\
+			\mathrm{D} & \rightarrow & \mathrm{nil} \:\: | \:\: \textsf{const} \: \mathrm{I}:\tau = \mathrm{e} \:\: | \:\: \textsf{var} \: \mathrm{I} : \tau = \mathrm{e} \\
+			&& \mathrm{D} \: \mathrm{in} \: \mathrm{D} \:\: | \:\: \mathrm{D} \: ; \: \mathrm{D} \:\: | \:\: \rho \\
+			&& \textsf{proc} \: \mathrm{P(\textsf{form})} \: \mathrm{C}
+		\end{array}
+	\end{equation*}
+	Inoltre, viene \textbf{definita cosa è una lista di parametri}, ovvero una \textbf{lista di dichiarazioni di identificatori, variabili o costanti, senza inizializzazione}:
+	\begin{equation*}
+		form \Coloneq \bullet \:\: | \:\: \textsf{const} \:\: x : \tau, form \:\: | \:\: \textsf{var} \:\: x : \tau,form
+	\end{equation*}
+	In cui $\bullet$ rappresenta una lista vuota.\newline
+	
+	\noindent
+	Alle dichiarazioni è necessario aggiungere anche una \textbf{forma di dichiarazione intermedia} che consenta di \textbf{creare}, nell'ambiente locale della procedura, le \textbf{associazioni tra i parametri formali e i parametri attuali}, descritti dalla lista \emph{ae}:
+	\begin{gather*}
+		ae \Coloneq \bullet \:\: | \:\: e, ae \\
+		\begin{array}{rll}
+			\mathrm{<Dec>} & & \\
+			\mathrm{D} & \rightarrow & \mathrm{nil} \:\: | \:\: \textsf{const} \: \mathrm{I}:\tau = \mathrm{e} \:\: | \:\: \textsf{var} \: \mathrm{I} : \tau = \mathrm{e} \\
+			&& \mathrm{D} \: \mathrm{in} \: \mathrm{D} \:\: | \:\: \mathrm{D} \: ; \: \mathrm{D} \:\: | \:\: \rho \\
+			&& \textsf{proc} \: \mathrm{P(\textsf{form})} \: \mathrm{C} \hspace{1em} \textsf{form} = \textsf{ae}
+		\end{array}
+	\end{gather*}
+	Dato che le procedure devono essere \textbf{chiamate}, per farlo serve utilizzare una lista di parametri attuali:
+	\begin{equation*}
+		\begin{array}{rll}
+			\mathrm{<Com>} & & \\
+			\mathrm{C} & \rightarrow & \mathrm{skip} \:\: | \:\: \mathrm{I} \coloneq \mathrm{e} \:\: | \:\: C \: ; \: C \:\: \\
+			&& \textsf{if} \:\: \mathrm{B} \:\: \textsf{then} \:\: \mathrm{C} \:\: \textsf{else} \:\: \mathrm{C} \:\: | \\
+			&& \textsf{while} \:\: \mathrm{B} \:\: \textsf{do} \:\: \mathrm{C} \:\: | \:\: \left\{\mathrm{D \: ; \: \mathrm{C}}\right\} \:\: | \:\: \mathrm{P(\textsf{ae})}
+		\end{array}
+	\end{equation*}\newpage
+	
+	\subsubsection{Semantica statica delle dichiarazioni}
+	
+	Si definiscono gli \textbf{identificatori liberi} e gli \textbf{identificatori definiti} delle nuove dichiarazioni:
+	\begin{equation*}
+		\begin{array}{lll}
+			FI\left(\textsf{proc} \:\: P\left(form\right) C\right) &=& FI\left(C\right) \setminus DI\left(form\right) \\
+			FI\left(form = ae\right) &=& FI\left(ae\right) \\
+			FI\left(e, ae\right) &=& FI\left(e\right) \cup FI\left(ae\right) \\
+			FI\left(\bullet\right) &=& \emptyset \\
+			&& \\
+			DI\left(\textsf{proc} \:\: P\left(form\right) C\right) &=& \left\{P\right\} \cup DI\left(form\right) \cup DI\left(C\right) \\
+			DI\left(form = ae\right) &=& DI\left(form\right) \\
+			DI\left(\textsf{const} \:\: x:\tau, form\right) &=& \left\{x\right\} \cup DI\left(form\right) \\
+			DI\left(\textsf{var} \:\: x:\tau, form\right) &=& \left\{x\right\} \cup DI\left(form\right) \\
+			DI\left(\bullet\right) &=& \emptyset
+		\end{array}
+	\end{equation*}
+	La \textbf{semantica statica} corrisponde all'\textbf{ambiente statico creato dalle nuove dichiarazioni}. In particolare, l'ambiente statico viene creato dall'associazione tra parametri formali e parametri attuali. Quindi, si associa una lista di tipi formali:
+	\begin{equation*}
+		\begin{cases}
+			\mathcal{T}\left(\bullet\right) = \bullet \\
+			\\
+			\mathcal{T}\left(\textsf{const} \:\: x:\tau, form\right) = \tau, \mathcal{T}\left(form\right) \\
+			\\
+			\mathcal{T}\left(\textsf{var} \:\: x,\tau, form\right) = \tau loc, \mathcal{T}\left(form\right)
+		\end{cases}
+	\end{equation*}
+	Inoltre, viene \textbf{elaborata la lista di tipi di una lista di parametri attuali}:
+	\begin{equation*}
+		\begin{cases}
+			\Delta\vdash_{I} \bullet : \bullet \\
+			\\
+			\dfrac{\Delta \: \vdash_{I} \: e : \tau, \: \Delta \: \vdash_{I} \: ae : aet}{\Delta \: \vdash_{I} \: e, \: ae : \tau, \: aet}
+		\end{cases} \hspace{1em} aet \Coloneq \bullet \:\: | \:\: \tau, aet
+	\end{equation*}
+	Infine, viene \textbf{associato un ambiente statico ad una lista di parametri formali}:
+	\begin{equation*}
+		\begin{cases}
+			\bullet : \emptyset \\
+			\\
+			\dfrac{form \: : \: \Delta_{0}}{\textsf{const} \:\: x:\tau, \: form : \Delta_{0} \left[x = \tau\right]}, & \Delta_{0} : I_{0}, \: x \notin I_{0} \\
+			\\
+			\dfrac{form \: : \: \Delta_{0}}{\textsf{var} \:\: x:\tau, \: form : \Delta_{0} \left[x = \tau loc\right]}, & \Delta_{0} : I_{0}, \: x \notin I_{0}
+		\end{cases}
+	\end{equation*}\newpage
+	
+	\noindent
+	Per \textbf{elaborare una dichiarazione} è necessario costruire l'ambiente statico corrispondente. Quindi, deve essere modificata la regola per la dichiarazione di una procedura, la quale ha in generale una lista di parametri $\Delta_{0} : V'$:
+	\begin{equation*}
+		\mathcal{D}s_{7} : \dfrac{
+			\textsf{form}:\Delta_{0} \hspace{1em} \Delta\left[\Delta_{0}\right] \vdash_{\mathrm{V} \cup \mathrm{V}'} \: \mathrm{C}
+		}{
+			\Delta \vdash_{\mathrm{V}} \: \textsf{proc} \:\: \textsf{P}\left(\textsf{form}\right) \textsf{C} : \left[\textsf{P} = \mathsf{F} \left(\textsf{form}\right) \textsf{proc}\right]
+		}
+	\end{equation*}
+	L'\textbf{ambiente associato ai parametri formali} è costruito nel seguente modo. Si verifica che il corpo $C$ sia ben formato e a questo punto il tipo che viene associato alla procedura consiste nella lista dei tipi dei parametri formali seguiti dal suffisso \textsf{proc}, il quale evidenzia che l'identificatore è una procedura. Quindi, la \textbf{nuova regola per l'associazione tra parametri formali e parametri attuali}:
+	\begin{equation*}
+		\mathcal{D}\mathrm{s}_{8} : \dfrac{
+			\textsf{form} : \Delta_{0} \hspace{1em} \Delta\vdash_{\mathrm{V}} \: \textsf{ae} : \mathcal{F}\left(\textsf{form}\right)
+		}{
+			\Delta\vdash_{\mathrm{V}} \: \textsf{form} = \textsf{ae} : \Delta_{0}
+		}
+	\end{equation*}
+	Se la lista di tipi dei parametri attuali coincide con la lista dei tipi dei parametri formali ($\textsf{ae}:\mathcal{F}\left(\textsf{form}\right)$), allora l'ambiente statico generato dai parametri formali viene associato alla dichiarazione.\newpage
+	
+	\subsubsection{Semantica delle dichiarazioni}
+	
+	Per \textbf{elaborare le dichiarazioni} è necessario \textbf{aggiornare il sistema di regole considerando anche i parametri}. Quindi, nel valore associato al nome della procedura, si inseriscono anche i parametri formali. Ovviamente rimane inalterata la costruzione di $\textsf{C}'$ il quale dipende dal tipo di scope (statico/dinamico):
+	\begin{equation*}
+		\mathcal{D}_{13} : \:\: \rho \vdash_{\Delta} \: \left\langle \textsf{proc} \:\: \textsf{P}\left(\textsf{form}\right)\textsf{C}, \sigma \right\rangle \longrightarrow_{\mathrm{d}} \left\langle \left[P \leftarrow \lambda \textsf{form}.\textsf{C}'\right], \sigma \right\rangle
+	\end{equation*}
+	Si ricorda che:
+	\begin{itemize}
+		\item $\mathrm{C}' = \rho_{|F|\left(C\right)} ; \mathrm{C}$ per scoping statico;
+		\item $\mathrm{C}' = \mathrm{C}$ per scoping dinamico.
+	\end{itemize}
+	Infine, è necessario \textbf{aggiungere la regola} per l'\textbf{associazione tra parametri attuali e parametri formali}, la quale richiede tutta una serie di nuove regole per la valutazione della lista dei parametri attuali:
+	\begin{itemize}
+		\item La regola $14$:
+		\begin{equation*}
+			\mathcal{D}_{14}: \dfrac{
+				\rho \: \vdash_{\Delta} \: \left\langle \mathrm{e}, \sigma \right\rangle \longrightarrow_{\mathrm{e}} \left\langle \mathrm{e}', \sigma \right\rangle
+			}{
+				\rho \: \vdash_{\Delta} \: \left\langle \left(\mathrm{e}, \mathrm{ae}\right), \sigma \right\rangle \longrightarrow_{\mathrm{ae}} \left\langle \left(\mathrm{e}', \mathrm{ae}\right), \sigma \right\rangle
+			}
+		\end{equation*}
+		
+		\item La regola $15$:
+		\begin{equation*}
+			\mathcal{D}_{15}: \dfrac{
+				\rho \: \vdash_{\Delta} \: \left\langle \mathrm{ae}, \sigma \right\rangle \longrightarrow_{\mathrm{ae}} \left\langle \mathrm{ae}', \sigma \right\rangle
+			}{
+				\rho \: \vdash_{\Delta} \: \left\langle \left(\mathrm{k}, \mathrm{ae}\right), \sigma \right\rangle \longrightarrow_{\mathrm{ae}} \left\langle \left(\mathrm{k}, \mathrm{ae}'\right), \sigma \right\rangle
+			}
+		\end{equation*}
+		
+		\item La regola $16$:
+		\begin{equation*}
+			\mathcal{D}_{16}: \dfrac{
+				\rho \: \vdash_{\Delta} \: \left\langle \mathrm{ae}, \sigma \right\rangle \longrightarrow_{\mathrm{ae}} \left\langle \mathrm{ae}', \sigma \right\rangle
+			}{
+				\rho \: \vdash_{\Delta} \: \left\langle \textsf{form} = \textsf{ae}, \sigma \right\rangle \longrightarrow_{\mathrm{d}} \left\langle \textsf{form} = \mathrm{ae}', \sigma \right\rangle
+			}
+		\end{equation*}
+	\end{itemize}
+	Infine, per \textbf{utilizzare la lista di parametri attuali}, è necessario \textbf{creare l'ambiente dinamico e la memoria}, ovvero le associazioni corrispondenti:
+	\begin{equation*}
+		\mathcal{D}_{17} : \dfrac{
+			\mathrm{ak}, \mathrm{L} \:\: \vdash \:\: \textsf{form}: \rho_{0}, \sigma_{0}
+		}{
+			\rho \: \vdash_{\Delta} \: \left\langle \textsf{form} = \mathrm{ak}, \sigma \right\rangle \longrightarrow_{\mathrm{d}} \left\langle \rho_{0}, \sigma\left[\sigma_{0}\right] \right\rangle
+		}
+	\end{equation*}
+	La lista di parametri attuali $\mathrm{ak}$, insieme alla lista di parametri formali $\textsf{form}$, crea l'ambiente dinamico $\rho_{0}$ e la memoria $\sigma_{0}$. La dichiarazione $\textsf{form} = \mathrm{ae}$ viene elaborata nell'ambiente $\rho_{0}$ e con la memoria iniziale aggiornata da $\sigma_{0}$.\newline
+	
+	\noindent
+	Per derivare la premessa, ovvero per \textbf{costruire l'ambiente e la memoria a partire da una lista di parametri attuali valutati e da una lista corrispondente di parametri formali}, è necessaria una definizione:
+	\begin{gather*}
+		\begin{cases}
+			\bullet, \mathrm{L} \: \vdash \: \bullet \: \emptyset, \emptyset \\
+			\\
+			\dfrac{
+				ak, \: L \vdash form: \rho_{0}, \sigma_{0}
+			}{
+				\left(k, ak\right), \: L \vdash \textsf{const} \: x:\tau, \: form \: : \rho_{0}\left[x = k\right], \: \sigma_{0}
+			}, & k : \tau \\
+			\\
+			\dfrac{
+				ak, \: L \cup \left\{l\right\} \vdash form: \rho_{0}, \sigma_{0}
+			}{
+				\left(k, ak\right), \: L \vdash \textsf{var} \: x:\tau, \: form \: : \rho_{0}\left[x = l\right], \: \sigma_{0}\left[l = k\right]
+			}, & k : \tau, \hspace{1em} l \in New_{\tau}\left(L_{0}\right), \sigma_{0}:L_{0}
+		\end{cases} \\
+		\\
+		ak \Coloneq \bullet \:\: | \:\: k, ak
+	\end{gather*}
+	
+	\subsubsection{Semantica dei comandi}
 \end{document}
