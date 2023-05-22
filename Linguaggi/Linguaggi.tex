@@ -4569,7 +4569,147 @@ proc esempio() {
 	
 	\subsubsection{Passaggio per valore}
 	
+	Il \textcolor{Red3}{\textbf{passaggio per valore}} \textbf{implementa un passaggio \emph{in-mode}} (dal chiamante al sottoprogramma) che richiede la valutazione completa del parametro prima del passaggio, come per \textcolor{Green4}{\textbf{esempio}} nel linguaggio C.\newline
+	
+	\noindent
+	Quindi, durante la \textbf{chiamata di una procedura}, il \textbf{parametro attuale} può essere \textbf{esclusivamente un'espressione}, ovvero un \emph{r-value} (rappresentazione di un valore). Al contrario, durante la \textbf{definizione di una procedura}, il \textbf{parametro formale} deve essere un \textbf{riferimento}, ovvero un \emph{l-value}.\newline
+	
+	\noindent
+	Alla \textbf{chiamata di una procedura}, l'\textbf{ambiente locale} della procedura viene \textbf{esteso} con l'associazione tra parametri attuali e parametri formali. Quest'ultimi vengono visti come variabili locali, ovvero vengono inizializzati con il valore dei parametri attuali.
+	
+	Il \textbf{passaggio di informazione è una semplice inizializzazione}, ovvero le \textbf{modifiche} dei \textbf{parametri formali} \underline{\textbf{non}} si \textbf{riflettono nei parametri attuali}. Quindi, non vi è un ritorno di informazione al chiamante mediante i parametri e questa è una \textcolor{Green4}{\textbf{caratteristica positiva}} che si adatta perfettamente alle funzioni matematiche, poiché \underline{non} genera \emph{side-effects}.\newline
+	
+	\noindent
+	La \textbf{semantica} di questo metodo è la seguente: il \textbf{corpo non ha necessità di conoscere come la procedura verrà chiamata} (\textcolor{Red3}{\textbf{trasparenza referenziale}}), ma richiede \textbf{altri meccanismi} per permettere una comunicazione \emph{out-mode}.\newline
+	
+	\noindent
+	L'\textbf{implementazione} avviene con la \textbf{creazione di una copia del valore} in quanto la trasmissione di un cammino richiederebbe una trasmissione protetta in scrittura.\newline
+	
+	\noindent
+	Il passaggio per valore ha vantaggi e svantaggi:
+	\begin{itemize}
+		\item Il \textcolor{Green4}{\textbf{\underline{vantaggio}}} principale è la \textbf{velocità di passaggio per valori scalari};
+		
+		\item Lo \textcolor{Red3}{\textbf{\underline{svantaggio}}} principale è il \textbf{costo in spazio quando si passano valori di grandi dimensioni}.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{lstlisting}[language=C]
+void foo(int x) {
+	x = x + 1;
+}
+...
+y = 1;
+foo(y + 1); // Qua y vale 1\end{lstlisting}
+	Il parametro formale \textsf{x} è una variabile locale (sulla pila), alla chiamata, mentre il parametro attuale \textsf{y+1} è valutato e corrisponde al valore assegnato al parametro formale. Non viene creato nessun legame tra \textsf{x} nel corpo di \textsf{foo()} e \textsf{y} nel chiamante, ma solo una semplice copia del valore. Al ritorno dalla funzione \textsf{foo()}, il parametro formale \textsf{x} viene distrutto, ovvero tolto dalla pila.
+	
+	Questo procedimento implica che non è possibile trasmettere informazioni dalla funzione \textsf{foo()} al chiamante mediante il parametro.\newpage
+	
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}} è il seguente. Dato il seguente codice:
+	\begin{lstlisting}[language=C]
+void snap(value int a, value int b) {
+	int tmp = a;
+	a = b;
+	b = tmp;
+}
+...
+snap(c, d)\end{lstlisting}
+	La situazione iniziale della memoria è la seguente:
+	\begin{equation*}
+		\sigma = \left[\textsf{c} \mapsto 3, \textsf{d} \mapsto 4\right]
+	\end{equation*}
+	Ovvero, la variabile \textsf{c} è uguale a $3$ e la variabile \textsf{d} è uguale a $4$. Le fasi del programma sono:
+	\begin{enumerate}
+		\item Alla \textbf{chiamata} della funzione \textsf{snap()}, il record di attivazione della funzione \textsf{snap()} diventa:
+		\begin{equation*}
+			\begin{array}{lll}
+				\textsf{tmp}&\longrightarrow& \left[ \:\:\: \right] \\
+				\textsf{a}	&\longrightarrow& \left[ 3 \right] \\
+				\textsf{b}	&\longrightarrow& \left[ 4 \right]
+			\end{array}
+		\end{equation*}
+		
+		\item Al momento dell'\textbf{esecuzione} della funzione \textsf{snap()}, il record di attivazione diventa:
+		\begin{equation*}
+			\begin{array}{lll}
+				\textsf{tmp}&\longrightarrow& \left[ 3 \right] \\
+				\textsf{a}	&\longrightarrow& \left[ 4 \right] \\
+				\textsf{b}	&\longrightarrow& \left[ 3 \right]
+			\end{array}
+		\end{equation*}
+		
+		\item Alla fine, ovvero nel momento in cui la funzione \textsf{foo()} \textbf{ritorna}, il record di attivazione viene eliminato e viene dunque liberato spazio in memoria.
+	\end{enumerate}\newpage
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l p{19em} @{}}
+			\toprule
+			Caratteristica & Descrizione \\
+			\midrule
+			\emph{In-mode} e valutazione parametri & Passaggio \emph{in-mode} (chiamante $\rightarrow$ sottoprogramma) e valutazione completa dei parametri. \\ [0.5em]
+			Parametri attuali e formali & Il parametro attuale è un'espressione (\emph{r-value}) e il parametro formale è un riferimento (\emph{l-value}). \\ [0.5em]
+			Inizializzazione semplice	& Il passaggio di informazione è una semplice inizializzazione, quindi le modifiche dei parametri formali non si riflettono nei parametri attuali. \\ [0.5em]
+			Trasparenza referenziale	& Il corpo non ha necessità di conoscere come la procedura verrà chiamata. \\ [0.5em]
+			Copia valore				& L'implementazione è una copia banale del valore. \\ [0.5em]
+			Vantaggio: velocità			& Il vantaggio principale è la velocità di passaggio dei valori scalari. \\ [0.5em]
+			Svantaggio: costo			& Lo svantaggio principale è il costo, in termini di spazio, dei valori di grandi dimensioni. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Caratteristiche del passaggio per valore.}
+	\end{table}\newpage
+	
 	\subsubsection{Passaggio per risultato}
+	
+	Il \textcolor{Red3}{\textbf{passaggio per risultato}} prevede che \textbf{nessun valore venga trasmesso al sottoprogramma}. La \textbf{comunicazione tra chiamante e chiamato è di sola uscita} (\emph{\textbf{out-mode}}), ovvero prima di ritornare il controllo al chiamante, il \textbf{valore del parametro formale} (variabile locale) viene \textbf{copiato nel parametro attuale}. L'unica comunicazione possibile nella direzione opposta è usando l'ambiente globale.\newline
+	
+	\noindent
+	Data la modalità \emph{out-mode}, il \textbf{parametro formale deve essere un valore}, ovvero un \emph{r-value}, mentre il \textbf{parametro attuale deve essere un riferimento}, cioè un \emph{l-value}.\newline
+	
+	\noindent
+	Questa tecnica presenta \textcolor{Red3}{\textbf{vari problemi}} quali:
+	\begin{itemize}
+		\item \textbf{Collisione}. Il passaggio di due volte dello stesso parametro, il quale viene ricevuto in due parametri formali diversi.\newline
+		Per \textcolor{Green4}{\textbf{esempio}}, la funzione \textsf{sub(p1, p1)} prende due parametri, ma in questo caso vengono passati due valori identici.
+		
+		\item \textbf{Ordine di valutazione dei parametri}. A seconda dell'ordine di valutazione dei parametri, la procedura può calcolare valori diversi.\newline
+		Per \textcolor{Green4}{\textbf{esempio}}, la funzione definita:
+		\begin{lstlisting}[language=C]
+void fixer(out int x, out int y) {
+	x = 17;
+	y = 35;
+}
+...
+fixer(out a, out a)\end{lstlisting}
+		Se viene valutato prima \textsf{x} e poi \textsf{y} (nei parametri), allora il valore di \textsf{a} sarà 35, altrimenti sarà 17.
+		
+		\item L'implementazione sfrutta la copia del valore, quindi risulta \textbf{costoso} per dati di grandi dimensioni.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, si consideri un'altra funzione:
+	\begin{lstlisting}[language=C]
+void foo(result int x) {
+	x = 8;
+}
+...
+y = 1;
+foo(y); // Qui y vale 8\end{lstlisting}
+	Il parametro formale è una variabile locale (sulla pila) e al ritorno dalla funzione \textsf{foo()}, il valore di \textsf{x} è assegnato al parametro attuale \textsf{y}. Non vi è nessun legame tra \textsf{x} nel corpo della funzione \textsf{foo()} e \textsf{y} nel chiamante. Al ritorno dalla funzione \textsf{foo()}, la \textsf{x} viene distrutta (rimossa dalla pila). Quindi, non vi è più possibile trasmettere informazioni dal chiamante alla funzione \textsf{foo()} mediante il parametro.\newpage
+	
+	\begin{table}[!htbp]
+		\centering
+		\begin{tabular}{@{} l p{18em} @{}}
+			\toprule
+			Caratteristica 	& Descrizione \\
+			\midrule
+			\emph{Out-mode} 			& Nessun valore viene trasmesso al sottoprogramma, la comunicazione tra chiamante e chiamato è di sola uscita. \\ [0.5em]
+			Valore di ritorno			& Il valore del parametro formale (variabile locale) viene copiato nel parametro attuale e questo consente di ritornare un valore. \\ [0.5em]
+			Valore - Riferimento		& Il parametro formale deve essere un valore (\emph{r-value}), mentre il parametro attuale deve essere un riferimento (\emph{l-value}). \\ [0.5em]
+			Problema grave: collisione 	& Il passaggio di due volte dello stesso parametro, il quale viene ricevuto in due parametri formali diversi, crea alcune criticità. \\ [0.5em]
+			Problema potenziale: ordine	& A seconda dell'ordine di valutazione dei parametri, la procedura può calcolare valori diversi. \\ [0.5em]
+			Implementazione costosa		& L'implementazione sfrutta la copia del valore, quindi risulta costosa per dati di grandi dimensioni. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Caratteristiche del passaggio per risultato.}
+	\end{table}\newpage
 	
 	\subsubsection{Passaggio per valore-risultato}
 	
