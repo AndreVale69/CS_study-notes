@@ -5124,7 +5124,154 @@ fie(a, a);\end{lstlisting}
 		\end{cases} \\
 		\\
 		ak \Coloneq \bullet \:\: | \:\: k, ak
-	\end{gather*}
+	\end{gather*}\newpage
 	
 	\subsubsection{Semantica dei comandi}
+	
+	La \textbf{semantica dei comandi}, sia statica che dinamica, viene presentata nel seguente paragrafo.\newline
+	
+	\noindent
+	Si definiscono gli \textbf{identificatori liberi e definiti}:
+	\begin{equation*}
+		\begin{array}{lll}
+			DI\left(P\left(ae\right)\right) &=& \emptyset \\
+			FI\left(P\left(ae\right)\right) &=& FI\left(ac\right) \cup \left\{P\right\}
+		\end{array}
+	\end{equation*}
+	Si \textbf{aggiorna} la regola della \textbf{semantica statica}:
+	\begin{equation*}
+		\mathcal{E}\mathrm{s}_{7} : \dfrac{
+			\Delta\vdash_{\mathrm{V}} \: \mathrm{ae}:\mathrm{aet}
+		}{
+			\Delta\vdash_{\mathrm{V}} \: \mathrm{P}\left(\mathrm{ae}\right)
+		} \hspace{1.5em}
+		\Delta\left(\mathrm{P}\right) = \mathrm{aetproc}
+	\end{equation*}
+	In questo caso, la chiamata viene detta ben formata se la lista dei tipi dei parametri attuali coincide con la lista dei tipi dei parametri formali.\newline
+	
+	\noindent
+	Per la \textbf{semantica dinamica}, è necessario descrivere cosa viene eseguito quando viene incontrata una chiamata a procedura:
+	\begin{equation*}
+		\mathcal{E}_{14}: \:\: \rho \: \vdash_{\Delta} \: \left\langle \mathrm{P}\left(\mathrm{ae}\right), \sigma \right\rangle \longrightarrow_{\mathrm{c}} \left\langle \mathrm{form} = \mathrm{ae}; \mathrm{C}', \sigma \right\rangle \hspace{3em} \rho\left(\mathrm{P}\right) = \lambda\mathrm{form}.\mathrm{C}'
+	\end{equation*}
+	La chiamata deve eseguire il corpo della procedura trovato nell'ambiente dinamico. In quest'ultimo, il corpo viene trovato grazie all'associazione tra il corpo e il nome della procedura. Inoltre, il corpo deve essere eseguito anche nell'ambiente generato anche dall'associazione tra parametri attuali e parametri formali. Questa è la motivazione per cui è necessario elaborare prima la dichiarazione $\textsf{form} = \mathrm{ae}$. Infine, in quest'ultima dichiarazione, la lista dei parametri formali è presente nel valore associato al nome della procedura, mentre la lista dei parametri attuali è nella chiamata.\newpage
+	
+	\subsection{Funzioni di ordine superiore}
+	
+	Alcuni linguaggi consentono di \textbf{passare funzioni come argomenti di procedure} e di \textbf{restituire funzioni come risultato di procedure}.\newline
+	
+	\noindent
+	In questi casi, è necessario \textbf{gestire l'ambiente della funzione}. Ci sono due situazioni chiave in cui va gestito l'ambiente:
+	\begin{itemize}
+		\item \textbf{Funzioni passate come argomento (\emph{semplice})}: viene considerato un \textbf{puntatore al record di attivazione all'interno della pila}, ovvero viene \textbf{passato un valore}, chiamato \emph{chiusura}, che corrisponde all'\textbf{associazione tra nome e corpo della procedura}.
+		
+		\item \textbf{Funzioni ritornate da una chiamata a procedura (\emph{complicato})}: è necessario \textbf{mantenere il record di attivazione della funzione restituita} e talvolta la pila non riesce a contenere tutto.
+	\end{itemize}
+	
+	\longline
+	
+	\subsubsection{Politiche di binding}
+	
+	Una procedura che viene passata come parametro, crea un riferimento tra un nome e una procedura. Tuttavia, è necessario \textbf{scegliere quale ambiente deve essere utilizzato}:
+	\begin{itemize}
+		\item Nel caso di \textbf{scope \underline{statico}} (\textbf{\emph{deep binding}}), l'ambiente da utilizzare è \textbf{sempre quello valido al momento della definizione};
+		
+		\item Nel caso di \textbf{scope \underline{dinamico}} (\textbf{\emph{shallow binding}}), gli ambienti dinamici validi al momento dell'esecuzione sono due:
+		\begin{enumerate}
+			\item L'\textcolor{Red3}{\textbf{ambiente valido al momento della \underline{creazione}}} del legame tra il parametro attuale e il parametro formale;
+			
+			\item L'\textcolor{Red3}{\textbf{ambiente valido al momento della \underline{chiamata}}} del parametro attuale attraverso il parametro formale.
+		\end{enumerate}
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, si consideri il seguente codice:
+	\begin{lstlisting}[language=C]
+{
+	int x = 1; // scope statico
+	int f(int y) {
+		return x + y;
+	}
+	void g(int h(bool b)) {
+		int x = 2; // shallow binding (scope dinamico)
+		return h(3) + x;
+	}
+	...
+	{
+		int x = 4; // deep binding (scope dinamico)
+		int z = g(f);
+	}
+}\end{lstlisting}\newpage
+
+	\noindent
+	O ancora, si consideri un altro \textcolor{Green4}{\textbf{esempio}} con il seguente codice:
+	\begin{lstlisting}[language=C]
+int x = 4, z = 0;
+int f(int y) {
+	return x * y;
+}
+void g(int h(int n)) {
+	int x = 7;
+	z = h(3) + x;
+}
+...
+{
+	int x = 5;
+	g(f);
+}\end{lstlisting}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.75\textwidth]{img/funzioni_di_ordine_superiore.pdf}
+	\end{figure}\newpage
+	
+	\subsubsection{Esempi in Python: scope statico e deep binding}
+	
+	Un \textcolor{Green4}{\textbf{esempio}} di programma reale scritto in Python, in cui gli ambienti non locali di funzioni passate come parametro sono risolti staticamente:
+	\begin{lstlisting}[language=Python]
+x = 4
+
+def f(y):
+	return x * y
+	
+def g(h):
+	x = 7
+	def result():
+		return h(3) * x
+	return result
+	
+def callmap():
+	x = 5
+	call = g(f)
+	print(call())
+	
+callmap()\end{lstlisting}
+	Il risultato finale è 19. Dentro la funzione \textsf{f}, la variabile \textsf{x} vale 4, mentre dentro la funzione \textsf{g} la variabile \textsf{x} vale 7 (essendo un riferimento locale). Infine, la dichiarazione dentro la funzione \textsf{callmap()} non viene utilizzata.\newline
+	
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}}:
+	\begin{lstlisting}[language=Python]
+x = 4
+
+def f(y):
+	return x * y
+
+def g(h):
+	x = 7
+	def result(n):
+		return h(n) * x
+	return result
+
+def callmap():
+	x = 5
+	call = g(f)
+	print(call(x))
+
+callmap()\end{lstlisting}
+	Il risultato finale è 27 poiché il valore della variabile \textsf{x} dentro la funzione \textsf{callmap()} viene passato come parametro alla funzione \textsf{g()}.\newpage
+	
+	\subsection{Ricorsione}
+	
+	\subsubsection{Definizione}
+	
+	\subsubsection{Ricorsione in coda}
+	
+	\subsubsection{Esempio: Fibonacci}
 \end{document}
