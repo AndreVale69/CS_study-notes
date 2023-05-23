@@ -5271,7 +5271,123 @@ callmap()\end{lstlisting}
 	
 	\subsubsection{Definizione}
 	
+	Una funzione (procedura) viene definita \textcolor{Red3}{\textbf{ricorsiva}} \textbf{se viene definita in termini di se stessa}. Inoltre, le \textbf{funzioni ricorsive derivano direttamente dalle definizioni per induzione}.\newline
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di ricorsione è il fattoriale:
+	\begin{lstlisting}[language=C]
+int fatt(int n) {
+	if (n <= 1)
+		return 1;
+	else
+		return n * fatt(n-1);
+}\end{lstlisting}
+	Tuttavia, la ricorsione e l'induzione rimangono \textbf{due concetti diversi}. L'\textbf{induzione} è un \textbf{concetto matematico} ed è \textbf{sempre ben fondata}. Quindi, la dimostrazione per induzione arriva sempre ad una base della definizione.
+	
+	Al contrario, un \textbf{programma ricorsivo} è un concetto \textbf{informatico} e \textbf{può divergere}. Quindi, il programma potrebbe non terminare oppure potrebbe non definire nulla di significativo.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, le seguenti funzioni sono ben definite, ovvero non sono funzioni induttive, ma è possibile costruire i corrispondenti programmi ricorsivi che divergono:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textsf{fie}\left(1\right) &=& \textsf{fie}\left(1\right) \\
+			\textsf{foo}\left(0\right) &=& \textsf{foo}\left(0\right) \\
+			\textsf{foo}\left(\textsf{n}\right) &=& \textsf{foo}\left(\textsf{n}+1\right) \\
+		\end{array}
+	\end{equation*}
+	\begin{lstlisting}[language=C]
+int fie1(int n) {
+	if (n == 1)
+		return fie1(1);
+}
+int fool(int n) {
+	if (n == 0)
+		return 1;
+	else
+		return fool(n) + 1;
+}\end{lstlisting}
+	La \textbf{ricorsione} è possibile \textbf{implementarla in quei linguaggi che} hanno:
+	\begin{itemize}
+		\item \textbf{Funzioni} (procedure) che possono \textbf{chiamare se stesse};
+		
+		\item \textbf{Gestione dinamica della memoria} (pila).
+	\end{itemize}
+	Inoltre, ogni \textbf{programma ricorsivo può essere tradotto in uno equivalente iterativo} e viceversa. Tuttavia, è bene ricordare che la ricorsione è più naturale con linguaggi funzionali e logici, mentre l'iterazione è più naturale con linguaggi imperativi.\newline
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{vantaggio}} della ricorsione è la sua efficienza. Anche se un programmatore potrebbe implementare soluzioni poco efficienti, grazie ai compilatori ottimizzati è possibile produrre una ricorsione migliorata.\newpage
+	
+	\noindent
+	Riprendendo il codice del fattoriale come \textcolor{Green4}{\textbf{esempio}}:
+	\begin{lstlisting}[language=C]
+		int fie1(int n) {
+			if (n == 1)
+			return fie1(1);
+		}
+		int fool(int n) {
+			if (n == 0)
+			return 1;
+			else
+			return fool(n) + 1;
+	}\end{lstlisting}
+	Si osservi la situazione della memoria dopo 3 chiamate:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/ricorsione.png}
+	\end{figure}
+	
+	\noindent
+	Questa implementazione della ricorsione si chiama \emph{ricorsione in coda}.\newpage
+	
 	\subsubsection{Ricorsione in coda}
 	
+	Una chiamata di una funzione $g$ in una funzione $f$, viene detta \dquotes{in coda} (\emph{tail call}) se la funzione $f$ restituisce il valore restituito dalla funzione $g$ senza ulteriore computazione. Quindi, una \textbf{funzione ricorsiva viene chiamata \textcolor{Red3}{ricorsiva in coda}} (\emph{tail recursive}) \textbf{se contiene solo chiamate ricorsive in coda}.\newline
+	
+	\noindent
+	Il grande \textcolor{Green4}{\textbf{vantaggio}} della ricorsione in coda è la sua \textbf{efficienza}. Questo perché la \textbf{gestione della memoria è statica}, poiché viene allocato un solo record di attivazione. Tutte le \textbf{chiamate vengono soprascritte dato che non hanno bisogno di ritornare valori} che devono essere elaborati ulteriormente dal chiamante.\newline
+	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, il fattoriale può essere modificato aggiungendo un parametro, così da renderlo adatto alla ricorsione in coda:
+	\begin{lstlisting}[language=C]
+int fattrc(int n, int res) {
+	if(n <= 1)
+		return res;
+	else
+		return fattrc(n-1, n * res)
+}
+	\end{lstlisting}
+	Ogni \textbf{funzione ricorsiva può essere trasformata in una ricorsiva in coda}. La trasformazione avviene definendo la funzione principale (non più ricorsiva) che chiama una funzione ausiliaria ricorsiva in coda, a cui viene aggiunto un parametro (nell'esempio del fattoriale la variabile \textsf{res}) che accoglie ad ogni iterazione il risultato parziale, in modo da non dover elaborare valori dopo le chiamate ricorsive. Infine, la trasformazione viene fatta in modo automatico con la \textbf{\emph{continuation passing style}}.\newpage
+	
 	\subsubsection{Esempio: Fibonacci}
+	
+	Data la definizione della funzione di Fibonacci:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textsf{Fib}\left(0\right) &=& 0; \\
+			\textsf{Fib}\left(1\right) &=& 1; \\
+			\textsf{Fib}\left(\textsf{n}\right) &=& \textsf{Fib}\left(\textsf{n} - 1\right) + \textsf{Fib}\left(\textsf{n} - 2\right);
+		\end{array}
+	\end{equation*}
+	La seguente implementazione ricorsiva ha una complessità in tempo e spazio esponenziale in \textsf{n}, poiché ad ogni chiamata vengono effettuate due nuove chiamate:
+	\begin{lstlisting}[language=C]
+int fib(int n) {
+	if(n == 0)
+		return 1;
+	else
+		if (n == 1)
+			return 1;
+		else
+			return fib(n-1) + fib(n-2);
+}\end{lstlisting}
+	Tuttavia, data l'elevata complessità, si cerca di ottimizzare sfruttando la ricorsione in coda. Quindi, la complessità diminuisce diventando tempo lineare in \textsf{n} e spazio costante (un solo Record di Attivazione!):
+	\begin{lstlisting}[language=C]
+int fibrc(int n, int res1, int res2) {
+	if(n == 0)
+		return res1;
+	else
+		if (n == 1)
+			return res2;
+		else
+			return fibrc(n-1, res2, res1 + res2);
+}\end{lstlisting}
 \end{document}
