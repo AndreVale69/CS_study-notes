@@ -17,6 +17,17 @@
 	colorlinks=true
 }
 
+\usepackage{fancyhdr}
+
+% Intestazione e piè di pagina
+% \pagestyle{fancy}
+% \fancyhf{}
+% \fancyhead[LE,RO]{\thepage}
+% \fancyhead[RE]{\textit{\nouppercase{\leftmark}}}
+% \fancyhead[LO]{\textit{\nouppercase{\rightmark}}}
+% \renewcommand{\headrulewidth}{0.5pt}
+% \renewcommand{\footrulewidth}{0pt}
+
 \newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -983,9 +994,7 @@
 	È interessante osservare anche come ogni richiesta POST venga stampata sul terminale dal server con una identazione leggibile.\newline
 	
 	\noindent
-	A differenza del metodo GET, il metodo POST non consente di visualizzare i valori direttamente nell'URL, ma solo all'interno della richiesta. Quindi, è necessario uno \emph{sniffer} per catturare i dati.
-	
-	\longline
+	A differenza del metodo GET, il metodo POST non consente di visualizzare i valori direttamente nell'URL, ma solo all'interno della richiesta. Quindi, è necessario uno \emph{sniffer} per catturare i dati.\newpage
 	
 	\subsection[\textcolor{Red3}{\textbf{Esercizi}} di modifica del web server]{Esercizi di modifica del web server}
 	
@@ -1589,7 +1598,7 @@
 	\lstinputlisting[language=Java]{code/ClientREST.java}
 	Grazie alle caratteristiche del protocollo REST (paragrafo~\ref{webservice basati su REST}), comunicare con il server non è un problema. Infatti, questa tecnologia si basa sul protocollo HTTP e non su quali linguaggi di programmazione sono scritti il client e il server. Di conseguenza, anche se il server fosse scritto in Python, non ci sarebbero problemi. L'unica cosa da tenere in considerazione è la \emph{signature} della funzione di calcolo della somma che deve rispettare i parametri.\newpage
 	
-	\subsubsection{Esercizio 3 - Modifica server per calcolare anche i numeri primi}
+	\subsubsection{Esercizio 3 - Modifica server per calcolare anche i numeri primi}\label{esercizio 3 - Modifica server per calcolare anche i numeri primi}
 	
 	Estendere il webservice \textsf{serverHTTP-REST.c} in modo che esponga un seconda servizio relativo al calcolo dei numeri primi compresi nell'intervallo $\left[min, max\right]$:
 	\begin{itemize}
@@ -1640,8 +1649,126 @@
 	\noindent
 	Il codice \textsf{clientThreadREST.java} è il seguente:
 	\lstinputlisting[language=Java]{code/ClientThreadREST.java}
-	Per eseguire il codice su tre macchine differenti, sarebbe necessario modificare l'URL di destinazione alle righe 12, 13 e 14. Stando attenti e cambiando anche a riga 51 l'URL così da collegarsi all'URL esatto. Si potrebbe provare a cambiare solamente alle righe 12, 13 e 14 gli URL, ed eseguire il codice del serverHTTP-REST su altre tre macchine differenti. In questo modo si sfrutterebbero la piena potenza delle tre macchine.\newpage
-
+	Per eseguire il codice su tre macchine differenti, sarebbe necessario modificare l'URL di destinazione alle righe 12, 13 e 14. Al loro posto sarebbe necessario inserire l'indirizzo IP delle tre macchine differenti ed eseguire, su quest'ultime, il codice del \textsf{serverHTTP-REST.c}.\newpage
+	
+	\noindent
+	Infine, si presenta di seguito un modo semplice ma efficiente per calcolare i numeri primi in un dato intervallo. Supponendo che nella rete ci siano diversi server che eseguano tale calcolo, si potrebbe eseguire il codice Java (qua sopra), aggiungendo il metodo di richiesta dei numeri primi come nell'esercizio precedente (paragrafo~\ref{esercizio 3 - Modifica server per calcolare anche i numeri primi}, pagina~\pageref{esercizio 3 - Modifica server per calcolare anche i numeri primi}), dichiarando tanti thread quanti sono i server e a ciascun thread imporre di richiedere al server un calcolo dei numeri primi in un intervallo diverso dagli altri.\newline
+	
+	\noindent
+	Per \textbf{esempio}, si supponga che nella rete ci siano 5 server disponibili che hanno in esecuzione il server scritto nel linguaggio C. Se viene richiesto al client di calcolare un intervallo di numeri primi da 1 a $1'000'000$ effettuando una richiesta REST, il programma:
+	\begin{enumerate}
+		\item Dividerà il valore massimo per la quantità di server presenti nella rete, cioè 5 ($1'000'000 \div 5 = 200'000$);
+		
+		\item Creerà 5 istanze thread diverse assegnando loro un intervallo diverso:
+		\begin{enumerate}
+			\item 1° istanza thread, intervallo: $1 - 200'000$
+			
+			\item 2° istanza thread, intervallo: $200'001 - 400'000$
+			
+			\item 3° istanza thread, intervallo: $400'001 - 600'000$
+			
+			\item 4° istanza thread, intervallo: $600'001 - 800'000$
+			
+			\item 5° istanza thread, intervallo: $800'001 - 1'000'000$
+		\end{enumerate}
+	\end{enumerate}
+	In questo modo il tempo per ottenere i risultati sarà ottimizzato di cinque volte rispetto a farlo eseguire su un solo server in un unico blocco.\newpage
+	
+	\subsection{Cloud computing}
+	
+	Il \textcolor{Red3}{\textbf{cloud computing}} è l'\textbf{accesso su richiesta}, via Internet, effettuato da un determinato host \textbf{verso le risorse informatiche}\footnote{Applicazioni, server fisici e virtuali, archiviazione di dati, strumenti di sviluppo, \emph{networking capabilities}, ecc.} \textbf{ospitate} da un \textbf{\emph{data center} remoto} gestito da un \textbf{\emph{provider} di servizi cloud}, chiamato CSP (\emph{Cloud Services Provider}).\newline
+	
+	\noindent
+	In altre parole, è un gruppo di host in rete che forniscono servizi di calcolo e memorizzazione senza essere indirizzati o gestiti individualmente dagli utenti. Per \textcolor{Green4}{\textbf{esempio}}, i servizi più famosi sono: Amazon Web Service, Google Cloud, Microsoft Azure, Dropbox.\newline
+	
+	\noindent
+	I \textbf{\emph{provider} di servizi cloud} (CSP) gestisce l'intero insieme di hardware e software. Esso mette a disposizione tali risorse a pagamento a seconda del traffico/consumo generato oppure con una modalità forfettaria.\newline
+	
+	\noindent
+	Le tecnologie messe a disposizione forniscono dei servizi abbastanza importanti, tra cui:
+	\begin{itemize}
+		\item Consentire agli utenti una connessione perenne in rete;
+		
+		\item Dare a disposizione macchine virtuali (e.g. \href{https://azure.microsoft.com/it-it/resources/cloud-computing-dictionary/what-is-azure/}{Microsoft Azure}) per ottimizzare l'uso delle risorse hardware;
+		
+		\item Fornire WebService per far sfruttare le risorse di calcolo da remoto.
+	\end{itemize}\newpage
+	
+	\subsubsection{Servizi offerti}
+	
+	I modelli di servizi cloud offerti sono molteplici, qua di seguito ne vengono presentati alcuni (i più famosi) e ne verrà approfondito solamente uno:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{\emph{On-site}}} oppure \textcolor{Red3}{\textbf{\emph{on-premise}}}, non è un vero e proprio servizio offerto da un CSP, ma si tratta di una \textbf{gestione personale}. In questo caso, l'\textbf{hardware è personale} e si trova in un posto di proprietà (per esempio a casa propria). La gestione è personale, quindi deve essere gestito qualsiasi aspetto:
+		\begin{itemize}
+			\item \textbf{Pro}: grande personalizzazione e libertà di scelta.
+			\item \textbf{Contro}: Non è disponibile la potenza di calcolo delle grandi aziende e la gestione non è semplice.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{\emph{Infrastructure-as-a-Service} (IaaS)}}, viene concesso l'accesso alle risorse informatiche più fondamentali. Il servizio prevede l'\textbf{affitto di una macchina virtuale completamente vuota}, ovvero \textbf{senza sistema operativo o programmi addizionali}. La macchina risulta pulita e pronta per ospitare un sistema operativo a scelta dell'utente e le eventuali applicazioni. Gli aspetti più importanti:
+		\begin{itemize}
+			\item \textbf{Pro}: libertà di installare qualsiasi sistema operativo e applicazione.
+			
+			\item \textbf{Contro}: richieste abilità a basse livello avanzate per gestire le risorse nel cloud.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{\emph{Platform-as-a-Service} (PaaS)}}, tra i servizi \textbf{più usati dagli sviluppatori software}, viene utilizzato principalmente per eseguire, sviluppare e gestire applicazioni senza il costo, la complessità e l'inflessibilità del mantenimento di una piattaforma. Quindi, viene concesso l'\textbf{affitto di un ambiente in cui è già presente un sistema operativo ed è possibile installare le proprie applicazioni}. Al giorno d'oggi, il servizio PaaS è implementato tramite una serie di virtualizzazioni sui server dei \emph{provider cloud services}, Quindi Docker, Kubernetes, ecc. Gli aspetti più importanti:
+		\begin{itemize}
+			\item \textbf{Pro}: sistema \emph{ready-to-go}, adatto per gli sviluppatori che cercano una soluzione rapida per le loro applicazioni.
+			
+			\item \textbf{Contro}: impossibilità di operare a basso livello e necessità di adattarsi a sistemi già installati.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{\emph{Software-as-a-Service} (SaaS)}}, è il servizio più ad alto livello ed è accessibile tramite un banale web browser. Viene \textbf{concesso un intero client desktop con tutti i servizi già a disposizione}. Quindi è possibile già trovare al loro interno: Web Server, Database Server, Broker per pub/sub. Gli aspetti più importanti:
+		\begin{itemize}
+			\item \textbf{Pro}: sistema con tutto il necessario per fare qualsiasi cosa. Risulta, ad oggi, uno dei servizi più utilizzati dalle aziende che vendono software commerciali.
+			
+			\item \textbf{Contro}: la macchina non ha un grado di personalizzazione paragonabile agli altri servizi (\emph{simile} analogia ai sistemi operativi Windows e Linux).
+		\end{itemize}
+	\end{itemize}\newpage
+	
+	\subsubsection{Approfondimento: Function-as-a-Service (FaaS)}
+	
+	\textcolor{Red3}{\textbf{\emph{Function-as-a-Service} (FaaS)}} è un \textbf{servizio di \emph{cloud computing}} che consente ai clienti di \textbf{eseguire del codice in risposta al manifestarsi di determinati eventi}, senza la gestione completa dell'infrastruttura, caratteristica tipica dei sistemi che devono gestire le applicazioni di microservizi.\newline
+	
+	\noindent
+	Come accade anche negli altri servizi, l'hardware fisico, il sistema operativo e il web server, sono \textbf{gestiti completamente e \underline{automaticamente} dal \emph{cloud service provider}}. Questa caratteristica, consente agli sviluppatori di concentrarsi sul codice delle proprie applicazioni e non sulla gestione dell'infrastruttura che la circonda.\newline
+	
+	\noindent
+	Alcuni tra i servizi commerciali più famosi:
+	\begin{itemize}
+		\item \href{https://aws.amazon.com/it/lambda/}{AWS Lambda}
+		
+		\item \href{https://cloud.google.com/functions?hl=it}{Google Cloud Functions}
+		
+		\item \href{https://www.ibm.com/it-it/cloud/functions}{IBM Cloud Functions based on Apache OpenWhisk}
+		
+		\item \href{https://azure.microsoft.com/it-it/products/functions/?ef_id=_k_064f86cb83d914979a22e2a5f86f67bb_k_&OCID=AIDcmmy6frl1tq_SEM__k_064f86cb83d914979a22e2a5f86f67bb_k_&msclkid=064f86cb83d914979a22e2a5f86f67bb}{Microsoft Azure Functions}
+		
+		\item \href{https://www.oracle.com/cloud/cloud-native/functions/}{Oracle Cloud Functions}
+	\end{itemize}
+	Quindi, per concludere:
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{Pro:}}
+		\begin{itemize}
+			\item Niente preoccupazioni riguardo la gestione della struttura;
+		
+			\item Possibilità di concentrarsi al 100\% sullo sviluppo della propria applicazione e non sull'infrastruttura;
+		
+			\item Quantità elevata di servizi pronti all'uso;
+		
+			\item Assistenza tecnica da parte del team del \emph{cloud service provider}.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{Contro:}}
+		\begin{itemize}
+			\item Decisioni limitate riguardo la gestione del proprio server, poiché gestito dal \emph{cloud service provider}. Per esempio, questioni sulla sicurezza o gestione del database;
+			
+			\item Necessario rispettare i limiti imposti dal server, come per esempio l'esecuzione di test. Quest'ultimi saranno più lenti dato che il server è in remoto sul cloud e non in locale;
+			
+			\item Il codice si deve adattare al server FaaS, a seconda delle funzionalità offerte.
+		\end{itemize}
+	\end{itemize}\newpage
+	
 	\section{Introduzione alla sicurezza}
 	
 	Per comprendere al meglio la sicurezza informatica, è necessario procedere a piccoli passi. Prima di tutto, ci sono delle domande da porsi:
@@ -2033,7 +2160,7 @@
 		\caption{Esempio di esecuzione del comando \textsf{whois} su Linux.}
 	\end{figure}\newpage
 	
-	\subsection[\textcolor{Red3}{\textbf{Esercizi}}]{Esercizi}
+	\subsection[\textcolor{Red3}{\textbf{Esercizi}} Wireshark e linea di comando]{Esercizi Wireshark e linea di comando}
 	
 	\subsubsection{Esercizio 1 - File \textsf{capture.cap}}
 	
@@ -2761,7 +2888,7 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 		\caption{Lista di comandi utili per Docker.}
 	\end{table}\newpage
 	
-	\subsection[\textcolor{Red3}{\textbf{Esercizi}}]{Esercizi}
+	\subsection[\textcolor{Red3}{\textbf{Esercizi}} Docker]{Esercizi Docker}
 	
 	\subsubsection{Esercizi}
 	
