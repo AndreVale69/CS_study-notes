@@ -53,4 +53,5 @@ maxcc = max(cc(:)); % massimo
 corr_offset = [r-R2+1, c-C2+1];
 
 fprintf('Offset originale: %d-%d\n',offset)
-fprintf('Offset calcolato con la cross-correlazione: %d-%d\n',corr_offset)
+fprintf('Offset calcolato con la cross-correlazione: %d-%d\n', ...
+        corr_offset)

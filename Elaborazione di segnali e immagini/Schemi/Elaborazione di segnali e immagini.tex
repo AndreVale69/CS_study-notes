@@ -451,7 +451,7 @@
 		\caption{Accelero \underline{lineare} del segnale di un fattore $\omega$}\label{rescaling_accelero}
 	\end{figure}
 
-	\subsubsection{Cross-Correlazione}
+	\subsubsection{Cross-Correlazione}\label{cross correlazione}
 	
 	Dati $f_1(\tau), f_2(\tau)$ segnali continui, $\tau\in\mathbb{R}$ il segnale di \textbf{\emph{cross-correlazione}} viene definito come:
 	
@@ -668,7 +668,7 @@
 	
 	\newpage
 	
-	\subsubsection{Cross-Correlazione Normalizzata}
+	\subsubsection{Cross-Correlazione Normalizzata}\label{cross correlazione normalizzata}
 	
 	Ha l'\textbf{obbiettivo} di trattare segnali con range di valori diversi e consente di eseguire \textbf{confronti uno-a-molti} (\emph{one-to-many}):
 	
@@ -4392,10 +4392,494 @@ B = imresize(A,scale)\end{lstlisting}
 	
 	\begin{figure}[!htp]
 		\centering
-		\includegraphics[width=.8\textwidth]{img/lab/lab2_ex2-fig1.jpg}
+		\includegraphics[width=.7\textwidth]{img/lab/lab2_ex2-fig1.jpg}
 		\caption{\textsf{figure(1)}}
-		\:\newline
-		\includegraphics[width=.8\textwidth]{img/lab/lab2_ex2-fig2.jpg}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/lab/lab2_ex2-fig2.jpg}
 		\caption{\textsf{figure(2)} e \textsf{figure(3)}}
 	\end{figure}
+	\newpage
+	
+	\subsection{Cross Correlazione 1D}
+	
+	\subsubsection{Cross correlazione}
+	
+	Molto brevemente, la \textbf{correlazione} ha l'obbiettivo di \textbf{misurare se due segnali sono correlati}, cioè se si comportano nello stesso modo (per esempio se sono simili). Un \textcolor{Green4}{\textbf{esempio}} sono questi due segnali che hanno una correlazione molto alta poiché si comportano nello stesso modo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/lab/cross-correlazione.pdf}
+	\end{figure}
+	
+	\noindent
+	Al contrario, nel seguente caso la correlazione è bassa poiché i due segnali, nel tempo, si comportano in modo diverso. In particolare, il picco del segnale $f2$ è traslato verso destra.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/lab/cross-correlazione-2.pdf}
+	\end{figure}
+	
+	\noindent
+	Per \textbf{scoprire se uno dei due segnali}, soprattutto quando viene \textbf{traslato}, ha una \textbf{buona correlazione con l'altro}, viene utilizzata la \textbf{cross correlazione}. In parole povere, viene usata per capire se due segnali sono simili anche in periodi di tempo differenti. Quindi, la figura in alto, nonostante una correlazione bassa, ha una cross correlazione molto alta poiché i due segnali si comportano nello stesso modo in periodi di tempo differenti.\newpage
+	
+	\noindent
+	Si riportano qua di seguito alcune formule con i relativi paragrafi in cui è presente la spiegazione teorica:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l l @{}}
+			\toprule
+			Nome segnale & Formula \\
+			\midrule
+			Cross correlazione 1D (segnali continui)	& $ \displaystyle f_1 \otimes f_2 (t) = \int_{-\infty}^{+\infty} \tilde{f_1}(\tau) f_2(\tau - t)\: d\tau$ \\ [0.5em]
+			Cross correlazione 1D normalizzata			& $f_{1} \bar{\otimes} f_{2}\left(t\right) = \dfrac{\displaystyle \int_{-\infty}^{+\infty} \tilde{f_{1}}\left(\tau\right) f_{2}\left(\tau - t\right) \: \mathrm{d}\tau}{\displaystyle \sqrt{E_{f_{1}} E_{f_{2}}}}$ \\ [0.5em]
+			Cross correlazione 1D (segnali discreti)	& $x_{1} \otimes x_{2}\left(n\right) = \displaystyle\sum_{k = -\infty}^{+\infty} \tilde{x_{1}}\left(k\right) x_{2} \left(k - n\right)$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\longline
+	
+	\subsubsection{Applicazione della cross correlazione}
+	
+	Si supponga di voler calcolare in MATLAB la cross correlazione tra due segnali discreti $f1$ e $f2$, con rispettiva dimensione di $M=5$ e $N=3$.\newline
+	
+	\noindent
+	Quindi, la cross correlazione con un \textbf{\emph{lag} pari a zero} è una moltiplicazione punto a punto con somma:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/cross-correlazione-3.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	Invece, il calcolo si differenzia leggermente con la \textbf{presenza di un \emph{lag}} (\emph{offset}). Viene spostato il segnale $f2$ ed eseguita la moltiplicazione punto a punto con somma:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/cross-correlazione-4.pdf}
+	\end{figure}
+	
+	\noindent
+	Inoltre, nonostante la cross correlazione sia definita per tutti i possibili valori di lag, in molti casi la cross \textbf{correlazione è pari a zero}, ovvero dove non c'è sovrapposizione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/cross-correlazione-5.pdf}
+	\end{figure}\newpage
+	
+	\subsubsection{Cross correlazione nella pratica}
+	
+	MATLAB mette a disposizione il comando \textsf{xcorr} per eseguire la cross correlazione. In particolare, esso calcola il vettore di cross correlazione \textbf{solo} per i lag per cui c'è sovrapposizione. Quindi, per \textcolor{Green4}{\textbf{esempio}}, i vari calcoli che esegue con due segnali discreti di dimensione $M=5$ e $N=3$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/cross-correlazione-6.pdf}
+	\end{figure}
+	
+	\noindent
+	In totale il vettore risultato avrà 7 posizioni: $M + N - 1 = 5 + 3 - 1 = 7$.\newpage
+	
+	\subsubsection{Esercizio 1}
+	
+	Implementare a mano la cross correlazione 1D, partendo e completando lo script presente nel file \textsf{Lezione3\_EserciziPrincipali.m}.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice dell'esercizio è il seguente:
+	\lstinputlisting[language=MATLAB]{code/lab3_ex1.m}
+	
+	\begin{itemize}
+		\item (9-28) Si assume che i due segnali siano della stessa dimensione, in caso contrario viene eseguito lo \emph{zero-padding}, ovvero vengono aggiunti una serie di zeri.
+		
+		\item (31-33) Creazione della prima finestra di grafici con organizzazione dei titoli e delle misure.
+		
+		\item (35-38) Vengono preparati gli array \textsf{tf1} e \textsf{tf2}. Il primo è il segnale che rimane fermo, mentre il secondo è il segnale in movimento che piano piano (ad ogni ciclo) si sposta verso destra aggiungendo zeri a sinistra.
+		
+		\item (40-63) Il ciclo \textsf{for} continua ad andare finché non è stato ripetuto $2*N-1$ volte. Ad ogni iterazione, viene salvato nell'array \textsf{MYf1xf2} il risultato della cross correlazione e viene spostato il secondo segnale eliminando l'ultimo elemento e aggiungendo uno zero all'inizio. Infine vengono aggiornate le figure.
+	\end{itemize}\newpage
+	
+	\noindent
+	Il risultato è il seguente:
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/cross-correlazione-7.jpg}
+	\end{figure}\newpage
+	
+	\subsubsection{Esercizio 2}
+	
+	Cross-correlazione su segnali audio: riconoscimento del suono attraverso la cross-correlazione:
+	\begin{itemize}
+		\item Caricare i primi 20 secondi dei segnali audio \dquotes{\textsf{funky.mp3}}, \dquotes{\textsf{lost.mp3}}, \dquotes{\textsf{Diana.mp3}}, \dquotes{\textsf{never.mp3}}, \dquotes{\textsf{T69.mp3}};
+		
+		\item Caricare il segnale audio \dquotes{\textsf{Test.wav}};
+		
+		\item Confrontate l'esempio di test con le varie canzoni della galleria usando la cross correlazione: da quale canzone proviene?
+	\end{itemize}
+	Suggerimento: cercare il segnale che contiene la cross correlazione più grande (si parla dello script presente nel file \dquotes{\textsf{Lezione3\_EserciziPrincipali.m}}).\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice dell'esercizio è il seguente:
+	\lstinputlisting[language=MATLAB]{code/lab3_ex2.m}
+	
+	\begin{itemize}
+		\item (20-34) Viene rappresentato graficamente il primo risultato che non è altro che una serie di grafici rappresentanti le frequenze delle canzoni caricate
+		
+		\item (36-44) Dato che l'audio ha due canali stereo, viene eseguita la cross correlazione solo sul primo segnale. I dati vengono salvati all'interno dell'array \textsf{gallery}. Tramite il costrutto \textsf{$\left\{value\right\}$}, si indica che la cella in posizione $value$ deve contenere il valore assegnatole.
+		
+		\item (46-50) Viene eseguita la cross correlazione e in \textsf{xc} vengono salvati i calcoli effettuati, mentre in \textsf{lagc} viene salvato il lag di ogni cross correlazione effettuata. Infatti, le dimensioni dei vettori presenti in ogni cella di \textsf{xc} e \textsf{lagc} sono uguali.\newline
+		Inoltre, ogni volta viene eseguito il controllo della cross correlazione effettuata e viene acquisito il valore assoluto massimo.
+		
+		\item (52-56) Viene creato il grafico per rappresentare i segnali.
+		
+		\item (58-72) Viene preso il massimo assoluto tra tutti i massimi trovati nella cross correlazione, insieme al suo indice ovviamente; 
+		
+		Viene effettuato l'accesso alla lista dei valori di lag e preso il lag relativo al massimo assoluto;
+		
+		Viene visualizzato infine il segnale in un grafico.
+	\end{itemize}\newpage
+	
+	\noindent
+	Il risultato è il seguente:
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/cross-correlazione-8.jpg}
+		\caption{Dataset canzoni.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/cross-correlazione-9.jpg}
+		\caption{Risultati di matching.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/cross-correlazione-10.jpg}
+		\caption{Segnale originale.}
+	\end{figure}\newpage
+	
+	\subsection{Cross correlazione 2D}
+	
+	\subsubsection{Estensione della cross correlazione 1D}
+	
+	A differenza della cross correlazione 1D, la \textbf{cross correlazione 2D} presenta due valori di lag:
+	\begin{itemize}
+		\item Lag di \textbf{riga} (spostamento nelle righe)
+		
+		\item Lag di \textbf{colonna} (spostamento nelle colonne)
+	\end{itemize}
+	Date le due dimensioni, la cross correlazione riguarda quindi le matrici e non più singoli vettori. Tipicamente la \textbf{matrice con dimensione più piccola} viene chiamata \textbf{kernel}, mentre l'altra viene chiamata \textbf{immagine}. La sua formula è la seguente:
+	\begin{equation*}
+		x_{1} \otimes x_{2}\left(m, n\right) = \sum_{u = -\infty}^{+\infty} \sum_{v = -\infty}^{+\infty} x_{1}\left(u, v\right) x_{2}\left(u - m, v - n\right)
+	\end{equation*}
+	La cross correlazione 2D viene \textbf{calcolata} spostando la matrice kernel di un offset di riga \textsf{m} e di un offset di colonna \textsf{n}; viene effettuato zero padding; infine, viene eseguita la moltiplicazione punto a punto con somma. In questo modo, viene rappresentato il valore di cross-correlazione 2D per il valore \textsf{(m,n)}.
+	
+	\longline
+	
+	\subsubsection{Applicazione della cross correlazione 2D}
+	
+	I passaggi da eseguire sono i seguenti. Si sposta la matrice kernel, si esegue lo zero padding e infine si esegue la moltiplicazione punto a punto con somma. Così si ottiene la cross correlazione per un determinato lag:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/lab/cross-correlazione2D-1.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	La matrice di correlazione risultante ha dimensione:
+	\begin{equation*}
+		\left(R1 + R2 - 1\right) \times \left(C1 + C2 - 1\right)
+	\end{equation*}
+	In cui $R1,C1$ sono le \textbf{dimensioni della matrice immagine} e $R2,C2$ sono le \textbf{dimensioni del kernel}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/cross-correlazione2D-2.pdf}
+	\end{figure}\newpage
+	
+	\subsubsection{Ottimizzazione della cross correlazione 2D}
+	
+	Esiste una versione ottimizzata della cross correlazione 2D. Innanzitutto viene effettuato lo zero padding della matrice \textbf{immagine}. Quindi, vengono aggiunte $R2-1$ colonne di eri a destra e a sinistra; vengono aggiunte $C2-1$ righe di zeri sopra e sotto:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/lab/cross-correlazione2D-3.pdf}
+	\end{figure}
+	
+	\noindent
+	Per ogni valore di lag, viene posizionata la matrice di kernel in quella determinata posizione; viene estratta la corrispondente parte della matrice immagine tramite lo zero padding; infine, viene applicata la moltiplicazione punto a punto con somma:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/lab/cross-correlazione2D-4.pdf}
+	\end{figure}
+	
+	\noindent
+	Ripetendo questa operazione per tutti i possibili lag, viene ottenuta la matrice di cross correlazione.\newpage
+	
+	\subsubsection{Esercizio 1}
+	
+	Usare la cross correlazione 2D per trovare la posizione del \emph{template} nell'immagine. In particolare, si richiede di calcolare di quanto (righe-colonne) il \emph{template} è stato traslato rispetto all'angolo in alto a sinistra dell'immagine. \newline
+	
+	\noindent
+	Suggerimento: calcolare la cross correlazione (\textsf{xcorr2}) tra l'immagine e il template (kernel); estrarre le coordinate del massimo; recuperare la posizione del kernel. Controllare anche l'help della funzione \textsf{xcorr2}.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice dell'esercizio è il seguente:
+	\lstinputlisting[language=MATLAB]{code/lab4_ex1.m}
+	\begin{itemize}
+		\item (18-36) Vengono create due immagini, la prima (template) che rappresenta una croce bianca centrata su sfondo nero e la seconda (immagine) che rappresenta una croce bianca in alto a destra su sfondo nero.
+		
+		\item (39-40) La cross correlazione 2D è molto semplice. Il comando \textsf{xcorr2} restituisce una matrice con i valori della cross correlazione appena effettuata. Successivamente, il tutto viene rappresentato in una figura.
+		
+		\item (43-57) Viene ottenuto il valore massimo all'interno della matrice della cross correlazione e successivamente vengono ottenute le relative coordinate.
+		
+		Viene calcolata la dimensione (righe $\times$ colonne) della figura template, ovvero della croce bianca centrata. Queste dimensioni sono fondamentali per calcolare l'offset calcolato con la cross correlazione 2D. In particolare, calcolando $r-R2+1$, cioè riga del valore massimo della cross correlazione meno il numero di righe della figura template più uno, viene ottenuto l'offset applicato durante la cross correlazione 2D sulle righe. Lo stesso ragionamento vale per le colonne.
+	\end{itemize}
+	\noindent
+	Il risultato:\newline
+	
+	\noindent
+	\begin{minipage}{.5\textwidth}
+		\begin{center}
+			\includegraphics[width=.8\textwidth]{img/lab/cross-correlazione2D-5.jpg}
+		\end{center}
+	\end{minipage}
+	\begin{minipage}{.5\textwidth}
+		\begin{center}
+			\includegraphics[width=.85\textwidth]{img/lab/cross-correlazione2D-6.jpg}
+		\end{center}
+	\end{minipage}\newpage
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/lab/cross-correlazione2D-7.jpg}
+		\caption{Figura della cross correlazione 2D con colori scalati.}
+	\end{figure}\newpage
+	
+	\subsubsection{Esercizio 2}
+	
+	Calcolare manualmente al cross correlazione 2D tra le matrici $X1$ e $X2$ definite nel file \dquotes{\textsf{Lezione4\_EserciziPrincipali.m}}. Confrontare con il risultato del comando matlab \textsf{xcorr2(X1, X2)}. Usare la \underline{versione ottimizzata} descritta nelle diapositive precedenti.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\underline{\emph{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice dell'esercizio è il seguente:
+	\lstinputlisting[language=MATLAB]{code/lab4_ex2.m}
+	\begin{itemize}
+		\item (15-28) Creazione delle due matrici (segnali) e ottenimento delle rispettive dimensioni.
+		
+		\item (30-42) La versione ottimizzata prevede l'implementazione dello zero padding come passo iniziale. Quindi, vengono aggiunte le colonne semplicemente creando una nuova matrice affiancando degli zeri; vengono aggiunte le righe nello stesso modo ma inserendo dei punti e virgola così da andare a capo.
+		
+		\item (45-61) Viene inizializzata la matrice di cross correlazione con numero di righe pari alla somma delle righe dei due segnali meno uno e analogamente per le colonne lo stesso calcolo.
+		
+		La cross correlazione 2D viene implementata con un doppio ciclo for, il primo utile per scorrere le righe, il secondo utile per scorrere le colonne. Ad ogni iterazione del ciclo, viene estratta un pezzo di matrice dalla matrice nella quale è stata fatta lo zero padding. La dimensione da estrarre è calcolata:
+		\begin{itemize}
+			\item Righe: dalla riga attuale in cui è il ciclo, fino alla riga attuale in cui è il ciclo più il numero di righe della matrice kernel meno uno;
+			
+			\item Colonne: dalla colonna attuale in cui è il ciclo, fino alla colonna attuale in cui è il ciclo più il numero di colonne della matrice kernel meno uno.
+		\end{itemize}
+		
+		Una volta estratti i valori, viene eseguita la moltiplicazione punto a punto tra i valori estratti e la matrice kernel.
+		
+		La cross correlazione 2D si conclude sommando tra di loro tutti i valori trovati durante la moltiplicazione. Così facendo si trova un valore che viene inserito all'interno della matrice della cross correlazione 2D.
+		
+		\item (63-67) Il codice si conclude eseguendo la cross correlazione 2D con il comando di MATLAB. Nel caso in cui il risultato tra le due matrici (matrice calcolata con la cross correlazione manuale e matrice calcolata con la cross correlazione automatica) sia uguale a zero, allora il metodo ha funzionato.
+	\end{itemize}\newpage
+	
+	\subsection{Trasformata di Fourier Discreta 1D}
+	
+	\subsubsection{Spiegazione teorica sulla TdF discreta nei calcolatori}
+	
+	Con la trasformata di Fourier è possibile descrivere un segnale sia nel dominio del tempo che nel dominio delle frequenze. Ricordando che un segnale nel dominio del tempo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/dominio_del_tempo.png}
+	\end{figure}
+	
+	\noindent
+	Mentre nel dominio delle frequenze:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/dominio_delle_frequenze.png}
+	\end{figure}
+	
+	\noindent
+	Per convertire un segnale dal dominio del tempo al dominio delle frequenze, è necessario utilizzare prima il campionamento e successivamente la trasformata di Fourier discreta. Il campionamento di un segnale originale viene eseguito prendendo un punto $\Delta T$ ogni $fs$, cioè ogni frequenza di campionamento $\frac{1}{\Delta T}$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/campionamento.png}
+	\end{figure}\newpage
+	
+	\noindent
+	Successivamente, viene eseguita la trasformata di Fourier discreta, ovvero viene replicato lo spettro di frequenza ogni $fs$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/TdF.png}
+	\end{figure}
+	
+	\noindent
+	In MATLAB, vi sono due comandi principali per ottenere un pezzo della Trasformata di Fourier (un pezzo perché in teoria la Trasformata continua all'infinito!):
+	\begin{itemize}
+		\item \textsf{fft} ritorna il pezzo indicato in figura. Se il segnale originale ha $N$ punti, allora si hanno $N$ bin in frequenza, ovvero da $0$ a $fs$ con salti di $\frac{fs}{N}$:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/lab/TdF-1.png}
+		\end{figure}
+		
+		\item \textsf{fftshift} è possibile ottenere $N$ bins in un intervallo da $-\frac{fs}{2}$ a $+\frac{fs}{2}$ con salti di $\frac{fs}{N}$:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/lab/TdF-2.png}
+		\end{figure}
+	\end{itemize}
+	
+	\longline
+	
+	\subsubsection{Aliasing}
+	
+	Il fenomeno di \textbf{aliasing} si manifesta quando non viene soddisfatto il teorema del campionamento, ovvero quando la frequenza di campionamento \underline{non} è maggiore alla frequenza massima del segnale per due. Il fenomeno dell'aliasing non consente di ricostruire il segnale.
+	
+	\subsubsection{Esempi di TdF discreta 1D}
+	
+	Nel seguente esempio viene definita una sinusoide a 20 Hz, viene campionato un segnale a 100 Hz e infine, viene osservato lo spettro di magnitudo con picco a 20 Hz:
+	\lstinputlisting[language=MATLAB]{code/lab5_esempio.m}
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/TdF-3.png}
+		\caption{Operazioni eseguite sul segnale \textsf{sin(2*pi*mu*t)} (riga 22), ovvero $\sin\left(2 \pi \mu t\right)$.}
+	\end{figure}\newpage
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/TdF-4.png}
+		\caption{Operazioni eseguite sul segnale \textsf{cos(2*pi*10*t) - sin(2*pi*40*t)} (riga 96), ovvero $\cos\left(2 \pi 10 t\right)- \sin\left(2 \pi 40 t\right)$.}
+	\end{figure}\newpage
+	
+	\subsubsection{Esercizio 1}
+	
+	Analizzare tramite la Trasformata di Fourier Discreta un segnale BOX:
+	\begin{itemize}
+		\item Creare un'onda rettangolare di 1 secondo con una frequenza di campionamento di $500$ Hz e una lunghezza di 0.2 secondi (funzione \textsf{rectpuls}).
+		
+		\item Calcolare la TdF discreta e visualizzarne lo spettro di ampiezza e di fase (con riordinamento).
+		
+		\item Controllare che il risultato ottenuto per lo spettro di ampiezza corrisponda a quanto spiegato in teoria.
+	\end{itemize}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/lab5-1.png}
+	\end{figure}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice della soluzione è il seguente:
+	\lstinputlisting[language=MATLAB]{code/lab5_ex1.m}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/lab5-2.png}
+		\caption{Rappresentazione del segnale box.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/lab5-3.png}
+		\caption{Spettro di magnitudo di una box.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/lab5-4.png}
+		\caption{Spettro di fase di una box.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/lab5-5.png}
+		\caption{Stessa analisi eseguita sulla box, ma in questo caso su un segnale audio.}
+	\end{figure}\newpage
+	
+	\subsubsection{Esercizio 2}
+	
+	Verificare il fenomeno dell'aliasing. In particolare:
+	\begin{itemize}
+		\item Partire dal segnale sinusoidale \textsf{sin(2*pi*fsig*t)}, dove \textsf{fsig = 10} è la frequenza del segnale.
+		
+		\item Campionare un secondo di segnale ad una determinata frequenza ed effettuare l'analisi di Fourier (provare con le seguenti frequenze: [200, 100, 40, 20, 15, 14, 10]).
+		
+		\item Per quali di queste avviene il fenomeno dell'aliasing (cioè non riesco a ricostruire lo spettro)? È corretto rispetto alla teoria?
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice della soluzione è il seguente:
+	\lstinputlisting[language=MATLAB]{code/lab5_ex2.m}\newpage
+	
+	\subsection{Operatori puntuali}
+	
+	\subsubsection{Operazioni puntuali di rinforzo}
+	
+	\subsubsection{Negativo}
+	
+	\subsubsection{Clamping}
+	
+	\subsubsection{Stretching/Shrinking}
+	
+	\subsubsection{Trasformazione non lineare}
+	
+	\subsubsection{Binarizzazione}
+	
+	\subsubsection{Esercizio 1}
+	
+	\subsubsection{Esercizio 2}
+	
+	\subsection{Operatori locali}
+	
+	\subsubsection{Filtraggio spaziale}
+	
+	\subsubsection{Tipologie di filtro}
+	
+	\subsubsection{Filtro media}
+	
+	\subsubsection{Filtro gaussiano}
+	
+	\subsubsection{Filtro mediano}
+	
+	\subsubsection{Filtro laplaciano}
+	
+	\subsubsection{Signal to noise ratio}
+	
+	\subsubsection{Esempi}
+	
+	\subsubsection{Esercizio 1}
+	
+	\subsubsection{Esercizio 2}
+	
+	\subsubsection{Esercizio 3}
+	
+	\subsection{TdF 2D e trasformata di Hough per rette}
+	
+	\subsubsection{Trasformata di Fourier 2D}
+	
+	\subsubsection{Applicazione della TdF 2D in MATLAB}
+	
+	\subsubsection{La trasformata di Hough per rette}
+	
+	\subsubsection{Dettagli sulla trasformata di Hough e algoritmo}
+	
+	\subsubsection{Esercizio 1}
+	
+	\subsubsection{Esercizio 2}
 \end{document}
