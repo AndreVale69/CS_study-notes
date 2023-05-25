@@ -1682,7 +1682,7 @@
 	In altre parole, è un gruppo di host in rete che forniscono servizi di calcolo e memorizzazione senza essere indirizzati o gestiti individualmente dagli utenti. Per \textcolor{Green4}{\textbf{esempio}}, i servizi più famosi sono: Amazon Web Service, Google Cloud, Microsoft Azure, Dropbox.\newline
 	
 	\noindent
-	I \textbf{\emph{provider} di servizi cloud} (CSP) gestisce l'intero insieme di hardware e software. Esso mette a disposizione tali risorse a pagamento a seconda del traffico/consumo generato oppure con una modalità forfettaria.\newline
+	I \textbf{\emph{provider} di servizi cloud} (CSP) gestisce l'intero insieme di hardware e software. Esso mette a disposizione tali risorse a pagamento, con un costo che si differenzia a seconda della modalità scelta: può variare seconda del traffico/consumo generato oppure può variare con una modalità forfettaria.\newline
 	
 	\noindent
 	Le tecnologie messe a disposizione forniscono dei servizi abbastanza importanti, tra cui:
@@ -1696,39 +1696,59 @@
 	
 	\subsubsection{Servizi offerti}
 	
-	I modelli di servizi cloud offerti sono molteplici, qua di seguito ne vengono presentati alcuni (i più famosi) e ne verrà approfondito solamente uno:
+	I modelli di servizi cloud offerti sono molteplici, qua di seguito ne vengono presentati alcuni (i più famosi):
 	\begin{itemize}
 		\item \textcolor{Red3}{\textbf{\emph{On-site}}} oppure \textcolor{Red3}{\textbf{\emph{on-premise}}}, non è un vero e proprio servizio offerto da un CSP, ma si tratta di una \textbf{gestione personale}. In questo caso, l'\textbf{hardware è personale} e si trova in un posto di proprietà (per esempio a casa propria). La gestione è personale, quindi deve essere gestito qualsiasi aspetto:
 		\begin{itemize}
-			\item \textbf{Pro}: grande personalizzazione e libertà di scelta.
-			\item \textbf{Contro}: Non è disponibile la potenza di calcolo delle grandi aziende e la gestione non è semplice.
+			\item \textcolor{Green4}{\textbf{Pro:}} grande personalizzazione e libertà di scelta.
+			\item \textcolor{Red4}{\textbf{Contro:}} non è disponibile la potenza di calcolo delle grandi aziende e la gestione non è semplice.
 		\end{itemize}
 		
-		\item \textcolor{Red3}{\textbf{\emph{Infrastructure-as-a-Service} (IaaS)}}, viene concesso l'accesso alle risorse informatiche più fondamentali. Il servizio prevede l'\textbf{affitto di una macchina virtuale completamente vuota}, ovvero \textbf{senza sistema operativo o programmi addizionali}. La macchina risulta pulita e pronta per ospitare un sistema operativo a scelta dell'utente e le eventuali applicazioni. Gli aspetti più importanti:
+		\item \textcolor{Red3}{\textbf{\emph{Infrastructure-as-a-Service} (IaaS)}}, viene concesso l'accesso alle risorse informatiche più fondamentali. Il servizio prevede l'\textbf{affitto di una macchina virtuale completamente vuota}, ovvero \textbf{senza sistema operativo o programmi addizionali}. La macchina risulta libera e pronta per ospitare un sistema operativo a scelta dell'utente ed eventuali applicazioni. Gli aspetti più importanti:
 		\begin{itemize}
-			\item \textbf{Pro}: libertà di installare qualsiasi sistema operativo e applicazione.
+			\item \textcolor{Green4}{\textbf{Pro:}} libertà di installare qualsiasi sistema operativo ed applicazione.
 			
-			\item \textbf{Contro}: richieste abilità a basse livello avanzate per gestire le risorse nel cloud.
+			\item \textcolor{Red4}{\textbf{Contro:}} richieste abilità avanzate per gestire l'infrastruttura cloud a basso livello.
 		\end{itemize}
 		
-		\item \textcolor{Red3}{\textbf{\emph{Platform-as-a-Service} (PaaS)}}, tra i servizi \textbf{più usati dagli sviluppatori software}, viene utilizzato principalmente per eseguire, sviluppare e gestire applicazioni senza il costo, la complessità e l'inflessibilità del mantenimento di una piattaforma. Quindi, viene concesso l'\textbf{affitto di un ambiente in cui è già presente un sistema operativo ed è possibile installare le proprie applicazioni}. Al giorno d'oggi, il servizio PaaS è implementato tramite una serie di virtualizzazioni sui server dei \emph{provider cloud services}, Quindi Docker, Kubernetes, ecc. Gli aspetti più importanti:
+		\item \textcolor{Red3}{\textbf{\emph{Platform-as-a-Service} (PaaS)}}, tra i servizi \textbf{più usati dagli sviluppatori software}, esso viene utilizzato principalmente per eseguire, sviluppare e gestire applicazioni senza il costo, la complessità e l'inflessibilità del mantenimento di una piattaforma. Quindi, viene concesso l'\textbf{affitto di un ambiente in cui è già presente un sistema operativo ed è possibile installare le proprie applicazioni}. Al giorno d'oggi, il servizio PaaS è implementato tramite una serie di virtualizzazioni sui server dei \emph{provider cloud services}, quindi vengono utilizzate tecnologie come Docker, Kubernetes, ecc. Gli aspetti più importanti:
 		\begin{itemize}
-			\item \textbf{Pro}: sistema \emph{ready-to-go}, adatto per gli sviluppatori che cercano una soluzione rapida per le loro applicazioni.
+			\item \textcolor{Green4}{\textbf{Pro:}} sistema \emph{ready-to-go}, adatto per gli sviluppatori che cercano una soluzione rapida per le loro applicazioni.
 			
-			\item \textbf{Contro}: impossibilità di operare a basso livello e necessità di adattarsi a sistemi già installati.
+			\item \textcolor{Red4}{\textbf{Contro:}} impossibilità di operare a basso livello e necessità di adattarsi a sistemi già installati.
 		\end{itemize}
 		
 		\item \textcolor{Red3}{\textbf{\emph{Software-as-a-Service} (SaaS)}}, è il servizio più ad alto livello ed è accessibile tramite un banale web browser. Viene \textbf{concesso un intero client desktop con tutti i servizi già a disposizione}. Quindi è possibile già trovare al loro interno: Web Server, Database Server, Broker per pub/sub. Gli aspetti più importanti:
 		\begin{itemize}
-			\item \textbf{Pro}: sistema con tutto il necessario per fare qualsiasi cosa. Risulta, ad oggi, uno dei servizi più utilizzati dalle aziende che vendono software commerciali.
+			\item \textcolor{Green4}{\textbf{Pro:}} sistema con tutto il necessario per fare qualsiasi cosa. Risulta, ad oggi, uno dei servizi più utilizzati dalle aziende che vendono software commerciali.
 			
-			\item \textbf{Contro}: la macchina non ha un grado di personalizzazione paragonabile agli altri servizi (\emph{simile} analogia ai sistemi operativi Windows e Linux).
+			\item \textcolor{Red4}{\textbf{Contro:}} la macchina non ha un grado di personalizzazione paragonabile agli altri servizi.
 		\end{itemize}
 	\end{itemize}\newpage
 	
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c c c c @{}}
+			\toprule
+			& On-site	& IaaS	& PaaS	& SaaS \\
+			\midrule
+			Applications	& \textcolor{Green4}{\ding{51}} & \textcolor{Green4}{\ding{51}} & \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			Data			& \textcolor{Green4}{\ding{51}} & \textcolor{Green4}{\ding{51}} & \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			Runtime			& \textcolor{Green4}{\ding{51}} & \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			Middleware		& \textcolor{Green4}{\ding{51}} & \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			O/S				& \textcolor{Green4}{\ding{51}} & \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			Virtualization	& \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			Servers			& \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			Storage			& \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			Networking		& \textcolor{Green4}{\ding{51}} & \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} 	& \textcolor{Red3}{\ding{55}} \\ [0.5em]
+			\bottomrule
+		\end{tabular}
+		\caption{Con \textcolor{Green4}{\ding{51}} si evidenzia cosa può gestire l'utente con quel servizio e con \textcolor{Red3}{\ding{55}} cosa viene gestito dal \emph{cloud service provider}.}
+	\end{table}\newpage
+	
 	\subsubsection{Approfondimento: Function-as-a-Service (FaaS)}
 	
-	\textcolor{Red3}{\textbf{\emph{Function-as-a-Service} (FaaS)}} è un \textbf{servizio di \emph{cloud computing}} che consente ai clienti di \textbf{eseguire del codice in risposta al manifestarsi di determinati eventi}, senza la gestione completa dell'infrastruttura, caratteristica tipica dei sistemi che devono gestire le applicazioni di microservizi.\newline
+	\textcolor{Red3}{\textbf{\emph{Function-as-a-Service} (FaaS)}} è un \textbf{servizio di \emph{cloud computing}} che consente ai clienti di \textbf{eseguire del codice in risposta al manifestarsi di determinati eventi}. Il grande vantaggio è l'assenza della gestione completa dell'infrastruttura, caratteristica, al contrario, tipica dei sistemi che devono gestire le applicazioni di microservizi.\newline
 	
 	\noindent
 	Come accade anche negli altri servizi, l'hardware fisico, il sistema operativo e il web server, sono \textbf{gestiti completamente e \underline{automaticamente} dal \emph{cloud service provider}}. Questa caratteristica, consente agli sviluppatori di concentrarsi sul codice delle proprie applicazioni e non sulla gestione dell'infrastruttura che la circonda.\newline
@@ -2955,5 +2975,204 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 	\noindent
 	Con questo strumento, i programmatori possono scrivere un file .YAML, il quale descrive tutti i servizi dell'applicazione. Così facendo, con l'\textbf{esecuzione di un semplice comando, sarà possibile mandare in esecuzione tutti i \emph{container}} che forniscono i servizi necessari all'applicazione. 
 	
-	Per \textcolor{Green4}{\textbf{esempio}}, viene utilizzato Docker compose per i progetti che richiedono due servizi: \emph{front-end} e \emph{database}.
+	Per \textcolor{Green4}{\textbf{esempio}}, viene utilizzato Docker compose per i progetti che richiedono due servizi: \emph{front-end} e \emph{database}.\newpage
+	
+	\section{Il paradigma Publish/Subscribe}
+	
+	\subsection{Modello Pub/Sub}
+	
+	\emph{\textbf{Fonte}} dalla quale è possibile approfondire: \href{https://ably.com/topic/pub-sub}{Ably, topic pub/sub}.\newline
+	
+	\noindent
+	Il modello \textcolor{Red3}{\textbf{Pub/Sub (Publish/Subscribe)}} è un'\textbf{architettura} che fa parte dei \emph{design pattern}, i quali vengono \textbf{utilizzati nei sistemi distribuiti per comunicazioni asincrone tra molteplici componenti o servizi}. Nonostante il modello Pub/Sub sia basato su dei desing pattern molto giovani, quali le code di messaggi (\emph{message queuing}) e gli \emph{event brokers}, risulta ancora oggi \textbf{molto flessibile} e \textbf{scalabile}. Questo perché l'architettura \textbf{consente lo scambio di messaggi tra componenti diversi di un sistema, senza che essi siano a conoscenza dell'identità degli altri componenti}. In altre parole, si può dire che sono disaccoppiati.\newline
+	
+	\noindent
+	La \textbf{nascita} di questo modello risale alla necessità di \textbf{espandere la scalabilità dei sistemi informativi}. Prima di Internet, i sistemi erano largamente scalabili staticamente. Tuttavia, con l'espansione di Internet, delle \emph{web-application}, dei dispositivi mobili e soprattutto dei dispositivi IoT (\emph{Internet of Things}), i sistemi hanno necessità di avere una scalabilità dinamica.\newline
+	
+	\noindent
+	Il \textcolor{Green4}{\textbf{vantaggio principale}} di avere un'architettura \dquotes{disaccoppiata}, ovvero di un sistema in cui i componenti non siano a conoscenza dell'identità degli altri, risulta essere un'\textbf{ottima soluzione per tutti quei sistemi dinamicamente scalabili}. Se ne deduce che al giorno d'oggi, con l'avvento del IoT, questo modello si sta diffondendo.\newline
+	
+	\noindent
+	Inoltre, il modello consente di \textbf{gestire la scalabilità senza sovraccaricare} (o in gergo \emph{overloading}) la logica dei programmi dei \textbf{componenti} di un sistema.\newline
+	
+	\noindent
+	Nel dettaglio, l'architettura Pub/Sub fornisce una struttura (\emph{framework}) di \textbf{scambio di messaggi} tra i \textbf{\emph{publishers}} (componenti utilizzati per \underline{creare} e \underline{inviare} messaggi) e \textbf{\emph{subscribers}} (componenti che \underline{ricevono} e \underline{leggono} messaggi).\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\underline{Attenzione:}}} i mittenti (\emph{\textbf{publishers}}) non \textbf{inviano} messaggi ad uno \textbf{specifico destinatario} (\emph{subscribers}) in modalità \emph{end-to-end}. Al contrario, viene \textbf{utilizzato un intermediario}, chiamato \textbf{\emph{message broker}}, il quale \textbf{raggruppa i messaggi} in entità chiamate canali (\emph{channels}) o argomenti (\emph{topics}).\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/pub-sub/pub-sub-architecture-overview.jpg}
+		\caption{Architettura del modello Pub/Sub.}
+	\end{figure}\newpage
+	
+	\subsection{Confronto: Client/Server e Pub/Sub}
+	
+	Le differenze tra il modello Client/Server e Pub/Sub sono molto nette. Nel modello \textbf{client/server}, l'\textbf{host} su cui vengono ospitati i programmi per usarlo come \textbf{server}, ha \textbf{requisiti particolari}:
+	\begin{itemize}
+		\item Deve rimanere \textbf{sempre acceso} per garantire l'accesso a tutti gli utenti.
+		
+		\item Deve essere \textbf{sempre raggiungibile tramite Internet}, quindi deve avere un \textbf{indirizzo IP} pubblico senza misure di sicurezza (NAT e Firewall) troppo restrittive.
+		
+		\item Deve essere \textbf{disponibile} a ricevere una grande mole di \textbf{richieste} da parte di client.
+	\end{itemize}
+	Al contrario, l'architettura Pub/Sub ha un \textbf{intermediario} (\emph{broker}) che si \textbf{assume tutte le responsabilità di un server} (in un modello client/server). Inoltre, cercando di fare una analogia, i publisher e i subscribers possono essere visti come dei client.\newline
+	
+	\noindent
+	Dato che il modello Pub/Sub è un \emph{design pattern}, è \textbf{sempre possibile trasformare un'applicazione client/server in un modello Pub/Sub}. Questo consente di ricevere una \textbf{serie di vantaggi}: i server originari diventano più leggeri e la complessità di calcolo viene delegata all'host intermediario (\emph{broker}).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/pub-sub/convert_client-server_pub-sub-2.pdf}
+		\caption{Modello Client/Server.}
+	\end{figure}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/pub-sub/convert_client-server_pub-sub-1.pdf}
+		\caption{Conversione del modello precedente in un'architettura Pub/Sub.}
+	\end{figure}\newpage
+	
+	\subsection{Aspetti positivi dell'architettura Pub/Sub}
+	
+	Gli aspetti positivi di un'architettura Pub/Sub sono molteplici. I più importanti sono due:
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{Scalabilità.}} I sistemi Pub/Sub sono molto scalabili e la rottura delle funzionalità non è una preoccupazione poiché la logica di comunicazione e la logica di \dquotes{business} sono due entità ben separate. Gli \textbf{sviluppatori possono ridisegnare l'intera struttura degli argomenti (\emph{topics}) senza la preoccupazione di rompere la logica di comunicazione}.
+		
+		\item \textcolor{Green4}{\textbf{Architettura molti-a-molti.}} I sistemi pub/sub possono avere una grande mole di dati da parte dei publisher e dei subscriber senza creare criticità al sistema.
+	\end{itemize}
+	
+	\longline
+	
+	\subsection{Protocollo MQTT}
+	
+	Il \textcolor{Red3}{\textbf{protocollo MQTT}} è un protocollo gestito da OASIS \emph{standards organization} e riconosciuta internazionalmente da ISO. Risulta essere il \textbf{primo protocollo utilizzato dai dispositivi e dalle applicazioni per comunicare} con i servizi presenti sulle piattaforme (\emph{Platform Service}).\newline
+	
+	\noindent
+	Il protocollo MQTT fornisce \textbf{tre livelli di qualità} del servizio riguardanti la consegna dei messaggi tra \emph{clients} e \emph{servers}:
+	\begin{itemize}
+		\item \textbf{QoS0 - QoS Livello 0 \emph{at most once} (al più una volta)}
+		
+		\item \textbf{QoS1 - QoS Livello 1 \emph{at least once} (almeno una volta)}
+		
+		\item \textbf{QoS2 - QoS Livello 2 \emph{exactly once} (esattamente una volta)}
+	\end{itemize}
+	Attenzione, un \textbf{livello maggiore non significa un aumento di qualità}. Ogni livello ha le sue caratteristiche che devono essere considerate caso per caso.\newline
+	
+	\noindent
+	Approfondimento in caso di incomprensioni: \href{https://www.ibm.com/docs/en/mapms/1_cloud?topic=reference-mqtt-messaging}{IBM}.\newpage
+	
+	\subsubsection{QoS Livello 0 (al più una volta)}
+	
+	La qualità QoS livello 0, \emph{at most once}, è il \textbf{servizio più rapido} per quanto riguarda il \textbf{trasferimento di dati}. Spesso viene chiamato \dquotes{\emph{fire and forget}}. Il \textbf{messaggio viene consegnato almeno una volta}, in \textbf{caso contrario la consegna non viene effettuata per niente}. Inoltre, il messaggio non viene salvato e questo provoca una possibile perdita nel caso in cui il client si disconnette o il server fallisce qualche operazione.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/pub-sub/QoS0.jpg}
+		\caption{Esempio di QoS0.}
+	\end{figure}\newpage
+	
+	\subsubsection{QoS Livello 1 (almeno una volta)}
+	
+	Con la qualità QoS livello 1, \emph{at least once}, il \textbf{messaggio viene consegnato almeno una volta}. Nel caso in cui si manifesti un errori e il mittente non riceva l'ACK dal destinatario, un \textbf{messaggio può essere consegnato più volte}. A \textbf{differenza} di QoS0, il \textbf{messaggio può essere salvato localmente dal mittente} finché il destinatario non riceve la notifica di avvenuta pubblicazione (da parte del mittente). In altre parole, finché il mittente non è certo che il destinatario sappia che c'è un suo messaggio nel \emph{broker}, esso tiene in memoria il messaggio. Il messaggio viene salvato localmente dal mittente anche nel caso in cui il messaggio debba essere inviato più volte.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/pub-sub/QoS1.jpg}
+		\caption{Esempio di QoS1.}
+	\end{figure}\newpage
+	
+	\subsubsection{QoS Livello 2 (esattamente una volta)}
+	
+	Con la qualità QoS livello 2, \emph{exactly once}, si ha il \textbf{livello di sicurezza più alto} a discapito della \textbf{modalità di trasferimento} che è la \textbf{più lenta}. Il messaggio viene sempre consegnato \underline{soltanto} una volta e viene anche salvato localmente dal mittente finché il destinatario non ha ricevuto la notifica di avvenuta pubblicazione (come per QoS1!).\newline
+	
+	\noindent
+	Per \textbf{evitare duplicazioni}, viene implementato un \emph{handshaking} e una sequenza di ACK più sofisticato.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/pub-sub/QoS2.jpg}
+		\caption{Esempio di QoS2.}
+	\end{figure}\newpage
+	
+	\section{Integrità, Autenticazione e Autorizzazione}
+	
+	\subsection{Integrità}
+	
+	\subsubsection{Firma digitale}
+	
+	Una \textbf{firma digitale} è l'equivalente informatico di una firma convenzionale, infatti non è ripudiabile. Viene sfruttata la \textbf{tecnologia RSA} in modo inverso a quanto viene fatto per cifrare, quindi l'\textbf{algoritmo di cifratura} diventa un algoritmo \textbf{di verifica} e l'\textbf{algoritmo di  decifratura} diventa l'algoritmo \textbf{di firma}.\newpage
+	
+	\subsubsection{Firma di un documento}
+	
+	\noindent
+	Dal punto di vista computazionale, la \textbf{firma dell'intero documento} corrisponde a cifrare l'intero documento con una chiave privata, e dunque diventa un'\textbf{operazione molto onerosa}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/int-aut_e_autor/firma_documento-oneroso.pdf}
+	\end{figure}
+	
+	\noindent
+	Invece, esiste un approccio più efficiente che consiste nella combinazione di funzioni hash e l'applicazione della tecnologia RSA:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/int-aut_e_autor/firma_documento-ottimizzato.pdf}
+	\end{figure}\newpage
+	
+	\subsubsection{Controllo dell'integrità del messaggio firmato}
+	
+	Il \textbf{controllo dell'integrità del messaggio firmato} avviene sempre utilizzando l'algoritmo di cifratura ma in questo caso il messaggio viene verificato usando la chiave pubblica del mittente (Bob). Ovviamente la chiave privata è privata e non è nota ad Alice:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/int-aut_e_autor/controllo-integrita.pdf}
+	\end{figure}
+	
+	\subsubsection{Funzioni hash}
+	
+	\subsubsection{Problemi delle firme digitali}
+	
+	\subsubsection{Autorità di certificazione}
+	
+	\subsection{Autenticazione}
+	
+	\subsubsection{Definizione}
+	
+	\subsubsection{Tipologie di autenticazione}
+	
+	\subsubsection{Fattori di autenticazione}
+	
+	\subsubsection{Autenticazione a fattori multipli}
+	
+	\subsubsection{Username e Password}
+	
+	\subsubsection{Attacchi alle password}
+	
+	\subsubsection{One-time password}
+	
+	\subsubsection{Autenticazione sul possesso}
+	
+	\subsubsection{Autenticazioni fisiche e comportamentali}
+	
+	\subsubsection{Autenticazione remota diretta e indiretta}
+	
+	\subsubsection{Autenticazione \dquotes{off-line}}
+	
+	\subsubsection{I 10 compiti di una CA}
+	
+	\subsubsection{Ottenere un certificato digitale}
+	
+	\subsubsection{Public Key Infrastructure (PKI)}
+	
+	\subsubsection{Certificati}
+	
+	\subsubsection{Problemi comuni a tutti gli schemi}
+	
+	\subsection{Autorizzazione}
+	
+	\subsubsection{Controllo degli accessi}
+	
+	\subsubsection{Access Control List (ACL)}
+	
+	\subsubsection{Capabilities}
+	
+	\subsubsection{Politiche di controllo dell'accesso: DAC e MAC}
+	
+	\subsubsection{Gruppi e ruoli}
 \end{document}
