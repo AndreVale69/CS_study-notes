@@ -3534,5 +3534,105 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 		
 		\item \textbf{No write down:} \textbf{non} è possibile \textbf{scrivere informazioni} classificate a \textbf{livelli più bassi} del proprio.
 	\end{itemize}
-	Ovviamente il modello MAC risulta \textbf{meno flessibile ma più robusto del modello DAC}.
+	Ovviamente il modello MAC risulta \textbf{meno flessibile ma più robusto del modello DAC}.\newpage
+	
+	\section{WePlant}
+	
+	\subsection{Configurazione Linux}
+	
+	La configurazione di WePlant prevede due \textbf{requisiti} fondamentali: \textsf{docker} e \textsf{docker-compose}.\newline
+	
+	\noindent
+	La configurazione segue i seguenti passi (\underline{ignorare eventuali warnings}):
+	\begin{enumerate}
+		\item Aprire un terminale, posizionarsi nella cartella di lavoro preferita e clonare la repository \textsf{we-plant-api-es}:
+		\begin{lstlisting}
+git clone https://github.com/DavideTonin99/we-plant-api-es\end{lstlisting}
+		
+		\item Entrare nella cartella docker, quindi:
+		\begin{lstlisting}
+cd we-plant-api-es/docker\end{lstlisting}
+
+		\item Modificare il file \textsf{.yml} inserendo alla terzultima riga una email facsimile: \textsf{email@email.com}
+		
+		\item Eseguire il \textsf{docker compose} digitando:
+		\begin{lstlisting}
+docker-compose up -d\end{lstlisting}
+		
+		\item Aprire un terminale all'interno del container \textsf{we\_plant\_api}. Per farlo, si ottiene prima il codice univoco del container digitando:
+		\begin{lstlisting}
+docker ps\end{lstlisting}
+		E una volta copiato l'id del container, si avvia il terminale dentro il container digitando nel terminale Linux:
+		\begin{lstlisting}
+docker exec -it id_container bash\end{lstlisting}
+		
+		\item Nel terminale del container eseguire il comando:
+		\begin{lstlisting}
+yarn install\end{lstlisting}
+		
+		\item Nel terminale del container eseguire il comando:
+		\begin{lstlisting}
+mvn clean install -DskipTests\end{lstlisting}
+	\end{enumerate}
+	Adesso si esegue la seconda installazione:
+	\begin{enumerate}
+		\item Aprire un terminale, posizionarsi nella cartella di lavoro preferita e clonare la repository \textsf{we-plant-app-es}:
+		\begin{lstlisting}
+git clone https://github.com/DavideTonin99/we-plant-app-es\end{lstlisting}
+		
+		\item Entrare nella cartella docker, quindi:
+		\begin{lstlisting}
+cd we-plant-app-es/docker\end{lstlisting}
+		
+		\item Eseguire il \textsf{docker compose} digitando:
+		\begin{lstlisting}
+docker-compose up -d\end{lstlisting}
+		
+		\item Aprire un terminale all'interno del container \textsf{we\_plant\_app}. Per farlo, si ottiene prima il codice univoco del container digitando:
+		\begin{lstlisting}
+docker ps\end{lstlisting}
+		E una volta copiato l'id del container, si avvia il terminale dentro il container digitando nel terminale Linux:
+		\begin{lstlisting}
+docker exec -it id_container bash\end{lstlisting}
+		
+		\item Nel terminale del container eseguire il comando:
+		\begin{lstlisting}
+npm install\end{lstlisting}
+		
+		\item Nel terminale del container eseguire il comando:
+		\begin{lstlisting}
+npm install -g @ionic/cli\end{lstlisting}
+	\end{enumerate}
+	Per eseguire \textsf{we-plant-api-es} si scrivono i seguenti comandi:
+	\begin{enumerate}
+		\item Aprire un terminale all'interno del container \textsf{we\_plant\_api}. Per farlo, si ottiene prima il codice univoco del container digitando:
+		\begin{lstlisting}
+docker ps\end{lstlisting}
+		E una volta copiato l'id del container, si avvia il terminale dentro il container digitando nel terminale Linux:
+		\begin{lstlisting}
+docker exec -it id_container bash\end{lstlisting}
+		
+		\item Nel terminale del container eseguire il comando:
+		\begin{lstlisting}
+mvn -DskipTests\end{lstlisting}
+		
+		\item Aprire un altro terminale Linux, aprire un terminale del container (eseguendo il primo punto) e digitare:
+		\begin{lstlisting}
+yarn start\end{lstlisting}
+		
+		\item 
+	\end{enumerate}
+	Per eseguire \textsf{we-plant-app-es} si scrivono i seguenti comandi:
+	\begin{enumerate}
+		\item Aprire un terminale all'interno del container \textsf{we\_plant\_app}. Per farlo, si ottiene prima il codice univoco del container digitando:
+		\begin{lstlisting}
+docker ps\end{lstlisting}
+		E una volta copiato l'id del container, si avvia il terminale dentro il container digitando nel terminale Linux:
+		\begin{lstlisting}
+docker exec -it id_container bash\end{lstlisting}
+		
+		\item Nel terminale del container eseguire il comando:
+		\begin{lstlisting}
+npm run start\end{lstlisting}
+	\end{enumerate}
 \end{document}
