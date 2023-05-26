@@ -3110,7 +3110,7 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 	\end{figure}
 	
 	\noindent
-	Invece, esiste un approccio più efficiente che consiste nella combinazione di funzioni hash e l'applicazione della tecnologia RSA:
+	Invece, esiste un \textbf{approccio più efficiente} che consiste nella combinazione di funzioni hash e l'applicazione della tecnologia RSA:
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/int-aut_e_autor/firma_documento-ottimizzato.pdf}
@@ -3118,37 +3118,192 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 	
 	\subsubsection{Controllo dell'integrità del messaggio firmato}
 	
-	Il \textbf{controllo dell'integrità del messaggio firmato} avviene sempre utilizzando l'algoritmo di cifratura ma in questo caso il messaggio viene verificato usando la chiave pubblica del mittente (Bob). Ovviamente la chiave privata è privata e non è nota ad Alice:
+	Il \textbf{controllo dell'integrità del messaggio firmato} avviene sempre utilizzando l'algoritmo di cifratura ma in questo caso il messaggio viene verificato usando la chiave pubblica del mittente (Bob). Ovviamente la chiave privata è privata e non è nota al destinatario (Alice):
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/int-aut_e_autor/controllo-integrita.pdf}
-	\end{figure}
+	\end{figure}\newpage
 	
 	\subsubsection{Funzioni hash}
 	
-	\subsubsection{Problemi delle firme digitali}
+	Per soddisfare le \textbf{condizioni di sicurezza} stabilite per le \textbf{funzioni hash}, gli \textbf{algoritmi} devono avere alcune caratteristiche:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Coerenti}}, ovvero gli input uguali devono corrispondere ad output uguali;
+		
+		\item Capaci di \textcolor{Red3}{\textbf{stravolgere la statistica dei simboli di ingresso}}, così da evitare che qualcuno possa interpretare il messaggio originale;
+		
+		\item \textcolor{Red3}{\textbf{Univoci}}, ovvero la \textbf{probabilità} che due messaggi generino il \textbf{medesimo hash code}, deve essere pressoché \textbf{nulla};
+		
+		\item \textcolor{Red3}{\textbf{Non invertibili}}, quindi deve risultare \textbf{impossibile ritornare al messaggio originale} avendo a disposizione solo l'output.
+	\end{itemize}
+	La \textbf{non invertibilità} consente di assegnare un'\textbf{impronta digitale} a un messaggio o a un file. Per \textcolor{Green4}{\textbf{esempio}}, le impronte dei polpastrelli sono un'ottima analogia delle funzioni hash, poiché entrambe sono univoche e \textbf{costituiscono una prova dell'integrità e dell'autenticità dei messaggi}.
 	
-	\subsubsection{Autorità di certificazione}
+	Inoltre, se due utenti vogliono accertarsi che \textbf{nessuno sia intervenuto} sul contenuto del messaggio in fase di transizione, utilizzano una funzione hash non invertibile.\newline
+	
+	\noindent
+	Le funzioni \textbf{hash più famose}:
+	\begin{itemize}
+		\item Algoritmo MD5 (Message Digest 5, \href{https://en.wikipedia.org/wiki/MD5}{Wikipedia})
+		
+		\item Algoritmo SHA con le sue varie varianti (Secure Hash Algorithm, \href{https://en.wikipedia.org/wiki/Secure_Hash_Algorithms}{Wikipedia})
+	\end{itemize}
+	Esistono anche altri utilizzi delle funzioni hash. Per \textcolor{Green4}{\textbf{esempio}}, nei sistemi operativi UNIX, vengono utilizzate le funzioni hash per salvare le password.\newpage
+	
+	\subsubsection{Problemi delle firme digitali e autorità di certificazione}
+	
+	Le \textbf{firme digitali}, nonostante utilizzino un algoritmo RSA in combinazioni di funzioni hash, presenta alcuni \textbf{problemi}. Per quanto due utenti possano scambiarsi un segreto (Alice e Bob), \textbf{\underline{non} è garantita autenticità}. Questo perché il destinatario (Alice) potrebbe erroneamente utilizzare la chiave di un perfetto sconosciuto che si spaccia per il mittente (Bob).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/int-aut_e_autor/firma_digitale-problemi.pdf}
+	\end{figure}
+	
+	\noindent
+	Dati i possibili problemi che possono nascere, è stata creata l'\textcolor{Red3}{\textbf{autorità di certificazione}} (CA, \emph{certification authority}). Essa ha il compito di convalidare l'identità ed emettere certificati. In questo modo, utenti, browser, router ed altri, possono controllare che la chiave pubblica sia corretta. Infine, gli standard esistenti per le autorità di certificazione sono: \href{https://en.wikipedia.org/wiki/International_Telecommunication_Union}{ITU} (\emph{International Telecommunication Union}) e \href{https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force}{IETF} (\emph{Internet Engineering Task Force})\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/int-aut_e_autor/autorita_di_certificazione.pdf}
+	\end{figure}
+	
+	\noindent
+	Per quanto riguarda i certificati rilasciati, ci sono una serie di \textbf{campi essenziali}. In particolare, i \textcolor{Red3}{\textbf{certificati X.509}} sono uno standard proposto dall'Unione internazionale delle telecomunicazioni (ITU), usato per definire il formato dei certificati a chiave pubblica (PKC) e delle autorità di certificazione (CA).
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l p{18em} @{}}
+			\toprule
+			Nome campo 						& Descrizione \\
+			\midrule
+			Versione						& Numero di versione della specifica X.509. \\ [0.5em]
+			Numero seriale					& Identificatore unico del certificato fornito dalla CA. \\ [0.5em]
+			Firma							& Specifica l'algoritmo utilizzato dalla CA per firmare il certificato. \\ [0.5em]
+			Nome dell'emittente				& Identificativo della CA che rilascia il certificato in formato DN [RFC 4514]. \\ [0.5em]
+			Periodo di validità				& Inizio e fine del periodo di validità del certificato. \\ [0.5em]
+			Nome del soggetto				& Identificativo dell'entità la cui chiave pubblica è associata al certificato (in formato DN). \\ [0.5em]
+			Chiave pubblica del soggetto	& Chiave pubblica del soggetto e indicazioni dell'algoritmo da utilizzare. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Campi essenziali dei certificati X.509.}
+	\end{table}\newpage
 	
 	\subsection{Autenticazione}
 	
-	\subsubsection{Definizione}
+	L'\textcolor{Red3}{\textbf{autenticazione}} è il servizio di sicurezza che consente di \textbf{garantire l'identità} degli interlocutori.\newline
+	
+	\noindent
+	Per \textbf{interlocutori} si intendono \textbf{utenti o computer}, o una loro combinazione: computer-computer (stampa in rete), utente-utente (protocolli di sicurezza), computer-utente (autenticare un server web), utente-computer (per accedere a un sistema).
+	
+	\longline
 	
 	\subsubsection{Tipologie di autenticazione}
 	
-	\subsubsection{Fattori di autenticazione}
+	Esistono quattro \textbf{tipologie di sistemi di autenticazione}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Locale}}, l'utente \textbf{accede in locale} al servizio, il quale effettua l'autenticazione;
+		
+		\item \textcolor{Red3}{\textbf{Remota/Diretta}}, l'utente \textbf{accede da remoto} al servizio, il quale \textbf{effettua direttamente l'autenticazione};
+		
+		\item \textcolor{Red3}{\textbf{Remota/Indiretta}}, l'utente \textbf{accede da remoto} a diversi servizi, i quali si appoggiano su un \textbf{servizio di autenticazione separato};
+		
+		\item \textcolor{Red3}{\textbf{Off-line}}, i servizi possono prendere \textbf{decisioni autonome} anche \textbf{senza} dover \textbf{contattare} ogni volta l'\textbf{autorità di autenticazione}.
+	\end{itemize}
 	
-	\subsubsection{Autenticazione a fattori multipli}
+	\longline
+	
+	\subsubsection{Fattori di autenticazione singoli e multipli}
+	
+	I \textbf{fattori di autenticazione singoli} si basano su qualcosa che l'utente:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Conosce}}, ovvero i segreti come password o PIN;
+		
+		\item \textcolor{Red3}{\textbf{Possiede}}, ovvero cose fisiche o elettroniche, come chiavi convenzionali, carte magnetiche o \emph{smart card};
+		
+		\item \textcolor{Red3}{\textbf{È}}, ovvero alcune caratteristiche biometriche, come le impronti digitali, dell'iride o del tono di voce.
+	\end{itemize}
+	Invece, l'\textbf{autenticazione} può diventare \textbf{più forte} se vengono combinati diversi fattori:
+	\begin{itemize}
+		\item Qualcosa che si possiede e si conosce, come per esempio una \emph{smart card} combinata con un PIN;
+		
+		\item Qualcosa che si possiede e si è, come per esempio un passaporto elettronico combinato con l'impronta digitale.
+	\end{itemize}\newpage
 	
 	\subsubsection{Username e Password}
 	
+	Il metodo di autenticazione più famoso, ovvero \textcolor{Red3}{\textbf{username e password}}, è basato sull'\textbf{autenticazione di qualcosa che si conosce}. Questo metodo si basa sull'inserimento di un \emph{username}, non segreto, e una parola segreta, ovvero una \emph{password}.\newline
+	
+	\noindent
+	Le i vantaggi e gli svantaggi di questo metodo sono:
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{Vantaggi}}:
+		\begin{itemize}
+			\item \textbf{Semplice} per l'utente
+			
+			\item \textbf{Economico}
+			
+			\item \textbf{Non} richiede di \textbf{immagazzinare} un \textbf{segreto} lato client
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textbf{Svantaggi}}:
+		\begin{itemize}
+			\item Spesso gli utenti scelgono \textbf{password deboli}
+			
+			\item Spesso i \textbf{metodi di autenticazione} basati su password sono \textbf{deboli}
+		\end{itemize}
+	\end{itemize}
+	
+	\longline
+	
 	\subsubsection{Attacchi alle password}
 	
-	\subsubsection{One-time password}
+	Date le vulnerabilità di questo metodo di autenticazione, esistono una serie di attacchi possibili:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Intercettazione}}, nel caso in cui la password non vien criptata e passa quindi in chiaro;
+		
+		\item \textcolor{Red3}{\textbf{Guessing}/\textbf{cracking}}, che consiste nell'eseguire un \textbf{\emph{brute-force attack}} (attacco a forza bruta) o, più comune, nell'eseguire un \textbf{\emph{dictionary attack}} (attacco a dizionario) in cui vengono provate una serie di parole di senso compiuto;
+		
+		\item \textcolor{Red3}{\textbf{Social engineering}}, ovvero quei \emph{malware} che inducono gli utenti a condividere informazioni personali che non dovrebbero essere condivise. Per esempio con la tecnica di \emph{phishing};
+		
+		\item \textcolor{Red3}{\textbf{Trojan horse}}, ovvero tutti quei \emph{malware} che inducono all'errore l'utente facendogli crede che il programma abbia delle buone intenzioni poiché si maschera da software attendibili.
+	\end{itemize}
+	Dati questi attacchi, l'\textbf{utente dovrebbe adottare alcune misure di sicurezza}. Per contrastare il \emph{dictionary attack} dovrebbe essere adottata una password \underline{non} di senso compiuto, e inoltre dovrebbe essere cambiata di frequente. Tuttavia, se il mondo fosse perfetto gli attaccanti non esisterebbero, per cui l'utente \textbf{spesso non adotta tali misure di sicurezza poiché si scontra contro la sua comodità e pigrizia}.\newpage
 	
-	\subsubsection{Autenticazione sul possesso}
+	\subsubsection{One-time password per contrastare l'intercettazione}\label{one-time password per contrastare l'intercettazione}
 	
-	\subsubsection{Autenticazioni fisiche e comportamentali}
+	Con il termine \textcolor{Red3}{\textbf{\emph{one-time password}}}, si identificano quei sistemi in cui viene generata una \textbf{nuova password ad ogni accesso} da parte dell'utente. Questa tecnica viene adottata per \textbf{contrastare} la tecnica di attacco \textbf{intercettazione}.\newline
+	
+	\noindent
+	Le \textbf{password generate} ad ogni accesso \textbf{sono monouso} e vengono generate sulla base di un \textbf{contatore} (esiste quindi una sequenza di password successive) o più spesso sulla base dell'\textbf{istante temporale}. Tale tecnologia spesso fa utilizzo di:
+	\begin{itemize}
+		\item \textbf{\emph{Token}}, ovvero \textbf{dispositivi \emph{hardware}} che forniscono all'utente la password da inserire;
+		
+		\item \textbf{SMS}, ovvero un \textbf{messaggio} inviato sul cellulare dell'utente.
+	\end{itemize}
+	Infine, la \emph{one-time password} viene resa ancora più sicura combinandola ad un sistema di autenticazione basato su qualcosa che si conosce, ovvero un PIN.
+	
+	\longline
+	
+	\subsubsection{Token: esempio di autenticazione basata su qualcosa che si possiede}
+	
+	I \emph{token} citati nel paragrafo precedente (\ref{one-time password per contrastare l'intercettazione}) sono un ottimo esempio di \textbf{autenticazione basata su qualcosa che si possiede}. Infatti, essi forniscono una \textbf{prova dell'identità} dell'utente. Altre possibili \textcolor{Green4}{\textbf{esempi}} sono le smart card e le carte magnetiche.\newline
+	
+	\noindent
+	L'\textbf{autenticazione dimostra solo l'identità del token e non quella dell'utente}. Questo perché è possibile che un token venga perso, rubato o clonato. Per contrastare questa debolezza, è possibile combinare il \emph{token} ad un PIN. Per \textcolor{Green4}{\textbf{esempio}} il bancomat utilizza la carta più il PIN.
+	
+	\longline
+	
+	\subsubsection{Prova dell'identità grazie ad autenticazioni basate su qualcosa che si è}
+	
+	L'autenticazione basata su qualcosa che si possiede \textbf{non prova l'identità} dell'utente. Al contrario, sono necessarie alcune \textbf{prove univoche}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Fisiche}}, come impronte digitali, forma della mano, impronta della retina o del viso e così via;
+		
+		\item \textcolor{Red3}{\textbf{Comportamentali}}, come la firma, timbro di voce, scrittura e così via.
+	\end{itemize}
+	Purtroppo, questa prova di autenticità presenta altri \textbf{punti deboli}:
+	\begin{itemize}
+		\item L'autenticazione si basa su una \textbf{misura e un confronto con un template}. Questo significa che possono \textbf{crearsi inconvenienti} quali: misure imprecise (durante la creazione del template), possibilità di falsi positivi/negativi;
+		
+		\item \textbf{Non} possono essere \textbf{sostituite nel caso in cui vengano compromesse}, come per esempio le impronte digitali falsificate.
+	\end{itemize}\newpage
 	
 	\subsubsection{Autenticazione remota diretta e indiretta}
 	
