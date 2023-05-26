@@ -3307,27 +3307,232 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 	
 	\subsubsection{Autenticazione remota diretta e indiretta}
 	
+	Esistono due \textbf{tipi di autenticazione}:
+	\begin{itemize}
+		\item Autenticazione \textcolor{Red3}{\textbf{locale}} prevede l'utilizzo delle tecnologie viste nei paragrafi precedenti;
+		
+		\item Autenticazione \textcolor{Red3}{\textbf{remota}} si divide in diretta e indiretta, e inoltre crea alcuni problemi.
+	\end{itemize}
+	L'\textcolor{Red3}{\textbf{autenticazione remota diretta}} soffre del seguente \textbf{problema}: un \textbf{intruso} (attaccante) potrebbe \textbf{registrare e replicare alcune informazioni}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/int-aut_e_autor/aut-remota_diretta.pdf}
+		\caption{Sulla destra è possibile vedere in azione l'attacco Replay.}
+	\end{figure}
+	
+	\noindent
+	La soluzione che viene adottata è assicurarsi che l'\textbf{autenticazione avvenga su un canale sicuro} o tramite l'aggiunta di una \dquotes{sfida}, ovvero un messaggio da decodificare per esempio.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/int-aut_e_autor/aut-remota_diretta-eg.pdf}
+	\end{figure}
+	
+	\noindent
+	\textbf{N.B.:} la \textbf{procedura applicata per garantire l'integrità di un messaggio non garantisce sull'autenticità del mittente}. Se fosse vero il contrario, l'attacco Replay (qui sopra) non potrebbe funzionare.\newpage
+	
+	\noindent
+	L'\textcolor{Red3}{\textbf{autenticazione remota indiretta}} viene applicata in molti sistemi e applicazioni che condividono gli stessi utenti. Infatti, le \textbf{informazioni sugli utenti vengono centralizzate sul sistema di autenticazione} e gli altri sistemi fanno affidamento su di esso.\newline
+	
+	\noindent
+	Due \textcolor{Green4}{\textbf{esempi}} di sistemi di autenticazione indiretta sono:
+	\begin{itemize}
+		\item RADIUS (Remote Authentication Dial-In User Service, \href{https://en.wikipedia.org/wiki/RADIUS}{Wikipedia}) è un protocollo nato per l'accesso remoto \emph{dial-up}\footnote{Con il termine \emph{dial-up} si intende una metodologia di accesso ad Internet che sfrutta la rete telefonica (\emph{Public Switched Telephone Network}, PSTN) per stabilire una connessione ad un \emph{Internet Service Provider} (ISP)};
+		
+		\item Kerberos (\href{https://en.wikipedia.org/wiki/Kerberos_(protocol)}{Wikipedia}) è un protocollo d'autenticazione usato anche per il \emph{single sing-on} (SSO) tra applicazioni all'interno del \dquotes{dominio} amministrativo (ad esempio dentro un'azienda o un'università).
+	\end{itemize}
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/int-aut_e_autor/aut-remota_indiretta.png}
+		\caption{\textcolor{Green4}{\textbf{Esempio}} di autenticazione remota indiretta.}
+	\end{figure}\newpage
+	
 	\subsubsection{Autenticazione \dquotes{off-line}}
+	
+	L'\textcolor{Red3}{\textbf{autenticazione \emph{off-line}}} si basa su certificati emessi da un'\textbf{autorità di certificazione} (CA) e distribuiti da un'\textbf{infrastruttura a chiave pubblica} (\textbf{\emph{Public Key Infrastructure}, \emph{PKI}}).\newline
+	
+	\noindent
+	Esistono \textbf{due tipi di certificati}:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Reale}} è \textbf{cartaceo} (come il passaporto), viene \textbf{emesso da un'autorità} riconosciuta e associa l'\textbf{identità di una persona al suo aspetto fisico};
+		
+		\item \textcolor{Red3}{\textbf{Digitale}} è \textbf{elettronico}, viene \textbf{emesso da una CA} riconosciuta (quindi firmato con la chiave privata della CA) e associa l'\textbf{identità di una persona ad una chiave pubblica}.
+	\end{itemize}
+	
+	\longline
 	
 	\subsubsection{I 10 compiti di una CA}
 	
+	I \textbf{10 compiti di un'autorità di certificazione} sono:
+	\begin{enumerate}
+		\item \textbf{Identificare} con certezza \textbf{la persona che fa richiesta} della certificazione della chiave pubblica;
+		
+		\item \textbf{Rilasciare} e \textbf{rendere pubblico} il \textbf{certificato};
+		
+		\item \textbf{Garantire l'accesso telematico al registro} delle chiavi pubbliche;
+		
+		\item \textbf{Informare} i richiedenti \textbf{sulla procedura di certificazione} e sulle \textbf{tecniche per accedervi};
+		
+		\item Dichiarare la propria \textbf{politica di sicurezza};
+		
+		\item Attenersi alle \textbf{norme sul trattamento di dati personali};
+		
+		\item \textbf{Non} rendersi \textbf{depositario} delle \textbf{chiavi private};
+		
+		\item Procedere alla \textbf{revoca} o alla \textbf{sospensione} dei \textbf{certificati} in \textbf{caso di richiesta} dell'interessato o venendo a \textbf{conoscenza di abusi} o falsificazioni, ecc;
+		
+		\item Rendere \textbf{pubblica la revoca} o la \textbf{sospensione delle chiavi};
+		
+		\item Assicurare la corretta \textbf{manutenzione del sistema di certificazione}.
+	\end{enumerate}\newpage
+	
 	\subsubsection{Ottenere un certificato digitale}
 	
-	\subsubsection{Public Key Infrastructure (PKI)}
+	Per \textcolor{Red3}{\textbf{ottenere un certificato digitale}}, l'\textbf{utente genera sul proprio PC una coppia di chiavi} che hanno le seguenti caratteristiche:
+	\begin{itemize}
+		\item I browser comuni offrono il servizio;
+		
+		\item La chiave privata è memorizzata localmente in un file nascosto;
+		
+		\item Maggiore sicurezza: generare la coppia di chiavi tramite SmartCard collegata al PC. In questo modo, la chiave privata non esce mai dalla SmartCard, la quale è anche protetta da PIN.
+	\end{itemize}
+	Dopodiché, l'\textbf{utente invia all'autorità di certificazione} (CA) \textbf{una richiesta di certificato}, insieme alla chiave pubblica generata al PC all'inizio. Esiste anche la possibilità di far generare la coppia di chiavi al CA e consegnarle all'utente.\newline
 	
-	\subsubsection{Certificati}
+	\noindent
+	Una volta ricevuta la richiesta, il CA autentica il \textbf{richiedente} chiedendogli di \textbf{recarsi di persona ad uno sportello di LVP} (Local Validation Point) collegato con la CA.\newline
 	
-	\subsubsection{Problemi comuni a tutti gli schemi}
+	\noindent
+	Al termine della verifica dell'identità, la \textbf{CA emette il certificato}, lo \textbf{invia al richiedente} tramite posta elettronica ed \textbf{inserisce la chiave certificata nel registro delle chiavi pubbliche}.\newline
+	
+	\noindent
+	L'intera procedura accade nell'\textbf{ambito di una PKI} (\emph{Public Key Infrastructure}) (spiegato nel paragrafo~\ref{PKI}).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/int-aut_e_autor/certificato-digitale.pdf}
+	\end{figure}
+	\begin{enumerate}
+		\item L'utente crea una coppia di chiavi (o se le fa creare dal CA);
+		
+		\item L'utente, dopo aver inviato una richiesta di certificato, si presenta ad uno sportello LVP;
+		
+		\item Se la richiesta viene accolta, il CA emette un certificato digitale che viene inviato all'utente. Inoltre, viene registrata la chiave nel registro delle chiavi pubbliche.
+	\end{enumerate}\newpage
+	
+	\subsubsection{Public Key Infrastructure (PKI)}\label{PKI}
+	
+	La \textcolor{Red3}{\textbf{Public Key Infrastructure}} (PKI) è un insieme di regole, politiche, hardware, software e procedure, nate per creare, gestire, distribuire, usare, salvare e revocare i certificati digitali e gestire le chiavi pubbliche crittografate.\newline
+	
+	\noindent
+	La sua \textbf{struttura minima} è composta da \textbf{CA e LVP}, ovvero da autorità di certificazione e Local Validation Point. Tuttavia, è possibile avere una struttura in cui sono ammesse più LVP.\newline
+	
+	\noindent
+	La \textbf{struttura} è di \textbf{tipo gerarchica}, ovvero alcune CA certificano altre ottenendo una catena \dquotes{di fiducia}. La struttura è simile a quella di un albero, in cui la \emph{Root CA} certifica le CA di primo livello, quelle di primo livello certificano le CA di secondo livello e le CA di ultimo livello certificano il singolo utente.
+	
+	\longline
+	
+	\subsubsection{Certificati: utilizzo e problemi}
+	
+	L'\textbf{utilizzo} dei certificati avviene nel seguente modo:
+	\begin{enumerate}
+		\item Bob invia ad Alice il proprio certificato firmato dalla CA;
+		
+		\item Se Alice ha il certificato della CA e il certificato CA è autofirmato, allora Alice verifica la firma della CA sul certificato di Bob, e se è corretta estrae la chiave pubblica di Bob dal certificato;
+		
+		\item Alice ha ottenuto la chiave pubblica di Bob e l'identità è garantita dalla CA.
+	\end{enumerate}
+	I certificati in ogni caso presentano alcuni \textbf{problemi}. Per \textbf{ottenere i certificati} è necessario utilizzare un \textbf{metodo sicuro}, altrimenti il problema della distribuzione delle chiavi pubbliche rimane, ma su scala ridotta.\newline
+	
+	\noindent
+	Un certificato può essere revocato, per \textcolor{Green4}{\textbf{esempio}} se il proprietario si accorge del furto della chiave privata corrispondente. Tuttavia, nasce un \textbf{problema}: la \textbf{verifica} della firma della CA su un \textbf{certificato revocato va a buon fine}! Per fortuna, la CA pubblica una \textbf{lista dei certificati revocati}, da essa firmata, che andrebbe controllata per accettarsi della validità di un certificato.\newpage
 	
 	\subsection{Autorizzazione}
 	
 	\subsubsection{Controllo degli accessi}
 	
-	\subsubsection{Access Control List (ACL)}
+	Il servizio di \textcolor{Red3}{\textbf{controllo dell'accesso}} (detto anche autorizzazione) garantisce che l'accesso alle risorse sia limitato ai soli \textbf{utenti che ne hanno diritto}. I soggetti possono avere \textbf{diritto a diverse modalità di interazione} con le risorse. I privilegi sugli oggetti sono in accordo con le \textbf{politiche definite sul sistema}. I termini utilizzati:
+	\begin{itemize}
+		\item \textbf{Soggetti}: utenti, applicazioni, altri sistemi;
+		
+		\item \textbf{Privilegi}: lettura, scrittura, esecuzione, proprietà;
+		
+		\item \textbf{Oggetti}: file, funzioni, applicazioni, altri sistemi.
+	\end{itemize}
+	Con \dquotes{\emph{\textbf{politiche}}} (approfondimento \ref{politiche di controllo dell'accesso: DAC e MAC}) si intende l'attribuzione dei privilegi d'accesso dei soggetti sugli oggetti. Invece, i \textbf{meccanismi} di controllo dell'accesso specificano \textbf{come} le \textbf{relazioni tra i soggetti e gli oggetti} (privilegi) sono rappresentate.\newline
 	
-	\subsubsection{Capabilities}
+	\noindent
+	Con il controllo degli accessi, vegliano \textbf{due principi utili}:
+	\begin{itemize}
+		\item \textbf{Privilegio minimo}, ovvero ad un soggetto dovrebbero essere \textbf{concessi solo i privilegi minimi necessari} a compiere l'azione che deve compiere;
+		
+		\item \textbf{Separazione dei compiti}, ovvero \textbf{nessun soggetto} dovrebbe avere \textbf{abbastanza potere per sovvertire il sistema}.
+	\end{itemize}
 	
-	\subsubsection{Politiche di controllo dell'accesso: DAC e MAC}
+	\longline
 	
-	\subsubsection{Gruppi e ruoli}
+	\subsubsection{Meccanismi di controllo dell'accesso: ACL e capabilities}
+	
+	I \textcolor{Red3}{\textbf{meccanismi di controllo dell'accesso}} sono rispettati grazie ad un'implementazione tramite matrice. Ovvero sia, esiste una tabella chiamata \textbf{matrice di controllo dell'accesso} in cui nelle righe vengono salvati i soggetti, nelle colonne gli oggetti e nelle caselle sono rappresentati i permessi:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c | c | c | c @{}}
+			\toprule
+			& File 1 & File 2 & Progr. 1 & Progr. 2 \\
+			\midrule
+			Alice 	& \textsf{rwx} & \textsf{rwx}, \textsf{own} & \textsf{x} & \textsf{rwx} \\
+			Bob		& \textsf{rwx}, \textsf{own} & \textsf{r} & \textsf{x} & \textsf{rwx} \\
+			Prog. 1	& \textsf{rw} & \textsf{rw} & \textsf{-} & \textsf{x} \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	Soggetti e oggetti possono essere \textbf{molto numerosi} e, di conseguenza, la \textbf{matrice sparsa} crea \textbf{problemi di scalabilità}. Per \textcolor{Green4}{\textbf{risolvere}} questo problema, è possibile:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Access Control List}} (ACL), si memorizza la matrice per righe;
+		\item \textcolor{Red3}{\textbf{Capabilities}}, si memorizza la matrice per colonne;
+		\item Effettuare raggruppamenti per gestire i privilegi in modo \dquotes{omogeneo}, ovvero \textcolor{Red3}{\textbf{gruppi/ruoli}}.
+	\end{itemize}
+	Se viene \textbf{memorizzata} la matrice di controllo dell'accesso \textbf{per colonne}, ciascuna \textbf{risorsa viene memorizzata con la lista dei soggetti (\textcolor{Red3}{\textbf{Capabilities}}) che possono interagire con questa, e con i relativi permessi}. Per esempio, il \emph{filesystem} UNIX. Sono adatte a contesti in cui la \textbf{protezione è orientata ai dati} per un semplice motivo: è \textbf{semplice gestire i permessi} associati ad un oggetto.
+	
+	Tuttavia, \underline{non sono adatte} se si vogliono \textbf{gestire centralmente i permessi} di ciascun soggetto e/o se si vogliono \textbf{introdurre meccanismi di delega} temporanea.\newline
+	
+	\noindent
+	Se viene \textbf{memorizzata} la matrice di controllo dell'accesso \textbf{per righe} (\textcolor{Red3}{\textbf{Access Control List}}), a ciascun soggetto viene \textbf{associato l'insieme degli oggetti con cui può interagire}. Inoltre, viene \textbf{memorizzata la lista di relazioni che il soggetto ha con gli oggetti e i relativi permessi}. Questa tecnica \textbf{consente di gestire in modo} \textcolor{Green4}{\textbf{efficiente}} i permessi associati ad un singolo utente e consente di gestire in modo semplice il meccanismo di delega temporanea.
+	
+	Il lato \textbf{negativo} è che per \textbf{determinare tutti i soggetti} che hanno diritto di interagire con un oggetto, è \textbf{necessario scorrere l'intera lista}.\newline
+	
+	\noindent
+	Infine, è possibile effettuare dei raggruppamenti in \textcolor{Red3}{\textbf{gruppi/ruoli}}. I gruppi consentono di \textbf{gestire insiemi} di soggetti/oggetti \textbf{in modo omogeneo}. Questo è un \textcolor{Green4}{\textbf{vantaggio}} poiché \textbf{semplifica l'associazione dei permessi agli utenti} con le seguenti caratteristiche:
+	\begin{itemize}
+		\item L'accesso alle risorse si basa sui \textbf{permessi dei gruppi};
+		
+		\item Diversi \textbf{gruppi} possono avere \textbf{proprietà sovrapposte};
+		
+		\item \textbf{Modificare i diritti di un gruppo} consente di \textbf{cambiare} direttamente quelli di \textbf{tutte le entità appartenenti}.
+	\end{itemize}
+	In questo modello, i \textbf{ruoli} definiscono insiemi di \textbf{proprietà e responsabilità} che solitamente vengono associate alla struttura organizzativa a cui fa capo il sistema (modello RBAC, \emph{Role Based Access Control})\footnote{RBAC è una tecnica di accesso a sistemi ristretto per utenti autorizzati.}.\newpage
+	
+	\subsubsection{Politiche di controllo dell'accesso: DAC e MAC}\label{politiche di controllo dell'accesso: DAC e MAC}
+	
+	Le politiche di controllo dell'accesso si distinguono in due diversi approcci:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{DAC (Discretionary Access Control)}}
+		
+		\item \textcolor{Red3}{\textbf{MAC (Mandatory Access Control)}}
+	\end{itemize}
+	In un modello \textbf{\underline{DAC}} i singoli utenti possono \textbf{a loro discrezione concedere e revocare permessi} su oggetti che sono sotto il loro controllo. La proprietà su cui si basa questo modello è il concetto di \emph{ownership}, ovvero \textbf{ogni oggetto ha un proprietario} ed è quest'ultimo che ne \textbf{definisce i diritti di accesso}.
+	
+	Questo modello risulta \textbf{flessibile} e utilizzabile in molti ambiti, come per \textcolor{Green4}{\textbf{esempio}} i sistemi operativi UNIX e Windows. Purtroppo, il modello DAC \textbf{non consente di controllare la diffusione dell'informazione}, ovverosia chi ha i permessi in lettura su un file potrebbe inviarlo a chi non ha i permessi.\newline
+	
+	\noindent
+	In un modello \textbf{\underline{MAC}} la politica di \textbf{controllo dell'accesso} è \textbf{determinata centralmente dal sistema}, non dai singoli utenti. Viene utilizzato in \textbf{ambito militare} e si basa su una \textbf{classificazione degli oggetti e dei soggetti}, per \textcolor{Green4}{\textbf{esempio}} TopSecret, Secret, Confidential, Classified.
+	
+	Un altro \textcolor{Green4}{\textbf{esempio}} è il modello di \textbf{Bell-LaPadula}, ovvero il sistema forza il rispetto delle seguenti regole:
+	\begin{itemize}
+		\item \textbf{No read up:} \textbf{non} è possibile \textbf{leggere informazioni} classificate a \textbf{livelli più alti} del proprio;
+		
+		\item \textbf{No write down:} \textbf{non} è possibile \textbf{scrivere informazioni} classificate a \textbf{livelli più bassi} del proprio.
+	\end{itemize}
+	Ovviamente il modello MAC risulta \textbf{meno flessibile ma più robusto del modello DAC}.
 \end{document}
