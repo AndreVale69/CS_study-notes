@@ -4692,7 +4692,7 @@ B = imresize(A,scale)\end{lstlisting}
 		\item (63-67) Il codice si conclude eseguendo la cross correlazione 2D con il comando di MATLAB. Nel caso in cui il risultato tra le due matrici (matrice calcolata con la cross correlazione manuale e matrice calcolata con la cross correlazione automatica) sia uguale a zero, allora il metodo ha funzionato.
 	\end{itemize}\newpage
 	
-	\subsection{Trasformata di Fourier Discreta 1D}
+	\subsection{Trasformata di Fourier Discreta 1D}\label{trasformata di Fourier Discreta 1D}
 	
 	\subsubsection{Spiegazione teorica sulla TdF discreta nei calcolatori}
 	
@@ -5308,13 +5308,159 @@ B = imresize(A,scale)\end{lstlisting}
 	
 	\subsubsection{Trasformata di Fourier 2D}
 	
+	Ricordando cosa è stato spiegato nel paragrafo delle trasformata di Fourier 1D (par. \ref{trasformata di Fourier Discreta 1D}), il passaggio da 1D a 2D è semplice. Nella \textcolor{Red3}{\textbf{trasformata di Fourier 2D}} l'\textbf{analisi} si sviluppa sia in orizzontale che in verticale.
+	
+	\longline
+	
 	\subsubsection{Applicazione della TdF 2D in MATLAB}
+	
+	La \textcolor{Red3}{\textbf{trasformata di Fourier 2D}} in MATLAB viene calcolata con il comando: \textsf{fft2(image)}. La sua \textbf{interpretazione} è spiegata nella seguente immagine:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/TdF-2D-1.png}
+	\end{figure}
+	
+	\noindent
+	Come si vede dalla figura, \textbf{per migliorare la visualizzazione}, viene effettuato uno shift dello spettro: \textsf{fftshift(F)}.\newline
+	
+	\noindent
+	Quindi, in MATLAB, l'analisi di Fourier per un'immagine avviene seguendo i seguenti passaggi:
+	\begin{enumerate}
+		\item Calcolare la trasformata di Fourier 2D;
+		
+		\item Visualizzare lo spettro delle ampiezze e lo spettro di fase;
+		
+		\item Ricostruire l'immagine a partire dalle frequenze.
+	\end{enumerate}\newpage
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab8_eg1.m}\newpage
 	
 	\subsubsection{La trasformata di Hough per rette}
 	
+	La \textcolor{Red3}{\textbf{trasformata di Hough per rette}} viene \textbf{utilizzata per identificare le rette in un'immagine}. L'idea generale è la seguente: data l'equazione di una retta $y = mx + q$, se si considera lo spazio dei parametri $\left[m,q\right]$, una retta è rappresentata da un punto. Quindi, per un punto $\left[x_{i}, y_{i}\right]$ passano infinite rette, tutte quelle per cui vale $y_{i} = mx_{i} + q$. Invece, nello spazio dei parametri queste rette sono punti disposti lungo una retta: $q = -x_{i} m + y_{i}$. Nel caso in cui si abbiano solo tre punti allineati, che si trovano lungo una retta, si hanno tre rette nello spazio dei parametri. Inoltre, la retta che contiene tutti e tre i punti si può determinare trovando l'intersezione tra le rette nello spazio $\left[mq\right]$.\newline
+	
+	\noindent
+	Nella pratica, la trasformata di Hough:
+	\begin{itemize}
+		\item Quantizza lo spazio dei parametri, ovvero lo divide in celle;
+		
+		\item Ogni punto di \emph{edge} \dquotes{vota} per un insieme di rette, ovvero vota per un insieme di celle;
+		
+		\item Dopo che tutti i punti hanno votato, è possibile estrarre i massimi. Le rette con più voti vincono, ovvero sono le rette che \dquotes{spiegano} più punti.
+	\end{itemize}
+	Questo è il motivo per cui viene utilizzata la forma polare per la parametrizzazione. Ovvero, è più comoda dato che:
+	\begin{itemize}
+		\item $\sigma$ è naturalmente delimitato;
+		
+		\item $\rho$ si può delimitare specificando una regione circolare attorno all'origine (sensato).
+	\end{itemize}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/TdF-2D-1.pdf}
+	\end{figure}\newpage
+	
 	\subsubsection{Dettagli sulla trasformata di Hough e algoritmo}
+	
+	Come \textbf{input} l'algoritmo riceve un immagine $I$ in formato binario dove $1$ indica \emph{edge} e $0$ no \emph{edge}. La dimensione è $M \times N$.\newline
+	
+	\noindent
+	Lo spazio dei parametri è:
+	\begin{equation*}
+		\begin{array}{lll}
+			\rho &\in& \left[-\sqrt{M^{2} + N^{2}}, \sqrt{M^{2} + N^{2}}\right] \\
+			\theta &\in& \left[-90°, 90°\right]
+		\end{array}
+	\end{equation*}
+	\begin{enumerate}
+		\item Viene eseguita la discretizzazione $\left(\rho,\theta\right)$ in $\left(\rho_{\mathrm{d}}, \theta_{\mathrm{d}}\right)$ usando un passo accettabile per il problema da risolvere (precisione a discapito della computazione, o viceversa);
+		
+		\item Inizializzazione a zero della matrice risultante $A$ di dimensione $R \times T$;
+		
+		\item Per ogni pixel $I\left(x,y\right) = 1$ e per $h = 1, ..., T$:
+		\begin{enumerate}
+			\item Viene calcolato $\rho = x \cos\left(\theta_{\mathrm{d}}\left(h\right)\right) + y \sin\left(\theta_{\mathrm{d}}\left(h\right)\right)$;
+			
+			\item Viene trovato l'indice $k$ tale che $\rho d\left(k\right)$ è l'elemento più vicino a $\rho$;
+			
+			\item Viene incrementato $A\left(k,h\right)$ di una unità.
+		\end{enumerate}
+		
+		\item Vengono trovati tutti i massimi locali $\left(k_{\rho}, h_{\rho}\right)$ tale che $A\left(k_{\rho}, h_{\rho}\right) > \tau$ soglia.
+	\end{enumerate}
+	
+	\longline
 	
 	\subsubsection{Esercizio 1}
 	
+	\begin{itemize}
+		\item Caricare l'immagine \textsf{imageA1.png}
+		
+		\item Visualizzare (con il logaritmo) lo spettro delle ampiezze centrato;
+		
+		\item Estrarre una sola porzione delle frequenze e ricostruire l'immagine a partire da queste frequenze selezionate;
+		
+		\item Osservare cosa succede se cambiano il contenuto in frequenza scelto. In particolare: cosa succede se escluso le basse frequenze? E se escludo le alte?
+		
+		\item Suggerimento per selezionare le frequenze:
+		\begin{itemize}
+			\item Creare una matrice, della stessa dimensione della fft2, contenente tutti zeri;
+			
+			\item Copiare nella posizione della porzione considerata le frequenze corrispondenti dalla matrice della fft2.
+		\end{itemize}
+	\end{itemize}\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice risultante:
+	\lstinputlisting[language=MATLAB]{code/lab8_ex1.m}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-16.jpg}
+		\caption{Spettro di ampiezza centrato (con logaritmo).}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-17.jpg}
+		\caption{Immagine delle stesse dimensioni della trasformata.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-18.jpg}
+		\caption{Immagini a confronto dopo le operazioni.}
+	\end{figure}\newpage
+	
 	\subsubsection{Esercizio 2}
+	
+	Utilizzare la trasformata di Hough per estrarre le rette delle seguenti 3 immagini (una sintetica, due reali): \textsf{line.jpg, building.jpg, Crane.png}. Utilizzare le funzioni MATLAB già implementate per la trasformata (\textsf{hough, houghpeaks, houghlines}). Nota importante: l'input è un'immagine binaria che contiene gli edge, da calcolare sull'immagine originale (per estrarre gli edge utilizzare il Canny edge detector \textsf{BW = edge(I, 'canny')}). Visualizzare le rette estrarre sovrapposte all'immagine di partenza e valutare come cambiano i risultati al variare dei parametri della trasformata (numero di picchi, soglia, livello di quantizzione di $\rho$ e di $\theta$, etc etc -- si veda l'help delle funzioni).\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice risultante:
+	\lstinputlisting[language=MATLAB]{code/lab8_ex2.m}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-19.jpg}
+		\caption{Confronto immagine originale e immagine creata con l'estrazione degli edge (Canny).}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operato-locali-20.jpg}
+		\caption{Trasformata di Hough.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-21.jpg}
+		\caption{Estrazione delle linee sovrapposte all'immagine di partenza.}
+	\end{figure}
 \end{document}
