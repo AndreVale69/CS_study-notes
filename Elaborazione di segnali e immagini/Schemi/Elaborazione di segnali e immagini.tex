@@ -4831,43 +4831,478 @@ B = imresize(A,scale)\end{lstlisting}
 	
 	\subsubsection{Operazioni puntuali di rinforzo}
 	
+	Un \textcolor{Red3}{\textbf{operatore puntuale}} è un operatore che prende in \textbf{input il valore di un pixel} e \textbf{restituisce un pixel con un altro valore}. Il valore risultante dipende esclusivamente dal valore del pixel in ingresso. L'\textbf{obbiettivo principale} di questi operatori è \textbf{variare il contrasto}.\newline
+	
+	\noindent
+	Gli operatori puntuali di rinforzo lavorano con la \textbf{\emph{lookup table}} (LUT), in cui la prima riga è degli input e la seconda degli output:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} c | c | c | c | c | c | c | c | c @{}}
+			\midrule
+			\textcolor{Red3}{r}	& 0 & 1 & 2 & 3 & 4 & 5 & 6 & ... \\
+			\textcolor{Red3}{s}	& T(0) & T(1) & T(2) & T(3) & T(4) & T(5) & T(6) & ... \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	Quindi, se un pixel ha come livello di grigio il valore 3, allora viene sostituito con T(3). Questa operazione deve essere eseguita per tutti i pixel dell'immagine.\newpage
+	
 	\subsubsection{Negativo}
+	
+	L'operazione di \textcolor{Red3}{\textbf{\textbf{negativo}}} per i livelli di grigio è dettato dalla seguente formula:
+	\begin{equation*}
+		s = 255 - r
+	\end{equation*}
+	E tale operazione viene utilizzata quando ci sono \textbf{dettagli di grigio immersi in zone nere che si vogliono evidenziare} (percettivamente è meglio avere dettagli scuri su regioni chiare).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/negativo.png}
+	\end{figure}
+	
+	\noindent
+	Un esempio in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab6_eg1.m}\newpage
 	
 	\subsubsection{Clamping}
 	
+	Il \textcolor{Red3}{\textbf{clamping}} ha l'\textbf{obbiettivo di limitare le intensità ad un range definito} $\left[a,b\right]$:
+	\begin{equation*}
+		T\left(r\right) = \begin{cases}
+			a & \text{se } r < a  \\
+			r & \text{se } a \le r \le b  \\
+			b & \text{se } r > b
+		\end{cases}
+	\end{equation*}
+	Viene utilizzato nel caso in cui ci siano dei pixel di rumore molto chiari o molto scuri che devono essere mascherati, quindi sostituendoli con un altro valore.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/clamping.png}
+	\end{figure}
+	
+	\noindent
+	Un esempio in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab6_eg2.m}\newpage
+	
 	\subsubsection{Stretching/Shrinking}
+	
+	 Lo \textcolor{Red3}{\textbf{stretching}} (stiramento) e lo \textcolor{Red3}{\textbf{shrinking}} (comprime) eseguono \textbf{attività di stiramento/comprime delle intensità} di un range $\left[\text{rmin}, \text{rmax}\right]$ portando l'intervallo ad uno definito $\left[\text{a}, \text{b}\right]$. In generale, viene usato per migliorare il contrasto eseguendo un'operazione di ampliamento o riduzione dello spettro dei livelli di grigio:
+	 \begin{equation*}
+	 	s = \left[\dfrac{r -r_{\text{min}}}{r_{\text{max} - r_{\text{min}}}}\right] \left[b - a\right] + a
+	 \end{equation*}
+	 \begin{figure}[!htp]
+	 	\centering
+	 	\includegraphics[width=\textwidth]{img/lab/stretching-shrinking.pdf}
+	 \end{figure}\newpage
 	
 	\subsubsection{Trasformazione non lineare}
 	
+	La \textcolor{Red3}{\textbf{trasformazione non lineare}} viene utilizzata per effettuare una \textbf{trasformazione non uniforme che agisce differentemente sui livelli di grigio}. Nel caso in cui si voglia mappare fasce strette di valori dell'immagine originale in fasce più ampie, viene applicata la trasformazione non lineare così da aumentare il range del contrasto rendendo l'interpretazione umana più informativa.\newline
+	
+	\noindent
+	Due casi in cui la trasformazione non lineare può essere utile:
+	\begin{itemize}
+		\item Immagine \textbf{sottoesposta}: i particolari interessanti sono poco evidenti e concentrati nelle \textbf{zone scure}.
+		
+		In questo caso, con la trasformazione non lineare è possibile espandere la dinamica associata ai livelli scuri e comprimere quella dei livelli chiari;
+		
+		\item Immagine \textbf{sovraesposta}: i particolari interessanti sono poco evidenti e concentrati nelle \textbf{zone chiare}.
+		
+		In questo caso, con la trasformazione non lineare è possibile espandere la dinamica associata ai livelli chiari e comprimere quella dei livelli scuri.
+	\end{itemize}
+	Vi è anche un'altra formula che è l\textbf{trasformazione potenza} con la seguente formula:
+	\begin{equation*}
+		s = c r^{\gamma}
+	\end{equation*}
+	In cui $c,\gamma > 0$ e dove $c$ rappresenta la scelta \textbf{in dipendenza da} $\gamma$ in modo da normalizzare i valori di $s$ nell'intervallo $\left[0,255\right]$. In altre parole:
+	\begin{equation*}
+		\tilde{s} = r^{\gamma} \hspace{2em} s = \left[\dfrac{\tilde{s} - \tilde{s}_{\text{min}}}{\tilde{s}_{\text{max}} - \tilde{s}_{\text{min}}}\right] \left[MAX - MIN\right] + MIN
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/lab/trasformazione_non_lineare.jpg}
+	\end{figure}\newpage
+	
+	\noindent
+	La scelta di $\gamma$ influisce sul risultato:
+	\begin{itemize}
+		\item $\gamma < 1$ si ha un'espansione di bassi valori di $r$ e una compressione per alti valori di $r$. I \textbf{dettagli} sono nei livelli di \textbf{grigio scuro}. L'\textbf{obbiettivo} è quello di aumentare il range dei pixel scuri, ottenendo così uno schiarimento dell'immagine:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.55\textwidth]{img/lab/trasformazione_non_lineare-1.png}
+		\end{figure}
+		
+		\item $\gamma > 1$ si ha una compressione per bassi di valori di $r$, mentre un'espansione per alti valori di $r$. I \textbf{dettagli} sono nei livelli di \textbf{grigio chiari}. L'\textbf{obbiettivo} è quello di aumentare il range dei pixel chiari, ottenendo un generale oscuramento dell'immagine:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.8\textwidth]{img/lab/trasformazione_non_lineare-2.png}
+		\end{figure}
+	\end{itemize}
+	Un esempio in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab6_eg3.m}
+	\newpage
+	
 	\subsubsection{Binarizzazione}
 	
+	La \textcolor{Red3}{\textbf{binarizzazione}} produce un'immagine che ha solo due livelli: nero e bianco. Si ottiene scegliendo una soglia $T$ e impostando al colore nero tutti i pixel il cui valore è minore a $T$ e al colore bianco tutti i pixel rimanenti. La binarizzazione solitamente viene usata per discriminare un oggetto dalla scena. Tuttavia, la difficoltà risiede nel saper scegliere una soglia $T$ ragionevole.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/lab/binarizzazione.pdf}
+	\end{figure}
+	
+	\noindent
+	Un esempio in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab6_eg4.m}\newpage
+		
 	\subsubsection{Esercizio 1}
 	
+	Implementare l'operazione puntuale di stretching/shrinking e applicarla all'immagine presente nel file \dquotes{\textsf{fog.mat}}:
+	\begin{itemize}
+		\item Caricare il file \dquotes{\textsf{fog.mat}} (auto nella nebbia);
+		
+		\item Visualizzare l'immagine e il corrispondente istogramma;
+		
+		\item Individuare i limiti \textsf{rmin}, \textsf{rmax} per l'operazione di stretching/shrinking;
+		
+		\item Costruire la LUT (Look Up Table) per l'operazione di stretching/shrinking.
+		
+		\item Applicare la LUT all'immagine originale e visualizzare il risultato ottenuto: come cambia? Si riescono a visualizzare meglio i numeri della targa?
+		
+		\item Visualizzare l'istogramma dell'immagine risultato: come cambia rispetto all'istogramma dell'immagine originale?
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice MATLAB dell'esercizio:
+	\lstinputlisting[language=MATLAB]{code/lab6_ex1.m}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operatori_puntuali-1.jpg}
+		\caption{Immagine originale.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operatori_puntuali-2.jpg}
+		\caption{Istogramma dell'immagine originale.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operatori_puntuali-3.jpg}
+		\caption{Immagine dopo aver applicato lo stretching.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operatori_puntuali-4.jpg}
+		\caption{Istogramma dell'immagine modificata.}
+	\end{figure}\newpage
+	
 	\subsubsection{Esercizio 2}
+	
+	Caricare l'immagine \dquotes{\textsf{noisy.png}}. Visualizzare l'immagine e il relativo istogramma. Cercare di migliorare l'immagine riducendo il rumore con un'operazione puntuale: qual'è l'operazione più adatta?\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice MATLAB dell'esercizio:
+	\lstinputlisting[language=MATLAB]{code/lab6_ex2.m}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operatori_puntuali-5.jpg}
+		\caption{Immagine originale.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operatori_puntuali-6.jpg}
+		\caption{Istogramma immagine originale.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operatori_puntuali-7.jpg}
+		\caption{LUT.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operatori_puntuali-8.jpg}
+		\caption{Immagine dopo aver ridotto il rumore con il clamping.}
+	\end{figure}\newpage
 	
 	\subsection{Operatori locali}
 	
 	\subsubsection{Filtraggio spaziale}
 	
+	Il valore di uscita di ogni pixel, dopo aver usato uno degli \textcolor{Red3}{\textbf{operatori locali}}, dipende da un limitato intorno del corrispondente punto in input. Vengono \textbf{utilizzati per migliorare la qualità delle immagini} o \textbf{per estrarre delle informazioni dall'immagine}.\newline
+	
+	\noindent
+	Spesso tale filtraggio viene ottenuto facendo la convoluzione tra l'immagine ed una matrice, chiamata maschera o kernel. In questo caso, si parla di filtraggi lineari.
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/lab/operatori-locali.pdf}
+		\caption{Funzionamento generale degli operatori locali.}
+	\end{figure}
+	
+	\noindent
+	Per applicare un operatore locale, devono essere decisi alcuni valori:
+	\begin{itemize}
+		\item La \textbf{dimensione dell'intorno}, che tipicamente è $K \times K$ con $K$ dispari;
+		
+		\item La \textbf{funzione con cui viene calcolato il nuovo valore del pixel}.
+	\end{itemize}\newpage
+	
 	\subsubsection{Tipologie di filtro}
+	
+	Esistono diverse tipologie di filtro che a loro volta si dividono in macro categorie:
+	\begin{itemize}
+		\item Filtri per smoothing (tolgono il rumore):
+		\begin{itemize}
+			\item Filtro media
+			
+			\item Filtro Gaussiano
+			
+			\item Filtro mediano
+		\end{itemize}
+		
+		\item Filtri per sharpening (aumentano il gradi di dettaglio delle immagini):
+		\begin{itemize}
+			\item Filtro laplaciano
+		\end{itemize}
+	\end{itemize}
+	
+	\longline
 	
 	\subsubsection{Filtro media}
 	
+	Il \textcolor{Red3}{\textbf{filtro di media}} è un \textbf{filtraggio lineare}, poiché il nuovo valore del pixel è la \textbf{media} dei valori dei pixel dell'intorno. Gli effetti di questo filtro sono i seguenti:
+	\begin{itemize}
+		\item Rimuove il rumore Gaussiano;
+		
+		\item L'immagine risultato è \dquotes{addolcita} rispetto ai bordi degli oggetti delle immagini;
+		
+		\item Maggiore è l'ampiezza $K$ della maschera, più severo sarà l'effetto della media sulla struttura dell'immagine.
+	\end{itemize}
+	Un \textcolor{Green4}{\textbf{esempio}} in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab7_eg2.m}\newpage
+	
 	\subsubsection{Filtro gaussiano}
+	
+	Il \textcolor{Red3}{\textbf{filtro Gaussiano}} è simile al filtro di media poiché rimuove il rumore gaussiano. Questo filtro è una \textbf{media pesata}, in cui i pesi più vicini al centro hanno valori più alti (i valori vicini al pixel centrale hanno una priorità più elevata).Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{equation*}
+		\dfrac{1}{273} \begin{bmatrix}
+			1 & 4 & 7 & 4 & 1 \\
+			4 & 16 & 26 & 16 & 4 \\
+			7 & 26 & 41 & 26 & 7 \\
+			4 & 16 & 26 & 16 & 4 \\
+			1 & 4 & 7 & 4 & 1
+		\end{bmatrix}
+	\end{equation*}
+	
+	\noindent
+	Il suo compito è quello di effettuare uno \emph{smoothing} più lieve, preservano di contorni meglio di quanto faccia il filtraggio di media. Tuttavia, ha una riduzione del rumore minore rispetto al filtro di media.\newline
+	
+	\noindent
+	La formula che lega l'ampiezza della maschera ($W$) e sigma (deviazione standard del filtro):
+	\begin{equation*}
+		W = 5 \cdot \sigma
+	\end{equation*}
+	Un \textcolor{Green4}{\textbf{esempio}} in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab7_eg3.m}\newpage
 	
 	\subsubsection{Filtro mediano}
 	
+	Il \textcolor{Red3}{\textbf{filtro mediano}} è considerato un filtraggio \textbf{non lineare} poiché il \textbf{nuovo valore del pixel è la mediana dei valori dei pixel dell'intorno}. Si ricorda che per ottenere la mediana è necessario ordinare i valori e prendere il valore centrale. Essa rappresenta una \textbf{stima robusta della media e serve per rimuovere rumore impulsivo}. Un \textcolor{Green4}{\textbf{esempio}} in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab7_eg4.m}\newpage
+	
 	\subsubsection{Filtro laplaciano}
+	
+	Il \textcolor{Red3}{\textbf{filtro laplaciano}} è un operatore di \emph{sharpening} e ha l'obbiettivo di evidenziare i dettagli come \emph{post processing} dopo filtraggi di \emph{smoothing}. Questo perché i filtraggi di \emph{smoothing} eliminano i dettagli.\newline
+	
+	\noindent
+	Il filtro laplaciano è un filtro lineare in cui la \textbf{maschera}, identificata con la lettera $H$, è \textbf{caratterizzata da coefficienti di un segno vicino al centro e di segno opposto nella periferia esterna}. Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{equation*}
+		\dfrac{1}{9} \times
+		\begin{bmatrix}
+			-1 & -1 & -1 \\
+			-1 & 8 & -1 \\
+			-1 & -1 & -1
+		\end{bmatrix}
+	\end{equation*}
+	Per definire il filtro Laplaciano occorre definire un \textbf{parametro} $\alpha$ il cui significato è legato all'\textbf{importanza che si vuole dare agli \emph{edge}}:
+	\begin{itemize}
+		\item $\alpha = 0 \longrightarrow$ Verticali e orizzontali
+		
+		\item $\alpha = 1 \longrightarrow$ Diagonali
+		
+		\item $\alpha = 0.5 \longrightarrow$ Tutti gli \emph{edge}
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{equation*}
+		h = \dfrac{1}{\alpha+1} 
+		\begin{bmatrix}
+			-\alpha & \alpha-1 & -\alpha \\
+			\alpha-1 & \alpha+5 & \alpha-1 \\
+			-\alpha & \alpha-1 & -\alpha \\
+		\end{bmatrix}
+	\end{equation*}
+	Per ottenere l'immagine con più dettagli è possibile applicare il filtro \emph{\textbf{Basic Highpass Spatial filtering}}. Per farlo, viene eseguita una somma tra l'immagine originale e l'immagine filtrata con il laplaciano:
+	\begin{equation*}
+		g\left(n,m\right) = f\left(n,m\right) + c \cdot \underbrace{h * f \left(n,m\right)}_{\text{Immagine filtrata con il laplaciano}}
+	\end{equation*}
+	In cui $c$ indica il fattore di amplificazione ed è positivo se il valore centrale della maschera $H$ è positivo, altrimenti è negativo. Un \textcolor{Green4}{\textbf{esempio}} in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab7_eg5.m}\newpage
 	
 	\subsubsection{Signal to noise ratio}
 	
-	\subsubsection{Esempi}
+	Il \textcolor{Red3}{\textbf{signal to noise ratio}} viene utilizzato per stimare la \textbf{quantità di rumore in un'immagine}. Esistono due versioni:
+	\begin{itemize}
+		\item La formula con \textbf{\emph{mean square}}:
+		\begin{equation*}
+			SNR_{\text{ms}} = \dfrac{
+				\displaystyle\sum_{n=1}^{N} \sum_{m=1}^{M} \tilde{f}\left(n,m\right)^{2}
+			}{
+				\displaystyle\sum_{n=1}^{N} \sum_{m=1}^{M} \left[\tilde{f}\left(n,m\right) - f\left(n,m\right)\right]^{2}
+			}
+		\end{equation*}
+		In cui $f$ è l'immagine originale e $\tilde{f}$ è l'immagine con rumore.
+		
+		\item La formula con la \textbf{varianza}:
+		\begin{equation*}
+			SNR_{\text{var}} = \dfrac{\sigma^{2}_{s}}{\sigma^{2}_{n}}
+		\end{equation*}
+		Dove $\sigma^{2}_{s}$ è la deviazione standard dell'immagine senza rumore, e $\sigma^{2}_{n}$ è quella dell'immagine con il rumore.
+	\end{itemize}
+	Un \textcolor{Green4}{\textbf{esempio}} in MATLAB:
+	\lstinputlisting[language=MATLAB]{code/lab7_eg1.m}\newpage
 	
 	\subsubsection{Esercizio 1}
 	
+	Applicare diversi filtri di smoothing alle due immagini reali definite nello script \textsf{Lezione7\_EserciziPrincipali.m} (\dquotes{peacock} con rumore gaussiano e \dquotes{peppers} con rumore impulsivo). Confrontare i risultati sia in modo qualitativo (quali ritornano un'immagine migliore?) e quantitativo (quali ritornano il valore di SNR più alto?). Utilizzare SNR versione VAR. I filtri da provare:
+	\begin{itemize}
+		\item Media: $3\times3, 5\times5, 9\times9$
+		
+		\item Gaussiano: $3\times3, 5\times5, 9\times9$
+		
+		\item Mediano: $3\times3, 5\times5, 9\times9$
+	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice risultante:
+	\lstinputlisting[language=MATLAB]{code/lab7_ex1.m}
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-1.jpg}
+		\caption{Immagine originale.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-2.jpg}
+		\caption{Immagine con rumore gaussiano.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-3.jpg}
+		\caption{Immagine originale.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-4.jpg}
+		\caption{Immagine con rumore gaussiano.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-5.jpg}
+		\caption{Filtri a confronto.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-6.jpg}
+		\caption{Altri filtri a confronto.}
+	\end{figure}\newpage
+	
 	\subsubsection{Esercizio 2}
 	
+	Applicare il filtraggio di sharpening all'immagine \dquotes{Pavone} corrotta con rumore Gaussiano. Provare ad applicarlo direttamente all'immagine con rumore oppure dopo aver applicato un filtraggio media o gaussiano. Che differenza si nota?\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice risultante:
+	\lstinputlisting[language=MATLAB]{code/lab7_ex2.m}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operato-locali-7.jpg}
+		\caption{Immagine originale.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operato-locali-8.jpg}
+		\caption{Immagine con rumore gaussiano.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operato-locali-9.jpg}
+		\caption{Immagine con sharpened.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operato-locali-10.jpg}
+		\caption{Immagine con filtro di media smoothing: sharpened.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/lab/operato-locali-11.jpg}
+		\caption{Immagine con gaussiano smoothing: sharpened.}
+	\end{figure}\newpage
+	
 	\subsubsection{Esercizio 3}
+	
+	\textbf{Caso reale:} riuscire a migliorare il più possibile la qualità della scrittura nel file \dquotes{\textsf{hand.tiff}}, utilizzando gli strumenti visti fino ad ora. Suggerimenti: ragionare sull'istogramma e utilizzare sia operatori puntuali che operatori locali.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Il codice risultante:
+	\lstinputlisting[language=MATLAB]{code/lab7_ex3.m}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-12.jpg}
+		\caption{Immagine originale.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-13.jpg}
+		\caption{Analisi della scrittura a mano: istogrammi.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-14.jpg}
+		\caption{Immagine dopo lo stretching.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/operato-locali-15.jpg}
+		\caption{Immagine dopo lo sharpened.}
+	\end{figure}\newpage
 	
 	\subsection{TdF 2D e trasformata di Hough per rette}
 	
