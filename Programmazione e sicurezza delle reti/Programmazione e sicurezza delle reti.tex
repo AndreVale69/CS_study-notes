@@ -3619,8 +3619,6 @@ mvn -DskipTests\end{lstlisting}
 		\item Aprire un altro terminale Linux, aprire un terminale del container (eseguendo il primo punto) e digitare:
 		\begin{lstlisting}
 yarn start\end{lstlisting}
-		
-		\item 
 	\end{enumerate}
 	Per eseguire \textsf{we-plant-app-es} si scrivono i seguenti comandi:
 	\begin{enumerate}
@@ -3634,5 +3632,131 @@ docker exec -it id_container bash\end{lstlisting}
 		\item Nel terminale del container eseguire il comando:
 		\begin{lstlisting}
 npm run start\end{lstlisting}
-	\end{enumerate}
+	\end{enumerate}\newpage
+	
+	\subsection{Struttura dell'applicazione}
+	
+	L'applicazione \textbf{WePlant è stata sviluppata utilizzando JHipster} (\href{https://www.jhipster.tech/}{pagina web ufficiale}), che è una \textbf{piattaforma di sviluppo per generare, sviluppare e distribuire rapidamente applicazioni Web e microservizi}. È un generatore di applicazioni, gratis e \emph{open-source}. Il suo nome viene da \dquotes{Java Hipster} poiché l'obbiettivo iniziale degli sviluppatori era creare una piattaforma che potesse fornire sia strumenti moderni che strumenti in \dquotes{\emph{hype}}. Al giorno d'oggi è utilizzato da aziende di grandi dimensioni come: Google, Adobe, HBO, Bosch e tanti altri.\newline
+	
+	\noindent
+	JHipster supporta molte tecnologie di frontend e di backend (si veda sul sito ufficiale l'intera lista). Quindi gli sviluppatori hanno avuto molta libertà sugli strumenti. L'applicazione si struttura nel seguente modo:
+	\begin{itemize}
+		\item \textbf{Server side} è stato utilizzato come DBMS PostgreSQL e come linguaggio per sviluppare il backend Java insieme a qualche framework: Spring e Spring Boot;
+		
+		\item \textbf{Client side} è stato utilizzato Angular con JHipster, quindi un codice autogenerato, e inoltre è stato utilizzato anche Ionic.
+	\end{itemize}
+	
+	\longline
+	
+	\subsubsection{Server side}
+	
+	È stato utilizzato \textbf{DBMS PostgreSQL} che non ha bisogno di grandi presentazioni. Esso è un DBMS orientato agli oggetti e pubblicato con licenza libera. Utilizza il linguaggio di programmazione SQL per eseguire le query sui dati.\newline
+	
+	\noindent
+	Lato server, l'applicazione è stata sviluppata utilizzando il linguaggio di programmazione \textbf{Java}. Inoltre, è stato sfruttato il \emph{framework} \textbf{Java Spring} che è fondamentale per sviluppare applicazioni utilizzando come linguaggio di programmazione Java. Infine, è stato aggiunto \textbf{Java Spring Boot} per aggiungere alcune funzionalità aggiuntive al framework.\newpage
+	
+	\subsubsection{Client side}
+	
+	Lato client, sono stati usati 7 linguaggi di programmazione:
+	\begin{itemize}
+		\item \textbf{HTML} (HyperText Markup Language) non è un vero linguaggio di programmazione ma viene identificato come \dquotes{linguaggio di Markup}. Viene utilizzato per creare le pagine web e consente di formattare, impaginare e creare la struttura di una pagina web;
+		
+		\item \textbf{CSS} è un linguaggio di programmazione utilizzato per definire la formattazione e lo stile di vari tipi di documenti, tra cui HTML;
+		
+		\item \textbf{JavaScript} è un linguaggio di programmazione che consente di rendere dinamiche le pagine web, definendo dei comportamento in seguito a determinati eventi;
+		
+		\item \textbf{TypeScript} è un linguaggio di programmazione che estende JavaScript. Il codice viene convertito in codice JavaScript per poter essere interpretato dal browser;
+		
+		\item \textbf{Angular} è un framework open source per lo sviluppo di applicazioni web, mobile e desktop multipiattaforma;
+		
+		\item \textbf{Ionic} è una piattaforma che consente di creare applicazioni native multipiattaforma ed applicazioni web, utilizzando tecnologie web;
+		
+		È stato progettato per integrarsi con alcuni framework frontend tra cui Angular, React, Vue o semplicemente nessun framework, utilizzando JavaScript Vanilla;
+		
+		\item \textbf{Swagger} è un insieme di specifiche e di strumenti software che mirano a semplificare e standardizzare i processi di documentazione di API RESTful.
+		
+		Swager UI consente allo sviluppatore di visualizzare le API tramite un'interfaccia web ed offre inoltre la possibilità di provare il funzionamento delle API.
+	\end{itemize}
+	Si noti che gli strumenti come Angular, Ionic e Swagger, servono allo sviluppatore per creare l'applicazione. L'utente finale utilizzerà l'applicazione tramite un client (browser), senza doversi preoccupare del modo in cui è stata sviluppata.\newpage
+	
+	\subsection{Sistemi di sicurezza}
+	
+	\subsubsection{Autenticazione password}
+	
+	WePlant come metodo di sicurezza per codificare le password utilizza la libreria di Spring \textsf{BCryptPasswordEncoder} (\href{https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html}{documentazione libreria}), la quale utilizza l'algoritmo BCrypt (\href{https://en.wikipedia.org/wiki/Bcrypt#Description}{descrizione completa dell'algoritmo}). Esso genera una stringa lunga di 60 caratteri così composta:
+	\begin{equation*}
+		\$\textsf{2<a/b/x/y>}\$\textsf{[cost]}\$\textsf{[22 character salt][31 character hash]}
+	\end{equation*}
+	Per esempio, se viene inserita la password \textsf{abc123xyz}, con un costo di 12 (quindi $2^{12} = 4096$ \emph{rounds}) e l'algoritmo hash, il risultato sarà:
+	\begin{equation*}
+		\$
+		\textsf{2a}
+		\$
+		\textsf{12}
+		\$
+		\underbrace{\textsf{R9h/cIPz0gi.URNNX3kh2O}}_{\text{Salt}}
+		\underbrace{\textsf{PST9/PgBkqquzi.Ss7KIUgO2t0jWMUW}}_{\text{Hash}}
+	\end{equation*}
+	\begin{itemize}
+		\item \textsf{\$2a\$} è l'algoritmo di hash (bcrypt);
+		
+		\item \textsf{12} è il costo di input ($2^{12} = 4096$ \emph{rounds});
+		
+		\item \textsf{R9h/cIPz0gi.URNNX3kh2O} è la codifica in base-64 del \emph{input salt};
+		
+		\item \textsf{PST9/PgBkqquzi.Ss7KIUgO2t0jWMUW} è la codifica dei primi 23 bytes dei 24 byte computati tramite hash.
+	\end{itemize}\newpage
+	
+	\subsubsection{Autenticazione e autorizzazione API REST: JWT}
+	
+	Nell'applicazione WePlant, viene utilizzato un \textbf{metodo per l'autenticazione e l'autorizzazione nelle richieste API REST}. Il motivo è per evitare che un attaccante esegua delle richieste provenienti dall'esterno, quindi senza autorizzazione.\newline
+	
+	\noindent
+	Il metodo utilizzato è \textbf{JWT (\emph{Json Web Token})} che è un \emph{open standard}, certificato da \href{https://datatracker.ietf.org/doc/html/rfc7519}{RFC 7519}, e definisce un \textbf{metodo di sicurezza compatto e auto contenuto}, per trasmettere informazioni tra più utenti con semplici file JSON. Tale standard si fonda sulla firma digitale tramite la coppia di chiavi pubblica/privata usando
+	\href{https://en.wikipedia.org/wiki/RSA_(cryptosystem)}{RSA} oppure \href{https://it.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm}{ECDSA}.\newline
+	
+	\noindent
+	In WePlant, il token viene firmato utilizzando una \textbf{secret-key} (\textbf{chiave simmetrica}) presa dal file di configurazione. Quindi, ogni richiesta API contiene questo token, nell'header di richiesta (\textbf{Authorization}), per verificare i permessi dell'utente.\newline
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/we-plant/jwt.png}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/we-plant/jwt.pdf}
+		\caption{Schema di autenticazione tramite JWT.}
+	\end{figure}
+	
+	\longline
+	
+	\subsection{Archiviazione}
+	
+	Della classe \textsf{Window}, esistono due oggetti da osservare attentamente:
+	\begin{itemize}
+		\item \textsf{Window localStorage}
+		
+		\item \textsf{Window sessionStorage}
+	\end{itemize}
+	L'oggetto \textsf{Window localStorage} consente di memorizzare coppie chiave/valore nel browser. I \textbf{dati memorizzati non hanno una scadenza e non vengono eliminati quando il browser viene chiuso}, quindi sono disponibili per sessioni future. Il salvataggio avviene nella sessione del browser.\newline
+	
+	\noindent
+	L'oggetto \textsf{Window sessionStorage} consente di memorizzare coppie chiave/valore nel browser. I \textbf{dati sono memorizzati per una sola sessione, ovvero finché il browser non viene chiuso}, essi sono validi. Nel momento in cui un documento viene caricato in una tab, una sessione di pagina unica viene creata ed assegnata a quel tab specifico. Quindi, aprire una pagina in un novo tab o finestra crea una nuova sessione.\newpage
+	
+	\subsection{Documentazione API}
+	
+	In WePlant esistono \textbf{due gruppi} di API:
+	\begin{itemize}
+		\item \textsf{default}, che sono auto generate;
+		
+		\item \textsf{external}, che sono API custom create ad-hoc per funzionalità specifiche.
+	\end{itemize}
+	La documentazione è disponibile nella sezione Administration $\rightarrow$ API.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/we-plant/API.jpg}
+	\end{figure}
 \end{document}
