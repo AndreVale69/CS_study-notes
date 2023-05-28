@@ -3860,8 +3860,10 @@ end transaction;
 		
 		\item Ogni documento può \textbf{avere uno o più attributi}, i quali vengono specificati nel tag di apertura dell'elemento e i valori a essi associati vengono racchiusi tra virgolette.
 	\end{itemize}
+	La struttura generale di un documento XML:
+	\lstinputlisting[language=XML]{code/xml-ex1.XML}
 	Un \textcolor{Green4}{\textbf{esempio}} di semplice documento XML ben formato:
-	\lstinputlisting[language=XML]{code/xml-ex1.XML}\newpage
+	\lstinputlisting[language=XML]{code/xml-ex0.XML}\newpage
 	
 	\subsection{Specifica della struttura dei documenti XML: DTD vs XSD}
 	
@@ -3873,7 +3875,7 @@ end transaction;
 		\item \textcolor{Red3}{\textbf{Document Type Definition (DTD)}}, semplice ma poco espressiva;
 		\item \textcolor{Red3}{\textbf{XML Schema Definition (XSD)}}, complessa ma potente.
 	\end{itemize}
-	Evitando di spiegare il DTD poiché considerato di vecchia generazione, si consideri che il primo porta ad alcune limitazioni che lo portano ad essere inferiore ad XSD, per questo motivo viene preferito il secondo. Infatti, esso è uno schema contenente gli elementi standard e specifica la struttura di un insieme di documenti XML. Inoltre, consente di:
+	Evitando di spiegare il DTD poiché considerato di vecchia generazione, si consideri che il primo porta ad alcune limitazioni che lo portano ad essere inferiore ad XSD, per questo motivo viene preferito il secondo. Infatti, esso è uno \textbf{schema contenente gli elementi standard e specifica la struttura di un insieme di documenti XML}. Inoltre, consente di:
 	\begin{itemize}
 		\item Definire elementi e attributi;
 		
@@ -3886,8 +3888,167 @@ end transaction;
 	Si consideri come \textcolor{Green4}{\textbf{esempio}} il seguente documento XML che rappresenta una descrizione della struttura dell'edizione 2013 del libro a cui fanno riferimento questi appunti:
 	\lstinputlisting[language=XML]{code/xml-ex2.XML}
 	Sempre come \textcolor{Green4}{\textbf{esempio}}, viene riportato di seguito uno \textbf{schema XML} (XSD) per la rappresentazione di indici di libri:
-	\lstinputlisting[language=XML]{code/xml-ex3.XML}
+	\lstinputlisting[language=XML]{code/xml-ex3.XML}\newpage
 	
+	\section{Struttura del codice XML Schema (XSD)}
+	
+	\subsection{Schema iniziale (\emph{root})}
+	
+	Si prende sotto esame il seguente codice:
+	\lstinputlisting[language=XML]{code/xml-ex4.XML}
+	Si osservino le righe 2-5. Questa introduzione viene chiamata \dquotes{\textbf{schema}} o \dquotes{\textbf{root}} ed è sempre presente (con tanti attributi o meno). Si analizza qua di seguito riga per riga:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Riga 2 - \textsf{xmlns:xsd}}}:
+		\begin{lstlisting}[language=XML]
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"\end{lstlisting}
+		Lo URI (\href{https://en.wikipedia.org/wiki/Uniform_Resource_Identifier}{Uniform Resource Identifier}) che viene specificato (\url{http://www.w3.org/2001/XMLSchema}), \textbf{definisce} al suo interno tutti gli \textbf{elementi} e i \textbf{tipi di dato} che possono essere usati. Quindi, il suo insieme è formato da: \textsf{complexType, element, sequence, schema, string, boolean, integer}.\newpage
+		
+		\item \textcolor{Red3}{\textbf{Riga 3 - \textsf{targetNamespace}}}:
+		\begin{lstlisting}[language=XML]
+targetNamespace="http://www.books.org"\end{lstlisting}
+		Il \textbf{\emph{namespace}}\footnote{La traduzione di \emph{namespace} è \dquotes{spazio dei nomi} o \dquotes{dominio dei nomi}.} \textbf{definisce} tutti gli \textbf{elementi dello schema}, che in questo esempio riguardano una risorsa di libri. Gli elementi di questo insieme sono: \textsf{BookStore, Book, Title, Author, Date, ISBN, Publisher}. Quindi, tutti gli elementi definiti da questo schema con le keyword appena elencate, provengono da quel \emph{namespace}.
+		
+		\item \textcolor{Red3}{\textbf{Riga 4 - \textsf{xmlns}}}:
+		\begin{lstlisting}[language=XML]
+xmlns="http://www.books.org"\end{lstlisting}
+		È facilmente osservabile che in XML ci sono una serie di prefissi. Con il termine \textbf{\emph{default namespace}} si indica l'attribuzione di un URI all'elemento \textsf{xmlns}. Il \textbf{motivo} è molto semplice: la dichiarazione di un \emph{default namespace} per un elemento, \textbf{evita di dover scrivere il prefisso in tutti gli elementi figlio}. In questo caso, viene usata nella \emph{root}, per cui ereditano questa caratteristica tutti gli elementi dello schema.
+		
+		\item \textcolor{Red3}{\textbf{Riga 5 - \textsf{elementFormDefault}}}:
+		\begin{lstlisting}[language=XML]
+elementFormDefault="qualified">\end{lstlisting}
+		Indica che gli elementi dello spazio dei nomi target (\emph{target namespace}), deve essere qualificato (\emph{qualified}) con il prefisso del \emph{namespace}.
+		
+		In altre parole, questa è una \textbf{direttiva per ogni istanza del documento} che è conforme a questo schema: \textbf{ogni elemento utilizzato dall'istanza del documento, la quale era stata dichiarata all'interno di questo schema, deve essere \emph{namespace qualified}}.
+	\end{itemize}
+	Un \textbf{\emph{namespace}} e un \textbf{URI} sono la stessa identica cosa.\newpage
+	
+	\noindent
+	Si presenta qua di seguito un piccolo \textbf{codice scritto in XML} (non XSD, ovvero non è uno schema!). L'\textbf{obbiettivo è evidenziare com'è possibile identificare uno schema da un file XML}:
+	\lstinputlisting[language=XML]{code/xml-ex5.XML}
+	Si osservino le righe 2-5. Si analizza qua di seguito riga per riga:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Riga 2 - \textsf{xmlns}}}:
+		\begin{lstlisting}[language=XML]
+<BookStore xmlns="http://www.books.org"\end{lstlisting}
+		Indica la dichiarazione di un \textbf{\emph{namespace} di default}. Quindi, comunica al validatore dello schema che tutti gli elementi utilizzati in questo documento provengono dal dominio dei nomi (URI): \url{http://www.books.org}.
+		
+		\item \textcolor{Red3}{\textbf{Riga 3-4-5 - \textsf{xmlns:xsi} e \textsf{xsi:schemaLocation}}}:
+		\begin{lstlisting}[language=XML]
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
+		L'\textbf{attributo \emph{schemaLocation}} può avere due valori, entrambi rappresentati nelle righe di codice soprastanti:
+		\begin{itemize}
+			\item Il \textbf{primo valore}, riga 3:
+			\begin{lstlisting}[language=XML]
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\end{lstlisting}
+			Indica il dominio dei nomi (\textbf{\emph{namespace}}) \textbf{da utilizzare}, che in questo caso è: \textsf{schemaLocation, type, noNamespaceSchemaLocation, nil}.
+			
+			\item Il \textbf{secondo valore}, riga 4-5:
+			\begin{lstlisting}[language=XML]
+xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
+			Indica la \textbf{locazione dello schema XML} da utilizzare per quel determinato dominio dei nomi (\emph{namespace}) specificato.
+		\end{itemize}
+	\end{itemize}
+	Quindi, nel file XML (per esempio BookStore.XML) viene scritta la linea di codice \textsf{schemaLocation} per indicare quale schema e \emph{namespace} utilizzare. Invece, nel file XSD (per esempio BookStore.XSD) viene definito l'attributo \textsf{targetNamespace} per definire gli elementi nel \emph{namespace} indicato (per esempio, nel codice ad inizio paragrafo: \textsf{targetNamespace="http://www.books.org"}).\newline
+	
+	\noindent
+	Per concludere, uno \textbf{schema \underline{definisce}} un \textbf{nuovo vocabolario}, mentre le \textbf{istanze dei documenti \underline{usano} quel vocabolario}.\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/xml-calls-xsd.pdf}
+		\caption{Sequenza di chiamate con controllo di correttezza.}
+	\end{figure}
+	
+	\noindent
+	Si esamini attentamente il seguente codice:
+	\lstinputlisting[language=XML]{code/xml-ex6.XML}
+	Dato che non ci sono \emph{namespace} dichiarati di default oltre al URI \textsf{http://www.w3.org/2001/XMLSchema}, viene utilizzato un \textbf{prefisso} o \textbf{alias} (\textsf{bk}, riga 4) per riferirsi a quel determinato \emph{namespace}. Quindi, ogni qualvolta viene usato un elemento dell'insieme \textsf{bk}, è necessario usare tale prefisso. Per esempio, si vedano le righe 9, 16, 17, 18, 19, 20.\newpage
+	
+	\subsection{Dichiarazione degli elementi inline}
+	
+	Nel paragrafo precedente gli elementi sono stati dichiarati e successivamente è stato utilizzato. Tuttavia, per \textbf{rendere lo schema più compatto}, è possibile \textbf{dichiarare l'elemento \emph{inline}}:
+	\lstinputlisting[language=XML]{code/xml-ex7.XML}
+	Grazie alla dichiarazione \emph{inline}, \textbf{non è più necessario specificare a quale dichiarazione dell'elemento ci si sta riferendo} (keyword \textsf{ref}).\newpage
+	
+	\subsection{Tipi complessi \textsf{complexType} e tipi denominati (\textsf{Named types})}\label{complexType}
+	
+	I \textcolor{Red3}{\textbf{tipi complessi}}, in inglese \textbf{\textsf{complexType}}, sono elementi \textbf{contenenti altri elementi o attributi}. Se usati in modo appropriato, risultano essere un costrutto eccellente per organizzare le informazioni.\newline
+	
+	\noindent
+	Se ai \textbf{tipi complessi} viene assegnato un nome, diventano dei tipi denominati (Named types). Questa caratteristica apporta un grosso \textcolor{Green4}{\textbf{vantaggio}} allo schema: il \textbf{\textsf{complexType} al quale è stato affiancato il nome, può essere riutilizzato, come pattern, dagli altri elementi}. Il vantaggio è che gli elementi con una struttura simile possono sfruttare a pieno questa caratteristica.
+	\lstinputlisting[language=XML]{code/xml-ex8.XML}
+	Quindi, dev'essere chiaro che la seguente dichiarazione:
+	\lstinputlisting[language=XML]{code/xml-ex9.XML}
+	Equivale alla seguente dichiarazione:
+	\lstinputlisting[language=XML]{code/xml-ex10.XML}\newpage
+	
+	\noindent
+	Infine, la dichiarazione di un elemento può avere un tipo di attributo o un elemento figlio di tipo \textsf{complexType}. Tuttavia, un elemento \underline{non} può avere entrambi gli attributi, ovvero \textbf{\underline{questa cosa non è permessa}}:
+	\lstinputlisting[language=XML]{code/xml-ex11.XML}
+	Anche se non sono stati spiegati tutti gli elementi del codice seguente, in questo caso il \textsf{complexType} \dquotes{\textsf{fullpersoninfo}}, che deriva da un altro \textsf{complexType}, ha l'obbiettivo di estendere un tipo già esistente aggiungendo tre elementi: \emph{address}, \emph{city} e \emph{country}. Per quanto sia banale questo codice, è facilmente visibile la possibilità di strutturare in modo organizzato le informazioni:
+	\lstinputlisting[language=XML]{code/xml-ex12.XML}\newpage
+	
+	\subsection{Attributi \textsf{minOccurs} e \textsf{maxOccurs}}
+	
+	Gli \textcolor{Red3}{\textbf{indicatori di occorrenze}} (\textsf{minOccurs} e \textsf{maxOccurs}) vengono utilizzati per definire quanto spesso un elemento può comparire. Il \textbf{valore di default} di questi indicatori è 1 e il \textbf{valore massimo} del costrutto \textsf{maxOccurs} è \textsf{unbounded} che corrisponde a infinito. Quindi, il dominio è:
+	\begin{equation*}
+		\begin{array}{lll}
+			\textsf{minOccurs} &=& \left[0, N\right] \hspace{2em} \infty = \textsf{unbounded} \land N \neq \infty \Longrightarrow N \neq \textsf{unbounded} \\
+			\textsf{maxOccurs} &=& \left[1,\textsf{unbounded}\right]
+		\end{array}
+	\end{equation*}
+	Alcune accortezze:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} c l p{18em} @{}}
+			\toprule
+			Valore 	& Operatore & Descrizione \\
+			\midrule
+			0		& \textsf{minOccurs}	& Indica che l'\textbf{elemento è opzionale}, quindi può comparire al massimo un numero di volte dichiarato (operatore \textsf{maxOccurs}), oppure può non comparire. \\ [0.5em]
+			1		& \textsf{minOccurs}	& Valore di \textbf{default}. \\ [0.5em]
+			1		& \textsf{maxOccurs}	& Valore di \textbf{default}. \\ [0.5em]
+			\textsf{unbounded} & \textsf{maxOccurs} & Corrisponde all'infinito e indica che possono comparire un \textbf{numero illimitato di elementi}. \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di file XML:
+	\lstinputlisting[language=XML]{code/xml-ex13.XML}
+	Con conseguente schema XSD:
+	\lstinputlisting[language=XML]{code/xml-ex14.XML}\newpage
+	
+	\subsection{Dichiarazione di un elemento}
+	
+	Un \textcolor{Red3}{\textbf{elemento}} è tutto ciò che viene compreso tra il tag di inizio e il tag di fine. In XML i tag hanno nomi personalizzabili (per esempio, title, author, price, etc.), invece in XSD iniziano con la keyword \textsf{element}.\newline
+	
+	\noindent
+	La \textbf{dichiarazione di un elemento} all'interno di uno schema XSD è la seguente:
+	\begin{lstlisting}[language=XML]
+<xsd:element name="name" type="type" minOccurs="int" maxOccurs="int"/>\end{lstlisting}
+	\begin{itemize}
+		\item \textsf{name="name"} indica il nome dell'elemento;
+		
+		\item \textsf{type="type"} indica il tipo, per esempio \textsf{xsd:string}, o il nome del tipo complesso (\textsf{complexType}) a cui si riferisce;
+		
+		\item \textsf{minOccurs="int"} deve essere inserito un valore non negativo;
+		
+		\item \textsf{maxOccurs="int"} deve essere inserito un valore non negativo o la stringa \textsf{unbounded}.
+	\end{itemize}
+	La dichiarazione di un elemento può essere \textbf{eseguita anche nel seguente modo} se rappresenta un tipo complesso \textsf{complexType} (si veda il paragrafo \ref{complexType} per maggiori dettagli):
+	\begin{lstlisting}[language=XML]
+<xsd:element name="name" minOccurs="int" maxOccurs="int"/>
+	<xsd:complexType>
+		<!-- Some data -->
+	</xsd:complexType>
+</xsd:element>\end{lstlisting}\newpage
+	
+	\subsection{Tipo di dati problematici}
+	
+	\subsubsection{Spiegazione del problema}
+	
+	\subsubsection{I tipi \emph{date} e la loro applicazione}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

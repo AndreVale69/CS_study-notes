@@ -1,0 +1,5 @@
+<xsd:element name="A" type="T1">
+    <xsd:complexType>
+        <!-- Some data -->
+    </xsd:complexType>
+</xsd:element>

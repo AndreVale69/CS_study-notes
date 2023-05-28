@@ -1,0 +1,7 @@
+<xsd:element name="A" type="T1"/>
+<xsd:complexType name="T1">
+    <xsd:sequence>
+        <xsd:element name="B"/>
+        <xsd:element name="C"/>
+    </xsd:sequence>
+</xsd:complexType>
