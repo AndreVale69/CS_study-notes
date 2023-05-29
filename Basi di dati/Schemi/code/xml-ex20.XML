@@ -1,0 +1,6 @@
+<xsd:simpleType name="BostonAreaSurfaceElevation">
+    <xsd:restriction base="EarthSurfaceElevation">
+        <xsd:minInclusive value="0"/>
+        <xsd:maxInclusive value="120"/>
+    </xsd:restriction>
+</xsd:simpleType>

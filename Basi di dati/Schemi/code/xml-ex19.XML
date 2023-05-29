@@ -1,0 +1,6 @@
+<xsd:simpleType name="EarthSurfaceElevation">
+    <xsd:restriction base="xsd:integer">
+        <xsd:minInclusive value="-1290"/>
+        <xsd:maxInclusive value="29035"/>
+    </xsd:restriction>
+</xsd:simpleType>

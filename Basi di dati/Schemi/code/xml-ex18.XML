@@ -1,0 +1,7 @@
+<xsd:simpleType name="shape">
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="circle"/>
+        <xsd:enumeration value="triangle"/>
+        <xsd:enumeration value="square"/>
+    </xsd:restriction>
+</xsd:simpleType>
