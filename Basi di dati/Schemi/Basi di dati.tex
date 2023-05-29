@@ -3985,9 +3985,42 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	
 	\noindent
 	Infine, la dichiarazione di un elemento può avere un tipo di attributo o un elemento figlio di tipo \textsf{complexType}. Tuttavia, un elemento \underline{non} può avere entrambi gli attributi, ovvero \textbf{\underline{questa cosa non è permessa}}:
-	\lstinputlisting[language=XML]{code/xml-ex11.XML}
-	Anche se non sono stati spiegati tutti gli elementi del codice seguente, in questo caso il \textsf{complexType} \dquotes{\textsf{fullpersoninfo}}, che deriva da un altro \textsf{complexType}, ha l'obbiettivo di estendere un tipo già esistente aggiungendo tre elementi: \emph{address}, \emph{city} e \emph{country}. Per quanto sia banale questo codice, è facilmente visibile la possibilità di strutturare in modo organizzato le informazioni:
-	\lstinputlisting[language=XML]{code/xml-ex12.XML}\newpage
+	\lstinputlisting[language=XML]{code/xml-ex11.XML}\newpage
+	
+	\subsubsection{Derivazione dei \textsf{complexType}}
+	
+	L'elemento \textsf{complexType} può essere \textbf{derivato con due scopi principali}:
+	\begin{itemize}
+		\item Derivare per \textbf{estensione} (\textsf{extension}), ovvero \textbf{estende} il \textsf{complexType} genitore \textbf{aggiungendo elementi}.
+		
+		In questo \textcolor{Green4}{\textbf{esempio}} il \textsf{complexType} \dquotes{\textsf{fullpersoninfo}}, che deriva da un altro \textsf{complexType}, ha l'obbiettivo di estendere un tipo già esistente aggiungendo tre elementi: \emph{address}, \emph{city} e \emph{country}:
+		\lstinputlisting[language=XML]{code/xml-ex12.XML}
+		Un altro \textcolor{Green4}{\textbf{esempio}} in cui viene esteso un \textsf{complexType}:
+		\lstinputlisting[language=XML]{code/xml-ex21.XML}
+		
+		\item Derivare per \textbf{restrizione} (\textsf{restriction}), ovvero \textbf{crea un tipo il quale è un sottoinsieme del tipo base}. Inoltre, tutti gli elementi della base devono essere ripetuti, eccetto quando \textsf{minOccurs} è uguale a zero. Con questa soluzione, ci sono \textbf{due modi per creare un sottoinsieme} di elementi:
+		\begin{enumerate}
+			\item Ridefinire un tipo di un elemento per avere una \textbf{restrizione del range di valori};
+			
+			\item Ridefinire un tipo di un elemento per avere \textbf{più numeri ristretti di occorrenze}.
+		\end{enumerate}
+		Un \textcolor{Green4}{\textbf{esempio}} di derivare per restrizione è il seguente:
+		\lstinputlisting[language=XML]{code/xml-ex22.XML}
+	\end{itemize}
+	Come è possibile osservare, la \textbf{derivazione per restrizione} (\textsf{restriction}) risulta essere un copia e incolla con qualche piccola modifica. Dunque, quali sono i vantaggi di usare tale derivazione? I \textcolor{Green4}{\textbf{vantaggi}} di utilizzare la derivazione per restrizione sono comprensibili più avanti (per esempio sono utili con la sostituzione di elementi, paragrafo \ref{sostituzione di elementi}).\newpage
+	
+	\subsubsection{Proibire la derivazione dei \textsf{complexType}}
+	
+	Quando viene utilizzato l'elemento \textsf{complexType} è possibile utilizzare l'attributo \textcolor{Red3}{\textbf{\textsf{final}}} che consente di \textbf{prevenire} (proibire) una determinata \textbf{derivazione di un tipo} di elemento. I valori che assume questo attributo sono 3:
+	\begin{itemize}
+		\item \textsf{\textbf{extension}}, \textbf{previene la derivazione} tramite la keyword \textsf{extension}
+		
+		\item \textsf{\textbf{restriction}}, \textbf{previene la derivazione} tramite la keyword \textsf{restriction}
+		
+		\item \textsf{\textbf{\#all}}, \textbf{previene qualsiasi tipo di derivazione}
+	\end{itemize}
+	
+	\longline
 	
 	\subsection{Attributi \textsf{minOccurs} e \textsf{maxOccurs}}
 	
@@ -4042,13 +4075,257 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	<xsd:complexType>
 		<!-- Some data -->
 	</xsd:complexType>
-</xsd:element>\end{lstlisting}\newpage
+</xsd:element>\end{lstlisting}
+	Oppure, è possibile dichiarare un elemento nel seguente modo, sfruttando l'elemento \textsf{simpleType}:
+	\begin{lstlisting}[language=XML]
+<xsd:element name="name" minOccurs="int" maxOccurs="int"/>
+	<xsd:simpleType>
+		<xsd:restriction base="type">
+			<!-- Some data -->
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:element>\end{lstlisting}
+	\newpage
 	
 	\subsection{Tipo di dati problematici}
 	
 	\subsubsection{Spiegazione del problema}
 	
-	\subsubsection{I tipi \emph{date} e la loro applicazione}
+	Esistono alcuni dati che possono essere rappresentati come stringhe ma che non rispettano determinati formati. Per esempio, un codice ISBN di un libro non può essere una stringa qualsiasi, ma deve rispettare una corretta formattazione. Lo stesso ragionamento vale per le date. L'obbiettivo è quello di accettare solamente formattazioni corrette.
+	
+	\longline
+	
+	\subsubsection{I tipi \emph{date}}
+	
+	I tipi \textcolor{Red3}{\textbf{\textsf{datatype}}} vengono utilizzati per \textbf{rappresentare un giorno specifico con una specifica formattazione}:
+	\begin{equation*}
+		\textsf{CCYY}-\textsf{MM}-\textsf{DD}
+	\end{equation*}
+	Il loro range:
+	\begin{itemize}
+		\item $\textsf{CC}: \left[0 - 99\right]$
+		
+		\item $\textsf{YY}: \left[0 - 99\right]$
+		
+		\item $\textsf{MM}: \left[1 - 12\right]$
+		
+		\item \textsf{DD}:
+		\begin{itemize}
+			\item Se l'anno è bisestile, il mese di febbraio (02) ha $\left[01-29\right]$, altrimenti $\left[01-28\right]$
+			
+			\item Per i mesi di aprile (04), giugno (06), settembre (09), novembre (11) si ha $\left[01-30\right]$
+			
+			\item Per i mesi di gennaio (01), marzo (03), maggio (05), luglio (07), agosto (08), ottobre (10), dicembre (12) si ha $\left[01-31\right]$
+		\end{itemize}
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}: 1999-05-31, rappresenta il 31 maggio del 1999.\newline
+	
+	\noindent
+	È possibile dichiarare anche un tipo \textsf{gYear} che rappresenta solo l'anno con il formato \textsf{CCYY} e \textsf{CC} e \textsf{YY} nel range $\left[00-99\right]$.\newpage
+	
+	\subsubsection{Formattazione rigida grazie a \textsf{simpleType} e alle espressioni regolari}\label{simpleType}
+	
+	\noindent
+	Un codice in cui vengono applicati i tipi \textsf{simpleType} è il seguente:
+	\lstinputlisting[language=XML]{code/xml-ex15.XML}
+	L'elemento \textcolor{Red3}{\textbf{\textsf{simpleType}}} definisce un \textbf{tipo semplice} e \textbf{specifica le restrizioni e le informazioni riguardo i valori} degli attributi.\newline
+	
+	\noindent
+	Dalla riga 6 alla riga 12, viene definito un nuovo tipo che ha determinate restrizioni. Il suo nome è \textsf{ISBNTypes} e accetta solo 3 tipi di pattern. Si noti il comando \textsf{$\backslash$d\{\emph{value}\}} che indica quanti valori numerici devono essere inseriti.\newline
+	
+	\noindent
+	Alla riga 23 e 24 c'è la dichiarazione di un tipo \emph{date}, ovvero \textsf{gyear} che rappresenta l'anno e ha una formattazione ben precisa (si veda la pagina precedente).\newline
+	
+	\noindent
+	Alla riga 25 e 26 viene dichiarato un elemento di nome \textsf{ISBN} e di tipo \textsf{ISBNType}.\newpage
+	
+	\noindent
+	Grazie alle \textbf{espressioni regolari}, il pezzo di codice dalla riga 8 alla riga 10, ovvero la dichiarazione del pattern, è possibile semplificarla:
+	\lstinputlisting[language=XML]{code/xml-ex16.XML}
+	Per ottimizzare il codice, è stata creata un'unica stringa in cui vengono specificati i possibili pattern applicabili. Per indicare se scegliere un pattern piuttosto ad un altro, viene usato l'operatore logico or con la keyword \dquotes{|}.\newline
+	
+	\noindent
+	Inoltre, è possibile \textbf{creare un \textsf{simpleType} utilizzando un altro \textsf{simpleType} come base}. Si guardi il seguente \textcolor{Green4}{\textbf{esempio}} per comprendere meglio. La base di partenza:
+	\lstinputlisting[language=XML]{code/xml-ex19.XML}
+	Il \textsf{simpleType} costruito dalla sua base:
+	\lstinputlisting[language=XML]{code/xml-ex20.XML}
+	
+	\noindent
+	Purtroppo, come succede per i \textsf{complexType}, anche con i \textsf{simpleType} è possibile eseguire definizioni anonime. Lo svantaggio, come è stato già detto per il \textsf{complexType}, è l'impossibilità di riutilizzare questo tipo da parte degli altri elementi.
+	
+	\longline
+	
+	\subsubsection{Confronto tra \textsf{complexType} e \textsf{simpleType}}
+	
+	Le definizioni dei vari tipi si possono trovare al paragrafo~\ref{complexType} per quanto riguarda \textsf{complexType}, mentre al paragrafo~\ref{simpleType} per quanto riguarda \textsf{simpleType}.\newline
+	
+	\noindent
+	Il \textbf{tipo} \textsf{complexType} è consigliabile utilizzarlo quando si vuole \textbf{definire la struttura di un elemento}. Per \textcolor{Green4}{\textbf{esempio}} i figli di un elemento oppure gli attributi di un elemento. Invece, il tipo \textsf{simpleType} viene utilizzato quando si vuole creare un nuovo tipo che è una rifinitura di un tipo già esistente.
+	
+	\newpage
+	
+	\subsection{Datatypes}
+	
+	\subsubsection{Lista di datatypes}
+	
+	Qua di seguito viene data una lista di datatypes:\newpage
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | l @{}}
+			\toprule
+			Datatypes primitivi & Descrizione ed esempi \\
+			\midrule
+			\textsf{string}		& \dquotes{Hello world} \\
+			\textsf{boolean}	& $\left\{\textsf{true}, \textsf{false}, 1, 0\right\}$ \\
+			\textsf{decimal}	& $7,08$ \\
+			\textsf{float}		& $12.56\mathrm{E}3$, \hspace{0.5em} $12$, \hspace{0.5em} $12560$, \hspace{0.5em} $0$, \hspace{0.5em} $-0$, \hspace{0.5em} INF, \hspace{0.5em} $-$INF, \hspace{0.5em} NAN \\
+			\textsf{double}		& $12.56\mathrm{E}3$, \hspace{0.5em} $12$, \hspace{0.5em} $12560$, \hspace{0.5em} $0$, \hspace{0.5em} $-0$, \hspace{0.5em} INF, \hspace{0.5em} $-$INF, \hspace{0.5em} NAN \\
+			\textsf{duration}	& P1Y2M3DT10H30M12.3S \\
+			\textsf{dateTime}	& \textsf{format}: \textsf{CCYY-MM-DD T hh:mm:ss} \\
+			\textsf{time}		& \textsf{format}: \textsf{hh:mm:ss} \\
+			\textsf{date}		& \textsf{format}: \textsf{CCYY-MM-DD} \\
+			\textsf{gYearMonth}	& \textsf{format}: \textsf{CCYY-MM} \\
+			\textsf{gYear}		& \textsf{format}: \textsf{CCYY} \\
+			\textsf{gMonthDay}	& \textsf{format}: \textsf{-}\textsf{-}\textsf{MM-DD} \\
+			\textsf{gDay}		& \textsf{format}: \textsf{-}\textsf{-}\textsf{-}\textsf{DD} \\
+			\textsf{gMonth}		& \textsf{format}: \textsf{-}\textsf{-}\textsf{MM}\textsf{-}\textsf{-} \\
+			\textsf{hexBinary}	& Una stringa esadecimale \\
+			\textsf{base64Binary}& Una stringa in base64 \\
+			\textsf{anyURI}		& \url{http://www.xfront.com} \\
+			\textsf{QName}		& Un nome qualificato nel \emph{namespace} \\
+			\textsf{NOTATION}	& Una notazione dalle specifiche XML \\
+			\textsf{normalizedString}	& Stringa senza \emph{tab}, \emph{line feeds} o \emph{carriage returns} \\
+			\textsf{token}		& Stringa senza \emph{tab}, \emph{line feeds}, \emph{leading/trailing spaces}, \emph{consecutive spaces} \\
+			\textsf{language}	& Ogni linguaggio valido in XML \\
+			\textsf{IDREFS}		& Da utilizzare solo con gli attributi \\
+			\textsf{ENTITIES}	& Da utilizzare solo con gli attributi \\
+			\textsf{NMTOKEN}	& Da utilizzare solo con gli attributi \\
+			\textsf{NMTOKENS}	& Da utilizzare solo con gli attributi \\
+			\textsf{Name}		& Da utilizzare solo con gli attributi \\
+			\textsf{NCName}		& No \emph{namespace qualifier} \\
+			\textsf{ID}			& Da utilizzare solo con gli attributi \\
+			\textsf{IDREF}		& Da utilizzare solo con gli attributi \\
+			\textsf{ENTITY}		& Da utilizzare solo con gli attributi \\
+			\textsf{integer}	& 456 \\
+			\textsf{inonPositiveIteger}	& $-\infty \rightarrow 0$ \\
+			\textsf{negativeInteger}	& $-\infty \rightarrow -1$ \\
+			\textsf{long}		& $-9223372036854775808 \rightarrow 9223372036854775807$ \\
+			\textsf{int}		& $-2147483648 \rightarrow 2147483647$ \\
+			\textsf{short}		& $-32768 \rightarrow 32767$ \\
+			\textsf{byte}		& $-127 \rightarrow 128$ \\
+			\textsf{nonNegativeInteger}	& $0 \rightarrow \infty$ \\
+			\textsf{unsignedLong}	& $0 \rightarrow 18446744073709551615$ \\
+			\textsf{unsignedInt}	& $0 \rightarrow 4294967295$ \\
+			\textsf{unsignedShort}	& $0 \rightarrow 65535$ \\
+			\textsf{unsignedByte}	& $0 \rightarrow 255$ \\
+			\textsf{positiveInteger}	& $1 \rightarrow \infty$ \\
+			\bottomrule
+		\end{tabular}
+		\caption{T indica il separatore date/time, INF è infinito, e NAN è not-a-number.}
+	\end{table}\newpage
+	
+	\subsubsection{Creazione di un datatype personalizzato}
+	
+	Come è stato visto nel paragrafo~\ref{simpleType}, è possibile \textbf{creare nuovi tipi di dati} specificando i vari pattern possibili. Precedentemente è stato definito un pattern per i codici ISBN, ma è possibile farlo anche per rappresentare altri elementi. Per \textcolor{Green4}{\textbf{esempio}}, si indica il seguente tipo che rappresenta i numeri di telefono:
+	\lstinputlisting[language=XML]{code/xml-ex17.XML}
+	\begin{itemize}
+		\item Riga 1: viene creato un nuovo tipo di dati chiamato \textsf{TelephoneNumber};
+		
+		\item Riga 2: l'elemento che fanno parte di questo tipo possono essere solo valori di stringa;
+		
+		\item Riga 3: la lunghezza della stringa deve essere lunga esattamente di 8 caratteri;
+		
+		\item Riga 4: la stringa deve seguire il pattern \textsf{ddd-dddd0}, dove \textsf{d} rappresenta una singola cifra.
+	\end{itemize}
+	Un altro \textcolor{Green4}{\textbf{esempio}}:
+	\lstinputlisting[language=XML]{code/xml-ex18.XML}
+	In questo caso viene creato un nuovo tipo, chiamato \textsf{shape}. Un elemento che utilizza tale tipo, deve essere un valore dei tre proposti, ovvero: \textsf{circle}, \textsf{triangle}, \textsf{square};\newpage
+	
+	\subsubsection{Condizioni sui tipi interi}
+	
+	I tipi interi hanno diverse possibili condizioni, ovvero è possibile effettuare \textbf{diversi tipi di controlli}:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | p{27em} @{}}
+			\toprule
+			Comando	& Descrizione \\
+			\midrule
+			\textsf{enumeration}	& Definisce una \textbf{lista di valori accettabili}. \\ [0.5em]
+			\textsf{fractionDigits}	& Specifica il massimo numero di decimali concessi. Deve essere uguale o maggiore di zero. \\ [0.5em]
+			\textsf{length}			& Specifica il numero esatto di caratteri o lista di oggetti ammessi. Deve essere uguale o maggiore di zero \\ [0.5em]
+			\textsf{maxExclusive}	& Definisce il \textbf{limite superiore dei valori numerici}. Il valore deve essere \textbf{minore di questo valore}. \\ [0.5em]
+			\textsf{maxInclusive}	& Definisce il \textbf{limite superiore dei valori numerici}. Il valore deve essere \textbf{minore o uguale di questo valore}. \\ [0.5em]
+			\textsf{maxLength}		& Specifica il massimo numero di caratteri o lista di elementi ammessi. Deve essere maggiore o uguale a zero. \\ [0.5em]
+			\textsf{minExclusive}	& Definisce il \textbf{limite inferiore dei valori numerici}. Il valore deve essere \textbf{maggiore di questo valore}. \\ [0.5em]
+			\textsf{minInclusive}	& Definisce il \textbf{limite inferiore dei valori numerici}. Il valore deve essere \textbf{maggiore o uguale di questo valore}. \\ [0.5em]
+			\textsf{minLength}		& Specifica il minimo numero di caratteri o lista di elementi ammessi. Deve essere maggiore o uguale a zero. \\ [0.5em]
+			\textsf{pattern}		& Definisce l'\textbf{esatta sequenza di caratteri} che sono accettati. \\ [0.5em]
+			\textsf{totalDigits}	& Specifica il \textbf{numero esatto di cifre} ammesse. Il valore deve essere maggiore di zero. \\ [0.5em]
+			\textsf{whitespace}		& Specifica quanti \textbf{spazi bianchi} (\emph{line feeds}, \emph{tabs}, \emph{spaces} e \emph{carrage returns}) sono \textbf{gestiti}. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Restrizioni che è possibile applicare sui tipi interi.}
+	\end{table}
+	
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}}, è la dichiarazione del tipo \textsf{EarthSurfaceElevation} in cui gli elementi che ne fanno parte devono essere degli interi all'interno del range, inclusi gli estremi, $\left[-1290, 29035\right]$.
+	\lstinputlisting[language=XML]{code/xml-ex19.XML}\newpage
+	
+	\subsection{Terminologia}
+	
+	\subsubsection{Dichiarazione e definizione}
+	
+	Con il termine \textcolor{Red3}{\textbf{dichiarazione}} è possibile riferirsi agli \textbf{elementi} e agli \textbf{attributi}. In uno schema, i componenti che vengono dichiarati sono tutti quegli oggetti che hanno una rappresentazione nell'istanza del documento XML.\newline
+	
+	\noindent
+	Quindi, le \textbf{dichiarazioni} sono:
+	\begin{itemize}
+		\item Dichiarazione degli elementi;
+		\item Dichiarazione degli attributi.
+	\end{itemize}
+	
+	\noindent
+	Con il termine \textcolor{Red3}{\textbf{definizione}} è possibile riferirsi ai \textbf{componenti} che sono \textbf{utilizzati solo dentro i documenti dello schema}. In uno schema, i componenti che vengono definiti sono tutti quegli oggetti che non hanno una rappresentazione nell'istanza del documento XML.\newline
+	
+	\noindent
+	Quindi, le \textbf{definizioni} sono:
+	\begin{itemize}
+		\item Definizioni dei \textbf{tipi} (semplici e complessi)
+		\item Definizione dei \textbf{gruppi di attributi} (\emph{attribute group})
+		\item Definizione dei \textbf{gruppi di modelli} (\emph{model grouè})
+	\end{itemize}
+	
+	\longline
+	
+	\subsubsection{Globale e locale}
+	
+	Le \textbf{dichiarazioni di elementi} \textcolor{Red3}{\textbf{globali}} e le \textbf{definizioni di tipi globali} sono tutte quelle definizioni di tipo/dichiarazioni di elemento che sono immediatamente figlie di \textsf{<schema>}.\newline
+	
+	\noindent
+	Le \textbf{dichiarazioni di elementi} \textcolor{Red3}{\textbf{locali}} e le \textbf{definizioni di tipi locali} sono tutte quelle definizioni di tipo/dichiarazioni di elemento che sono annidate all'interno di altri elementi/tipi.\newline
+	
+	\noindent
+	La \textbf{differenza tra globale e locale} è la seguente. Solo gli \textbf{elementi/tipi globali possono essere referenziati} (per esempio riutilizzati). Al contrario, se un \textbf{elemento/tipo è locale, allora sarà invisibile al resto dello schema e agli altri schemi}.
+	\newpage
+	
+	\subsubsection{Esempio di codice per capire la terminologia}
+	
+	Qua di seguito viene lasciato un pezzo di codice per comprendere anche la terminologia:
+	\lstinputlisting[language=XML]{code/xml-ex23.XML}
+	\begin{itemize}
+		\item Definizioni di tipo globale (\emph{global type definition}): riga 6, riga 15;
+		
+		\item Dichiarazione di elemento globale (\emph{global element declaration}): riga 27;
+		
+		\item Definizione di tipo locale (\emph{local type definition}): riga 28;
+		
+		\item Dichiarazione di elemento locale (\emph{local element declarations}): riga 8, riga 10, riga 12, riga 19, riga 21, riga 30.
+	\end{itemize}\newpage
+	
+	\subsection{Sostituzione di elementi}\label{sostituzione di elementi}
+	
+	
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
