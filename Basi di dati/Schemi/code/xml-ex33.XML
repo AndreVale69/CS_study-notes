@@ -1,0 +1,8 @@
+<xsd:attribute name="name" use="how-its-used" default/fixed="value">
+    <xsd:simpleType>
+        <xsd:restriction base="simple-type">
+            <xsd:facet value="value"/>
+            <!-- Some data -->
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:attribute>

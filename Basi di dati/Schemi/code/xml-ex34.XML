@@ -1,0 +1,22 @@
+<xsd:element name="Book">
+    <xsd:complexType>
+        <xsd:sequence>
+            <!-- Some data -->
+        </xsd:sequence>
+        <!-- Dichiarazione locale dell'attributo -->
+        <!-- Utilizzo dell'attributo use corretto -->
+        <xsd:attribute ref="Category" use="required"/>
+        <!-- Some data -->
+    </xsd:complexType>
+</xsd:element>
+<!-- Dichiarazione globale dell'attributo -->
+<!-- Attributo use non sensato, quindi corretto ometterlo -->
+<xsd:attribute name="Category">
+    <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="autobiography"/>
+            <xsd:enumeration value="fiction"/>
+            <xsd:enumeration value="non-fiction"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:attribute>

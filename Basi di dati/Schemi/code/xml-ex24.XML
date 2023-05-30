@@ -1,0 +1,11 @@
+<xsd:element name="name" type="xsd:string"/>
+<xsd:element name="navn" substitutionGroup="name"/>
+
+<xsd:complexType name="custinfo">
+    <xsd:sequence>
+        <xsd:element ref="name"/>
+    </xsd:sequence>
+</xsd:complexType>
+
+<xsd:element name="customer" type="custinfo"/>
+<xsd:element name="kunde" substitutionGroup="customer"/>

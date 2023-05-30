@@ -1,0 +1,10 @@
+<xsd:element name="subway" type="xsd:string"/>
+<xsd:element name="metro" substitutionGroup="subway"
+             type="xsd:string"/>
+<xsd:complexType name="transport">
+    <xsd:sequence>
+        <xsd:element ref="subway"/>
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name="transportation" type="transport"/>
+<xsd:element name="transporte" substitutionGroup="transportation"/>

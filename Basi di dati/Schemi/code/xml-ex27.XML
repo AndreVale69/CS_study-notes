@@ -1,0 +1,28 @@
+<xsd:complexType name="PublicationType">
+    <xsd:sequence>
+        <xsd:element name="Title" type="xsd:string"/>
+        <xsd:element name="Author" type="xsd:string" minOccurs="0"
+                     maxOccurs="unbounded"/>
+        <xsd:element name="Date" type="xsd:gYear"/>
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="BookType">
+    <xsd:complexContent>
+        <xsd:extension base="PublicationType">
+            <xsd:sequence>
+                <xsd:element name="ISBN" type="xsd:string"/>
+                <xsd:element name="Publisher" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:extension>
+    </xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="MagazineType">
+    <xsd:complexContent>
+        <xsd:restriction base="PublicationType">
+            <xsd:sequence>
+                <xsd:element name="Title" type="xsd:string"/>
+                <xsd:element name="Date" type="xsd:gYear"/>
+            </xsd:sequence>
+        </xsd:restriction>
+    </xsd:complexContent>
+</xsd:complexType>

@@ -1,0 +1,12 @@
+<xsd:element name="Publication" type="PublicationType"/>
+<xsd:element name="Book" substitutionGroup="Publication"
+             type="BookType"/>
+<xsd:element name="Magazine" substitutionGroup="Publication"
+             type="MagazineType"/>
+<xsd:element name="BookStore">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="Publication" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
