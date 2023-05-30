@@ -4325,6 +4325,153 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	
 	\subsection{Sostituzione di elementi}\label{sostituzione di elementi}
 	
+	La sostituzione di elementi (\emph{element substitution}) viene presentata con un esempio.\newline
+	
+	\noindent
+	Si supponga che esistano utente provenienti da due regioni: Inghilterra e Norvegia. Si vorrebbe dare l'opportunità a ciascun utente di scegliere quali nomi utilizzare: se i nomi degli elementi norvegesi o se i nomi degli elementi inglesi.\newline
+	
+	\noindent
+	Per risolvere tale problema, è possibile definire un costrutto chiamato \textcolor{Red3}{\textbf{\textsf{substitutionGroup}}}. Quindi, prima di tutto viene dichiarato un elemento \dquotes{\textbf{capo}} (\emph{\textbf{head}}) e successivamente, vengono dichiarati i \textbf{tipi sostituibili}:
+	\begin{lstlisting}[language=XML]
+<xs:element name="name" type="xs:string"/>
+<xs:element name="navn" substitutionGroup="name"/>\end{lstlisting}
+	Nel codice soprastante, l'elemento \textsf{name} è \dquotes{l'elemento capo} e l'elemento \textsf{navn} è l'elemento sostituibile a \textsf{name}.\newline
+	
+	\noindent
+	\textbf{N.B.:} tutti \textbf{gli elementi che vengono dichiarati per essere nel gruppo di sostituzione} (\emph{substitution gruop}), devono essere \textbf{dichiarati come elementi globali}.
+	
+	Inoltre, il \textbf{tipo} di ogni elemento facente parte del \emph{substitutionGroup}, deve essere il \textbf{medesimo}, o il \textbf{derivato}, del \textbf{tipo dell'elemento capo} (\emph{head element}).\newline
+	
+	\noindent
+	Si presenta qua di seguito un \textcolor{Green4}{\textbf{esempio}} di codice estratto da un XML schema:
+	\lstinputlisting[language=XML]{code/xml-ex24.XML}
+	E il relativo documento XML in cui vengono dichiarati i dati:
+	\begin{lstlisting}[language=XML]
+<customer>
+	<name>John Smith</name>
+</customer>
+
+<kunde>
+	<navn>John Smith</name>
+</kunde>\end{lstlisting}
+	È possibile vedere che \textsf{navn} è il valore sostitutivo di \textsf{name}.\newpage
+	
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}} è il seguente. È possibile usare \textsf{substitutionGroups} per creare elementi personalizzati per dei clienti internazionali di un'azienda. Quindi, lo XML schema:
+	\lstinputlisting[language=XML]{code/xml-ex25.XML}
+	La relativa istanza nel documento, cioè il file XML:
+	\begin{lstlisting}[language=XML]
+<transportation>
+	<subway>Red Line</subway>
+</transportation>
+
+<transporte>
+	<metro>Linea Roja</metro>
+</transporte>\end{lstlisting}
+	In cui la prima istanza può essere utilizzata da clienti inglesi, mentre la seconda da clienti spagnoli. In ogni caso, la \dquotes{linea Roja} è un sostituto di \dquotes{Red Line}, quindi entrambi hanno lo stesso significato.\newpage
+	
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}} in cui vi è una sostituzione di elementi utilizzando un tipo derivato e non lo stesso:
+	\lstinputlisting[language=XML]{code/xml-ex26.XML}
+	Questo è possibile poiché \textsf{PublicationType} è il \emph{father type} dei due elementi \textsf{BookType} e \textsf{MagazineType}. E infatti, il codice seguente dimostra questa parentela:
+	\lstinputlisting[language=XML]{code/xml-ex27.XML}
+	L'istanza del relativo file XML schema è il seguente:
+	\lstinputlisting[language=XML]{code/xml-ex28.XML}
+	
+	\longline
+	
+	\subsubsection{Prevenire la sostituzione di elementi}
+	
+	Per prevenire che alcuni elementi vengano sostituiti con un elemento specifico, viene utilizzato l'attributo \textcolor{Red3}{\textbf{\textsf{block}}}:
+	\begin{lstlisting}[language=XML]
+<xsd:element name="name" type="xsd:string" block"substitution"/>\end{lstlisting}
+	Per \textcolor{Green4}{\textbf{esempio}}, dato il seguente XML schema:
+	\lstinputlisting[language=XML]{code/xml-ex29.XML}
+	La relativa istanza di documento, ovvero il file XML, ancora corretta:
+	\lstinputlisting[language=XML]{code/xml-ex30.XML}
+	Invece, l'istanza \underline{non più valida} poiché è stata bloccata con l'attributo:
+	\lstinputlisting[language=XML]{code/xml-ex31.XML}
+	
+	\longline
+	
+	\subsubsection{Proprietà della sostituzione di elementi}
+	
+	Ci sono due proprietà che valgono per la sostituzione di elementi:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textbf{Proprietà transitiva}}: se un elemento A può sostituire un elemento B, e un elemento B può sostituire un elemento C, allora l'elemento A può sostituire l'elemento C:
+		\begin{equation*}
+			\mathrm{A} \rightarrow \mathrm{B} \rightarrow \mathrm{C} \Longrightarrow \mathrm{A} \rightarrow \mathrm{C}
+		\end{equation*}
+		
+		\item \textcolor{Red3}{\textbf{Proprietà della non simmetria}}: se un elemento A può sostituire un elemento B, non è detto che l'elemento B possa sostituire l'elemento A.
+	\end{itemize}\newpage
+	
+	\subsection{Attributi}
+	
+	\subsubsection{Definizione}
+	
+	Gli elementi semplici non possono avere attributi. Se un elemento ha degli \textcolor{Red3}{\textbf{attributi}}, allora viene considerato un tipo complesso nonostante sia dichiarato come un tipo semplice.\newline
+	
+	\noindent
+	La dichiarazione degli attributi può avvenire in due modi a seconda della complessità del dato:
+	\begin{enumerate}
+		\item \textbf{Attributi semplici} in un'unica linea:
+		\begin{lstlisting}[language=XML]
+<xsd:attribute name="name" type="simple-type" use="how-its-used" default/fixed="value"/>\end{lstlisting}
+		
+		\item \textbf{Attributi complessi} con più possibilità:
+		\lstinputlisting[language=XML]{code/xml-ex33.XML}
+	\end{enumerate}
+	Dove:
+	\begin{itemize}
+		\item \textsf{simple-type} può avere i seguenti valori: \textsf{xsd:string}, \textsf{xsd:integer}, \textsf{xsd:boolean};
+		
+		\item \textsf{how-its-used} può avere i seguenti valori: \textsf{required}, \textsf{optional}, \textsf{prohibited};
+		
+		\item \textsf{value} può essere qualsiasi valore e inoltre se viene utilizzato \textsf{default} o \textsf{fixed}, allora l'attributo \textsf{use} diventa opzionale.
+	\end{itemize}\newpage
+	
+	\subsubsection{Attributo \textsf{use} con \textsf{required}}
+	
+	Gli attributi, di default, sono opzionali. Tuttavia, è possibile \textbf{specificare la richiesta obbligatoria di utilizzarli} tramite l'attributo \textsf{use}:
+	\begin{lstlisting}[language=XML]
+<xsd:attribute name="lang" type="xsd:string" use="required"/>\end{lstlisting}
+	\textbf{N.B.:} l'attributo \textsf{use} deve essere utilizzato solo nelle dichiarazioni locali e non dovrebbe essere utilizzato nelle dichiarazioni globali poiché non è sensato (ridondanza). Si veda questo \textcolor{Green4}{\textbf{esempio}}:
+	\lstinputlisting[language=XML]{code/xml-ex34.XML}
+	
+	\longline
+	
+	\subsubsection{Valori di \textsf{default} e \textsf{fixed} per gli attributi}
+	
+	Gli \textbf{attributi possono avere un valore di \textsf{default} oppure un valore fisso (\textsf{fixed}) specifico}. Nel caso in cui un valore non venga specificato, viene assegnato un valore predefinito. Nel seguente \textcolor{Green4}{\textbf{esempio}} il valore di \textsf{default} è \dquotes{EN}:
+	\begin{lstlisting}[language=XML]
+<xsd:attribute name="lang" type="xsd:string" default="EN"/>\end{lstlisting}
+	L'esempio con il valore fisso (\emph{fixed}) è simile al codice soprastante, tuttavia il valore fisso non consente di specificare altri valori:
+	\begin{lstlisting}[language=XML]
+<xsd:attribute name="lang" type="xsd:string" fixed="EN"/>\end{lstlisting}\newpage
+
+	\subsubsection{Dichiarazione inline}
+	
+	Nel codice seguente è possibile osservare l'uso della dichiarazione inline degli attributi:
+	\lstinputlisting[language=XML]{code/xml-ex35.XML}
+	A differenza degli altri codici (esempi precedenti), in questo caso quando viene dichiarato un attributo, viene anche subito definito.\newpage
+
+	\subsubsection{Esempio con gli attributi}
+	
+	Lo schema XML è il seguente:
+	\lstinputlisting[language=XML]{code/xml-ex32.XML}
+	La categoria è un dato che deve essere inserito obbligatoriamente nell'istanza di un documento XML poiché ha l'attributo impostato a \textsf{required}. Inoltre, l'attributo \textsf{InStock} ha come valore di default \textsf{false}, mentre l'attributo \textsf{Reviewer} ha come valore di default lo spazio vuoto.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
