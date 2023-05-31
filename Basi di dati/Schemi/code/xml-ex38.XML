@@ -1,0 +1,22 @@
+<xsd:simpleType name="elevationType">
+    <xsd:restriction base="xsd:integer">
+        <xsd:minInclusive value="0"/>
+        <xsd:maxInclusive value="12000"/>
+    </xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="unitsType">
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="feet"/>
+        <xsd:enumeration value="meters"/>
+    </xsd:restriction>
+</xsd:simpleType>
+<xsd:element name="elevation">
+    <xsd:complexType>
+        <xsd:simpleContent>
+            <xsd:extension base="elevationType">
+                <xsd:attribute name="units" type="unitsType"
+                               use="required"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+</xsd:element>

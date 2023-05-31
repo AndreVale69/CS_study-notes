@@ -1,0 +1,5 @@
+<xsd:element name="name" minOccurs="int" maxOccurs="int">
+    <xsd:complexType>
+        <!-- Some data -->
+    </xsd:complexType>
+</xsd:element>

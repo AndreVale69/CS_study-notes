@@ -1,0 +1,5 @@
+<xsd:element name="product">
+    <xsd:complexType>
+        <xsd:attribute name="prodid" type="xsd:positiveInteger"/>
+    </xsd:complexType>
+</xsd:element>

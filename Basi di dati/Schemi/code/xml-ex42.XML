@@ -1,0 +1,9 @@
+<xsd:element name="Person">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="Title" type="xsd:string"/>
+            <xsd:element name="FirstName" type="xsd:string"/>
+            <xsd:element name="Surname" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>

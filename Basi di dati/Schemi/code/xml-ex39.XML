@@ -1,0 +1,2 @@
+<xsd:element name="name" type="type"
+             minOccurs="int" maxOccurs="int"/>

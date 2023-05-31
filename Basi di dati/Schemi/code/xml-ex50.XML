@@ -1,0 +1,8 @@
+<xsd:element name="person">
+    <xsd:complexType>
+        <xsd:all>
+            <xsd:element name="firstname" type="xsd:string"/>
+            <xsd:element name="lastname" type="xsd:string"/>
+        </xsd:all>
+    </xsd:complexType>
+</xsd:element>

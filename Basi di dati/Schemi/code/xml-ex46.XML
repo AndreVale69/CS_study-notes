@@ -1,0 +1,11 @@
+<xsd:element name="apple">
+    <xsd:complexType>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="variety"
+                               type="xsd:string"
+                               use="required"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+</xsd:element>
