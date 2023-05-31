@@ -10,6 +10,7 @@
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
 \usepackage{listings}				% pacchetto per i codici
+\usepackage{enumitem}				% per riprendere l'enumerazione delle liste
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 % Link ipertestuali per l'indice
 \usepackage{xcolor}
@@ -60,6 +61,14 @@
 
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
+
+% ~~~~~~~~~~~ %
+% LABEL INDEX %
+% ~~~~~~~~~~~ %
+% - par: paragrafo
+% - def: definizione
+% - img: immagine
+
 
 \newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 \newcommand{\dquotes}[1]{``#1''}
@@ -179,14 +188,9 @@
 		\centering
 		\includegraphics[width=0.9\textwidth]{img/diff_modello-schemi-istanze.pdf}
 		\caption{Esempio di modello di dati, schema e istanza.}
-	\end{figure}
-
-	\newpage
+	\end{figure}\newpage
 	
-	
-	
-	
-	\subsection{Astrazione (architettura) dei DBMS}\label{Astrazione (architettura) dei DBMS}
+	\subsection{Astrazione (architettura) dei DBMS}\label{par: Astrazione (architettura) dei DBMS}
 	
 	Esiste un'architettura standardizzata per i DMBS, la quale si caratterizza su tre livelli: \textbf{esterno}, \textbf{logico} e \textbf{interno}:
 	
@@ -195,7 +199,7 @@
 		
 		\item[\ding{72}] \textbf{\emph{Schema interno.}} È la rappresentazione della base di dati per mezzo delle \textbf{strutture fisiche di memorizzazione} (e.g. file sequenziale, file hash, ecc.).
 		
-		\item[\ding{73}] \textbf{\emph{Schema esterno.}}\label{schema esterno} Descrive una \textbf{porzione dello schema logico} di interesse per uno \textbf{specifico} utente o applicazione. \underline{Possono esistere più schemi} esterni che consentono di avere \underline{punti di vista differenti} senza cambiare la logica di base.
+		\item[\ding{73}] \textbf{\emph{Schema esterno.}}\label{def: schema esterno} Descrive una \textbf{porzione dello schema logico} di interesse per uno \textbf{specifico} utente o applicazione. \underline{Possono esistere più schemi} esterni che consentono di avere \underline{punti di vista differenti} senza cambiare la logica di base.
 	\end{itemize}
 
 	\begin{figure}[!htp]
@@ -211,13 +215,13 @@
 	
 	\subsection{Indipendenza dei dati}
 	
-	L'architettura a livelli definita nel paragrafo \ref{Astrazione (architettura) dei DBMS} garantisce l' \textcolor{Red3}{\textbf{indipendenza dei dati}}, la \textbf{proprietà più importante} dei DBMS. L'\textbf{obbiettivo} è quello di poter fornire all'utente una basi di dati in grado di interagire con un \underline{elevato livello di astrazione}. Esistono due tipi di indipendenza:
+	L'architettura a livelli definita nel paragrafo \ref{par: Astrazione (architettura) dei DBMS} garantisce l' \textcolor{Red3}{\textbf{indipendenza dei dati}}, la \textbf{proprietà più importante} dei DBMS. L'\textbf{obbiettivo} è quello di poter fornire all'utente una basi di dati in grado di interagire con un \underline{elevato livello di astrazione}. Esistono due tipi di indipendenza:
 	
 	\begin{itemize}
 		\item[\ding{42}] \textbf{\emph{Indipendenza \underline{fisica}.}} Lo schema logico della basi di dati è \underline{completamente} indipendente dallo schema interno. Quindi, l'interazione con il DBMS può essere effettuato in modo indipendente dalla struttura fisica dei dati.\newline
 		\textcolor{Green4}{\textbf{Vantaggio:}} le modifiche \textbf{\underline{non}} influiscono sullo schema logico, cioè sulle applicazioni che lo utilizzano.
 		
-		\item[\ding{42}] \textbf{\emph{Indipendenza \underline{logica}.}} Gli \underline{schemi esterni} (definizione nel paragrafo:~\ref{schema esterno}) della base di dati sono \textbf{\underline{indipendenti}} dallo \underline{schema logico}. Quindi, è possibile interagire con il livello esterno in modo indipendente dal livello logico.\newline
+		\item[\ding{42}] \textbf{\emph{Indipendenza \underline{logica}.}} Gli \underline{schemi esterni} (definizione nel paragrafo:~\ref{def: schema esterno}) della base di dati sono \textbf{\underline{indipendenti}} dallo \underline{schema logico}. Quindi, è possibile interagire con il livello esterno in modo indipendente dal livello logico.\newline
 		\textcolor{Green4}{\textbf{Vantaggio:}}
 		\begin{enumerate}[label=\Roman*]
 			\item \textbf{Aggiunta/Modifica} di uno schema \underline{esterno} in base alle esigenze di un nuovo utente, senza modificare lo schema logico;
@@ -301,16 +305,16 @@
 		\item[\ding{42}] \textbf{Progettazione concettuale.}\newline
 		\textcolor{Red3}{\textbf{Obbiettivo:}} rappresentare le specifiche informali della realtà di interesse in termini di una descrizione formale e completa. La \textbf{\underline{rappresentazione}} \textbf{\underline{deve essere indipendente}} dai criteri di rappresentazione utilizzati nei sistemi di gestione di basi di dati.\newline
 		\textcolor{Green4}{\textbf{Prodotto di questa fase:}} \underline{schema concettuale}. È un documento formale che rappresenta il contenuto della base di dati in modo indipendente dall'implementazione (DBMS).\newline
-		\textcolor{Blue3}{\textbf{Applicazione:}} cercare di rappresentare il \textbf{contenuto informativo} della base di dati, senza preoccuparsi né della modalità con le quali queste informazioni verranno codificate in un sistema reale, né dell'efficienza dei programmi che faranno uso di queste informazioni.\label{progettazione concettuale}
+		\textcolor{Blue3}{\textbf{Applicazione:}} cercare di rappresentare il \textbf{contenuto informativo} della base di dati, senza preoccuparsi né della modalità con le quali queste informazioni verranno codificate in un sistema reale, né dell'efficienza dei programmi che faranno uso di queste informazioni.\label{def: progettazione concettuale}
 		
 		\item[\ding{42}] \textbf{Progettazione logica.}\newline
 		\textcolor{Red3}{\textbf{Obbiettivo:}} traduzione dello schema concettuale prodotto nella fase precedente, in termini del modello di rappresentazione dei dati adottato dal sistema di gestione di base di dati a disposizione.\newline
 		\textcolor{Green4}{\textbf{Prodotto di questa fase:}} \underline{schema logico}.\newline
-		\textcolor{Blue3}{\textbf{Applicazione:}} durante la traduzione, le scelte progettuali si \underline{devono} basare anche su criteri di ottimizzazione delle operazioni da effettuare sui dati.\label{progettazione logica}
+		\textcolor{Blue3}{\textbf{Applicazione:}} durante la traduzione, le scelte progettuali si \underline{devono} basare anche su criteri di ottimizzazione delle operazioni da effettuare sui dati.\label{def: progettazione logica}
 		
 		\item[\ding{42}] \textbf{Progettazione fisica.}\newline
 		\textcolor{Red3}{\textbf{Obbiettivo:}} lo schema logico viene completato con la specifica dei parametri fisici di memorizzazione dei dati.\newline
-		\textcolor{Green4}{\textbf{Prodotto di questa fase:}} \underline{schema fisico}.\newline\label{progettazione fisica}
+		\textcolor{Green4}{\textbf{Prodotto di questa fase:}} \underline{schema fisico}.\newline\label{def: progettazione fisica}
 	\end{itemize}
 
 	\newpage
@@ -318,7 +322,7 @@
 	
 	
 	
-	\subsection{Il modello Entità-Relazione (E-R)}\label{Il modello Entità-Relazione (E-R)}
+	\subsection{Il modello Entità-Relazione (E-R)}\label{par: Il modello Entità-Relazione (E-R)}
 	
 	Il \textcolor{Red3}{\textbf{\emph{modello Entità-Relazione}}} è un modello \textbf{concettuale} di dati, quindi utilizzato nella \textbf{progettazione concettuale}, e fornisce una serie di strutture, chiamati \textbf{\emph{costrutti}}, atte a descrivere la realtà di interesse in una maniera facile da comprendere e che prescinde dai criteri di organizzazione dei dati nei calcolatori.
 	
@@ -328,7 +332,7 @@
 	Si possono \underline{riassumere le caratteristiche} del modello Entità-Relazione:
 	
 	\begin{itemize}
-		\item[\ding{42}] \textcolor{SpringGreen4}{\textbf{\emph{Modello concettuale}.}} Utilizzato durante la progettazione concettuale (definizione al paragrafo~\ref{progettazione concettuale}) di una base di dati.
+		\item[\ding{42}] \textcolor{SpringGreen4}{\textbf{\emph{Modello concettuale}.}} Utilizzato durante la progettazione concettuale (definizione al paragrafo~\ref{def: progettazione concettuale}) di una base di dati.
 		
 		\item[\ding{42}] \textcolor{SpringGreen4}{\textbf{\emph{Strumenti formali}.}} Vengono messi a disposizione diversi strumenti per definire la \textbf{struttura} e le \textbf{proprietà} di una base di dati (\emph{esempio i costrutti}).
 		
@@ -348,7 +352,7 @@
 	
 	Si analizzano i principali costrutti di questo modello: entità (pagina~\pageref{entità}), relazioni(pagina~\pageref{relazioni}) e attributi (pagina~\pageref{attributi}).
 	
-	\subsubsection{Entità}\label{entità}
+	\subsubsection{Entità}\label{par: entità}
 	\textcolor{Red3}{\textbf{Definizione.}} Rappresentano \textbf{classi di oggetti} (per esempio, fatti, cose, persone) \textbf{che hanno proprietà comuni ed esistenza \dquotes{autonoma} ai fini dell'applicazione di interesse}. Per esempio, \dquotes{città, dipartimento, impiegato, acquisto e vendita} sono entità di un'applicazione aziendale. Inoltre, \textbf{ogni entità ha un nome identificativo}, il quale deve essere \textbf{univoco}. In sintesi:
 	
 	\begin{itemize}
@@ -377,7 +381,7 @@
 	
 	
 	
-	\subsubsection{Relazioni (o associazioni)}\label{relazioni}
+	\subsubsection{Relazioni (o associazioni)}\label{par: relazioni}
 	
 	\textcolor{Red3}{\textbf{Definizione.}} Rappresentano \textbf{legami logici}, significativi per l'applicazione di interesse, \textbf{tra due o più entità}. Per esempio, \dquotes{Residenza} è una relazione che sussiste tra le entità \dquotes{Città} e \dquotes{Impiegato}.Nello schema E-R, \textbf{ogni relazione ha un nome identificativo univoco}.
 	
@@ -424,7 +428,7 @@
 	
 	
 	
-	\subsubsection{Attributi}\label{attributi}
+	\subsubsection{Attributi}\label{par: attributi}
 	
 	\textcolor{Red3}{\textbf{Definizione.}} Descrivono le \textbf{proprietà elementari} di entità o relazioni che sono di interesse ai fini dell'applicazione. Per esempio, \dquotes{Cognome, Stipendio ed Età} sono possibili attributi dell'entità \dquotes{Impiegato}.
 	
@@ -527,9 +531,9 @@
 	Solitamente, il valore di cardinalità pari $\left(1,1\right)$,  ma si possono avere vari casi:
 	
 	\begin{itemize}
-		\item $\left(1, 1\right) \longrightarrow$ L'attributo rappresenta una funzione che associa ad ogni occorrenza di entità un solo valore dell'attributo. Solitamente viene omesso e, come si vede nell'immagine~\ref{esempio cardinalità attributi}, la \dquotes{Persona} ha uno e un solo \dquotes{Cognome};
+		\item $\left(1, 1\right) \longrightarrow$ L'attributo rappresenta una funzione che associa ad ogni occorrenza di entità un solo valore dell'attributo. Solitamente viene omesso e, come si vede nell'immagine~\ref{img: esempio cardinalità attributi}, la \dquotes{Persona} ha uno e un solo \dquotes{Cognome};
 		
-		\item $\left(0, 1\right) \longrightarrow$ L'attributo con cardinalità minima pari a zero vuol dire che è \textbf{opzionale} e la cardinalità massima pari a uno indica che nel \textbf{caso in cui esista}, questo valore è \textbf{unico}. Nell'esempio in figura~\ref{esempio cardinalità attributi}, la persona può avere solo un numero di patente, ma potrebbe anche non avercela;
+		\item $\left(0, 1\right) \longrightarrow$ L'attributo con cardinalità minima pari a zero vuol dire che è \textbf{opzionale} e la cardinalità massima pari a uno indica che nel \textbf{caso in cui esista}, questo valore è \textbf{unico}. Nell'esempio in figura~\ref{img: esempio cardinalità attributi}, la persona può avere solo un numero di patente, ma potrebbe anche non avercela;
 		
 		\item $\left(1, N\right) \longrightarrow$ L'attributo deve esistere, ma contiene più valori, quindi si dice che è \textbf{multivalore};
 		
@@ -539,7 +543,7 @@
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=0.5\textwidth]{img/cardinalita-attributi_def.pdf}
-		\caption{Esempio di cardinalità degli attributi.}\label{esempio cardinalità attributi}
+		\caption{Esempio di cardinalità degli attributi.}\label{img: esempio cardinalità attributi}
 	\end{figure}
 
 	\newpage
@@ -720,7 +724,7 @@
 		\item Minimalità
 	\end{itemize}
 
-	\subsubsection{Correttezza}\label{correttezza}
+	\subsubsection{Correttezza}\label{par: correttezza}
 
 	\textcolor{Red3}{\textbf{\emph{Definizione.}}} Uno schema concettuale è \textbf{corretto} quando \textbf{utilizza propriamente i costrutti} messi a disposizione dal modello concettuale di riferimento.\newline
 	
@@ -733,21 +737,21 @@
 		\item \textcolor{Red3}{\textbf{\emph{Semantici}}}. Vengono usati costrutti senza rispettare la loro definizione. \textcolor{Green4}{Per esempio}, l'uso di una relazione per descrivere il fatto che una entità è specializzazione di un'altra.
 	\end{itemize}
 	
-	\subsubsection{Completezza}\label{completezza}
+	\subsubsection{Completezza}\label{par: completezza}
 	
 	\textcolor{Red3}{\textbf{\emph{Definizione.}}} Uno schema concettuale è \textbf{completo} quando \textbf{rappresenta tutti i dati} di interesse e quando \textbf{tutte le operazioni possono essere eseguite} a partire dai concetti descritti nello schema.\newline
 	
 	\noindent
 	La completezza è \textbf{possibile verificarla} controllando che tutte le specifiche sui dati siano rappresentate da qualche concetto presente nello schema che stiamo costruendo, e che tutti i concetti coinvolti in un'operazione presente nelle specifiche siano raggiungibili \dquotes{navigando} attraverso lo schema.
 	
-	\subsubsection{Leggibilità}\label{leggibilità}
+	\subsubsection{Leggibilità}\label{par: leggibilità}
 	
 	\textcolor{Red3}{\textbf{\emph{Definizione.}}} Uno schema concettuale è \textbf{leggibile} quando rappresenta i requisiti in maniera naturale e facilmente comprensibile.\newline
 	
 	\noindent
 	Per garantire questa proprietà è necessario rendere lo schema autoesplicativo, \textcolor{Green4}{per esempio}, mediante una scelta opportuna dei nomi da dare ai concetti. La leggibilità dipende anche da criteri puramente estetici.
 	
-	\subsubsection{Minimalità}\label{minimalità}
+	\subsubsection{Minimalità}\label{par: minimalità}
 	
 	\textcolor{Red3}{\textbf{\emph{Definizione.}}} Uno schema concettuale è \textbf{minimale} quando tutte le specifiche sui dati sono rappresentate una sola volta nello schema.\newline
 	
@@ -1424,7 +1428,7 @@
 		r_{1} \Join r_{2}
 	\end{equation*}\newpage
 
-	\subsubsection{Theta-join ed equi-join}\label{theta-join}
+	\subsubsection{Theta-join ed equi-join}\label{par: theta-join}
 	
 	Osservando l'esempio 1 a fine paragrafo, è possibile notare come un prodotto cartesiano ha di solito ben poca utilità, in quanto concatena tuple non necessariamente correlate dal punto di vista semantico. Infatti, il \textbf{prodotto cartesiano viene spesso seguito da una selezione}, la quale centra l'attenzione su tuple correlate secondo le esigenze.\newline
 	\textcolor{Green4}{\textbf{Per esempio}}, nell'esempio 2 a fine paragrafo, sulle relazione \textsf{Impiegati} e \textsf{Progetti} ha senso definire un prodotto cartesiano seguito dalla selezione che mantiene solo le tuple con valori uguali sull'attributo \textsf{\emph{Progetto}} di \textsf{Impiegati} e su \textsf{\emph{Codice}} di \textsf{Progetti}.
@@ -1701,7 +1705,7 @@
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/equivalenza_espressioni_algebriche.pdf}
-		\label{Trasformazioni di equivalenza - Tabella}
+		\label{img: Trasformazioni di equivalenza - Tabella}
 	\end{figure}
 	
 	\noindent
@@ -1746,7 +1750,7 @@
 		
 		\item \textbf{Calcolo su tuple con dichiarazioni di range}. Metodo adottato durante questo corso, costituisce la base per molti costrutti disponibili per le interrogazioni nel linguaggio SQL.
 	\end{itemize}
-	Prima di presentare le varie caratteristiche, si tiene a precisare che rispetto al modello relazionale (paragrafo~\ref{Il modello Entità-Relazione (E-R)}), il calcolo su tuple con dichiarazioni di range utilizza una \textbf{notazione non posizionale}.\newpage
+	Prima di presentare le varie caratteristiche, si tiene a precisare che rispetto al modello relazionale (paragrafo~\ref{par: Il modello Entità-Relazione (E-R)}), il calcolo su tuple con dichiarazioni di range utilizza una \textbf{notazione non posizionale}.\newpage
 	
 	\subsection{Calcolo su tuple con dichiarazioni di range}
 	
@@ -1820,7 +1824,7 @@
 	
 	\subsection[Esempi]{\textcolor{Green4}{Esempi}}
 	
-	Tutte le interrogazioni che verranno affrontate riguardano la seguente basi di dati (già vista nei precedenti paragrafi~\ref{Trasformazioni di equivalenza - Tabella}):
+	Tutte le interrogazioni che verranno affrontate riguardano la seguente basi di dati (già vista nei precedenti paragrafi~\ref{img: Trasformazioni di equivalenza - Tabella}):
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/equivalenza_espressioni_algebriche.pdf}
@@ -2758,7 +2762,7 @@ end transaction;
 
 	\longline
 	
-	\subsubsection{Vincoli di riempimento}\label{vincoli di riempimento}
+	\subsubsection{Vincoli di riempimento}\label{par: vincoli di riempimento}
 	
 	I \textcolor{Red3}{\textbf{vincoli di riempimento}} determinano il numero di chiavi e puntatori che sono presenti rispettivamente all'interno di un nodo foglia o di un nodo intermedio.\newline
 	
@@ -2773,7 +2777,7 @@ end transaction;
 	\end{equation*}
 	Le parentesi quadre indicano l'arrotondamento all'intero superiore più vicino.\newpage
 	
-	\subsubsection{Esempio di albero B+}\label{esempio di albero B+}
+	\subsubsection{Esempio di albero B+}\label{par: esempio di albero B+}
 	
 	Il primo caso che viene presentato è il \textcolor{Green4}{\textbf{riempimento minimo dei nodi foglia}}. Il \emph{fan-out} impostato è $4$ e i valori delle chiavi presenti sono: $A,B,D,E,F,G,L,M,N,P$. I vincoli di riempimento sono:
 	\begin{itemize}
@@ -2919,7 +2923,7 @@ end transaction;
 	\end{figure}
 	
 	\noindent
-	Anche in questo caso, può accade che dopo la cancellazione di K dal nodo foglia NF, viene violato il vincolo di riempimento minimo (paragrafo \ref{vincoli di riempimento} e l'esempio nel paragrafo \ref{esempio di albero B+}). In tal caso, il sistema esegue una \textbf{MERGE} (pagina successiva) del nodo foglia così da aumentare la dimensione.\newpage
+	Anche in questo caso, può accade che dopo la cancellazione di K dal nodo foglia NF, viene violato il vincolo di riempimento minimo (paragrafo \ref{par: vincoli di riempimento} e l'esempio nel paragrafo \ref{par: esempio di albero B+}). In tal caso, il sistema esegue una \textbf{MERGE} (pagina successiva) del nodo foglia così da aumentare la dimensione.\newpage
 	
 	\noindent
 	Il \textcolor{Red3}{\textbf{MERGE}} di un nodo foglia viene eseguito se nel nodo da unire esistono:
@@ -3055,7 +3059,7 @@ end transaction;
 
 	\section{Controllo di concorrenza}
 	
-	\subsection{Anomalie delle transazioni concorrenti}\label{anomalie delle transazioni concorrenti}
+	\subsection{Anomalie delle transazioni concorrenti}\label{par: anomalie delle transazioni concorrenti}
 	
 	L'unità di misura solitamente utilizzata per caratterizzare il carico applicativo di un DBMS è il \textbf{numero di transazioni al secondo}, abbreviato in \emph{tps} (\emph{transactions per second}) che devono essere gestite dal DBMS per soddisfare le applicazioni.
 	
@@ -3063,7 +3067,7 @@ end transaction;
 	
 	\longline
 	
-	\subsubsection{Perdita di aggiornamento}\label{perdita di aggiornamento}
+	\subsubsection{Perdita di aggiornamento}\label{par: perdita di aggiornamento}
 	
 	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
 	\begin{gather*}
@@ -3102,7 +3106,7 @@ end transaction;
 	\noindent
 	Il valore finale di $x$ è pari a $3$, poiché entrambe le transazioni leggono $2$ come valore iniziale di $x$ (lettura di $t_{1}$ al tempo $0$ e lettura di $t_{2}$ al tempo $2$). Quindi, la perdita di aggiornamento si verifica quando gli \textbf{effetti della transazione} $t_{2}$, la prima che scrive il nuovo valore di $x$, \textbf{vengono persi}.\newpage
 	
-	\subsubsection{Lettura sporca}\label{lettura sporca}
+	\subsubsection{Lettura sporca}\label{par: lettura sporca}
 	
 	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
 	\begin{gather*}
@@ -3142,7 +3146,7 @@ end transaction;
 	\noindent
 	Il nome di questa anomalia deriva dal fatto che \textbf{viene letto un dato che rappresenta uno stato intermedio nell'evoluzione di una transazione}. L'\underline{unico modo} per \textbf{ripristinare} la correttezza, sarebbe imporre un \textsf{abort} anche nella transazione $t_{2}$ e, ricorsivamente, di tutte le transazioni che avessero letto dati modificati da $t_{2}$. Purtroppo, questa pratica, oltre ad essere molto onerosa, talvolta è anche non praticabile a causa dell'eventuale comunicazione all'esterno del risultato.\newpage
 	
-	\subsubsection{Letture inconsistenti}\label{letture inconsistenti}
+	\subsubsection{Letture inconsistenti}\label{par: letture inconsistenti}
 	
 	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
 	\begin{gather*}
@@ -3183,7 +3187,7 @@ end transaction;
 	\noindent
 	Invece, è opportuno che una transazione che accede due volte alla base di dati trovi esattamente lo stesso valore per ciascun dato letto, e non risenta dell'effetto di altre transazioni.\newpage
 	
-	\subsubsection{Aggiornamento fantasma}\label{aggiornamento fantasma}
+	\subsubsection{Aggiornamento fantasma}\label{par: aggiornamento fantasma}
 	
 	Si supponga di avere due transazioni identiche che operano sullo stesso oggetto della base di dati:
 	\begin{gather*}
@@ -3242,7 +3246,7 @@ end transaction;
 	Le operazioni compaiono nello schedule seguendo l'ordine temporale con cui sono eseguite sulla base di dati.\newline
 	
 	\noindent
-	Il \textbf{controllo di concorrenza} ha la funzione di \textbf{accettare alcuni schedule e rifiutarne altri}, in modo per esempio di \underline{evitare che si verifichino le anomalie} illustrare nel paragrafo precedente (\ref{anomalie delle transazioni concorrenti}). Per questo motivo, il modulo che gestisce il controllo di concorrenza viene chiamato \textcolor{Red3}{\textbf{scheduler}}: esso ha l'\textbf{obbiettivo di intercettare le operazioni compiute} sulla base di dati dalle transazioni, decidendo per ciascuna se \textbf{rifiutarla o accettarla}.\newline
+	Il \textbf{controllo di concorrenza} ha la funzione di \textbf{accettare alcuni schedule e rifiutarne altri}, in modo per esempio di \underline{evitare che si verifichino le anomalie} illustrare nel paragrafo precedente (\ref{par: anomalie delle transazioni concorrenti}). Per questo motivo, il modulo che gestisce il controllo di concorrenza viene chiamato \textcolor{Red3}{\textbf{scheduler}}: esso ha l'\textbf{obbiettivo di intercettare le operazioni compiute} sulla base di dati dalle transazioni, decidendo per ciascuna se \textbf{rifiutarla o accettarla}.\newline
 	
 	\noindent
 	Uno schedule viene detto \textcolor{Red3}{\textbf{commit-proiezione}} quando esso assume che le \textbf{transazioni che compaiono nello schedule abbiano un esito noto} (\textsf{commit} o \textsf{abort}). Quindi, \textbf{vengono ignorate le transazioni che producono un \textsf{abort}}, togliendo dallo schedule tutte le loro azioni, e concentrandosi solo sulle transazioni che producono un \textsf{commit}.
@@ -3284,7 +3288,7 @@ end transaction;
 		\item $S_{3}$ è view-equivalente allo schedule seriale $S_{4}$ e quindi è anche view-serializzabile;
 		\item $S_{5}$ non è invece view-equivalente a $S_{4}$, ma è view-equivalente allo schedule seriale $S_{6}$, e quindi anche view-serializzabile.
 	\end{itemize}
-	È interessare notare che i seguenti schedule corrispondono ad anomalie di perdita di aggiornamento (paragrafo \ref{perdita di aggiornamento}), letture inconsistenti (paragrafo \ref{letture inconsistenti}) e aggiornamento fantasma (paragrafo \ref{aggiornamento fantasma}). Nessuno è view-serializzabile:
+	È interessare notare che i seguenti schedule corrispondono ad anomalie di perdita di aggiornamento (paragrafo \ref{par: perdita di aggiornamento}), letture inconsistenti (paragrafo \ref{par: letture inconsistenti}) e aggiornamento fantasma (paragrafo \ref{par: aggiornamento fantasma}). Nessuno è view-serializzabile:
 	\begin{equation*}
 		\begin{array}{lll}
 			\textbf{Perdita di aggiornamento} & S_{7} : & r_{1}\left(x\right) r_{2}\left(x\right) w_{2}\left(x\right) w_{1}\left(x\right) \\
@@ -3450,7 +3454,7 @@ end transaction;
 	\end{proof}\newpage
 	
 	\noindent
-	Qui di seguito si presenta un \textcolor{Green4}{\textbf{esempio}} per osservare come il metodo locking a due fasi evita l'insorgere delle anomalie descritte nei paragrafi (\ref{anomalie delle transazioni concorrenti}) precedenti:
+	Qui di seguito si presenta un \textcolor{Green4}{\textbf{esempio}} per osservare come il metodo locking a due fasi evita l'insorgere delle anomalie descritte nei paragrafi (\ref{par: anomalie delle transazioni concorrenti}) precedenti:
 	\begin{table}[!htbp]
 		\centering
 		\begin{tabular}{@{} c l l c c c @{}}
@@ -3502,13 +3506,13 @@ end transaction;
 	\end{itemize}\newpage
 
 	\noindent
-	La lettura sporca (paragrafo \ref{lettura sporca}) può essere risolta grazie al principio di \textcolor{Red3}{\textbf{locking a due fasi stretto}} (strict 2PL): \textbf{i lock di una transazione possono essere rilasciati solo dopo aver correttamente effettuato le operazioni di \textsf{commit}/\textsf{abort}}.\newline
+	La lettura sporca (paragrafo \ref{par: lettura sporca}) può essere risolta grazie al principio di \textcolor{Red3}{\textbf{locking a due fasi stretto}} (strict 2PL): \textbf{i lock di una transazione possono essere rilasciati solo dopo aver correttamente effettuato le operazioni di \textsf{commit}/\textsf{abort}}.\newline
 	
 	\noindent
 	A causa di questo vincolo, i lock vengono rilasciati solo al termine della transazione, dopo che ciascun dato è stato portato nel suo stato finale. L'esempio nella pagina precedente utilizza il 2PL stretto, poiché le azioni di rilascio dei lock seguono l'azione di \textsf{commit}.\newline
 	
 	\noindent
-	Grazie a questo principio, viene reso \textbf{impossibile il verificarsi di letture sporche} (\ref{lettura sporca}), poiché viene \textbf{impedito l'accesso}, da parte di altre transazioni, \textbf{a dati scritti da transazioni che ancora non hanno effettuato il} \textsf{commit}.\newline
+	Grazie a questo principio, viene reso \textbf{impossibile il verificarsi di letture sporche} (\ref{par: lettura sporca}), poiché viene \textbf{impedito l'accesso}, da parte di altre transazioni, \textbf{a dati scritti da transazioni che ancora non hanno effettuato il} \textsf{commit}.\newline
 	
 	\noindent
 	Per concludere, il 2PL può essere sfruttato in maniera differente così da ottenere diversi livelli di isolamento. Nella prossima pagina viene presentata una tabella riassuntiva.
@@ -3892,7 +3896,7 @@ end transaction;
 	
 	\section{Struttura del codice XML Schema (XSD)}
 	
-	\subsection{Schema iniziale (\emph{root})}
+	\subsection{Schema iniziale (\emph{root})}\label{par: Schema iniziale}
 	
 	Si prende sotto esame il seguente codice:
 	\lstinputlisting[language=XML]{code/xml-ex4.XML}
@@ -3965,13 +3969,13 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	\lstinputlisting[language=XML]{code/xml-ex6.XML}
 	Dato che non ci sono \emph{namespace} dichiarati di default oltre al URI \textsf{http://www.w3.org/2001/XMLSchema}, viene utilizzato un \textbf{prefisso} o \textbf{alias} (\textsf{bk}, riga 4) per riferirsi a quel determinato \emph{namespace}. Quindi, ogni qualvolta viene usato un elemento dell'insieme \textsf{bk}, è necessario usare tale prefisso. Per esempio, si vedano le righe 9, 16, 17, 18, 19, 20.\newpage
 	
-	\subsection{Dichiarazione degli elementi inline}
+	\subsection{Dichiarazione degli elementi inline}\label{par: dichiarazione degli elementi inline}
 	
-	Nel paragrafo precedente gli elementi sono stati dichiarati e successivamente è stato utilizzato. Tuttavia, per \textbf{rendere lo schema più compatto}, è possibile \textbf{dichiarare l'elemento \emph{inline}}:
+	Nel paragrafo precedente gli elementi sono stati dichiarati e successivamente sono stati utilizzati. Tuttavia, per \textbf{rendere lo schema più compatto}, è possibile \textbf{dichiarare l'elemento \emph{inline}}:
 	\lstinputlisting[language=XML]{code/xml-ex7.XML}
 	Grazie alla dichiarazione \emph{inline}, \textbf{non è più necessario specificare a quale dichiarazione dell'elemento ci si sta riferendo} (keyword \textsf{ref}).\newpage
 	
-	\subsection{Tipi complessi \textsf{complexType} e tipi denominati (\textsf{Named types})}\label{complexType}
+	\subsection{Tipi complessi \textsf{complexType} e tipi denominati (\textsf{Named types})}\label{par: complexType}
 	
 	I \textcolor{Red3}{\textbf{tipi complessi}}, in inglese \textbf{\textsf{complexType}}, sono elementi \textbf{contenenti altri elementi o attributi}. Se usati in modo appropriato, risultano essere un costrutto eccellente per organizzare le informazioni.\newline
 	
@@ -3987,7 +3991,7 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	Infine, la dichiarazione di un elemento può avere un tipo di attributo o un elemento figlio di tipo \textsf{complexType}. Tuttavia, un elemento \underline{non} può avere entrambi gli attributi, ovvero \textbf{\underline{questa cosa non è permessa}}:
 	\lstinputlisting[language=XML]{code/xml-ex11.XML}\newpage
 	
-	\subsubsection{Derivazione dei \textsf{complexType}}
+	\subsubsection{Derivazione dei \textsf{complexType}: \textsf{extension} e \textsf{restriction}}\label{par: derivazione dei complexType: extension e restriction}
 	
 	L'elemento \textsf{complexType} può essere \textbf{derivato con due scopi principali}:
 	\begin{itemize}
@@ -4007,7 +4011,7 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 		Un \textcolor{Green4}{\textbf{esempio}} di derivare per restrizione è il seguente:
 		\lstinputlisting[language=XML]{code/xml-ex22.XML}
 	\end{itemize}
-	Come è possibile osservare, la \textbf{derivazione per restrizione} (\textsf{restriction}) risulta essere un copia e incolla con qualche piccola modifica. Dunque, quali sono i vantaggi di usare tale derivazione? I \textcolor{Green4}{\textbf{vantaggi}} di utilizzare la derivazione per restrizione sono comprensibili più avanti (per esempio sono utili con la sostituzione di elementi, paragrafo \ref{sostituzione di elementi}).\newpage
+	Come è possibile osservare, la \textbf{derivazione per restrizione} (\textsf{restriction}) risulta essere un copia e incolla con qualche piccola modifica. Dunque, quali sono i vantaggi di usare tale derivazione? I \textcolor{Green4}{\textbf{vantaggi}} di utilizzare la derivazione per restrizione sono comprensibili più avanti (per esempio sono utili con la sostituzione di elementi, paragrafo \ref{par: sostituzione di elementi}).\newpage
 	
 	\subsubsection{Proibire la derivazione dei \textsf{complexType}}
 	
@@ -4054,37 +4058,70 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	
 	\subsection{Dichiarazione di un elemento}
 	
-	Un \textcolor{Red3}{\textbf{elemento}} è tutto ciò che viene compreso tra il tag di inizio e il tag di fine. In XML i tag hanno nomi personalizzabili (per esempio, title, author, price, etc.), invece in XSD iniziano con la keyword \textsf{element}.\newline
+	Un \textcolor{Red3}{\textbf{elemento}} è tutto ciò che viene compreso tra il tag di inizio e il tag di fine. In XML i tag hanno nomi personalizzabili (per esempio, title, author, price, etc.), invece in XSD iniziano con la keyword \textsf{element}.
+	
+	\longline
+	
+	\subsubsection{Semplice}
+
+	La \textbf{dichiarazione di un elemento} all'interno di uno schema XML è la seguente:
+	\begin{enumerate}
+		\item \textcolor{Red3}{\textbf{Dichiarazione di un elemento usando un tipo \emph{built-in}:}}
+		\lstinputlisting[language=XML]{code/xml-ex39.XML}
+		\begin{itemize}
+			\item \textsf{name="name"} indica il nome dell'elemento;
+			
+			\item \textsf{type="type"} indica il tipo, per esempio \textsf{xsd:string}, o il nome del tipo complesso (\textsf{complexType}) a cui si riferisce;
+			
+			\item \textsf{minOccurs="int"} deve essere inserito un valore non negativo;
+			
+			\item \textsf{maxOccurs="int"} deve essere inserito un valore non negativo o la stringa \textsf{unbounded}.
+		\end{itemize}
+	\end{enumerate}
+	La dichiarazione di un elemento può essere \textbf{eseguita anche nel seguente modo} se rappresenta un tipo complesso \textsf{complexType} (si veda il paragrafo \ref{par: complexType} per maggiori dettagli):
+	\begin{enumerate}[resume]
+		\item \textcolor{Red3}{\textbf{Dichiarazione di un elemento usando} \textsf{complexType}:}
+		\lstinputlisting[language=XML]{code/xml-ex40.XML}
+	\end{enumerate}
+	Oppure, è possibile dichiarare un elemento nel seguente modo, sfruttando l'elemento \textsf{simpleType} (si veda il paragrafo~\ref{par: simpleType}):
+	\begin{enumerate}[resume]
+		\item \textcolor{Red3}{\textbf{Dichiarazione di un elemento usando} \textsf{simpleType}:}
+		\lstinputlisting[language=XML]{code/xml-ex41.XML}
+	\end{enumerate}\newpage
+	
+	\subsubsection{Contenente elementi figlio}
+	
+	La \textbf{dichiarazione di un elemento} all'interno di uno schema XML può avvenire anche \textbf{definendo gli elementi figlio con la modalità inline} (paragrafo~\ref{par: dichiarazione degli elementi inline}):
+	\begin{enumerate}
+		\item \textcolor{Red3}{\textbf{Definizione degli elementi figlio con la modalità inline:}}
+		\lstinputlisting[language=XML]{code/xml-ex42.XML}
+	\end{enumerate}
+	Oppure, una forma alternativa di \textsf{Person} (esempio soprastante), è quella di creare un un \textsf{complexType} con nome e utilizzarlo come tipo nella dichiarazione dell'elemento:
+	\begin{enumerate}[resume]
+		\item \textcolor{Red3}{\textbf{Definizione di un elemento utilizzando un tipo} \textsf{complexType}:}
+		\lstinputlisting[language=XML]{code/xml-ex43.XML}
+	\end{enumerate}
+	O ancora, è possibile dichiarare un elemento che ha come tipo un \textsf{complexType}, il quale a sua volta è una derivazione per estensione (\textsf{extension}) del \textsf{complexType} (paragrafo~\ref{par: derivazione dei complexType: extension e restriction}):
+	\begin{enumerate}[resume]
+		\item \textcolor{Red3}{\textbf{Definizione di un elemento utilizzando un tipo} \textsf{complexType} \textbf{che è una derivazione per estensione} (\textsf{extension}):}
+		\lstinputlisting[language=XML]{code/xml-ex44.XML}
+	\end{enumerate}\newpage
 	
 	\noindent
-	La \textbf{dichiarazione di un elemento} all'interno di uno schema XSD è la seguente:
-	\begin{lstlisting}[language=XML]
-<xsd:element name="name" type="type" minOccurs="int" maxOccurs="int"/>\end{lstlisting}
-	\begin{itemize}
-		\item \textsf{name="name"} indica il nome dell'elemento;
-		
-		\item \textsf{type="type"} indica il tipo, per esempio \textsf{xsd:string}, o il nome del tipo complesso (\textsf{complexType}) a cui si riferisce;
-		
-		\item \textsf{minOccurs="int"} deve essere inserito un valore non negativo;
-		
-		\item \textsf{maxOccurs="int"} deve essere inserito un valore non negativo o la stringa \textsf{unbounded}.
-	\end{itemize}
-	La dichiarazione di un elemento può essere \textbf{eseguita anche nel seguente modo} se rappresenta un tipo complesso \textsf{complexType} (si veda il paragrafo \ref{complexType} per maggiori dettagli):
-	\begin{lstlisting}[language=XML]
-<xsd:element name="name" minOccurs="int" maxOccurs="int"/>
-	<xsd:complexType>
-		<!-- Some data -->
-	</xsd:complexType>
-</xsd:element>\end{lstlisting}
-	Oppure, è possibile dichiarare un elemento nel seguente modo, sfruttando l'elemento \textsf{simpleType}:
-	\begin{lstlisting}[language=XML]
-<xsd:element name="name" minOccurs="int" maxOccurs="int"/>
-	<xsd:simpleType>
-		<xsd:restriction base="type">
-			<!-- Some data -->
-		</xsd:restriction>
-	</xsd:simpleType>
-</xsd:element>\end{lstlisting}
+	Simile all'estensione, è possibile dichiarare un elemento che come tipo un \textsf{complexType}, il quale a sua volta è una derivazione per \textsf{restriction} del \textsf{complexType} (paragrafo~\ref{par: derivazione dei complexType: extension e restriction}):
+	\begin{enumerate}[resume]
+		\item \textcolor{Red3}{\textbf{Definizione di un elemento utilizzando un tipo} \textsf{complexType} \textbf{che è una derivazione per restrizione} (\textsf{restriction}):}
+		\lstinputlisting[language=XML]{code/xml-ex45.XML}
+	\end{enumerate}
+	Infine, è possibile dichiarare un elemento che contiene al suo interno un \textsf{simpleContent} e degli attributi:
+	\begin{enumerate}[resume]
+		\item \textcolor{Red3}{\textbf{Definizione di un elemento con all'interno} \textsf{simpleContent} \textbf{e attributi}:}
+		\lstinputlisting[language=XML]{code/xml-ex46.XML}
+		Quindi, una possibile istanza potrebbe essere:
+		\begin{lstlisting}[language=XML]
+<apple variety="Cortland">Large, green, sour</apple>\end{lstlisting}
+	\end{enumerate}
+	
 	\newpage
 	
 	\subsection{Tipo di dati problematici}
@@ -4123,7 +4160,7 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	\noindent
 	È possibile dichiarare anche un tipo \textsf{gYear} che rappresenta solo l'anno con il formato \textsf{CCYY} e \textsf{CC} e \textsf{YY} nel range $\left[00-99\right]$.\newpage
 	
-	\subsubsection{Formattazione rigida grazie a \textsf{simpleType} e alle espressioni regolari}\label{simpleType}
+	\subsubsection{Formattazione rigida grazie a \textsf{simpleType} e alle espressioni regolari}\label{par: simpleType}
 	
 	\noindent
 	Un codice in cui vengono applicati i tipi \textsf{simpleType} è il seguente:
@@ -4226,7 +4263,7 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	
 	\subsubsection{Creazione di un datatype personalizzato}
 	
-	Come è stato visto nel paragrafo~\ref{simpleType}, è possibile \textbf{creare nuovi tipi di dati} specificando i vari pattern possibili. Precedentemente è stato definito un pattern per i codici ISBN, ma è possibile farlo anche per rappresentare altri elementi. Per \textcolor{Green4}{\textbf{esempio}}, si indica il seguente tipo che rappresenta i numeri di telefono:
+	Come è stato visto nel paragrafo~\ref{par: simpleType}, è possibile \textbf{creare nuovi tipi di dati} specificando i vari pattern possibili. Precedentemente è stato definito un pattern per i codici ISBN, ma è possibile farlo anche per rappresentare altri elementi. Per \textcolor{Green4}{\textbf{esempio}}, si indica il seguente tipo che rappresenta i numeri di telefono:
 	\lstinputlisting[language=XML]{code/xml-ex17.XML}
 	\begin{itemize}
 		\item Riga 1: viene creato un nuovo tipo di dati chiamato \textsf{TelephoneNumber};
@@ -4323,7 +4360,7 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 		\item Dichiarazione di elemento locale (\emph{local element declarations}): riga 8, riga 10, riga 12, riga 19, riga 21, riga 30.
 	\end{itemize}\newpage
 	
-	\subsection{Sostituzione di elementi}\label{sostituzione di elementi}
+	\subsection{Sostituzione di elementi}\label{par: sostituzione di elementi}
 	
 	La sostituzione di elementi (\emph{element substitution}) viene presentata con un esempio.\newline
 	
@@ -4333,8 +4370,8 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	\noindent
 	Per risolvere tale problema, è possibile definire un costrutto chiamato \textcolor{Red3}{\textbf{\textsf{substitutionGroup}}}. Quindi, prima di tutto viene dichiarato un elemento \dquotes{\textbf{capo}} (\emph{\textbf{head}}) e successivamente, vengono dichiarati i \textbf{tipi sostituibili}:
 	\begin{lstlisting}[language=XML]
-<xs:element name="name" type="xs:string"/>
-<xs:element name="navn" substitutionGroup="name"/>\end{lstlisting}
+<xsd:element name="name" type="xsd:string"/>
+<xsd:element name="navn" substitutionGroup="name"/>\end{lstlisting}
 	Nel codice soprastante, l'elemento \textsf{name} è \dquotes{l'elemento capo} e l'elemento \textsf{navn} è l'elemento sostituibile a \textsf{name}.\newline
 	
 	\noindent
@@ -4408,7 +4445,7 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	
 	\subsection{Attributi}
 	
-	\subsubsection{Definizione}
+	\subsubsection{Definizione}\label{par: Attributi - Definizione}
 	
 	Gli elementi semplici non possono avere attributi. Se un elemento ha degli \textcolor{Red3}{\textbf{attributi}}, allora viene considerato un tipo complesso nonostante sia dichiarato come un tipo semplice.\newline
 	
@@ -4455,14 +4492,154 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	Nel codice seguente è possibile osservare l'uso della dichiarazione inline degli attributi:
 	\lstinputlisting[language=XML]{code/xml-ex35.XML}
 	A differenza degli altri codici (esempi precedenti), in questo caso quando viene dichiarato un attributo, viene anche subito definito.\newpage
+	
+	\subsubsection{Note}
+	
+	La dichiarazione di attributi avviene sempre dopo la dichiarazione degli elementi:
+	\lstinputlisting[language=XML]{code/xml-ex36.XML}
+	Gli attributi dichiarati alla riga 11, 20 e 22, sono annidati all'interno dell'elemento \textsf{Book}. Quindi, l'elemento \textsf{Book} avrà tre attributi: \textsf{Category}, \textsf{InStock} e \textsf{Reviewer}.
+	\newpage
+	
+	\subsubsection{Combo attributi e contenuti semplici (\textsf{simpleContent})}
+	
+	Si consideri la seguente \textbf{istanza} di un file XML:
+	\begin{lstlisting}[language=XML]
+<elevation units="feet">5440</elevation>\end{lstlisting}
+	L'elemento \textsf{elevation} possiede due vincoli: (1) deve essere un semplice contenuto intero e (2) deve avere un valore come attributo \textsf{units}. Quindi, per avere questo risultato, è necessario combinare gli attributi per inserire \textsf{units} e \textsf{simpleContent} per l'inserimento di un valore semplice intero. Il relativo schema XML:
+	\lstinputlisting[language=XML]{code/xml-ex37.XML}
+	\begin{itemize}
+		\item Riga 2 - L'elemento \textsf{elevation} contiene un attributo (riga 5), per questo motivo viene utilizzato un \textsf{complexType};
+		
+		\item Riga 3 - Visto che l'elemento \textsf{elevation} non contiene elementi figlio, i quali generalmente vengono indicati con \textsf{complexType}, viene utilizzato \textsf{simpleContent};
+		
+		\item Riga 4 - Viene esteso il tipo intero (\textsf{integer}) con un attributo;
+		
+		\item Riga 5 - Dichiarazione dell'attributo specificando il nome (\textsf{units}), il tipo (\textsf{string}) e l'eventuale utilizzo (in questo caso obbligatorio).
+	\end{itemize}
+	Data la grande libertà da parte dell'utente di scrivere qualsiasi valore possibile, si specificano alcune restrizioni per evitare valori anomali. Quindi, \textsf{elevation} deve essere un valore nel range $\left[0, 12'000\right]$ e il valore \textsf{units} deve essere una stringa con scritto \textsf{feet} o \textsf{meters}. Il relativo schema XML:
+	\lstinputlisting[language=XML]{code/xml-ex38.XML}
+
 
 	\subsubsection{Esempio con gli attributi}
 	
 	Lo schema XML è il seguente:
 	\lstinputlisting[language=XML]{code/xml-ex32.XML}
-	La categoria è un dato che deve essere inserito obbligatoriamente nell'istanza di un documento XML poiché ha l'attributo impostato a \textsf{required}. Inoltre, l'attributo \textsf{InStock} ha come valore di default \textsf{false}, mentre l'attributo \textsf{Reviewer} ha come valore di default lo spazio vuoto.
+	La categoria è un dato che deve essere inserito obbligatoriamente nell'istanza di un documento XML poiché ha l'attributo impostato a \textsf{required}. Inoltre, l'attributo \textsf{InStock} ha come valore di default \textsf{false}, mentre l'attributo \textsf{Reviewer} ha come valore di default lo spazio vuoto.\newpage
 	
+	\subsection{Confronto \textsf{complexContent} e \textsf{simpleContent}}\label{par: Confronto complexContent e simpleContent}
 	
+	Un elemento \textcolor{Red3}{\textbf{\textsf{simpleContent}}} \textbf{contiene estensioni o restrizioni, di un tipo complesso \emph{text-only} o di un tipo con contenuti semplici o senza contenuti}. Quindi, la seguente istanza:
+	\begin{lstlisting}[language=XML]
+<shoesize country="france">35</shoesize>\end{lstlisting}
+	È concessa grazie al seguente XML schema, in cui viene dichiarato un \textsf{complexType} chiamato \dquotes{shoesize}, e il suo contenuto viene definito come un tipo intero e con un attributo \textsf{country}:
+	\lstinputlisting[language=XML]{code/xml-ex47.XML}\:\newline
+	
+	\noindent
+	Al contrario, un elemento \textcolor{Red3}{\textbf{\textsf{complexContent}}} \textbf{definisce estensioni o restrizioni su un tipo complesso, che contiene un mix di contenuti o solo elementi}. Quindi, il seguente XML schema ha un tipo complesso, chiamato \textsf{fullpersoninfo}, che deriva da un altro tipo complesso, chiamato \textsf{personinfo}, ed estende il tipo aggiungendo tre elementi (\textsf{address}, \textsf{city} e \textsf{country}):
+	\lstinputlisting[language=XML]{code/xml-ex12.XML}
+	Infine, con \textsf{complexContent} è possibile estendere od eseguire una restrizione sui \textsf{complexType} e con \textsf{simpleContent} è possibile estendere od eseguire una restrizione sui \textsf{simpleType}.\newpage
+	
+	\subsection{Elemento \textsf{choice}}
+	
+	\subsubsection{Definizione}
+	
+	Un elemento \textcolor{Red3}{\textbf{\textsf{choice}}} consente di \textbf{scegliere}, durante l'istanza di un documento XML, \textbf{\underline{soltanto un elemento} dichiarato nel XML schema sotto la voce} \textsf{choice}. Per \textcolor{Green4}{\textbf{esempio}}, nel seguente schema:
+	\lstinputlisting[language=XML]{code/xml-ex48.XML}
+	Viene dichiarato l'elemento \textsf{transportation} che ha la caratteristica di avere come valore \underline{solo una} tra le tre stringhe possibili, ovvero \textsf{train}, \textsf{plane} o \textsf{automobile}.
+	
+	\longline
+	
+	\subsubsection{Scelte ripetibili}
+	
+	L'elemento \textsf{choice} può avere due attributi aggiuntivi opzionali:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textsf{maxOccurs}}, specifica il \textbf{numero massimo di volte che un elemento} \textsf{choice} \textbf{possa presentarsi} nell'elemento padre.
+		
+		Il \textbf{valore deve essere} $\ge 0$, oppure, se \textbf{non si vogliono impostare limiti}, è possibile utilizzare il valore \dquotes{\textsf{unbounded}}.
+		
+		Il \textbf{valore di default} è 1.
+		
+		\item \textcolor{Red3}{\textsf{minOccurs}}, specifica il \textbf{numero minimo di volte che un elemento} \textsf{choice} \textbf{possa presentarsi} nell'elemento padre.
+		
+		Il \textbf{valore deve essere} $\ge 0$.
+		
+		Il \textbf{valore di default} è 1.
+	\end{itemize}\newpage
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} con i limiti è il codice seguente, in cui gli elementi a scelta hanno anche un valore fissato (\textsf{fixed}, paragrafo~\ref{par: Attributi - Definizione}):
+	\lstinputlisting[language=XML]{code/xml-ex49.XML}\newpage
+	
+	\subsection{Elemento \textsf{all}}
+	
+	L'elemento \textcolor{Red3}{\textsf{all}} specifica che un elemento figlio può \textbf{apparire in qualsiasi ordine} e che esso può presentarsi zero o più volte.\newline
+	
+	\noindent
+	Gli \textbf{attributi} maxOccurs e minOccurs possono comparire con l'elemento \textsf{all} ma hanno un significato diverso rispetto al solito:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textsf{maxOccurs}}, è opzionale. Specifica il numero massimo di volte che un elemento possa presentarsi.
+		
+		L'\textbf{unico valore possibile} è 1.
+		
+		\item \textcolor{Red3}{\textsf{minOccurs}}, è opzionale. Specifica il numero minimo di volte che un elemento possa presentarsi.
+		
+		Gli \textbf{unici due valori possibili} sono 0 e 1.
+		
+		Il \textbf{valore di default} è 1.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, dato questo XML schema:
+	\lstinputlisting[language=XML]{code/xml-ex50.XML}
+	Viene definito l'elemento \textsf{person} come un tipo complesso, il quale contiene due valori, \textsf{firstname} e \textsf{lastname}, che possono apparire in qualsiasi ordine. L'unico limite è che \textbf{\underline{possono apparire una e una sola volta!}}\newline
+	
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}}, in cui vengono sfruttati gli attributi \textsf{minOccurs} e \textsf{maxOccurs}:
+	\lstinputlisting[language=XML]{code/xml-ex51.XML}
+	Questo esempio indica che gli elementi \textsf{firstname} e \textsf{lastname} possono apparire in qualsiasi ordine e che ogni elemento può apparire zero o soltanto una volta.\newline
+	
+	\noindent
+	Infine, se un \textbf{\textsf{complexType} utilizza l'elemento \textsf{all} e lo estende ad un altro tipo, allora il tipo padre deve avere un contenuto vuoto}. Inoltre, \textbf{non è possibile creare elementi \textsf{all} annidati e non possono contenere neanche \textsf{sequence} o \textsf{choice}}.\newpage
+	
+	\subsection{Elemento vuoto senza contenuto}
+	
+	Un \textcolor{Red3}{\textbf{elemento vuoto}} non è una vera e propria keyword, ma si intende un \textbf{elemento che quando viene istanziato non ha contenuto}. Per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{lstlisting}[language=XML]
+<product prodid="1345"/>\end{lstlisting}
+	L'elemento \textsf{product} non ha nessun contenuto. Per \textbf{definire} un tipo senza contenuto, è necessario definire un tipo che accetti elementi al suo interno, ma che effettivamente non dichiari nessun elemento:
+	\lstinputlisting[language=XML]{code/xml-ex52.XML}
+	Viene definito un \textsf{complexType} con un \textsf{complexContent}. L'elemento \textsf{complexContent} segnala l'intenzione di restringere o estendere il modello del tipo complesso. Infatti, la restrizione di un valore intero dichiara un attributo (\textsf{prodid}), ma non un elemento contenuto.\newline
+	
+	\noindent
+	Tuttavia, è possibile definire un elemento vuoto in modo più compatto:
+	\lstinputlisting[language=XML]{code/xml-ex53.XML}\:\newline
+	
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} più completo:
+	\lstinputlisting[language=XML]{code/xml-ex54.XML}
+	E una relativa istanza:
+	\begin{lstlisting}[language=XML]
+<image href="http://www.xfront.com/InSubway.gif"/>\end{lstlisting}\newpage
+
+	\subsection{No \textsf{targetNamespace}, sì \textsf{noNamespaceSchemaLocation}}
+	
+	Alcune volte, si vuole creare uno schema senza associare gli elementi ad un \emph{namespace}. Questo è possibile poiché l'attributo \textsf{targetNamespace} (paragrafo~\ref{par: Schema iniziale}) è opzionale. Il non utilizzo comporta alcune conseguenze:
+	\begin{itemize}
+		\item Nell'istanza del documento, nessun \emph{namespace} identifica gli elementi;
+		
+		\item Nell'istanza del documento, invece di utilizzare \textsf{schemaLocation} (paragrafo~\ref{par: Schema iniziale}) viene utilizzato \textsf{noNamespaceSchemaLocation}.
+	\end{itemize}
+	Per \textcolor{Green4}{\textbf{esempio}}, dato questo schema XML senza \textsf{targetNamespace} e senza \textsf{default namespace}:
+	\lstinputlisting[language=XML]{code/xml-ex55.XML}
+	Il relativo documento che istanzia i dati:
+	\lstinputlisting[language=XML]{code/xml-ex56.XML}
+	Si noti che grazie all'attributo \textcolor{Red3}{\textbf{\textsf{noNamespaceSchemaLocation}}}, è possibile \textbf{specificare \underline{dove} lo schema risiede}. In questo caso, lo schema definito inizialmente si trova nella stessa cartella del documento XML.\newpage
+	
+	\subsection{Assemblare un \emph{instance document} (XML) da molteplici XML schema (XSD)}
+	
+	L'\textbf{istanza di un documento XML può essere composta da molteplici elementi provenienti da più schemi}. Per \textcolor{Green4}{\textbf{esempio}}:
+	\lstinputlisting[language=XML]{code/xml-ex57.XML}
+	Alla riga 3 e 4 è possibile osservare come l'istanza del documento XML sia validata da due schemi XML (XSD) diversi: \textsf{Book.xsd} e \textsf{Employee.xsd}.
+	
+	Infatti, gli elementi \textsf{<Book>} sono definiti nello schema \textsf{Book.xsd}, e gli elementi \textsf{<Employee>} sono definiti nello schema \textsf{Employee.xsd}. Al contrario, gli elementi \textsf{<Library>}, \textsf{<Books>} e \textsf{<Employees>}, non sono definiti in nessun schema.
 	
 	
 	
@@ -4740,7 +4917,7 @@ default < GenericoValore | user | null > \end{lstlisting}
 		\item \textsf{null}, valore nullo
 	\end{itemize}\newpage
 	
-	\subsection{Vincoli intrarelazionali}\label{vincoli intrarelazionali}
+	\subsection{Vincoli intrarelazionali}\label{par: vincoli intrarelazionali}
 	
 	\subsubsection{\textsf{Not null}}
 	
@@ -4839,7 +5016,7 @@ foreign key (Nome, Cognome)
 		La corrispondenza tra gli attributi locali ed esterni avviene in base all'ordine: al primo attributo argomento di \textsf{foreign key} corrisponde il primo attributo argomento di \textsf{references}, e via via gli altri attributi. In questo caso a \textsf{Nome} e \textsf{Cognome} di Impiegato corrispondono rispettivamente \textsf{Nome} e \textsf{Cognome} di Anagrafica.
 	\end{itemize}\newpage
 	
-	\subsubsection{Politiche di reazione ad una modifica/eliminazione}\label{politiche di reazione ad una modifica/eliminazione}
+	\subsubsection{Politiche di reazione ad una modifica/eliminazione}\label{par: politiche di reazione ad una modifica/eliminazione}
 	
 	Solitamente se il sistema rileva una violazione, il comando di aggiornamento viene rifiutato. Al contrario, SQL permette di scegliere altre reazioni da adottare quando viene rilevata una violazione.\newline
 	
@@ -4938,7 +5115,7 @@ check ( Condizione )
 \begin{lstlisting}[language=SQL]
 alter table Dipartimento add column NroUff numeric(4)\end{lstlisting}\newpage
 	
-	\subsubsection{Rimuovere schemi, domini, viste, asserzioni (\textsf{drop})}\label{drop}
+	\subsubsection{Rimuovere schemi, domini, viste, asserzioni (\textsf{drop})}\label{par: drop}
 	
 	Il comando \textsf{drop} consente di rimuovere dei componenti quali schemi, domini, tabelle, viste o asserzioni\footnote{Le \href{https://stackoverflow.com/questions/2443322/what-is-the-difference-between-triggers-assertions-and-checks-in-database}{asserzioni} sono dei vincoli che non sono associati ad alcuna tabella in particolare.}. La sua sintassi è la seguente:
 	\lstinputlisting[language=SQL]{code/drop.sql}
@@ -5043,7 +5220,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	
 	\subsection{Interrogazioni semplici}
 	
-	\subsubsection{\textsf{Select}}\label{select}
+	\subsubsection{\textsf{Select}}\label{par: select}
 	
 	La clausola \textsf{select} specifica gli elementi dello schema della tabella risultato. Come argomento può comparire anche il carattere speciale * (asterisco), il quale rappresenta la \textbf{selezione di tutti gli attributi delle tabelle elencate nella clausola} \textsf{from}.\newline
 
@@ -5079,7 +5256,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=\textwidth]{img/select-ex_dbms.pdf}
-		\label{select dbms}
+		\label{img: select dbms}
 		\caption{DBMS d'esempio.}
 	\end{figure}\newpage
 
@@ -5470,7 +5647,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	\noindent
 	Data la semplicità di questi operatori, gli \textcolor{Green4}{\textbf{esempi}} sono consultabili in combinazione con altri argomenti al paragrafo~\ref{interrogazioni nidificate complesse (exists)}.\newpage
 	
-	\subsubsection{Interrogazioni nidificate complesse (\textsf{exists}), passaggio di binding e scope}\label{interrogazioni nidificate complesse (exists)}
+	\subsubsection{Interrogazioni nidificate complesse (\textsf{exists}), passaggio di binding e scope}\label{par: interrogazioni nidificate complesse (exists)}
 	
 	Talvolta l'\textbf{interrogazione nidificata fa riferimento al contesto dell'interrogazione che la racchiude}; tipicamente ciò accade tramite una variabile definite nell'ambito della \emph{query} più esterna e usata nell'ambito della \emph{query} più interna (si parla di un \textbf{\emph{passaggio di binding}} da un contesto all'altro). La presenza di questo meccanismo arricchisce il potere espressivo di SQL e consente di comprendere meglio l'operatore che verrà introdotto tra poco.\newline
 	
@@ -5538,7 +5715,7 @@ drop table Dipartimento cascade\end{lstlisting}
 		\end{enumerate}
 	\end{itemize}\newpage
 	
-	\subsubsection{Interrogazioni nidificate nelle clausole \textsf{select} e \textsf{from}}\label{interrogazioni nidificate nelle clausole select e from}
+	\subsubsection{Interrogazioni nidificate nelle clausole \textsf{select} e \textsf{from}}\label{par: interrogazioni nidificate nelle clausole select e from}
 	
 	La sintassi SQL consente l'\textbf{uso di interrogazioni nidificate anche come elemento della clausola} \textsf{select} \textbf{e nella clausola} \textsf{from}.\newline
 	
