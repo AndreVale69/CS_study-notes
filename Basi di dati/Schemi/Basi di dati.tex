@@ -4639,17 +4639,70 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	\lstinputlisting[language=XML]{code/xml-ex57.XML}
 	Alla riga 3 e 4 è possibile osservare come l'istanza del documento XML sia validata da due schemi XML (XSD) diversi: \textsf{Book.xsd} e \textsf{Employee.xsd}.
 	
-	Infatti, gli elementi \textsf{<Book>} sono definiti nello schema \textsf{Book.xsd}, e gli elementi \textsf{<Employee>} sono definiti nello schema \textsf{Employee.xsd}. Al contrario, gli elementi \textsf{<Library>}, \textsf{<Books>} e \textsf{<Employees>}, non sono definiti in nessun schema.
+	Infatti, gli elementi \textsf{<Book>} sono definiti nello schema \textsf{Book.xsd}, e gli elementi \textsf{<Employee>} sono definiti nello schema \textsf{Employee.xsd}. Al contrario, gli elementi \textsf{<Library>}, \textsf{<Books>} e \textsf{<Employees>}, non sono definiti in nessun schema.\newpage
 	
+	\subsection{Elemento \textsf{any}}
 	
+	L'elemento \textcolor{Red3}{\textsf{any}} consente di \textbf{estendere il documento XML con elementi \underline{non} specificati dallo schema}.\newline
 	
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, con il seguente codice tratto da un XML schema chiamato \textsf{family.xsd}, viene mostrata una dichiarazione dell'elemento \textsf{persona}. Utilizzando l'elemento \textsf{<any>}, è possibile estendere il contenuto di \textsf{person}, dopo l'elemento \textsf{lastname}, con ogni elemento:
+	\lstinputlisting[language=XML]{code/xml-ex58.XML}
+	Nel caso in cui si volesse estendere l'elemento \textsf{person} con altri elementi, per esempio \textsf{children}, sarebbe possibile farlo dichiarando questo schema XML:
+	\lstinputlisting[language=XML]{code/xml-ex59.XML}
+	E ottenendo nel \emph{instance document} (file XML), il risultato desiderato:
+	\lstinputlisting[language=XML]{code/xml-ex60.XML}
+	Il file XML è valido  poiché lo schema \textsf{family.xsd} consente di estendere l'elemento \textsf{person} con un elemento opzionale, ricordandosi di mantenere sempre l'ordine e quindi inserendolo dopo l'elemento \textsf{lastname}.\newpage
 	
+	\subsection{Link utili}
 	
+	Nel seguente paragrafo si lasciano alcuni link utili in cui è possibile trovare definizioni, esempi e casi d'uso riguardanti XML e XSD.\newline
 	
-	
-	
-	
-	
+	\noindent
+	Innanzitutto, è possibile utilizzare Visual Studio Code con un'estensione (estensione XML sviluppata da Red Hat: \href{https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml}{link VSCode Marketplace}) e verificare che il codice sia scritto in modo corretto e che il validatore non dia errori. Altrimenti, è possibile utilizzare un validatore online trovabile al seguente indirizzo: \href{https://www.utilities-online.info/xsdvalidation}{online tool}.
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l p{23em} @{}}
+			\toprule
+			Argomento con link & Descrizione \\
+			\midrule
+			\href{https://www.w3schools.com/xml/el_all.asp}{all element} & Definizione, utilizzo ed esempi dell'elemento \textsf{all}. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/XML/schema_complex_any.asp}{any element} & Spiegazione dell'elemento \textsf{any} con vari esempi. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/xml/schema_simple_attributes.asp}{attribute} & Definizione di un attributo, valori di \textsf{default} e \textsf{fixed}, valori \textsf{optional} e \textsf{required}. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/xml/el_choice.asp}{choice element} & Definizione, sintassi ed esempi del costrutto \textsf{choice}. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/xml/schema_complex.asp}{Complex Elements} & Definizione di un elemento complesso (\textsf{complex element}) con vari esempi. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/xml/el_complexcontent.asp}{complexContent element} & Definizione e sintassi dell'elemento \textsf{complexContent} con i suoi vari attributi. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/xml/el_complextype.asp}{complexType Element} & Definizione, utilizzo ed esempi del costrutto \textsf{complexType}. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/XML/schema_complex_subst.asp}{Element substitution} & Spiegazione della sostituzione tra elementi ed eventuale blocco di essa. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/XML/schema_complex_empty.asp}{empty elements} & Spiegazione degli elementi senza contenuti (vuoti) e un esempio. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/xml/el_extension.asp}{extension element} & Definizione, utilizzo ed esempi esaustivi del costrutto \textsf{extension}. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/XML/schema_example.asp}{Esempio XML schema} & Vari esempi sulla scrittura di un XML schema. Procedura guidata passo passo. Inoltre, viene spiegato anche come dividere uno schema e usare \textsf{named types}. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/XML/schema_complex_indicators.asp}{Indicators} & Panoramica sui vari indicatori che ci sono: \textsf{all}, \textsf{choice}, \textsf{sequence}, \textsf{maxOccurs}, \textsf{minOccurs}, \textsf{group name} e \textsf{attributeGroup name}. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/XML/xml_namespaces.asp}{Namespaces} & Definizione, il motivo per cui esistono i \emph{namespaces}, prefissi (\textsf{xsd:...}), spiegazione dell'attributo \textsf{xmlns}, di cosa è un URI, dei \emph{default namespaces} e vari esempi. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/xml/el_restriction.asp}{restriction element} & Definizione, utilizzo e vari esempi del costrutto \textsf{restriction}. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/XML/schema_facets.asp}{Restrictions/Facets} & Spiegazione ampia delle varie restrizioni con una tabella utile riguardante le restrizioni in base ai \textsf{Datatypes} (\textsf{maxExclusive}, \textsf{minExclusive}, ...). \\ [0.5em]
+			
+			\href{https://www.w3schools.com/xml/el_schema.asp}{schema element} & Definizione, utilizzo ed esempi degli elementi che è possibile trovare nella \emph{root} di uno schema, cioè quello che c'è all'inizio. \\ [0.5em]
+			
+			\href{https://www.w3schools.com/XML/schema_schema.asp}{schema element (pt. 2)} & Definizione e vari esempi dell'elemento \textsf{schema}. \\
+			\midrule
+		\end{tabular}
+		\caption{Link utili sugli argomenti XML e XSD.}
+	\end{table}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LABORATORIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
