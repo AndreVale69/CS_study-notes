@@ -277,7 +277,7 @@
 		\caption*{Merge degli ultimi due nodi.}
 	\end{figure}\newpage
 	
-	\subsection{Verificare che uno schedule sia VSR (View-serializzabilità)}
+	\subsection{Verificare che uno schedule sia VSR (View-serializzabile)}
 	
 	\subsubsection{Esercizio 1 - Perdita di aggiornamento}
 	
@@ -544,7 +544,7 @@
 		\item Al termine della creazione degli insiemi e dei vari confronti, se esiste almeno una combinazione che è view-equivalente allo schedule del punto 1, allora è possibile affermare che lo schedule di partenza è VSR.
 	\end{enumerate}\newpage
 	
-	\subsection{Verificare che uno schedule sia CSR}
+	\subsection{Verificare che uno schedule sia CSR (Conflict-serializzabile)}
 	
 	\subsubsection{Esercizio 1 - Perdita di aggiornamento}
 	
@@ -885,6 +885,227 @@
 	\subsection{Ottimizzazione e stima di costo}
 	
 	\subsubsection{Esercizio 1}
+	
+	Si consideri il seguente schema relazionale contenete le ricette di una catena di ristoranti:
+	\begin{equation*}
+		\begin{array}{rl}
+			\textsf{INGREDIENTE} & \left(\underline{\text{Codice}}, \text{Nome}, \text{Calorie}\right); \\[0.3em]
+			\textsf{COMPOSIZIONE} & \left(\underline{\text{Ricetta, Ingrediente}}, \text{Quantità}\right); \\[0.3em]
+			\textsf{RICETTA} & \left(\underline{\text{CodiceRicetta}}, \text{Nome}, \text{Regione}, \text{TempoPreparazione}\right).
+		\end{array}
+	\end{equation*}
+	N.B.: la quantità della tabella \textsf{COMPOSIZIONE} è espressa in grammi.\newline
+	
+	\noindent
+	\emph{\textbf{Vincoli di integrità referenziale:}}
+	\begin{equation*}
+		\begin{array}{lll}
+			\textsf{COMPOSIZIONE}.\text{Ricetta} 		&\rightarrow& \textsf{RICETTA} \\ [0.3em]
+			\textsf{COMPOSIZIONE}.\text{Ingrediente} 	&\rightarrow& \textsf{INGREDIENTE}
+		\end{array}
+	\end{equation*}
+	Data la seguente interrogazione SQL che consente di: \emph{trovare gli ingredienti usati in ricette della Regione Veneto, riportando, il codice della ricetta e il nome e le calorie dell'ingrediente}.
+	\lstinputlisting[language=SQL]{code/ottimizzazione-1.sql}
+	Calcolare il costo dell'interrogazione in termini di numero di accessi a memoria secondaria sotto le seguenti ipotesi:
+	\begin{itemize}
+		\item La selezione su ricetta richiede una scansione sequenziale della tabella \textsf{RICETTA};
+		
+		\item L'ordine di esecuzione del join è:
+		\begin{equation*}
+			\left(\textsf{RICETTA} \Join \textsf{COMPOSIZIONE}\right) \Join \textsf{INGREDIENTE}
+		\end{equation*}
+		
+		\item Le operazioni di join vengono eseguite con la tecnica \underline{Nested Loop join} con una pagina di buffer disponibile per ogni tabella;
+		
+		\item Il risultato intermedio del primo join viene interamente memorizzato nel buffer;
+		
+		\item $\mathrm{NP}\left(\textsf{INGREDIENTE}\right) = 40$, $\mathrm{NP}\left(\textsf{COMPOSIZIONE}\right) = 200$, $\mathrm{NP}\left(\textsf{RICETTA}\right) = 12$;
+		
+		\item $\mathrm{NR}\left(\textsf{INGREDIENTE}\right) = 1200$, $\mathrm{NR}\left(\textsf{COMPOSIZIONE}\right) = 13000$, $\mathrm{NR}\left(\textsf{RICETTA}\right) = 260$;
+		
+		\item $\mathrm{VAL}\left(\text{Regione}, \textsf{RICETTA}\right) = 20$, $\mathrm{VAL}\left(\text{Ricetta}, \textsf{COMPOSIZIONE}\right) = 260$.
+	\end{itemize}
+	Come cambia il costo se è disponibile un indice B+-tree sull'attributo Codice della tabella INGREDIENTE che ha profondità 2.\newpage
+	
+	\noindent
+	Il \emph{nested loop join} è un algoritmo di join che unisce due set usando due cicli nidificati. Quindi, i cicli sono:
+	\begin{enumerate}
+		\item Viene selezionata la regione Veneta (\textsf{WHERE R.Regione = 'Veneto'}) e successivamente eseguito il primo Join:
+		\begin{equation*}
+			\textsf{seleziona\_veneto}\left(\textsf{RICETTA}\right) \Join \textsf{COMPOSIZIONE}
+		\end{equation*}
+		Quindi il costo risulta essere una lettura della tabella esterna \textsf{RICETTA} poiché deve essere applicato una condizione \textsf{WHERE} e infine viene eseguita una moltiplicazione:
+		\begin{equation*}
+			\begin{array}{lll}
+				\text{Costo} = & \text{NP}\left(\textsf{RICETTA}\right) + & \\
+				& \mathrm{NR}\left(\textsf{RICETTA} \text{ con selezione Regione='Veneto'}\right) \times & \\
+				& \mathrm{NP}\left(\textsf{COMPOSIZIONE}\right)
+			\end{array}
+		\end{equation*}
+		
+		\item Il secondo Join non prevede condizioni \textsf{WHERE} e il costo non tiene in considerazione una lettura da una tabella esterna poiché la tabella interessata è già in buffer:
+		\begin{equation*}
+			\begin{array}{lll}
+				\text{Costo} = & \mathrm{NR}\left(\textsf{COMPOSIZIONE} \text{ per le ricette con selezione Regione='Veneto'}\right) \times & \\
+				& \mathrm{NP}\left(\textsf{INGREDIENTE}\right)
+			\end{array}
+		\end{equation*}
+	\end{enumerate}
+	I dati dell'esercizio sui costi sono i seguenti:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c c c c @{}}
+			\toprule
+			Tabella & NP & NR & VAL(Regione) & VAL(Ricetta) \\
+			\midrule
+			\textsf{Ricetta} 		& 12 & 260 & 20 & \ding{55} \\
+			\textsf{Ingrediente}	& 40 & 1200 & \ding{55} & \ding{55} \\
+			\textsf{Composizione}	& 200 & 13000 & \ding{55} & 260 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	I dati presi sono stati acquisiti dai requisiti elencati, niente di difficile. Adesso si cerca di ottenere un valore tangibile, quindi si sostituiscono i valori:
+	\begin{equation*}
+		\text{Costo} = 12 + \mathrm{NR}\left(\textsf{RICETTA}\right) \div \mathrm{VAL}\left(\text{Regione}, \textsf{RICETTA}\right) \times 200
+	\end{equation*}
+	La selezione della regione Veneto sulla tabella \textsf{RICETTA} è eseguita con la condizione:
+	\begin{equation*}
+		\mathrm{NR}\left(\textsf{RICETTA}\right) \div \mathrm{VAL}\left(\text{Regione}, \textsf{RICETTA}\right)
+	\end{equation*}
+	Andando a sostituire nuovamente i dati:
+	\begin{equation*}
+		\text{Costo} = 12 + 260 \div 20 \times 200 = 2'612
+	\end{equation*}\newpage
+	
+	\noindent
+	Il costo del secondo Join è possibile calcolarlo allo stesso modo. 
+	\begin{equation*}
+		\text{Costo} = \mathrm{NR}\left(\textsf{COMPOSIZIONE}\right) \div \mathrm{VAL}\left(\text{Ricetta}, \textsf{COMPOSIZIONE}\right) \times 13 \times 40
+	\end{equation*}
+	\begin{itemize}
+		\item $\mathrm{NR}\left(\textsf{COMPOSIZIONE}\right) \div \mathrm{VAL}\left(\text{Ricetta}, \textsf{COMPOSIZIONE}\right)$, rappresenta il calcolo da eseguire poiché nella tabella \textsf{COMPOSIZIONE} la Ricetta è una chiave esterna;
+		
+		\item $13$, il valore ottenuto dal costo precedente, ovvero rappresenta il numero di regioni del veneto sulla tabella \textsf{RICETTA};
+		
+		\item $40$, rappresenta $\mathrm{NP}\left(\textsf{INGREDIENTE}\right)$, come da formula.
+	\end{itemize}
+	Quindi, il costo totale del secondo Join:
+	\begin{equation*}
+		\text{Costo} = 13'000 \div 260 \times 13 \times 40 = 26'000
+	\end{equation*}
+	E infine, il costo totale delle operazioni:
+	\begin{equation*}
+		\text{Costo totale} = 2'612 + 26'000 = 28'612
+	\end{equation*}
+	Qua di seguito, viene riportato il costo totale nel caso in cui sia disponibile un indice B+-tree sull'attributo Codice della tabella \textsf{INGREDIENTE} che ha profondità 2. Il costo sul primo Join non viene influenzato poiché non riguarda la tabella \textsf{INGREDIENTE} e quindi rimane uguale a $2'612$. Invece, il secondo Join viene influenzato poiché al posto di utilizzare NP(\textsf{INGREDIENTE}), si utilizza la profondità dell'albero, ovvero:
+	\begin{equation*}
+		\text{Costo secondo Join} = \left(13'000 \div 260\right) \times 13 \times \left(2+1\right) = 650 \times 3 = 1'950
+	\end{equation*}
+	E quindi il costo totale:
+	\begin{equation*}
+		\text{Costo totale} = 2'612 + 1'950 = 4'562
+	\end{equation*}\newpage
+	
+	\subsubsection{Esercizio 2}
+	
+	Si consideri il seguente schema relazionale contenete le ricette di una catena di ristoranti:
+	\begin{equation*}
+		\begin{array}{rl}
+			\textsf{RICETTA} & \left(\text{Nome}, \text{Descrizione}, \text{Regione}\right); \\[0.3em]
+			\textsf{IN\_RICETTA} & \left(\text{Ricetta}, \text{Ingrediente}, \text{Quantità}\right); \\[0.3em]
+			\textsf{INGREDIENTE} & \left(\text{Nome}, \text{Descrizione}\right).
+		\end{array}
+	\end{equation*}
+	N.B.: la quantità della tabella \textsf{COMPOSIZIONE} è espressa in grammi.\newline
+	
+	\noindent
+	\emph{\textbf{Vincoli di integrità referenziale:}}
+	\begin{equation*}
+		\begin{array}{lll}
+			\textsf{IN\_RICETTA}.\text{Ricetta} 		&\rightarrow& \textsf{RICETTA} \\ [0.3em]
+			\textsf{IN\_RICETTA}.\text{Ingrediente} 	&\rightarrow& \textsf{INGREDIENTE}
+		\end{array}
+	\end{equation*}
+	Data la seguente interrogazione SQL:
+	\lstinputlisting[language=SQL]{code/ottimizzazione-2.sql}
+	Calcolare il costo dell'interrogazione in termini di numero di accessi a memoria secondaria sotto le seguenti ipotesi:
+	\begin{itemize}
+		\item La selezione sulla tabella \textsf{IN\_RICETTA} eseguita attraverso una scansione della tabella medesima, il risultato della selezione viene salvato in memoria secondaria in 180 pagine e riutilizzato per il join;
+		
+		\item La selezione delle ricette viene eseguita attraverso una scansione della tabella \textsf{RICETTA}, il risultato della selezione viene mantenuto nel buffer;
+		
+		\item L'ordine di esecuzione del join è:
+		\begin{equation*}
+			\textsf{RICETTA} \Join \textsf{IN\_RICETTA}
+		\end{equation*}
+		E le operazioni di join vengono eseguite con la tecnica \dquotes{Nested Loop Join} con una pagina di buffer disponibile per ogni tabella;
+		
+		\item $\mathrm{NP}\left(\textsf{INGREDIENTE}\right) = 30$, $\mathrm{NP}\left(\textsf{IN\_RICETTA}\right) = 780$, $\mathrm{NP}\left(\textsf{RICETTA}\right) = 150$;
+		
+		\item $\mathrm{NR}\left(\textsf{INGREDIENTE}\right) = 270$, $\mathrm{NR}\left(\textsf{IN\_RICETTA}\right) = 19'800$, $\mathrm{NR}\left(\textsf{RICETTA}\right) = 900$;
+		
+		\item $\mathrm{VAL}\left(\text{Regione}, \textsf{RICETTA}\right) = 18$, $\mathrm{VAL}\left(\text{Ricetta}, \textsf{IN\_RICETTA}\right) = 90$, \newline $\mathrm{VAL}\left(\text{Quantita}, \textsf{IN\_RICETTA}\right) = 50$.
+	\end{itemize}
+	Come cambia il costo se è disponibile un indice B+-tree sull'attributo Ricetta della tabella \textsf{IN\_RICETTA} che ha profondità 2.\newpage
+	
+	\noindent
+	I dati dell'esercizio sui costi sono i seguenti:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c c c c c @{}}
+			\toprule
+			Tabella & NP & NR & VAL(Regione) & VAL(Ricetta) & VAL(Quantita) \\
+			\midrule
+			\textsf{Ricetta} 		& 150 & 900 & 18 & \ding{55} & \ding{55} \\
+			\textsf{In\_ricetta}	& 780 & 19800 & \ding{55} & 90 & 50 \\
+			\textsf{Ingrediente}	& 30 & 270 & \ding{55} & \ding{55} & \ding{55} \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	Come viene esplicitato dall'esercizio, la selezione sulla tabella \textsf{IN\_RICETTA} viene eseguita:
+	\begin{enumerate}
+		\item Facendo una scansione della tabella medesima:
+		\begin{equation*}
+			\mathrm{NP}\left(\textsf{IN\_RICETTA}\right) = 780
+		\end{equation*}
+		
+		\item Il risultato della selezione viene salvato in memoria secondaria in 180 pagine, quindi:
+		\begin{equation*}
+			\mathrm{NP}\left(\textsf{IN\_RICETTA}\right) = 780 \Longrightarrow 180
+		\end{equation*}
+		
+		\item Viene utilizzato il valore per il Join. Quindi, dato che non vi sono letture di tabelle poiché il buffer contiene già i valori d'interesse, il costo è:
+		\begin{equation*}
+			\begin{array}{lll}
+				\text{Costo} &=& \mathrm{NR}\left(\textsf{RICETTA}\right) \div \mathrm{VAL}\left(\text{Regione}, \textsf{RICETTA}\right) \times \mathrm{NP}\left(\textsf{IN\_RICETTA}\right) \\
+				&=& 900 \div 18 \times 180 \\
+				&=& 50 \times 180 \\
+				&=& 9'000
+			\end{array}
+		\end{equation*}
+		Ricordando che si utilizzano 180 pagine e non 780 (punto 2).
+	\end{enumerate}
+	Quindi, il costo totale è dato, rispettivamente, dalla somma delle pagine di \textsf{IN\_RICETTA}, dalle pagine scritte nella memoria secondaria che si riferiscono a \textsf{IN\_RICETTA}, dal Join eseguito qua sopra e infine dalla scansione della tabella \textsf{RICETTA}:
+	\begin{equation*}
+		\text{Costo totale} = 780 + 180 + 9'000 + 150 = 10'110
+	\end{equation*}
+	Per quanto riguarda il caso in cui fosse presente un indice B+-tree, è necessario modificare il Join. Quindi diventa la formula:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Costo Join} &=& \mathrm{NR}\left(\text{\textsf{RICETTA} con selezione}\right) \div \mathrm{VAL}\left(\text{Regione}, \textsf{RICETTA}\right) \times \\
+			&& \left(\text{Prof. Indice} + \mathrm{NR}\left(\textsf{IN\_RICETTA}\text{ con selezione}\right) \div \mathrm{VAL}\left(\text{q.ta}, \textsf{IN\_RICETTA}\right)\right) \\
+			&=& 900 \div 18 \times \left(19'800 \div 50\right) \div 90 \\
+			&=& 220
+		\end{array}
+	\end{equation*}
+	Il totale quindi diventa:
+	\begin{equation*}
+		\text{Costo totale} = 780 + 180 + 150 + 220 = 1'330
+	\end{equation*}\newpage
 	
 	\subsection{XML}
 	
