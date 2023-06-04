@@ -5291,7 +5291,7 @@ drop table Dipartimento cascade\end{lstlisting}
 		\item \textsf{Impiegato(\underline{Nome}, \underline{Cognome}, Dipart, Ufficio, Stipendio, Città)}
 		\item \textsf{Dipartimento(\underline{Nome}, Indirizzo, Città)}
 	\end{itemize}
-	(dichiarazione a pag.\pageref{select dbms}) si eseguono le seguenti interrogazioni:
+	(dichiarazione a pag.\pageref{img: select dbms}) si eseguono le seguenti interrogazioni:
 	\begin{enumerate}
 		\item Estrazione di tutte le informazioni relative agli impiegati di cognome \dquotes{Rossi}:
 		\lstinputlisting[language=SQL]{code/select-ex1.sql}
@@ -5318,7 +5318,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	Quando viene considerata un'interrogazione che coinvolge righe appartenenti a più di una tabella, viene posto come argomento della clausola \textsf{from} l'\textbf{insieme di tabelle alle quali si vuole accedere}. Sul prodotto cartesiano delle tabelle elencate verranno applicate le condizioni contenute nella clausola \textsf{where}. Sintassi identica al paragrafo \ref{select}.\newline
 	
 	\noindent
-	Per \textcolor{Green4}{\textbf{esempio}}, data la base dati a pagina \pageref{select dbms}, si eseguono le seguenti interrogazioni:
+	Per \textcolor{Green4}{\textbf{esempio}}, data la base dati a pagina \pageref{img: select dbms}, si eseguono le seguenti interrogazioni:
 	\begin{enumerate}
 		\item Estrazione dei nomi degli impiegati e le città in cui lavorano:
 		\lstinputlisting[language=SQL]{code/from-ex1.sql}
@@ -5349,7 +5349,7 @@ drop table Dipartimento cascade\end{lstlisting}
 		\item $\le$ minore-uguale
 		\item $\ge$ maggiore-uguale
 	\end{itemize}
-	Per \textcolor{Green4}{\textbf{esempio}}, data la base dati a pagina \pageref{select dbms}, si eseguono le seguenti interrogazioni:
+	Per \textcolor{Green4}{\textbf{esempio}}, data la base dati a pagina \pageref{img: select dbms}, si eseguono le seguenti interrogazioni:
 	\begin{enumerate}
 		\item Estrazione del nome e cognome degli impiegati che lavorano nell'ufficio $20$ del dipartimento Amministrazione:
 		\lstinputlisting[language=SQL]{code/where-ex1.sql}
@@ -5372,7 +5372,7 @@ drop table Dipartimento cascade\end{lstlisting}
 		\item \_ (trattino sottolineato), utilizzato per rappresentare un carattere arbitrario
 		\item \% (percentuale), utilizzato per rappresentare un numero arbitrario (anche nullo) di caratteri arbitrari
 	\end{itemize}
-	Per \textcolor{Green4}{\textbf{esempio}}, un confronto \textsf{lile 'ab\%ba\_'} è soddisfatto quando qualsiasi stringa di caratteri che inizia con \textsf{ab} e che ha la coppia di caratteri \textsf{ba} prima dell'ultima posizione. Una \emph{query} d'\textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{select dbms}:
+	Per \textcolor{Green4}{\textbf{esempio}}, un confronto \textsf{lile 'ab\%ba\_'} è soddisfatto quando qualsiasi stringa di caratteri che inizia con \textsf{ab} e che ha la coppia di caratteri \textsf{ba} prima dell'ultima posizione. Una \emph{query} d'\textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{img: select dbms}:
 	\lstinputlisting[language=SQL]{code/where-ex4.sql}
 	Il risultato:
 	\begin{figure}[!htp]
@@ -5398,7 +5398,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	\noindent
 	La sintassi è la seguente:
 	\lstinputlisting[language=SQL]{code/between.sql}
-	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{select dbms}:
+	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{img: select dbms}:
 	\lstinputlisting[language=SQL]{code/between-ex1.sql}
 	Il risultato:
 	\begin{figure}[!htp]
@@ -5412,7 +5412,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	\noindent
 	La sintassi è la seguente:
 	\lstinputlisting[language=SQL]{code/in.sql}
-	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{select dbms}:
+	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{img: select dbms}:
 	\lstinputlisting[language=SQL]{code/in-ex1.sql}
 	Il risultato:
 	\begin{figure}[!htp]
@@ -5441,7 +5441,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	Si specificano gli attributi che devono essere usati per l'ordinamento. Le righe vengono \textbf{ordinate in base al primo attributo nell'elenco}. Nel caso in cui due righe hanno lo stesso valore per il primo attributo, si considerano i valori degli attributi successivi in sequenza. L'ordine può essere ascendente (\textsf{asc}) o discendente (\textsf{desc}) e di default è \textsf{asc}.\newline
 	
 	\noindent
-	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{select dbms}:
+	Un \textcolor{Green4}{\textbf{esempio}} sempre considerando la base dati a pagina \pageref{img: select dbms}:
 	\lstinputlisting[language=SQL]{code/order_by-ex1.sql}
 	Il risultato:
 	\begin{figure}[!htp]
@@ -5461,7 +5461,7 @@ drop table Dipartimento cascade\end{lstlisting}
 		\item \textsf{distinct} restituisce il numero di diversi valori degli attributi in \textsf{ListaAttributi};
 		\item \textsf{all} (default) restituisce il numero di righe che possiedono valori diversi dal valore nullo per gli attributi in \textsf{ListaAttributi}.
 	\end{itemize}
-	Per \textcolor{Green4}{\textbf{esempio}}, si eseguono le seguenti \emph{query} (sempre considerando la base dati a pagina \pageref{select dbms}):
+	Per \textcolor{Green4}{\textbf{esempio}}, si eseguono le seguenti \emph{query} (sempre considerando la base dati a pagina \pageref{img: select dbms}):
 	\begin{itemize}
 		\item Si vuol estrarre il numero di diversi valori dell'attributo \textsf{Stipendio} fra tutte le righe di \textsf{Impiegato}:
 		\lstinputlisting[language=SQL]{code/count-ex1.sql}
@@ -5485,7 +5485,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	\end{itemize}\newpage
 	
 	\noindent
-	Per \textcolor{Green4}{\textbf{esempio}}, si eseguono le seguenti \emph{query} (sempre considerando la base dati a pagina \pageref{select dbms}):
+	Per \textcolor{Green4}{\textbf{esempio}}, si eseguono le seguenti \emph{query} (sempre considerando la base dati a pagina \pageref{img: select dbms}):
 	\begin{itemize}
 		\item Si vuole estrarre la somma degli stipendi del dipartimento Amministrazione:
 		\lstinputlisting[language=SQL]{code/sum-ex1.sql}
@@ -5510,7 +5510,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	\lstinputlisting[language=SQL]{code/join.sql}
 	Il parametro \textsf{TipoJoin} rappresenta qual è il tipo di join da utilizzare che può essere:
 	\begin{itemize}
-		\item \textbf{Valore di default:} \textcolor{Red3}{\textsf{inner join}} è il \textbf{tradizionale theta-join} dell'algebra relazionale (paragrafo~\ref{theta-join});
+		\item \textbf{Valore di default:} \textcolor{Red3}{\textsf{inner join}} è il \textbf{tradizionale theta-join} dell'algebra relazionale (paragrafo~\ref{par: theta-join});
 		
 		\item \textcolor{Red3}{\textsf{cross join}} è il \textbf{prodotto cartesiano} di due o più tabelle;
 
@@ -5525,7 +5525,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	\noindent
 	Si presentano alcuni \textcolor{Green4}{\textbf{esempi}}:
 	\begin{itemize}
-		\item Tenendo in considerazione la base dati a pagina~\ref{select dbms}, si vogliono estrarre i nomi degli impiegati e le città in cui lavorano:
+		\item Tenendo in considerazione la base dati a pagina~\pageref{img: select dbms}, si vogliono estrarre i nomi degli impiegati e le città in cui lavorano:
 		\lstinputlisting[language=SQL]{code/join-ex1.sql}
 		Il risultato:
 		\begin{figure}[!htp]
@@ -5568,7 +5568,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	Spesso nasce l'esigenza di \textbf{applicare l'operatore aggregato separatamente a sottoinsiemi di righe}. Per poter utilizzare in questo modo l'operatore aggregato, SQL mette a disposizione la clausola \textsf{group by}, la quale consente di specificare come dividere le tabelle in sottoinsiemi.\newline
 	
 	\noindent
-	La sintassi e il suo funzionamento vengono spiegate con l'introduzione di un esempio: si vuole estrarre la somma degli stipendi di tutti gli impiegati dello stesso dipartimento (si consideri la base dati a pagina~\pageref{select dbms}):
+	La sintassi e il suo funzionamento vengono spiegate con l'introduzione di un esempio: si vuole estrarre la somma degli stipendi di tutti gli impiegati dello stesso dipartimento (si consideri la base dati a pagina~\pageref{img: select dbms}):
 	\lstinputlisting[language=SQL]{code/group-by-ex1.sql}
 	I passi eseguiti per ottenere il risultato sono:
 	\begin{enumerate}
@@ -5812,7 +5812,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	A differenza dell'algebra relazionale, gli operatori insiemistici \underline{non} richiedono che gli schemi su cui vengono effettuate le operazioni siano identici. Tuttavia, \textbf{gli attributi devono essere di pari numero} e con \textbf{domini compatibili}. In SQL, con gli operatori insiemistici, la \textbf{corrispondenza tra gli attributi si basa sulla posizione} di essi.\newline
 	
 	\noindent
-	Per \textcolor{Green4}{\textbf{esempio}}, si considerino le seguenti \emph{query} che si riferiscono alla base dati a pagina~\pageref{select dbms}:
+	Per \textcolor{Green4}{\textbf{esempio}}, si considerino le seguenti \emph{query} che si riferiscono alla base dati a pagina~\pageref{img: select dbms}:
 	\begin{itemize}
 		\item Si vogliono estrarre i nomi e i cognomi degli impiegati:
 		\lstinputlisting[language=SQL]{code/union-ex1.sql}
@@ -5848,7 +5848,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	Lo \textbf{scopo} delle viste è quello di aumentare il potere espressivo del linguaggio. Per esempio, nella clausola \textsf{from} sono ammesse interrogazioni nidificate solo grazie alle viste.\newline
 	
 	\noindent
-	Per \textcolor{Green4}{\textbf{esempio}}, si definiscono le seguenti \emph{query} considerando la base dati a pagina~\pageref{select dbms}:
+	Per \textcolor{Green4}{\textbf{esempio}}, si definiscono le seguenti \emph{query} considerando la base dati a pagina~\pageref{img: select dbms}:
 	\begin{itemize}
 		\item Si definisce una vista \textsf{ImpiegatiAmmin} che contiene tutti gli impiegati del dipartimento Amministrazione con uno stipendio superiore a 10:
 		\lstinputlisting[language=SQL]{code/create_view-ex1.sql}
