@@ -618,7 +618,7 @@
 	
 	In sintesi l'algoritmo per capire se uno schedule è CSR:
 	\begin{enumerate}
-		\item Si calcola l'insieme dei conflitti. Un conflitto si manifesta quando due azioni operano sullo stesso oggetto e quando almeno una di esse è in scrittura. Quindi, le combinazioni che possono esserci sono: $rw, wr, ww$;
+		\item Si calcola l'insieme dei conflitti. Un conflitto si manifesta quando due azioni \textbf{differenti} operano sullo stesso oggetto e quando almeno una di esse è in scrittura. Quindi, le combinazioni che possono esserci sono: $rw, wr, ww$;
 		
 		\item Si costruire il grafo dall'insieme dei conflitti. I nodi rappresentano le transizioni e gli archi si disegnano solo se due azioni non riguardano la stessa transizione.
 	\end{enumerate}\newpage
@@ -715,10 +715,172 @@
 	\begin{equation*}
 		S_{3} = r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)
 	\end{equation*}
+	Le transazioni sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			T_{1} &:& r_{1}\left(x\right) \: w_{1}\left(x\right) \: w_{1}\left(y\right) \: w_{1}\left(z\right) \\
+			T_{2} &:& r_{2}\left(x\right) \: w_{2}\left(x\right) \\
+			T_{3} &:& r_{3}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \\
+			T_{4} &:& r_{4}\left(z\right) \\
+			T_{5} &:& w_{5}\left(x\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)
+		\end{array}
+	\end{equation*}
+	Si verifica se CSR. Quindi, si cerca l'insieme di conflitti:
+	\begin{enumerate}
+		\item $\textcolor{Red3}{\boldsymbol{r_{1}\left(x\right)} \: }r_{2}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{2}\left(x\right)} \: }r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $\textcolor{Red3}{\boldsymbol{r_{1}\left(x\right)} \: }r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{3}\left(x\right)} \: }w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $\textcolor{Red3}{\boldsymbol{r_{1}\left(x\right)} \: }r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(x\right)} \: }w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: \textcolor{Red3}{\boldsymbol{r_{2}\left(x\right)} \: }w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(x\right)} \: }w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: \textcolor{Red3}{\boldsymbol{r_{2}\left(x\right)} \: }w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{3}\left(x\right)} \: }w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: \textcolor{Red3}{\boldsymbol{r_{2}\left(x\right)} \: }w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(x\right)} \: }w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{2}\left(x\right)} \: }\textcolor{Red3}{\boldsymbol{r_{3}\left(x\right)} \: }r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{2}\left(x\right)} \: }r_{3}\left(x\right) \: r_{4}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(x\right)} \: }w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{2}\left(x\right)} \: }r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{3}\left(x\right)} \: }w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{2}\left(x\right)} \: }r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(x\right)} \: }w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: \textcolor{Red3}{\boldsymbol{r_{3}\left(x\right)} \: }r_{4}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(x\right)} \: }w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: \textcolor{Red3}{\boldsymbol{r_{3}\left(x\right)} \: }r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(x\right)} \: }w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: \textcolor{Red3}{\boldsymbol{r_{4}\left(z\right)} \: }w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(z\right)} \: }w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(x\right)} \: }w_{3}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{3}\left(x\right)} \: }w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(x\right)} \: }w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(x\right)} \: }w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{3}\left(y\right)} \: }w_{3}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(y\right)} \: }w_{5}\left(x\right) \: w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{3}\left(y\right)} \: }w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: w_{1}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(y\right)} \: }r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{3}\left(x\right)} \: }w_{1}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(x\right)} \: }w_{1}\left(z\right) \: w_{5}\left(y\right) \: r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(y\right)} \: }w_{5}\left(x\right) \: w_{1}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(y\right)} \: }r_{5}\left(z\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{2}\left(x\right) \: w_{2}\left(x\right) \: r_{3}\left(x\right) \: r_{4}\left(z\right) \: w_{1}\left(x\right) \: w_{3}\left(y\right) \: w_{3}\left(x\right) \: w_{1}\left(y\right) \: w_{5}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(z\right)} \: }w_{5}\left(y\right) \: \textcolor{Red3}{\boldsymbol{r_{5}\left(z\right)}}$
+	\end{enumerate}\newpage
+
+	\noindent
+	L'insieme dei conflitti è quindi formato da:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Conflitti}\left(S_{3}\right) = \{ & \left(r_{1}\left(x\right) \: w_{2}\left(x\right)\right), \left(r_{1}\left(x\right) \: w_{3}\left(x\right)\right), \left(r_{1}\left(x\right) \: w_{5}\left(x\right)\right), & \\[0.5em]
+													& \left(r_{2}\left(x\right) \: w_{1}\left(x\right)\right), \left(r_{2}\left(x\right) \: w_{3}\left(x\right)\right), \left(r_{2}\left(x\right) \: w_{5}\left(x\right)\right), & \\[0.5em]
+													& \left(w_{2}\left(x\right) \: r_{3}\left(x\right)\right), \left(w_{2}\left(x\right) \: w_{1}\left(x\right)\right), \left(w_{2}\left(x\right) \: w_{3}\left(x\right)\right), \left(w_{2}\left(x\right) \: w_{5}\left(x\right)\right), & \\[0.5em]
+													& \left(r_{3}\left(x\right) \: w_{1}\left(x\right)\right), \left(r_{3}\left(x\right) \: w_{5}\left(x\right)\right), & \\[0.5em]
+													& \left(r_{4}\left(z\right) \: w_{1}\left(z\right)\right), & \\[0.5em]
+													& \left(w_{1}\left(x\right) \: w_{3}\left(x\right)\right), \left(w_{1}\left(x\right) \: w_{5}\left(x\right)\right), & \\[0.5em]
+													& \left(w_{3}\left(y\right) \: w_{1}\left(y\right)\right), \left(w_{3}\left(y\right) \: w_{5}\left(y\right)\right), & \\[0.5em]
+													& \left(w_{3}\left(x\right) \: w_{5}\left(x\right)\right), & \\[0.5em]
+													& \left(w_{1}\left(y\right) \: w_{5}\left(y\right)\right), & \\[0.5em]
+													& \left(w_{1}\left(z\right) \: r_{5}\left(z\right)\right) & \}
+		\end{array}
+	\end{equation*}
+	Adesso si crea il grafo dei conflitti. Le transazioni sono 5, quindi ci saranno 5 nodi:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/CSR-2.pdf}
+	\end{figure}
+	
+	\noindent
+	Il grafo non è aciclico, quindi $S_{3}$ non è CSR, quindi si verifica se può essere VSR. Si inizia calcolando l'insieme LeggeDa e ScrittureFinali:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{LeggeDa}\left(S_{3}\right) &=& \left\{ \left(r_{3}\left(x\right) \: w_{2}\left(x\right)\right), \left(r_{5}\left(z\right) \: w_{1}\left(z\right)\right)\right\} \\
+			\text{ScrittureFinali}\left(S_{3}\right) &=& \left\{w_{5}\left(x\right), w_{1}\left(z\right), w_{5}\left(y\right)\right\}
+		\end{array}
+	\end{equation*}
+	Adesso si cerca almeno una combinazione tra le 5 transizioni, tale per cui una di esse sia view-equivalente a $S_{3}$. Con una considerazione rapida è possibile già ottenere il risultato finale. Guardando l'insieme delle ScrittureFinali, è possibile vedere che la $5^{a}$ transizione dovrebbe avere tra la scrittura sulla risorsa $x$ e tra la scrittura sulla risorsa $y$, la scrittura sulla risorsa $z$. Questo non è possibile poiché quest'ultima appartiene alla transazione 1. Per cui, è già possibile affermare che nessuna combinazione tra le 5 transazioni, può dare una combinazione view-equivalente a $S_{3}$. Si conclude che $S_{3}$ non è VSR e quindi è NonSR.
 	
 	\subsubsection{Schedule 4}
 	
-	\subsubsection{Verifica}
+	Dato il seguente schedule:
+	\begin{equation*}
+		S_{4} = r_{1}\left(x\right) \: r_{3}\left(y\right) \: w_{1}\left(y\right) \: w_{4}\left(x\right) \: w_{1}\left(t\right) \: w_{5}\left(x\right) \: r_{2}\left(z\right) \: r_{3}\left(z\right) \: w_{2}\left(z\right) \: w_{5}\left(z\right) \: r_{4}\left(t\right) \: r_{5}\left(t\right)
+	\end{equation*}
+	Le transazioni sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			T_{1} &:& r_{1}\left(x\right) \: w_{1}\left(y\right) \: w_{1}\left(t\right) \\
+			T_{2} &:& r_{2}\left(z\right) \: w_{2}\left(z\right) \\
+			T_{3} &:& r_{3}\left(y\right) \: r_{3}\left(z\right) \\
+			T_{4} &:& w_{4}\left(x\right) \: r_{4}\left(t\right) \\
+			T_{5} &:& w_{5}\left(x\right) \: w_{5}\left(z\right) \: r_{5}\left(t\right)
+		\end{array}
+	\end{equation*}
+	Si verifica CSR prima di tutto. Quindi, si inizia costruendo l'insieme dei conflitti:
+	\begin{enumerate}
+		\item $\textcolor{Red3}{\boldsymbol{r_{1}\left(x\right)} \: }r_{3}\left(y\right) \: w_{1}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{4}\left(x\right)} \: }w_{1}\left(t\right) \: w_{5}\left(x\right) \: r_{2}\left(z\right) \: r_{3}\left(z\right) \: w_{2}\left(z\right) \: w_{5}\left(z\right) \: r_{4}\left(t\right) \: r_{5}\left(t\right)$
+		
+		\item $\textcolor{Red3}{\boldsymbol{r_{1}\left(x\right)} \: }r_{3}\left(y\right) \: w_{1}\left(y\right) \: w_{4}\left(x\right) \: w_{1}\left(t\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(x\right)} \: }r_{2}\left(z\right) \: r_{3}\left(z\right) \: w_{2}\left(z\right) \: w_{5}\left(z\right) \: r_{4}\left(t\right) \: r_{5}\left(t\right)$
+		
+		\item $r_{1}\left(x\right) \: \textcolor{Red3}{\boldsymbol{r_{3}\left(y\right)} \: }\textcolor{Red3}{\boldsymbol{w_{1}\left(y\right)} \: }w_{4}\left(x\right) \: w_{1}\left(t\right) \: w_{5}\left(x\right) \: r_{2}\left(z\right) \: r_{3}\left(z\right) \: w_{2}\left(z\right) \: w_{5}\left(z\right) \: r_{4}\left(t\right) \: r_{5}\left(t\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{3}\left(y\right) \: w_{1}\left(y\right) \: \textcolor{Red3}{\boldsymbol{w_{4}\left(x\right)} \: }w_{1}\left(t\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(x\right)} \: }r_{2}\left(z\right) \: r_{3}\left(z\right) \: w_{2}\left(z\right) \: w_{5}\left(z\right) \: r_{4}\left(t\right) \: r_{5}\left(t\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{3}\left(y\right) \: w_{1}\left(y\right) \: w_{4}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(t\right)} \: }w_{5}\left(x\right) \: r_{2}\left(z\right) \: r_{3}\left(z\right) \: w_{2}\left(z\right) \: w_{5}\left(z\right) \: \textcolor{Red3}{\boldsymbol{r_{4}\left(t\right)} \: }r_{5}\left(t\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{3}\left(y\right) \: w_{1}\left(y\right) \: w_{4}\left(x\right) \: \textcolor{Red3}{\boldsymbol{w_{1}\left(t\right)} \: }w_{5}\left(x\right) \: r_{2}\left(z\right) \: r_{3}\left(z\right) \: w_{2}\left(z\right) \: w_{5}\left(z\right) \: r_{4}\left(t\right) \: \textcolor{Red3}{\boldsymbol{r_{5}\left(t\right)}}$
+		
+		\item $r_{1}\left(x\right) \: r_{3}\left(y\right) \: w_{1}\left(y\right) \: w_{4}\left(x\right) \: w_{1}\left(t\right) \: w_{5}\left(x\right) \: \textcolor{Red3}{\boldsymbol{r_{2}\left(z\right)} \: }r_{3}\left(z\right) \: w_{2}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(z\right)} \: }r_{4}\left(t\right) \: r_{5}\left(t\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{3}\left(y\right) \: w_{1}\left(y\right) \: w_{4}\left(x\right) \: w_{1}\left(t\right) \: w_{5}\left(x\right) \: r_{2}\left(z\right) \: \textcolor{Red3}{\boldsymbol{r_{3}\left(z\right)} \: }\textcolor{Red3}{\boldsymbol{w_{2}\left(z\right)} \: }w_{5}\left(z\right) \: r_{4}\left(t\right) \: r_{5}\left(t\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{3}\left(y\right) \: w_{1}\left(y\right) \: w_{4}\left(x\right) \: w_{1}\left(t\right) \: w_{5}\left(x\right) \: r_{2}\left(z\right) \: \textcolor{Red3}{\boldsymbol{r_{3}\left(z\right)} \: }w_{2}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{5}\left(z\right)} \: }r_{4}\left(t\right) \: r_{5}\left(t\right)$
+		
+		\item $r_{1}\left(x\right) \: r_{3}\left(y\right) \: w_{1}\left(y\right) \: w_{4}\left(x\right) \: w_{1}\left(t\right) \: w_{5}\left(x\right) \: r_{2}\left(z\right) \: r_{3}\left(z\right) \: \textcolor{Red3}{\boldsymbol{w_{2}\left(z\right)} \: } \textcolor{Red3}{\boldsymbol{w_{5}\left(z\right)} \: } r_{4}\left(t\right) \: r_{5}\left(t\right)$
+	\end{enumerate}
+	Quindi, l'insieme dei conflitti è:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Conflitti}\left(S_{4}\right) = \{ & \left(r_{1}\left(x\right) \: w_{4}\left(x\right)\right), \left(r_{1}\left(x\right) \: w_{5}\left(x\right)\right), & \\ [0.5em]
+													& \left(r_{3}\left(y\right) \: w_{1}\left(y\right)\right), & \\ [0.5em]
+													& \left(w_{4}\left(x\right) \: w_{5}\left(x\right)\right), & \\ [0.5em]
+													& \left(w_{1}\left(t\right) \: r_{4}\left(t\right)\right), \left(w_{1}\left(t\right) \: r_{5}\left(t\right)\right) & \\ [0.5em]
+													& \left(r_{2}\left(z\right) \: w_{5}\left(z\right)\right), & \\ [0.5em]
+													& \left(r_{3}\left(z\right) \: w_{2}\left(z\right)\right), \left(r_{3}\left(z\right) \: w_{5}\left(z\right)\right), & \\ [0.5em]
+													& \left(w_{2}\left(z\right) \: w_{5}\left(z\right)\right) & \}
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Adesso si costruisce il grafo. I nodi sono 5 poiché il numero di transazioni è 5:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/CSR-3.pdf}
+	\end{figure}
+
+	\noindent
+	Il grafo risulta aciclico, quindi è possibile affermare con certezza che $S_{4}$ è CSR e per definizione anche VSR ($CSR \subset VSR$). Per concludere l'esercizio, è necessario calcolare gli schedule seriali equivalenti. Per capire quali combinazioni sono accettate, si fanno alcune considerazioni guardando il grafo:
+	\begin{itemize}
+		\item Il nodo $T_{5}$ non ha archi orientati in uscita, ma solo in entrata. Quindi, è possibile affermare che la transazione $T_{5}$ deve essere l'ultima.
+		
+		\item Il nodo $T_{3}$ non ha archi orientati in entrata, ma solo in uscita. Quindi, è possibile affermare che la transazione $T_{3}$ deve essere la prima.
+		
+		\item I nodi $T_{2}$ e $T_{1}$ sono gli unici che vengono raggiunti da $T_{3}$, ovvero dal nodo d'inizio. Quindi, è possibile affermare che le uniche combinazioni potranno essere:
+		\begin{enumerate}
+			\item $T_{3}, T_{1}, T_{2}, T_{4}, T_{5}$
+			\item $T_{3}, T_{1}, T_{4}, T_{2}, T_{5}$
+			\item $T_{3}, T_{2}, T_{1}, T_{4}, T_{5}$
+			\item $T_{3}, T_{2}, T_{4}, T_{1}, T_{5}$
+		\end{enumerate}
+
+		\item Dal nodo $T_{1}$ è possibile andare al nodo $T_{4}$ senza problemi ma non viceversa poiché altrimenti si creerebbe una ciclo. Quindi le uniche combinazioni ammesse sono:
+		\begin{enumerate}
+			\item $T_{3}, T_{1}, T_{2}, T_{4}, T_{5}$
+			\item $T_{3}, T_{1}, T_{4}, T_{2}, T_{5}$
+			\item $T_{3}, T_{2}, T_{1}, T_{4}, T_{5}$
+			\item $T_{3}, T_{2}, T_{4}, T_{1}, T_{5}$
+		\end{enumerate}
+	\end{itemize}\newpage
 	
 	\subsection{Ottimizzazione e stima di costo}
 	
