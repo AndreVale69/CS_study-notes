@@ -277,6 +277,55 @@
 		\caption*{Merge degli ultimi due nodi.}
 	\end{figure}\newpage
 	
+	\subsubsection{Esercizio 2}
+	
+	Data la seguente lista di possibili valori chiave:
+	\begin{equation*}
+		\begin{array}{lll}
+			L &=& (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25, \\
+			&& \phantom{(}26,27,28,29,30)
+		\end{array}
+	\end{equation*}
+	Costruire un B+-tree (\emph{fan-out} = 5) che contenga i seguenti nodi foglia:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/b+-tree-9.pdf}
+	\end{figure}
+	
+	\noindent
+	Mostrare l'albero dopo l'inserimento del valore chiave 5 e partendo da questo risultato, mostrare l'albero dopo la cancellazione del valore chiave 28.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Si costruisce la lista:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/b+-tree-10.pdf}
+	\end{figure}
+	
+	\noindent
+	E poi l'albero:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/b+-tree-11.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	Si inserisce il valore 5:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/b+-tree-12.pdf}
+	\end{figure}
+	
+	\noindent
+	E infine si rimuove il valore 28:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/b+-tree-13.pdf}
+	\end{figure}\newpage
+	
 	\subsection{Verificare che uno schedule sia VSR (View-serializzabile)}
 	
 	\subsubsection{Esercizio 1 - Perdita di aggiornamento}
@@ -1107,11 +1156,114 @@
 		\text{Costo totale} = 780 + 180 + 150 + 220 = 1'330
 	\end{equation*}\newpage
 	
+	\subsubsection{Esercizio 3}
+	
+	Si consideri il seguente schema relazionale:
+	\begin{equation*}
+		\begin{array}{ll}
+			\textsf{COMUNE} 	& \left(\text{CodISTAT, Nome, Abitanti, Superficie, Prov, TipoTerritorio}\right) \\ [0.3em]
+			\textsf{ADIACENTE} 	& \left(\text{Comune1, Comune2}\right) \\ [0.3em]
+			\textsf{PROVINCIA} 	& \left(\text{Codice, NomeProv, SuperficieProv, Regione}\right) 
+		\end{array}
+	\end{equation*}
+	Con il dato TipoTerritorio: \{montagna, mare, pianura, collina\}.\newline
+	
+	\noindent
+	La tabella \textsf{ADIACENTE} rappresenta la relazione di adiacenza tra comuni: poiché la relazione è simmetrica per rappresentare l'adiacenza tra i comuni A e B si memorizza sia la tupla (A,B) sia la tupla (B,A).\newline
+	
+	\noindent
+	Vincoli d'integrità:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\textsf{ADIACENTE}.\text{Comune1} &\rightarrow& \textsf{COMUNE} \\
+			\textsf{ADIACENTE}.\text{Comune2} &\rightarrow& \textsf{COMUNE} \\
+			\textsf{COMUNE}.\text{Prov} &\rightarrow& \textsf{PROVINCIA} 
+		\end{array}
+	\end{equation*}
+	Dato lo schema dell'esercizio, si consideri la seguente interrogazione:
+	\lstinputlisting[language=SQL]{code/ottimizzazione-3.sql}
+	Indicare una stima del costo dell'interrogazione in termini di numero di accessi a memoria secondaria  sapendo che: (i) la selezione dei comuni viene eseguita attraverso una scansione della tabella \textsf{COMUNE} e il risultato viene mantenuto nel buffer:
+	\begin{itemize}
+		\item L'ordine di esecuzione del join è:
+		\begin{equation*}
+			\textsf{COMUNE} \Join \textsf{ADIACENTE}
+		\end{equation*}
+		E viene applicata la tecnica \dquotes{Nested Loop Join} e con indice B+-tree di profondità 3 sull'attributo Comune1 della tabella \textsf{ADIACENTE};
+		
+		\item I dati sono:
+		\begin{equation*}
+			\begin{array}{rll}
+				\mathrm{NP}\left(\textsf{COMUNE}\right) &=& 15; \\
+				\mathrm{NR}\left(\textsf{COMUNE}\right) &=& 1'900; \\
+				\mathrm{NP}\left(\textsf{ADIACENTE}\right) &=& 155; \\
+				\mathrm{NR}\left(\textsf{ADIACENTE}\right) &=& 38'000; \\
+				\mathrm{VAL}\left(\text{TipoTerritorio}, \textsf{COMUNE}\right) &=& 4; \\
+				\mathrm{VAL}\left(\text{Comune1}, \textsf{ADIACENTE}\right) &=& 1'900;
+			\end{array}
+		\end{equation*}
+	\end{itemize}\newpage
+	
+	\noindent
+	I dati messi a disposizione sono i seguenti:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c c c c @{}}
+			\toprule
+			Tabella & NP & NR & VAL(TipoTerritorio) & VAL(Comune1) \\
+			\midrule
+			\textsf{COMUNE}		& 15		& 1'900		& 4			& \ding{55} \\
+			\textsf{ADIACENTE}	& 155		& 38'000	& \ding{55} & 1'900		\\
+			\textsf{PROVINCIA}	& \ding{55}	& \ding{55}	& \ding{55} & \ding{55} \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	Viene richiesto il costo per:
+	\begin{itemize}
+		\item Eseguire una scansione della tabella \textsf{COMUNE} poiché viene eseguita una selezione dei comuni. Questo risultato è semplice poiché corrisponde a:
+		\begin{equation*}
+			\text{Costo} = \text{scrittura} + \text{lettura} = \mathrm{NP}\left(\textsf{COMUNE}\right) + 0 = 15
+		\end{equation*}
+		
+		\item Eseguire il Join con la tecnica \dquotes{Nested Loop Join} senza albero B+-tree. Quindi, viene calcolato nel seguente modo il costo:
+		\begin{equation*}
+			\text{Costo} = 0 + \mathrm{NR}\left(\textsf{COMUNE}\right) \div \mathrm{VAL}\left(\text{TipoTerritorio}, \textsf{COMUNE}\right) \times \mathrm{NP}\left(\textsf{ADIACENTE}\right)
+		\end{equation*}
+		Il valore zero indica che nel buffer non viene eseguita nessuna scrittura poiché è già stata fatta in precedenza (punto precedente). Quindi, andando a sostituire i valori:
+		\begin{equation*}
+			\text{Costo} = 0 + 1'900 \div 4 \times 155 = 475 \times 155 = 73'625
+		\end{equation*}
+		
+		\item Eseguire il Join con la tecnica \dquotes{Nested Loop Join} con albero B+-tree di profondità 3 sull'attributo Comune1. Quindi, viene calcolato nel seguente modo il costo:
+		\begin{equation*}
+			\begin{array}{lll}
+				\text{Costo} &=& 0 + \mathrm{NR}\left(\textsf{COMUNE}\right) \div \mathrm{VAL}\left(\text{TipoTerritorio}, \textsf{COMUNE}\right) \times \\
+				&& \left(\text{Profondità Indice } + \mathrm{NR}\left(\textsf{ADIACENTE}\right) \div \mathrm{VAL}\left(\text{Comune1}, \textsf{ADIACENTE}\right)\right) \\
+				&=& 0 + 1'900 \div 4 \times \left(3 + 38'000 \div 1'900\right) \\
+				&=& 475 \times 23 \\
+				&=& 10'925
+			\end{array}
+		\end{equation*}
+	\end{itemize}
+	
+	\newpage
+	
 	\subsection{XML}
 	
 	\subsubsection{Esercizio 1}
 	
+	Dato il seguente frammento XML:
+	\lstinputlisting[language=XML]{code/xml-1.xml}
+	\begin{itemize}
+		\item Generare il corrisponde XSD, supponendo che ogni conto abbia uno o più clienti intestatari.
+		
+		\item Modificare la struttura dell'XML per ridurre la ridondanza e rappresentare una sola volta gli elementi ripetuti.
+	\end{itemize}\newpage
+	
 	\subsubsection{Esercizio 2}
+	Dato il seguente documento XML, produrre una specifica XML schema alla quale tale documento sia conforme:
+	\lstinputlisting[language=XML]{code/xml-2.xml}
 
 	\section{Domande di teoria - Terzo parziale}
 	

@@ -1,0 +1,35 @@
+<banca>
+    <conto>
+        <num_conto>101</num_conto>
+        <agenzia>Citta</agenzia>
+        <saldo>555</saldo>
+        <cliente>
+            <nome>Mario</nome>
+            <cognome>Rossi</cognome>
+            <via>Garibaldi</via>
+            <citta>Verona</citta>
+        </cliente>
+    </conto>
+    <conto>
+        <num_conto>1010</num_conto>
+        <agenzia>Desenzano</agenzia>
+        <saldo>5550</saldo>
+        <cliente>
+            <nome>Mario</nome>
+            <cognome>Rossi</cognome>
+            <via>Garibaldi</via>
+            <citta>Verona</citta>
+        </cliente>
+    </conto>
+    <conto>
+        <num_conto>301</num_conto>
+        <agenzia>Negrar</agenzia>
+        <saldo>1020</saldo>
+        <cliente>
+            <nome>Paolo</nome>
+            <cognome>Verdi</cognome>
+            <via>Roma</via>
+            <citta>Verona</citta>
+        </cliente>
+    </conto>
+</banca>
