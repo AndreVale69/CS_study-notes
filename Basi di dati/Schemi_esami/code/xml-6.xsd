@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.pagineBianche.org"
+            xmlns="http://www.pagineBianche.org">
+<xsd:element name="RubricaTelefonica">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="Utente" minOccurs="1"
+                                      maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+<xsd:simpleType name="utenteTipo">
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="privato"/>
+        <xsd:enumeration value="attivita commerciale"/>
+        <xsd:enumeration value="attivita professionale"/>
+        <xsd:enumeration value="servizio pubblico"/>
+    </xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="numeroTipo">
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="\d{9}"/>
+        <xsd:pattern value="\d{11}"/>
+    </xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="viaTipo">
+    <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+            <xsd:attribute name="civico" type="xsd:unsignedShort"
+                           use="required"/>
+        </xsd:extension>
+    </xsd:simpleContent>
+</xsd:complexType>
+<xsd:element name="Utente">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="tipo" type="utenteTipo"/>
+            <xsd:element name="numero" type="numeroTipo"/>
+            <xsd:element name="indirizzo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:choice>
+                            <xsd:element name="via"
+                                         type="viaTipo"/>
+                            <xsd:element name="piazza"
+                                         type="viaTipo"/>
+                            <xsd:element name="piazzale"
+                                         type="viaTipo"/>
+                        </xsd:choice>
+                        <xsd:element name="citta"
+                                     type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:ID" use="required"/>
+    </xsd:complexType>
+</xsd:element>
+</xsd:schema>

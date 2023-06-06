@@ -45,6 +45,21 @@
 }
 \lstset{style=mystyle}
 
+\definecolor{maroon}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\lstdefinelanguage{XML}
+{
+	basicstyle=\ttfamily\footnotesize,
+	morestring=[s]{"}{"},
+	morecomment=[s]{?}{?},
+	morecomment=[s]{!--}{--},
+	commentstyle=\color{darkgreen},
+	moredelim=[s][\color{black}]{>}{<},
+	moredelim=[s][\color{red}]{\ }{=},
+	stringstyle=\color{blue},
+	identifierstyle=\color{maroon}
+}
+
 %\usepackage{showframe}				% visualizzazione bordi
 %\usepackage{showkeys}				% visualizzazione etichetta
 
@@ -1261,24 +1276,273 @@
 		\item Modificare la struttura dell'XML per ridurre la ridondanza e rappresentare una sola volta gli elementi ripetuti.
 	\end{itemize}\newpage
 	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione pt.1}}}}\newline
+	
+	\noindent
+	Qua di seguito il codice soluzione dell'esercizio supponendo che ogni conto abbia uno o più intestatari:
+	\lstinputlisting[language=XML]{code/xml-3.xsd}\newpage
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione pt.2}}}}\newline
+	
+	\noindent
+	Qua di seguito il codice soluzione dell'esercizio supponendo che ogni conto abbia uno o più intestatari:
+	\lstinputlisting[language=XML]{code/xml-4.xsd}
+	A seguito delle modifiche di questo schema, l'istanza del documento diventa:
+	\lstinputlisting[language=XML]{code/xml-5.xml}\newpage
+	
 	\subsubsection{Esercizio 2}
 	Dato il seguente documento XML, produrre una specifica XML schema alla quale tale documento sia conforme:
 	\lstinputlisting[language=XML]{code/xml-2.xml}
+	I requisiti sono i seguenti. Il tipo può assumere solo uno dei seguenti valori: \{privato, attivita commerciale, attivita professionale, servizio pubblico\}. L'attributo \textsf{id} è obbligatorio. Supponiamo per semplicità che il civico sia sempre un intero positivo. Si desuma il tipo per il numero di telefono dalle istanze nel documento XML.\newpage
+	
+	\noindent
+	\textcolor{Green4}{\underline{\textbf{\emph{Soluzione}}}}
+	\lstinputlisting[language=XML]{code/xml-6.xsd}\newpage
 
 	\section{Domande di teoria - Terzo parziale}
 	
 	Domande di teoria tratte dalla terza prova intermedia dell'esame 06/2015.
 	\begin{enumerate}
-		\item (\emph{3 punti}) Illustrare l'architettura di un DBMS descrivendo in particolare il modulo di gestione dei buffer; si indichi inoltre, per ogni modulo dell'architettura, quali sono le proprietà delle transazioni che contribuisce a garantire.
+		\item \textbf{(\emph{3 punti})} \textcolor{Green4}{\textbf{\emph{Illustrare l'architettura di un DBMS descrivendo in particolare il modulo di gestione dei buffer; si indichi inoltre, per ogni modulo dell'architettura, quali sono le proprietà delle transazioni che contribuisce a garantire.}}}\label{dom: gestione del buffer}
 		
-		\item (\emph{2 punti}) Si presenti in dettaglio la definizione di Conflict-Serializzabilità (CSR).
+		L'architettura di un DBMS è strutturata su 3 livelli differenti:
+		\begin{itemize}
+			\item Le viste, che appartengono allo schema esterno;
+			\item Il modello relazionale, che appartiene allo schema logico;
+			\item Le strutture fisiche, che appartengono allo schema interno.
+		\end{itemize}
+		Lo schema logico comunica con lo schema esterno attraverso l'indipendenza logica e con lo schema interno attraverso l'indipendenza fisica.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/arch-dbms-1.pdf}
+		\end{figure}
 		
-		\item (\emph{2 punti}) Lo studente illustri la struttura di accesso ai dati denominata indice primario denso: caratteristiche della struttura, ricerca, inserimento e cancellazione di entry dall'indice.
+		\noindent
+		All'interno dello schema logico ci sono molteplici moduli, i quali garantiscono anche alcune proprietà delle transazioni:
+		\begin{itemize}
+			\item Gestore delle \textbf{interrogazioni};
+			
+			\item Gestore dell'\textbf{esecuzione concorrente}, il quale garantisce le proprietà di \underline{atomicità} e \underline{isolamento};
+			
+			\item Gestore dei \textbf{metodi d'accesso}, il quale garantisce la proprietà di \underline{consistenza};
+			
+			\item Gestore dell'\textbf{affidabilità}, il quale garantisce \underline{atomicità} e \underline{persistenza};
+			
+			\item Gestore del \textbf{buffer};
+			
+			\item Gestore della \textbf{memoria secondaria}.
+		\end{itemize}
+		Ricapitolando:
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{18em} @{}}
+				\toprule
+				Proprietà & Garantita da \\
+				\midrule
+				\textbf{Atomicità} 	& Gestore dell'\textbf{esecuzione concorrente} \newline Gestore dell'\textbf{affidabilità} \\ [0.5em]
+				\textbf{Consistenza}	& Gestore dei \textbf{metodi d'accesso} \\ [0.5em]
+				\textbf{Isolamento} 	& Gestore dell'\textbf{esecuzione concorrente} \\ [0.5em]
+				\textbf{Persistenza} & Gestore dell'\textbf{affidabilità} \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/arch-dbms-2.pdf}
+		\end{figure}
+		
+		\noindent
+		Il \textbf{modulo di gestione del buffer} è fondamentale nella \textbf{comunicazione tra memoria centrale e secondaria}. Il suo \underline{obbiettivo} è quello di \textbf{evitare accessi multipli alla memoria di massa} così da velocizzare le operazioni.\newline
+		Il buffer è organizzato in pagine di dimensione pari a un numero intero di blocchi. Si occupa di caricare (lettura)/scaricare (scrittura) pagine dalle memoria centrale alla memoria di massa:
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{21em} @{}}
+				\toprule
+				Operazione & Descrizione \\
+				\midrule
+				Lettura		& Lettura dal buffer se il dato è presente, altrimenti lettura fisica dalla memoria di massa. \\ [0.5em]
+				Scrittura	& Scrittura in memoria di massa se e solo se è garantita la proprietà di affidabilità del sistema, quindi se vi è la certezza che l'operazione vada a buon fine. \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		\noindent
+		Il modulo della gestione del buffer segue un'importante proprietà: il \textbf{principio di località dei dati}. Ovvero, \textbf{i dati referenziati di recente hanno maggior probabilità di essere referenziati nuovamente nel futuro}.\newline
+		Inoltre, esiste una \textbf{legge empirica} che afferma che il 20\% dei dati è tipicamente acceduto dall'80\% delle applicazioni.
+		
+		Infine, il gestore del buffer memorizza le seguenti \textbf{informazioni per ogni pagina}:
+		\begin{itemize}
+			\item File fisico
+			\item Numero di blocco
+			\item (variabile di stato) Contatore, indica quanti programmi utilizzano la pagina
+			\item (variabile di stato) Bit di stato, indica se la pagina è stata modificata
+		\end{itemize}\newpage
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{23em} @{}}
+				\toprule
+				Concetto & Descrizione \\
+				\midrule
+				Architettura DBMS & L'architettura DBMS è strutturata su 3 livelli: schema esterno, logico e interno. Lo schema logico, il più importante, ha al suo interno una serie di moduli (gestori) importanti: delle interrogazioni, dell'esecuzione concorrente, dei metodi d'accesso, dell'affidabilità, del buffer, della memoria secondaria. \\ [0.5em]
+				Proprietà garantite & L'atomicità è garantita dal gestore dell'esecuzione concorrente e dell'affidabilità.\newline
+				La consistenza è garantita dal gestore dei metodi d'accesso.\newline
+				L'isolamento è garantita dal gestore dell'esecuzione concorrente.\newline
+				La persistenza è garantita dal gestore dell'affidabilità. \\ [0.5em]
+				Descrizione & Modulo fondamentale nella comunicazione tra memoria centrale e di massa, ed è organizzato in pagine di dimensione pari ad un numero intero di blocchi. \\ [0.5em]
+				Obbiettivo 	& Evitare accessi multipli alla memoria di massa così da velocizzare le operazioni. \\ [0.5em]
+				Cosa svolge & Esegue il caricamento (lettura) e scaricamento (scrittura) delle pagine dalla memoria centrale alla memoria di massa. \\ [.5em]
+				Principio importante & I dati referenziati di recente hanno maggior probabilità di essere referenziati nuovamente nel futuro. \\ [.5em]
+				Legge importante & Il 20\% dei dati è acceduto dall'80\% delle applicazioni. \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sulla gestione del buffer.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Si presenti in dettaglio la definizione di Conflict-Serializzabilità (CSR).}}}\label{dom: CSR - Conflict-Serializzabilità}
+		
+		Per dare la definizione di conflict-serializzabile, è necessario prima dare altre due definizioni. Due azioni eseguite da transazioni diverse, si dicono in \textbf{\underline{conflitto} se operano sullo stesso oggetto e almeno una di esse è in scrittura}. Quindi, le possibili combinazioni sono: lettura-scrittura, scrittura-lettura e scrittura-scrittura.\newline
+		Uno schedule è definito \textbf{\underline{conflict-equivalente}} ad un altro schedule se \textbf{entrambi presentano le stesse operazioni e ogni coppia di operazioni in conflitto è nello stesso ordine nei due schedule}.\newline
+		Adesso è possibile dare la definizione di conflict-serializzabile. Uno schedule è \textbf{\underline{conflict-serializzabile} se esiste uno schedule seriale a esso conflict-equivalente}. L'insieme degli schedule conflict-serializzabili si chiama CSR.
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{16em} @{}}
+				\toprule
+				Concetto & Descrizione \\
+				\midrule
+				Definizione di conflitto				& Due azioni di due transazioni diverse sono in conflitto se operano sullo stesso oggetto e almeno una di esse è una scrittura. \\ [.5em]
+				Definizione di conflict-equivalente		& Due schedule sono conflict-equivalenti se entrambi hanno le stesse operazioni e ogni coppia di operazioni in conflitto è nello stesso ordine nei due schedule. \\ [.5em]
+				Definizione di conflict-serializzabile	& Se esiste uno schedule seriale a esso conflict-equivalente. \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda su CSR.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Lo studente illustri la struttura di accesso ai dati denominata indice primario denso: caratteristiche della struttura, ricerca, inserimento e cancellazione di entry dall'indice.}}}\label{dom: indice primario denso}
+		
+		Un indice primario utilizza una chiave di ricerca che coincide con la chiave di ordinamento del file sequenziale. Esistono due varianti dell'indice primario, una di queste è l'\textbf{indice denso}: \textbf{per ogni occorrenza della chiave presente nel file esiste un corrispondente record nell'indice}.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/indice-denso-1.pdf}
+		\end{figure}
+		
+		\noindent
+		Operazione di \textbf{ricerca}: la \textbf{ricerca avviene tramite una scansione sequenziale dell'indice per trovare il record}. Una volta trovato, viene \textbf{effettuato l'accesso al file attraverso il puntatore}. Il costo è pari a:
+		\begin{equation*}
+			\text{Costo} = 1 \text{ accesso indice } + 1 \text{ accesso blocco dati}
+		\end{equation*}
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/indice-denso-2.pdf}
+		\end{figure}
+		
+		\noindent
+		Operazione di \textbf{inserimento}: l'inserimento nell'indice avviene solo se la tupla inserita nel file ha un valore di chiave K (chiave di ricerca) che non è già presente.
+		
+		Operazione di \textbf{cancellazione}: la cancellazione nell'indice avviene solo se la tupla cancellata nel file è l'ultima tupla con valore di chiave K (chiave di ricerca).\newpage
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{25em} @{}}
+				\toprule
+				Concetto & Definizione \\
+				\midrule
+				Definizione 		& Un indice primario utilizza una chiave di ricerca che coincide con la chiave di ordinamento del file sequenziale. Una variante del indice primario è l'indice primario denso: per ogni occorrenza della chiave presente nel file, esiste un corrispondente record nell'indice. \\ [.5em]
+				Op. ricerca 		& Eseguita una scansione sequenziale dell'indice per trovare il record ricercato. Se viene trovato, viene effettuato l'accesso al file attraverso il puntatore. \\ [.5em]
+				Op. inserimento		& L'inserimento avviene solo se la tupla inserita nel file ha un valore di chiave K (chiave di ricerca) che non è già presente. \\ [.5em]
+				Op. cancellazione	& La cancellazione avviene solo se la tupla cancellata nel file è l'ultima tupla con valore di chiave K (chiave di ricerca). \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sull'indice denso.}
+		\end{table}
 	\end{enumerate}\newpage
 	
 	Domande di teoria tratte dalla terza prova intermedia dell'esame 07/06/2016.
 	\begin{enumerate}
-		\item (\emph{3 punti}) Illustrare l'architettura di un DBMS descrivendo in particolare il modulo di gestione dei guasti (o gestore dell'affidabilità); si indichi inoltre, per ogni modulo dell'architettura, quali sono le proprietà delle transazioni che contribuisce a garantire.
+		\item \textbf{(\emph{3 punti})} \textcolor{Green4}{\textbf{\emph{Illustrare l'architettura di un DBMS descrivendo in particolare il modulo di gestione dei guasti (o gestore dell'affidabilità); si indichi inoltre, per ogni modulo dell'architettura, quali sono le proprietà delle transazioni che contribuisce a garantire.}}}\label{dom: gestione dei guasti}
+		
+		L'architettura di un DBMS è strutturata su 3 livelli differenti:
+		\begin{itemize}
+			\item Le viste, che appartengono allo schema esterno;
+			\item Il modello relazionale, che appartiene allo schema logico;
+			\item Le strutture fisiche, che appartengono allo schema interno.
+		\end{itemize}
+		Lo schema logico comunica con lo schema esterno attraverso l'indipendenza logica e con lo schema interno attraverso l'indipendenza fisica.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/arch-dbms-1.pdf}
+		\end{figure}
+		
+		\noindent
+		All'interno dello schema logico ci sono molteplici moduli, i quali garantiscono anche alcune proprietà delle transazioni:
+		\begin{itemize}
+			\item Gestore delle \textbf{interrogazioni};
+			
+			\item Gestore dell'\textbf{esecuzione concorrente}, il quale garantisce le proprietà di \underline{atomicità} e \underline{isolamento};
+			
+			\item Gestore dei \textbf{metodi d'accesso}, il quale garantisce la proprietà di \underline{consistenza};
+			
+			\item Gestore dell'\textbf{affidabilità}, il quale garantisce \underline{atomicità} e \underline{persistenza};
+			
+			\item Gestore del \textbf{buffer};
+			
+			\item Gestore della \textbf{memoria secondaria}.
+		\end{itemize}
+		Ricapitolando:
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{18em} @{}}
+				\toprule
+				Proprietà & Garantita da \\
+				\midrule
+				\textbf{Atomicità} 	& Gestore dell'\textbf{esecuzione concorrente} \newline Gestore dell'\textbf{affidabilità} \\ [0.5em]
+				\textbf{Consistenza}	& Gestore dei \textbf{metodi d'accesso} \\ [0.5em]
+				\textbf{Isolamento} 	& Gestore dell'\textbf{esecuzione concorrente} \\ [0.5em]
+				\textbf{Persistenza} & Gestore dell'\textbf{affidabilità} \\
+				\bottomrule
+			\end{tabular}
+		\end{table}\newpage
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/arch-dbms-2.pdf}
+		\end{figure}
+		
+		\noindent
+		Il \textbf{modulo di gestione dei guasti}, o \textbf{gestore dell'affidabilità}, garantisce due \textbf{proprietà fondamentali}:
+		\begin{itemize}
+			\item \textbf{Atomicità}, garantire che le \textbf{transazioni non vengano lasciate incomplete};
+			
+			\item \textbf{Persistenza}, garantire che gli \textbf{effetti di ciascuna transazione conclusa con un \emph{commit} siano mantenuti in modo permanente}.
+		\end{itemize}
+		Le \textbf{proprietà} vengono \textbf{garantite grazie ai log}, ovvero un \textbf{archivio persistente su cui vengono registrate le varie azioni svolte dal DBMS}.
+		
+		Il gestore dell'affidabilità utilizza delle primitive (\textsf{force, fix, unfix, setDirty}) per comunicare con il gestore del buffer. Questo perché esso invia \textbf{richieste di accessi a pagine in lettura/scrittura al \emph{buffer manager}}, e genera \textbf{ulteriori richieste di lettura/scrittura necessarie a garantire la robustezza e resistenza ai guasti}.
+		
+		Infine, date le proprietà che deve garantire, questo \textbf{componente necessita di una memoria stabile}, \textbf{ovvero di una memoria resistente ai guasti}.
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{23em} @{}}
+				\toprule
+				Concetto & Definizione \\
+				\midrule
+				Architettura DBMS & L'architettura DBMS è strutturata su 3 livelli: schema esterno, logico e interno. Lo schema logico, il più importante, ha al suo interno una serie di moduli (gestori) importanti: delle interrogazioni, dell'esecuzione concorrente, dei metodi d'accesso, dell'affidabilità, del buffer, della memoria secondaria. \\ [0.5em]
+				%
+				Proprietà garantite & L'atomicità è garantita dal gestore dell'esecuzione concorrente e dell'affidabilità.\newline
+				La consistenza è garantita dal gestore dei metodi d'accesso.\newline
+				L'isolamento è garantita dal gestore dell'esecuzione concorrente.\newline
+				La persistenza è garantita dal gestore dell'affidabilità. \\ [0.5em]
+				%
+				Approfondimento proprietà & L'atomicità garantisce che le transazioni non vengano lasciate incomplete. Invece, la persistenza garantisce che gli effetti di ciascuna transazione conclusa con un commit siano mantenuti in modo permanente. Queste proprietà sono garantite dal modulo di gestione dei guasti grazie al log, ovvero un archivio persistente su cui vengono registrate le varie azioni svolte dal DBMS. \\ [.5em]
+				%
+				Compito eseguito & Il modulo di gestione dei guasti invia richieste di accessi a pagine in lettura/scrittura al buffer. Inoltre, genera ulteriori richieste di lettura/scrittura necessarie a garantire la robustezza e resistenza ai guasti. \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sull'indice denso.}
+		\end{table}\newpage
 		
 		\item (\emph{3 punti}) Si presenti in dettaglio la \underline{politica di concessione dei lock} applicata dal gestore dell'esecuzione concorrente secondo la tecnica detta \dquotes{Locking a due fasi}.
 		
@@ -1320,15 +1584,43 @@
 		\item (\emph{2 punti}) Lo studente illustri l'algoritmo di \underline{ripresa a caldo}.
 	\end{enumerate}\newpage
 	
-	\section{Esami terzo parziale}
+	% \section{Esami terzo parziale}
 	
-	\subsection{Terzo parziale - 06/2015}
+	% \subsection{Terzo parziale - 06/2015}
 	
-	\subsection{Terzo parziale - 07/06/2016}
+	% \subsection{Terzo parziale - 07/06/2016}
 	
-	\subsection{Terzo parziale - 21/04/2022}
+	% \subsection{Terzo parziale - 21/04/2022}
 	
-	\subsection{Terzo parziale - 22/04/2022}
+	% \subsection{Terzo parziale - 22/04/2022}
 	
-	\subsection{Terzo parziale - 10/06/2022}
+	% \subsection{Terzo parziale - 10/06/2022}\newpage
+	
+	\section{Indice delle domande}
+	
+	\subsection{Terzo parziale}
+	
+	\subsubsection{Domande teoriche}
+	
+	\begin{itemize}
+		\item Illustrare l'architettura di un DBMS descrivendo in particolare il modulo di \textbf{gestione dei buffer}; si indichi inoltre, per ogni modulo dell'architettura, quali sono le proprietà delle transazioni che contribuisce a garantire.
+		
+		\emph{Risposta:} pagina \pageref{dom: gestione del buffer}
+		
+		\item Illustrare l'architettura di un DBMS descrivendo in particolare il modulo di \textbf{gestione dei guasti} (o gestore dell'affidabilità); si indichi inoltre, per ogni modulo dell'architettura, quali sono le proprietà delle transazioni che contribuisce a garantire.
+		
+		\emph{Risposta:} pagina \pageref{dom: gestione dei guasti}
+		
+		\item Si presenti in dettaglio la definizione di \textbf{Conflict-Serializzabilità (CSR)}.
+		
+		\emph{Risposta:} pagina \pageref{dom: CSR - Conflict-Serializzabilità}
+		
+		\item Lo studente illustri la struttura di accesso ai dati denominata \textbf{indice primario denso}: caratteristiche della struttura, ricerca, inserimento e cancellazione di entry dall'indice.
+		
+		\emph{Risposta:} pagina \pageref{dom: indice primario denso}
+		
+		\item 
+		
+		\item 
+	\end{itemize}
 \end{document}

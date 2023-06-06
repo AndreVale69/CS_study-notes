@@ -3,5 +3,29 @@
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://www.pagineBianche.org
                                         pagineBianche.xsd">
-
+    <Utente id="UT00032">
+        <tipo>privato</tipo>
+        <numero>045802777</numero>
+        <indirizzo>
+            <via civico="23">Lombardia</via>
+            <citta>Milano</citta>
+        </indirizzo>
+    </Utente>
+    <Utente id="UT00123">
+        <tipo>attivita commerciale</tipo>
+        <numero>048372839</numero>
+        <indirizzo>
+            <piazza civico="8">Duomo</piazza>
+            <citta>Brescia</citta>
+        </indirizzo>
+    </Utente>
+    <Utente id="UT0003">
+        <tipo>attivita professionale</tipo>
+        <numero>04832222839</numero>
+        <indirizzo>
+            <piazzale civico="2">Stazione</piazzale>
+            <citta>Brescia</citta>
+        </indirizzo>
+    </Utente>
+    <!-- Etc. -->
 </RubricaTelefonica>

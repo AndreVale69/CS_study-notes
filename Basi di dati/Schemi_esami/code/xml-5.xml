@@ -1,0 +1,35 @@
+<banca>
+    <citta ct_id="CT1">Verona</citta>
+    <agenzia ag_id="AG1">Citta</agenzia>
+    <agenzia ag_id="AG2">Desenzano</agenzia>
+    <agenzia ag_id="AG3">Negrar</agenzia>
+
+    <cliente cl_id="CL1">
+        <nome>Mario</nome>
+        <cognome>Rossi</cognome>
+        <via>Garibaldi</via>
+        <citta_cliente citta_id="CT1"/>
+    </cliente>
+    <cliente cl_id="CL2">
+        <nome>Paolo</nome>
+        <cognome>Verdi</cognome>
+        <via>Roma</via>
+        <citta_cliente citta_id="CT1"/>
+    </cliente>
+
+    <conto condo_id="CC23" intestatari="CL1">
+        <num_conto>101</num_conto>
+        <saldo>555</saldo>
+        <agenzia_conto agenzia_id="AG1"/>
+    </conto>
+    <conto condo_id="CC39" intestatari="CL1">
+        <num_conto>1010</num_conto>
+        <saldo>5550</saldo>
+        <agenzia_conto agenzia_id="AG2"/>
+    </conto>
+    <conto condo_id="CC22" intestatari="CL2">
+        <num_conto>301</num_conto>
+        <saldo>1020</saldo>
+        <agenzia_conto agenzia_id="AG3"/>
+    </conto>
+</banca>

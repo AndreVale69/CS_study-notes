@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.banca.it"
+            xmlns="http://www.banca.it">
+<xsd:element name="banca">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="conto" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+<xsd:element name="conto">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="num_conto" type="xsd:unsignedInt"/>
+            <xsd:element name="agenzia" type="xsd:string"/>
+            <xsd:element name="saldo" type="xsd:unsignedInt"/>
+            <xsd:element ref="cliente"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+<xsd:complexType name="ClienteType">
+    <xsd:sequence>
+        <xsd:element name="nome" type="xsd:string"/>
+        <xsd:element name="cognome" type="xsd:string"/>
+        <xsd:element name="via" type="xsd:string"/>
+        <xsd:element name="citta" type="xsd:string"/>
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name="cliente" type="ClienteType"/>
+</xsd:schema>
