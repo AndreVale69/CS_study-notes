@@ -2231,5 +2231,115 @@
 		\item Lo studente illustri l'algoritmo di \textbf{ripresa a caldo}.
 		
 		\emph{Risposta:} pagina \pageref{dom: ripresa a caldo}
+	\end{itemize}\newpage
+	
+	\section{Terzo parziale - Temi d'esame}
+	
+	\subsection{Esame del 07/06/2016}
+	
+	\subsubsection{Domande di teoria}
+	
+	Le domande di teoria sono disponibili da pagina \pageref{dom: gestione dei guasti}.
+	
+	\longline
+	
+	\subsubsection{Esercizio 1 - Esecuzione concorrente}
+	
+	Dato il seguente schedule S:
+	\begin{itemize}
+		\item (2) indicare se è conflict-SR oppure no (calcolare l'insieme dei conflitti),
+		
+		\item (4) se non è CSR verificare se è view-SR oppure non-SR (giustificare dettagliatamente la risposta).
+		\begin{equation*}
+			S: r_{4}\left(t\right), \: w_{2}\left(t\right), \: r_{1}\left(t\right), \: r_{4}\left(y\right), \: r_{3}\left(y\right), \: w_{4}\left(y\right), \: w_{4}\left(z\right), \: w_{3}\left(z\right), \: w_{1}\left(t\right), \: w_{2}\left(x\right), \: w_{1}\left(z\right)
+		\end{equation*}
 	\end{itemize}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Soluzione}}}}\newline
+	
+	\noindent
+	Verifico se è CSR.\newline
+
+	\noindent
+	Le transazioni sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			T_{1} &:& r_{1}\left(t\right), \: w_{1}\left(t\right), \: w_{1}\left(z\right) \\
+			T_{2} &:& w_{2}\left(t\right), \: w_{2}\left(x\right) \\
+			T_{3} &:& r_{3}\left(y\right), \: w_{3}\left(z\right) \\
+			T_{4} &:& r_{4}\left(t\right), \: r_{4}\left(y\right), \: w_{4}\left(y\right), \: w_{4}\left(z\right) 
+		\end{array}
+	\end{equation*}
+	Calcolo l'insieme dei conflitti:
+	\begin{itemize}
+		\item $\textcolor{Red3}{r_{4}\left(t\right)}, \: \textcolor{Red3}{w_{2}\left(t\right)}, \: r_{1}\left(t\right), \: r_{4}\left(y\right), \: r_{3}\left(y\right), \: w_{4}\left(y\right), \: w_{4}\left(z\right), \: w_{3}\left(z\right), \: w_{1}\left(t\right), \: w_{2}\left(x\right), \: w_{1}\left(z\right)$
+		
+		\item $\textcolor{Red3}{r_{4}\left(t\right)}, \: w_{2}\left(t\right), \: r_{1}\left(t\right), \: r_{4}\left(y\right), \: r_{3}\left(y\right), \: w_{4}\left(y\right), \: w_{4}\left(z\right), \: w_{3}\left(z\right), \: \textcolor{Red3}{w_{1}\left(t\right)}, \: w_{2}\left(x\right), \: w_{1}\left(z\right)$
+		
+		\item $r_{4}\left(t\right), \: \textcolor{Red3}{w_{2}\left(t\right)}, \: \textcolor{Red3}{r_{1}\left(t\right)}, \: r_{4}\left(y\right), \: r_{3}\left(y\right), \: w_{4}\left(y\right), \: w_{4}\left(z\right), \: w_{3}\left(z\right), \: w_{1}\left(t\right), \: w_{2}\left(x\right), \: w_{1}\left(z\right)$
+		
+		\item $r_{4}\left(t\right), \: \textcolor{Red3}{w_{2}\left(t\right)}, \: r_{1}\left(t\right), \: r_{4}\left(y\right), \: r_{3}\left(y\right), \: w_{4}\left(y\right), \: w_{4}\left(z\right), \: w_{3}\left(z\right), \: \textcolor{Red3}{w_{1}\left(t\right)}, \: w_{2}\left(x\right), \: w_{1}\left(z\right)$
+		
+		\item $r_{4}\left(t\right), \: w_{2}\left(t\right), \: r_{1}\left(t\right), \: r_{4}\left(y\right), \: \textcolor{Red3}{r_{3}\left(y\right)}, \: \textcolor{Red3}{w_{4}\left(y\right)}, \: w_{4}\left(z\right), \: w_{3}\left(z\right), \: w_{1}\left(t\right), \: w_{2}\left(x\right), \: w_{1}\left(z\right)$
+		
+		\item $r_{4}\left(t\right), \: w_{2}\left(t\right), \: r_{1}\left(t\right), \: r_{4}\left(y\right), \: r_{3}\left(y\right), \: w_{4}\left(y\right), \: \textcolor{Red3}{w_{4}\left(z\right)}, \: \textcolor{Red3}{w_{3}\left(z\right)}, \: w_{1}\left(t\right), \: w_{2}\left(x\right), \: w_{1}\left(z\right)$
+		
+		\item $r_{4}\left(t\right), \: w_{2}\left(t\right), \: r_{1}\left(t\right), \: r_{4}\left(y\right), \: r_{3}\left(y\right), \: w_{4}\left(y\right), \: \textcolor{Red3}{w_{4}\left(z\right)}, \: w_{3}\left(z\right), \: w_{1}\left(t\right), \: w_{2}\left(x\right), \: \textcolor{Red3}{w_{1}\left(z\right)}$
+		
+		\item $r_{4}\left(t\right), \: w_{2}\left(t\right), \: r_{1}\left(t\right), \: r_{4}\left(y\right), \: r_{3}\left(y\right), \: w_{4}\left(y\right), \: w_{4}\left(z\right), \: \textcolor{Red3}{w_{3}\left(z\right)}, \: w_{1}\left(t\right), \: w_{2}\left(x\right), \: \textcolor{Red3}{w_{1}\left(z\right)}$
+	\end{itemize}
+	Quindi l'insieme dei conflitti è:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Conflitti}\left(S\right) = \{ & \left(r_{4}\left(t\right) \: w_{2}\left(t\right)\right), \left(r_{4}\left(t\right) \: w_{1}\left(t\right)\right), & \\
+												& \left(w_{2}\left(t\right) \: r_{1}\left(t\right)\right), \left(w_{2}\left(t\right) \: w_{1}\left(t\right)\right), & \\
+												& \left(r_{3}\left(y\right) \: w_{4}\left(y\right)\right),  														& \\
+												& \left(w_{4}\left(z\right) \: w_{3}\left(z\right)\right), \left(w_{4}\left(z\right) \: w_{1}\left(z\right)\right), & \\
+												& \left(w_{3}\left(z\right) \: w_{1}\left(z\right)\right) &	\}
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Adesso si costruisce il grafo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/CSR-4.pdf}
+	\end{figure}
+
+	\noindent
+	Il grafo non è aciclico, quindi non è CSR. Si verifica se è VSR.\newline
+
+	\noindent
+	Si costruisce l'insieme LeggeDa e ScrittureFinali:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{LeggeDa}\left(S\right) 			&=& \left\{\left(r_{1}\left(t\right) \: w_{2}\left(t\right)\right)\right\} \\
+			\text{ScrittureFinali}\left(S\right)	&=& \left\{w_{4}\left(y\right), w_{1}\left(t\right), w_{2}\left(x\right), w_{1}\left(z\right)\right\}
+		\end{array}
+	\end{equation*}
+	Si cerca una combinazione tale per cui sia VSR. Dal grafo si deduce che $T_{1}$ deve essere l'ultimo valore poiché non ha grafi orientati in uscita:
+	\begin{equation*}
+		\cdots T_{1}
+	\end{equation*}
+	La transazione $T_{2}$ ha l'unico grafo in entrata proveniente da $T_{4}$ e l'unico in uscita verso $T_{1}$, quindi:
+	\begin{equation*}
+		T_{3} \: T_{4} \: T_{2} \: T_{1}
+	\end{equation*}
+	Quindi $S$ è VSR.\newpage
+
+	\subsubsection{Esercizio 2 - Ottimizzazione}
+
+	Si consideri il seguente schema relazionale contenente le visite svolte in un ospedale:
+	\begin{equation*}
+		\begin{array}{ll}
+			\textsf{PAZIENTE} & \left(\underline{CodiceSSN}, \text{Nome, Cognome, Ntelefono, Indirizzo, Città}\right) \\
+			\textsf{VISITA} & \left(\underline{CodiceSSN, CFMedico, Data, OraInizio,} \text{Durata, PressioneArteriosaMin, PressioneArteriosaMax}\right) \\
+			\textsf{MEDICO} & \left(\underline{CFMedico}, \text{Cognome, Nome, Specialita}\right)
+		\end{array}
+	\end{equation*}
+	
+	\subsubsection{Esercizio 3 - B+-tree}
+	
+	\subsubsection{Esercizio 4 - XML}
 \end{document}
