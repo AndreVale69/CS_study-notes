@@ -1386,16 +1386,28 @@
 				\toprule
 				Concetto & Descrizione \\
 				\midrule
-				Architettura DBMS & L'architettura DBMS è strutturata su 3 livelli: schema esterno, logico e interno. Lo schema logico, il più importante, ha al suo interno una serie di moduli (gestori) importanti: delle interrogazioni, dell'esecuzione concorrente, dei metodi d'accesso, dell'affidabilità, del buffer, della memoria secondaria. \\ [0.5em]
-				Proprietà garantite & L'atomicità è garantita dal gestore dell'esecuzione concorrente e dell'affidabilità.\newline
-				La consistenza è garantita dal gestore dei metodi d'accesso.\newline
-				L'isolamento è garantita dal gestore dell'esecuzione concorrente.\newline
-				La persistenza è garantita dal gestore dell'affidabilità. \\ [0.5em]
-				Descrizione & Modulo fondamentale nella comunicazione tra memoria centrale e di massa, ed è organizzato in pagine di dimensione pari ad un numero intero di blocchi. \\ [0.5em]
-				Obbiettivo 	& Evitare accessi multipli alla memoria di massa così da velocizzare le operazioni. \\ [0.5em]
-				Cosa svolge & Esegue il caricamento (lettura) e scaricamento (scrittura) delle pagine dalla memoria centrale alla memoria di massa. \\ [.5em]
-				Principio importante & I dati referenziati di recente hanno maggior probabilità di essere referenziati nuovamente nel futuro. \\ [.5em]
-				Legge importante & Il 20\% dei dati è acceduto dall'80\% delle applicazioni. \\
+				Architettura DBMS & L'architettura DBMS è strutturata su \textbf{3 livelli}: schema \textbf{esterno}, \textbf{logico} e \textbf{interno}. Lo schema \textbf{logico}, \textbf{il più importante}, ha al suo interno una serie di \textbf{moduli} (gestori) importanti: delle \textbf{interrogazioni}, dell'\textbf{esecuzione concorrente}, dei \textbf{metodi d'accesso}, dell'\textbf{affidabilità}, del \textbf{buffer}, della \textbf{memoria secondaria}. \\ [.7em]
+				%
+				Proprietà garantite & A sinistra le proprietà e a destra i moduli che le garantiscono:
+				\begin{equation*}
+					\begin{array}{lll}
+						\textbf{Atomicità}	&\rightarrow& \text{Gestore esecuzione concorrente,} \\
+											&			& \text{Gestore dell'affidabilità} \\ [.5em]
+						\textbf{Consistenza}&\rightarrow& \text{Gestore dei metodi d'accesso} \\ [.5em]
+						\textbf{Isolamento}	&\rightarrow& \text{Gestore esecuzione concorrente} \\ [.5em]
+						\textbf{Persistenza}&\rightarrow& \text{Gestore dell'affidabilità}
+					\end{array}
+				\end{equation*} \\ [.7em]
+				%
+				Descrizione & Modulo fondamentale nella \textbf{comunicazione tra memoria centrale e di massa}, ed è \textbf{organizzato in pagine} di dimensione pari ad un numero intero di blocchi. \\ [.7em]
+				%
+				Obbiettivo 	& \textbf{Evitare accessi multipli alla memoria di massa} così da velocizzare le operazioni. \\ [.7em]
+				%
+				Cosa svolge & Esegue il \textbf{caricamento} (lettura) e \textbf{scaricamento} (scrittura) \textbf{delle pagine dalla memoria centrale alla memoria di massa}. \\ [.7em]
+				%
+				Principio importante & I \textbf{dati referenziati di recente} hanno maggior probabilità di essere \textbf{referenziati nuovamente nel futuro}. \\ [.7em]
+				%
+				Legge importante & Il \underline{20\%} dei \underline{dati} è \textbf{acceduto} dall'\underline{80\%} delle \underline{applicazioni}. \\
 				\bottomrule
 			\end{tabular}
 			\caption{Riepilogo dei concetti della domanda sulla gestione del buffer.}
@@ -1409,13 +1421,19 @@
 		
 		\begin{table}[!htp]
 			\centering
-			\begin{tabular}{@{} l p{16em} @{}}
+			\begin{tabular}{@{} l p{20em} @{}}
 				\toprule
 				Concetto & Descrizione \\
 				\midrule
-				Definizione di conflitto				& Due azioni di due transazioni diverse sono in conflitto se operano sullo stesso oggetto e almeno una di esse è una scrittura. \\ [.5em]
-				Definizione di conflict-equivalente		& Due schedule sono conflict-equivalenti se entrambi hanno le stesse operazioni e ogni coppia di operazioni in conflitto è nello stesso ordine nei due schedule. \\ [.5em]
-				Definizione di conflict-serializzabile	& Se esiste uno schedule seriale a esso conflict-equivalente. \\
+				Definizione di conflitto				& \textbf{Due azioni} di \textbf{due transazioni} \underline{diverse} sono in \textbf{conflitto} se operano sullo \textbf{stesso oggetto} e almeno una di esse è \textbf{una scrittura}. \\ [.7em]
+				%
+				Definizione di conflict-equivalente		& \textbf{Due schedule} sono \textbf{conflict-equivalenti} se:
+				\begin{itemize}
+					\item Hanno le \textbf{stesse operazioni}
+					\item Ogni coppia di \textbf{operazioni in conflitto} è nello \textbf{stesso ordine} nei due schedule
+				\end{itemize}\\ [.7em]
+				%
+				Definizione di conflict-serializzabile	& Uno schedule è conflict-serializzabile se esiste uno \textbf{schedule seriale a esso conflict-equivalente}. \\
 				\bottomrule
 			\end{tabular}
 			\caption{Riepilogo dei concetti della domanda su CSR.}
@@ -1426,7 +1444,7 @@
 		Un indice primario utilizza una chiave di ricerca che coincide con la chiave di ordinamento del file sequenziale. Esistono due varianti dell'indice primario, una di queste è l'\textbf{indice denso}: \textbf{per ogni occorrenza della chiave presente nel file esiste un corrispondente record nell'indice}.
 		\begin{figure}[!htp]
 			\centering
-			\includegraphics[width=\textwidth]{img/ex/indice-denso-1.pdf}
+			\includegraphics[width=.9\textwidth]{img/ex/indice-denso-1.pdf}
 		\end{figure}
 		
 		\noindent
@@ -1436,7 +1454,7 @@
 		\end{equation*}
 		\begin{figure}[!htp]
 			\centering
-			\includegraphics[width=\textwidth]{img/ex/indice-denso-2.pdf}
+			\includegraphics[width=.9\textwidth]{img/ex/indice-denso-2.pdf}
 		\end{figure}
 		
 		\noindent
@@ -1450,10 +1468,13 @@
 				\toprule
 				Concetto & Definizione \\
 				\midrule
-				Definizione 		& Un indice primario utilizza una chiave di ricerca che coincide con la chiave di ordinamento del file sequenziale. Una variante del indice primario è l'indice primario denso: per ogni occorrenza della chiave presente nel file, esiste un corrispondente record nell'indice. \\ [.5em]
-				Op. ricerca 		& Eseguita una scansione sequenziale dell'indice per trovare il record ricercato. Se viene trovato, viene effettuato l'accesso al file attraverso il puntatore. \\ [.5em]
-				Op. inserimento		& L'inserimento avviene solo se la tupla inserita nel file ha un valore di chiave K (chiave di ricerca) che non è già presente. \\ [.5em]
-				Op. cancellazione	& La cancellazione avviene solo se la tupla cancellata nel file è l'ultima tupla con valore di chiave K (chiave di ricerca). \\
+				Definizione 		& Un \textbf{indice primario} utilizza una \textbf{chiave di ricerca che coincide con la chiave di ordinamento} del file sequenziale. Una \textbf{variante} dell'indice primario è l'\underline{indice primario denso}: \textbf{per ogni occorrenza della chiave presente nel file, esiste un corrispondente record nell'indice}. \\ [.7em]
+				%
+				Op. ricerca 		& Eseguita una \textbf{scansione sequenziale dell'indice} per trovare il record ricercato. \textbf{Se viene trovato}, viene effettuato l'\textbf{accesso al file attraverso il puntatore}. \\ [.7em]
+				%
+				Op. inserimento		& L'inserimento avviene solo se la \textbf{tupla inserita nel file ha un valore} di chiave K (\textbf{chiave di ricerca}) che \textbf{non} è già \textbf{presente}. \\ [.7em]
+				%
+				Op. cancellazione	& La cancellazione avviene solo se la \textbf{tupla cancellata nel file è l'ultima tupla con valore di} chiave K (\textbf{chiave di ricerca}). \\
 				\bottomrule
 			\end{tabular}
 			\caption{Riepilogo dei concetti della domanda sull'indice denso.}
@@ -1523,65 +1544,601 @@
 		
 		Infine, date le proprietà che deve garantire, questo \textbf{componente necessita di una memoria stabile}, \textbf{ovvero di una memoria resistente ai guasti}.
 		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/gestore-dei-guasti-1.pdf}
+		\end{figure}\newpage
+		
 		\begin{table}[!htp]
 			\centering
 			\begin{tabular}{@{} l p{23em} @{}}
 				\toprule
 				Concetto & Definizione \\
 				\midrule
-				Architettura DBMS & L'architettura DBMS è strutturata su 3 livelli: schema esterno, logico e interno. Lo schema logico, il più importante, ha al suo interno una serie di moduli (gestori) importanti: delle interrogazioni, dell'esecuzione concorrente, dei metodi d'accesso, dell'affidabilità, del buffer, della memoria secondaria. \\ [0.5em]
+				Architettura DBMS & L'architettura DBMS è strutturata su \textbf{3 livelli}: schema \textbf{esterno}, \textbf{logico} e \textbf{interno}. Lo schema \textbf{logico}, \textbf{il più importante}, ha al suo interno una serie di \textbf{moduli} (gestori) importanti: delle \textbf{interrogazioni}, dell'\textbf{esecuzione concorrente}, dei \textbf{metodi d'accesso}, dell'\textbf{affidabilità}, del \textbf{buffer}, della \textbf{memoria secondaria}. \\ [.7em]
 				%
-				Proprietà garantite & L'atomicità è garantita dal gestore dell'esecuzione concorrente e dell'affidabilità.\newline
-				La consistenza è garantita dal gestore dei metodi d'accesso.\newline
-				L'isolamento è garantita dal gestore dell'esecuzione concorrente.\newline
-				La persistenza è garantita dal gestore dell'affidabilità. \\ [0.5em]
+				Proprietà garantite & A sinistra le proprietà e a destra i moduli che le garantiscono:
+				\begin{equation*}
+					\begin{array}{lll}
+						\textbf{Atomicità}	&\rightarrow& \text{Gestore esecuzione concorrente,} \\
+						&			& \text{Gestore dell'affidabilità} \\ [.5em]
+						\textbf{Consistenza}&\rightarrow& \text{Gestore dei metodi d'accesso} \\ [.5em]
+						\textbf{Isolamento}	&\rightarrow& \text{Gestore esecuzione concorrente} \\ [.5em]
+						\textbf{Persistenza}&\rightarrow& \text{Gestore dell'affidabilità}
+					\end{array}
+				\end{equation*} \\ [.7em]
 				%
-				Approfondimento proprietà & L'atomicità garantisce che le transazioni non vengano lasciate incomplete. Invece, la persistenza garantisce che gli effetti di ciascuna transazione conclusa con un commit siano mantenuti in modo permanente. Queste proprietà sono garantite dal modulo di gestione dei guasti grazie al log, ovvero un archivio persistente su cui vengono registrate le varie azioni svolte dal DBMS. \\ [.5em]
+				Approfondimento proprietà & L'\textbf{\underline{atomicità}} garantisce che le transazioni non vengano lasciate incomplete. Invece, la \textbf{\underline{persistenza}} garantisce che gli effetti di ciascuna transazione conclusa con un commit siano mantenuti in modo permanente. Queste \textbf{proprietà} sono \textbf{garantite dal modulo di gestione dei guasti} grazie al \underline{log}, ovvero un \textbf{archivio persistente} su cui vengono \textbf{registrate} le varie \textbf{azioni svolte dal DBMS}. \\ [.7em]
 				%
-				Compito eseguito & Il modulo di gestione dei guasti invia richieste di accessi a pagine in lettura/scrittura al buffer. Inoltre, genera ulteriori richieste di lettura/scrittura necessarie a garantire la robustezza e resistenza ai guasti. \\
+				Compito eseguito & Il modulo di gestione dei guasti invia \textbf{richieste di accessi a pagine in lettura/scrittura al buffer}.\newline
+				Inoltre, genera \textbf{ulteriori richieste di lettura/scrittura necessarie a garantire la robustezza e resistenza ai guasti}. \\
 				\bottomrule
 			\end{tabular}
 			\caption{Riepilogo dei concetti della domanda sull'indice denso.}
 		\end{table}\newpage
 		
-		\item (\emph{3 punti}) Si presenti in dettaglio la \underline{politica di concessione dei lock} applicata dal gestore dell'esecuzione concorrente secondo la tecnica detta \dquotes{Locking a due fasi}.
+		\item \textbf{(\emph{3 punti})} \textcolor{Green4}{\textbf{\emph{Si presenti in dettaglio la \underline{politica di concessione dei lock} applicata dal gestore dell'esecuzione concorrente secondo la tecnica detta \dquotes{Locking a due fasi}.}}}\label{dom: politica di concessione dei lock - locking a due fasi}
 		
-		\item (\emph{2 punti}) Lo studente illustri la struttura di accesso ai dati denominata indice primario sparso, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.
+		Il \emph{\textbf{locking}} è una tecnica in cui \textbf{tutte le operazioni di lettura/scrittura devono essere protette tramite l'esecuzione di opportune primitive} (\textsf{r\_lock}, \textsf{w\_lock}, \textsf{unlock}). Quindi, lo \textbf{scheduler riceve una sequenza di richieste di esecuzione di queste primitive da parte delle transazioni, e ne determina la correttezza con una semplice ispezione di una struttura dati}.
 		
-		\item (\emph{2 punti}) Lo studente illustri le differenze tra i costrutti \textbf{elemento} e \textbf{attributo} del linguaggio XML, mostrando un esempio di documento XML dove vengono utilizzati entrambi.
-	\end{enumerate}\newpage
+		Il \textbf{gestore della concorrenza mantiene per ogni risorsa}: il suo \underline{\textbf{stato}} (identificato tramite le tre primitive), le transazioni in \textsf{r\_lock}, ovvero tutte le transazioni che hanno un \textsf{r\_lock} sulla risorsa x. Inoltre, viene salvata una \textbf{tabella dei conflitti} in cui:
+		\begin{itemize}
+			\item Le \textbf{righe} identificano le \textbf{richieste};
+			
+			\item Le \textbf{colonne} identificano lo \textbf{stato della risorsa richiesta};
+			
+			\item In ogni \textbf{cella}:
+			\begin{itemize}
+				\item Valore di \textbf{sinistra} identifica l'\textbf{esito della richiesta};
+				
+				\item Valore di \textbf{destra} identifica lo \textbf{stato} che verrà assunto dalla \textbf{risorsa dopo l'esecuzione della primitiva}.
+			\end{itemize}
+		\end{itemize}
+		
+		Grazie a questa tabella, il lock manager ha la possibilità di scegliere quando concedere o non concedere una risorsa in lettura/scrittura:
+		\begin{itemize}
+			\item \textbf{Oggetto} bloccato in \textbf{lettura}, allora è possibile \textbf{concedere un'altra richiesta di lock in lettura} (\emph{lock condiviso});
+			
+			\item Nel caso di \textsf{unlock} di una \textbf{risorsa bloccata} in modo condiviso (lettura), la \textbf{risorsa ritorna libera quando non ci sono altre transazioni in lettura che operano su di essa}.
+		\end{itemize}\newpage
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{21em} @{}}
+				\toprule
+				Concetto & Definizione \\
+				\midrule
+				Definizione locking & Il \emph{\textbf{locking}} è una tecnica in cui \textbf{tutte le operazioni di lettura/scrittura devono essere protette tramite l'esecuzione di opportune primitive} (\textsf{r\_lock}, \textsf{w\_lock}, \textsf{unlock}). \\ [.7em]
+				%
+				Politica di concessione & Il \textbf{gestore della concorrenza mantiene per ogni risorsa}: il suo \underline{\textbf{stato}} (identificato tramite le tre primitive), le transazioni in \textsf{r\_lock}, ovvero \textbf{tutte le transazioni che hanno un \textsf{r\_lock} sulla risorsa x}. \\ [.7em]
+				%
+				Tabella dei conflitti & Salvata una \textbf{tabella dei conflitti} in cui:
+				\begin{itemize}
+					\item Le \textbf{righe} identificano le \textbf{richieste};
+					
+					\item Le \textbf{colonne} identificano lo \textbf{stato della risorsa richiesta};
+					
+					\item In ogni \textbf{cella}:
+					\begin{itemize}
+						\item Valore di \textbf{sinistra} identifica l'\textbf{esito della richiesta};
+						
+						\item Valore di \textbf{destra} identifica lo \textbf{stato} che verrà assunto dalla \textbf{risorsa dopo l'esecuzione della primitiva}.
+					\end{itemize}
+				\end{itemize} \\ [.7em]
+				%
+				Concessione risorse & È possibile \textbf{scegliere quando concedere o non concedere una risorsa} in lettura/scrittura:
+				\begin{itemize}
+					\item \textbf{Oggetto} bloccato in \textbf{lettura}, allora è possibile \textbf{concedere un'altra richiesta di lock in lettura} (\emph{lock condiviso});
+					
+					\item Nel caso di \textsf{unlock} di una \textbf{risorsa bloccata} in modo condiviso (lettura), la \textbf{risorsa ritorna libera quando non ci sono altre transazioni in lettura che operano su di essa}.
+				\end{itemize} \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sulla politica di concessione dei lock.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Lo studente illustri la struttura di accesso ai dati denominata indice primario sparso, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.}}}\label{dom: indice primario sparso}
+		
+		Un indice primario utilizza una chiave di ricerca che coincide con la chiave di ordinamento del file sequenziale. Esistono due varianti dell'indice primario, una di queste è l'\textbf{indice sparso}: \textbf{solo per alcune occorrenze della chiave presenti nel file esiste un corrispondente record nell'indice, tipicamente una per blocco}.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/indice-sparso-1.pdf}
+		\end{figure}
+		
+		\noindent
+		\textbf{Operazione di ricerca} con una chiave K:
+		\begin{enumerate}
+			\item Eseguita una \textbf{scansione sequenziale dell'indice}. La scansione termina quando viene trovato un \textbf{record che ha come chiave il valore più grande}, ma che è comunque \textbf{minore o uguale alla chiave di ricerca} K;
+			
+			\item Eseguito l'\textbf{accesso al file attraverso il puntatore all'interno del record}, ed eseguita la \textbf{scansione del file} (blocco corrente) \textbf{per trovare le tuple con chiave} K.
+		\end{enumerate}
+		\textbf{N.B.:} si cerca il valore di chiave più grande $\ge$ K, poiché data la struttura dell'indice sparso, la chiave K potrebbe non essere presente nell'indice.
+		\begin{equation*}
+			\text{Costo totale} = 1 \text{ accesso indice } + 1 \text{ accesso blocco dati }
+		\end{equation*}\newpage
+		s
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/indice-sparso-2.pdf}
+		\end{figure}
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{24em} @{}}
+				\toprule
+				Concetto & Definizione \\
+				\midrule
+				Definizione & Un \textbf{indice primario} utilizza una \textbf{chiave di ricerca che coincide con la chiave di ordinamento} del file sequenziale. Una \textbf{variante} dell'indice primario è l'\underline{indice primario sparso}: \textbf{solo per alcune occorrenze delle chiavi presenti nel file esiste un corrispondente record nell'indice, tipicamente una per blocco}. \\ [.7em]
+				%
+				Op. ricerca & La ricerca si divide in due fasi:
+				\begin{enumerate}
+					\item Esecuzione di una \textbf{scansione sequenziale dell'indice}. La scansione termina quando viene trovato un \textbf{record che ha come chiave il valore più grande}, ma che è comunque \textbf{minore o uguale alla chiave di ricerca} K;
+					
+					\item \textbf{Accesso al file attraverso il puntatore all'interno del record}, e \textbf{scansione del file} (blocco corrente) \textbf{per trovare le tuple con chiave} K.
+				\end{enumerate} \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sull'indice sparso.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Lo studente illustri le differenze tra i costrutti \textbf{elemento} e \textbf{attributo} del linguaggio XML, mostrando un esempio di documento XML dove vengono utilizzati entrambi.}}}\label{dom: elemento e attributo in XML}
+		
+		Un \textbf{elemento} è tutto ciò che viene compreso tra il tag di inizio e il tag di fine e la keyword \textsf{element} li identifica in uno schema XML. Esistono varie modalità per dichiarare un elemento e inoltre possono essere eseguite dichiarazioni annidate.
+		
+		Un \textbf{attributo} è un valore \underline{opzionale} che aggiunge informazioni ad un elemento. Solitamente viene utilizzato per rappresentare dei valori unici come gli ID.
+		
+		Date le due definizioni, le \textbf{maggiori differenze} sono:
+		\begin{itemize}
+			\item La \textbf{dichiarazione di attributi deve avvenire sempre dopo la dichiarazione di elementi} (\underline{non viceversa}).
+			
+			\item Un \textbf{attributo} può contenere \textbf{solo un valore}, mentre gli \textbf{elementi possono avere figli}.
+		\end{itemize}
+		Un esempio di codice XML:
+		\begin{lstlisting}[language=XML]
+<xsd:element name="Book">
+	<xsd:complexType>
+		<xsd:element name="Title" type="xsd:string"/>
+		<xsd:element name="Author" type="xsd:string">
+			<xsd:complexType>
+				<xsd:attribute 	name="author_id" type="xsd:ID" use="required"/>
+			</xsd:complexType>
+		</xsd:element>
+		<xsd:element name="Date" type="xsd:gYear"/>
+	</xsd:complexType>
+</xsd:element>\end{lstlisting}
+	\end{enumerate}
+	
+	\noindent
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l p{22em} @{}}
+			\toprule
+			Concetto & Definizione \\
+			\midrule
+			Breve def. elemento		& Un \textbf{elemento} è tutto ciò che viene compreso tra il tag di inizio e il tag di fine. Viene identificato dalla keyword \textsf{element} nel XML schema. \\ [.5em]
+			%
+			Breve def. attributo	& Un \textbf{attributo} è un valore \underline{opzionale} che aggiunge informazioni ad un elemento. Utilizzato per rappresentare gli ID di solito. \\ [.5em]
+			%
+			Differenze				& Due differenze sostanziali: (1) la \textbf{dichiarazione di attributi deve avvenire sempre dopo la dichiarazione di elementi} (\underline{non viceversa}); (2) un \textbf{attributo} può contenere \textbf{solo un valore}, mentre gli \textbf{elementi possono avere figli}.\\ [.5em]
+			%
+			Esempio					& Si veda il codice sopra. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Riepilogo dei concetti della domanda sull'elemento e l'attributo in XML.}
+	\end{table}\newpage
 	
 	Domande di teoria tratte dalla terza prova intermedia dell'esame 21/04/2022.
 	\begin{enumerate}
-		\item (\emph{3 punti}) Illustrare l'architettura di un DBMS descrivendo in particolare il modulo di gestione dei buffer; si indichi inoltre quali moduli garantiscono le proprietà di persistenza e consistenza delle transazioni.
+		\item \textbf{(\emph{3 punti})} \textcolor{Green4}{\textbf{\emph{Illustrare l'architettura di un DBMS descrivendo in particolare il modulo di gestione dei buffer; si indichi inoltre quali moduli garantiscono le proprietà di persistenza e consistenza delle transazioni.}}}
 		
-		\item (\emph{2 punti}) Si presenti in dettaglio la \underline{definizione di conflict-equivalenza} tra due schedule.
+		Risposta a pagina \pageref{dom: gestione del buffer}.
 		
-		\item (\emph{2 punti}) Lo studente illustri la struttura di accesso ai dati denominata struttura ad accesso calcolato (hashing), si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Si presenti in dettaglio la \underline{definizione di conflict-equivalenza} tra due schedule.}}}\label{dom: conflict-equivalenza}
 		
-		\item (\emph{2 punti}) Lo studente illustri l'algoritmo di \underline{ripresa a caldo}.
+		Prima della definizione di conflict-equivalenza, è necessario dire cosa è un conflitto.
+		
+		Date due azioni eseguite da transazioni diverse, si dice che un'azione è in \textbf{conflitto} con un'altra, se \textbf{operano sullo stesso oggetto} e almeno \textbf{una di esse è in scrittura}. I conflitti che si possono creare quindi sono: lettura-scrittura, scrittura-lettura, scrittura-scrittura.
+		
+		Uno schedule è definito \textbf{conflict-equivalente} ad un altro schedule, se \textbf{entrambi presentano le stesse operazioni} e ogni \textbf{coppia di operazioni in conflitto è nello stesso ordine} in entrambi gli schedule.
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{20em} @{}}
+				\toprule
+				Concetto & Descrizione \\
+				\midrule
+				Def. conflitto				& \textbf{Due azioni} di \textbf{due transazioni} \underline{diverse} sono in \textbf{conflitto} se operano sullo \textbf{stesso oggetto} e almeno una di esse è \textbf{una scrittura}. \\ [.7em]
+				Def. conflict-equivalenza 	& \textbf{Due schedule} sono \textbf{conflict-equivalenti} se:
+				\begin{itemize}
+					\item Hanno le \textbf{stesse operazioni}
+					
+					\item Ogni coppia di \textbf{operazioni in conflitto} è nello \textbf{stesso ordine} nei due schedule
+				\end{itemize}\\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sulla conflict-equivalenza.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Lo studente illustri la struttura di accesso ai dati denominata struttura ad accesso calcolato (hashing), si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.}}}\label{dom: struttura ad accesso calcolato - hashing}
+		
+		Le \textbf{strutture ad accesso calcolato} (hashing), si basano su una \textbf{funzione di hash che esegue un \emph{mapping}} dei \textbf{valori chiave di ricerca} sugli \textbf{indirizzi di memorizzazione delle tuple} nelle pagine della memoria secondaria.
+		
+		Un \textbf{utilizzo efficiente} della funzione di hash prevede la \textbf{distribuzione dei valori delle chiavi} in maniera \underline{uniforme}, \underline{casuale} e all'\underline{interno dei \emph{bucket}}.
+		
+		Operazione di \textbf{ricerca}:
+		\begin{enumerate}
+			\item (nessun costo) \textbf{Calcolo la funzione di hash}
+			
+			\item (1 per ogni pagina) \textbf{Accedo al bucket} ottenuto dalla funzione hash del punto precedente
+			
+			\item (costo uguale agli accessi per pagina) \textbf{Accedo alle tuple attraverso i puntatori del bucket}
+		\end{enumerate}
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{27em} @{}}
+				\toprule
+				Concetto & Descrizione \\
+				\midrule
+				Definizione & Le \textbf{strutture di accesso calcolato} si basano su una \textbf{funzione di hash} che ha l'obbiettivo di \textbf{eseguire un mapping} tra:
+				\begin{equation*}
+					\text{Chiavi di ricerca} \longrightarrow \text{Indirizzi di memorizzazione delle tuple}
+				\end{equation*} \\ 
+				%
+				Struttura	& La \textbf{distribuzione delle chiavi} deve essere eseguita in modo:
+				\begin{itemize}
+					\item \textbf{Uniforme}
+					\item \textbf{Casuale}
+					\item All'\textbf{interno dei \emph{bucket}}
+				\end{itemize}
+				In questo modo vi è un utilizzo efficiente. \\ [1em]
+				%
+				Op. ricerca	& L'operazione di ricerca si divide in 3 punti:
+				\begin{enumerate}
+					\item \textbf{Calcolo della funzione hash}
+					
+					\item \textbf{Accesso al \emph{bucket}} con il risultato del punto 1
+					
+					\item \textbf{Accesso alle tuple} attraverso i puntatori del \emph{bucket}
+				\end{enumerate} \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sulla struttura ad accesso calcolato (hashing).}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Lo studente illustri l'algoritmo di \underline{ripresa a caldo}.}}}\label{dom: ripresa a caldo}
+		
+		L'\textbf{algoritmo} è il seguente:
+		\begin{enumerate}
+			\item Eseguito l'accesso all'ultimo log, ovvero quello al momento del guasto;
+			
+			\item Si ripercorre l'intero log all'indietro finché non viene trovato l'ultimo checkpoint;
+			
+			\item Creazione di due insiemi:
+			\begin{itemize}
+				\item UNDO (rifare) inizializzato con le transazioni attive al checkpoint
+				
+				\item REDO (disfare) inizializzato con l'insieme vuoto
+			\end{itemize}
+			
+			\item Si ripercorre il file log in avanti, aggiungendo a:
+			\begin{itemize}
+				\item UNDO le transazioni di cui è presente un record di \textsf{begin}
+				
+				\item REDO gli identificativi delle transazioni di cui è presente il record di \textsf{commit}
+			\end{itemize}
+			Giunti alla fine, UNDO avrà gli identificativi delle transazioni da disfare e REDO da rifare.
+			
+			\item Si ripercorre, di nuovo, il log all'indietro disfacendo le azioni presenti nell'insieme UNDO. La salita termina quando viene trovata la prima azione della transazione più \dquotes{vecchia} nei due insiemi (UNDO e REDO).
+			
+			\item Si ripercorre, di nuovo, il log in avanti rifacendo le azioni presenti nell'insieme REDO.
+		\end{enumerate}
 	\end{enumerate}\newpage
 	
 	Domande di teoria tratte dalla terza prova intermedia dell'esame 22/04/2022.
 	\begin{enumerate}
-		\item (\emph{3 punti}) Illustrare le proprietà delle transazioni; si indichi inoltre quali moduli di un DBMS garantiscono ciascuna di tali proprietà.
+		\item \textbf{(\emph{3 punti})} \textcolor{Green4}{\textbf{Illustrare le proprietà delle transazioni; si indichi inoltre quali moduli di un DBMS garantiscono ciascuna di tali proprietà.}}\label{dom: proprietà delle transazioni}
 		
-		\item (\emph{2 punti}) Si presenti in dettaglio la \underline{definizione di view-equivalenza} tra due schedule.
+		L'\textbf{\underline{atomicità}} afferma che una \textbf{transazione è un'unità indivisibile di esecuzione}. Quindi, devono essere resi visibili tutti gli effetti di una transazione (tutto), altrimenti la transazione non deve avere nessun effetto sulla base di dati (o niente). Le implicazioni nel caso in cui la proprietà venisse applicata:
+		\begin{itemize}
+			\item \textbf{Transazione interrotta \underline{prima} del commit}, il sistema deve essere in grado di \textbf{ricostruire la situazione esistente prima dell'esecuzione della transazione eliminando il lavoro eseguito fino a quel momento}.
+			
+			\item \textbf{Transazione interrotta \underline{dopo} il commit}, il sistema deve essere in grado di \textbf{assicurare che la transazione lasci la base di dati nel suo stato finale}.
+		\end{itemize}
+		L'atomicità è garantita dal gestore dell'esecuzione concorrente e dal gestore dell'affidabilità.\newline
 		
-		\item (\emph{2 punti}) Lo studente illustri la struttura di accesso ai dati denominata B+-tree, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.
+		La \textbf{\underline{consistenza}} afferma che l'\textbf{esecuzione della transazione non deve violare i vincoli di integrità della base di dati}. In \textbf{caso di violazioni}, il sistema \textbf{annulla o corregge la transazione}. Il controllo può essere di due tipi:
+		\begin{itemize}
+			\item \textbf{Controllo della violazione \underline{immediata}}. I controlli vengono eseguiti durante l'esecuzione della transazione.
+			
+			\item \textbf{Controllo della violazione \underline{differita}}. I controlli vengono eseguiti al termine dell'esecuzione della transazione, cioè dopo il \textsf{commit}.
+		\end{itemize}
+		La seconda causa un \textsf{abort} dell'intera transazione, mentre la prima no e risulta essere più efficiente. La consistenza è garantita dal gestore dei metodi d'accesso.\newline
 		
-		\item (\emph{2 punti}) Illustrare il meccanismo di 2PL stretto.
+		L'\textbf{\underline{isolamento}} afferma che l'\textbf{esecuzione di una transazione deve essere indipendente dalla contemporanea esecuzione di altre transazioni}. Le implicazioni in questo caso sono:
+		\begin{itemize}
+			\item \textbf{Esecuzione concorrente} di un insieme di transazioni deve essere analogo al risultato che le stesse transazioni otterrebbero qualora ciascuna di esse fosse eseguita da sola.
+			
+			\item \textbf{Esecuzione indipendente} evita che un eventuale \textsf{rollback} provochi un effetto dominio generando un \textsf{rollback} anche nelle altre.
+		\end{itemize}
+		L'isolamento è garantita dal gestore dell'esecuzione concorrente.\newline
+		
+		La \textbf{\underline{persistenza}} afferma che l'\textbf{esecuzione di una transazione che ha eseguito il \textsf{commit} correttamente non venga più perso}. Quindi, questa proprietà garantisce gli effetti delle transazioni. La persistenza è garantita dal gestore dell'affidabilità.
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{23em} @{}}
+				\toprule
+				Concetto & Descrizione \\
+				\midrule
+				Atomicità & Una transazione è un'\textbf{unità indivisibile di esecuzione}. Quindi o vengono resi visibili tutti gli effetti di una transazione oppure non viene fatto niente.
+				
+				Le implicazioni sono:
+				\begin{itemize}
+					\item \textbf{Transazione interrotta prima del commit}, il sistema deve essere in grado di ricostruire la situazione iniziale pre-transazione eliminando quanto fatto fino a quel momento
+					
+					\item \textbf{Transazione interrotta dopo il commit}, il sistema deve assicurare che la transazione alsci la base di dati nel suo stato finale
+				\end{itemize}
+				Atomicità garantita dal \textbf{gestore}: dell'\textbf{esecuzione concorrente} e dell'\textbf{affidabilità}. \\ [.7em]
+				%
+				Consistenza & L'\textbf{esecuzione della transazione non deve violare i vincoli di integrità della base di dati}. Nel caso di una violazione, il sistema \textbf{annulla/corregge} la transazione. 
+				
+				Due tipi di controllo:
+				\begin{itemize}
+					\item \textbf{Controllo della violazione immediata}. Controlli eseguiti \textbf{durante l'esecuzione} della transazione
+					
+					\item \textbf{Controllo della violazione differita}. Controlli eseguiti \textbf{al termine dell'esecuzione} della transazione (post-\textsf{commit}).
+				\end{itemize}
+				Consistenza garantita dal \textbf{gestore dei metodi d'accesso}. \\ [.7em]
+				%
+				Isolamento & L'\textbf{esecuzione di una transazione deve essere indipendente dalla contemporanea esecuzione di altre transazioni}.
+				
+				Le implicazioni sono:
+				\begin{itemize}
+					\item \textbf{Esecuzione concorrente} di un insieme di transazioni deve essere analogo al risultato prodotto nel caso in cui le transazioni fossero eseguite indipendentemente.
+					
+					\item \textbf{Esecuzione indipendente} evita che eventuali \textsf{rollback} provochino effetti domino.
+				\end{itemize}
+				Isolamento garantita dal \textbf{gestore dell'esecuzione concorrente}. \\ [.7em]
+				%
+				Persistenza & L'\textbf{esecuzione di una transazione che ha eseguito il \textsf{commit} correttamente non deve essere più perso}.
+				
+				Persistenza garantita dal \textbf{gestore dell'affidabilità}. \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sulle proprietà delle transazioni.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Si presenti in dettaglio la \underline{definizione di view-equivalenza} tra due schedule.}}}\label{dom: view-equivalenza}
+		
+		Prima di dare la definizione di view-equivalenza, si forniscono altre due definizioni necessarie.
+		
+		Un'operazione di \textbf{lettura} $r_{i}\left(x\right)$ viene definita \dquotes{\underline{\textbf{legge da}}} quando una \textbf{scrittura} $w_{j}\left(x\right)$, \textbf{precede tale lettura} $r_{i}\left(x\right)$. Inoltre, non ci deve essere \textbf{nessun'altra scrittura sulla stessa risorsa da parte di un'altra transazione diversa} $w_{k}\left(x\right)$, tra le due operazioni citate.
+		
+		Un'operazione di \textbf{scrittura} $w_{i}\left(x\right)$ viene definita \dquotes{\textbf{\underline{scrittura finale}}} se è l'\textbf{ultima scrittura dell'oggetto} $x$ \textbf{che appare nello schedule}.
+		
+		\textbf{Due schedule} vengono detti \textbf{view-equivalenti} se possiedono la \textbf{stessa relazione \dquotes{legge da}} e le \textbf{stesse \dquotes{scritture finali}}.
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{21em} @{}}
+				\toprule
+				Concetto & Descrizione \\
+				\midrule
+				Def. legge da			& Quando, data una risorsa, una \textbf{scrittura di un'altra transizione precede una lettura di un'altra transazione sulla stessa risorsa}. Inoltre, \textbf{non ci deve essere una scrittura da parte di un'altra transizione}, su tale risorsa, tra le due operazioni citate. \\ [.7em]
+				%
+				Def. scrittura finale	& Quando è l'\textbf{ultima scrittura dell'oggetto $x$ che appare nello schedule}. \\ [.7em]
+				%
+				Def. view-equivalenza	& Se \textbf{due schedule hanno la stessa relazione legge da e le stesse scritture finali}. \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sulla view-equivalenza.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Lo studente illustri la struttura di accesso ai dati denominata B+-tree, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.}}}\label{dom: B+-tree}
+		
+		Un albero B+-tree è una struttura ad albero formata da una serie di \textbf{nodi} che \textbf{identificano le pagine della memoria secondaria}. I nodi sono \textbf{collegati} tramite \textbf{legami}, i quali rappresentano i \textbf{puntatori ad ogni pagina}. Un nodo può avere molte foglie, cioè figli, e per questo motivo gli albero spesso hanno molti nodi ma pochi livelli.
+		
+		Un albero è \textbf{bilanciato} se la lunghezza dei percorsi che collegano la radice ai nodi foglia è costante.
+		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/b+-tree-1.pdf}
+			\caption*{Esempio di albero B+-tree.}
+		\end{figure}
+		
+		\noindent
+		Operazione di \textbf{ricerca}:
+		\begin{enumerate}
+			\item Si \textbf{cerca} nel nodo radice il \textbf{più piccolo valore di chiave maggiore del valore di chiave di ricerca} K:
+			\begin{itemize}
+				\item Se esiste, allora si segue il puntatore relativo;
+				
+				\item Se non esiste, viene seguito l'ultimo puntatore presente nel nodo.
+			\end{itemize}
+			
+			\item Una volta \textbf{raggiunto il nodo foglia}, viene \textbf{cercato} il valore K (\textbf{chiave di ricerca}) nel nodo:
+			\begin{itemize}
+				\item Se viene trovato il valore, si prosegue la strada verso le tuple;
+				
+				\item Se non esiste, si ritorna al passo 1.
+			\end{itemize}
+		\end{enumerate}\newpage
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{23em} @{}}
+				\toprule
+				Concetto & Definizione \\
+				\midrule
+				Struttura 	& Un albero B+-tree è una struttura ad albero composta da nodi e legami:
+				\begin{itemize}
+					\item \textbf{Nodi}, identificano le \textbf{pagine della memoria secondaria};
+					
+					\item \textbf{Legami}, collegano i nodi e rappresentano i \textbf{puntatori ad ogni pagina}.
+				\end{itemize} \\ 
+				%
+				Op. ricerca	& L'operazione di ricerca si divide in \textbf{due fasi}:
+				\begin{enumerate}
+					\item \textbf{Cercare} nel nodo radice il \textbf{più piccolo valore di chiave maggiore del valore di chiave di ricerca}. Se trovato, si \textbf{segue} il relativo \textbf{puntatore}, altrimenti viene \textbf{seguito l'ultimo puntatore presente nel nodo};
+					
+					\item Raggiunto il \textbf{nodo foglia}, viene \textbf{cercato il valore della chiave di ricerca}. Se trovato, si segue la \textbf{strada verso la tupla}, altrimenti si \textbf{torna al punto 1}.
+				\end{enumerate} \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sugli alberi B+-tree.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Illustrare il meccanismo di 2PL stretto.}}}\label{dom: 2PL stretto}
+		
+		Il locking a due fasi stretto (2PL stretto) è un principio che afferma: \textbf{i lock di una transazione possono essere rilasciati solo dopo aver correttamente effettuato le operazioni di commit/abort}.
+		
+		La conseguenza di questo metodo è che i lock vengono rilasciati solo al termine della transazione, ovvero una volta raggiunto lo stato finale.
+		
+		Il \textbf{vantaggio principale} riguarda l'\textbf{impossibilità} di verificarsi del fenomeno di \textbf{letture sporche}. Questo \textbf{perché viene impedito l'accesso, da parte di altre transazioni, ai dati scritti da transazioni che ancora non hanno effettuato il \textsf{commit}}.
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{25em} @{}}
+				\toprule
+				Concetto & Descrizione \\
+				\midrule
+				Definizione & Il 2PL stretto afferma che i \textbf{lock di una transazione possono essere rilasciati solo dopo aver correttamente effettuato le operazioni di \textsf{commit}/\text{abort}}. \\ [.7em]
+				%
+				Conseguenza & I lock vengono rilasciati solo al termine della transazione, ovvero al raggiungimento dello stato finale. \\ [.7em]
+				%
+				Vantaggio	& Il fenomeno di \textbf{\dquotes{lettura sporca} non può verificarsi poiché viene impedito l'accesso, da parte di altre transazioni, ai dati scritti da transazioni che ancora non hanno effettuato il \textsf{commit}}. \\ 
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sul 2PL stretto.}
+		\end{table}
 	\end{enumerate}\newpage
 	
 	Domande di teoria tratte dalla terza prova intermedia dell'esame 10/06/2022.
 	\begin{enumerate}
-		\item (\emph{2 punti}) Illustrare le proprietà delle transazioni ed indicare da quali moduli del DBMS vengono garantite.
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Illustrare le proprietà delle transazioni ed indicare da quali moduli del DBMS vengono garantite.}}}
 		
-		\item (\emph{3 punti}) Si presenti la definizione di View-serializzabilità e la relazione tra l'insieme degli schedule VSR e l'insieme degli schedule CSR. Presentare la dimostrazione formale di tale relazione.
+		Risposta a pagina \pageref{dom: proprietà delle transazioni}.		
 		
-		\item (\emph{2 punti}) Lo studente illustri la struttura di accesso ai dati denominata indice secondario, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.
+		\item \textbf{(\emph{3 punti})} \textcolor{Green4}{\textbf{\emph{Si presenti la definizione di View-serializzabilità e la relazione tra l'insieme degli schedule VSR e l'insieme degli schedule CSR. Presentare la dimostrazione formale di tale relazione.}}}\label{dom: view-serializzabilità, relazione VSR e CSR + dimostrazione}
 		
-		\item (\emph{2 punti}) Lo studente illustri l'algoritmo di \underline{ripresa a caldo}.
+		Prima di dare la dimostrazione di view-serializzabile, è necessario dare tre definizioni:
+		\begin{enumerate}
+			\item Un'operazione di lettura $r_{i}\left(x\right)$ si definisce \dquotes{\textbf{legge da}} quando una scrittura $w_{j}\left(x\right)$ di un'altra transazione sulla stessa risorsa precede la lettura $r_{i}\left(x\right)$ sulla stessa risorsa. Inoltre, non ci deve essere alcuna scrittura $w_{k}\left(x\right)$ appartenente ad un'altra transazione tra le due operazioni ($r_{i}\left(x\right)$ e $w_{j}\left(x\right)$).
+			
+			\item Un'operazione di scrittura $w_{i}\left(x\right)$ viene definita \dquotes{\textbf{scrittura finale}} se è l'ultima scrittura dell'oggetto $x$ che appare nello schedule.
+			
+			\item \textbf{Due schedule} vengono definiti \textbf{view-equivalenti} se posseggono la \textbf{stessa relazione \dquotes{legge da} e le stesse \dquotes{scritture finali}}.
+		\end{enumerate}
+		\textbf{Uno schedule viene detto view-serializzabile se esiste uno schedule seriale view-equivalente ad esso}. L'insieme degli schedule seriali view-equivalenti ad esso si chiama VSR.
+		
+		Inoltre, esiste una \textbf{relazione tra l'insieme VSR e l'insieme dei conflict-serializzabili (CSR)}:
+		\begin{equation*}
+			CSR \subset VSR
+		\end{equation*}
+		Ovvero, se uno \textbf{schedule è CSR, allora è anche VSR allo stesso tempo, ma non viceversa!}\newpage
+		
+		\noindent
+		\begin{proof}[\textbf{Dimostrazione} $CSR \Longrightarrow VSR$]
+			Si supponga che lo schedule $S_{1}$ abbia uno schedule seriale conflict-equivalente a $S_{2}$. Allora si dimostra che lo schedule $S_{1}$ ha come schedule seriale view-equivalente $S_{2}$.\newline
+			
+			\noindent
+			Dato che $S_{2}$ è uno schedule seriale conflict-equivalente a $S_{1}$, allora:
+			\begin{itemize}
+				\item L'insieme delle scritture finali di $S_{1}$ è uguale all'insieme delle scritture finali di $S_{2}$:
+				\begin{equation*}
+					\text{Scritture finali } S_{1} = \text{Scritture finali } S_{2}
+				\end{equation*}
+				Ipotizzando per assurdo il contrario, allora esisterebbero due scritture sulla stessa risorsa in ordine diverso. Tuttavia, dato che le due scritture sarebbero in conflitto, i due schedule non sarebbero conflict-equivalenti.
+				
+				\item L'insieme dei \dquotes{legge da} di $S_{1}$ è uguale all'insieme dei \dquotes{legge da} di $S_{2}$:
+				\begin{equation*}
+					\text{Legge da } S_{1} = \text{Legge da } S_{2}
+				\end{equation*}
+				Ipotizzando per assurdo il contrario, allora esisterebbero due scritture in ordine diverso o coppie lettura-scrittura in ordine diverso. Tuttavia, come sopra, dato che le due scritture sarebbero in conflitto, i due schedule non sarebbero conflict-equivalenti.
+			\end{itemize}
+		\end{proof}
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{21em} @{}}
+				\toprule
+				Concetto & Definizione \\
+				\midrule
+				Def. legge da 						& Quando, data una risorsa, una \textbf{scrittura di un'altra transizione precede una lettura di un'altra transazione sulla stessa risorsa}. Inoltre, \textbf{non ci deve essere una scrittura da parte di un'altra transizione}, su tale risorsa, tra le due operazioni citate. \\ [.7em]
+				Def. scrittura finale 				& Quando è l'\textbf{ultima scrittura dell'oggetto $x$ che appare nello schedule}. \\ [.7em]
+				Def. view-equivalenza				& Se \textbf{due schedule hanno la stessa relazione legge da e le stesse scritture finali}. \\ [.7em]
+				Dimostrazione $CSR \Rightarrow VSR$	& Vedere sopra. \\
+				\bottomrule
+			\end{tabular}
+			\caption{Riepilogo dei concetti della domanda sulla view-serializzabilità e la relazione tra VSR e CSR.}
+		\end{table}\newpage
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Lo studente illustri la struttura di accesso ai dati denominata indice secondario, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.}}}\label{dom: indice secondario}
+		
+		L'\textbf{indice secondari}o utilizza una \textbf{chiave di ricerca} che \textbf{\underline{non} coincide con la chiave di ordinamento del file sequenziale}.
+		
+		\textbf{Ogni record} possiede:
+		\begin{itemize}
+			\item Un \textbf{valore} della \textbf{chiave di ricerca}
+			
+			\item \textbf{Puntatore al bucket di puntatori che individuano nel file sequenziale tutte le tuple con valore di chiave uguale al valore della chiave di ricerca}
+		\end{itemize}
+		Inoltre, gli indici secondari \textbf{sono sempre densi}.
+		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/indice-secondario-1.pdf}
+		\end{figure}
+		
+		\noindent
+		Operazione di \textbf{ricerca}:
+		\begin{enumerate}
+			\item \textbf{Scansione sequenziale dell'indice} per trovare il record
+			
+			\item \textbf{Accesso al bucket di puntatori} attraverso il puntatore presente dentro il record trovato
+			
+			\item \textbf{Accesso al file attraverso i puntatori del bucket} al quale è stato fatto l'accesso al punto precedente.
+		\end{enumerate}
+		\begin{equation*}
+			\text{Costo} = 1 \text{ accesso indice } + 1 \text{ accesso al bucket } + n \text{ accessi pagine dati}
+		\end{equation*}\newpage
+		
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/ex/indice-secondario-2.pdf}
+		\end{figure}
+		
+		\begin{table}[!htp]
+			\centering
+			\begin{tabular}{@{} l p{23em} @{}}
+				\toprule
+				Concetto & Descrizione \\
+				\midrule
+				Definizione & Indice secondario usa una \textbf{chiave di ricerca che non coincide con la chiave di ordinamento del file sequenziale}. \\ [.7em]
+				%
+				Valori nel record & Ogni record ha due valori:
+				\begin{enumerate}
+					\item \textbf{Valore chiave di ricerca}
+					
+					\item \textbf{Puntatore al bucket di puntatori}, i quali individuano nel file sequenziale tutte le tuple con valore di chiave uguale al valore della chiave di ricerca.
+				\end{enumerate} \\ [.7em]
+				%
+				Op. ricerca & La ricerca si divide in tre passi:
+				\begin{enumerate}
+					\item \textbf{Scansione sequenziale dell'indice} finché non viene trovato il record
+					
+					\item \textbf{Accesso al bucket dei puntatori} grazie al puntatore trovato nel record
+					
+					\item \textbf{Accesso al file sequenziale} grazie ai puntatori del bucket
+				\end{enumerate}\\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		\item \textbf{(\emph{2 punti})} \textcolor{Green4}{\textbf{\emph{Lo studente illustri l'algoritmo di \underline{ripresa a caldo}.}}}
+		
+		Risposta a pagina \pageref{dom: ripresa a caldo}.
 	\end{enumerate}\newpage
 	
 	% \section{Esami terzo parziale}
@@ -1611,16 +2168,68 @@
 		
 		\emph{Risposta:} pagina \pageref{dom: gestione dei guasti}
 		
+		\item Illustrare le \textbf{proprietà delle transazioni}; si indichi inoltre quali moduli di un DBMS garantiscono ciascuna di tali proprietà.
+		
+		\emph{Risposta:} pagina \pageref{dom: proprietà delle transazioni}
+		
+		\item Illustrare il meccanismo di \textbf{2PL stretto}.
+		
+		\emph{Risposta:} pagina \pageref{dom: 2PL stretto}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\longline
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
 		\item Si presenti in dettaglio la definizione di \textbf{Conflict-Serializzabilità (CSR)}.
 		
 		\emph{Risposta:} pagina \pageref{dom: CSR - Conflict-Serializzabilità}
+		
+		\item Si presenti in dettaglio la \textbf{politica di concessione dei lock} applicata dal gestore dell'esecuzione concorrente secondo la tecnica detta \dquotes{Locking a due fasi}.
+		
+		\emph{Risposta:} pagina \pageref{dom: politica di concessione dei lock - locking a due fasi}
+		
+		\item Si presenti in dettaglio la \textbf{definizione di conflict-equivalenza} tra due schedule.
+		
+		\emph{Risposta:} pagina \pageref{dom: conflict-equivalenza}
+		
+		\item Si presenti in dettaglio la \textbf{definizione di view-equivalenza} tra due schedule.
+		
+		\emph{Risposta:} pagina \pageref{dom: view-equivalenza}
+		
+		\item Si presenti la definizione di \textbf{View-Serializzabilità (VSR)} e la \textbf{relazione} tra l'insieme degli schedule \textbf{VSR} e l'insieme degli schedule \textbf{CSR}. Presentare la dimostrazione formale di tale relazione.
+		
+		\emph{Risposta:} pagina \pageref{dom: view-serializzabilità, relazione VSR e CSR + dimostrazione}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\longline
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\item Lo studente illustri la struttura di accesso ai dati denominata \textbf{indice primario denso}: caratteristiche della struttura, ricerca, inserimento e cancellazione di entry dall'indice.
 		
 		\emph{Risposta:} pagina \pageref{dom: indice primario denso}
 		
-		\item 
+		\item Lo studente illustri la struttura di accesso ai dati denominata \textbf{indice primario sparso}, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.
 		
-		\item 
+		\emph{Risposta:} pagina \pageref{dom: indice primario sparso}
+		
+		\item Lo studente illustri la struttura di accesso ai dati denominata \textbf{struttura ad accesso calcolato (hashing)}, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.
+		
+		\emph{Risposta:} pagina \pageref{dom: struttura ad accesso calcolato - hashing}
+		
+		\item Lo studente illustri la struttura di accesso ai dati denominata \textbf{B+-tree}, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.
+		
+		\emph{Risposta:} pagina \pageref{dom: B+-tree}
+		
+		\item Lo studente illustri la struttura di accesso ai dati denominata \textbf{indice secondario}, si descrivano in particolare i seguenti punti: (i) le caratteristiche della struttura di accesso, (ii) l'algoritmo di ricerca di una tupla con chiave K usando l'indice.
+		
+		\emph{Risposta:} pagina \pageref{dom: indice secondario}
+		
+		\item Lo studente illustri le differenze tra i costrutti \textbf{elemento} e \textbf{attributo} del linguaggio XML, mostrando un esempio di documento XML dove vengono utilizzati entrambi.
+		
+		\emph{Risposta:} pagina \pageref{dom: elemento e attributo in XML}
+		
+		\item Lo studente illustri l'algoritmo di \textbf{ripresa a caldo}.
+		
+		\emph{Risposta:} pagina \pageref{dom: ripresa a caldo}
 	\end{itemize}
 \end{document}
