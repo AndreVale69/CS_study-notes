@@ -3033,6 +3033,49 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 		\caption{Conversione del modello precedente in un'architettura Pub/Sub.}
 	\end{figure}\newpage
 	
+	\noindent
+	Inoltre, il modello \textbf{Pub/Sub} è \emph{\textbf{data centric}} poiché evidenzia principalmente chi sono i produttori/consumatori di un certo tipo di informazione. Al contrario, il modello \textbf{client/server} è \textbf{\emph{host centric}}.\newline
+	
+	\noindent
+	Un'\textbf{applicazione} basata su \textbf{Pub/Sub} è più \textbf{facilmente estendibile} nel caso in cui: \textbf{devono variare il numero di produttori/consumatori ed è necessario aggiungere diversi tipi di informazione}.\newline
+	
+	\noindent
+	Infine, \textbf{Pub/Sub è più leggero a livello di byte trasmessi} a confronto del modello client/server che utilizza HTTP.
+	
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l p{26em} @{}}
+			\toprule
+			Differenze 	& Spiegazione \\
+			\midrule
+			Requisiti	& Nel modello \textbf{client/server}, i requisiti che necessita un host per essere un \textbf{\underline{server}}, sono molteplici:
+			\begin{itemize}
+				\item Sempre \textbf{accessibile};
+				
+				\item Sempre \textbf{raggiungibile} tramite Internet;
+				
+				\item Sempre \textbf{disponibile} a una grande mole di richieste.
+			\end{itemize}
+			Al contrario, \textbf{Pub/Sub ha un intermediario} (\emph{\textbf{broker}}) che si assume le responsabilità di un server. \\ [.5em]
+			%
+			Trasformazione & Data un'applicazione:
+			\begin{equation*}
+				\text{Client/Server} \xrightarrow{\text{trasformazione}} \text{Pub/Sub}
+			\end{equation*}
+			Tuttavia, \underline{non è possibile} fare il \textbf{contrario}. \\ [.5em]
+			%
+			\emph{Centric}	& Il modello \textbf{Pub/Sub} è considerato \emph{\textbf{data centric}} poiché i produttori/consumatori sono ben identificati. Al contrario, il modello \textbf{Client/Server} è considerato \emph{\textbf{host centric}}. \\ [.5em]
+			%
+			Estendibilità 	& \textbf{Pub/Sub è molto estensibile} e non sono necessarie grandi cambiamenti all'infrastruttura. Il modello \textbf{Client/Server non ha questo vantaggio}. \\ [.5em]
+			%
+			Byte inviati 	& \textbf{Pub/Sub invia molti meno byte} rispetto al modello client/server che utilizza HTTP. \\
+			\bottomrule
+		\end{tabular}
+		\caption{Riepilogo delle differenze tra Pub/Sub e Client/Server.}
+	\end{table}
+	
+	\newpage
+	
 	\subsection{Aspetti positivi dell'architettura Pub/Sub}
 	
 	Gli aspetti positivi di un'architettura Pub/Sub sono molteplici. I più importanti sono due:
