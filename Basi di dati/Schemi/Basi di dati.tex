@@ -350,7 +350,7 @@
 	
 	\subsection{I costrutti principali del modello}
 	
-	Si analizzano i principali costrutti di questo modello: entità (pagina~\pageref{entità}), relazioni(pagina~\pageref{relazioni}) e attributi (pagina~\pageref{attributi}).
+	Si analizzano i principali costrutti di questo modello: entità (pagina~\pageref{par: entità}), relazioni(pagina~\pageref{par: relazioni}) e attributi (pagina~\pageref{par: attributi}).
 	
 	\subsubsection{Entità}\label{par: entità}
 	\textcolor{Red3}{\textbf{Definizione.}} Rappresentano \textbf{classi di oggetti} (per esempio, fatti, cose, persone) \textbf{che hanno proprietà comuni ed esistenza \dquotes{autonoma} ai fini dell'applicazione di interesse}. Per esempio, \dquotes{città, dipartimento, impiegato, acquisto e vendita} sono entità di un'applicazione aziendale. Inoltre, \textbf{ogni entità ha un nome identificativo}, il quale deve essere \textbf{univoco}. In sintesi:
@@ -4194,7 +4194,7 @@ xsi:schemaLocation="http://www.books.org BookStore.xsd">\end{lstlisting}
 	
 	\subsubsection{Confronto tra \textsf{complexType} e \textsf{simpleType}}
 	
-	Le definizioni dei vari tipi si possono trovare al paragrafo~\ref{complexType} per quanto riguarda \textsf{complexType}, mentre al paragrafo~\ref{simpleType} per quanto riguarda \textsf{simpleType}.\newline
+	Le definizioni dei vari tipi si possono trovare al paragrafo~\ref{par: complexType} per quanto riguarda \textsf{complexType}, mentre al paragrafo~\ref{par: simpleType} per quanto riguarda \textsf{simpleType}.\newline
 	
 	\noindent
 	Il \textbf{tipo} \textsf{complexType} è consigliabile utilizzarlo quando si vuole \textbf{definire la struttura di un elemento}. Per \textcolor{Green4}{\textbf{esempio}} i figli di un elemento oppure gli attributi di un elemento. Invece, il tipo \textsf{simpleType} viene utilizzato quando si vuole creare un nuovo tipo che è una rifinitura di un tipo già esistente.
@@ -5131,7 +5131,7 @@ on 	< delete | update >
 \begin{lstlisting}[language=SQL]
 check ( Condizione )
 \end{lstlisting}
-	Le condizioni ammissibili sono le stesse che possono apparire come argomento della clausola \textsf{where} di un'interrogazione SQL. Inoltre, la condizione deve essere \textbf{sempre verificata} affinché la base di dati sia corretta. In questo modo è possibile specificare tutti i vincoli intrarelazionali (paragrafo \ref{vincoli intrarelazionali}).\newline
+	Le condizioni ammissibili sono le stesse che possono apparire come argomento della clausola \textsf{where} di un'interrogazione SQL. Inoltre, la condizione deve essere \textbf{sempre verificata} affinché la base di dati sia corretta. In questo modo è possibile specificare tutti i vincoli intrarelazionali (paragrafo \ref{par: vincoli intrarelazionali}).\newline
 	
 	\noindent
 	Una dimostrazione della potenza del costrutto consiste nel mostrare come tutti i vincoli predefiniti possano essere descritti con la clausola \textsf{check}. Per questo motivo, si riprende la seguente dichiarazione effettuata nel paragrafo dei vincoli interrelazionali:
@@ -5142,7 +5142,7 @@ check ( Condizione )
 	\begin{enumerate}
 		\item I vincoli predefiniti (primo \href{https://it.wikipedia.org/wiki/Snippet}{\emph{snippet}}) consentono una rappresentazione \textbf{molto più compatta e leggibile}. Per esempio, il vincolo di chiave ha bisogno di una rappresentazione abbastanza complicata, che fa uso dell'operatore \textsf{count} (contatore/conteggio).
 		
-		\item \textbf{Perdita} della possibilità di associare ai vincoli una \textbf{politica di reazione} alle violazioni (paragrafo \ref{politiche di reazione ad una modifica/eliminazione}).
+		\item \textbf{Perdita} della possibilità di associare ai vincoli una \textbf{politica di reazione} alle violazioni (paragrafo \ref{par: politiche di reazione ad una modifica/eliminazione}).
 		
 		\item Le espressioni dei \textbf{vincoli mediante costrutti predefiniti} (primo \emph{snippet}) viene gestita in modo migliore dal sistema, il quale le riconosce immediatamente e riesce a gestirle in modo \textbf{più efficiente}.
 	\end{enumerate}\newpage
@@ -5240,7 +5240,7 @@ drop domain StringaLunga cascade\end{lstlisting}
 	Eliminazione dei dipartimenti senza impiegati.\newline
 	
 	\noindent
-	Infine, si noti la \textbf{differenza} tra il comando \textsf{delete} appena visto e il comando \textsf{drop} (paragrafo \ref{drop}). Infatti, un comando:
+	Infine, si noti la \textbf{differenza} tra il comando \textsf{delete} appena visto e il comando \textsf{drop} (paragrafo \ref{par: drop}). Infatti, un comando:
 \begin{lstlisting}[language=SQL]
 delete from Dipartimento\end{lstlisting}
 	Elimina tutte le righe della tabella Dipartimento, eventualmente eliminando anche tutte le righe dalle tabella che sono legate da vincolo di integrità referenziale con la tabella, se per il vincolo è specificata la politica \textsf{cascade}.\newline
@@ -5315,7 +5315,7 @@ drop table Dipartimento cascade\end{lstlisting}
 
 	\subsubsection{\textsf{From}}
 	
-	Quando viene considerata un'interrogazione che coinvolge righe appartenenti a più di una tabella, viene posto come argomento della clausola \textsf{from} l'\textbf{insieme di tabelle alle quali si vuole accedere}. Sul prodotto cartesiano delle tabelle elencate verranno applicate le condizioni contenute nella clausola \textsf{where}. Sintassi identica al paragrafo \ref{select}.\newline
+	Quando viene considerata un'interrogazione che coinvolge righe appartenenti a più di una tabella, viene posto come argomento della clausola \textsf{from} l'\textbf{insieme di tabelle alle quali si vuole accedere}. Sul prodotto cartesiano delle tabelle elencate verranno applicate le condizioni contenute nella clausola \textsf{where}. Sintassi identica al paragrafo \ref{par: select}.\newline
 	
 	\noindent
 	Per \textcolor{Green4}{\textbf{esempio}}, data la base dati a pagina \pageref{img: select dbms}, si eseguono le seguenti interrogazioni:
@@ -5649,7 +5649,7 @@ drop table Dipartimento cascade\end{lstlisting}
 
 	\subsection{Interrogazioni nidificate (\textsf{any}, \textsf{all}, \textsf{in}, \textsf{not in}, \textsf{some})}
 	
-	Il linguaggio SQL consente di scrivere interrogazioni che presentano al loro interno altre interrogazioni. Si parla in questo caso di \textcolor{Red3}{\textbf{interrogazioni nidificate}} e possono avvenire sia nella clausola \textsf{select}, sia nella clausola \textsf{from}, sia nella clausola \textsf{where}. In questo paragrafo verranno viste nella clausola \textsf{where} poiché è l'uso più comune. Mentre nel paragrafo~\ref{interrogazioni nidificate nelle clausole select e from} è possibile vederle nelle clausole \textsf{select} e \textsf{from}.
+	Il linguaggio SQL consente di scrivere interrogazioni che presentano al loro interno altre interrogazioni. Si parla in questo caso di \textcolor{Red3}{\textbf{interrogazioni nidificate}} e possono avvenire sia nella clausola \textsf{select}, sia nella clausola \textsf{from}, sia nella clausola \textsf{where}. In questo paragrafo verranno viste nella clausola \textsf{where} poiché è l'uso più comune. Mentre nel paragrafo~\ref{par: interrogazioni nidificate nelle clausole select e from} è possibile vederle nelle clausole \textsf{select} e \textsf{from}.
 	
 	\longline
 	
@@ -5698,7 +5698,7 @@ drop table Dipartimento cascade\end{lstlisting}
 	Per rappresentare il \textbf{controllo di appartenenza e di esclusione rispetto ad un insieme}, SQL mette a disposizione due appositi operatori, \textcolor{Red3}{\textsf{in}} e \textcolor{Red3}{\textsf{not in}}, i quali risultano del tutto identici agli operatori che sono stati visti negli esempi del paragrafo precedente (\textsf{= any}, \textsf{<> all}).\newline
 	
 	\noindent
-	Data la semplicità di questi operatori, gli \textcolor{Green4}{\textbf{esempi}} sono consultabili in combinazione con altri argomenti al paragrafo~\ref{interrogazioni nidificate complesse (exists)}.\newpage
+	Data la semplicità di questi operatori, gli \textcolor{Green4}{\textbf{esempi}} sono consultabili in combinazione con altri argomenti al paragrafo~\ref{par: interrogazioni nidificate complesse (exists)}.\newpage
 	
 	\subsubsection{Interrogazioni nidificate complesse (\textsf{exists}), passaggio di binding e scope}\label{par: interrogazioni nidificate complesse (exists)}
 	
