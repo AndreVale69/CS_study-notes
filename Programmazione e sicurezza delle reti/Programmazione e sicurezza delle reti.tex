@@ -3135,6 +3135,250 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 		\caption{Esempio di QoS2.}
 	\end{figure}\newpage
 	
+	\subsubsection{Struttura del topic}
+	
+	I \textcolor{Red3}{\textbf{\emph{topic}}} (argomenti) servono ad \textbf{etichettare i dati per indicarne la tipologia}. Solitamente sono stringhe di testo in cui ci sono spazi, anche se è preferibile utilizzare trattini \dquotes{-} o \dquotes{\_}.\newline
+	
+	\noindent
+	Inoltre, è possibile creare \textbf{gerarchie di argomenti} utilizzando lo \emph{slash} \dquotes{/}. Come per \textcolor{Green4}{\textbf{esempio}}:
+	\begin{itemize}
+		\item \textsf{casa/sensori/temperatura/cucina}
+		
+		\item \textsf{casa/sensori/temperatura/soggiorno}
+	\end{itemize}
+	Qualsiasi \emph{topic} compreso tra \dquotes{/} si chiama \textbf{livello}.\newline
+	
+	\noindent
+	I \textbf{subscriber} possono utilizzare i caratteri \dquotes{\#} e \dquotes{+} come sostituti di parti di \emph{topic} (wildcards, si veda il prossimo paragrafo).
+	
+	\longline
+	
+	\subsubsection{Approfondimento Wildcards}
+	
+	Gli \textcolor{Red3}{\textbf{wildcards}} sono simboli che vengono utilizzati dai \emph{subscribers} al posto dei topic per avere risultati più completi:
+	\begin{itemize}
+		\item Il \textbf{carattere} \dquotes{\#} viene utilizzato per \textbf{sottoscriversi a tutti i topic} che si ottengono sostituendo \# con una sequenza di \underline{\textbf{livelli di suffisso reali}}.
+		
+		Ad \textcolor{Green4}{\textbf{esempio}}, invece di sottoscriversi ai topic:
+		\begin{itemize}
+			\item \textsf{level1/level2/level3}
+			\item \textsf{level1/level2/level3bis}
+		\end{itemize}
+		Basta sottoscriversi a:
+		\begin{itemize}
+			\item \textsf{level1/level2/\#}
+		\end{itemize}
+		
+		\item Il \textbf{carattere} \dquotes{+} viene utilizzato per \textbf{sottoscriversi a tutti i topic} che si ottengono sostituendo + con una sequenza di \underline{\textbf{livelli di prefisso reali}}.
+		
+		Ad \textcolor{Green4}{\textbf{esempio}}, invece di sottoscriversi ai topic:
+		\begin{itemize}
+			\item \textsf{level1/level2/level3}
+			\item \textsf{level1/level2/level3bis}
+		\end{itemize}
+		Basta sottoscriversi a:
+		\begin{itemize}
+			\item \textsf{+/level2/level3}
+		\end{itemize}
+	\end{itemize}
+	
+	\longline
+	
+	\subsubsection{Approfondimento Broker}
+	
+	Il \textcolor{Red3}{\textbf{\emph{broker}}} è l'\textbf{intermediario} nel modello Pub/Sub ed è l'\underline{unico} che \textbf{implementa connessioni TCP lato server} (porta 1883: trasmissioni in chiaro; porta 8883: trasmissioni TCP con sicurezza TLS/SSL). Inoltre, il \textbf{broker} può trovarsi su \textbf{hardware} e \textbf{sistemi operativi diversi} da quelli dei pub/sub. Anche il \textbf{linguaggio di programmazione} utilizzato può essere \textbf{differente}. Questo perché il protocollo \textbf{MQTT} che \textbf{consente di coordinare tutto}.\newpage
+	
+	\subsection[\textcolor{Red3}{\textbf{Esercizio}}]{Esercizi MQTT}
+	
+	\subsubsection{Guida all'installazione di Mosquitto su Linux}
+	
+	Per installare un broker MQTT (Mosquitto) è necessario scrivere la seguente linea di comando:
+	\begin{lstlisting}
+sudo apt install mosquitto\end{lstlisting}
+	Per avviare il broker si utilizza il comando:
+	\begin{lstlisting}
+sudo systemctl start mosquitto\end{lstlisting}
+	Per verificare che il broker funzioni si utilizza il comando:
+	\begin{lstlisting}
+sudo systemctl status mosquitto\end{lstlisting}
+	Per fermare il broker si utilizza il comando:
+	\begin{lstlisting}
+sudo systemctl stop mosquitto\end{lstlisting}
+	L'installazione di un pub/sub MQTT è eseguito con il comando:
+	\begin{lstlisting}
+sudo apt install mosquitto-clients\end{lstlisting}
+	Comandi utili:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l l @{}}
+			\toprule
+			Descrizione & Comando \\
+			\midrule
+			Indirizzo IP broker & \textsf{-h} oppure \textsf{-}\textsf{-host} \\
+			Topic messaggio 	& \textsf{-t} oppure \textsf{-}\textsf{-topic} \\
+			Contenuto messaggio & \textsf{-m} oppure \textsf{-}\textsf{-message} \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\longline
+	
+	\subsubsection{Domande sull'esempio Pub/Sub}
+	
+	Dato l'esempio:
+	\begin{itemize}
+		\item \textsf{mosquitto\_sub -t "temperatura"}
+		\item \textsf{mosquitto\_pub -m "22" -t "temperatura"}
+	\end{itemize}
+	Si risponda alle seguenti domande.\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Partendo dall'esercizio mostrato nelle istruzioni, cosa succede se pubblico una temperatura prima di aver lanciato il subscriber?}}}\newline
+	
+	\noindent
+	Il publisher invia il valore 22 con il topic temperatura al broker attivo, ma la richiesta non viene consegnata a nessun subscriber poiché non esistono. Quindi, viene pubblicato il messaggio, ma nessuno lo riceve (eccetto il broker).\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Partendo dall'esercizio mostrato nelle istruzioni, creare un'applicazione pub/sub con 2 sensori di temperatura relativi a 2 stanze diverse. Quante finestre di terminale devo aprire?}}}\newline
+	
+	\noindent
+	Dipende da quanto si vuole isolare ogni componente. Nel caso in cui si utilizzino 3 terminali:
+	\begin{itemize}
+		\item Subscribers:
+		\begin{enumerate}
+			\item Terminale \dquotes{archivio} della prima stanza:
+			\begin{lstlisting}
+mosquitto_sub -t "temperatura/stanza1"\end{lstlisting}
+			
+			\item Terminale \dquotes{archivio} della seconda stanza
+			\begin{lstlisting}
+mosquitto_sub -t "temperatura/stanza2"\end{lstlisting}
+		\end{enumerate}
+		
+		\item Publisher:
+		\begin{enumerate}
+			\item Terminale \dquotes{sensore di temperatura} delle due stanze. Quindi verrà eseguita una pubblicazione prima di una stanza:
+			\begin{lstlisting}
+mosquitto_pub -m "22" -t "temperatura/stanza1"\end{lstlisting}
+			E poi dell'altra:
+			\begin{lstlisting}
+mosquitto_pub -m "22" -t "temperatura/stanza2"\end{lstlisting}
+		\end{enumerate}
+	\end{itemize}
+	Altrimenti, nel caso in cui si voglia distinguere ogni termostato che pubblica la temperatura, allora:
+	\begin{itemize}
+		\item Subscribers:
+		\begin{enumerate}
+			\item Terminale \dquotes{archivio} della prima stanza:
+			\begin{lstlisting}
+mosquitto_sub -t "temperatura/stanza1"\end{lstlisting}
+			
+			\item Terminale \dquotes{archivio} della seconda stanza
+			\begin{lstlisting}
+mosquitto_sub -t "temperatura/stanza2"\end{lstlisting}
+		\end{enumerate}
+		
+		\item Publishers:
+		\begin{enumerate}
+			\item Terminale \dquotes{sensore di temperatura} della prima stanza. Quindi verrà eseguita una pubblicazione della stanza numero 1:
+			\begin{lstlisting}
+mosquitto_pub -m "22" -t "temperatura/stanza1"\end{lstlisting}
+
+			\item Terminale \dquotes{sensore di temperatura} della seconda stanza. Quindi verrà eseguita una pubblicazione della stanza numero 2:
+			\begin{lstlisting}
+mosquitto_pub -m "22" -t "temperatura/stanza2"\end{lstlisting}	
+		\end{enumerate}
+	\end{itemize}\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Partendo dall'esercizio precedente, come fare per avere un unico subscriber per entrambe le temperature? Come si fa a distinguere da quale stanza proviene la temperatura?}}}\newline
+	
+	\noindent
+	Per avere un unico subscriber è necessario chiudere un terminale dei due subscriber attivi e l'unico che rimane, modificarlo con gli wildcards.
+	\begin{itemize}
+		\item Subscriber:
+		\begin{enumerate}
+			\item Terminale \dquotes{archivio unico} di entrambe le stanze:
+			\begin{lstlisting}
+mosquitto_sub -t "temperatura/#"\end{lstlisting}
+		\end{enumerate}
+		
+		\item Publishers:
+		\begin{enumerate}
+			\item Terminale \dquotes{sensore di temperatura} della prima stanza. Quindi verrà eseguita una pubblicazione della stanza numero 1:
+			\begin{lstlisting}
+mosquitto_pub -m "22-stanza1" -t "temperatura/stanza1"\end{lstlisting}
+			
+			\item Terminale \dquotes{sensore di temperatura} della seconda stanza. Quindi verrà eseguita una pubblicazione della stanza numero 2:
+			\begin{lstlisting}
+mosquitto_pub -m "22-stanza2" -t "temperatura/stanza2"\end{lstlisting}	
+		\end{enumerate}
+	\end{itemize}
+	Come si vede dal messaggio inviato, per capire la stanza dalla quale proviene, una soluzione possibile è modificare il messaggio aggiungendo la stanza di provenienza accanto al valore.\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Usare Wireshark per capire quale protocollo viene utilizzato da tutti gli attori a livello 3 e 4. Quali sono le porte di livello trasporto coinvolte?}}}\newline
+	
+	\noindent
+	Come protocollo viene utilizzato MQTT:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/pub-sub/esercizi-1}
+	\end{figure}
+	
+	\noindent
+	Anche se nella figura viene visto il livello 3 e 4 poiché si ferma solo al livello 2, il protocollo è lo stesso.\newline
+	
+	\noindent
+	Le porte utilizzate sono:
+	\begin{itemize}
+		\item Il subscriber utilizza la porta 38120;
+		
+		\item Il publisher della stanza 1 utilizza la porta 54474;
+		
+		\item Il publisher della stanza 2 utilizza la porta 60688.
+	\end{itemize}
+	La porta utilizzata dal broker, visibile poiché il pacchetto 16, 30 e 48 comunicano con lui e viceversa, è la numero 1883.\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Prova a pubblicare un valore di umidità relativa (topic \dquotes{UR}); il subscriber interessato alla temperatura lo riceve? Come si fa a creare un subscriber interessato all'umidità? Costruire un'applicazione pub/sub con 4 finestre per produrre e visualizzare sia valori di temperatura sia valori di umidità.}}}\newline
+	
+	\noindent
+	Il subscriber interessato alle temperature non riceve il messaggio del publisher sull'umidità, poiché il topic a cui è iscritto il subscriber è diverso.\newline
+	
+	\noindent
+	Per creare un subscriber interessato all'umidità, è necessario aprire un terminale e scrivere il comando:
+	\begin{lstlisting}
+mosquitto_sub -t "UR"\end{lstlisting}
+	Per costruire un'applicazione pub/sub con 4 finestre:
+	\begin{itemize}
+		\item Publishers:
+		\begin{enumerate}
+			\item Terminale \dquotes{sensore di temperatura}. Quindi verrà eseguita una pubblicazione del tipo:
+			\begin{lstlisting}
+mosquitto_pub -m "22" -t "temperatura"\end{lstlisting}
+			
+			\item Terminale \dquotes{sensore di umidità}. Quindi verrà eseguita una pubblicazione del tipo:
+			\begin{lstlisting}
+mosquitto_pub -m "5" -t "UR"\end{lstlisting}
+		\end{enumerate}
+		
+		\item Subscribers:
+		\begin{enumerate}
+			\item Terminale \dquotes{archivio temperature}:
+			\begin{lstlisting}
+mosquitto_sub -t "temperatura"\end{lstlisting}
+				
+			\item Terminale \dquotes{archivio umidità}:
+			\begin{lstlisting}
+mosquitto_sub -t "UR"\end{lstlisting}
+		\end{enumerate}
+	\end{itemize}
+	
+	%TODO
+	
+	\newpage
+	
 	\section{Integrità, Autenticazione e Autorizzazione}
 	
 	\subsection{Integrità}
