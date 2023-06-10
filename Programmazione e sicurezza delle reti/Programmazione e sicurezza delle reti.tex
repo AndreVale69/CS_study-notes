@@ -3184,7 +3184,7 @@ CMD ["java", "-jar", "myapp.jar"]\end{lstlisting}
 	
 	\longline
 	
-	\subsubsection{Approfondimento Broker}
+	\subsubsection{Approfondimento Broker}\label{par: Approfondimento Broker}
 	
 	Il \textcolor{Red3}{\textbf{\emph{broker}}} è l'\textbf{intermediario} nel modello Pub/Sub ed è l'\underline{unico} che \textbf{implementa connessioni TCP lato server} (porta 1883: trasmissioni in chiaro; porta 8883: trasmissioni TCP con sicurezza TLS/SSL). Inoltre, il \textbf{broker} può trovarsi su \textbf{hardware} e \textbf{sistemi operativi diversi} da quelli dei pub/sub. Anche il \textbf{linguaggio di programmazione} utilizzato può essere \textbf{differente}. Questo perché il protocollo \textbf{MQTT} che \textbf{consente di coordinare tutto}.\newpage
 	
@@ -3373,11 +3373,70 @@ mosquitto_sub -t "temperatura"\end{lstlisting}
 			\begin{lstlisting}
 mosquitto_sub -t "UR"\end{lstlisting}
 		\end{enumerate}
+	\end{itemize}\newpage
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Si vuole costruire con MQTT un servizio di messaggistica universitaria:}}}
+	\begin{itemize}
+		\item \textcolor{Green4}{\textbf{\emph{Il rettore può leggere tutti i messaggi}}}
+		
+		\item \textcolor{Green4}{\textbf{\emph{La segreteria può leggere i messaggi dai docenti e dagli studenti}}}
+		
+		\item \textcolor{Green4}{\textbf{\emph{I docenti possono leggere i messaggi dai docenti e dagli studenti}}}
+		
+		\item \textcolor{Green4}{\textbf{\emph{Gli studenti possono leggere solo i messaggi degli altri studenti}}}
 	\end{itemize}
 	
-	%TODO
+	\noindent
+	Prima di descrivere i comandi da eseguire per creare l'applicazione, si presenta qua di seguito l'albero dei topic:
+	\begin{itemize}
+		\item Livello 1:
+		\begin{itemize}
+			\item \textsf{universita}
+		\end{itemize}
+		
+		\item Livello 2:
+		\begin{itemize}
+			\item \textsf{universita/personale}
+			\item \textsf{universita/direzione}
+		\end{itemize}
+		
+		\item Livello 3:
+		\begin{itemize}
+			\item \textsf{universita/personale/docenti}
+			\item \textsf{universita/personale/studenti}
+		\end{itemize}
+	\end{itemize}
+	Adesso si impostano i 4 subscribers in 4 terminali diversi:
+	\begin{itemize}
+		\item Il rettore ha i permessi di leggere qualsiasi messaggio dell'università, quindi deve avere accesso a qualsiasi topic:
+		\begin{lstlisting}
+mosquitto_sub -t "universita/#"\end{lstlisting}
+		
+		\item La segreteria deve avere la possibilità di leggere solo i messaggi provenienti dai docenti e dagli studenti:
+		\begin{lstlisting}
+mosquitto_sub -t "universita/personale/#"\end{lstlisting}
+		
+		\item I docenti hanno gli stessi permessi della segreteria e quindi il comando sarà:
+		\begin{lstlisting}
+mosquitto_sub -t "universita/personale/#"\end{lstlisting}
+		
+		\item Gli studenti hanno i permessi più restrittivi di tutti, ovvero possono solo leggere i messaggi provenienti da altri studenti:
+		\begin{lstlisting}
+mosquitto_sub -t "universita/personale/studenti"\end{lstlisting}
+	\end{itemize}\newpage
 	
-	\newpage
+	\subsubsection[\textcolor{Red3}{\textbf{Possibile domanda da esame}}]{Possibile domanda da esame}
+	
+	Durante le esercitazioni fatte in aula, il professore si è raccomandato più e più volte di disattivare Mosquitto una volta terminati gli esercizi. Addirittura è stato consigliato di disinstallarlo se non utilizzato per molto tempo. La domanda, interessante e papabile per l'esame, è la seguente: perché Mosquitto deve essere disattivato per motivi di sicurezza?\newline
+	
+	\noindent
+	Mosquitto è un message broker open source che implementa il protocollo MQTT. Tale servizio, una volta installato, viene eseguito ogniqualvolta il sistema si avvia.
+	
+	Quando Mosquitto viene avviato, in automatico all'avvio o manualmente da linea di comando, sulla macchina viene aperta una porta (1883 oppure 8883, come descritto nel paragrafo a pagina~\pageref{par: Approfondimento Broker}). Dunque, il calcolatore diventa un vero e proprio server e infatti esso è un vero e proprio \emph{broker} che smista i messaggi nei vari topic.\newline
+	
+	\noindent
+	\textbf{La disattivazione comporta la chiusura della porta e si evita che qualche attaccante possa sfruttare questa falla per entrare nel sistema o diffondere un virus.}\newpage
 	
 	\section{Integrità, Autenticazione e Autorizzazione}
 	
@@ -3823,6 +3882,29 @@ mosquitto_sub -t "UR"\end{lstlisting}
 	\end{itemize}
 	Ovviamente il modello MAC risulta \textbf{meno flessibile ma più robusto del modello DAC}.\newpage
 	
+	\subsection[\textcolor{Red3}{\textbf{Domande da esame}}]{Domande da esame}
+	
+	Possibili domande da esame:
+	\begin{enumerate}
+		\item \textcolor{Green4}{\textbf{\emph{Perché è necessario certificare un sito web? Perché nel nome del certificato c'è il nome del sito?}}}
+		
+		\textbf{Il certificato è essenziale poiché certifica il dominio di un determinato sito web} e \textbf{inoltre fornisce una chiave pubblica utilizzata da chi visita il sito, per inviare un messaggio cifrato}. Così facendo, tutti i malintenzionati potranno creare qualsiasi sito di phishing, ma non avranno mai la certificazione ufficiale rilasciata dall'ente certificato.
+		
+		È possibile che un attaccante esegua:
+		\begin{itemize}
+			\item Un attacco ad un server DNS;
+			
+			\item Crei un server DNS fasullo.
+		\end{itemize}
+		In entrambi i casi, l'utente potrebbe cadere in trappola. Infatti, nel momento in cui vada a richiedere un sito al server DNS, credendo che sia quello originale, otterrebbe un indirizzo IP di un sito web falso. Nonostante il \emph{fake website} possa avere una certificazione, quest'ultima potrebbe \underline{non} essere rilasciata da un ente certificato e avere un nome falso.
+		
+		\item \textcolor{Green4}{\textbf{\emph{È strettamente obbligatorio un certificato lato client?}}}
+		
+		Se la connessione è HTTPS, la connessione è cifrata con una chiave simmetrica. Quindi il client non necessita di un certificato, ma può banalmente utilizzare username e password.
+		
+		Nel caso in cui un attaccante si metta ad ascoltare la conversazione (Man-in-the-middle), non potrebbe avere speranze di leggere in chiaro la conversazione poiché sarebbe criptata. Cosa invece che non succede nel caso di HTTP.
+	\end{enumerate}\newpage
+	
 	\section{WePlant}
 	
 	\subsection{Configurazione Linux}
@@ -4046,4 +4128,23 @@ npm run start\end{lstlisting}
 		\centering
 		\includegraphics[width=\textwidth]{img/we-plant/API.jpg}
 	\end{figure}
+	
+	\longline
+	
+	\subsection{Design Responsive}
+	
+	L'applicazione WePlant utilizza una configurazione \textcolor{Red3}{\textbf{Design Responsive}}.\newline
+	
+	\noindent
+	Con Design Responsive si intende una configurazione in cui il \textbf{server invia sempre lo stesso codice HTML a tutti i dispositivi e il codice CSS viene utilizzato per modificare il \emph{rendering} della pagina} sul dispositivo. I \textcolor{Green4}{\textbf{vantaggi}}:
+	\begin{itemize}
+		\item \textbf{Creazione di siti/applicazioni web che si adattano al dispositivo su cui vengono visualizzate} (PC, tablet, smartphone) in base alla dimensione dello schermo.
+		
+		\item \textbf{Ottimizzazione dei motori di ricerca}, ovvero dell'indicizzazione delle pagine (SEO, Search Engine Optimization). Le pagine \emph{responsive} ottengono un punteggio più alte e vengono visualizzate come primi risultati.
+		
+		\item \textbf{Tempo di progettazione inferiore} per la manutenzione di più pagine per gli stessi contenuti.
+		
+		\item \textbf{Nessun reindirizzamento per offrire agli utenti una visualizzazione ottimizzata} in base al dispositivo in uso.
+	\end{itemize}
+	Per \textbf{segnalare al browser che la pagina è Design Responsive}, viene utilizzato un meta tag nell'intestazione chiamato \textbf{meta tag viewport}. Nel caso in cui mancasse, i browser per dispositivi mobili applicano l'impostazione predefinita, ovvero eseguono il rendering della pagina alla larghezza utilizzata per gli schermi desktop.
 \end{document}
