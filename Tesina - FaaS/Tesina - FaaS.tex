@@ -124,8 +124,19 @@
 	\newpage
 	
 	% https://www.ibm.com/topics/faas#FaaS+vs.+serverless
-	% https://www.ibm.com/topics/faas#FaaS+vs.+serverless
+	% https://www.redhat.com/en/topics/cloud-native-apps/what-is-faas#faas-and-serverless
 	\subsection{FaaS e serverless}
+	
+	\emph{Serverless} è un modello di sviluppo ed esecuzione di applicazioni di \emph{cloud computing}, il quale consente ai programmatori di costruire ed eseguire il codice dell'applicazione senza preoccuparsi dei server o del \emph{backend} dell'infrastruttura.
+	
+	Nonostante spesso le persone scambino i modelli serverless e FaaS tra di loro, la verità è che sono due concetti diversi ed è corretto dire che FaaS è un sottoinsieme dei modelli serverless:
+	\begin{equation*}
+		\text{FaaS} \subset \text{serverless models}
+	\end{equation*}
+	
+	Serverless is focused on any service category, be it compute, storage, database, messaging, api gateways, etc. where configuration, management, and billing of servers are invisible to the end user.
+	
+	FaaS, on the other hand, while perhaps the most central technology in serverless architectures, is focused on the event-driven computing paradigm wherein application code, or containers, only run in response to events or requests.
 	
 	% https://www.redhat.com/en/topics/cloud-native-apps/what-is-faas#how-does-faas-work
 	\subsection{Panoramica generale su come funziona FaaS}
