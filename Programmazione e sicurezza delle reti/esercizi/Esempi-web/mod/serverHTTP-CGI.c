@@ -68,6 +68,3 @@ int main(){
     closeConnection(sockfd);
     return 0;
 }
-
-
-
