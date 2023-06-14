@@ -144,6 +144,101 @@
 	
 	Il modello Function-as-a-Service può essere considerato la tecnologia più centrale nell'architettura \emph{serverless}. In altre parole è il cuore pulsante. FaaS è focalizzato sul paradigma \emph{event-driven} (orientato agli eventi), dove il codice dell'applicazione, o del \emph{container}, viene eseguito solo in risposta a determinati eventi o richieste.\newpage
 	
+	\section{Architettura Function-as-a-Service: Azure Functions}
+	
+	Questo capitolo presenta una serie di \emph{designing applications} realizzate sulla piattaforma Azure che sono scalabili, sicure, resilienti, e altamente disponibili. In particolare, le seguenti architetture sono tutte \emph{serverless}. Questa tipologia consente di rendere astratto il codice dall'infrastruttura in cui viene eseguito. In questa architettura, Azure Functions è sempre implementata e per questo motivo viene detta \emph{event-driven}.
+	
+	\longline
+	
+	\subsection{Azure Functions in un ambiente ibrido}
+	
+	Questo paragrafo\footnote{Fonte: \href{https://learn.microsoft.com/en-us/azure/architecture/hybrid/azure-functions-hybrid}{Microsoft}} illustra un'architettura con molteplici rami (\emph{branches}, o server) locali di un'organizzazione che è sparsa geograficamente in tutto il mondo. Ogni posto utilizza un App Microsoft Azure Function che è collegata al server più vicino a quella regione. Gli sviluppatori monitorano tutte le applicazioni Azure Function utilizzando Azure Monitor.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/azure-functions-hybrid.pdf}
+		\caption{\emph{Azure Functions in a hybrid environment.}}
+	\end{figure}
+	Si noti bene che ogni sviluppatore lavora in locale (\emph{on-premises network}) così da eseguire tutte le verifiche del caso e solo successivamente viene caricato tramite Azure.\newpage
+	
+	\subsection{Automatizzazione cloud \emph{event-based}}
+	
+	Questo paragrafo\footnote{Fonte: \href{https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/serverless/cloud-automation}{Microsoft}} illustra un'automatizzazione del flusso di lavoro e di alcuni compiti ripetitivi sul cloud, grazie alle tecnologie \emph{serverless}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/cloud-automation.png}
+		\caption{\emph{Event-based cloud automation.}}
+	\end{figure}
+	
+	\noindent
+	Gli scenari rappresentati sono due:
+	\begin{enumerate}
+		\item \textbf{Etichettatura dei centri di costo} (\emph{Cost center tagging}). Questa implementazione consente di monitorare i costi di ogni risorsa Azure:
+		\begin{itemize}
+			\item L'evento Grid (\textbf{Azure Event Grid}) monitora gli eventi di creazione di risorse e nel caso di cambiamenti, invoca una Azure Function;
+			
+			\item Un'applicazione (\textbf{Logic App}) invia una email al proprietario della risorsa nel caso venga cambiato il tag della risorsa;
+			
+			\item Nel frattempo, \textbf{Azure Functions} interagisce con \textbf{Azure Active Directory} tramite chiamate REST per effettuare controlli e aggiornamenti.
+		\end{itemize}
+		
+		\item \textbf{\emph{Throttling response}}. Questo implementazione monitora un database Azure Cosmos DB per riscontrare eventuali \emph{throttling} (strozzature):
+		\begin{itemize}
+			\item \textbf{Azure Monitor alerts} viene \emph{triggerato} quando le richieste di accesso ai dati del database eccedono la capacità di unità di richiesta, RUs (\emph{Request Units});
+			
+			\item \textbf{Azure Monitor action group} è configurato per \emph{triggerare} la funzione automatizza (Azure Function) per rispondere a questi tipi di allarmi;
+			
+			\item \textbf{Azure Function} scala il limite della Request Units ad un valore più alto, aumentando così la capacità e a sua volta fermando l'allarme.
+		\end{itemize}
+	\end{enumerate}\newpage
+	
+	\subsection{Soluzioni Multicloud con Framework Serverless}
+	
+	Questo paragrafo\footnote{Fonte: \href{https://learn.microsoft.com/en-us/azure/architecture/example-scenario/serverless/serverless-multicloud}{Microsoft}} illustra come il team di Microsoft Commercial Software Engineering (CSE) ha collaborato con un venditore al dettaglio globale, per sviluppare un'architettura \emph{serverless} ad alta disponibilità utilizzando due piattaforme, Amazon Web Services e Azure, grazie al Framework Serverless sviluppato dall'omonima azienda (\href{https://www.serverless.com/about}{Serverless Inc.}).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/multi-cloud-serverless-architecture.pdf}
+		\caption{\emph{Multicloud solutions with the Serverless Framework.}}
+	\end{figure}
+	
+	\noindent
+	Gli utenti possono provenire da qualsiasi risorsa in grado di accedere al cloud. In questa implementazione, gli utenti si registrano in un'app \emph{gateway} che suddivide il carico delle richieste a metà: 50\% nell'architettura Azure e 50\% nell'architettura Amazon Web Services Cloud. Inoltre, ogni risposta passa attraverso un API Manager \emph{gateway}, il quale la invia all'applicazione richiedente.\newpage
+	
+	\subsection{Condivisione della posizione in tempo reale usando un servizio Azure serverless low-cost}
+	
+	Questo paragrafo\footnote{Fonte: \href{https://learn.microsoft.com/en-us/azure/architecture/example-scenario/signalr/}{Microsoft}} illustra come organizzare una soluzione che elabora modifiche per una visualizzazione web, senza il bisogno di ricaricare la pagina, utilizzando servizi \emph{real-time}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/archdiagram.pdf}
+		\caption{\emph{Share a location in real time by using low-cost serverless Azure services.}}
+	\end{figure}
+	
+	\begin{itemize}
+		\item \textbf{Azure Service Bus} è un servizio di messaggistica cloud altamente affidabile, che si trova tra le applicazioni e i servizi. Riesce a funzionare anche quando uno o più componenti sono offline;
+		
+		\item \textbf{Azure SignalR Service} è un servizio che rendere semplice aggiungere comunicazioni in tempo reale ad una web app;
+		
+		\item \textbf{Azure Functions}, modello FaaS.
+	\end{itemize}\newpage
+	
+	\subsection{Serverless event processing}
+	
+	Questo paragrafo\footnote{Fonte: \href{https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/serverless/event-processing}{Microsoft}} illustra un'architettura che acquisisce uno stream di dati, li processa, e li scrive come risultato in un \emph{back-end database}.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/serverless-event-processing.png}
+		\caption{\emph{Serverless event processing.}}
+	\end{figure}
+	
+	\begin{enumerate}
+		\item Gli eventi arrivano alla componente Azure Event Hubs che è programmato per sopportare alti livelli di portata di streaming di dati;
+		
+		\item Una Function App (Azure Functions) viene \emph{triggerata} per gestire l'evento;
+		
+		\item L'evento viene salvato in un database Azure Cosmos DB;
+		
+		\item Se la Function App fallisce il salvataggio dell'evento, allora esso viene salvato in una \emph{Storage queue} per essere processato in futuro.
+	\end{enumerate}\newpage
+	
 	\section{Aziende che offrono un servizio FaaS}
 	
 	\subsection{IBM: cloud functions}
@@ -394,10 +489,10 @@
 		\item Apertura di Visual Studio Code;
 		
 		\item Sulla colonna di sinistra, cliccare sull'icona di Microsoft Azure ed eseguire il login
-		\begin{center}
+		\begin{figure}[!htp]
 			\centering
-			\includegraphics[width=.5\textwidth]{img/azure-1.png}
-		\end{center}
+			\includegraphics[width=.4\textwidth]{img/azure-1.png}
+		\end{figure}
 		
 		\item Adesso si procede alla creazione di un nuovo progetto, quindi si apre la \emph{palette} di VSCode (Windows CTRL + SHIFT + P) e si digita \dquotes{\textsf{Azure Functions: Create New Project...}};
 		
@@ -406,10 +501,10 @@
 		\item Si seleziona il linguaggio di programmazione (nel nostro caso Python), le versione (3.10 nel nostro caso), il template che dovrà essere HTTP trigger per creare le API, il nome della funzione (potrà essere cambiato in futuro), poi si deve selezionare \dquotes{\textsf{Function}} e scegliere se aprirlo nella finestra corrente;
 		
 		\item Una volta creato l'ambiente, la schermata iniziale dovrebbe avere dei file con un codice d'esempio:
-		\begin{center}
+		\begin{figure}[!htp]
 			\centering
 			\includegraphics[width=\linewidth]{img/azure-2.png}
-		\end{center}
+		\end{figure}
 	\end{enumerate}\newpage
 	
 	\subsection{Creazione delle API}
@@ -435,9 +530,60 @@
 			\item Nella cartella Somma, il file deve essere modificato aggiungendo sotto il parametro \textsf{methods}, il parametro \textsf{"route": "calcola-somma"}
 			\item Nella cartella Sottrazione, il file deve essere modificato aggiungendo sotto il parametro \textsf{methods}, il parametro \textsf{"route": "calcola-sottrazione"}
 		\end{itemize}
-		Così facendo, le API potranno essere raggiunte tramite il link: localhost:7000/api/calcola-somma
+		Così facendo, le API potranno essere raggiunte tramite i links:
+		\begin{itemize}
+			\item \url{localhost:7000/api/calcola-somma}
+			\item \url{localhost:7000/api/calcola-differenza}
+		\end{itemize}
 		
-		\item Adesso è necessario modificare i file python. L'implementazione della differenza si lascia al lettore, ricordando che la variabile \textsf{req\_body} contiene un dizionario del file json che viene passato durante l'invocazione della API. Quindi, scrivendo \textsf{req\_body["name\_val\_inside\_json"]} è possibile acquisire il valore corrispondente.
-		\lstinputlisting[language=python]{code/azure.py}
+		\item Adesso è necessario modificare i files python. L'implementazione della differenza si lascia al lettore, ricordando che la variabile \textsf{req\_body} contiene un dizionario del file json che viene passato durante l'invocazione della API. Quindi, scrivendo \textsf{req\_body["name\_val\_inside\_json"]} è possibile acquisire il valore corrispondente.
+		\lstinputlisting[language=python]{code/azure.py}\newpage
+		
+		\noindent
+		Dove \dquotes{\textsf{val1}} e \dquotes{\textsf{val2}} sono valori dichiarati all'interno del JSON allegato al pacchetto di richiesta inviato al server.
+		
+		La cartella alla fine dovrebbe avere questi file:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.4\textwidth]{img/azure-3.png}
+		\end{figure}
+	\end{enumerate}
+	Si lascia qua di seguito il link alla documentazione ufficiale delle classe \textsf{HttpRequest}: \href{https://learn.microsoft.com/en-us/python/api/azure-functions/azure.functions.httprequest?view=azure-python}{official documentation}.
+	\newpage
+	
+	\subsection{Esecuzione delle API in locale}
+	
+	Per verificare se la procedura è andata a buon fine, si prova ad eseguire Azure Functions:
+	\begin{enumerate}
+		\item Si apre la \emph{palette} di Visual Studio Code;
+		
+		\item Si scrive il seguente comando: \dquotes{\textsf{Debug: Select and Start Debugging}};
+		
+		\item Nella schermata successiva, si conferma cliccando su \dquotes{\textsf{Attach to Python Functions}};
+		
+		\item A questo punto, si dovrebbe aprire il terminale integrato e dovrebbero essere visibili tutte le API implementate:
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/azure-4.png}
+		\end{figure}
+		
+		\item Aprendo la pagina web, la schermata dovrebbe restituire un errore poiché i valori devono essere passati nel body come JSON. Per farlo, si utilizza il software \href{https://www.postman.com/}{Postman}. Si invia una richiesta GET/POST ad una delle due API, ricordandosi di inserire nel body il JSON:
+		\begin{lstlisting}
+{
+	"val1": 5,
+	"val2": 6
+}\end{lstlisting}
+		La risposta sarà una pagina web contente il risultato.
+	\end{enumerate}\newpage
+	
+	\subsection{Creare una vera e propria API con Azure}
+	
+	Dopo aver sviluppato le API nei capitoli precedenti, è possibile mandare in produzione (\emph{Deploy}) un'applicazione e affiancare le API:
+	\begin{enumerate}
+		\item Aprendo il progetto precedente e andando sull'estensione di Azure Functions, nell'area Resources è possibile cliccare con il destro sopra Function App e creare un'applicazione;
+		
+		\item Dopo la creazione, che necessita di qualche minuto, sarà possibile cliccare su \textsf{Deploy...} nell'area Workspace e collegare le API all'applicazione creata;
+		
+		\item Una volta che l'applicazione sarà UP (online), sarà possibile ottenere il link per l'API andando sulla dashboard online di Azure e cercando le funzioni implementate.
 	\end{enumerate}
 \end{document}
