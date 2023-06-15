@@ -6069,51 +6069,47 @@ SELECT id, nomeins FROM Insegn WHERE nomeins='Algoritmi'\end{lstlisting}
 	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} di \textbf{una sola riga}:
 	\begin{lstlisting}[language=SQL]
 EXPLAIN SELECT * FROM Insegn\end{lstlisting}
-	\emph{\underline{Output:}}\newline
-
-	\noindent
-	\textsf{Seq Scan ON insegn (cost=0.0..185.69 ROWS=8169 width=63)}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-1.pdf}
+	\end{figure}
 	\begin{itemize}
 		\item \textsf{0.0} indica il \textbf{costo iniziale} per produrre la prima riga;
 		\item \textsf{185.69} indica il \textbf{costo totale} per produrre tutte le righe;
 		\item \textsf{8169} indica il \textbf{numero totale di righe del risultato};
 		\item \textsf{63} indica la \textbf{dimensione} in byte di \textbf{ciascuna riga}.
-	\end{itemize}\:\newline
+	\end{itemize}\newpage
 
 	\noindent
 	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con \textbf{due nodi}:
 	\begin{lstlisting}[language=SQL]
 EXPLAIN SELECT * FROM Insegn WHERE id < 1000\end{lstlisting}
-	\emph{\underline{Output:}}\newline
-
-	\noindent
-	\textsf{Bitmap Heap Scan ON insegn (cost=18.60..132.79 ROWS=815...)}\newline
-	\textsf{Recheck Cond: (id < 1000)}\newline
-	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0..18.39 ROWS=815 width=0)}\newline
-	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-2.pdf}
+	\end{figure}
 	\begin{itemize}
 		\item Prima viene \textbf{eseguito il nodo foglia}, cioè \textsf{Bitmap INDEX Scan}: grazie all'indice B-tree, l'ottimizzatore determina un \textbf{vettore di indirizzi di righe da considerare};
 		\item Tale \textbf{vettore viene poi passato al nodo padre}, cioè \textsf{Bitmap Heap Scan} che \textbf{carica le righe ed esegue la selezione finale ricontrollando} che \textsf{id < 1000}.
-	\end{itemize}\newpage
+	\end{itemize}\:\newline
 
 	\noindent
 	Un altro \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con \textbf{due nodi}:
 	\begin{lstlisting}[language=SQL]
 DROP INDEX ins_nomeins; -- c'e' solo indice su id
 EXPLAIN SELECT * FROM Insegn WHERE id < 1000 AND nomeins LIKE 'Al%'\end{lstlisting}
-	\emph{\underline{Output:}}\newline
-
-	\noindent
-	\textsf{Bitmap Heap Scan ON Insegn (cost=18.40..134.62 ROWS=1...)}\newline
-	\textsf{Recheck Cond: (id < 1000)}\newline
-	\textsf{Filter: ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT)}\newline
-	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0.00..18.39 ROWS=815 width=0)}\newline
-	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-3.pdf}
+	\end{figure}
 	\begin{enumerate}
 		\item Il nodo \textsf{Bitmap Heap Scan} carica le righe indicate dall'indice;
 		\item Per ciascuna riga caricata, ricontrolla che \textsf{id < 1000};
 		\item Se inoltre \textsf{nomeins} inizia con \textsf{'Al'}, essa viene selezionata.
-	\end{enumerate}\:\newline
+	\end{enumerate}\newpage
 
 	\noindent
 	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con uso di \textbf{due indici sulla stessa tabella}:
@@ -6121,58 +6117,147 @@ EXPLAIN SELECT * FROM Insegn WHERE id < 1000 AND nomeins LIKE 'Al%'\end{lstlisti
 CREATE INDEX nomeIdx ON Insegn (nomeins varchar_pattern_ops);
 ANALYZE Insegn;
 EXPLAIN SELECT * FROM Insegn WHERE id < 1000 AND nomeins LIKE 'Al%'\end{lstlisting}
-	\emph{\underline{Output:}}\newline
-
-	\noindent
-	\textsf{Bitmap Heap Scan ON Insegn (cost=15.30..22.58 ROWS=4 width=63)}\newline
-	\textsf{Recheck Cond: (id < 1000)}\newline
-	\textsf{Filter: ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT)}\newline
-	\textsf{-> BitmapAnd (cost=15.30..15.30 ROWS=4 width=0)}\newline
-	\textsf{-> Bitmap INDEX Scan ON nomeidx (cost=0..2.65 ROWS=37 width=0)}\newline
-	\textsf{\phantom{-> }INDEX Cond: (((nomeins)::TEXT $\sim$>=$\sim$ 'Al'::TEXT) AND}\newline
-	\textsf{\phantom{-> INDEX Cond: (}((nomeins)::TEXT $\sim$<$\sim$ 'Am'::TEXT))}\newline
-	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0.00..12.40 ROWS=815 width=0)}\newline
-	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-4.pdf}
+	\end{figure}
 	\begin{itemize}
 		\item \textbf{Ciascuna foglia scansiona un indice}. Il padre delle foglie (\textsf{BitmapAnd}) fa l'\textbf{intersezione degli indirizzi delle righe trovate}.
 		\item La root (\textsf{Bitmap Heap Scan}) \textbf{carica le righe} ed \textbf{ricontrolla} che le \textbf{condizioni siano soddisfatte}.
-	\end{itemize}\newpage
+	\end{itemize}\:\newline
 
 	\noindent
 	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con uso di \textbf{due indici sulla stessa tabella}:
 	\begin{lstlisting}[language=SQL]
 EXPLAIN SELECT * FROM Insegn WHERE id < 1000 OR nomeins LIKE 'Al%'\end{lstlisting}
-	\emph{\underline{Output:}}\newline
-
-	\noindent
-	\textsf{Bitmap Heap Scan ON Insegn (cost=15.47..132.25 ROWS=850 width=63)}\newline
-	\textsf{Recheck Cond: ((id < 1000) OR ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT))}\newline
-	\textsf{Filter: ((id < 1000) OR ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT))}\newline
-	\textsf{-> BitmapOr (cost=15.47..15.47 ROWS=852 width=0)}\newline
-	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0.00..12.40 ROWS=815 width=0)}\newline
-	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}\newline
-	\textsf{-> Bitmap INDEX Scan ON nomeidx (cost=0.00..2.65 ROWS=37 width=0)}\newline
-	\textsf{\phantom{-> }INDEX Cond: (((nomeins)::TEXT $\sim$>=$\sim$ 'Al'::TEXT) AND}\newline
-	\textsf{\phantom{-> INDEX Cond: (}((nomeins)::TEXT $\sim$<$\sim$ 'Am'::TEXT))}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-5.pdf}
+	\end{figure}
 	\begin{itemize}
 		\item Il \textbf{padre delle foglie} (\textsf{BitmapOr}) esegue l'\textbf{unione degli indirizzi delle righe trovate}.
-	\end{itemize}\:\newline
+	\end{itemize}\newpage
 
 	\noindent
 	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con \textbf{planner che decide diversamente cambiando condizione}:
 	\begin{lstlisting}[language=SQL]
 EXPLAIN SELECT * FROM Insegn WHERE id < 1000 AND nomeins LIKE 'Al%'\end{lstlisting}
-	\emph{\underline{Output:}}\newline
-
-	\noindent
-	\textsf{Bitmap Heap Scan ON Insegn (cost=12.40..128.62 ROWS=1 width=63)}\newline
-	\textsf{Recheck Cond: (id < 1000)}\newline
-	\textsf{Filter: ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT)}\newline
-	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0.00..12.40 ROWS=815 width=0)}\newline
-	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}\newline
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-6.pdf}
+	\end{figure}
 	\begin{itemize}
 		\item La condizione \textsf{nomeins LIKE '\%Al'} rende \textbf{impossibile l'uso dell'indice}.
 	\end{itemize}\:\newline
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con uso di \textbf{un join mediante hash table}:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN SELECT * FROM Insegn JOIN Inserogato IE ON IE.id_insegn = I.id
+WHERE IE.annoaccademico = '2013/2014'\end{lstlisting}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-7.pdf}
+	\end{figure}
+	\begin{enumerate}
+		\item Rimossi indici relativi ad \textsf{annoaccademico} prima di eseguire questa prova;
+		\item Il nodo Hash prepara un hash table tramite una scansione sequenziale (\textsf{Seq Scan});
+		\item Il nodo Hash Join, per ogni riga fornita dal primo figlio (\textsc{Seq Scan}), cerca nella hash table (secondo figlio) la riga da unire secondo la condizione (\textsf{IE.annoaccademico = '2013/2014'});
+	\end{enumerate}
+	\begin{itemize}
+		\item Nonostante Insegn.id ha indice, qui non viene utilizzato!
+		\item L'unico \textsf{\textbf{Seq Scan}} che si potrebbe \textbf{ottimizzare} è quello a riga 3.
+	\end{itemize}\:\newpage
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con uso di \textbf{un join mediante nested loop}:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN SELECT * FROM Insegn I JOIN Inserogato IE ON IE.id_insegn > I.id
+WHERE IE.annoaccademico = '2013/2014'\end{lstlisting}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-8.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item La condizione del \textbf{JOIN è meno selettiva} (le righe finali sono più di 14 milioni);
+		\item Il join viene fatto usando un loop (\textsf{Nested Loop}): \textbf{ogni riga prodotta dal nodo \textsf{Seq Scan} si unisce con ogni riga prodotta dal nodo \textsf{INDEX Scan}};
+		\item L'unico \textsf{\textbf{Seq Scan}} che si potrebbe \textbf{ottimizzare} è quello alla riga 2.
+	\end{itemize}
+
+	\noindent
+	L'\textbf{ottimizzazione della query precedente}:
+	\begin{lstlisting}[language=SQL]
+CREATE INDEX ie_aa ON Inserogato (annoaccademico varchar_pattern_ops);
+ANALYZE Inserogato;
+EXPLAIN SELECT *
+FROM Insegn I JOIN Inserogato IE ON IE.id_insegn > I.id
+WHERE IE.annoaccademico = '2013/2014'\end{lstlisting}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-10.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item Da 397.269 accessi a disco si è passati a 391.932!
+	\end{itemize}\:\newpage
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con uso di \textbf{un join mediante merge join}:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN SELECT * FROM t1, t2
+WHERE t1.unique1 < 100 AND t1.unique2 = t2.unique2\end{lstlisting}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-11.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item \textsf{Merge Join} esegue il join ordinando prima le due tabelle rispetto gli attributi di join;
+		\item t1 è già ordinata via indice;
+		\item t2 non è ordinata, quindi c'è un nodo Sort;
+		\item L'unico \textbf{\textsf{Seq Scan}} che si potrebbe \textbf{ottimizzare} è quello evidenziato: un indice eviterebbe il \textsf{Sort}.
+	\end{itemize}\newpage
+
+	\subsubsection{Explain avanzato}
+
+	Il comando \textcolor{Red3}{\textbf{\textsf{EXPLAIN ANALYZE}}}:
+	\begin{enumerate}
+		\item Mostra il piano di esecuzione;
+		\item Esegue la query senza registrare eventuali modifiche;
+		\item Mostra una stima verosimile dei tempi di esecuzione.
+	\end{enumerate}
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain analyze} con esecuzione:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN ANALYZE SELECT * FROM Insegn WHERE id < 1000 AND nomeins LIKE 'Algo %'\end{lstlisting}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-12.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item Per \textbf{ogni nodo del piano}: dettaglio righe rimosse, memoria usata e tempi di esecuzione in millisecondi (ms);
+		\item Alla \textbf{fine}: stima tempo di pianificazione e di esecuzione.
+	\end{itemize}\newpage
+
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}} di \textsf{explain analyze} con esecuzione di una query pesante:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN ANALYZE SELECT * FROM Insegn I, inserogato IE
+WHERE IE.annoaccademico = '2013/2014' AND IE.id_insegn > I.id\end{lstlisting}
+	\emph{\underline{Output:}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/explain-13.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item Il valore di \textsf{loops} indica per \textbf{quante volte viene eseguito il nodo};
+		\item Spesso il numero di righe dopo cost è diverso dal numero di righe dopo \textsf{actual TIME}. Quest'\textbf{ultimo è più corretto}.
+	\end{itemize}\newpage
 
 	\subsection{Introduzione al controllo di concorrenza in SQL}
 	
