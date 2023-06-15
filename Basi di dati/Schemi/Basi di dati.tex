@@ -5898,4 +5898,119 @@ drop table Dipartimento cascade\end{lstlisting}
 	\end{equation*}
 	Si esegue la seguente \emph{query}: si vuole estrarre per ogni cliente le tasse che devono essere pagate per tutte le moto possedute, ipotizzando che se vi sono più proprietari per una moto, l'ammontare delle tasse viene equamente diviso tra i proprietari.
 	\lstinputlisting[language=SQL]{code/create_view-ex9.sql}\newpage
+	
+	\section{Analisi prestazionale delle query e interazione con una base dati con Python}
+	
+	\subsection{Introduzione agli indici e analisi prestazioni query SQL}
+	
+	\subsubsection{Indici}
+	
+	Gli \textcolor{Red3}{\textbf{indici}} sono delle \textbf{strutture dati} ausiliare che consentono di \textbf{accedere ai dati di una tabella in maniera efficiente}. Inoltre, essendo una struttura dati ausiliaria, esso deve essere \textbf{mantenuto aggiornato} in base al contenuto della tabella in cui è definito.\newline
+	
+	\noindent
+	Un \textbf{aggiornamento} può essere \textbf{significativo se ci sono molti indici} definiti sulla medesima tabella. Per questo motivo, gli \textbf{indici devono essere definiti considerando la loro efficacia}.
+	
+	\longline
+	
+	\subsubsection{Schema concettuale di riferimento}
+	
+	Qua di seguito si lascia uno schema concettuale di riferimento:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/schema-concettuale.png}
+	\end{figure}
+	
+	\noindent
+	Le scelte progettuali sono principalmente due:
+	\begin{enumerate}
+		\item Ogni tabella ha l'attributo in grassetto \textsf{\textbf{id}} che è chiave primaria, mentre la sottolineatura ondulata indica gli attributi che contribuiscono alla chiave concettuale;
+		
+		\item In ogni tabella, una chiave esportata ha il formato \textsf{id\_<tabellaEsterna>} e si riferisce sempre all'attributo \textsf{id} della tabella esterna.
+	\end{enumerate}\newpage
+	
+	\noindent
+	Lo schema fisico:
+	\begin{equation*}
+		\begin{array}{ll}
+			\mathsf{InsErogato} 	& (
+			\mathsf{\textbf{id}}, \text{\underline{id\_insegn}, \underline{id\_corsostudi}, \underline{id\_discriminante}, \underline{annoaccademico},} \\
+			& \phantom{(} \text{id\_facolta, \underline{modulo}, \underline{nomemodulo}, \underline{discriminantemodulo}, crediti,} \\
+			& \phantom{(} \text{programma}
+			) \\
+			\mathsf{Insegn} 		& (\mathsf{\textbf{id}}, \text{\underline{nomeins}, \underline{codiceins}}) \\
+			\mathsf{Discriminante} 	& (\mathsf{\textbf{id}}, \text{nome, descrizione}) \\
+			\mathsf{CorsoStudi}		& (\mathsf{\textbf{id}}, \text{\underline{nomecorsostudi}, sede, durataAnni}) \\
+			\mathsf{CorsoInFacolta}	& (\mathsf{\textbf{id}}, \text{\underline{id\_corsostudi}, \underline{id\_facolta}}) \\
+			\mathsf{Facolta}		& (\mathsf{\textbf{id}}, \text{nome})
+		\end{array}
+	\end{equation*}
+	
+	\longline
+	
+	\subsubsection{Indici - Sintassi (\textsf{index})}
+	
+	Si consideri la seguente query:
+	\begin{lstlisting}[language=SQL]
+SELECT id, nomeins FROM Insegn WHERE nomeins='Algoritmi'\end{lstlisting}
+	Il DBMS deve fare una scansione sequenziale della tabella Insegn rispetto nomeins per estrarre le righe con valore uguale a \dquotes{Algoritmi}. Si ipotizzi, per \textcolor{Green4}{\textbf{esempio}}, che il tempo impiegato sia pari a 2.4337 millisecondi.\newline
+	
+	\noindent
+	Adesso, si supponga di eseguire una query con \textcolor{Red3}{\textsf{index}}. La sua sintassi semplificata:
+	\lstinputlisting[language=SQL]{code/index.sql}
+	\begin{itemize}
+		\item \textsf{method} è il \textbf{tipo di indice}, nei capitoli successivi verrà approfondito;
+		
+		\item \textsf{nomeAttr} o \textsf{expression} indicano su quali espressioni di \textbf{attributi si deve creare l'indice};
+		
+		\item \textsf{asc/desc} specificano se l'\textbf{indice} è \textbf{ordinato} in modo \textbf{ascendente} o \textbf{discendente};
+		
+		\item \textsf{alter index} e \textsf{drop index} consentono di \textbf{modificare/rimuovere indici} creati precedentemente.
+	\end{itemize}
+	Quindi, si riscrive la query iniziale con gli indici. Si sceglie l'attributo \textsf{nomeins} come obbiettivo dell'indice, poiché è quello più utilizzato per selezionare le righe:
+	\lstinputlisting[language=SQL]{code/index-ex1.sql}
+	Adesso, il tempo di esecuzione è sceso a soli 0.587 millisecondi! Si noti che il comando \textsf{ANALYZE} \textbf{aggiorna le statistiche del contenuto delle tabelle} (e indici). Viene anche eseguito in modo automatico dal sistema a intervalli regolari. Le statistiche vengono utilizzate dall'ottimizzatore di query per decidere quando usare gli indici.\newline
+	
+	\noindent
+	Un \textbf{indice}, una volta creato, viene usato dal sistema ogni volta che l'\textbf{ottimizzatore di query determina sia sensato usarlo}.\newline
+	
+	\noindent	
+	Inoltre, un DBMS \textbf{crea indici} in modo \textbf{automatico} solo per gli attributi che sono \textbf{chiave primaria}, cioè \textsf{PRIMARY KEY}. Per gli altri attributi, come nell'esempio soprastante, è necessaria una dichiarazione esplicita tramite \textsf{CREATE INDEX}.\newline
+	
+	\noindent
+	Un \textbf{indice velocizza} anche i \textbf{comandi} di \textsf{UPDATE/DELETE} quando nella clausola \textsf{WHERE} ci sono attributi indicizzati.\newline
+	
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}} di query \underline{senza} indici:
+	\lstinputlisting[language=SQL]{code/index-ex2.sql}
+	Si ricorda che gli indici sono usati per indirizzare tuple che contengono i valori dati sugli attributi specificati. Quindi, per velocizzare questa query, una possibilità è definire gli indici su tutti gli attributi usati per fare i JOIN o le selezioni.
+	\lstinputlisting[language=SQL]{code/index-ex3.sql}
+	Non tutti gli indici sono necessari. Più avanti verrà presentato un metodo per capire quali indici sono essenziali. Infine, con il comando ANALYZE viene forzato l'aggiornamento delle statistiche del database.\newpage
+	
+	\subsubsection{Tipi di indice: B-tree e Hash}
+	
+	PostgreSQL ammette diversi tipi di indici: B-tree, Hash, GiST, SP-GiST, GIN, BRIN. Ogni tipo ha un algoritmo diverso ed è efficace a seconda della situazione a cui è applicato. Nel caso in cui \textbf{non} venga \textbf{specificato un tipo}, PostgreSQL assume di \textbf{default B-tree}.\newline
+	
+	\noindent
+	L'ottimizzatore di query \textbf{considera un indice \textcolor{Red3}{B-tree}} ogni volta che l'attributo indicizzato è coinvolto in un confronto usando \textbf{uno dei seguenti operatori}:
+	\begin{itemize}
+		\item <
+		\item <=
+		\item >=
+		\item >
+	\end{itemize}
+	Oppure quando sono \textbf{presenti le keywork}:
+	\begin{itemize}
+		\item \textsf{BETWEEN}
+		\item \textsf{IN}
+		\item \textsf{IS NULL}
+		\item \textsf{IS NOT NULL}
+		\item \textsf{LIKE}
+	\end{itemize}
+	Invece, il tipo \textcolor{Red3}{\textbf{hash}} ha un uso limitato perché può essere \textbf{utilizzato solo quando i confronti sono di eguaglianza}. La gestione è complessa nel caso di basi di dati replicate o in caso di crash, per questi motivi PostgreSQL ne sconsiglia l'uso.
+	
+	\subsection{Introduzione al controllo di concorrenza in SQL}
+	
+	\subsection{Query in Python}
+	
+	\subsection{Accesso a una base di dati PostgreSQL con Python}
 \end{document}
