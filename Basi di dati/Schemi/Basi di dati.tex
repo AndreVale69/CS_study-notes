@@ -5983,8 +5983,14 @@ SELECT id, nomeins FROM Insegn WHERE nomeins='Algoritmi'\end{lstlisting}
 	Un altro \textcolor{Green4}{\textbf{esempio}} di query \underline{senza} indici:
 	\lstinputlisting[language=SQL]{code/index-ex2.sql}
 	Si ricorda che gli indici sono usati per indirizzare tuple che contengono i valori dati sugli attributi specificati. Quindi, per velocizzare questa query, una possibilità è definire gli indici su tutti gli attributi usati per fare i JOIN o le selezioni.
-	\lstinputlisting[language=SQL]{code/index-ex3.sql}
-	Non tutti gli indici sono necessari. Più avanti verrà presentato un metodo per capire quali indici sono essenziali. Infine, con il comando ANALYZE viene forzato l'aggiornamento delle statistiche del database.\newpage
+	\lstinputlisting[language=SQL]{code/index-ex3.sql}\:\newline
+
+	\noindent
+	Non tutti gli indici sono necessari. Inoltre, gli indici hanno un costo di tempo e di memoria.
+	Infatti, per \textbf{ogni operazione} di \textsf{INSERT}, \textsf{UPDATE}, \textsf{DELETE} su una tabella con gli indici, il DBMS deve \textbf{aggiornare anche gli indici della tabella}.\newline
+
+	\noindent
+	Per sapere quando utilizzare gli indici, si utilizza la seguente \underline{regola}: \textbf{si definiscono gli indici in base alle query più frequenti}.\newpage
 	
 	\subsubsection{Tipi di indice: B-tree e Hash}
 	
@@ -5998,6 +6004,11 @@ SELECT id, nomeins FROM Insegn WHERE nomeins='Algoritmi'\end{lstlisting}
 		\item >=
 		\item >
 	\end{itemize}
+	Utilizzando \textsf{varchar\_pattern\_ops} accanto al nome dell'attributo, è possibile utilizzare nel confronto anche gli operatori:
+	\begin{itemize}
+		\item <>
+		\item \textsf{LIKE}
+	\end{itemize}
 	Oppure quando sono \textbf{presenti le keywork}:
 	\begin{itemize}
 		\item \textsf{BETWEEN}
@@ -6006,8 +6017,163 @@ SELECT id, nomeins FROM Insegn WHERE nomeins='Algoritmi'\end{lstlisting}
 		\item \textsf{IS NOT NULL}
 		\item \textsf{LIKE}
 	\end{itemize}
-	Invece, il tipo \textcolor{Red3}{\textbf{hash}} ha un uso limitato perché può essere \textbf{utilizzato solo quando i confronti sono di eguaglianza}. La gestione è complessa nel caso di basi di dati replicate o in caso di crash, per questi motivi PostgreSQL ne sconsiglia l'uso.
+	Invece, il tipo \textcolor{Red3}{\textbf{hash}} ha un uso limitato perché può essere \textbf{utilizzato solo quando i confronti sono di eguaglianza}. La gestione è complessa nel caso di basi di dati replicate o in caso di crash, per questi motivi PostgreSQL ne sconsiglia l'uso.\newpage
+
+	\subsubsection{Indici multi-attributo}
 	
+	È possibile eseguire un'ottimizzazione maggiore grazie anche al \textcolor{Red3}{\textbf{multi-attributo}}.\newline
+
+	\noindent
+	Se la query ha \textbf{condizioni su coppie} (o terne) di \textbf{attributi} di una tabella, allora è possibile \textbf{applicare la tecnica del multi-attributo per migliorare le prestazioni}.\newline
+
+	\noindent
+	Al contrario, se le condizioni nella clausola \textsf{WHERE} sono divise con l'operatore \textsf{OR}, \textbf{non è possibile utilizzare gli indici multi-valore}.\newline
+
+	\noindent
+	Per \textcolor{Green4}{\textbf{esempio}}, si prenda in considerazione la seguente query ottimizzata con gli indici:
+	\lstinputlisting[language=SQL]{code/index-ex4.sql}
+	Con la \textbf{tecnica del multi-attributo} è possibile migliorare le prestazioni notando
+	che nella clausola \textsf{WHERE}, due attributi della tabella \textsf{InsErogato} vengono confrontati
+	con valori costanti (modifica alla riga 1):
+	\lstinputlisting[language=SQL]{code/index-ex5.sql}
+
+	\longline
+
+	\subsubsection{Indici di espressioni}
+
+	Talvolta è possibile velocizzare le espressioni creando indici sulle medesime. Per \textcolor{Green4}{\textbf{esempio}}, data la seguente query:
+	\lstinputlisting[language=SQL]{code/index-ex6.sql}
+	\underline{Non} è possibile applicare un indice poiché c'è l'operatore \textsf{LIKE}. Tuttavia, è possibile utilizzarlo sull'espressione, ricordando di utilizzare \textsf{varchar\_pattern\_ops}:
+	\lstinputlisting[language=SQL]{code/index-ex7.sql}\newpage
+
+	\subsubsection{Piano di esecuzione dell'ottimizzatore: \textsf{explain}}
+
+	Un DBMS ha un ottimizzatore di query che determina un piano per consentire una data query nel minor tempo possibile.
+	
+	Con il comando \textcolor{Red3}{\textsf{explain}} è possibile \textbf{vedere il piano di esecuzione di una query} che l'ottimizzatore determina senza eseguire la query.\newline
+
+	\noindent
+	Un \textbf{piano di esecuzione} di una query è:
+	\begin{itemize}
+		\item Un \textbf{albero di nodi di esecuzione};
+		\item Le \textbf{foglie sono nodi di scansione}. L'esecuzione di ogni nodo restituisce l'indirizzo delle righe della tabella.
+	\end{itemize}
+	
+	\noindent
+	Le \textbf{scansioni} possono essere di \textbf{tre tipi}: \textbf{sequenziali}, \textbf{indicizzate} e \textbf{mappate} su bit. Se una query contiene \textsf{JOIN}, \textsf{GROUP BY} o \textsf{ORDER BY} o altre operazioni sulle righe, allora ci saranno altri nodi di esecuzione sopra le foglie dell'albero.\newline
+
+	\noindent
+	Il \textbf{costo} che è possibile vedere nel risultato è in termini di \textbf{numero di accessi alla memoria secondaria}. Invece, il \textbf{numero totale di righe non è sempre il numero totale di righe valutate dall'esecuzione}.\newline
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} di \textbf{una sola riga}:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN SELECT * FROM Insegn\end{lstlisting}
+	\emph{\underline{Output:}}\newline
+
+	\noindent
+	\textsf{Seq Scan ON insegn (cost=0.0..185.69 ROWS=8169 width=63)}
+	\begin{itemize}
+		\item \textsf{0.0} indica il \textbf{costo iniziale} per produrre la prima riga;
+		\item \textsf{185.69} indica il \textbf{costo totale} per produrre tutte le righe;
+		\item \textsf{8169} indica il \textbf{numero totale di righe del risultato};
+		\item \textsf{63} indica la \textbf{dimensione} in byte di \textbf{ciascuna riga}.
+	\end{itemize}\:\newline
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con \textbf{due nodi}:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN SELECT * FROM Insegn WHERE id < 1000\end{lstlisting}
+	\emph{\underline{Output:}}\newline
+
+	\noindent
+	\textsf{Bitmap Heap Scan ON insegn (cost=18.60..132.79 ROWS=815...)}\newline
+	\textsf{Recheck Cond: (id < 1000)}\newline
+	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0..18.39 ROWS=815 width=0)}\newline
+	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}
+	\begin{itemize}
+		\item Prima viene \textbf{eseguito il nodo foglia}, cioè \textsf{Bitmap INDEX Scan}: grazie all'indice B-tree, l'ottimizzatore determina un \textbf{vettore di indirizzi di righe da considerare};
+		\item Tale \textbf{vettore viene poi passato al nodo padre}, cioè \textsf{Bitmap Heap Scan} che \textbf{carica le righe ed esegue la selezione finale ricontrollando} che \textsf{id < 1000}.
+	\end{itemize}\newpage
+
+	\noindent
+	Un altro \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con \textbf{due nodi}:
+	\begin{lstlisting}[language=SQL]
+DROP INDEX ins_nomeins; -- c'e' solo indice su id
+EXPLAIN SELECT * FROM Insegn WHERE id < 1000 AND nomeins LIKE 'Al%'\end{lstlisting}
+	\emph{\underline{Output:}}\newline
+
+	\noindent
+	\textsf{Bitmap Heap Scan ON Insegn (cost=18.40..134.62 ROWS=1...)}\newline
+	\textsf{Recheck Cond: (id < 1000)}\newline
+	\textsf{Filter: ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT)}\newline
+	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0.00..18.39 ROWS=815 width=0)}\newline
+	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}
+	\begin{enumerate}
+		\item Il nodo \textsf{Bitmap Heap Scan} carica le righe indicate dall'indice;
+		\item Per ciascuna riga caricata, ricontrolla che \textsf{id < 1000};
+		\item Se inoltre \textsf{nomeins} inizia con \textsf{'Al'}, essa viene selezionata.
+	\end{enumerate}\:\newline
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con uso di \textbf{due indici sulla stessa tabella}:
+	\begin{lstlisting}[language=SQL]
+CREATE INDEX nomeIdx ON Insegn (nomeins varchar_pattern_ops);
+ANALYZE Insegn;
+EXPLAIN SELECT * FROM Insegn WHERE id < 1000 AND nomeins LIKE 'Al%'\end{lstlisting}
+	\emph{\underline{Output:}}\newline
+
+	\noindent
+	\textsf{Bitmap Heap Scan ON Insegn (cost=15.30..22.58 ROWS=4 width=63)}\newline
+	\textsf{Recheck Cond: (id < 1000)}\newline
+	\textsf{Filter: ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT)}\newline
+	\textsf{-> BitmapAnd (cost=15.30..15.30 ROWS=4 width=0)}\newline
+	\textsf{-> Bitmap INDEX Scan ON nomeidx (cost=0..2.65 ROWS=37 width=0)}\newline
+	\textsf{\phantom{-> }INDEX Cond: (((nomeins)::TEXT $\sim$>=$\sim$ 'Al'::TEXT) AND}\newline
+	\textsf{\phantom{-> INDEX Cond: (}((nomeins)::TEXT $\sim$<$\sim$ 'Am'::TEXT))}\newline
+	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0.00..12.40 ROWS=815 width=0)}\newline
+	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}
+	\begin{itemize}
+		\item \textbf{Ciascuna foglia scansiona un indice}. Il padre delle foglie (\textsf{BitmapAnd}) fa l'\textbf{intersezione degli indirizzi delle righe trovate}.
+		\item La root (\textsf{Bitmap Heap Scan}) \textbf{carica le righe} ed \textbf{ricontrolla} che le \textbf{condizioni siano soddisfatte}.
+	\end{itemize}\newpage
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con uso di \textbf{due indici sulla stessa tabella}:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN SELECT * FROM Insegn WHERE id < 1000 OR nomeins LIKE 'Al%'\end{lstlisting}
+	\emph{\underline{Output:}}\newline
+
+	\noindent
+	\textsf{Bitmap Heap Scan ON Insegn (cost=15.47..132.25 ROWS=850 width=63)}\newline
+	\textsf{Recheck Cond: ((id < 1000) OR ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT))}\newline
+	\textsf{Filter: ((id < 1000) OR ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT))}\newline
+	\textsf{-> BitmapOr (cost=15.47..15.47 ROWS=852 width=0)}\newline
+	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0.00..12.40 ROWS=815 width=0)}\newline
+	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}\newline
+	\textsf{-> Bitmap INDEX Scan ON nomeidx (cost=0.00..2.65 ROWS=37 width=0)}\newline
+	\textsf{\phantom{-> }INDEX Cond: (((nomeins)::TEXT $\sim$>=$\sim$ 'Al'::TEXT) AND}\newline
+	\textsf{\phantom{-> INDEX Cond: (}((nomeins)::TEXT $\sim$<$\sim$ 'Am'::TEXT))}
+	\begin{itemize}
+		\item Il \textbf{padre delle foglie} (\textsf{BitmapOr}) esegue l'\textbf{unione degli indirizzi delle righe trovate}.
+	\end{itemize}\:\newline
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di \textsf{explain} con \textbf{planner che decide diversamente cambiando condizione}:
+	\begin{lstlisting}[language=SQL]
+EXPLAIN SELECT * FROM Insegn WHERE id < 1000 AND nomeins LIKE 'Al%'\end{lstlisting}
+	\emph{\underline{Output:}}\newline
+
+	\noindent
+	\textsf{Bitmap Heap Scan ON Insegn (cost=12.40..128.62 ROWS=1 width=63)}\newline
+	\textsf{Recheck Cond: (id < 1000)}\newline
+	\textsf{Filter: ((nomeins)::TEXT $\sim\sim$ 'Al\%'::TEXT)}\newline
+	\textsf{-> Bitmap INDEX Scan ON i1 (cost=0.00..12.40 ROWS=815 width=0)}\newline
+	\textsf{\phantom{-> }INDEX Cond: (id < 1000)}\newline
+	\begin{itemize}
+		\item La condizione \textsf{nomeins LIKE '\%Al'} rende \textbf{impossibile l'uso dell'indice}.
+	\end{itemize}\:\newline
+
 	\subsection{Introduzione al controllo di concorrenza in SQL}
 	
 	\subsection{Query in Python}
