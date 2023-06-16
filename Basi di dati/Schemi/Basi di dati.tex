@@ -6260,6 +6260,180 @@ WHERE IE.annoaccademico = '2013/2014' AND IE.id_insegn > I.id\end{lstlisting}
 	\end{itemize}\newpage
 
 	\subsection{Introduzione al controllo di concorrenza in SQL}
+
+	\subsubsection{Transazioni}
+
+	Una \textcolor{Red3}{\textbf{transazione}} SQL è una \textbf{sequenza di istruzioni SQL} che può essere \textbf{eseguita in concorrenza con altre transazioni in modo isolato}. Come detto nei capitoli di teoria, un livello di isolamento troppo elevato potrebbe causare anomalie di esecuzione:
+	\begin{itemize}
+		\item Perdita di aggiornamento (\emph{lost update})
+		\item Lettura sporca (\emph{dirty read})
+		\item Letture inconsistenti (\emph{non-repeatable read})
+		\item Aggiornamento fantasma (\emph{ghost update})
+		\item Inserimento fantasma (\emph{phantom update})
+	\end{itemize}
+	Un'altra anomalia non considerata fin ad ora è la \textbf{mancata serializzazione} (\emph{\textbf{serialization anomaly}}). Ovvero, il \textbf{risultato di un gruppo di transazioni (quindi nessun \textsf{abort}) è inconsistente con tutti gli ordini di esecuzioni seriali delle stesse}.\newline
+
+	\noindent
+	In PostgreSQL una transazione:
+	\begin{itemize}
+		\item \textbf{Inizia} con il comando \textsf{BEGIN};
+		\item \textbf{Termina} con il comando \textsf{COMMIT}, confermando tutte le istruzioni delle transazioni;
+		\item \textbf{Annullata} con il comando \textsf{ROLLBACK}, quindi annullando tutte le operazioni.
+	\end{itemize}\:\newline
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di transazione con passaggio di importo da un conto ad un altro:
+	\begin{lstlisting}[language=SQL]
+BEGIN;
+UPDATE accounts SET balance = balance -100.0 WHERE name='Alice';
+UPDATE accounts SET balance = balance -100.0 WHERE name='Alice';
+COMMIT;\end{lstlisting}
+	In questo caso, Alice e Bob vedono le modifiche sul proprio conto. Al contrario, in questo secondo \textcolor{Green4}{\textbf{esempio}}, le modifiche non vengono applicate:
+	\begin{lstlisting}[language=SQL]
+BEGIN;
+UPDATE accounts SET balance = balance -100.0 WHERE name='Alice';
+UPDATE accounts SET balance = balance -100.0 WHERE name='Alice';
+ABORT;\end{lstlisting}\newpage
+
+	\subsubsection{Controllo di concorrenza - Introduzione}
+
+	PostgreSQL mantiene la consistenza dei dati usando un \textbf{modello multi-versione} (\textbf{Multiversion Concurrency Control (MVCC)}). Questo modello è una \textbf{metodologia più versatile della tecnica del locking a due fasi} (2PL stretto) tipica dei DBMS tradizionali.\newline
+
+	\noindent
+	In generale, le \textbf{transazioni sono gestite} nel seguente modo:
+	\begin{itemize}
+		\item \textbf{Ogni transazione vede un'istantanea della base di dati};
+		\item \textbf{Letture} \textbf{\underline{sempre} possibili e mai bloccate} anche se ci sono altre transazioni che stanno modificando la base di dati;
+		\item \textbf{Scritture} \textbf{sospese} quando in parallelo un'\textbf{altra transazione}, non ancora chiusa, ha \textbf{modificato la sorgente dei dati che si vuole aggiornare};
+		\item \textbf{\textsf{COMMIT}} dei dati, il \textbf{sistema registra \underline{sempre} l'istantanea aggiornata come nuova base di dati}.
+	\end{itemize}
+	Con questa gestione, ci sono \textbf{meno conflitti} e una performance più ragionevole in ambito multiutente.\newpage
+
+	\noindent
+	Un \textcolor{Green4}{\textbf{esempio}} di sessioni concorrenti: si consideri la tabella \textsf{Studente} con il seguente contenuto:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | l | l @{}}
+			\toprule
+			Matricola	& Cognome	& Città \\
+			\midrule
+			IN0001		& Rossi		& Verona \\
+			IN0002		& Paoli		& Padova \\
+			IN0003		& Bianchi	& VERONA \\
+			IN0004		& Rossi		& Verona \\
+			IN0005		& Verdi		& Va 	 \\
+			IN0006		& Nocasa	&  \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	Si considerino le seguenti transazioni eseguite in parallelo. I numeri ai lati rappresentano gli istanti in cui si eseguono le istruzioni:
+	\begin{table}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/concorrenza-1.pdf}
+		\includegraphics[width=\textwidth]{img/concorrenza-2.pdf}
+	\end{table}\newpage
+
+	\subsubsection{Livelli di isolamento e cambiamento di isolamento}
+
+	PostgreSQL offre \textbf{4 livelli di isolamento} in \underline{ordine decrescente di isolamento}:
+	\begin{enumerate}
+		\item \textcolor{Red3}{\textbf{Serializable}}, garantisce che un'intera \textbf{transazione} venga \textbf{eseguita in qualche ordine sequenziale rispetto ad altre transazioni concorrenti}.
+		
+		\underline{Anomalie possibili:} \textbf{\emph{nessuna}}.
+
+
+		\item \textcolor{Red3}{\textbf{Repeatable Read}}, garantisce che i \textbf{dati letti durante la transazione non cambieranno a causa di altre transazioni}. Quindi, rieseguendo la lettura dei medesimi dati, si ottengono sempre gli stessi.
+		
+		\underline{Anomalie possibili:} \textbf{\emph{inserimento fantasma}}.
+
+		
+		\item \textcolor{Red3}{\textbf{Read Committed}}, garantisce che \textbf{qualsiasi \textsf{SELECT}} di una transazione \textbf{veda solo i dati confermati} (\textsf{COMMITTED}) \textbf{prima che la \textsf{SELECT} inizi}.
+		
+		\underline{Anomalie possibili:}
+		\begin{itemize}
+			\item \textbf{\emph{lettura inconsistente}}
+			\item \textbf{\emph{aggiornamento fantasma}}
+			\item \textbf{\emph{inserimento fantasma}}
+			\item \textbf{\emph{mancata serializzazione}}
+		\end{itemize}
+
+		
+		\item \textcolor{Red3}{\textbf{Read Uncommitted}} Viene implementato come Read Committed, quindi \textbf{non esiste}.
+	\end{enumerate}
+	Il \textbf{livello di default} utilizzato da PostgreSQL è \textbf{Read Committed} e il \textbf{cambio di livello di isolamento viene effettuato con \textsf{SET TRANSACTION} appena dopo il \textsf{BEGIN}} della transazione.\newline
+	
+	\noindent
+	La \textbf{sintassi} del cambio di livello di isolamento con \textcolor{Red3}{\textbf{SET TRANSACTION}} è la seguente:
+	\begin{itemize}
+		\item Modalità standard:
+		\begin{lstlisting}[language=SQL]
+BEGIN;
+SET TRANSACTION ISOLATION LEVEL transaction_mode;
+...
+COMMIT;\end{lstlisting}
+			
+		\item Modalità compatta:
+		\begin{lstlisting}[language=SQL]
+BEGIN TRANSACTION ISOLATION LEVEL transaction_mode;
+...
+COMMIT;\end{lstlisting}
+	\end{itemize}
+	In cui \textsf{transaction\_mode} è uno dei seguenti valori:
+	\begin{itemize}
+		\item \textsf{SERIALIZABLE} pagina \pageref{par: Serializable}
+		\item \textsf{REPEATABLE READ} pagina \pageref{par: Repeatable Read}
+		\item \textsf{READ COMMITTED} (\emph{default}), pagina \pageref{par: Read Committed}
+		\item \textsf{READ UNCOMMITTED}
+		\item \textsf{READ WRITE}
+		\item \textsf{READ ONLY}
+	\end{itemize}
+	
+	\longline
+
+	\subsubsection{Read Committed}\label{par: Read Committed}
+	
+	Essendo impostato di \emph{default}, non necessita di essere specificato dopo il \textsf{BEGIN}. Con questo livello di isolamento:
+	\begin{itemize}
+		\item \textsf{SELECT} vede solo i dati registrati (COMMITTED) in altre transazioni e quelli modificati da eventuali comandi precedenti nella medesima transazione.
+		
+		\item \textsf{UPDATE}, \textsf{DELETE} lo stesso di \textsf{SELECT}. In aggiunta, se i dati da aggiornare sono stati modificati (\textsf{BEGIN}) ma non registrati (assenza di \textsf{COMMIT}) in transazioni correnti, allora:
+		\begin{enumerate}
+			\item Attesa che la transazione, che ha modificato i dati, vada a buon fine (comando \textsf{COMMIT}) o che venga annullata (comando \textsf{ROLLBACK});
+			
+			\item Riesaminate le righe selezionate per verificare che i criteri vengano soddisfatti ancora.
+		\end{enumerate}
+	\end{itemize}
+	Come detto in precedenza, le \textbf{anomalie che si possono presentare} sono:
+	\begin{itemize}
+		\item \textbf{\emph{Lettura inconsistente}}
+		\item \textbf{\emph{Aggiornamento fantasma}}
+		\item \textbf{\emph{Inserimento fantasma}}
+		\item \textbf{\emph{Mancata serializzazione}}
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/read-committed.pdf}
+		\caption{Caso lettura inconsistente con Read Committed.}
+	\end{figure}
+	
+	\noindent
+	La transazione 1 ha due letture diverse della stessa tabella senza averla modificata!\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/read-committed-1.pdf}
+		\caption{Caso aggiornamento fantasma con Read Committed.}
+	\end{figure}
+
+	\subsubsection{Repeatable Read}\label{par: Repeatable Read}
+
+	\subsubsection{Serializable}\label{par: Serializable}
+
+	\subsubsection{Controllo della concorrenza}
+
+	\subsubsection{Lock Espliciti}
 	
 	\subsection{Query in Python}
 	
