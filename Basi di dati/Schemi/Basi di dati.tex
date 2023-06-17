@@ -6295,7 +6295,7 @@ UPDATE accounts SET balance = balance -100.0 WHERE name='Alice';
 UPDATE accounts SET balance = balance -100.0 WHERE name='Alice';
 ABORT;\end{lstlisting}\newpage
 
-	\subsubsection{Controllo di concorrenza - Introduzione}
+	\subsubsection{Controllo di concorrenza - Introduzione}\label{par: Controllo di concorrenza - Introduzione}
 
 	PostgreSQL mantiene la consistenza dei dati usando un \textbf{modello multi-versione} (\textbf{Multiversion Concurrency Control (MVCC)}). Questo modello è una \textbf{metodologia più versatile della tecnica del locking a due fasi} (2PL stretto) tipica dei DBMS tradizionali.\newline
 
@@ -6394,7 +6394,7 @@ COMMIT;\end{lstlisting}
 
 	\subsubsection{Read Committed}\label{par: Read Committed}
 	
-	Essendo impostato di \emph{default}, non necessita di essere specificato dopo il \textsf{BEGIN}. Con questo livello di isolamento:
+	\textcolor{Red3}{\textbf{Read Committed}} è impostato di \emph{default} e quindi non necessita di essere specificato dopo il \textsf{BEGIN}. Con questo livello di isolamento:
 	\begin{itemize}
 		\item \textsf{SELECT} vede solo i dati registrati (COMMITTED) in altre transazioni e quelli modificati da eventuali comandi precedenti nella medesima transazione.
 		
@@ -6426,16 +6426,92 @@ COMMIT;\end{lstlisting}
 		\includegraphics[width=\textwidth]{img/read-committed-1.pdf}
 		\caption{Caso aggiornamento fantasma con Read Committed.}
 	\end{figure}
+	
+	\noindent
+	La base di dati soddisfa sempre il vincolo, ma per la transazione 1 no. Infatti, la transazione 1 ha perso un aggiornamento!\newline
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/read-committed-2.pdf}
+		\caption{Caso di non eliminazione con Read Committed.}
+	\end{figure}
+	
+	\noindent
+	La \textsf{DELETE} eseguita al tempo $t_{4}$ non cancella la tupla \textsf{id=2} (selezionata utilizzando la condizione \textsf{WHERE hit=10}). Questo perché l'operazione di \textsf{UPDATE} eseguita al tempo $t_{3}$, blocca la \textsf{DELETE} fino al prossimo \textsf{COMMIT} (tempo $t_{6}$).
+	
+	Quindi, l'operazione di \textsf{DELETE} riesamina la tupla \textsf{id=2}, la clausola \textsf{WHERE hit=10} non vale più, di conseguenza la tupla non viene cancellata.\newpage
 
 	\subsubsection{Repeatable Read}\label{par: Repeatable Read}
+	
+	Al contrario di Read Committed, in \textcolor{Red3}{\textbf{Repeatable Read}} i \textbf{comandi di una transazione vedono sempre gli stessi dati}. Quindi, PostgreSQL associa alla transazione un'istantanea della base di dati all'esecuzione del suo primo comando. Con questo livello di isolamento:
+	\begin{itemize}
+		\item Due \textsf{SELECT} identiche successive vedono sempre gli \textbf{stessi dati};
+		
+		\item Se \textsf{UPDATE} e \textsf{DELETE} devono \textbf{operare su dei dati che sono stati modificati ma non registrati in transazioni concorrenti}, allora è necessario attendere il:
+		\begin{itemize}
+			\item \textsf{ROLLBACK} della transazione in cui è stato fatto il cambio e \textbf{riesaminare le righe selezionate};
+			
+			\item \textsf{COMMIT} della transazione in cui è stato fatto il cambio e \textbf{bloccare le operazioni con l'errore} \textsf{ERROR}: \dquotes{could NOT serialize access due to concurrent \textsf{UPDATE}}.
+		\end{itemize}
+	\end{itemize}
+	Come detto in precedenza, le \textbf{anomalie che si possono presentare} sono:
+	\begin{itemize}
+		\item \textbf{\emph{Mancata serializzazione}}
+	\end{itemize}
+	Inoltre, è necessario tenere in considerazione la \textbf{possibilità di transazioni abortite per aggiornamenti concorrenti}.\newline
+	
+	\noindent
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/repeatable-read-1.pdf}
+		\caption{Caso di utilizzo di \textsf{COMMIT}/\textsf{ROLLBACK} con Repeatable Read.}
+	\end{figure}\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/repeatable-read-2.pdf}
+		\caption{Caso di mancata serializzazione con Repeatable Read.}
+	\end{figure}
+	
+	\noindent
+	La tabella contiene due valori identici: 11. Non 11 e 12 poiché il \textbf{risultato non è consistente con nessun ordine di esecuzione} delle due transazioni.\newpage
 
 	\subsubsection{Serializable}\label{par: Serializable}
+	
+	Il livello di isolamento \textcolor{Red3}{\textbf{serializable}} è il più restrittivo, infatti \textbf{nessuna anomalia è concessa}. Utilizzando questo livello, si deve prevedere la possibilità di transazioni abortite per aggiornamenti concorrenti (come nel caso di Repeatable Read a pagina \pageref{par: Repeatable Read}).	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/serializable-1.pdf}
+		\caption{Caso di serializzazioni \underline{non} possibili.}
+	\end{figure}
+	
+	\noindent
+	Un \textbf{\underline{metodo} per decidere} se questo livello di isolamento è \textbf{necessario}, è il seguente:
+	\begin{center}
+		\emph{\textbf{Verificare se la selezione delle righe} di un} \textsf{UPDATE/INSERT/DELETE} \emph{\textbf{in una transazione può essere modificata in una transazione concorrente} (che può aggiungere/togliere o modificare le righe di interesse).}
+	\end{center}
+	
+	\noindent
+	Nonostante l'utilizzo di questo livello di isolamento rende semplice lo sviluppo di programmi SQL, dall'altra parte dichiarare tutte le transazioni \textsf{Serializable} determina una \textbf{limitazione alle prestazioni} (\emph{throughput}) di un DBMS.
+	
+	\longline
 
 	\subsubsection{Controllo della concorrenza}
-
-	\subsubsection{Lock Espliciti}
+	
+	È fondamentale prevedere e gestire gli errori di concorrenza che possono occorrere con livello di isolamento \dquotes{Repeatable Read} o \dquotes{Serializable}.\newline
+	
+	\noindent
+	Nel caso in cui una \textbf{transazione fallisce}, il \underline{codice di fallimento} è \textsf{SQLSTATE = '40001'}. In cui \textsf{SQLSTATE} è una \textbf{variabile di ambiente} che si può leggere sia da programmi interni sia da programmi esterni.\newline
+	
+	\noindent
+	L'\textbf{unica cosa da fare in questo caso è ritentare l'esecuzione della transazione}. Questo perché il \textbf{costo computazionale è minore} di quello che si avrebbe nel caso in cui si gestissero le transazioni usando i lock espliciti.\newpage
 	
 	\subsection{Query in Python}
+	
+	\subsubsection{Scrittura di una tabella in un file}
+	
+	\lstinputlisting[language=Python]{code/scritturaDict.py}
 	
 	\subsection{Accesso a una base di dati PostgreSQL con Python}
 \end{document}
