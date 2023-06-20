@@ -6511,7 +6511,128 @@ COMMIT;\end{lstlisting}
 	
 	\subsubsection{Scrittura di una tabella in un file}
 	
+	Il file \textsf{scritturaDict.py}:
 	\lstinputlisting[language=Python]{code/scritturaDict.py}
+	Il file \textsf{tabellaSpesa.csv}:
+	\lstinputlisting{code/tabellaSpesa.csv}
+	Output su terminale:
+	\lstinputlisting{code/output-1}\newpage
+	
+	\subsubsection{Avanzato - Scrittura di una tabella in un file}
+	
+	Il file \textsf{scritturaClasse.py} rappresenta un'evoluzione del file del precedente paragrafo. Si risolve l'errore sugli importi e si dimostra un uso più avanzato di JSON:
+	\lstinputlisting[language=Python]{code/scritturaClasse.py}
+	Il database compatto \textsf{database.json}:
+	\lstinputlisting{code/database.json}\newpage
+	
+	\noindent
+	Output su terminale:
+	\lstinputlisting{code/output-2}\newpage
 	
 	\subsection{Accesso a una base di dati PostgreSQL con Python}
+	
+	\subsubsection{Introduzione a \textsf{psycopg2}}
+	
+	\textsf{psycopg2} è una libreria scritta quasi completamente in C e implementa la API per accedere da una base di dati esterna chiamata DB-API v2.0. Essa implementa i cursori \emph{client side} e \emph{server side}, comunicazioni asincrone, le notifiche e il comando \textsf{COPY}.
+	
+	\longline
+	
+	\subsubsection{DB-API v2.0: Connection}
+	
+	L'\textbf{accesso ad un database} avviene tramite un oggetto di tipo \textcolor{Red3}{\textbf{\textsf{Connection}}}. Il metodo \textsf{connect(...)} accetta i parametri necessari per la connessione e ritorna un oggetto \textsf{Connection}:
+	\lstinputlisting[language=Python]{code/connection.py}
+	La classe \textsf{Connection} ha alcuni metodi principali:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textsf{cursor(...)}}, \textbf{ritorna un cursore} della base di dati. L'oggetto cursore verrà spiegato nel prossimo paragrafo a pagina \pageref{par: DB-API v2.0: Cursore}.
+		
+		\item \textcolor{Red3}{\textsf{commit(...)}}, \textbf{registra la transazione} corrente. \textbf{N.B.} nel caso di mancato commit, le eventuali modifiche o inserimenti verranno persi.
+		
+		\item \textcolor{Red3}{\textsf{rollback(...)}}, \textbf{abortisce la transazione} corrente.
+		
+		\item \textcolor{Red3}{\textsf{close(...)}}, \textbf{chiude la connessione} corrente. Implica un \textsf{rollback()} automatico delle operazioni non registrate.
+		
+		\item \textcolor{Red3}{\textsf{autocommit}}, proprietà \textsf{read/write}:
+		\begin{itemize}
+			\item \textsf{True}, ogni comando inviato è una \textbf{transazione isolata}.
+			
+			\item \textsf{False} (default), il primo comando inviato inizia una transazione che deve terminate con \textsf{commit()} o \textsf{rollback()}.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textsf{readonly}}, proprietà \textsf{read/write}:
+		\begin{itemize}
+			\item \textsf{True}, nella sessione si possono \textbf{inviare comandi di modifica dati}.
+			
+			\item \textsf{False} (default), \underline{non} si possono inviare comandi di modifica dati.
+		\end{itemize}
+		
+		\item \textcolor{Red3}{\textsf{isolation\_level}}, proprietà \textsf{read/write}. \textbf{Modifica il livello di isolamento} per la prossima transazione. I valori ammessi sono:
+		\begin{itemize}
+			\item \textsf{READ UNCOMMITTED}
+			\item \textsf{READ COMMITTED}
+			\item \textsf{REPEATABLE READ}
+			\item \textsf{SERIALIZABLE}
+			\item \textsf{DEFAULT}
+		\end{itemize}
+		È \emph{good practice} assegnare questa variabile appena dopo la creazione della connessione:
+		\begin{lstlisting}[language=Python]
+connector = psycopg2.connect(...)
+connector.isolation_level = 'REPEATABLE READ'\end{lstlisting}
+	\end{itemize}\newpage
+	
+	\subsubsection{DB-API v2.0: Cursore}\label{par: DB-API v2.0: Cursore}
+	
+	Un \textcolor{Red3}{\textbf{cursore}} gestisce l'interazione con la base di dati. Mediante un cursore è possibile inviare un comando SQL, accedere all'esito e ai dati di risposta del comando.\newline
+	
+	\noindent
+	La classe \textsf{Cursor} ha i seguenti metodi principali:
+	\begin{itemize}
+		\item \textcolor{Red3}{\textsf{execute(comando, parametri)}}, \textbf{prepara ed esegue} un \dquotes{\textsf{comando}} SQL usando i \dquotes{\textsf{parametri}}. I parametri devono essere una tupla o un dizionario (\textsf{dict}). Il comando non ritorna niente (\textsf{None}). I risultati della query si recuperano con \textsf{fetch*()}:
+		\lstinputlisting[language=Python]{code/cursore-1.py}
+		Dopo l'esecuzione di \textsf{execute}, il cursore è un iterabile sulla tabella risultato, quindi è possibile accedere alle tuple del risultato anche con un ciclo:
+		\lstinputlisting[language=Python]{code/cursore-5.py}
+
+		\item \textcolor{Red3}{\textsf{executemany(comando, parametri)}}, \textbf{prepara ed esegue} un \dquotes{\textsf{comando}} SQL per ciascun valore presente nella lista \dquotes{\textsf{parametri}}:
+		\lstinputlisting[language=Python]{code/cursore-2.py}
+		
+		\item \textcolor{Red3}{\textsf{fetchone()}}, \textbf{ritorna \underline{una} tupla della tabella risultato}. Si può utilizzare dopo una \textsf{execute}. Se non esistono tuple, il valore di ritorno è \textsf{None}.
+		\lstinputlisting[language=Python]{code/cursore-3.py}
+		
+		\item \textcolor{Red3}{\textsf{fetchmany(<numero>)}}, \textbf{ritorna una lista di tuple della tabella risultato} di lunghezza max \textsf{<numero>}. È possibile utilizzarla dopo una \textsf{execute("SELECT...")}. Se non ci sono tuple, ritorna una lista vuota.
+		\lstinputlisting[language=Python]{code/cursore-4.py}
+		
+		\item \textcolor{Red3}{\textsf{rowcount}}, metodo in sola lettura. \textbf{Restituisce il numero di righe prodotte dall'ultimo comando}. Viene ritornato $-1$ nel caso in cui non è possibile determinare il valore.
+		
+		\item \textcolor{Red3}{\textsf{statusmessage}}, metodo in sola lettura. \textbf{Restituisce il messaggio ritornato dall'ultimo comando eseguito}:
+		\lstinputlisting[language=Python]{code/cursore-6.py}
+	\end{itemize}
+	
+	\longline
+	
+	\subsubsection{Utilizzo di psycopg2}
+	
+	La libreria psycopg2 può essere utilizzata in modo corretta se vengono seguiti i seguenti passaggi:
+	\begin{enumerate}
+		\item Apertura di una connessione tramite \textsf{conn = psycopg2.connect(...)}
+		
+		\item (Opzionale) Modifica delle proprietà di livello di isolamento, autocommit, readonly
+		
+		\item Creazione di un cursore tramite \textsf{cur = conn.cursor()}
+		
+		\item Esecuzione di una (\textsf{execute}) o più (\textsf{executemany}) query
+		
+		\item In caso di sessione non autocommit, esecuzione di \textsf{conn.commit()} in caso di salvataggio delle modifiche, altrimenti \textsf{conn.rollback()} per annullare
+		
+		\item Chiusura del cursore, \textsf{cur.close()}, e della connessione, \textsf{conn.close()}. Con il costrutto \textsf{with()} di Python è possibile eseguire un \textsf{commit} automatico e una \textsf{close} automatica del cursore:
+		\lstinputlisting[language=Python]{code/cursore-7.py}
+	\end{enumerate}\newpage
+	
+	\subsubsection{Esempio di modulo basato su psycopg2}
+	
+	Un esempio di modulo basato su psycopg2:
+	\lstinputlisting[language=Python]{code/psycopg2-ex.py}
+	Output dell'esecuzione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/output-3.pdf}
+	\end{figure}
 \end{document}
