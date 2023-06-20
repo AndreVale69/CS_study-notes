@@ -1,0 +1,207 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{mathtools}				% per sottolineare sotto le equazioni
+\usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
+\usepackage{amsthm}					% teoremi migliorati
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
+\usepackage{cancel}					% per cancellare delle espressioni matematiche
+
+
+
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+\usepackage{tikz}
+\newcommand{\MyTikzmark}[2]{%
+	\tikz[overlay,remember picture,baseline] \node [anchor=base] (#1) {#2};%
+}
+\newcommand{\DrawVLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.3ex, #1] (#2.north) -- (#3.south);
+	\end{tikzpicture}
+}
+\newcommand{\DrawHLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.2em, #1] (#2.west) -- (#3.east);
+	\end{tikzpicture}
+}
+
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\newtheorem{theorem}{\textcolor{Red3}{\underline{Teorema}}}
+\newtheorem{lemma}{Lemma}
+\renewcommand{\qedsymbol}{QED}
+\newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+\newcommand{\dquotes}[1]{``#1''}
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+\newcommand{\circledtext}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
+
+\newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
+\newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
+
+\begin{document}
+	\author{VR443470}
+	\title{Soluzioni Esami di Algebra Lineare}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Esame del 20/06/2022}
+	
+	\subsection{Esercizio 1}
+	
+	(\textbf{6 punti}) Si consideri la seguente matrice:
+	\begin{equation*}
+		A = \begin{pmatrix}
+			1	& 0		& 0		& 2 \\
+			-2	& -1	& 1		& -5 \\
+			1	& -a	& 2+a	& 2-a \\
+			1+a	& 0		& 2		& \left(1+a\right)\left(-1+a\right)
+		\end{pmatrix}
+	\end{equation*}
+	
+	\longline
+	
+	\subsubsection{Punto a}
+	
+	\textcolor{Green4}{\emph{\textbf{Si calcoli, al variare di $a \in \mathbb{R}$, il rango $\mathrm{rk} \: A$ di $A$.}}}\newline
+	
+	\noindent
+	Si applica l'eliminazione di Gauss per ottenere il rango della matrice:
+	\begin{gather*}
+		\begin{pmatrix}
+			1	& 0		& 0		& 2 \\
+			-2	& -1	& 1		& -5 \\
+			1	& -a	& 2+a	& 2-a \\
+			1+a	& 0		& 2		& \left(1+a\right)\left(-1+a\right)
+		\end{pmatrix}
+		\xrightarrow{E_{1,2}\left(2\right)}
+		\begin{pmatrix}
+			1	& 0		& 0		& 2 \\
+			0	& -1	& 1		& -1 \\
+			1	& -a	& 2+a	& 2-a \\
+			1+a	& 0		& 2		& \left(1+a\right)\left(-1+a\right)
+		\end{pmatrix} \\
+		\\
+		\xrightarrow{E_{1,3}\left(-1\right)}
+		\begin{pmatrix}
+			1	& 0		& 0		& 2 \\
+			0	& -1	& 1		& -1 \\
+			0	& -a	& 2+a	& -a \\
+			1+a	& 0		& 2		& \left(1+a\right)\left(-1+a\right)
+		\end{pmatrix}
+		\xrightarrow{E_{1,4}\left(-a-1\right)}
+		\begin{pmatrix}
+			1	& 0		& 0		& 2 \\
+			0	& -1	& 1		& -1 \\
+			0	& -a	& 2+a	& -a \\
+			0	& 0		& 2		& a^{2} -2a -3
+		\end{pmatrix} \\
+		\\
+		\xrightarrow{E_{2,3}\left(-a\right)}
+		\begin{pmatrix}
+			1	& 0		& 0		& 2 \\
+			0	& -1	& 1		& -1 \\
+			0	& 0		& 2		& 0 \\
+			0	& 0		& 2		& a^{2} -2a -3
+		\end{pmatrix}
+		\xrightarrow{E_{3,4}\left(-1\right)}
+		\begin{pmatrix}
+			1	& 0		& 0		& 2 \\
+			0	& -1	& 1		& -1 \\
+			0	& 0		& 2		& 0 \\
+			0	& 0		& 0		& a^{2} -2a -3
+		\end{pmatrix}
+	\end{gather*}
+	Il rango della matrice è influenzato solo dall'espressione $a^{2} - 2a - 3$. Quindi, nel caso di:
+	\begin{equation*}
+		\mathrm{rk}\left(A\right) =
+		\begin{cases}
+			3	& a^{2} - 2a -3 = 0\\
+			4	& a^{2} - 2a -3 \ne 0
+		\end{cases}
+	\end{equation*}\newpage
+	
+	\subsubsection{Punto b}
+	
+	\textcolor{Green4}{\emph{\textbf{Si calcoli il determinante $\det\left(A\right)$ di $A$.}}}\newline
+	
+	\noindent
+	Per velocizzare i calcoli, si utilizza il metodo di Gauss Jordan\footnote{Approfondimento: \href{https://www.youmath.it/forum/algebra-lineare/52861-determinante-con-eliminazione-di-gauss.html}{YouMath}}. Per il calcolo del determinante, si ricordano le seguenti regole:
+	\begin{itemize}
+		\item Lo scambio di una riga cambia il segno del determinante (quindi lo moltiplica per $-1$);
+		
+		\item La moltiplicazione di una riga per uno scalare non nullo, provoca la moltiplicazione dell'inverso di esso al determinante della matrice. Quindi, data l'operazione $E_{i}\left(\alpha\right)$, il determinante viene moltiplicato per $\frac{1}{\alpha}$;
+		
+		\item La moltiplicazione di una riga per uno scalare e la successiva somma, non cambia il determinante.
+	\end{itemize}
+	Quindi, si ottiene il determinante della matrice ridotta $A'$ moltiplicando la diagonale:
+	\begin{gather*}
+		A' = \begin{pmatrix}
+			1	& 0		& 0		& 2 \\
+			0	& -1	& 1		& -1 \\
+			0	& 0		& 2		& 0 \\
+			0	& 0		& 0		& a^{2} -a -2
+		\end{pmatrix} \\
+		\\
+		\det\left(A'\right) = 1 \cdot \left(-1\right) \cdot 2 \cdot \left(a^{2}-2a-3\right) = -2a^{2} + 4a +6
+	\end{gather*}
+	E controllando le operazioni eseguite al punto precedente, è possibile notare che non è stato effettuato nessuno scambio di righe e nessuna moltplicazione + somma. Quindi il determinante è lo stesso:
+	\begin{equation*}
+		\det\left(A\right) = \det\left(A'\right) = -2a^{2} + 4a +6
+	\end{equation*}\newpage
+	
+	\subsubsection{Punto c}
+	
+	\textcolor{Green4}{\textbf{\emph{Si determino i valori di $a \in \mathbb{R}$ tali che $A$ possiede una inversa.}}}\newline
+	
+	\noindent
+	La matrice $A$ possiede un'inversa se e solo se il suo determinante è diverso da zero. Quindi, risolvendo l'equazione del determinante, si può capire per quali valori di $a$, la matrice $A$ ammette inversa:
+	\begin{equation*}
+		-2a^{2} + 4a + 6 = 0\longrightarrow \dfrac{-b \pm \sqrt{b^{2} - 4ac}}{2a} \longrightarrow
+		\dfrac{-4 \pm \sqrt{16 - 4 \cdot -2 \cdot 6}}{2 \cdot -2} = \dfrac{-4 \pm 8}{-4}
+	\end{equation*}
+	Le soluzioni che azzerano l'equazione sono:
+	\begin{gather*}
+		a_{0} = -1 \\
+		a_{1} = 3
+	\end{gather*}
+	Si conclude dicendo che:
+	\begin{equation*}
+		\det\left(A\right) = \begin{cases}
+			0										& a = -1 \lor a = 3 \\
+			\mathbb{R} \setminus \left\{0\right\}	& \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	La matrice $A$ possiede una inversa se e solo se il determinante è diverso da zero. Il determinante è diverso da zero se e solo se $a$ è diverso da $-1$ e da $3$. Quindi, $A$ possiede una inversa per i valori $a \in \mathbb{R} \setminus \left\{-1, 3\right\}$.
+	
+	\newpage
+	\section{Esame del 15/07/2022}
+	
+	\newpage
+	\section{Esame del 02/09/2022}
+	
+	\newpage
+	\section{Esame del 20/02/2023}
+\end{document}
