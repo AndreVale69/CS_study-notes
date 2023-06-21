@@ -2326,5 +2326,243 @@
 	\begin{equation*}
 		T_{3} \: T_{4} \: T_{2} \: T_{1}
 	\end{equation*}
-	Quindi $S$ è VSR.
+	Quindi $S$ è VSR.\newpage
+	
+	\section{Quarto \dquotes{parziale}}
+	
+	\subsection{Esercitazione 1}\label{par: Esercitazione 1}
+	
+	Dato il seguente schema base di dati:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/ex1-1.pdf}
+	\end{figure}
+	
+	\noindent
+	Le condizioni da seguire sono le seguenti:
+	\begin{itemize}
+		\item Gli attributi chiave primaria sono sottolineati.
+		
+		\item Gli attributi \textsf{museo} e \textsf{città} delle entità \textsf{Opera}, \textsf{Mostra} e \textsf{Orario} sono chiave esportata. La chiave esterna è nella tabella \textsf{Museo}.
+		
+		\item Attributi diversi da null: \textsf{Museo.giornoChiusura, Museo.prezzo, Mostra.fine, Orario.museo, Orario.città, Orario.giorno}.
+		
+		\item Valori di default: \textsf{Museo.città} ha come valore di default \dquotes{Verona}. \textsf{Museo.nome} ha come valore di default \dquotes{MuseoVeronese}. \textsf{Museo.prezzo} ha come valore di default 10. \textsf{Orario.orarioApertura} ha come valore di default \dquotes{09:00 CET}. \textsf{Orario.orarioChiusura} ha come valore di default \dquotes{19:00 CET}.
+	\end{itemize}\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Scrivere il codice PostgreSQL che generi tutte le tabelle. Per gli attributi di cui non è stato specificato il tipo, scegliere quello opportuno. Specificare se tutti i vincoli possibili, sia intra-relazionali sia inter-relazionali.}}}\newline
+
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex1-1.sql}\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Inserire nell'entità Museo le seguenti tuple:}}}
+	\begin{itemize}
+		\item \textcolor{Green4}{\textsf{\textbf{(Arena,Verona,piazza Bra,045 8003204,martedì,20)}}}
+		\item \textcolor{Green4}{\textsf{\textbf{(CastelVecchio,Verona,Corso Castelvecchio,045 594734,lunedì,15)}}}
+	\end{itemize}
+
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex1-2.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Popolare le tabelle Opera e Mostra con almeno tre tuple ciascuna.}}}\newline
+
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex1-3.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Provare ad inserire nella relazione Museo tuple che violino i vincoli specificati.}}}\newline
+
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex1-4.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Nell'entità Museo, aggiungere l'attributo sitoInternet e inserire gli opportuni valori.}}}\newline
+
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex1-5.sql}\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Nell'entità Mostra modificare l'attributo prezzo in prezzoIntero ed aggiungere l'attributo prezzoRidotto con valore di default 5. Aggiungere il vincolo (di tabella o di attributo?) che garantisca che Mostra.prezzoRidotto sia minore di Mostra.prezzoIntero.}}}\newline
+
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex1-6.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Nell'entità Museo aggiornare il prezzo aggiungendo 1 Euro alle tuple esistenti.}}}\newline
+
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex1-7.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Nell'entità Mostra aggiornare il prezzoRidotto aumentandolo di 1 Euro per quelle mostre che hanno prezzoIntero inferiore a 15 Euro.}}}\newline
+
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex1-8.sql}\newpage
+	
+	\subsection{Esercitazione 2}
+	
+	Si faccia riferimento alla base di dati del paragrafo precedente (pagina \pageref{par: Esercitazione 1}).\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare tutti i musei della città di Verona con il loro giorno di chiusura.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-1.sql}\:\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare per ogni mostra che inizia con la lettera 'R', una stringa composta dal titolo e dalla città in cui si svolge.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-2.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare il titolo di ogni mostra ancora in corso e quanti giorni rimane ancora aperta a partire dalla data corrente. Usare la costante \textsf{CURRENT\_DATE} per avere la data corrente.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-3.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare per ogni museo l'orario di apertura e chiusura il martedì. Se per un museo il martedì è un giorno di chiusura, non mostrare nulla.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-4.sql}\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Assicurarsi che almeno una mostra abbia il prezzo ridotto non valorizzato (NULL) usando eventualmente il comando UPDATE per modificare almeno una riga. Visualizzare tutte le mostre che hanno prezzo ridotto non valorizzato usando prima l'espressione ERRATA '\textsf{prezzoRidotto = NULL}' e poi l'espressione corretta '\textsf{prezzoRidotto IS NULL}'.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-5.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare tutte le mostre non terminate in ordine di data inizio e, in caso di pari data inizio, data fine.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-6.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare il numero totale di giorni di apertura del museo 'Arena' di 'Verona'.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-7.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare le ore medie di apertura del museo 'Arena' di 'Verona'. Suggerimento: convertire orarioApertura e orarioChiusura usando '::time'.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-8.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Indicare il numero di autori distinti presenti in tutti i musei.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex2-9.sql}\newpage
+
+	\subsection{Esercitazione 3}
+
+	Si considerino le seguenti tabelle provenienti dal database \textsf{did2014}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/lab/ex3-1.pdf}
+	\end{figure}
+
+	\noindent
+	E le seguenti indicazioni:
+	\begin{itemize}
+		\item Nella tabella \textsf{InsErogato} gli insegnamenti che non hanno moduli hanno l'attributo \textsf{hamoduli = '0'}; nella medesima tabella le righe che descrivono un insegnamento nel suo complesso hanno l'attributo \textsf{modulo = 0}, mentre le righe che descrivono singoli moduli hanno \textsf{modulo > 0}.
+		
+		\item L'attributo \textsf{discriminante} distingue repliche dello stesso insegnamento (ad esempio, tale attributo può contenere valori come: 'matricole pari', 'matricole dispari').
+		
+		\item Alcuni insegnamenti sono divisi in unità logistiche (teoria, laboratorio, esercitazioni, ecc...). Tali unità sono rappresentate come entità di InsErogato in cui: il loro nome è dato dall'attributo \textsf{nomeunita}, hanno un valore \textsf{modulo < 0} e sono legate al padre (insegnamento erogato con \textsf{modulo = 0}) da una relazione esplicita implementata dall'attributo \textsf{id\_inserogato\_padre}. L'attributo \textsf{haunita} ha per le unità lo stesso significato di \textsf{hamoduli} per i moduli.
+		
+		\item L'attributo \textsf{annierogazione} indica gli anni a cui è offerto l'insegnamento (1°, 1° e 2°, 3° ecc.). Esso viene rappresentato da un intero che va interpretato come stringa di bit: $2=000010$ indica il secondo anno, $3=000011$ indica la combinazione 1° e 2° anno, $4=000100$ indica il 3° anno, ecc...
+	\end{itemize}
+
+	\longline\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare il numero di corso studi presenti nella base di dati.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-1.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare il nome, il codice, l'indirizzo e l'identificatore del preside di tutte le facoltà.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-2.sql}\newpage
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Trovare per ogni corso di studi che ha erogato insegnamenti nel 2010/2011 il suo nome e il nome delle facoltà che gestiscono (si noti che un corso può essere gestito da più facoltà). Non usare la relazione diretta tra InsErogato e Facoltà. Porre i risultati in ordine di nome corso studi.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-3.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare il nome, il codice e l'abbreviazione di tutti i corsi di studio gestiti dalla facoltà di Medicina e Chirurgia.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-4.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare il codice, il nome e l'abbreviazione di tutti i corsi di studio che nel nome contengono la sottostringa 'lingue' (eseguire il confronto usando ILIKE Invece di LIKE: in questo modo i caratteri maiuscolo e minuscolo non sono diversi).}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-5.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare le sedi dei corsi di studi in un elenco senza duplicati.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-6.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare solo i moduli degli insegnamenti erogati nel 2010/2011 nei corsi di studi della facoltà di Economia.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-7.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare il nome e il discriminante (attributo descrizione della tabella Discriminante) degli insegnamenti erogati nel 2009/2010 che non sono moduli o unità logistiche e che hanno 3, 5 o 12 crediti. Si ordini il risultato per discriminante.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-8.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare l'identificatore, il nome e il discriminante degli insegnamenti erogati nel 2008/2009 che non sono moduli o unità logistiche e con peso maggiore di 9 crediti. Ordinare per nome.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-9.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Visualizzare l'identificatore, il nome e il discriminante degli insegnamenti erogati nel 2008/2009 che non sono moduli o unità logistiche e con peso maggiore di 9 crediti. Ordinare per nome.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-10.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Trovare il massimo numero di crediti associato a un insegnamento fra quelli erogati nel 2010/2011.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-11.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Trovare per ogni anno accademico, il massimo e il minimo numero di crediti erogati tra gli insegnamenti dell'anno.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-12.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Trovare, per ogni anno accademico e per ogni corso di studi la somma dei crediti erogati (esclusi i moduli e le unità logistiche: vedi nota sopra) e il massimo e il minimo numero di crediti degli insegnamenti erogati sempre escludendo i moduli e le unità logistiche.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-13.sql}\:\newline
+
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{Trovare per ogni corso di studi della facoltà di Scienze Matematiche Fisiche e Naturali il numero di insegnamenti (esclusi i moduli e le unità logistiche) erogati nel 2009/2010.}}}\newline
+	
+	\noindent
+	\lstinputlisting[language=SQL]{code/ex3-14.sql}\:\newline
 \end{document}
