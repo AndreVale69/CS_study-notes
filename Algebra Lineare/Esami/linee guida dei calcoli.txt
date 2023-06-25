@@ -1,0 +1,35 @@
+ES.1
+- Rango di una matrice:
+	* Eliminazione di Gauss
+- Determinante di una matrice:
+	* Metodo Gauss Jordan nel caso in cui sia stata già fatta EG
+	* Sviluppi di Laplace
+- Determinare i valori per cui una matrice possiede un'inversa:
+	* Determinante deve essere diverso da zero!
+- Trovare le matrici invertibili:
+	* Calcolo dei cofattori, si compone la matrice con i valori trovati e poi si fa la trasposta. Infine, si moltiplica per 1/det(A).
+	* Affiancando la matrice identità a destra; eseguire EG; ottenere a sinistra l'identità e a destra la matrice invertita.
+
+ES.2
+- Autovalori di una matrice:
+	1. Calcolo polinomio caratteristico con la formula: det(A - \lambda Id_{i}) dove i è l'ordine della matrice A;
+	2. Calcolo gli zeri del polinomio caratteristico, ovvero quei valori per cui il polinomio caratteristico = 0.
+- Basi degli autospazi:
+	1. Sostituire nella matrice con gli \alpha, i valori che sono stati trovati prima, ovvero quelli che annullano il polinomio caratteristico;
+	2. Applicare EG;
+	3. Scrivere il sistema e risolverlo;
+	4. Scrivere l'autospazio generale e successivamente le basi.
+- Verificare la diagonalizzabilità:
+	1. La matrice deve soddisfare due condizioni:
+		a. Il numero di autovalori di A appartenenti al campo \mathbb{K} e contati con la loro molteplicità è pari all'ordine della matrice;
+		b. La molteplicità geometrica di ciascun autovalore	coincide con la relativa molteplicità algebrica.
+	2. Per verificare 1.a basta calcolare la molteplicità algebrica di ogni autovalore; sommare le molteplicità algebriche e verificare che il risultato sia uguale all'ordine della matrice;
+	3. Per verificare 1.b basta calcolare la molteplicità geometrica di ogni autovalore; verificare che ogni molteplicità geometrica calcolata sia uguale alla relativa molteplicità algebrica.
+- Trovare le matrici diagonali:
+	* Scrivere in diagonale gli autovalori
+- A = SDS^-1:
+	* D è la matrice diagonale; S si trova affiancando le basi degli autospazi; S^-1 è una matrice invertibile
+
+ES.3
+- Base di una matrice:
+	* Si esegue EG; Nella forma ridotta, tutti i pivot indicano i vettori colonna che fanno parte della base.

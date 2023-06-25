@@ -194,9 +194,795 @@
 			\mathbb{R} \setminus \left\{0\right\}	& \text{altrimenti}
 		\end{cases}
 	\end{equation*}
-	La matrice $A$ possiede una inversa se e solo se il determinante è diverso da zero. Il determinante è diverso da zero se e solo se $a$ è diverso da $-1$ e da $3$. Quindi, $A$ possiede una inversa per i valori $a \in \mathbb{R} \setminus \left\{-1, 3\right\}$.
+	La matrice $A$ possiede una inversa se e solo se il determinante è diverso da zero. Il determinante è diverso da zero se e solo se $a$ è diverso da $-1$ e da $3$. Quindi, $A$ possiede una inversa per i valori $a \in \mathbb{R} \setminus \left\{-1, 3\right\}$.\newpage
+
+	\subsection{Esercizio 2}
 	
-	\newpage
+	(\textbf{12 punti}) Si consideri la seguente matrice:
+	\begin{equation*}
+		B = \begin{pmatrix}
+			-1	& 0		& 0		& 0 \\
+			0	& 2		& -3	& 0 \\
+			0	& 0		& -1	& 0 \\
+			0	& 0		& 5		& 2
+		\end{pmatrix}
+	\end{equation*}
+	
+	\longline
+	
+	\subsubsection{Punto a}
+
+	\textcolor{Green4}{\textbf{\emph{Si calcolino tutti gli autovalori di $B$ su $\mathbb{R}$ e si trovino delle basi dei loro autospazi.}}}\newline
+
+	\noindent
+	Si calcola il polinomio caratteristico associato alla matrice $B$:
+	\begin{equation*}
+		\begin{array}{lll}
+			p_{B}\left(\lambda\right) &=& \det\left(B - \lambda \mathrm{Id}_{4}\right) \\ [.7em]
+			&=& \det\left[
+				\begin{pmatrix}
+					-1	& 0		& 0		& 0 \\
+					0	& 2		& -3	& 0 \\
+					0	& 0		& -1	& 0 \\
+					0	& 0		& 5		& 2
+				\end{pmatrix} -
+				\lambda \begin{pmatrix}
+					1	& 0		& 0		& 0 \\
+					0	& 1		& 0		& 0 \\
+					0	& 0		& 1		& 0 \\
+					0	& 0		& 0		& 1
+				\end{pmatrix}
+			\right] \\ [2.5em]
+			&=& \det\left[
+				\begin{pmatrix}
+					-1	& 0		& 0		& 0 \\
+					0	& 2		& -3	& 0 \\
+					0	& 0		& -1	& 0 \\
+					0	& 0		& 5		& 2
+				\end{pmatrix} -
+				\begin{pmatrix}
+					\lambda	& 0			& 0			& 0 \\
+					0		& \lambda	& 0			& 0 \\
+					0		& 0			& \lambda	& 0 \\
+					0		& 0			& 0			& \lambda
+				\end{pmatrix}
+			\right] \\ [2.5em]
+			&=& \det \begin{pmatrix}
+				-1-\lambda	& 0			& 0				& 0 \\
+					0		& 2-\lambda	& -3			& 0 \\
+					0		& 0			& -1-\lambda	& 0 \\
+					0		& 0			& 5				& 2-\lambda
+			\end{pmatrix} \\ [2.5em]
+		\end{array}
+	\end{equation*}
+	Si utilizzano gli sviluppi di Laplace per calcolare il determinante della matrice. Si sceglie lo sviluppo per righe partendo dalla riga $4$ e rimando sulla colonna $4$:
+	\begin{gather*}
+		\begin{rowequmat}{cccc}
+				-1-\lambda	& 0			& 0				& 0 \\
+					0		& 2-\lambda	& -3			& 0 \\
+					0		& 0			& -1-\lambda	& 0 \\
+					0		& 0			& 5				& 2-\lambda
+		\end{rowequmat} \\
+		\\
+		\begin{array}{lll}
+			b_{4,4} = 2-\lambda &\longrightarrow& \left(-1\right)^{4+4} \cdot \left(2-\lambda\right) \cdot \det
+			\begin{rowequmat}{ccc}
+				-1-\lambda	& 0			& 0			 \\
+					0		& 2-\lambda	& -3		 \\
+					0		& 0			& -1-\lambda 
+			\end{rowequmat} \\[2.5em]
+			&\longrightarrow& 1 \cdot \left(2-\lambda\right) \cdot \left(-1-\lambda\right) \cdot \left(2-\lambda\right) \cdot \left(-1-\lambda\right) \\ [1em]
+			b_{3,4} = 0 		&\longrightarrow& \left(-1\right)^{3+4} \cdot \left(0\right) \cdot \det
+			\begin{rowequmat}{ccc}
+				-1-\lambda	& 0			& 0			 \\
+					0		& 2-\lambda	& -3		 \\
+					0		& 0			& 5 		 
+			\end{rowequmat} = 0 \\[2.5em]
+			b_{2,4} = 0 		&\longrightarrow& \left(-1\right)^{2+4} \cdot \left(0\right) \cdot \det
+			\begin{rowequmat}{ccc}
+				-1-\lambda	& 0			& 0				\\
+					0		& 0			& -1-\lambda	\\
+					0		& 0			& 5				
+			\end{rowequmat} = 0 \\[2.5em]
+			b_{1,4} = 0 		&\longrightarrow& \left(-1\right)^{1+4} \cdot \left(0\right) \cdot \det
+			\begin{rowequmat}{ccc}
+					0		& 2-\lambda	& -3			\\
+					0		& 0			& -1-\lambda	\\
+					0		& 0			& 5				
+			\end{rowequmat} = 0 \\[2.5em]
+		\end{array}
+	\end{gather*}
+	Quindi, il determinante della matrice è:
+	\begin{equation*}
+		p_{B}\left(\lambda\right) = \det\left(B - \lambda \mathrm{Id}_{4}\right) = \left(-1-\lambda\right) \cdot \left(2-\lambda\right) \cdot \left(-1-\lambda\right) \cdot \left(2-\lambda\right)
+	\end{equation*}
+	Per continuare il calcolo del polinomio caratteristico, si cercano gli zeri, ovvero tutti quei valori tale che $p_{B}\left(\lambda\right) = 0$. Banalmente, i valori sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			\lambda_{1} = -1 &\longrightarrow& \left(-1-\left(-1\right)\right) \cdot \left(2-\left(-1\right)\right) \cdot \left(-1-\left(-1\right)\right) \cdot \left(2-\left(-1\right)\right) = 0 \\[.5em]
+			\lambda_{2} = 2  &\longrightarrow& \left(-1-\left(2\right)\right) \cdot \left(2-\left(2\right)\right) \cdot \left(-1-\left(2\right)\right) \cdot \left(2-\left(2\right)\right) = 0
+		\end{array}
+	\end{equation*}
+	Si conclude affermando che gli autovalori di $B$ sono $\lambda_{1} = -1$ e $\lambda_{2} = 2$.\newpage
+
+	\noindent
+	Per trovare delle basi dei loro autospazi, è necessario sostituire ogni $\lambda$ trovato, nella matrice calcolata precedentemente. Quindi, il primo autospazio con il primo autovalore $\lambda_{1} = -1$:
+	\begin{equation*}
+		B - \lambda_{1} \mathrm{Id}_{4} = B - \left(-1\right) \mathrm{Id}_{4} =
+		\begin{rowequmat}{cccc}
+				0	& 0		& 0		& 0 \\
+				0	& 3		& -3	& 0 \\
+				0	& 0		& 0		& 0 \\
+				0	& 0		& 5		& 3
+		\end{rowequmat}
+	\end{equation*}
+	Si cerca la forma ridotta della matrice, eseguendo l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{rowequmat}{cccc}
+			0	& 0		& 0		& 0 \\
+			0	& 3		& -3	& 0 \\
+			0	& 0		& 0		& 0 \\
+			0	& 0		& 5		& 3
+		\end{rowequmat} \xlongrightarrow[E_{4,2}]{E_{2,1}}
+		\begin{rowequmat}{cccc}
+			0	& 3		& -3	& 0 \\
+			0	& 0		& 5		& 3 \\
+			0	& 0		& 0		& 0 \\
+			0	& 0		& 0		& 0 
+		\end{rowequmat}
+	\end{equation*}
+	Si ottiene il sistema lineare:
+	\begin{equation*}
+		\begin{cases}
+			3x_{2} -3x_{3} = 0 \\
+			5x_{3} +3x_{4} = 0	
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{3} = x_{2} \\
+			x_{4} = -\frac{5}{3}x_{2}
+		\end{cases}
+	\end{equation*}
+	Quindi, il sistema generale è:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = x_{1} \\
+			x_{2} = x_{2} \\
+			x_{3} = x_{2} \\
+			x_{4} = -\frac{5}{3}x_{2}
+		\end{cases}
+	\end{equation*}
+	L'autospazio generale è:
+	\begin{equation*}
+		\left\{
+			\left. \begin{pmatrix}
+				x_{1} \\
+				x_{2} \\
+				x_{2} \\
+				-\frac{5}{3}x_{2}
+			\end{pmatrix} \: \right| \:
+			x_{1}, x_{2} \in \mathbb{R}
+		\right\} = \left\{x_{1}
+		\begin{pmatrix}
+			1 \\
+			0 \\
+			0 \\
+			0
+		\end{pmatrix} + x_{2}
+		\begin{rowequmat}{c}
+			0 \\ [.3em]
+			1 \\ [.3em]
+			1 \\ [.3em]
+			-\frac{5}{3}
+		\end{rowequmat}
+		\right\}
+	\end{equation*}
+	Dove il seguente insieme è una base:
+	\begin{equation*}
+		\left\{
+			\begin{pmatrix}
+				1 \\
+				0 \\
+				0 \\
+				0
+			\end{pmatrix} ,
+			\begin{rowequmat}{c}
+				0 \\ [.3em]
+				1 \\ [.3em]
+				1 \\ [.3em]
+				-\frac{5}{3}
+			\end{rowequmat}
+		\right\}
+	\end{equation*}\newpage
+
+	\noindent
+	Il secondo autospazio con il secondo autovalore $\lambda = 2$:
+	\begin{equation*}
+		B - \lambda_{2} \mathrm{Id}_{4} = B - \left(2\right) \mathrm{Id}_{4} =
+		\begin{rowequmat}{cccc}
+				-3	& 0		& 0		& 0 \\
+				0	& 0		& -3	& 0 \\
+				0	& 0		& -3	& 0 \\
+				0	& 0		& 5		& 0
+		\end{rowequmat}
+	\end{equation*}
+	Si cerca la forma ridotta della matrice, eseguendo l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{rowequmat}{cccc}
+			-3	& 0		& 0		& 0 \\
+			0	& 0		& -3	& 0 \\
+			0	& 0		& -3	& 0 \\
+			0	& 0		& 5		& 0
+		\end{rowequmat}
+		\xlongrightarrow[E_{4,2}\left(\frac{3}{5}\right)]{E_{2,3}\left(-1\right)}
+		\begin{rowequmat}{cccc}
+			-3	& 0		& 0		& 0 \\
+			0	& 0		& 0		& 0 \\
+			0	& 0		& 0		& 0 \\
+			0	& 0		& 5		& 0
+		\end{rowequmat}
+		\xlongrightarrow[E_{1}\left(-\frac{1}{3}\right)]{E_{4,2}, \: E_{2}\left(\frac{1}{5}\right)}
+		\begin{rowequmat}{cccc}
+			1	& 0		& 0		& 0 \\
+			0	& 0		& 1		& 0 \\
+			0	& 0		& 0		& 0 \\
+			0	& 0		& 0		& 0
+		\end{rowequmat}
+	\end{equation*}
+	Si ottiene il sistema lineare:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = 0 \\
+			x_{3} = 0
+		\end{cases}
+	\end{equation*}
+	Quindi, il sistema generale è:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = 0		\\
+			x_{2} = x_{2} 	\\
+			x_{3} = 0		\\
+			x_{4} = x_{4}
+		\end{cases}
+	\end{equation*}
+	L'autospazio generale è:
+	\begin{equation*}
+		\left\{
+			\left. \begin{pmatrix}
+				0		\\
+				x_{2} 	\\
+				0		\\
+				x_{4}
+			\end{pmatrix} \: \right| \:
+			x_{2}, x_{4} \in \mathbb{R}
+		\right\} =
+		\left\{
+			x_{2} \begin{pmatrix}
+				0 \\
+				1 \\
+				0 \\
+				0
+			\end{pmatrix}
+			+
+			x_{4} \begin{pmatrix}
+				0 \\
+				0 \\
+				0 \\
+				1
+			\end{pmatrix}
+		\right\}
+	\end{equation*}
+	Dove il seguente insieme è una base:
+	\begin{equation*}
+		\left\{
+			\begin{pmatrix}
+				0 \\
+				1 \\
+				0 \\
+				0
+			\end{pmatrix},
+			\begin{pmatrix}
+				0 \\
+				0 \\
+				0 \\
+				1
+			\end{pmatrix}
+		\right\}
+	\end{equation*}\newpage
+
+	\subsubsection{Punto b}
+
+	\textcolor{Green4}{\textbf{\emph{Si verifichi che la matrice $B$ è diagonalizzabile e si scrivano la matrice diagonale $D$ e la matrice invertibile $S$ tali che $B = SDS^{-1}$.}}}\newline
+
+	\noindent
+	Una matrice $B$ è diagonalizzabile se rispetta due condizioni:
+	\begin{enumerate}
+		\item La somma delle molteplicità algebriche degli autovalori della matrice è uguale all'ordine della matrice;
+		\item La molteplicità geometrica di ciascun autovalore coincide con la relativa molteplicità algebrica.
+	\end{enumerate}
+	Gli autovalori di $B$ sono $\lambda_{1}=-1$ e $\lambda_{2} = 2$. Ma dato che le soluzioni derivano da:
+	\begin{equation*}
+		p_{B}\left(\lambda\right) = \det\left(B - \lambda \mathrm{Id}_{4}\right) = \left(-1-\lambda\right) \cdot \left(2-\lambda\right) \cdot \left(-1-\lambda\right) \cdot \left(2-\lambda\right)
+	\end{equation*}
+	È immediato vedere come ogni soluzione trovata annulli due volte il polinomio caratteristico. Quindi le molteplicità algebriche sono:
+	\begin{gather*}
+		m_{1} = 2 \\
+		m_{2} = 2
+	\end{gather*}
+	La prima condizione è soddisfatta. La seconda è la verifica della molteplicità geometrica. Quest'ultima è possibile verificarla con la seguente formula:
+	\begin{equation*}
+		m_{g}\left(\lambda\right) = n - \mathrm{rk}\left(A - \lambda\mathrm{Id}_{n}\right)
+	\end{equation*}
+	Dunque, si calcola il rango di tutte le matrici trovate sostituendo gli autovalori ottenuti:
+	\begin{equation*}
+		\begin{array}{lll}
+			m_{1}\left(-1\right) &=& 4 - \mathrm{rk}\left(A - \left(-1\right)\mathrm{Id}_{4}\right) = 4 - 2 = 2 \\
+			m_{2}\left( 2\right) &=& 4 - \mathrm{rk}\left(A - 2\mathrm{Id}_{4}\right) = 4 - 2 = 2
+		\end{array}
+	\end{equation*}
+	Ciascuna molteplicità geometrica corrisponde con la relativa molteplicità algebrica. Questo conferma che la matrice $B$ è diagonalizzabile.\newline
+
+	\noindent
+	La matrice diagonale $D$ ha gli autovalori di $B$ nella diagonale principale:
+	\begin{equation*}
+		D = \begin{pmatrix}
+			-1 & 0 & 0 & 0 \\
+			0 & -1 & 0 & 0 \\
+			0 & 0 & 2 & 0 \\
+			0 & 0 & 0 & 2 
+		\end{pmatrix}
+	\end{equation*}
+	La matrice $S$ invece è composta dalle basi trovate, ovvero:
+	\begin{equation*}
+		S = \begin{rowequmat}{cccc}
+			1 & 0				& 0 & 0 \\ [.3em]
+			0 & 1				& 1 & 0 \\ [.3em]
+			0 & 1				& 0 & 0 \\ [.3em]
+			0 & -\frac{5}{3}	& 0 & 1
+		\end{rowequmat}
+	\end{equation*}\newpage
+	
+	\noindent
+	La matrice inversa si trova affiancando a destra la matrice identità ed eseguendo EG:
+	\begin{gather*}
+		\left(S \: | \: \mathrm{Id_{4}}\right) = 
+		\begin{rowequmat}{cccc|cccc}
+			1 & 0				& 0 & 0 & 1 & 0 & 0 & 0 \\ [.3em]
+			0 & 1				& 1 & 0 & 0 & 1 & 0 & 0 \\ [.3em]
+			0 & 1				& 0 & 0 & 0 & 0 & 1 & 0 \\ [.3em]
+			0 & -\frac{5}{3}	& 0 & 1 & 0 & 0 & 0 & 1
+		\end{rowequmat}
+		\xlongrightarrow[E_{2,3}\left(-1\right)]{E_{3,2}}
+		\begin{rowequmat}{cccc|cccc}
+			1 & 0				& 0 & 0 & 1 & 0 & 0 & 0 \\ [.3em]
+			0 & 1				& 0 & 0 & 0 & 0 & 1 & 0 \\ [.3em]
+			0 & 0				& 1 & 0 & 0 & 1 & -1 & 0 \\ [.3em]
+			0 & -\frac{5}{3}	& 0 & 1 & 0 & 0 & 0 & 1
+		\end{rowequmat} \\
+		\\
+		\xlongrightarrow{E_{2,4}\left(\frac{5}{3}\right)}
+		\begin{rowequmat}{cccc|cccc}
+			1 & 0	& 0 & 0 & 1 & 0 & 0 & 0 \\ [.3em]
+			0 & 1	& 0 & 0 & 0 & 0 & 1 & 0 \\ [.3em]
+			0 & 0	& 1 & 0 & 0 & 1 & -1 & 0 \\ [.3em]
+			0 & 0	& 0 & 1 & 0 & 0 & \frac{5}{3} & 1
+		\end{rowequmat}\\
+		\\
+		S^{-1} = 
+		\begin{rowequmat}{cccc}
+			1 & 0 & 0 & 0 \\ [.3em]
+			0 & 0 & 1 & 0 \\ [.3em]
+			0 & 1 & -1 & 0 \\ [.3em]
+			0 & 0 & \frac{5}{3} & 1
+		\end{rowequmat}
+	\end{gather*}
+	Si verifica la correttezza:
+	\begin{equation*}
+		\begin{array}{lll}
+			B = SDS^{-1} &=&
+			\begin{rowequmat}{cccc}
+				1 & 0				& 0 & 0 \\ [.3em]
+				0 & 1				& 1 & 0 \\ [.3em]
+				0 & 1				& 0 & 0 \\ [.3em]
+				0 & -\frac{5}{3}	& 0 & 1
+			\end{rowequmat}
+			\begin{rowequmat}{cccc}
+				-1 & 0 & 0 & 0 \\ [.3em]
+				0 & -1 & 0 & 0 \\ [.3em]
+				0 & 0 & 2 & 0 \\ [.3em]
+				0 & 0 & 0 & 2 
+			\end{rowequmat}
+			\begin{rowequmat}{cccc}
+				1 & 0 & 0 & 0 \\ [.3em]
+				0 & 0 & 1 & 0 \\ [.3em]
+				0 & 1 & -1 & 0 \\ [.3em]
+				0 & 0 & \frac{5}{3} & 1
+			\end{rowequmat} \\[3em]
+			%
+			&=&
+			\begin{rowequmat}{cccc}
+				1 & 0				& 0 & 0 \\ [.3em]
+				0 & 1				& 1 & 0 \\ [.3em]
+				0 & 1				& 0 & 0 \\ [.3em]
+				0 & -\frac{5}{3}	& 0 & 1
+			\end{rowequmat}
+			\begin{rowequmat}{cccc}
+				-1 & 0 & 0 & 0 \\ [.3em]
+				0 & 0 & -1 & 0 \\ [.3em]
+				0 & 2 & -2 & 0 \\ [.3em]
+				0 & 0 & \frac{10}{3} & 2
+			\end{rowequmat} \\[3em]
+			%
+			&=&
+			\begin{rowequmat}{cccc}
+				-1 & 0 & 0 & 0 \\ [.3em]
+				0 & 2 & -3 & 0 \\ [.3em]
+				0 & 0 & -1 & 0 \\ [.3em]
+				0 & 0 & 5 & 2
+			\end{rowequmat}
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsubsection{Punto c}
+
+	\textcolor{Green4}{\textbf{\emph{Utilizzando la diagonalizzazione, si calcoli il prodotto $B^{5}$.}}}\newline
+
+	\noindent
+	Si calcola:
+	\begin{equation*}
+		B^{5} = \left(SDS^{-1}\right)^{5} = S D^{5} S^{-1}
+	\end{equation*}
+	Quindi, le matrici mutano in:
+	\begin{equation*}
+		\begin{array}{lll}
+			B = \left(SDS^{-1}\right)^{5} &=&
+			\begin{rowequmat}{cccc}
+				1 & 0				& 0 & 0 \\ [.3em]
+				0 & 1				& 1 & 0 \\ [.3em]
+				0 & 1				& 0 & 0 \\ [.3em]
+				0 & -\frac{5}{3}	& 0 & 1
+			\end{rowequmat}
+			\begin{rowequmat}{cccc}
+				-1 & 0 & 0 & 0 \\ [.3em]
+				0 & -1 & 0 & 0 \\ [.3em]
+				0 & 0 & 32 & 0 \\ [.3em]
+				0 & 0 & 0 & 32 
+			\end{rowequmat}
+			\begin{rowequmat}{cccc}
+				1 & 0 & 0 & 0 \\ [.3em]
+				0 & 0 & 1 & 0 \\ [.3em]
+				0 & 1 & -1 & 0 \\ [.3em]
+				0 & 0 & \frac{5}{3} & 1
+			\end{rowequmat} \\[3em]
+			%
+			&=&
+			\begin{rowequmat}{cccc}
+				1 & 0				& 0 & 0 \\ [.3em]
+				0 & 1				& 1 & 0 \\ [.3em]
+				0 & 1				& 0 & 0 \\ [.3em]
+				0 & -\frac{5}{3}	& 0 & 1
+			\end{rowequmat}
+			\begin{rowequmat}{cccc}
+				-1 & 0 & 0 & 0 \\ [.3em]
+				0 & 0 & -1 & 0 \\ [.3em]
+				0 & 32 & -32 & 0 \\ [.3em]
+				0 & 0 & \frac{160}{3} & 32
+			\end{rowequmat} \\[3em]
+			%
+			&=&
+			\begin{rowequmat}{cccc}
+				-1 & 0 & 0 & 0 \\ [.3em]
+				0 & 32 & -33 & 0 \\ [.3em]
+				0 & 0 & -1 & 0 \\ [.3em]
+				0 & 0 & 55 & 32
+			\end{rowequmat}
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsection{Esercizio 3}
+
+	(\textbf{8 punti}) Si consideri la seguente matrice:
+	\begin{equation*}
+		M = \begin{pmatrix}
+			i	& 2i+1	\\
+			-1	& 2		\\
+			-i	& 2i
+		\end{pmatrix}
+	\end{equation*}
+	
+	\longline
+
+	\subsubsection{Punto a}
+
+	\textcolor{Green4}{\textbf{\emph{Si calcoli la $H$-trasposta $M^{H}$ di $M$.}}}\newline
+
+	\noindent
+	La matrice $H$-trasposta di $M$, si ottiene invertendo le righe con le colonne ed eseguendo l'operazione di coniugazione (cambiare di segno), la quale influisce solo sui numeri immaginari:
+	\begin{equation*}
+		\begin{array}{lll}
+			M &=& \begin{pmatrix}
+				i	& 2i+1	\\
+				-1	& 2		\\
+				-i	& 2i
+			\end{pmatrix} \\ [2	em]
+			M^{T} &=& \begin{pmatrix}
+				i 		& -1	& -i \\
+				2i+1	& 2		& 2i
+			\end{pmatrix} \\ [2em]
+			M^{H} &=& \begin{pmatrix}
+				-i 		& -1	& i \\
+				-2i+1	& 2		& -2i
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}
+
+	\longline
+
+	\subsubsection{Punto b}
+
+	\textcolor{Green4}{\textbf{\emph{Si determinino una base di $C\left(M\right)$ e una base di $N\left(M^{H}\right)$ su $\mathbb{C}$.}}}\newline
+
+	\noindent
+	Si applica l'eliminazione di Gauss per ottenere una forma ridotta:
+	\begin{equation*}
+		M' =
+		\begin{pmatrix}
+			i	& 2i+1	\\
+			-1	& 2		\\
+			-i	& 2i
+		\end{pmatrix}
+		\xlongrightarrow[E_{1,2}\left(\frac{1}{i}\right)]{E_{1,3}\left(1\right)}
+		\begin{rowequmat}{cc}
+			i	& 2i+1 \\ [.3em]
+			0	& 4+\frac{1}{i} \\ [.3em]
+			0	& 4i+1
+		\end{rowequmat}
+		\xlongrightarrow{E_{2,3}\left(-i\right)}
+		\begin{rowequmat}{cc}
+			i	& 2i+1 \\ [.3em]
+			0	& 4+\frac{1}{i} \\ [.3em]
+			0	& 0
+		\end{rowequmat}
+	\end{equation*}
+	Il numero di \emph{pivot}, in questo caso 2, rappresenta il rango della matrice ($\mathrm{rk}\left(M\right) = 2$), ovvero il numero di vettori colonna linearmente indipendenti. In altre parole, rappresenta la dimensione dello spazio generato dai vettori considerati inizialmente.
+
+	Quindi, è possibile affermare che i vettori colonna della matrice non ridotta $M$, i quali corrispondono ai vettori colonna della matrice ridotta $M'$ (soprastante) che contengono i pivot, costituiscono una base dello spazio generato del sistema di generatori. Per cui, una base di $C\left(M\right)$:
+	\begin{equation*}
+		\dim\left(M\right) = \mathrm{rk}\left(M\right) \longrightarrow 2 = 2 \Longrightarrow
+		C\left(M\right) = \left\{
+			\begin{pmatrix}
+				i  \\
+				-1 \\
+				-i
+			\end{pmatrix},
+			\begin{pmatrix}
+				2i+1 \\
+				2 	 \\
+				2i
+			\end{pmatrix}
+		\right\}
+	\end{equation*}\newpage
+
+	\noindent
+	Si prosegue l'esercizio calcolando una base della nullità di $M^{H}$. Quindi, si esegue l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{pmatrix}
+			-i 		& -1	& i \\
+			-2i+1	& 2		& -2i
+		\end{pmatrix}
+		\xlongrightarrow{E_{1,2}\left(-2-i\right)}
+		\begin{pmatrix}
+			-i 	& -1	& i \\
+			0	& 4+i	& 1-4i
+		\end{pmatrix}
+	\end{equation*}
+	Si ottiene il seguente sistema lineare:
+	\begin{gather*}
+		\begin{cases}
+			-ix -y +iz = 0 \\
+			\left(4+i\right)y + \left(1-4i\right) z = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			-ix -y +iz = 0 \\
+			\\
+			y = -\dfrac{\left(1-4i\right)}{\left(4+i\right)} z
+		\end{cases}\\
+		\\
+		\dfrac{\left(1-4i\right)}{\left(4+i\right)} = \dfrac{\left(1-4i\right)\left(4-i\right)}{\left(4+i\right)\left(4-i\right)} = \dfrac{4-i-16i+4i^{2}}{16-4i+4i-i^2} = \dfrac{-17i}{17} = -i \\
+		\\
+		\begin{cases}
+			-ix -y +iz = 0 \\
+			y = -\left(-i\right) z
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			-ix -iz +iz = 0 \\
+			y = i z
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = 0 \\
+			y = i z
+		\end{cases}\\
+	\end{gather*}
+	Dopo alcune semplificazioni, il risultato generale è:
+	\begin{equation*}
+		\begin{cases}
+			x = 0 \\
+			y = iz \\
+			z = z
+		\end{cases}
+	\end{equation*}
+	Dunque $N\left(M^{H}\right)$ è:
+	\begin{equation*}
+		N\left(M^{H}\right) = \left\{
+			\left.
+				z
+				\begin{pmatrix}
+					0 \\
+					i \\
+					1
+				\end{pmatrix} \:
+			\right| \: z \in \mathbb{C}
+		\right\}
+	\end{equation*}
+	Per cui, si ha una base:
+	\begin{equation*}
+		\left\{
+			\begin{pmatrix}
+				0 \\
+				i \\
+				1
+			\end{pmatrix}
+		\right\}
+	\end{equation*}
+
+	\longline
+
+	\subsubsection{Punto c}
+
+	\textcolor{Green4}{\textbf{\emph{Si scriva una base di $\mathbb{C}^{3}$ che contiene le colonne di $M$.}}}\newline
+
+	\noindent
+	Dato che per definizione:
+	\begin{equation*}
+		\mathbb{C}^{3} = C\left(M\right) + N\left(M^{H}\right)
+	\end{equation*}
+	Allora una base di $\mathbb{C}^{3}$ è:
+	\begin{equation*}
+		\left\{
+			\begin{pmatrix}
+				i  \\
+				-1 \\
+				-i
+			\end{pmatrix},
+			\begin{pmatrix}
+				2i+1 \\
+				2 	 \\
+				2i
+			\end{pmatrix},
+			\begin{pmatrix}
+				0 \\
+				i \\
+				1
+			\end{pmatrix}
+		\right\}
+	\end{equation*}\newpage
+
+	\subsection{Esercizio 4}
+
+	(\textbf{4 punti}) Vero o falso? Si motivi la risposta!
+
+	\longline
+
+	\subsubsection{Punto a}
+
+	\textcolor{Green4}{\textbf{\emph{Il sistema omogeneo $Ax = 0$ ammette soltanto la soluzione banale}} $x = \begin{pmatrix}
+		0 \\ 0 \\ 0
+	\end{pmatrix}$ \textbf{\emph{dove}} $A = \begin{pmatrix}
+		1 & 0 & 0 \\ 0 & 1 & 0
+	\end{pmatrix}$}\newline
+
+	\noindent
+	Il sistema omogeneo $Ax = 0$ non ammette soltanto la soluzione banale. Per dimostrare ciò, si utilizza il teorema di Rouché-Capelli. Quindi, si calcola il rango delle matrici ridotte e aumentate:
+	\begin{equation*}
+		\begin{array}{rllll}
+			A &=& \begin{pmatrix}
+				1 & 0 & 0 \\ 0 & 1 & 0
+			\end{pmatrix} &\longrightarrow& \mathrm{rk}\left(A\right) = 2 \\ [2em]
+			\left(A \: | \: \mathbf{0}\right) &=& \begin{rowequmat}{ccc|c}
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0
+			\end{rowequmat} &\longrightarrow& \mathrm{rk}\left(A \: | \: \mathbf{0}\right) = 2
+		\end{array}
+	\end{equation*}
+	Il rango di entrambe le matrici è uguale a due, quindi, secondo il teorema, esistono una o infinite soluzioni. Precisamente:
+	\begin{equation*}
+		\mathrm{rk}\left(A\right) = \mathrm{\left(A \: | \: \mathbf{0}\right)} < n
+	\end{equation*}
+	Dove $n$ indica il numero di incognite, in questo caso 3 ($x,y,z$). Andando a sostituire i valori:
+	\begin{equation*}
+		2 = 2 < 3
+	\end{equation*}
+	La condizione è rispettata, quindi secondo il teorema di Rouché-Capelli, il sistema $Ax = 0$ ammette infinite soluzioni, precisamente $\infty^{n - \mathrm{rk}\left(A\right)} \rightarrow \infty^{3-2} = \infty$.
+	
+	\noindent
+	In generale, la forma generale della soluzione deve essere:
+	\begin{equation*}
+		A x = 0 \Longrightarrow
+		\begin{pmatrix}
+			1 & 0 & 0 \\ 0 & 1 & 0
+		\end{pmatrix}
+		x\begin{pmatrix}
+			0 \\ 0 \\ 1
+		\end{pmatrix} = \mathbf{0}
+	\end{equation*}\newpage
+
+	\subsubsection{Punto b}
+
+	\textcolor{Green4}{\textbf{\emph{L'insieme }} $\left\{\begin{pmatrix}
+		-1 \\ 0
+	\end{pmatrix}, \begin{pmatrix}
+		2 \\ 1
+	\end{pmatrix}, \begin{pmatrix}
+		1 \\ 2
+	\end{pmatrix}\right\}$ \textbf{\emph{è linearmente dipendente.}}}\newline
+
+	\noindent
+	Per verificarlo, si prendono tre generici scalari $a,b,c \in \mathbb{R}$ e si moltiplicano per i vettori:
+	\begin{equation*}
+		av_{1} + bv_{2} + cv_{3} = \mathbf{0}
+	\end{equation*}
+	Sostituendo i valori:
+	\begin{equation*}
+		a
+		\begin{pmatrix}
+			-1 \\ 0
+		\end{pmatrix}
+		+ b
+		\begin{pmatrix}
+			2 \\ 1
+		\end{pmatrix}
+		+ c
+		\begin{pmatrix}
+			1 \\ 2
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			0 \\ 0
+		\end{pmatrix}
+	\end{equation*}
+	Eseguendo i calcoli:
+	\begin{equation*}
+		\begin{pmatrix}
+			-a + 2b + c \\
+			b + 2c
+		\end{pmatrix} \Longrightarrow
+		\begin{cases}
+			-a + 2b + c = 0 \\
+			b + 2c = 0
+		\end{cases} \longrightarrow
+		\begin{cases}
+			-a + 2\left(-2c\right) + c = 0 \\
+			b = -2c
+		\end{cases} \longrightarrow
+		\begin{cases}
+			c = -\frac{a}{3} \\
+			b = -2c
+		\end{cases}
+	\end{equation*}
+	È evidente che i tre vettori sono linearmente dipendenti. $b$ dipende da $c$ e $c$ dipende da $a$.
+
+	\longline
+
+	\subsection{Esercizio 5}
+
+	(\textbf{1 punto}) Sia $V$ uno spazio vettoriale su $\mathbb{K}$. Si dimostri la seguente affermazione: se almeno uno dei vettori $v_{1}, \cdots, v_{2}$ è combinazione lineare dei rimanenti, allora $\left\{v_{1}, \cdots, v_{2}\right\}$ non è linearmente indipendente.\newline
+
+	\noindent
+	Dimostrazione lasciata al lettore.\newpage
+
 	\section{Esame del 15/07/2022}
 	
 	\newpage
