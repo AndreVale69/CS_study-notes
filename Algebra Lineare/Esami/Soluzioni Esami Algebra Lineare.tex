@@ -984,6 +984,374 @@
 	Dimostrazione lasciata al lettore.\newpage
 
 	\section{Esame del 15/07/2022}
+
+	\subsection{Esercizio 1}
+
+	(\textbf{6 punti}) Si consideri la seguente matrice:
+	\begin{equation*}
+		A = \begin{pmatrix}
+			1 &	1	& 1 & 0 \\
+			1 &	1	& k & k \\
+			1 &	k-1	& 0 & 0 \\
+			1 &	k-1	& k & k 
+		\end{pmatrix}
+	\end{equation*}
+	
+	\longline
+
+	\subsubsection{Parte a}
+
+	\textcolor{Green4}{\textbf{\emph{Si studi $\det\left(A\right)$ al variare di $k$.}}}\newline
+
+	\noindent
+	Si procede con l'eliminazione di Gauss:
+	\begin{gather*}
+		\begin{pmatrix}
+			1 &	1	& 1 & 0 \\
+			1 &	1	& k & k \\
+			1 &	k-1	& 0 & 0 \\
+			1 &	k-1	& k & k 
+		\end{pmatrix}
+		\xlongrightarrow{E_{2,1}\left(-1\right)}
+		\begin{pmatrix}
+			0 &	0	& 1-k & -k \\
+			1 &	1	& k & k \\
+			1 &	k-1	& 0 & 0 \\
+			1 &	k-1	& k & k 
+		\end{pmatrix} \\
+		\\
+		\xlongrightarrow[E_{4,3}\left(-1\right)]{E_{4,2}\left(-1\right)}
+		\begin{pmatrix}
+			0 &	0	& 1-k & -k \\
+			0 &	-k+2 & 0 & 0 \\
+			0 &	0	& -k & -k \\
+			1 &	k-1	& k & k 
+		\end{pmatrix}
+		\xlongrightarrow[E_{4,3}\left(-1\right)]{E_{4,1}}
+		\begin{pmatrix}
+			1 &	k-1	& k & k \\
+			0 &	-k+2 & 0 & 0 \\
+			0 &	0	& -1 & 0 \\
+			0 &	0	& 1-k & -k 
+		\end{pmatrix}\\
+		\\
+		\xlongrightarrow[E_{3,4}\left(-k\right)]{E_{3,4}\left(1\right)}
+		\begin{pmatrix}
+			1 &	k-1	& k & k \\
+			0 &	-k+2 & 0 & 0 \\
+			0 &	0	& -1 & 0 \\
+			0 &	0	&  0 & -k 
+		\end{pmatrix}
+		\xrightarrow{E_{3}\left(-1\right)}
+		\begin{pmatrix}
+			1 &	k-1	& k & k \\
+			0 &	-k+2 & 0 & 0 \\
+			0 &	0	& 1 & 0 \\
+			0 &	0	&  0 & -k 
+		\end{pmatrix}
+	\end{gather*}
+	Il determinante della matrice ridotta è:
+	\begin{equation*}
+		\det\left(A\right) = 1 \cdot \left(-k+2\right) \cdot 1 \cdot \left(-k\right) = k^{2} - 2k = k\left(k-2\right)
+	\end{equation*}
+
+	\longline
+
+	\subsubsection{Parte b}
+
+	\textcolor{Green4}{\textbf{\emph{Si studi $\mathrm{rk}\left(A\right)$ al variare di $k$.}}}\newline
+
+	\noindent
+	Il rango corrisponde al numero di \emph{pivot} della matrice ridotta, in questo caso, dipende da $k$, ovvero:
+	\begin{equation*}
+		\mathrm{rk}\left(A\right) = \begin{cases}
+			3 & k = 0 \lor k = 2 \\
+			4 & \text{altrimenti}
+		\end{cases}
+	\end{equation*}\newpage
+
+	\subsubsection{Parte c}
+
+	\textcolor{Green4}{\textbf{\emph{Si determini se $A$ è invertibile. Se sì, per quali valori di $k$?}}}\newline
+
+	\noindent
+	La matrice $A$ è invertibile se e solo se il determinante è diverso da zero. Dato che il determinante è $\det\left(A\right) = k\left(k-2\right)$, la matrice $A$ possiede inversa se e solo se $k \ne 0 \land k \ne 2$. In questo modo, il determinante non sarà mai nullo.\newpage
+
+	\subsection{Esercizio 2}
+
+	Si consideri la seguente matrice:
+	\begin{equation*}
+		B = \begin{rowequmat}{cc}
+			1 & 0 \\
+			4 & \frac{1}{2}
+		\end{rowequmat}
+	\end{equation*}
+
+	\longline
+
+	\subsubsection{Parte a}
+
+	\textcolor{Green4}{\textbf{\emph{Si calcolino tutti gli autovalori di $B$ su $\mathbb{R}$ e si trovino delle basi dei loro autospazi.}}}\newline
+
+	\noindent
+	Si calcola il polinomio caratteristico:
+	\begin{equation*}
+		\begin{array}{lll}
+			p_{B}\left(\lambda\right) &=& \det\left(B-\lambda \mathrm{Id}_{2}\right) \\ [2em]
+			&=& \det\left[\begin{rowequmat}{cc}
+				1 & 0 \\
+				4 & \frac{1}{2}
+			\end{rowequmat} - \lambda \begin{pmatrix}
+				1 & 0 \\ 0 & 1
+			\end{pmatrix}\right] \\ [2em]
+			&=& \det\left[\begin{rowequmat}{cc}
+				1 & 0 \\
+				4 & \frac{1}{2}
+			\end{rowequmat} - \begin{pmatrix}
+				\lambda & 0 \\ 0 & \lambda
+			\end{pmatrix}\right] \\ [2em]
+			&=& \det\left[\begin{rowequmat}{cc}
+				1-\lambda & 0 \\
+				4 & \frac{1}{2}-\lambda
+			\end{rowequmat}\right]
+		\end{array}
+	\end{equation*}
+	Si esegue l'eliminazione di Gauss per calcolare il determinante della matrice:
+	\begin{equation*}
+		\begin{rowequmat}{cc}
+			1-\lambda & 0 \\
+			4 & \frac{1}{2}-\lambda
+		\end{rowequmat}
+		\xlongrightarrow{E_{1,2}\left(-\frac{4}{1-\lambda}\right)}
+		\begin{rowequmat}{cc}
+			1-\lambda & 0 \\
+			0 & \frac{1}{2}-\lambda
+		\end{rowequmat}
+	\end{equation*}
+	Il determinante dunque è:
+	\begin{equation*}
+		\det\left(B - \lambda\mathrm{Id}_{2}\right) = \left(1-\lambda\right) \cdot \left(\dfrac{1}{2}-\lambda\right)
+	\end{equation*}
+	Adesso si cercano gli zeri, ovvero quei valori per cui il polinomio caratteristico è uguale a zero:
+	\begin{equation*}
+		\begin{array}{lll}
+			\lambda_{1} = 1				&\longrightarrow& \left(1-1\right) \cdot \left(\dfrac{1}{2}-1\right) \\ [2em]
+			\lambda_{2} = \dfrac{1}{2}	&\longrightarrow& \left(1-\dfrac{1}{2}\right) \cdot \left(\dfrac{1}{2}-\dfrac{1}{2}\right)
+		\end{array}
+	\end{equation*}
+	Adesso che sono stati trovati gli autovalori, si trovano le basi degli autospazi.\newpage
+
+	\noindent
+	Sostituzione del valore $\lambda_{1} = 1$:
+	\begin{equation*}
+		p_{B}\left(1\right) = \det\left(B - 1\mathrm{Id}_{2}\right) = 
+		\begin{pmatrix}
+			1-1 & 0 \\
+			4 & \frac{1}{2}-1
+		\end{pmatrix} = \begin{pmatrix}
+			0 & 0 \\
+			4 & -\frac{1}{2}
+		\end{pmatrix}
+	\end{equation*}
+	L'eliminazione di Gauss non è necessaria, al massimo uno scambio di righe:
+	\begin{equation*}
+		\begin{pmatrix}
+			0 & 0 \\
+			4 & -\frac{1}{2}
+		\end{pmatrix}
+		\xlongrightarrow{E_{2,1}\left(1\right)}
+		\begin{pmatrix}
+			4 & -\frac{1}{2} \\
+			0 & 0
+		\end{pmatrix}
+	\end{equation*}
+	Si ottiene il sistema lineare:
+	\begin{equation*}
+		\begin{cases}
+			4x_{1} - \dfrac{1}{2}x_{2} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{1} = \dfrac{1}{8}x_{2}
+		\end{cases}
+	\end{equation*}
+	Quindi, il sistema generale:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = \dfrac{1}{8}x_{2} \\
+			\\
+			x_{2} = x_{2}
+		\end{cases}
+	\end{equation*}
+	L'autospazio generale è:
+	\begin{equation*}
+		\left\{ \left. \begin{rowequmat}{c}
+			\dfrac{1}{8}x_{2} \\ [.3em]
+			x_{2}
+		\end{rowequmat} \: \right| \: x_{2} \in \mathbb{R}\right\} =
+		\left\{
+			x_{2}
+			\begin{rowequmat}{c}
+				\frac{1}{8} \\ [.3em]
+				1
+			\end{rowequmat}
+		\right\}
+	\end{equation*}
+	Una base dell'autospazio dell'autovalore $\lambda=1$ è:
+	\begin{equation*}
+		\left\{\begin{rowequmat}{c}
+			\frac{1}{8} \\ [.3em]
+			1
+		\end{rowequmat}\right\}
+	\end{equation*}\newpage
+
+	\noindent
+	Sostituzione del valore $\lambda=\dfrac{1}{2}$:
+	\begin{equation*}
+		p_{B}\left(\dfrac{1}{2}\right) = \det\left(B - \dfrac{1}{2}\mathrm{Id}_{2}\right) = \begin{rowequmat}{cc}
+			1-\frac{1}{2} & 0 \\ [.3em]
+			4 & \frac{1}{2} - \frac{1}{2}
+		\end{rowequmat} =
+		\begin{rowequmat}{cc}
+			\frac{1}{2} & 0 \\ [.3em]
+			4 & 0
+		\end{rowequmat}
+	\end{equation*}
+	L'eliminazione di Gauss è inutile, infatti, il sistema lineare equivalente è:
+	\begin{equation*}
+		\begin{cases}
+			\frac{1}{2}x_{1} = 0
+			4x_{1} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{1} = 0
+			x_{1} = 0
+		\end{cases}
+	\end{equation*}
+	Per cui, il sistema generale:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = 0 \\
+			x_{2} = x_{2}
+		\end{cases}
+	\end{equation*}
+	Quindi, l'autospazio generale:
+	\begin{equation*}
+		\left\{
+			\left.
+			\begin{pmatrix}
+				0 \\ x_{2}
+			\end{pmatrix} \: \right| \:
+			x_{2} \in \mathbb{R}
+		\right\} = \left\{
+			x_{2} \begin{pmatrix}
+				0 \\
+				1
+			\end{pmatrix}
+		\right\}
+	\end{equation*}
+	Una base dell'autospazio dell'autovalore $\lambda=\frac{1}{2}$ è:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			0 \\ 1
+		\end{pmatrix}\right\}
+	\end{equation*}\newpage
+
+	\subsubsection{Parte b}
+
+	\textcolor{Green4}{\textbf{\emph{Si verifichi che la matrice $B$ è diagonalizzabile e si trovino la matrice diagonale $D$ e le matrici $S$, $S^{-1}$ tali che $B=SDS^{-1}$.}}}\newline
+
+	\noindent
+	Si verifica che la matrice $B$ è diagonalizzabile guardando le molteplicità algebriche e geometriche degli autovalori:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Molteplicità algebrica} &\longrightarrow& m_{1}\left(1\right) = 1, m_{2}\left(\dfrac{1}{2}\right) = 1 \\ [2em]
+			\text{Molteplicità geometrica} &\longrightarrow& m_{1}\left(1\right) = 2 - \mathrm{rk}\left(B - 1\mathrm{Id}_{2}\right) = 2 - 1 = 1 \\ [1.5em]
+			&& m_{2}\left(\dfrac{1}{2}\right) = 2 - 1 = 1
+		\end{array}
+	\end{equation*}
+	La matrice è diagonalizzabile perché ogni molteplicità geometrica corrisponde alla rispettiva molteplicità algebrica.\newline
+
+	\noindent
+	La matrice diagonale $D$ si trova inserendo nella diagonale principale gli autovalori:
+	\begin{equation*}
+		D = \begin{rowequmat}{cc}
+			1 & 0 \\ [.3em]
+			0 & \frac{1}{2}
+		\end{rowequmat}
+	\end{equation*}
+	La matrice $S$ è composta dalle basi trovate:
+	\begin{equation*}
+		S = \begin{rowequmat}{cc}
+			\frac{1}{8}	& 0 \\ [.3em]
+			1			& 1
+		\end{rowequmat}
+	\end{equation*}
+	L'inversa di $S$, cioè $S^{-1}$, si ottiene affiancando la matrice identità a destra e ottenendo una forma ridotta a sinistra:
+	\begin{equation*}
+		\begin{rowequmat}{cc|cc}
+			\frac{1}{8}	& 0 & 1 & 0 \\ [.3em]
+			1			& 1 & 0 & 1
+		\end{rowequmat}
+		\xlongrightarrow[sub]{E_{1,2}\left(-8\right)}
+		\begin{rowequmat}{cc|cc}
+			\frac{1}{8}	& 0 & 1 & 0 \\ [.3em]
+			0			& 1 & -8 & 1
+		\end{rowequmat}
+	\end{equation*}
+	Quindi la matrice $S^{-1}$ è composta nel seguente modo:
+	\begin{equation*}
+		\begin{pmatrix}
+			1 & 0 \\
+			-8 & 1
+		\end{pmatrix}
+	\end{equation*}\newpage
+
+	\subsection{Esercizio 3}
+
+	\textcolor{Green4}{\textbf{\emph{Sia $f: \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ l'applicazione lineare tale che $f\left(v\right) = \begin{pmatrix}
+		x+2y-z \\
+		2x+4y-2z \\
+		-3x-6y+3z
+	\end{pmatrix}$ per ogni $v=\begin{pmatrix}
+		x \\ y \\ z
+	\end{pmatrix} \in \mathbb{R}^{3}$.}}}
+
+	\longline
+
+	\subsubsection{Parte a}
+
+	\textcolor{Green4}{\textbf{\emph{Si calcoli la matrice $M$ associata a $f$ rispetto alla base canonica.}}}\newline
+
+	\noindent
+	QUA.
+
+	\subsubsection{Parte b}
+
+	\textcolor{Green4}{\textbf{\emph{Si determinino la dimensione e una base dell'immagine $Im\left(f\right) = C\left(M\right)$ di $f$ e dello spazio nullo $N\left(f\right) = N\left(M\right)$ di $f$.}}}
+
+	\subsubsection{Parte c}
+
+	\textcolor{Green4}{\textbf{\emph{Si dica se l'applicazione lineare $f$ è un isomorfismo.}}}
+
+	\subsubsection{Parte d}
+
+	\textcolor{Green4}{\textbf{\emph{Si calcoli la matrice $N$ associata a $f$ rispetto alla base $\mathcal{B} = \left\{\begin{pmatrix}
+		1 \\ 0 \\ 0
+	\end{pmatrix},\begin{pmatrix}
+		0 \\ 1 \\ 0
+	\end{pmatrix},\begin{pmatrix}
+		0 \\ 0 \\ 1
+	\end{pmatrix}\right\}$ nel dominio e rispetto alla base canonica nel codominio.}}}
+
+	\subsection{Esercizio 4}
+
+	\subsubsection{Parte a}
+
+	\subsubsection{Parte b}
+
+	\subsection{Esercizio 5}
 	
 	\newpage
 	\section{Esame del 02/09/2022}
