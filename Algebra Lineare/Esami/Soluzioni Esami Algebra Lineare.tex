@@ -1325,37 +1325,763 @@
 	\textcolor{Green4}{\textbf{\emph{Si calcoli la matrice $M$ associata a $f$ rispetto alla base canonica.}}}\newline
 
 	\noindent
-	QUA.
+	La base canonica:
+	\begin{equation*}
+		\mathcal{C}_{\mathbb{C}^{3}} = \left\{ \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\right\}
+	\end{equation*}
+	Si calcola la rispettiva matrice associata:
+	\begin{equation*}
+		\begin{array}{rll}
+			f\begin{pmatrix}
+				1 \\ 0 \\ 0
+			\end{pmatrix} &=& \begin{pmatrix}
+				1 + 2 \cdot 0 - 0 \\
+				2 \cdot 1 + 4 \cdot 0 - 2 \cdot 0 \\
+				-3 \cdot 1 - 6 \cdot 0 + 3 \cdot 0
+			\end{pmatrix} = \begin{pmatrix}
+				1 \\
+				2 \\
+				-3
+			\end{pmatrix} \\ [2em]
+			%
+			f\begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} &=& \begin{pmatrix}
+				0 + 2 \cdot 1 - 0 \\
+				2 \cdot 0 + 4 \cdot 1 - 2 \cdot 0 \\
+				-3 \cdot 0 - 6 \cdot 1 + 3 \cdot 0
+			\end{pmatrix} = \begin{pmatrix}
+				2 \\
+				4 \\
+				-6
+			\end{pmatrix} \\ [2em]
+			%
+			f\begin{pmatrix}
+				0 \\ 0 \\ 1
+			\end{pmatrix} &=& \begin{pmatrix}
+				0 + 2 \cdot 0 - 1 \\
+				2 \cdot 0 + 4 \cdot 0 - 2 \cdot 1 \\
+				- 3 \cdot 0 - 6 \cdot 0 + 3 \cdot 1
+			\end{pmatrix} = \begin{pmatrix}
+				-1 \\
+				-2 \\
+				3
+			\end{pmatrix} \\ [2em]
+			M &=& \begin{pmatrix}
+				1	& 2		& -1 \\
+				2	& 4		& -2 \\
+				-3	& -6	& 3 
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}\newpage
 
 	\subsubsection{Parte b}
 
-	\textcolor{Green4}{\textbf{\emph{Si determinino la dimensione e una base dell'immagine $Im\left(f\right) = C\left(M\right)$ di $f$ e dello spazio nullo $N\left(f\right) = N\left(M\right)$ di $f$.}}}
+	\textcolor{Green4}{\textbf{\emph{Si determinino la dimensione e una base dell'immagine $Im\left(f\right) = C\left(M\right)$ di $f$ e dello spazio nullo $N\left(f\right) = N\left(M\right)$ di $f$.}}}\newline
 
+	\noindent
+	Si utilizza l'eliminazione di Gauss per ottenere una forma ridotta, così da trovare una base e la dimensione di $C\left(M\right)$:
+	\begin{equation*}
+		\begin{pmatrix}
+			1	& 2		& -1 \\
+			2	& 4		& -2 \\
+			-3	& -6	& 3 
+		\end{pmatrix}
+		\xlongrightarrow[E_{1,3}\left(3\right)]{E_{1,2}\left(-2\right)}
+		\begin{pmatrix}
+			1	& 2	& -1 \\
+			0	& 0	& 0 \\
+			0	& 0	& 0 
+		\end{pmatrix}
+	\end{equation*}
+	Il rango della matrice risulta essere $\mathrm{rk}\left(M\right) = 1$. Esso corrisponde alla dimensione dello spazio generato dai vettori considerati inizialmente, ovvero:
+	\begin{equation*}
+		\dim\left(M\right) = \mathrm{rk}\left(M\right) \longrightarrow 1 = 1
+	\end{equation*}
+	Quindi, una base di $C\left(M\right)$ è:
+	\begin{equation*}
+		\left\{
+			\begin{pmatrix}
+				1 \\ 2 \\ -3
+			\end{pmatrix}
+		\right\}
+	\end{equation*}
+	Per trovare la dimensione della nullità di $f$, è necessario calcolare la dimensione del nucleo dell'applicazione lineare:
+	\begin{equation*}
+		M v = \mathbf{0}_{\mathbb{R}^{3}} \longrightarrow
+		\begin{pmatrix}
+			1	& 2		& -1 \\
+			2	& 4		& -2 \\
+			-3	& -6	& 3
+		\end{pmatrix}
+		\begin{pmatrix}
+			x \\ y \\ z
+		\end{pmatrix} =
+		\begin{pmatrix}
+			0 \\ 0 \\ 0
+		\end{pmatrix}
+	\end{equation*}
+	Si cerca la forma ridotta della matrice aumentata:
+	\begin{equation*}
+		\begin{rowequmat}{ccc|c}
+			1	& 2		& -1 & 0 \\
+			2	& 4		& -2 & 0 \\
+			-3	& -6	& 3  & 0
+		\end{rowequmat}
+		\xlongrightarrow[E_{1,3}\left(3\right)]{E_{1,2}\left(-2\right)}
+		\begin{rowequmat}{ccc|c}
+			1	& 2	& -1 	& 0 \\
+			0	& 0	& 0 	& 0 \\
+			0	& 0	& 0  	& 0
+		\end{rowequmat}
+	\end{equation*}
+	Anche in questo caso il rango è pari ad 1. Quindi, grazie al teorema di Rouché Capelli, la dimensione del nucleo di $f$, ovvero della nullità di $f$ è:
+	\begin{equation*}
+		\dim\left(\ker\left(f\right)\right) = \dim\left(N\left(M\right)\right) = n - \mathrm{rk}\left(M\right) = 3-1 = 2
+	\end{equation*}
+	La dimensione è corretta, confermato dal teorema della somma delle dimensioni dell'applicazioni lineari $f$:\
+	\begin{equation*}
+		\dim\left(f\right) = \dim\left(\ker\left(f\right)\right) + \dim\left(\mathrm{Im}\left(f\right)\right)
+	\end{equation*}
+	Una base dipende dal sistema lineare equivalente:
+	\begin{equation*}
+		\begin{cases}
+			x + 2y -z = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = -2y + z
+		\end{cases}
+	\end{equation*}
+	In generale:
+	\begin{equation*}
+		\begin{cases}
+			x = -2y + z \\
+			y = y \\
+			z = z
+		\end{cases}
+	\end{equation*}
+	Quindi, le basi sono:
+	\begin{equation*}
+		N\left(M\right) = \left\{
+			y \begin{pmatrix}
+				-2 \\
+				1 \\
+				0
+			\end{pmatrix} +
+			z \begin{pmatrix}
+				1 \\
+				0 \\
+				1
+			\end{pmatrix}
+		\right\} \longrightarrow \left\{
+			\begin{pmatrix}
+				-2 \\
+				1 \\
+				0
+			\end{pmatrix},
+			\begin{pmatrix}
+				1 \\
+				0 \\
+				1
+			\end{pmatrix}
+		\right\}
+	\end{equation*}
+
+	\newpage
 	\subsubsection{Parte c}
 
-	\textcolor{Green4}{\textbf{\emph{Si dica se l'applicazione lineare $f$ è un isomorfismo.}}}
+	\textcolor{Green4}{\textbf{\emph{Si dica se l'applicazione lineare $f$ è un isomorfismo.}}}\newline
+
+	\noindent
+	Per verificare l'isomorfismo, è necessario controllare che l'applicazione lineare sia invertibile. La matrice $M$ associata ad $f$, è invertibile se e solo se il suo determinante è diverso da zero e di rango massimo.
+
+	Purtroppo, in questo caso, il determinante è uguale a 0 e dunque l'applicazione lineare $f$ non è isomorfa.
+
+	\longline
 
 	\subsubsection{Parte d}
 
 	\textcolor{Green4}{\textbf{\emph{Si calcoli la matrice $N$ associata a $f$ rispetto alla base $\mathcal{B} = \left\{\begin{pmatrix}
 		1 \\ 0 \\ 0
 	\end{pmatrix},\begin{pmatrix}
-		0 \\ 1 \\ 0
+		1 \\ 1 \\ 0
 	\end{pmatrix},\begin{pmatrix}
-		0 \\ 0 \\ 1
-	\end{pmatrix}\right\}$ nel dominio e rispetto alla base canonica nel codominio.}}}
+		1 \\ 1 \\ 1
+	\end{pmatrix}\right\}$ nel dominio e rispetto alla base canonica nel codominio.}}}\newline
+
+	\noindent
+	La matrice $N$ associata a $f$ rispetto alla base $\mathcal{B}$ è:
+	\begin{equation*}
+		\begin{array}{rll}
+			f\begin{pmatrix}
+				1 \\ 0 \\ 0
+			\end{pmatrix} &=& \begin{pmatrix}
+				1 + 2 \cdot 0 - 0 \\
+				2 \cdot 1 + 4 \cdot 0 - 2 \cdot 0 \\
+				-3 \cdot 1 - 6 \cdot 0 + 3 \cdot 0
+			\end{pmatrix} = \begin{pmatrix}
+				1 \\ 2 \\ -3
+			\end{pmatrix} \\ [2em]
+			%
+			f\begin{pmatrix}
+				1 \\ 1 \\ 0
+			\end{pmatrix} &=& \begin{pmatrix}
+				1 + 2 \cdot 1 - 0 \\
+				2 \cdot 1 + 4 \cdot 1 - 2 \cdot 0 \\
+				-3 \cdot 1 - 6 \cdot 1 + 3 \cdot 0
+			\end{pmatrix} = \begin{pmatrix}
+				3 \\ 6 \\ -9
+			\end{pmatrix} \\ [2em]
+			%
+			f\begin{pmatrix}
+				1 \\ 1 \\ 1
+			\end{pmatrix} &=& \begin{pmatrix}
+				1 + 2 \cdot 1 - 1 \\
+				2 \cdot 1 + 4 \cdot 1 - 2 \cdot 1 \\
+				-3 \cdot 1 - 6 \cdot 1 + 3 \cdot 1
+			\end{pmatrix} = \begin{pmatrix}
+				2 \\ 4 \\ -6
+			\end{pmatrix} \\ [2em]
+			N &=& \begin{pmatrix}
+				1	& 3		& 2		\\
+				2	& 6		& 4		\\
+				-3	& -9	& -6
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}\newpage
 
 	\subsection{Esercizio 4}
 
+	(\textbf{4 punti}) Vero o falso? Si motivi la risposta!\newline
+
+	\longline
+
 	\subsubsection{Parte a}
+
+	\textcolor{Green4}{\textbf{\emph{Il numero complesso $\dfrac{-3+6i}{2+i}$ in forma algebrica è $3i$.}}}\newline
+
+	\noindent
+	Dato il rapporto tra i numeri complessi, si moltiplica la frazione per il complesso coniugato al denominatore:
+	\begin{equation*}
+		\dfrac{-3+6i}{2+i} \cdot \dfrac{2-i}{2-i} = \dfrac{-6+12i+3i-6i^{2}}{4-2i+2i-i^{2}} = \dfrac{15i}{5} = 3i
+	\end{equation*}
+	Quindi la forma algebrica è $3i$ e la risposta all'esercizio è: vero!\newline
+
+	\longline
 
 	\subsubsection{Parte b}
 
+	\textcolor{Green4}{\textbf{\emph{L'insieme $\left\{\begin{rowequmat}{c}
+		\frac{2}{\sqrt{5}} \\ [.3em]
+		\frac{1}{\sqrt{5}}
+	\end{rowequmat}, \begin{pmatrix}
+		i \\ 0
+	\end{pmatrix}\right\}$ è una base ortonormale di $\mathbb{C}^{2}$.}}}\newline
+
+	\noindent
+	Per verificare che sia una base ortonormale, i vettori devono essere linearmente indipendenti. Quindi, la moltiplicazione dei due vettori, dovrebbe avere come risultato zero. Si verifica:
+	\begin{equation*}
+		\begin{pmatrix}
+			\frac{2}{\sqrt{5}} & \frac{1}{\sqrt{5}}
+		\end{pmatrix}^{H}
+		\times
+		\begin{pmatrix}
+			i \\ 0
+		\end{pmatrix} =
+			\dfrac{2}{\sqrt{5}} \cdot i + \dfrac{1}{\sqrt{5}} \cdot 0 \ne 0
+	\end{equation*}
+	È stata effettuata una $H$-trasposta per consentire la moltiplicazione. La risposta all'esercizio è: falso! L'insieme non è una base ortonormale di $\mathbb{C}^{2}$.\newline
+
+	\longline
+
 	\subsection{Esercizio 5}
+
+	(\textbf{1 punto}) Sia $M \in M_{m \times n}\left(\mathbb{K}\right)$ una matrice. Si dimostri la seguente affermazione: se $M$ ammette un'inversa destra $R \in M_{n \times m}\left(\mathbb{K}\right)$, allora il sistema lineare $Ax = b$ ammette soluzione per qualsiasi $b \in M_{m \times 1}\left(\mathbb{K}\right)$.\newline
+
+	\noindent
+	Dimostrazione lasciata al lettore.
 	
 	\newpage
 	\section{Esame del 02/09/2022}
+
+	\subsection{Esercizio 1}
+
+	(\textbf{8 punti})
+
+	\subsubsection{Punto a}
+
+	\textcolor{Green4}{\textbf{\emph{Calcolare $z^{4}$ dove $z = 2\left(\cos\frac{\pi}{4} + i \sin\frac{\pi}{4}\right)$.}}}\newline
+
+	\noindent
+	Per calcolare l'elevazione a potenza, si scrive la radice quadrata:
+	\begin{equation*}
+		z = \sqrt[4]{2\left(\cos\frac{\pi}{4} + i \sin\frac{\pi}{4}\right)}
+	\end{equation*}\newpage
+
+	\noindent
+	E si calcolata la $n$-esima radice quadrata di un numero complesso con $k = 0, ... n-1$ e la seguente formula:
+	\begin{equation*}
+		\begin{array}{rll}
+			z &=& \sqrt[n]{r}\left(\cos\left(\dfrac{\theta + 2 k \pi}{n}\right) + i \sin\left(\dfrac{\theta + 2 k \pi}{n}\right) \right) \\ [2em]
+			&\downarrow& \text{sostituzione} \\ [1.5em]
+			&=& \sqrt[4]{2}\left(\cos\left(\dfrac{\dfrac{\pi}{4} + 2 k \pi}{4}\right) + i \sin\left(\dfrac{\dfrac{\pi}{4} + 2 k \pi}{4}\right)\right) \\ [2em]
+			&\downarrow& \text{sostituzione dei valori }k \\ [1.5em]
+			z_{1} &=& \sqrt[4]{2}\left(\cos\left(\dfrac{\dfrac{\pi}{4} + 2 \cdot 0 \cdot \pi}{4}\right) + i \sin\left(\dfrac{\dfrac{\pi}{4} + 2 \cdot 0 \cdot \pi}{4}\right)\right) \\ [2em]
+			&=& \sqrt[4]{2}\left(\cos\left(\dfrac{\pi}{16}\right) + i \sin\left(\dfrac{\pi}{16}\right)\right) \\ [1.5em]
+			z_{2} &=& \sqrt[4]{2}\left(\cos\left(\dfrac{\dfrac{\pi}{4} + 2 \cdot 1 \cdot \pi}{4}\right) + i \sin\left(\dfrac{\dfrac{\pi}{4} + 2 \cdot 1 \cdot \pi}{4}\right)\right) \\ [2em]
+			&=& \sqrt[4]{2}\left(\cos\left(\dfrac{9\pi}{16}\right) + i \sin\left(\dfrac{9\pi}{16}\right)\right) \\ [1.5em]
+			z_{3} &=& \sqrt[4]{2}\left(\cos\left(\dfrac{\dfrac{\pi}{4} + 2 \cdot 2 \cdot \pi}{4}\right) + i \sin\left(\dfrac{\dfrac{\pi}{4} + 2 \cdot 2 \cdot \pi}{4}\right)\right) \\ [2em]
+			&=& \sqrt[4]{2}\left(\cos\left(\dfrac{17\pi}{16}\right) + i \sin\left(\dfrac{17\pi}{16}\right)\right) \\ [1.5em]
+			z_{4} &=& \sqrt[4]{2}\left(\cos\left(\dfrac{\dfrac{\pi}{4} + 2 \cdot 3 \cdot \pi}{4}\right) + i \sin\left(\dfrac{\dfrac{\pi}{4} + 2 \cdot 3 \cdot \pi}{4}\right)\right) \\ [2em]
+			&=& \sqrt[4]{2}\left(\cos\left(\dfrac{25\pi}{16}\right) + i \sin\left(\dfrac{25\pi}{16}\right)\right) \\ [1.5em]
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsubsection{Parte b}
 	
+	\textcolor{Green4}{\textbf{\emph{Considerare la seguente matrice:}}
+	\begin{equation*}
+		A = \begin{pmatrix}
+			1	& -2	& 0		\\
+			3k	& 8+2k	& k-1	\\
+			0	& 8k+8k	& 0
+		\end{pmatrix}
+	\end{equation*}
+	\textbf{\emph{Calcolare il rango $\mathrm{rk}\left(A\right)$ di $A$ e il determinante $\det\left(A\right)$ di $A$ al variare di $k \in \mathbb{R}$. Determinare per quali $k \in \mathbb{R}$ la matrice $A$ è invertibile.}}}\newline
+
+	\noindent
+	Si esegue l'eliminazione di Gauss per calcolare il rango e il determinante:
+	\begin{equation*}
+		\begin{pmatrix}
+			1	& -2	& 0		\\
+			3k	& 8+2k	& k-1	\\
+			0	& 8k+8k	& 0
+		\end{pmatrix}
+		\xlongrightarrow[E_{2,3}\left(-\frac{16k}{8+8k}\right)]{E_{1,2}\left(-3k\right)}
+		\begin{rowequmat}{ccc}
+			1	& -2	& 0		\\ [.3em]
+			0	& 8+8k	& k-1	\\ [.3em]
+			0	& 0		& \frac{-2k^{2}+2k}{1+k}
+		\end{rowequmat}
+	\end{equation*}
+	Il rango dipende dal valore di $k$, quindi:
+	\begin{equation*}
+		\mathrm{rk}\left(A\right) = \begin{cases}
+			2 & k = -1 \lor k = 0 \lor k = 1 \\
+			3 & \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	Invece, il determinante corrisponde a:
+	\begin{equation*}
+		\det\left(A\right) = 1 \cdot \left(8+8k\right) \cdot \left(\dfrac{-2k^{2}+2k}{1+k}\right) = 8\left(1+k\right) \cdot \left(\dfrac{-2k^{2}+2k}{1+k}\right) = -16k^{2} + 16k
+	\end{equation*}
+	La matrice $A$ è invertibile se e solo se il determinante è diverso da zero e ha rango massimo, quindi essa è invertibile se e solo se $k \ne -1 \land k \ne 0 \land k \ne 1$.\newpage
+
+	\subsection{Esercizio 2}
+
+	(\textbf{8 punti}) Considerare la seguente matrice:
+	\begin{equation*}
+		B = \begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & -3 \\
+			-1 & -2 & 8
+		\end{pmatrix}
+	\end{equation*}
+
+	\longline
+
+	\subsubsection{Punto a}
+
+	\textcolor{Green4}{\textbf{\emph{Trovare una forma ridotta e una decomposizione LU di B.}}}\newline
+
+	\noindent
+	Una forma ridotta si può trovare eseguendo l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & -3 \\
+			-1 & -2 & 8
+		\end{pmatrix}
+		\xlongrightarrow[E_{2,3}\left(2\right)]{E_{1,3}\left(1\right)}
+		\begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & -3 \\
+			0 & 0 & 2
+		\end{pmatrix}
+	\end{equation*}
+	La forma ridotta corrisponde alla matrice $U$, questo è possibile affermarlo poiché non sono stati effettuati scambi di righe. Quindi, si compone anche la matrice $L$ inserendo gli scalari invertiti di segno:
+	\begin{equation*}
+		L = \begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & 0 \\
+			-1 & -2 & 1
+		\end{pmatrix}
+	\end{equation*}
+	Riscrivendo il risultato:
+	\begin{equation*}
+		B = LU \rightarrow \begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & -3 \\
+			-1 & -2 & 8
+		\end{pmatrix} = \begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & 0 \\
+			-1 & -2 & 1
+		\end{pmatrix} \begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & -3 \\
+			0 & 0 & 2
+		\end{pmatrix}
+	\end{equation*}\newpage
+
+	\subsubsection{Punto b}
+	
+	\textcolor{Green4}{\textbf{\emph{Determinare se $B$ è invertibile e motivare la risposta. Se sì, calcolare l'inversa di $B$.}}}\newline
+
+	\noindent
+	Per determinare se $B$ è invertibile, è necessario verificare che il determinante sia diverso da zero e che il rango sia massimo. Data la forma ridotta della matrice, ovvero $U$, il determinante della matrice $B$ e il rango sono:
+	\begin{gather*}
+		\det\left(B\right) = 1 \cdot 1 \cdot 2 = 2 \\
+		\mathrm{rk}\left(B\right) = 3
+	\end{gather*}
+	Quindi, la matrice $B$ è invertibile. Si procede con il calcolo di un'inversa. Si affianca la matrice identità a destra, si esegue l'eliminazione di Gauss e si ottiene una inversa:
+	\begin{gather*}
+		\begin{rowequmat}{ccc|ccc}
+			1 & 0 & 0 	& 1 & 0 & 0 \\
+			0 & 1 & -3 	& 0 & 1 & 0 \\
+			-1 & -2 & 8 & 0 & 0 & 1
+		\end{rowequmat}
+		\xlongrightarrow[E_{2,3}\left(2\right)]{E_{1,3}\left(1\right)}
+		\begin{rowequmat}{ccc|ccc}
+			1 & 0 	& 0 	& 1 & 0 & 0 \\
+			0 & 1 	& -3 	& 0 & 1 & 0 \\
+			0 & 0 	& 2 	& 1 & 2 & 1
+		\end{rowequmat}\\
+		\\
+		\xlongrightarrow[E_{3,2}\left(3\right)]{E_{3}\left(\frac{1}{2}\right)}
+		\begin{rowequmat}{ccc|ccc}
+			1 & 0 	& 0 	& 1 & 0 & 0 \\ [.3em]
+			0 & 1 	& 0 	& \frac{3}{2} & 4 & \frac{3}{2} \\ [.3em]
+			0 & 0 	& 1 	& \frac{1}{2} & 1 & \frac{1}{2}
+		\end{rowequmat}
+	\end{gather*}
+	L'inversa di $B$ corrisponde a:
+	\begin{equation*}
+		B^{-1} = \begin{rowequmat}{ccc}
+			1 & 0 & 0 \\ [.3em]
+			\frac{3}{2} & 4 & \frac{3}{2} \\ [.3em]
+			\frac{1}{2} & 1 & \frac{1}{2}
+		\end{rowequmat}
+	\end{equation*}\newpage
+	
+	\subsection{Esercizio 3}
+
+	(\textbf{8 punti}) Considerare la seguente matrice:
+	\begin{equation*}
+		D = \begin{pmatrix}
+			1 & 0 \\
+			-1 & 1 \\
+			0 & 1
+		\end{pmatrix}
+	\end{equation*}
+	
+	\longline
+
+	\subsubsection{Punto a}
+
+	\textcolor{Green4}{\textbf{\emph{Trovare una base del sottospazio $C\left(D\right)$ di $\mathbb{R}^{3}$ generato dalle colonne di $D$ e una base dello spazio nullo $N\left(D^{T}\right)$ della trasposta $D^{T}$ di $D$.}}}\newline
+
+	\noindent
+	Una base del sottospazio $C\left(D\right)$ è possibile trovarla applicando l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{pmatrix}
+			1 & 0 \\
+			-1 & 1 \\
+			0 & 1
+		\end{pmatrix}
+		\xlongrightarrow[E_{2,3}\left(-1\right)]{E_{1,2}\left(1\right)}
+		\begin{pmatrix}
+			1 & 0 \\
+			0 & 1 \\
+			0 & 0
+		\end{pmatrix}
+	\end{equation*}
+	Il rango della matrice, ovvero la dimensione del sottospazio $C\left(D\right)$ è pari a $2$, quindi una base è:
+	\begin{equation*}
+		\left\{
+			\begin{pmatrix}
+				1 \\ -1 \\ 0
+			\end{pmatrix},
+			\begin{pmatrix}
+				0 \\ 1 \\ 1
+			\end{pmatrix}
+		\right\}
+	\end{equation*}
+	Per calcolare la base di uno spazio nullo, è necessario eseguire la trasposizione della matrice $D$:
+	\begin{equation*}
+		\begin{array}{rll}
+			D &=& \begin{pmatrix}
+				1 & 0 \\
+				-1 & 1 \\
+				0 & 1
+			\end{pmatrix} \\ [2em]
+			D^{T} &=& \begin{pmatrix}
+				1 & -1 & 0 \\
+				0 & 1  & 1
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}
+	Per trovare una base dello spazio nullo, è necessario trovare una forma ridotta della matrice aumentata:
+	\begin{equation*}
+		\begin{rowequmat}{ccc|c}
+			1 & -1 & 0 & 0 \\
+			0 & 1  & 1 & 0
+		\end{rowequmat}
+	\end{equation*}
+	In questo caso, la matrice aumentata è già nella sua forma ridotta, per cui, si procede a scrivere il sistema lineare equivalente:
+	\begin{equation*}
+		\begin{cases}
+			x - y = 0 \\
+			y + z = 0
+		\end{cases} \longrightarrow
+		\begin{cases}
+			x - \left(-z\right) = 0 \\
+			y = -z
+		\end{cases} \longrightarrow
+		\begin{cases}
+			x = -z \\
+			y = -z
+		\end{cases}
+	\end{equation*}
+	La dimensione è dello spazio nullo corrisponde a:
+	\begin{equation*}
+		\dim\left(N\left(D^{T}\right)\right) = n - \mathrm{rk}\left\{D^{T}\right\} = 3 - 2 = 1
+	\end{equation*}
+	Quindi, in generale:
+	\begin{equation*}
+		\begin{cases}
+			x = -z \\
+			y = -z 
+		\end{cases}
+	\end{equation*}
+	Quindi, una base è:
+	\begin{equation*}
+		N\left(D^{T}\right) = \left\{
+			\left. \begin{pmatrix}
+				-z \\
+				-z
+			\end{pmatrix} \: \right| \:
+			z \in \mathbb{R}
+		\right\} \longrightarrow
+		\left\{
+			z\begin{pmatrix}
+				-1 \\
+				-1
+			\end{pmatrix}
+		\right\} \longrightarrow
+		\left\{
+			\begin{pmatrix}
+				-1 \\
+				-1
+			\end{pmatrix}
+		\right\}
+	\end{equation*}\newpage
+
+	\subsubsection{Punto b}
+
+	\textcolor{Green4}{\textbf{\emph{Mostrare che l'insieme $\mathcal{C} = \left\{
+		\begin{pmatrix}
+			1 \\ -1 \\ 0
+		\end{pmatrix},
+		\begin{pmatrix}
+			0 \\ 1 \\ 1
+		\end{pmatrix},
+		\begin{pmatrix}
+			-1 \\ -1 \\ 1
+		\end{pmatrix}
+	\right\}$ è una base di $\mathbb{R}^{3}$.}}}\newline
+
+	\noindent
+	Si costruisce la matrice associata:
+	\begin{equation*}
+		\begin{pmatrix}
+			1 & 0 & -1 \\
+			-1 & 1 & -1 \\
+			0 & 1 & 1
+		\end{pmatrix}
+	\end{equation*}
+	Si calcola il rango della matrice usando l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{pmatrix}
+			1 & 0 & -1 \\
+			-1 & 1 & -1 \\
+			0 & 1 & 1
+		\end{pmatrix}
+		\xlongrightarrow[E_{2,3}\left(-1\right)]{E_{1,2}\left(1\right)}
+		\begin{pmatrix}
+			1 & 0 & -1 \\
+			0 & 1 & -2 \\
+			0 & 0 & 3
+		\end{pmatrix}
+	\end{equation*}
+	Il rango della matrice è $3$, quindi la dimensione della base è corretta. Inoltre, i \emph{pivot} nelle colonne dominanti corrispondono ai rispettivi vettori nella base. Quindi, si conclude che $\mathcal{C}$ è una base di $\mathbb{R}^{3}$.\newline
+
+	\longline
+
+	\subsubsection{Punto c}
+
+	\textcolor{Green4}{\textbf{\emph{Considerare la seguente base di $\mathbb{R}^{3} : \mathcal{B} = \left\{
+		\begin{pmatrix}
+			1 \\ 0 \\ 0
+		\end{pmatrix},
+		\begin{pmatrix}
+			0 \\ 1 \\ 0
+		\end{pmatrix},
+		\begin{pmatrix}
+			0 \\ 1 \\ 1
+		\end{pmatrix}
+	\right\}$. Calcolare la matrice $N=A_{\mathcal{C} \rightarrow \mathcal{B}}$, cioè l'unica matrice $N$ tale che $\mathcal{C}_{\mathcal{B}}\left(v\right) = Nc_{\mathcal{C}}\left(v\right)$ per ogni $v \in \mathbb{R}^{3}$.}}}\newline
+	
+	\noindent
+	Per trovare la matrice del cambiamento di base da $\mathcal{C}\rightarrow \mathcal{B}$, è necessario esprimere i vettori di $\mathcal{C}$ come combinazioni lineari dei vettori di $\mathcal{B}$:
+	\begin{itemize}
+		\item La prima combinazione lineare:
+		\begin{equation*}
+			\begin{array}{rll}
+				\mathcal{C}_{1} &=& a_{1}\mathcal{B}_{1} + b_{1}\mathcal{B}_{2} + c_{1}\mathcal{B}_{3} \\ [2em]
+				\begin{pmatrix}
+					1 \\ -1 \\ 0
+				\end{pmatrix} &=& a_{1} \begin{pmatrix}
+					1 \\ 0 \\ 0
+				\end{pmatrix} + b_{1} \begin{pmatrix}
+					0 \\ 1 \\ 0
+				\end{pmatrix} + c_{1} \begin{pmatrix}
+					0 \\ 1 \\ 1
+				\end{pmatrix}
+			\end{array}
+		\end{equation*}
+		Il relativo sistema:
+		\begin{equation*}
+			\begin{cases}
+				a_{1} = 1 \\
+				b_{1} + c_{1} = -1 \\
+				c_{1} = 0
+			\end{cases} \longrightarrow
+			\begin{cases}
+				a_{1} = 1 \\
+				b_{1} = -1 \\
+				c_{1} = 0
+			\end{cases}
+		\end{equation*}
+		La soluzione dunque:
+		\begin{equation*}
+			\begin{pmatrix}
+				1 \\ -1 \\ 0
+			\end{pmatrix} = 1 \begin{pmatrix}
+				1 \\ 0 \\ 0
+			\end{pmatrix} + -1 \begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} + 0 \begin{pmatrix}
+				0 \\ 1 \\ 1
+			\end{pmatrix}
+		\end{equation*}\newpage
+
+		\item La seconda combinazione lineare:
+		\begin{equation*}
+			\begin{array}{rll}
+				\mathcal{C}_{2} &=& a_{2}\mathcal{B}_{1} + b_{2}\mathcal{B}_{2} + c_{2}\mathcal{B}_{3} \\ [2em]
+				\begin{pmatrix}
+					0 \\ 1 \\ 1
+				\end{pmatrix} &=& a_{2} \begin{pmatrix}
+					1 \\ 0 \\ 0
+				\end{pmatrix} + b_{2} \begin{pmatrix}
+					0 \\ 1 \\ 0
+				\end{pmatrix} + c_{2} \begin{pmatrix}
+					0 \\ 1 \\ 1
+				\end{pmatrix}
+			\end{array}
+		\end{equation*}
+		Il relativo sistema:
+		\begin{equation*}
+			\begin{cases}
+				a_{2} = 0 \\
+				b_{2} + c_{1} = 1 \\
+				c_{2} = 1
+			\end{cases} \longrightarrow
+			\begin{cases}
+				a_{2} = 0 \\
+				b_{2} = 0 \\
+				c_{2} = 1
+			\end{cases}
+		\end{equation*}
+		La soluzione dunque:
+		\begin{equation*}
+			\begin{pmatrix}
+				0 \\ 1 \\ 1
+			\end{pmatrix} = 0 \begin{pmatrix}
+				1 \\ 0 \\ 0
+			\end{pmatrix} + 0 \begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} + 1 \begin{pmatrix}
+				0 \\ 1 \\ 1
+			\end{pmatrix}
+		\end{equation*}
+		
+		\item La terza combinazione lineare:
+		\begin{equation*}
+			\begin{array}{rll}
+				\mathcal{C}_{3} &=& a_{3}\mathcal{B}_{1} + b_{3}\mathcal{B}_{2} + c_{3}\mathcal{B}_{3} \\ [2em]
+				\begin{pmatrix}
+					-1 \\ -1 \\ 1
+				\end{pmatrix} &=& a_{3} \begin{pmatrix}
+					1 \\ 0 \\ 0
+				\end{pmatrix} + b_{3} \begin{pmatrix}
+					0 \\ 1 \\ 0
+				\end{pmatrix} + c_{3} \begin{pmatrix}
+					0 \\ 1 \\ 1
+				\end{pmatrix}
+			\end{array}
+		\end{equation*}
+		Il relativo sistema:
+		\begin{equation*}
+			\begin{cases}
+				a_{3} = -1 \\
+				b_{3} + c_{1} = -1 \\
+				c_{3} = 1
+			\end{cases} \longrightarrow
+			\begin{cases}
+				a_{3} = -1 \\
+				b_{3} = -2 \\
+				c_{3} = 1
+			\end{cases}
+		\end{equation*}
+		La soluzione dunque:
+		\begin{equation*}
+			\begin{pmatrix}
+				-1 \\ -1 \\ 1
+			\end{pmatrix} = -1 \begin{pmatrix}
+				1 \\ 0 \\ 0
+			\end{pmatrix} + -2 \begin{pmatrix}
+				0 \\ 1 \\ 0
+			\end{pmatrix} + 1 \begin{pmatrix}
+				0 \\ 1 \\ 1
+			\end{pmatrix}
+		\end{equation*}
+	\end{itemize}
+	La matrice del cambiamento di base $\mathcal{C} \rightarrow \mathcal{B}$ è:
+	\begin{equation*}
+		N_{\mathcal{C} \rightarrow \mathcal{B}} = \begin{pmatrix}
+			1	& 0	& -1 \\
+			-1	& 0	& -2 \\
+			0	& 1	& 1
+		\end{pmatrix}
+	\end{equation*}\newpage
+
+	\subsection{Esercizio 4}
+
+	QUA.
+
 	\newpage
 	\section{Esame del 20/02/2023}
 \end{document}
