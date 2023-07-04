@@ -726,7 +726,7 @@
 
 	\section{Esercizio 4 - Stabilire se una funzione è continua e parametrizzazioni}
 
-	\subsection{Tipologie di esercizio}
+	\subsection{Tipologie di esercizio 1}
 
 	\subsubsection{Stabilire se una funzione è continua}
 
@@ -790,5 +790,204 @@
 	\begin{equation*}
 		\displaystyle\lim_{x \rightarrow x_{0}} f\left(x\right) = f\left(x_{0}\right)
 	\end{equation*}
-	Dato che il limite esiste ed è uguale a zero per $\left(1,2\right)$, nel caso di $f\left(1,2\right)$, si continua ad avere il valore $0$. Quindi, la funzione è continua.
+	Dato che il limite esiste ed è uguale a zero per $\left(1,2\right)$, nel caso di $f\left(1,2\right)$, si continua ad avere il valore $0$. Quindi, la funzione è continua.\newpage
+
+	\subsubsection{Variante (rara) - Stabilire se una funzione è continua}
+
+	Nell'esame del 03/03/2023 è stata fatta una richiesta diversa dal solito. È stato chiesto di stabilire un valore $k$ tale che la funzione risulti continua nell'origine: \textcolor{Green4}{\textbf{\emph{Si consideri la funzione:}}
+	\begin{equation*}
+		f\left(x,y\right) = \begin{cases}
+			\dfrac{x^{2} + y^{2}}{x^{2} + xy + y^{2}}	& \left(x,y\right) \ne \left(0,0\right) \\
+			k	& \left(x,y\right) = \left(0,0\right)
+		\end{cases}
+	\end{equation*}
+	\textbf{\emph{Esiste un valore di $k \in \mathbb{R}$ tale che $f$ risulti continua nell'origine?}}}\newline
+
+	\noindent
+	Ipotizzando di muoversi lungo la retta per l'origine con $x \ne 0$, la funzione verrebbe riscritta come:
+	\begin{equation*}
+		f\left(x,mx\right) = \dfrac{x^{2} + m^{2}x^{2}}{x^{2} + mx^{2} + m^{2}x^{2}} = \dfrac{x^{2}\left(1+m^{2}\right)}{x^{2}\left(1 + m + m^{2}\right)} = \dfrac{1 + m^{2}}{1 + m + m^{2}}
+	\end{equation*}
+	Si vede anche ad occhio, che il limite della funzione $f\left(x,mx\right)$ con $x$ che tende a zero ($x \rightarrow 0$) dipende dal fattore $m$. Dunque è possibile concludere che tale limite non esiste:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} f\left(x,y\right)
+	\end{equation*}
+	Per cui, è possibile concludere che per nessun valore di $k$ la funzione $f$ è continua in $\left(0,0\right)$.\newpage
+
+	\subsubsection{Dimostrazione di una disuguaglianza e di un limite (Teorema del confronto)}
+
+	Nell'esame del 22/07/2021 è stato richiesto di eseguire dei calcoli insoliti rispetto alle classiche richieste degli esercizi: \textcolor{Green4}{\textbf{\emph{Dimostrare che:}}
+	\begin{equation*}
+		x^{2} |y| \le \dfrac{1}{2}\left(x^{4} + y^{2}\right) \hspace{2em} \text{per ogni } \left(x,y\right) \in \mathbb{R}^{2}
+	\end{equation*}
+	\textbf{\emph{e utilizzare la precedente disuguaglianza per verificare che:}}
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{x^{3} y}{x^{4} + y^{2}} = 0
+	\end{equation*}}\:\newline
+
+	\noindent
+	Il \textbf{primo passo} è dimostrare che vale la disuguaglianza mostrata. Per farlo, è necessario verificare che tutte le espressioni siano maggiore o uguale a zero, ovvero:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x^{2}|y| &\le& \dfrac{1}{2}\left(x^{4} + y^{2}\right) \\ [1em]
+			2 \cdot x^{2}|y| &\le& \dfrac{1}{\cancel{2}}\left(x^{4} + y^{2}\right) \cdot \cancel{2} \\ [1em]
+			2 x^{2}|y| &\le& \left(x^{4} + y^{2}\right) \\ [1em]
+			-x^{4} + 2 x^{2}|y| &\le& y^{2} \\ [1em]
+			-x^{4} + 2 x^{2}|y| - y^{2} &\le& 0 \\ [1em]
+			x^{4} - 2 x^{2}|y| + y^{2} &\ge& 0 \\ [1em]
+			\left(x^{2} - |y|\right)^{2} &\ge& 0 \\ [1em]
+		\end{array}
+	\end{equation*}
+	Disuguaglianza verificata. Infatti, anche se ci fosse un numero negativo, l'elevazione al quadrato la farebbe tornare positiva. Al massimo l'espressione può essere zero, ma anche in tal caso l'espressione è ammessa. Quindi, è possibile concludere affermando che l'espressione risulta non negativa per ogni $\left(x,y\right) \in \mathbb{R}^{2}$.\newline
+	
+	\noindent
+	Il \textbf{secondo passo} è utilizzare la disuguaglianza per verificare il limite. Si utilizza il teorema del confronto\footnote{\href{https://www.youmath.it/lezioni/analisi-matematica/limiti-continuita-e-asintoti/1562-teorema-dei-dei-carabinieri.html}{Link alla fonte di YouMath in cui ci sono esempi}}, che afferma: \emph{se $\left\{a_{n}\right\},\left\{b_{n}\right\},\left\{c_{n}\right\}$ sono tre successioni di numeri tali che:}
+	\begin{equation*}
+		a_{n} \le b_{n} \le c_{n}
+	\end{equation*}
+	\emph{e se si ha:}
+	\begin{equation*}
+		\displaystyle\lim_{n \rightarrow \infty} a_{n} = \displaystyle\lim_{n \rightarrow \infty} c_{n} = l
+	\end{equation*}
+	\emph{allora anche:}
+	\begin{equation*}
+		\displaystyle\lim_{n \rightarrow \infty} b_{n} = l
+	\end{equation*}\newpage
+
+	\noindent
+	Per applicarlo, si prende in considerazione l'argomento del limite, cioè $\frac{x^{3}y}{x^{4}+y^{2}}$, e si afferma che deve essere maggiore o uguale a zero:
+	\begin{equation*}
+		0 \le \left| \dfrac{x^{3}y}{x^{4}+y^{2}} \right|
+	\end{equation*}
+	Dato che l'esercizio chiede di utilizzare anche la disuguaglianza precedente, lo studente dovrebbe avere l'intuizione di notare che:
+	\begin{equation*}
+		x^{2} |y| \le \dfrac{1}{2}\left(x^{4} + y^{2}\right)
+	\end{equation*}
+	Corrisponde a:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x^{2} |y| &\le& \dfrac{1}{2}\left(x^{4} + y^{2}\right) \\ [1em]
+			\dfrac{1}{x^{4} + y^{2}} \cdot x^{2} |y| &\le& \dfrac{1}{2} \cdot \cancel{\left(x^{4} + y^{2}\right)} \cdot \dfrac{1}{\cancel{x^{4} + y^{2}}} \\ [1em]
+			\dfrac{x^{2} |y|}{x^{4} + y^{2}} &\le& \dfrac{1}{2}
+		\end{array}
+	\end{equation*}
+	Di nuovo, se lo studente riesce ad avere l'intuizione, noterà che aggiungendo una $|x|$, è possibile ottenere $\frac{x^{3}y}{x^{4}+y^{2}}$:
+	\begin{equation*}
+		0 \le \dfrac{x^{3}y}{x^{4}+y^{2}} = |x| \cdot \dfrac{x^{2} |y|}{x^{4} + y^{2}} \le \dfrac{1}{2} \cdot |x|
+	\end{equation*}
+	Quindi, grazie al teorema del confronto:
+	\begin{equation*}
+		0 \le |x| \cdot \dfrac{x^{2} |y|}{x^{4} + y^{2}} \le \dfrac{1}{2} \cdot |x|
+	\end{equation*}
+	Basta verificare che i limiti esterni siano uguali per affermare che anche quello al centro sia uguale:
+	\begin{equation*}
+		\begin{array}{ll}
+			\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} & 0 = 0 \\ [1em]
+			\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} & \dfrac{1}{2} \cdot |x| = 0
+		\end{array}
+	\end{equation*}
+	Quindi, grazie al teorema del confronto, si afferma che:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{x^{3} y}{x^{4} + y^{2}} = 0
+	\end{equation*}\newpage
+
+	\subsubsection{Verificare l'esistenza di un limite in un punto}
+
+	Un esercizio che è stato richiesto qualche volta, è la verifica dell'esistenza di un certo limite. Ovvero, viene fornita una funzione e un punto su cui verificare l'esistenza di tale limite. Si prenda d'esempio l'esame del 08/02/2022, gruppo A: \textcolor{Green4}{\textbf{\emph{Stabilire se la funzione:}}
+	\begin{equation*}
+		f\left(x,y\right) = \dfrac{y^{3} + |x-1|}{\left(x-1\right)^{2} + y^{2}}
+	\end{equation*}
+	\textbf{\emph{ammette limite per $\left(x,y\right) \rightarrow \left(1,0\right)$.}}}\newline
+
+	\noindent
+	Il \textbf{primo passo} è verificare con $x$ fissato:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\lim_{x \rightarrow 1} f\left(x, 0\right) &=& \dfrac{0^{3} + |x-1|}{\left(x-1\right)^{2} + 0^{2}} \\ [1.5em]
+			&=& \dfrac{|x-1|}{\left(x-1\right)^{2}} \\ [1.5em]
+			&\rightarrow& \text{Forma indeterminata } \frac{0}{0} \text{ quindi si usa Hopital} \\ [1em]
+			&=& \dfrac{ \dfrac{d}{dx} |x-1|}{ \dfrac{d}{dx} \left(x-1\right)^{2}} \\ [2.5em]
+			&\rightarrow& \text{Sapendo che } |x| = \sqrt{x^{2}} \\ [1em]
+			&=& \dfrac{ \dfrac{d}{dx} \left(\sqrt{\left(x-1\right)^{2}}\right)}{ \dfrac{d}{dx} \left(x-1\right)^{2}} \\ [2.5em]
+			&=& \dfrac{\dfrac{1}{2\sqrt{\left(x-1\right)^{2}}} \cdot \left(2x-2\right)}{ \dfrac{d}{dx} \left(x-1\right)^{2}} \\ [2.5em]
+			&=& \dfrac{1}{2\left(x-1\right) \cdot 1} \\ [1.5em]
+			&=& \dfrac{1}{2x - 2} \\ [1em]
+			&=& \infty
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Il \textbf{secondo passo} è verificare con $y$ fissato:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\lim_{y \rightarrow 0} f\left(1, y\right) &=& \dfrac{y^{3} + |1-1|}{\left(1-1\right)^{2} + y^{2}} \\ [1.5em]
+			&=& \dfrac{y^{3}}{y^{2}} \\ [1.5em]
+			&=& y \\
+			&=& 0
+		\end{array}
+	\end{equation*}
+	Dato che il risultato dei due limiti è diverso, il limite nel punto $\left(1,0\right)$ non esiste.\newpage
+
+	\subsection{Tipologie di esercizio 2}
+
+	\subsubsection{Parametrizzazione retta tangente in un punto all'arco di ellisse}
+
+	Questa tipologia di esercizio si è presentata soltanto una volta, anche perché l'ellisse non è una figura semplice da trattare (parole testuali del professore). L'esame del 25/06/2021, gruppo A, chiedeva: \textcolor{Green4}{\textbf{\emph{Si trovi una parametrizzazione della retta tangente in $P\left(-2-\sqrt{3}, \frac{9}{2}\right)$ all'arco di ellisse di equazione:}}
+	\begin{equation*}
+		9x^{2} + 4y^{2} + 36x - 24y + 36 = 0
+	\end{equation*}
+	\textbf{\emph{che congiunge (nell'ordine) i punti $A\left(-2,6\right)$ e $B\left(-4,3\right)$.}}}\newline
+
+	\noindent
+	Quando ci si trova davanti ad un'ellisse o un'iperbole, è sempre conveniente utilizzare la tecnica del completamento dei quadrati. Questo perché la sua applicazione consente di ottenere direttamente la forma canonica dell'equazione cercata e di determinare i valori senza calcoli complessi\footnote{\href{https://youtu.be/a4ST5Kmjtxk}{Video tutorial di approfondimento}}.\newline
+
+	\noindent
+	Quindi, il \textbf{primo passo} dell'applicazione del completamento dei quadrati è il raggruppamento dei valori simili, ovverosia:
+	\begin{equation*}
+		\begin{array}{rcl}
+			9x^{2} + 4y^{2} + 36x - 24y + 36 &=& 0 \\
+			\left(9x^{2} + 36x\right) + \left(4y^{2} - 24y\right) + 36 &=& 0
+		\end{array}
+	\end{equation*}
+	Il \textbf{secondo passo} è prendere in considerazione i termini con le $x$, e poi quelli con le $y$, e cercare un quadrato. Ovvero sia un valore $c$ tale per cui il $\Delta$ (nella formula del calcolo di un'equazione di secondo grado $\Delta = b^{2} - 4 \cdot a \cdot c$) sia uguale a zero:
+	\begin{equation*}
+		\begin{array}{rcl}
+			9x^{2} + 36x &\longrightarrow& 36^{2} - 4 \cdot 9 \cdot c = 0 \\
+			&& 36^{2} - 36c = 0 \\
+			&& c = 36 \\ [1em]
+			4y^{2} - 24y &\longrightarrow& 24^{2} - 4 \cdot 4 \cdot c = 0 \\
+			&& 24^{2} - 16c = 0 \\
+			&& c = 36
+		\end{array}
+	\end{equation*}
+	\underline{Suggerimento}: per trovare tale valore, basta risolvere la banale equazione $b^{2} - 4 \cdot a \cdot c = 0$ con $c$ incognita e $a,b$ termini noti.\newpage
+
+	\noindent
+	Il \textbf{terzo passo} è riscrivere l'equazione con i nuovi valori $c$, ma per lasciare invariata l'equazione è necessario annullarli, ovvero scrivere $c-c$ (nessun problema, con manipolazioni algebriche si riuscirà ad evitare di ritornare al punto di inizio):
+	\begin{equation*}
+		\left(9x^{2} + 36x + 36 - 36\right) + \left(4y^{2} - 24y + 36 - 36\right) + 36 = 0
+	\end{equation*}
+	Le manipolazioni algebriche riguardano $9x^{2} + 36x + 36$ e $4y^{2} - 24y + 36$. Ovvero, si riscrivono le due espressioni come quadrati!
+	\begin{equation*}
+		\begin{array}{rcl}
+			9x^{2} + 36x + 36 &\longrightarrow& 9\left(x+2\right)^{2} \\
+			4y^{2} - 24y + 36 &\longrightarrow& 4\left(y-3\right)^{2} \\
+		\end{array}
+	\end{equation*}
+	E si riscrive l'equazione generale:
+	\begin{equation*}
+		9\left(x+2\right)^{2} - 36 + 4\left(y-3\right)^{2} - 36 + 36 = 0
+	\end{equation*}
+	Banali semplificazioni algebriche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			9\left(x+2\right)^{2} \cancel{- 36} + 4\left(y-3\right)^{2} - 36 \cancel{+ 36} &=& 0 \\ [1em]
+			\dfrac{1}{36} \cdot \cancel{9}\left(x+2\right)^{2} + \cancel{4}\left(y-3\right)^{2} &=& \cancel{36} \cdot \dfrac{1}{\cancel{36}}  \\ [1em]
+			\dfrac{\left(x+2\right)^{2}}{4} + \dfrac{\left(y-3\right)^{2}}{9} &=& 1
+		\end{array}
+	\end{equation*}
+	Quest'ultima equazione corrisponde all'equazione canonica dell'ellisse.\newline
+
+	\noindent
+	Il \textbf{quarto passo} è la parametrizzazione vera e propria\footnote{Link utili: \href{https://www.youmath.it/forum/analisi-2n/7786-coordinate-ellittiche.html}{coordinate ellittiche} e \href{https://www.youmath.it/forum/analisi-2n/70602-parametrizzazione-di-unellisse.html}{parametrizzazione di un'ellisse}}.
 \end{document}
