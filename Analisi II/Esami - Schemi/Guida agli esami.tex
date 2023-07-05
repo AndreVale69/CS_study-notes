@@ -543,7 +543,7 @@
 	\noindent
 	In questo caso, il dominio è illimitato per lo stesso motivo dell'esercizio precedente; il dominio è aperto poiché tutti i punti sono interni e inoltre è connesso per archi.\newpage
 
-	\subsubsection{Trovare l'equazione al piano tangente}
+	\subsubsection{Trovare l'equazione al piano tangente}\label{par: trovare l'equazione al piano tangente}
 
 	Uno degli esercizi più richiesti insieme alla derivata direzionale, è quello di trovare l'equazione al piano tangente. Si prenda in considerazione il tema d'esame del 07/02/2023 in cui veniva chiesto: \textcolor{Green4}{\textbf{\emph{Data la funzione:}}
 	\begin{equation*}
@@ -778,11 +778,9 @@
 		\begin{array}{rcl}
 			\displaystyle\lim_{x \rightarrow 1} f\left(x,2\right) &=& \dfrac{\left(x-1\right)\left(2-2\right)}{\sqrt{\left(x-1\right)^{2} + \left(2-2\right)^{2}}} \\ [2em]
 			&=& \dfrac{0}{\sqrt{\left(x-1\right)^{2}}} \\ [2em]
-			&=& \dfrac{0}{0} \\ [1em]
-			&=& 0 \\ [3em]
+			&=& 0 \\ [2em]
 			\displaystyle\lim_{y \rightarrow 2} f\left(1,y\right) &=& \dfrac{\left(1-1\right)\left(y-2\right)}{\sqrt{\left(1-1\right)^{2} + \left(y-2\right)^{2}}} \\ [2em]
 			&=& \dfrac{0}{\sqrt{\left(y-2\right)^{2}}} \\ [2em]
-			&=& \dfrac{0}{0} \\ [1.5em]
 			&=& 0
 		\end{array}
 	\end{equation*}
@@ -930,7 +928,7 @@
 
 	\subsection{Tipologie di esercizio 2}
 
-	\subsubsection{Parametrizzazione retta tangente in un punto all'arco di ellisse}
+	\subsubsection{Parametrizzazione retta tangente in un punto all'arco di ellisse}\label{par: parametrizzazione retta tangente in un punto all'arco di ellisse}
 
 	Questa tipologia di esercizio si è presentata soltanto una volta, anche perché l'ellisse non è una figura semplice da trattare (parole testuali del professore). L'esame del 25/06/2021, gruppo A, chiedeva: \textcolor{Green4}{\textbf{\emph{Si trovi una parametrizzazione della retta tangente in $P\left(-2-\sqrt{3}, \frac{9}{2}\right)$ all'arco di ellisse di equazione:}}
 	\begin{equation*}
@@ -942,52 +940,274 @@
 	Quando ci si trova davanti ad un'ellisse o un'iperbole, è sempre conveniente utilizzare la tecnica del completamento dei quadrati. Questo perché la sua applicazione consente di ottenere direttamente la forma canonica dell'equazione cercata e di determinare i valori senza calcoli complessi\footnote{\href{https://youtu.be/a4ST5Kmjtxk}{Video tutorial di approfondimento}}.\newline
 
 	\noindent
-	Quindi, il \textbf{primo passo} dell'applicazione del completamento dei quadrati è il raggruppamento dei valori simili, ovverosia:
-	\begin{equation*}
-		\begin{array}{rcl}
-			9x^{2} + 4y^{2} + 36x - 24y + 36 &=& 0 \\
-			\left(9x^{2} + 36x\right) + \left(4y^{2} - 24y\right) + 36 &=& 0
-		\end{array}
-	\end{equation*}
-	Il \textbf{secondo passo} è prendere in considerazione i termini con le $x$, e poi quelli con le $y$, e cercare un quadrato. Ovvero sia un valore $c$ tale per cui il $\Delta$ (nella formula del calcolo di un'equazione di secondo grado $\Delta = b^{2} - 4 \cdot a \cdot c$) sia uguale a zero:
-	\begin{equation*}
-		\begin{array}{rcl}
-			9x^{2} + 36x &\longrightarrow& 36^{2} - 4 \cdot 9 \cdot c = 0 \\
-			&& 36^{2} - 36c = 0 \\
-			&& c = 36 \\ [1em]
-			4y^{2} - 24y &\longrightarrow& 24^{2} - 4 \cdot 4 \cdot c = 0 \\
-			&& 24^{2} - 16c = 0 \\
-			&& c = 36
-		\end{array}
-	\end{equation*}
-	\underline{Suggerimento}: per trovare tale valore, basta risolvere la banale equazione $b^{2} - 4 \cdot a \cdot c = 0$ con $c$ incognita e $a,b$ termini noti.\newpage
+	Quindi, il \textbf{primo passo} è applicare il completamento dei quadrati:
+	\begin{mdframed}
+		Innanzitutto, la \textbf{prima operazione} dell'applicazione del completamento dei quadrati è il raggruppamento dei valori simili, ovverosia:
+		\begin{equation*}
+			\begin{array}{rcl}
+				9x^{2} + 4y^{2} + 36x - 24y + 36 &=& 0 \\
+				\left(9x^{2} + 36x\right) + \left(4y^{2} - 24y\right) + 36 &=& 0
+			\end{array}
+		\end{equation*}
+		La \textbf{seconda operazione} è prendere in considerazione i termini con le $x$, e poi quelli con le $y$, e cercare un quadrato. Ovvero sia un valore $c$ tale per cui il $\Delta$ (nella formula del calcolo di un'equazione di secondo grado $\Delta = b^{2} - 4 \cdot a \cdot c$) sia uguale a zero:
+		\begin{equation*}
+			\begin{array}{rcl}
+				9x^{2} + 36x &\longrightarrow& 36^{2} - 4 \cdot 9 \cdot c = 0 \\
+				&& 36^{2} - 36c = 0 \\
+				&& c = 36 \\ [1em]
+				4y^{2} - 24y &\longrightarrow& 24^{2} - 4 \cdot 4 \cdot c = 0 \\
+				&& 24^{2} - 16c = 0 \\
+				&& c = 36
+			\end{array}
+		\end{equation*}
+		\underline{Suggerimento}: per trovare tale valore, basta risolvere la banale equazione $b^{2} - 4 \cdot a \cdot c = 0$ con $c$ incognita e $a,b$ termini noti.\newpage
+
+		\noindent
+		La \textbf{terza operazione} è riscrivere l'equazione con i nuovi valori $c$, ma per lasciare invariata l'equazione è necessario annullarli, ovvero scrivere $c-c$ (nessun problema, con manipolazioni algebriche si riuscirà ad evitare di ritornare al punto di inizio):
+		\begin{equation*}
+			\left(9x^{2} + 36x + 36 - 36\right) + \left(4y^{2} - 24y + 36 - 36\right) + 36 = 0
+		\end{equation*}
+		Le manipolazioni algebriche riguardano $9x^{2} + 36x + 36$ e $4y^{2} - 24y + 36$. Ovvero, si riscrivono le due espressioni come quadrati!
+		\begin{equation*}
+			\begin{array}{rcl}
+				9x^{2} + 36x + 36 &\longrightarrow& 9\left(x+2\right)^{2} \\
+				4y^{2} - 24y + 36 &\longrightarrow& 4\left(y-3\right)^{2} \\
+			\end{array}
+		\end{equation*}
+		E si riscrive l'equazione generale:
+		\begin{equation*}
+			9\left(x+2\right)^{2} - 36 + 4\left(y-3\right)^{2} - 36 + 36 = 0
+		\end{equation*}
+		Banali semplificazioni algebriche:
+		\begin{equation*}
+			\begin{array}{rcl}
+				9\left(x+2\right)^{2} \cancel{- 36} + 4\left(y-3\right)^{2} - 36 \cancel{+ 36} &=& 0 \\ [1em]
+				\dfrac{1}{36} \cdot \cancel{9}\left(x+2\right)^{2} + \cancel{4}\left(y-3\right)^{2} &=& \cancel{36} \cdot \dfrac{1}{\cancel{36}}  \\ [1em]
+				\dfrac{\left(x+2\right)^{2}}{4} + \dfrac{\left(y-3\right)^{2}}{9} &=& 1
+			\end{array}
+		\end{equation*}
+		Quest'ultima equazione corrisponde all'equazione canonica dell'ellisse.	
+	\end{mdframed}
 
 	\noindent
-	Il \textbf{terzo passo} è riscrivere l'equazione con i nuovi valori $c$, ma per lasciare invariata l'equazione è necessario annullarli, ovvero scrivere $c-c$ (nessun problema, con manipolazioni algebriche si riuscirà ad evitare di ritornare al punto di inizio):
+	Il \textbf{secondo passo} è la parametrizzazione\footnote{\href{https://www.youmath.it/forum/analisi-2n/70602-parametrizzazione-di-unellisse.html}{Approfondimento teorico - Parametrizzazione di un'ellisse}} vera e propria. La parametrizzazione di un'ellisse prevede l'utilizzo delle coordinate ellittiche\footnote{\href{https://www.youmath.it/forum/analisi-2n/7786-coordinate-ellittiche.html}{Approfondimento teorico - Coordinate ellittiche}}. Tali coordinate, che non fanno riferimento solo all'ellisse, sono ottenibili nel seguente modo:
 	\begin{equation*}
-		\left(9x^{2} + 36x + 36 - 36\right) + \left(4y^{2} - 24y + 36 - 36\right) + 36 = 0
+		\dfrac{\left(x-x_{0}\right)^{2}}{a^{2}} + \dfrac{\left(y-y_{0}\right)^{2}}{b^{2}} = 1 \longrightarrow
+		\begin{cases}
+			x = x_{0} + a \rho \cos\left(\theta\right) \\
+			y = y_{0} + b \rho \sin\left(\theta\right)
+		\end{cases}
 	\end{equation*}
-	Le manipolazioni algebriche riguardano $9x^{2} + 36x + 36$ e $4y^{2} - 24y + 36$. Ovvero, si riscrivono le due espressioni come quadrati!
+	Quindi, nel nostro caso si ha:
 	\begin{equation*}
-		\begin{array}{rcl}
-			9x^{2} + 36x + 36 &\longrightarrow& 9\left(x+2\right)^{2} \\
-			4y^{2} - 24y + 36 &\longrightarrow& 4\left(y-3\right)^{2} \\
-		\end{array}
-	\end{equation*}
-	E si riscrive l'equazione generale:
-	\begin{equation*}
-		9\left(x+2\right)^{2} - 36 + 4\left(y-3\right)^{2} - 36 + 36 = 0
-	\end{equation*}
-	Banali semplificazioni algebriche:
-	\begin{equation*}
-		\begin{array}{rcl}
-			9\left(x+2\right)^{2} \cancel{- 36} + 4\left(y-3\right)^{2} - 36 \cancel{+ 36} &=& 0 \\ [1em]
-			\dfrac{1}{36} \cdot \cancel{9}\left(x+2\right)^{2} + \cancel{4}\left(y-3\right)^{2} &=& \cancel{36} \cdot \dfrac{1}{\cancel{36}}  \\ [1em]
-			\dfrac{\left(x+2\right)^{2}}{4} + \dfrac{\left(y-3\right)^{2}}{9} &=& 1
-		\end{array}
-	\end{equation*}
-	Quest'ultima equazione corrisponde all'equazione canonica dell'ellisse.\newline
+		\dfrac{\left(x+2\right)^{2}}{4} + \dfrac{\left(y-3\right)^{2}}{9} = 1 \longrightarrow
+		\begin{cases}
+			x = -2 + 2 \cos\left(t\right) \\
+			y = 3 + 3 \sin\left(t\right)
+		\end{cases}
+	\end{equation*}\newpage
 
 	\noindent
-	Il \textbf{quarto passo} è la parametrizzazione vera e propria\footnote{Link utili: \href{https://www.youmath.it/forum/analisi-2n/7786-coordinate-ellittiche.html}{coordinate ellittiche} e \href{https://www.youmath.it/forum/analisi-2n/70602-parametrizzazione-di-unellisse.html}{parametrizzazione di un'ellisse}}.
+	Il \textbf{terzo passo} è descrivere la congiunzione tra i punti $A$ e $B$ (in questo ordine). Per farlo, basta semplicemente sostituire nel sistema prima il punto $A$ e successivamente il punto $B$:
+	\begin{gather*}
+		A = \begin{cases}
+			-2 = -2 + 2 \cos\left(t\right) \\
+			6 = 3 + 3 \sin\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			0 = 2 \cos\left(t\right) \\
+			3 = 3 \sin\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			0 = \cos\left(t\right) \\
+			1 = \sin\left(t\right)
+		\end{cases} \\
+		\rightarrow
+		\begin{cases}
+			t = \arccos\left(0\right) = \frac{\pi}{2} \\
+			t = \arcsin\left(1\right) = \frac{\pi}{2}
+		\end{cases} \\
+		\\
+		B = \begin{cases}
+			-4 = -2 + 2 \cos\left(t\right) \\
+			3 = 3 + 3 \sin\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-2 = 2 \cos\left(t\right) \\
+			0 = 3 \sin\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-1 = \cos\left(t\right) \\
+			0 = \sin\left(t\right)
+		\end{cases} \\
+		\rightarrow
+		\begin{cases}
+			t = \arccos\left(-1\right) = \pi \\
+			t = \arcsin\left(0\right) = 0 = \pi
+		\end{cases}
+	\end{gather*}
+	Quindi, la parametrizzazione finale è:
+	\begin{equation*}
+		\gamma : \left[\dfrac{\pi}{2}, \pi\right] \rightarrow \mathbb{R}^{2}, \hspace{2em} \gamma\left(t\right) = \left(-2+2\cos\left(t\right), \: 3 + 3\sin\left(t\right)\right)
+	\end{equation*}
+	Il \textbf{quarto passo} è trovare la parametrizzazione della retta tangente passante nel punto $P\left(-2-\sqrt{3}, \frac{9}{2}\right)$. Per farlo, è necessario sostituire il punto $P$ nella parametrizzazione dell'ellisse, e successivamente fare la derivata per trovare la tangente:
+	\begin{gather*}
+		\begin{cases}
+			-2-\sqrt{3} = -2 + 2\cos\left(t\right) \\
+			\\
+			\dfrac{9}{2} = 3 + 3\sin\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-\sqrt{3} = 2\cos\left(t\right) \\
+			\\
+			\dfrac{3}{2} = 3\sin\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-\dfrac{\sqrt{3}}{2} = \cos\left(t\right) \\
+			\\
+			\dfrac{\cancelto{1}{3}}{\cancelto{2}{6}} = \sin\left(t\right)
+		\end{cases} \\
+		\rightarrow
+		\begin{cases}
+			t = \arccos\left(-\dfrac{\sqrt{3}}{2}\right) = \dfrac{5\pi}{6} \\
+			\\
+			t = \arcsin\left(\dfrac{1}{2}\right) = \dfrac{5\pi}{6}
+		\end{cases}\\
+		\\
+		\gamma\left(\dfrac{5\pi}{6}\right) = \left(P\right) = \left(-2-\sqrt{3}, \dfrac{9}{2}\right) \\
+		\\
+		\gamma'\left(\dfrac{5\pi}{5}\right) \rightarrow \begin{cases}
+			x' = \frac{d}{dx} -2 + 2 \cos\left(t\right) \\
+			y' = \frac{d}{dy} 3 + 3 \sin\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x' = - 2\sin\left(t\right) & = -2\sin\left(\dfrac{5\pi}{6}\right) = -1 \\
+			\\
+			y' = \phantom{-}3\cos\left(t\right)   & = \phantom{-}3\cos\left(\dfrac{5\pi}{6}\right) = -\dfrac{3\sqrt{3}}{2}
+		\end{cases}
+	\end{gather*}\newpage
+
+	\noindent
+	Il \textbf{quinto passo} è scrivere la retta finale tangente al punto $P$. Per farlo, basta scrivere il sistema (parametrizzazione) con le due coordinate $x$ e $y$ in funzione di $t$, e come valori si hanno: i punti di $P$ $+$ i punti trovati grazie alla derivata $\times t$.
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Punto }P	&\longrightarrow& P\left(-2-\sqrt{3}, \: \dfrac{9}{2}\right) \\ [1.5em]
+			\text{Soluzioni derivata }\gamma'\left(\dfrac{5\pi}{6}\right) &\longrightarrow& \gamma'\left(\dfrac{5\pi}{6}\right) = \left(-1, \: -\dfrac{3\sqrt{3}}{2}\right) \\ [1.5em]
+			\begin{cases}
+				x\left(t\right) = -2-\sqrt{3} + \left(-1\right) \cdot t \\
+				\\
+				y\left(t\right) = \dfrac{9}{2} + \left(-\dfrac{3\sqrt{3}}{2}\right) \cdot t
+			\end{cases} & \longrightarrow & \begin{cases}
+				x\left(t\right) = -2-\sqrt{3} - t \\
+				\\
+				y\left(t\right) = \dfrac{9}{2} - \dfrac{3\sqrt{3}}{2} t
+			\end{cases} t \in \mathbb{R}
+		\end{array}
+	\end{equation*}\:\newline
+
+	\longline
+
+	\subsubsection{Trovare l'equazione al piano tangente}
+
+	Negli esami del 15/09/2021 e del 22/07/2021 è stato chiesto questo esercizio. La risoluzione si può trovare a pagina:~\pageref{par: trovare l'equazione al piano tangente}.\newpage
+
+	\subsubsection{Determinare le equazioni parametriche della retta tangente all'arco di curva nel punto $P$}
+
+	Questa tipologia di esercizio è molto richiesta. La sua risoluzione non è complessa se è chiaro lo svolgimento dell'esercizio sulla parametrizzazione della retta tangente di un punto all'arco di ellisse (pagina~\pageref{par: parametrizzazione retta tangente in un punto all'arco di ellisse}). Si prenda in considerazione l'esame del 23/11/2021: \textcolor{Green4}{\textbf{\emph{Si consideri l'arco di curva:}}
+	\begin{equation*}
+		\gamma : \left[0, \dfrac{\pi}{2}\right] \rightarrow \mathbb{R}^{2}, \hspace{2em} t \mapsto \left(\cos^{3}\left(t\right), \sin^{3}\left(t\right)\right)
+	\end{equation*}
+	\textbf{\emph{Determinare le equazioni parametriche della retta tangente a $\gamma$ nel punto $P\left(\frac{3\sqrt{3}}{8}, \frac{1}{8}\right)$.}}}\newline
+
+	\noindent
+	Il \textbf{primo passo} è sostituire il valore del punto dato, ovvero $P\left(\frac{3\sqrt{3}}{8}, \frac{1}{8}\right)$, all'interno della parametrizzazione dell'arco di curva al posto di $x$ e $y$:
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{3\sqrt{3}}{8} = \cos^{3}\left(t\right) \\
+			\\
+			\dfrac{1}{8} = \sin^{3}\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\sqrt[3]{\dfrac{3\sqrt{3}}{8}} = \sqrt[3]{\cos^{3}\left(t\right)} \\
+			\\
+			\sqrt[3]{\dfrac{1}{8}} = \sqrt[3]{\sin^{3}\left(t\right)}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\dfrac{\sqrt{3}}{2} = \cos\left(t\right) \\
+			\\
+			\dfrac{1}{2} = \sin\left(t\right)
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			t = \dfrac{\pi}{6} \\
+			\\
+			t = \dfrac{\pi}{6}
+		\end{cases}
+	\end{equation*}
+	Il \textbf{secondo passo} è eseguire la derivata dell'arco di curva, ovvero della sua parametrizzazione, con argomento $\frac{\pi}{6}$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma\left(\dfrac{\pi}{6}\right) &=& \left(\dfrac{3\sqrt{3}}{8}, \: \dfrac{1}{8}\right) \\ [1em]
+			\gamma'\left(\dfrac{\pi}{6}\right) &=& \left(-3 \cos^{2}\left(t\right) \cdot \sin\left(t\right), \: 3 \sin^{2}\left(t\right) \cos\left(t\right)\right) \\ [1em]
+			&=& \left(-3 \cos^{2}\left(\dfrac{\pi}{6}\right) \cdot \sin\left(\dfrac{\pi}{6}\right), \: 3 \sin^{2}\left(\dfrac{\pi}{6}\right) \cos\left(\dfrac{\pi}{6}\right)\right) \\ [1em]
+			&=& \left(-3 \cdot \dfrac{3}{4} \cdot \dfrac{1}{2}, \: 3 \cdot \dfrac{1}{4} \cdot \dfrac{\sqrt{3}}{2} \right) \\ [1.5em]
+			&=& \left(-\dfrac{9}{8}, \: - \dfrac{3\sqrt{3}}{8}\right)
+		\end{array}
+	\end{equation*}
+	Il risultato della derivata rappresenta la direzione della retta tangente in $P$ alla curva $\gamma'\left(\frac{\pi}{6}\right)$.\newline
+
+	\noindent
+	Il \textbf{terzo e ultimo passo} è scrivere le equazioni parametriche della retta, ricordando la formula utilizzata nel paragrafo~\ref{par: parametrizzazione retta tangente in un punto all'arco di ellisse}, ovverosia: \emph{scrivere il sistema (parametrizzazione) con le due coordinate $x$ e $y$ in funzione di $t$, e come valori si hanno: i punti di $P$ $+$ i punti trovati grazie alla derivata $\times t$}.
+	\begin{equation*}
+		\begin{cases}
+			x = \dfrac{3\sqrt{3}}{8} -\dfrac{9}{8} \cdot t \\
+			\\
+			y = \dfrac{1}{8} +\dfrac{3\sqrt{3}}{8} \cdot t
+		\end{cases} t \in \mathbb{R}
+	\end{equation*}\newpage
+
+	\noindent
+	Negli ultimi anni, in particolare nel 2023, in due esami si è presentata anche una nuova richiesta: calcolare la lunghezza dell'arco. Questo esercizio si risolve tramite una formula e l'utilizzo di un integrale. Si estrae dall'esame del 03/03/2023 l'esercizio: \textcolor{Green4}{\textbf{\emph{Si consideri l'arco di curva parametrizzato da:}}
+	\begin{equation*}
+		\gamma\left(t\right) = \left(t - \sin\left(t\right), 1 - \cos\left(t\right)\right), \hspace{1em} t \in \left[0,2\pi\right]
+	\end{equation*}
+	\textbf{\emph{Calcolare la lunghezza dell'arco e scrivere le equazioni parametriche della retta tangente alla curva nel punto $P\left(\frac{\pi}{2} -1, \: 1\right)$.}}}\newline
+
+	\noindent
+	Il \textbf{primo passo}, utile anche al calcolo delle equazioni parametriche della retta, è calcolare la derivata della parametrizzazione della curva:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma\left(t\right) &=& \left(t-\sin\left(t\right), 1-\cos\left(t\right)\right) \\ [.5em]
+			\gamma'\left(t\right) &=& \left(1-\cos\left(t\right), \: \sin\left(t\right)\right) \\ [1em]
+			&=& \begin{cases}
+				x'\left(t\right) = 1-\cos\left(t\right) \\
+				y'\left(t\right) = \sin\left(t\right)
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Il \textbf{secondo passo} è calcolare la lunghezza\footnote{\href{https://www.youmath.it/lezioni/analisi-due/varie/716-come-calcolare-la-lunghezza-di-una-curva.html}{Link di approfondimento}} dell'arco tramite la seguente formula:
+	\begin{equation*}
+		L\left(\mathcal{L}\right) = \displaystyle\int_{a}^{b} || \gamma'\left(t\right) || \: \mathrm{d}t = \displaystyle\int_{a}^{b} \sqrt{x'\left(t\right)^{2} + y'\left(t\right)^{2}} \: \mathrm{d}t
+	\end{equation*}
+	Ovvero, si deve calcolare l'integrale dal punto di partenza $a$ al punto di destinazione $b$, della derivata al quadrato dell'equazione $x$ e $y$ della parametrizzazione, tutto sotto radice (più facile a farsi che a dirsi). Quindi, si vanno a sostituire i valori trovati, ricordando che il punto $a,b$ è il punto in cui è definito $t$, ovvero $t \in \left[0,2\pi\right]$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			L\left(\mathcal{L}\right) &=& \displaystyle\int_{0}^{2\pi} \sqrt{\left(1-\cos\left(t\right)\right)^{2} + \left(\sin\left(t\right)\right)^{2}} \: \mathrm{d}t \\ [1em]
+			&=& \displaystyle\int_{0}^{2\pi} \sqrt{1 - \cos\left(t\right) - \cos\left(t\right) + \cos^{2}\left(t\right) + \sin^{2}\left(t\right)} \: \mathrm{d}t \\ [1em]
+			&=& \displaystyle\int_{0}^{2\pi} \sqrt{1 - 2\cos\left(t\right) + \cos^{2}\left(t\right) + \sin^{2}\left(t\right)} \: \mathrm{d}t \\ [1em]
+			&=& \displaystyle\int_{0}^{2\pi} \sqrt{1 - 2\cos\left(t\right) + 1} \: \mathrm{d}t \\ [1em]
+			&=& \displaystyle\int_{0}^{2\pi} \sqrt{2 - 2\cos\left(t\right)} \: \mathrm{d}t \\ [1em]
+			&=& 8
+		\end{array}
+	\end{equation*}
+	La lunghezza dunque è stata trovata. Il risultato dell'integrale è possibile calcolarlo con una calcolatrice scientifica. L'esercizio continuerebbe calcolando le equazioni della retta tangente: si sostituisce il punto $P$ nel sistema così da ottenere l'angolo $t$; si sostituisce l'angolo $t$ trovato nella derivata $\gamma'$; si conclude scrivendo le equazioni della retta tangente utilizzando la formula $P + \gamma'\left(\text{angolo }\pi\right) \cdot t$.
 \end{document}
