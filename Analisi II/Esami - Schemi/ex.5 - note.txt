@@ -17,12 +17,11 @@ Punto A, ESAMI UGUALI: 	2022-02-08
 			2023-02-07
 			2021-06-25 VARIANTE SUL VINCOLO!
 
-2022-02-08:
+- 2022-02-08:
 	b) Trovare max/min assoluto di f... su: E=....
 Punto A, ESAMI UGUALI: 	2022-06-23
 						2022-07-15
 						2022-09-16
-						2021-09-15
 
 2022-03-01:
 	a) Si consideri la funzione:

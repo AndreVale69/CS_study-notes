@@ -1530,5 +1530,61 @@
 			C\left(-\sqrt{8}, -1\right) &\longrightarrow& \det\left(H_{f}\left(-\sqrt{8}, -1\right)\right) < 0 &\longrightarrow& \text{Punto di sella} 
 		\end{array}
 	\end{equation*}
-	\textcolor{Red3}{\textbf{\underline{Attenzione!}}} In un vecchio esame, precisamente quello del 25/06/2021, veniva richiesto di calcolare tutti i punti critici di una funzione, ma chiedendo una piccola dimostrazione. L'esercizio è stato svolto e spiegato nel primo paragrafo di questo capitolo \pageref{par: verificare infinità dei punti stazionari di una funzione e trovare il punto di sella}.
+	\textcolor{Red3}{\textbf{\underline{Attenzione!}}} In un vecchio esame, precisamente quello del 25/06/2021, veniva richiesto di calcolare tutti i punti critici di una funzione, ma chiedendo una piccola dimostrazione. L'esercizio è stato svolto e spiegato nel primo paragrafo di questo capitolo \pageref{par: verificare infinità dei punti stazionari di una funzione e trovare il punto di sella}.\newpage
+
+	\subsubsection{Trovare il massimo/minimo assoluto della funzione nel caso sia soggetta ad un vincolo}
+
+	La ricerca di massimo e minimo assoluto è un esercizio richiestissimo in questo capitolo. Tuttavia, qua si presenta una variante che non farà utilizzo della funzione lagrangiana. Il testo dell'esame 23/11/2021 era il seguente: \textcolor{Green4}{\textbf{\emph{Trovare il massimo e il minimo assoluto (se esistono!) della funzione $f\left(x,y\right) = x^{2}y + x^{2} + y^{2} - 6y$ nel caso sia soggetta la vincolo $g\left(x,y\right) = x-2 = 0$.}}}\newline
+
+	\noindent
+	Dato il vincolo, il \textbf{primo passo} è riuscire a trovare la funzione più semplice possibile. Ovvero, il vincolo è uguale a zero quando $x = 2$, per cui alla funzione $f$ si applica $\left(2,y\right)$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			f\left(x,y\right) &=& x^{2}y + x^{2} + y^{2} - 6y \\ [.5em]
+			f\left(2,y\right) &=& 4y + 4 + y^{2} - 6y \\ [.5em]
+			&=& y^{2} -2y + 4
+		\end{array}
+	\end{equation*}
+	Il \textbf{secondo passo} è trovare eventuali punti di massimo/minimo assoluto. Per il \underline{minimo assoluto}:
+	\begin{equation*}
+		\begin{array}{rcl}
+			f\left(2,y\right) &=& y^{2} -2y + 4 \\ [.5em]
+			f'\left(2,y\right)&=& 2y - 2
+		\end{array}
+	\end{equation*}
+	La derivata si annulla quando $y = 1$. Quindi si verifica che la derivata seconda, con tale valore, sia maggiore di zero:
+	\begin{equation*}
+		f''\left(2,1\right) = 2 > 0 \: \checkmark
+	\end{equation*}
+	Quindi il valore $3$ ($f\left(2,1\right)$) è il minimo assoluto. Per il \underline{massimo assoluto} sarebbe necessario valutare la funzione $f\left(2,y\right)$ con $y$ uguale agli estremi del dominio. Tuttavia, in questo caso, la funzione non ha estremi definiti e non esiste un massimo assoluto.\newpage
+
+	\subsubsection{Trovare massimo/minimo assoluto di una funzione definita su insieme $E$}
+
+	Uno degli esercizi più richiesti nell'anno 2022 è stato la ricerca del massimo/minimo assoluto. Dal tema d'esame del 08/02/2022 (A): \textcolor{Green4}{\textbf{\emph{Trovare massimo e minimo assoluto (se esistono) di $f\left(x,y\right) = 4x^{2} + 9y^{2} - x^{2}y^{2}$ su:}}
+	\begin{equation*}
+		E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + 2y^{2} \le 9\right\}
+	\end{equation*}}\newline
+
+	\noindent
+	Il \textbf{primo passo} è verificare che la funzione $f$ sia continua, in tal caso si ha la certezza, grazie al teorema di Weierstrass, che esistano minimo e massimo assoluto. In questo caso, è immediato verificare la funzione $f\left(x,y\right)$ con il limite che tende a zero.\newline
+
+	\noindent
+	Dato che la funzione è continua, allora anche $E$ lo è. Il \textbf{secondo passo} è applicare la funzione Lagrangiana così da risolvere il problema di massimizzazione/minimizzazione della funzione $f\left(x,y\right)$ soggetta al vincolo $x^{2} + 2y^{2} = 9$ (uguale a 9 poiché si considerano solo i punti di frontiera per il momento, nel caso in cui non si trovassero max/min, allora si dovrebbero considerare i valori minori di 9). La funzione Lagrangiana è così definita:
+	\begin{equation*}
+		\mathcal{L}\left(x,y,\lambda\right) = f\left(x,y\right) - \lambda g\left(x,y\right)
+	\end{equation*}
+	Dove $g$ rappresenta la funzione vincolo. Quindi, nel nostro caso:
+	\begin{equation*}
+		\mathcal{L}\left(x,y,\lambda\right) = \left(4x^{2} + 9y^{2} - x^{2}y^{2}\right) - \lambda\left(x^{2} + 2y^{2} - 9\right)
+	\end{equation*}
+	Il \textbf{terzo passo} è risolvere la funzione Lagrangiana. Per farlo basta mettere a sistema le tre derivate parziali, ovvero rispetto a $x, y$ e $\lambda$:\
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{\partial \mathcal{L}}{\partial x}\left(x,y,\lambda\right) = \\
+			\\
+			\dfrac{\partial \mathcal{L}}{\partial y}\left(x,y,\lambda\right) = \\
+			\\
+			\dfrac{\partial \mathcal{L}}{\partial \lambda}\left(x,y,\lambda\right) = 
+		\end{cases}
+	\end{equation*}
 \end{document}
