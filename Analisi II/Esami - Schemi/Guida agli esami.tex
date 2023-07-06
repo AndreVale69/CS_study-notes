@@ -1298,5 +1298,237 @@
 	\begin{equation*}
 		m = - \dfrac{\dfrac{\partial f}{\partial x}\left(1,0\right)}{\dfrac{\partial f}{\partial y}\left(1,0\right)} = - \dfrac{2}{e}
 	\end{equation*}
-	Attenzione che il valore meno appartiene alla formula del teorema di Dini e non è messo lì per caso.
+	Attenzione che il valore meno appartiene alla formula del teorema di Dini e non è messo lì per caso.\newpage
+
+	\subsection{Alcuni esercizi d'esame svolti}
+
+% 2023-02-07
+%	\begin{equation*}
+%		\begin{array}{rcl}
+%			&\rightarrow& \begin{cases}
+%				\left(x'\left(t\right)\right)^{2} = \left(\dfrac{1}{2} e^{\frac{t}{2}} \cos\left(t\right) - e^{\frac{t}{2}} \sin\left(t\right)\right) \left(\dfrac{1}{2} e^{\frac{t}{2}} \cos\left(t\right) - e^{\frac{t}{2}} \sin\left(t\right)\right) \\
+%				\\
+%				\left(y'\left(t\right)\right)^{2} = \left(\dfrac{1}{2} e^{\frac{t}{2}} \sin\left(t\right) + e^{\frac{t}{2}} \cos\left(t\right)\right) \left(\dfrac{1}{2} e^{\frac{t}{2}} \sin\left(t\right) + e^{\frac{t}{2}} \cos\left(t\right)\right) \\
+%				\\
+%				\left(z'\left(t\right)\right)^{2} = 0^{2} = 0
+%			\end{cases} \\
+%			\\
+%			&\rightarrow& \begin{cases}
+%				\left(x'\left(t\right)\right)^{2} = \dfrac{1}{4} e^{t} \cos^{2}\left(t\right) - 2 \cdot \dfrac{1}{2} e^{t} \cos\left(t\right) \sin\left(t\right) + e^{t}\sin^{2}\left(t\right) \\
+%				\\
+%				\left(y'\left(t\right)\right)^{2} = \dfrac{1}{4} e^{t} \sin^{2}\left(t\right) + 2 \cdot \dfrac{1}{2} e^{t} \sin\left(t\right) \cos\left(t\right) + e^{t}\cos^{2}\left(t\right)
+%			\end{cases} \\
+%			\\
+%			&\rightarrow& \begin{cases}
+%				\left(x'\left(t\right)\right)^{2} = \dfrac{1}{4} e^{t} \cos^{2}\left(t\right) - e^{t} \cos\left(t\right) \sin\left(t\right) + e^{t}\sin^{2}\left(t\right) \\
+%				\phantom{\left(x'\left(t\right)\right)^{2} = \dfrac{1}{4} e^{t} \cos^{2}\left(t\right) - e^{t} } \updownarrow \text{ si annullano!}\\
+%				\left(y'\left(t\right)\right)^{2} = \dfrac{1}{4} e^{t} \sin^{2}\left(t\right) + e^{t} \sin\left(t\right) \cos\left(t\right) + e^{t}\cos^{2}\left(t\right)
+%			\end{cases} \\
+%			\\
+%			\left(x'\left(t\right)\right)^{2} + \left(y'\left(t\right)\right)^{2} &=& %
+%			\dfrac{5}{4} e^{t} \cos^{2}\left(t\right) + \dfrac{5}{4} e^{t} \sin^{2}\left(t\right) \\
+%			\\
+%			&=& \dfrac{5}{4} e^{t}\left(\cos^{2}\left(t\right) + \sin^{2}\left(t\right)\right) \\
+%			\\
+%			&=& \dfrac{5}{4}e^{t}
+%		\end{array}
+%	\end{equation*}
+	\newpage
+
+	\section{Esercizio 5 - Studio dei massimi, minimi, punti critici e di sella di una funzione}
+	
+	\subsection{Tipologie di esercizio}
+
+	\subsubsection{Verificare infinità dei punti stazionari di una funzione e trovare il punto di sella}\label{par: verificare infinità dei punti stazionari di una funzione e trovare il punto di sella}
+
+	Questo esercizio è raro che venga chiesto dato che si presenta solo nell'esame del 25/06/2021(A). Tuttavia, il suo svolgimento non è complesso: \textcolor{Green4}{\textbf{\emph{Verificare che in $\mathbb{R}^{2}$ la funzione $f$ ha infiniti punti stazionari. Dimostrare che tra questi c'è un unico punto di sella.}}
+	\begin{equation*}
+		f\left(x,y\right) = xy^{2}
+	\end{equation*}}
+	Per verificare che i punti stazionari siano infiniti, basta semplicemente calcolare le derivate parziali rispetto $f$ e valutare le soluzioni che risolvono il sistema. Quindi, il \textbf{primo passo} è calcolare le derivate parziali di $f$:
+	\begin{equation*}
+		f\left(x,y\right) = xy^{2} \longrightarrow
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = y^{2} \\
+			\\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = 2xy \\
+		\end{cases}
+	\end{equation*}
+	I punti che risolvono il sistema sono $\left(x, 0\right)$, poiché y deve essere uguale a zero, mentre $x$ può essere qualsiasi valore ($x \in \mathbb{R}$) poiché verrà annullato dallo zero della $y$ ($2x \cdot 0$). Dato che $x$ può essere qualsiasi valore, è possibile affermare che i punti stazionari per $f$ sono infiniti!\newline
+
+	\noindent
+	Il \textbf{secondo passo} è trovare l'unico punto di sella (per approfondire il punto di sella, guardare il prossimo paragrafo). Per farlo sono necessarie alcune considerazioni. Infatti, con $x = 0$, nel punto $\left(0,0\right)$ si ha punto di sella (questo perché nell'intorno di $\left(0,0\right)$ la funzione $f\left(x,y\right)$ cambia di segno). Al contrario, nei casi in cui $x$ fosse $> 0$ o $< 0$, allora si  avrebbe rispettivamente un minimo locale e un massimo locale (che non sono punti di sella). Quest'ultima affermazione è vera poiché prendendo un intorno di $\left(0,y\right)$, nel primo caso si avrebbe la funzione $f\left(x,y\right) \ge 0$ e nel secondo caso si avrebbe la funzione $f\left(x,y\right) \le 0$.\newpage
+
+	\subsubsection{Determinare valore di un parametro così da trovare un punto critico}\label{par: determinare valore di un parametro così da trovare un punto critico}
+
+	Nell'esame del 22/07/2021 viene data una funzione e viene richiesto di calcolare un parametro $a$ così da ottenere un punto critico in un punto specifico. La sua risoluzione è semplice, infatti vale solo un punto.\newline
+	\textcolor{Green4}{\textbf{\emph{Determinare il valore del parametro reale $a$ in modo che $f\left(x,y\right) = x - y^{2} + ax^{2}$ abbia un punto critico in $\left(-1, 0\right)$. Inoltre, classificare tale punto critico.}}}\newline
+
+	\noindent
+	Il \textbf{primo passo} è trovare tutti i punti critici della funzione così da poter affermare quale valore di $a$ è necessario. Per farlo, si utilizzano le derivate parziali sulla funzione $f\left(x,y\right)$:
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x} = 1 + 2ax	& \rightarrow x = -\dfrac{1}{2a} \\
+			\\
+			\dfrac{\partial f}{\partial y} = -2y		& \rightarrow y = 0 \\
+		\end{cases}
+	\end{equation*}
+	La soluzione del sistema è: $\left(-\frac{1}{2a}, \: 0\right)$.\newline
+
+	\noindent
+	Il \textbf{secondo passo} è prendere in considerazione il punto critico richiesto, in questo caso $\left(-1, 0\right)$, e metterlo a sistema per estrarre la $a$:
+	\begin{equation*}
+		\begin{cases}
+			-\dfrac{1}{2a} = -1 & \rightarrow a = \dfrac{1}{2} \\
+			0 = 0 & \rightarrow \text{condizione già verificata } \textcolor{Green4}{\mathbf{\checkmark}}
+		\end{cases}
+	\end{equation*}
+	Quindi, è possibile affermare che il punto critico $\left(-1,0\right) \iff a = \frac{1}{2}$.\newline
+
+	\noindent
+	Il \textbf{terzo passo} è necessario per classificare il punto critico. Per farlo, si sfrutta la matrice Hessiana\footnote{\href{https://www.youmath.it/lezioni/analisi-due/varie/1150-massimi-e-minimi-funzioni-due-variabili.html}{Link approfondimento teorico}}, ovvero una matrice costruita con le derivate parziali seconde. Andando a sostituire i valori del punto critico all'interno della matrice e andando a calcolare il determinante, è possibile stabilire se si tratta di un punto di massimo/minimo o di sella.
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Definizione teorica:} &\longrightarrow& H_{f}\left(x,y\right) = \begin{bmatrix}
+				f_{xx}\left(x,y\right)	& f_{xy}\left(x,y\right) \\
+				f_{yx}\left(x,y\right)	& f_{yy}\left(x,y\right)
+			\end{bmatrix} \\
+			\\
+			\text{Calcolo dell'esercizio:} &\longrightarrow& H_{f}\left(x,y\right) = \begin{bmatrix}
+				1	& 0 \\
+				0	& -2
+			\end{bmatrix} \\
+			\\
+			\text{Sostituzione valori:} &\longrightarrow& H_{f}\left(-1, 0\right) = \begin{bmatrix}
+				1	& 0 \\
+				0	& -2
+			\end{bmatrix}
+		\end{array}
+	\end{equation*}
+	Ovviamente si assume che la derivata parziale prima rispetto a $x$ sia con $a = \frac{1}{2}$, quindi $\frac{\partial f}{\partial x} = 1+x$. Si calcola il determinante:
+	\begin{equation*}
+		\det\left(H_{f}\left(-1, 0\right)\right) = 1 \cdot \left(-2\right) = -2
+	\end{equation*}\newpage
+
+	\noindent
+	È possibile dunque affermare immediatamente che si tratta di un \underline{punto di sella}. Per capire con quale logica è stata presa questa scelta, si lascia un piccolo richiamo alla teoria del corso.
+
+	\begin{table}[!htp]
+		\begin{mdframed}
+			\textbf{\emph{Richiamo alla teoria del corso}}\newline
+
+			\noindent
+			È possibile classificare i punti stazionari a seconda del risultato del determinante della matrice Hessiana e al valore della derivata parziale seconda:\newline
+
+			\noindent
+			\centering
+			\begin{tabular}{@{} c | c | c @{}}
+				\toprule
+				Determinante & Derivata p. sec. & Definizione di $\left(x,y\right)$ \\
+				\midrule
+				$\det\left(H_{f}\left(x,y\right)\right) > 0$	& $\dfrac{\partial^{2} f}{\partial x^{2}}\left(x,y\right) > 0$	& Minimo locale \\ [1.5em]
+				$\det\left(H_{f}\left(x,y\right)\right) > 0$	& $\dfrac{\partial^{2} f}{\partial x^{2}}\left(x,y\right) < 0$	& Massimo locale \\ [1.5em]
+				$\det\left(H_{f}\left(x,y\right)\right) < 0$	& \ding{55}														& Punto di sella \\ [1em]
+				$\det\left(H_{f}\left(x,y\right)\right) = 0$	& \ding{55}														& Poche informazioni \\
+				\bottomrule
+			\end{tabular}
+			\vspace{1em}
+		\end{mdframed}
+	\end{table}\newpage
+
+	\subsubsection{Determinare \underline{tutti} i punti critici di una funzione (con analisi della loro natura)}
+
+	Determinare i vari punti critici, è una delle tipologie di esercizio più richiesto. Si estrae dall'esame del 23/11/2021 l'esercizio: \textcolor{Green4}{\textbf{\emph{Determinare tutti i punti critici della funzione $f\left(x,y\right) = x^{2}y + x^{2} + y^{2}-6y$, specificandone la natura.}}}\newline
+
+	\noindent
+	Come si è visto per gli esercizi precedenti, il \textbf{primo passo} è sempre calcolare le derivate parziali di $f\left(x,y\right)$:
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x} = 2xy + 2x = 2x\left(y + 1\right) \\
+			\\
+			\dfrac{\partial f}{\partial y} = x^{2} + 2y - 6
+		\end{cases}
+	\end{equation*}
+	Il \textbf{secondo passo} è risolvere il seguente sistema ottenuto ponendo uguale a zero le precedenti equazioni. Si trovano tutte le varie soluzioni:
+	\begin{gather*}
+		\begin{cases}
+			2x\left(y + 1\right) = 0 \\
+			x^{2} + 2y - 6 = 0
+		\end{cases} \\
+		\begin{array}{rclcl}
+			x = 0	&\rightarrow& \begin{cases}
+				0 = 0 \\
+				0^{2} + 2y - 6 = 0; \:\: 2y = 6; \:\: y = 3
+			\end{cases} &\rightarrow& y = 3 \\
+			\\
+			y = -1	&\rightarrow& \begin{cases}
+				0 = 0 \\
+				x^{2} + 2\left(-1\right) - 6 = 0; \:\: x^{2} = 8
+			\end{cases} &\rightarrow& x = \pm\sqrt{8}
+		\end{array}
+	\end{gather*}
+	Quindi i punti stazionari sono: $A\left(0,3\right), B\left(\sqrt{8}, -1\right), C\left(-\sqrt{8}, -1\right)$.\newline
+
+	\noindent
+	Il \textbf{terzo passo} è specificare la natura dei punti stazionari trovati. Si utilizza la matrice Hessiana (spiegazione a pagina~\pageref{par: determinare valore di un parametro così da trovare un punto critico}):
+	\begin{gather*}
+		\dfrac{\partial^{2} f}{\partial xx} = 2y+2 \hspace{2em}
+		\dfrac{\partial^{2} f}{\partial xy} = 2x \hspace{2em}
+		\dfrac{\partial^{2} f}{\partial yx} = 2x \hspace{2em}
+		\dfrac{\partial^{2} f}{\partial yy} = 2 \\
+		\\
+		\begin{array}{rclcl}
+			H_{f}\left(x,y\right) &=& \begin{bmatrix}
+				2y+2 	& 2x \\
+				2x		& 2
+			\end{bmatrix} &&\\
+			\\
+			H_{f}\left(0,3\right) &=& \begin{bmatrix}
+				2 \cdot 3+2 	& 2 \cdot 0 \\
+				2 \cdot 0		& 2
+			\end{bmatrix} &=& \begin{bmatrix}
+				6 & 0 \\
+				0 & 2 
+			\end{bmatrix} \\
+			\\
+			H_{f}\left(\sqrt{8},-1\right) &=& \begin{bmatrix}
+				2 \cdot \left(-1\right) +2 	& 2\sqrt{8} \\
+				2\sqrt{8}		& 2
+			\end{bmatrix} &=& \begin{bmatrix}
+				0 & 2\sqrt{8} \\
+				2\sqrt{8} & 2
+			\end{bmatrix} \\
+			\\
+			H_{f}\left(-\sqrt{8},-1\right) &=& \begin{bmatrix}
+				2 \cdot \left(-1\right)+2 	& -2\sqrt{8} \\
+				-2\sqrt{8}		& 2
+			\end{bmatrix} &=& \begin{bmatrix}
+				0 & -2\sqrt{8} \\
+				-2\sqrt{8} & 2
+			\end{bmatrix}
+		\end{array}
+	\end{gather*}\newpage
+
+	\noindent
+	Si calcolano i vari determinanti:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\det\left(H_{f}\left(0,3\right)\right) &=& 6 \cdot 2 = 12 \\
+			\\
+			\det\left(H_{f}\left(\sqrt{8}, -1\right)\right) &=& 0 \cdot 2 - 2\sqrt{8} \cdot 2\sqrt{8} = - 4 \cdot 8 = -32 \\
+			\\
+			\det\left(H_{f}\left(-\sqrt{8},-1\right)\right) &=& 0 \cdot 2 - \left(-2\sqrt{8}\right) \cdot \left(-2\sqrt{8}\right) = -32
+		\end{array}
+	\end{equation*}
+	Quindi i punti:
+	\begin{equation*}
+		\begin{array}{rclcl}
+			A\left(0,3\right) &\longrightarrow& \det\left(H_{f}\left(0,3\right)\right) > 0 \: \land \: \dfrac{\partial^{2} f}{\partial xx} > 0 &\longrightarrow& \text{Punto di minimo} \\
+			\\
+			B\left(\sqrt{8}, -1\right) &\longrightarrow& \det\left(H_{f}\left(\sqrt{8}, -1\right)\right) < 0 &\longrightarrow& \text{Punto di sella} \\
+			\\
+			C\left(-\sqrt{8}, -1\right) &\longrightarrow& \det\left(H_{f}\left(-\sqrt{8}, -1\right)\right) < 0 &\longrightarrow& \text{Punto di sella} 
+		\end{array}
+	\end{equation*}
+	\textcolor{Red3}{\textbf{\underline{Attenzione!}}} In un vecchio esame, precisamente quello del 25/06/2021, veniva richiesto di calcolare tutti i punti critici di una funzione, ma chiedendo una piccola dimostrazione. L'esercizio è stato svolto e spiegato nel primo paragrafo di questo capitolo \pageref{par: verificare infinità dei punti stazionari di una funzione e trovare il punto di sella}.
 \end{document}
