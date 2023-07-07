@@ -1559,7 +1559,7 @@
 	\end{equation*}
 	Quindi il valore $3$ ($f\left(2,1\right)$) è il minimo assoluto. Per il \underline{massimo assoluto} sarebbe necessario valutare la funzione $f\left(2,y\right)$ con $y$ uguale agli estremi del dominio. Tuttavia, in questo caso, la funzione non ha estremi definiti e non esiste un massimo assoluto.\newpage
 
-	\subsubsection{Trovare massimo/minimo assoluto di una funzione definita su insieme $E$}
+	\subsubsection{Trovare massimo/minimo assoluto di una funzione definita su insieme $E$}\label{par: trovare massimo/minimo assoluto di una funzione definita su insieme E}
 
 	Uno degli esercizi più richiesti nell'anno 2022 è stato la ricerca del massimo/minimo assoluto. Dal tema d'esame del 08/02/2022 (A): \textcolor{Green4}{\textbf{\emph{Trovare massimo e minimo assoluto (se esistono) di $f\left(x,y\right) = 4x^{2} + 9y^{2} - x^{2}y^{2}$ su:}}
 	\begin{equation*}
@@ -1749,4 +1749,410 @@
 		\end{array}
 	\end{equation*}
 	Il massimo assoluto è ovviamente $\frac{81}{2}$ e il valore di minimo assoluto è nell'origine e corrisponde a $0$.\newpage
+
+	\subsubsection{Determinare valore di due parametri e trovare punti stazionari (con classificazione)}
+
+	Questa esercizio è una variante più complessa di quello ad un parametro, che si può trovare a pagina~\pageref{par: determinare valore di un parametro così da trovare un punto critico}. Anche in questo esercizio, l'obbiettivo è cercare di risolvere l'esercizio come se ci fossero valori reali, quindi si procede indifferenti. Il tema d'esame è quello del 01/03/2022 (A): \textcolor{Green4}{\textbf{\emph{Si consideri la funzione:}}
+	\begin{equation*}
+		f\left(x,y\right) = x^{2} + \alpha y^{2} - \beta x - y^{3}
+	\end{equation*}
+	\textbf{\emph{con $\alpha,\beta$ parametri reali \underline{positivi}. Determinare i punti stazionari di $f$ (che naturalmente dipendono da $\alpha,\beta$) e classificarli.}}}\newline
+
+	\noindent
+	Dato che è necessario trovare i punti stazionari, il \textbf{primo passo} è sempre trovare le derivate parziali e porre il risultato uguale a zero:\
+	\begin{gather*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 2x - \beta \\
+			\\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = 2\alpha y - 3y^{2}
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			2x-\beta = 0 \\
+			2\alpha y - 3y^{2} = 0
+		\end{cases} \\
+		\\
+		\longrightarrow
+		\begin{cases}
+			x = \dfrac{\beta}{2} \\
+			\\
+			y\left(2\alpha - 3y\right) = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = \dfrac{\beta}{2} \\
+			\\
+			y = 0 \: \lor \: y = \dfrac{3}{2}\alpha
+		\end{cases}
+	\end{gather*}
+	Quindi, le coordinate dei due punti stazionari trovati sono: $A\left(\dfrac{\beta}{2}, 0\right)$, $B\left(\dfrac{\beta}{2}, \dfrac{3}{2}\alpha\right)$.\newline
+
+	\noindent
+	Il \textbf{secondo passo} è classificare tali punti stazionari, quindi si utilizza la matrice Hessiana:
+	\begin{gather*}
+		\dfrac{\partial^{2} f}{\partial xx}\left(x,y\right) = 2
+		\hspace{2em}
+		\dfrac{\partial^{2} f}{\partial xy}\left(x,y\right) = 0
+		\hspace{2em}
+		\dfrac{\partial^{2} f}{\partial yx}\left(x,y\right) = 0
+		\hspace{2em}
+		\dfrac{\partial^{2} f}{\partial yy}\left(x,y\right) = 2\alpha - 6y \\
+		\\
+		\begin{array}{rclcl}
+			H_{f}\left(x,y\right) &=& \begin{pmatrix}
+				2 & 0 \\ 0 & 2\alpha - 6y
+			\end{pmatrix} && \\
+			\\
+			H_{f}\left(A\right) = H_{f}\left(\dfrac{\beta}{2}, 0\right) &=& \begin{pmatrix}
+				2 & 0 \\ 0 & 2\alpha
+			\end{pmatrix} &=& \det\left(H_{f}\left(A\right)\right) = 2 \cdot 2\alpha = 4\alpha \\
+			\\
+			H_{f}\left(B\right) = H_{f}\left(\dfrac{\beta}{2}, \dfrac{3}{2}\alpha\right) &=& \begin{rowequmat}{cc}
+				2 & 0 \\ [.3em]
+				0 & 2\alpha - 6\cdot\frac{3}{2}\alpha
+			\end{rowequmat} &=& \det\left(H_{f}\left(B\right)\right) = 2 \cdot \left(-7\alpha\right) = -14\alpha
+		\end{array}
+	\end{gather*}
+	Dato che $\alpha$ sarà sempre positivo, e mai zero o negativo, i due punti non possono cambiare di segno. Quindi, il punto $A$ è un punto di minimo, mentre il punto $B$ è un punto di sella.\newpage
+
+	\subsubsection{Massimo e minimo assoluto con il metodo dei moltiplicatori di Lagrange (stesso metodo del paragrafo \ref{par: trovare massimo/minimo assoluto di una funzione definita su insieme E})}
+
+	Gli anni passano ma gli esercizi non cambiano, la ricerca di massimo/minimo assoluto rimane l'esercizio più richiesto. Si prenda in considerazione l'esame del 07/02/2023: \textcolor{Green4}{\textbf{\emph{Trovare, con il metodo dei moltiplicatori di Lagrange, massimo e minimo assoluto (se esistono) di $f\left(x,y\right) = x\left(x-y^{2}+4\right)$ su:}}
+	\begin{equation*}
+		E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{x^{2}}{2} + y^{2} = 4\right\}
+	\end{equation*}
+	\textbf{\emph{Inoltre, quale altro modo (più semplice) si potrebbe utilizzare per risolvere lo stesso problema?}}}\newline
+
+	\noindent
+	Attenzione, non ci si deve far ingannare dal nome \dquotes{metodo dei moltiplicatori di Lagrange}. Vuol dire che è necessario applicare la medesima formula utilizzata negli scorsi esercizi, in particolare nel capitolo \ref{par: trovare massimo/minimo assoluto di una funzione definita su insieme E}. Il \textbf{primo passo} è osservare $f$ e dire se è continua o meno. Il limite $\left(x,0\right)$ e $\left(0,y\right)$ esistono e confermano il fatto che sia continua. Di conseguenza, grazie al teorema di Weierstrass è possibile affermare che anche $E$ è continua, dato che $f$ lo è su tutto $\mathbb{R}^{2}$.\newline
+
+	\noindent
+	Il \textbf{secondo passo} è scrivere il metodo di Lagrange e risolverlo:
+	\begin{gather*}
+		\mathcal{L}\left(x,y,\lambda\right) = x^{2}-xy^{2}+4x - \lambda\left(\dfrac{x^{2}}{2} + y^{2} - 4\right) \\
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x,y,\lambda\right) = 2x - y^{2} + 4 - \lambda x \\
+			\\
+			\dfrac{\partial f}{\partial y}\left(x,y,\lambda\right) = -2xy -2\lambda y \\
+			\\
+			\dfrac{\partial f}{\partial \lambda}\left(x,y,\lambda\right) = - \left(\dfrac{1}{2} x^{2} + y^{2} - 4\right)
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			2x - y^{2} + 4 - \lambda x = 0 \\
+			\\
+			2y\left(- x - \lambda\right) = 0 \\
+			\\
+			- \left(\dfrac{1}{2} x^{2} + y^{2} - 4\right) = 0
+		\end{cases}
+	\end{gather*}
+	Si parte scrivendo la tabella delle soluzioni così da avere un'idea di quanti valori cercare. La prima equazione avrà sicuramente due combinazioni di soluzioni; la seconda ne avrà due (dentro e fuori dalle parentesi); la terza ne avrà 4:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c | c | c | c @{}}
+			\toprule
+			& $x$ & $y$ & $\lambda$ & N° Equazione \\
+			\midrule
+			A & ? & ? & ? & \multirow{2}{*}{1°} \\
+			B & ? & ? & ? & \\
+			\cmidrule{1-5}
+			C & ? & ? & ? & \multirow{4}{*}{2°}\\ 
+			D & ? & ? & ? &  \\ 
+			E & ? & ? & ? &  \\  
+			F & ? & ? & ? & \\ 
+			\cmidrule{1-5}
+			G & ? & ? & ? & \multirow{2}{*}{3°} \\ 
+			H & ? & ? & ? & \\
+			\bottomrule
+		\end{tabular}
+		\caption*{Tabella delle soluzioni.}
+	\end{table}\newpage
+
+	\noindent
+	Si parte con l'equazione più semplice, ovverosia la seconda:
+	\begin{gather*}
+		\begin{cases}
+			2x - 0^{2} + 4 - \lambda x = 0 \\
+			\\
+			y = 0 \\
+			\\
+			- \left(\dfrac{1}{2} x^{2} + 0^{2} - 4\right) = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			2x + 4 - \lambda x = 0 \\
+			y = 0 \\
+			\cancel{2} \cdot \cancel{\dfrac{1}{2}} \: x^{2} = 4 \cdot 2
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			2x + 4 - \lambda x = 0 \\
+			y = 0 \\
+			x = \pm 2\sqrt{2}
+		\end{cases}\\
+		\\
+		\begin{array}{rcl}
+			+2\sqrt{2} &\rightarrow& \begin{cases}
+				2x + 4 - \lambda x = 0 \\
+				y = 0 \\
+				x = 2\sqrt{2}
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				2\left(2\sqrt{2}\right) + 4 - 2\sqrt{2} \lambda = 0 \\
+				y = 0 \\
+				x = 2\sqrt{2}
+			\end{cases} \\
+			\\
+			&\rightarrow&
+			\begin{cases}
+				\dfrac{1}{2\sqrt{2}} \cdot 4\sqrt{2} + 4 = 2\sqrt{2}\lambda \cdot \dfrac{1}{2\sqrt{2}} \\
+				y = 0 \\
+				x = 2\sqrt{2}
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				\lambda = 2 + \left(\dfrac{2}{\sqrt{2}} \cdot \dfrac{\sqrt{2}}{\sqrt{2}}\right) \\
+				y = 0 \\
+				x = 2\sqrt{2}
+			\end{cases}
+			\xrightarrow{}
+			\begin{cases}
+				\lambda = 2 + \sqrt{2} \\
+				y = 0 \\
+				x = 2\sqrt{2}
+			\end{cases} \\
+			\\
+			-2\sqrt{2} &\rightarrow& \begin{cases}
+				2\left(-2\sqrt{2}\right) + 4 - \lambda \left(-2\sqrt{2}\right) = 0 \\
+				y = 0 \\
+				x = -2\sqrt{2}
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				\lambda = 2 - \sqrt{2} \\
+				y = 0 \\
+				x = -2\sqrt{2}
+			\end{cases}
+		\end{array}
+	\end{gather*}
+	Alcuni passaggi sono stati saltati per velocizzare il procedimento. Si aggiorna dunque la tabella delle soluzioni:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c | c | c | c @{}}
+			\toprule
+			& $x$ & $y$ & $\lambda$ & N° Equazione \\
+			\midrule
+			A & ? & ? & ? & \multirow{2}{*}{1°} \\
+			B & ? & ? & ? & \\
+			\cmidrule{1-5}
+			C & $2\sqrt{2}$ & $0$ & $2+\sqrt{2}$ & \multirow{4}{*}{2°}\\ 
+			D & $2\sqrt{2}$ & $0$ & $2-\sqrt{2}$ &  \\ 
+			E & $-2\sqrt{2}$ & $0$ & $2+\sqrt{2}$ &  \\  
+			F & $-2\sqrt{2}$ & $0$ & $2-\sqrt{2}$ & \\ 
+			\cmidrule{1-5}
+			G & ? & ? & ? & \multirow{2}{*}{3°} \\ 
+			H & ? & ? & ? & \\
+			\bottomrule
+		\end{tabular}
+		\caption*{Tabella delle soluzioni.}
+	\end{table}\newpage
+
+	\noindent
+	Considerando la prima equazione, e facendo un piccolo raggruppamento, è possibile notare una soluzione interessante. Con $x = 0$, la $y^{2}$ può essere esplicitata:
+	\begin{equation*}
+		x\left(2-\lambda\right) - y^{2} + 4 = 0 \longrightarrow y = \pm 2
+	\end{equation*}
+	A sostegno di questa tesi, si prova ad eseguire dei calcoli. Nel caso in cui, $\lambda$ sia un valore che annulla (insieme a $x,y$) tutte e tre le equazioni, allora siamo di fronte ad un punto stazionario:
+	\begin{gather*}
+		\begin{cases}
+			x = 0 \land y = \pm 2 \\
+			2y\left(-x-\lambda\right) = 0 \\
+			-\left(\frac{1}{2}x^{2} + y^{2} - 4\right) = 0
+		\end{cases} \\
+		\\
+		\begin{array}{rcl}
+			y = 2 &\rightarrow& \begin{cases}
+				x = 0 \land y = 2 \\
+				4\left(-0 - \lambda\right) = 0 \\
+				-2^{2} + 4 = 0
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				x = 0 \land y = 2 \\
+				\lambda = 0 \\
+				0 = 0
+			\end{cases} \\
+			\\
+			y = -2 &\rightarrow& \begin{cases}
+				x = 0 \land y = -2 \\
+				-4\left(-0 - \lambda\right) = 0 \\
+				-\left(-2\right)^{2} + 4 = 0
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				x = 0 \land y = -2 \\
+				\lambda = 0 \\
+				0 = 0
+			\end{cases}
+		\end{array}
+	\end{gather*}
+	Si aggiorna dunque la tabella con le due nuove soluzioni ammesse dal sistema:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c | c | c | c @{}}
+			\toprule
+			& $x$ & $y$ & $\lambda$ & N° Equazione \\
+			\midrule
+			A & $0$  & $2$ & $0$ & \multirow{2}{*}{1°} \\
+			B & $0$  & $-2$ & $0$ & \\
+			\cmidrule{1-5}
+			C & $2\sqrt{2}$ & $0$ & $2+\sqrt{2}$ & \multirow{4}{*}{2°}\\ 
+			D & $2\sqrt{2}$ & $0$ & $2-\sqrt{2}$ &  \\ 
+			E & $-2\sqrt{2}$ & $0$ & $2+\sqrt{2}$ &  \\  
+			F & $-2\sqrt{2}$ & $0$ & $2-\sqrt{2}$ & \\ 
+			\cmidrule{1-5}
+			G & ? & ? & ? & \multirow{2}{*}{3°} \\ 
+			H & ? & ? & ? & \\
+			\bottomrule
+		\end{tabular}
+		\caption*{Tabella delle soluzioni.}
+	\end{table}\newpage
+
+	\noindent
+	L'ultima equazione non è possibile ottenere una soluzione \dquotes{a colpo d'occhio}, per cui si cerca tramite il metodo di sostituzione! Per convenzione, si cerca di esplicitare la $\lambda$, partendo dalla seconda equazione di primo grado, cioè quella più semplice:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\begin{cases}
+				2x - y^{2} + 4 - \lambda x = 0 \\
+				\\
+				-2xy - 2\lambda y = 0 \\
+				\\
+				- \dfrac{x^{2}}{2} - y^{2} + 4 = 0
+			\end{cases}
+			%
+			&\rightarrow&
+			%
+			\begin{cases}
+				2x - y^{2} + 4 - \lambda x = 0 \\
+				\\
+				-2x = 2\lambda \\
+				\\
+				- \dfrac{x^{2}}{2} - y^{2} + 4 = 0
+			\end{cases} \\
+			\\
+			&\rightarrow&
+			\begin{cases}
+				2x - y^{2} + 4 - \lambda x = 0 \\
+				\\
+				x = -\lambda \\
+				\\
+				- \dfrac{x^{2}}{2} - y^{2} + 4 = 0
+			\end{cases} \\
+			\\
+			%%%
+			\begin{cases}
+				2x - y^{2} + 4 - \lambda x = 0 \\
+				\\
+				x = -\lambda \\
+				\\
+				- \dfrac{\left(-\lambda\right)^{2}}{2} - y^{2} + 4 = 0
+			\end{cases}
+			%
+			&\rightarrow&
+			%
+			\begin{cases}
+				2x - y^{2} + 4 - \lambda x = 0 \\
+				\\
+				x = -\lambda \\
+				\\
+				-y^{2} = -4 + \dfrac{\lambda^{2}}{2}
+			\end{cases} \\
+			\\
+			&\rightarrow&
+			\begin{cases}
+				2x - y^{2} + 4 - \lambda x = 0 \\
+				\\
+				x = -\lambda \\
+				\\
+				y = \pm \sqrt{4 - \dfrac{\lambda^{2}}{2}}
+			\end{cases} \\
+			\\
+			%%%
+			\begin{cases}
+				2\left(-\lambda\right) - \left(\pm \sqrt{4 - \dfrac{\lambda^{2}}{2}}\right)^{2} + 4 - \lambda \left(-\lambda\right) = 0 \\
+				\\
+				x = -\lambda \\
+				\\
+				y = \pm \sqrt{4 - \dfrac{\lambda^{2}}{2}}
+			\end{cases}
+			%
+			&\rightarrow& \cdots
+			%
+			\\
+			\cdots\rightarrow\begin{cases}
+				-2\lambda + \dfrac{\lambda^{2}}{2} + \lambda^{2} = 0
+				\\
+				x = -\lambda \\
+				\\
+				y = \pm \sqrt{4 - \dfrac{\lambda^{2}}{2}}
+			\end{cases}
+			&\rightarrow&
+			\begin{cases}
+				2 \cdot \left(-2\lambda + \dfrac{\lambda^{2}}{2} + \lambda^{2}\right) = 0 
+				\\
+				x = -\lambda \\
+				\\
+				y = \pm \sqrt{4 - \dfrac{\lambda^{2}}{2}}
+			\end{cases}
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{equation*}
+		\begin{cases}
+			3\lambda^{2} - 4\lambda = 0 \\
+			\\
+			x = -\lambda \\
+			\\
+			y = \pm \sqrt{4 - \dfrac{\lambda^{2}}{2}}
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			\lambda = 0 \: \lor \: \lambda = \dfrac{4}{3}  \\
+			\\
+			x = -\lambda \\
+			\\
+			y = \pm \sqrt{4 - \dfrac{\lambda^{2}}{2}}
+		\end{cases}
+	\end{equation*}
+	Guardando la tabella delle soluzioni, $\lambda = 0$ è già stata considerata, per cui si prende in considerazione $\lambda = \frac{4}{3}$ che genera i seguenti punti:
+	\begin{equation*}
+		\begin{cases}
+			\lambda = \dfrac{4}{3} \\
+			\\
+			x = -\dfrac{4}{3} \\
+			y = \pm \sqrt{4 - \dfrac{8}{9}} = \pm \dfrac{\sqrt{28}}{3}
+		\end{cases}
+	\end{equation*}
+	Concludiamo la tabella delle soluzioni:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l | c | c | c | c @{}}
+			\toprule
+			& $x$ & $y$ & $\lambda$ & N° Equazione \\
+			\midrule
+			A & $0$  & $2$ & $0$ & \multirow{2}{*}{1°} \\
+			B & $0$  & $-2$ & $0$ & \\
+			\cmidrule{1-5}
+			C & $2\sqrt{2}$ & $0$ & $2+\sqrt{2}$ & \multirow{4}{*}{2°}\\ 
+			D & $2\sqrt{2}$ & $0$ & $2-\sqrt{2}$ &  \\ 
+			E & $-2\sqrt{2}$ & $0$ & $2+\sqrt{2}$ &  \\  
+			F & $-2\sqrt{2}$ & $0$ & $2-\sqrt{2}$ & \\ 
+			\cmidrule{1-5}
+			G & $\dfrac{\sqrt{28}}{3}$ & $-\dfrac{4}{3}$ & $\dfrac{4}{3}$ & \multirow{2}{*}{3°} \\ [1em]
+			H & $-\dfrac{\sqrt{28}}{3}$ & $-\dfrac{4}{3}$ & $\dfrac{4}{3}$ & \\
+			\bottomrule
+		\end{tabular}
+		\caption*{Tabella delle soluzioni.}
+	\end{table}
 \end{document}
