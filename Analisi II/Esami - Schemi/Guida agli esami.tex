@@ -13,9 +13,10 @@
 \usepackage{pifont}					% pacchetto con elenchi carini
 \usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
 \usepackage{cancel}					% per cancellare delle espressioni matematiche
-\usepackage{caption}
-\usepackage[]{mdframed}
-\usepackage{multirow}
+\usepackage{caption}				% caption personalizzati
+\usepackage[]{mdframed}				% box per il testo
+\usepackage{multirow}				% più linee in una tabella
+\usepackage{gensymb}				% simbolo di degree
 
 
 % draw a frame around given text
@@ -404,19 +405,19 @@
 	\end{table}
 	\begin{figure}[!htp]
 		\centering
-		\includegraphics[width=.9\textwidth]{img/grafico-ex3-1.png}
+		\includegraphics[width=.9\textwidth]{img/grafico-ex3-1.pdf}
 		\caption*{Grafico $4x-x^{2}-4y^{2} > 0$.}
-	\end{figure}\newpage
+	\end{figure}
 
 	\begin{figure}[!htp]
 		\centering
-		\includegraphics[width=.6\textwidth]{img/grafico-ex3-2.png}
+		\includegraphics[width=.4\textwidth]{img/grafico-ex3-2.pdf}
 		\caption*{Grafico $y-x^{2} \ge 0$.}
 	\end{figure}\newpage
 	
 	\begin{figure}[!htp]
 		\centering
-		\includegraphics[width=\textwidth]{img/grafico-ex3-3.png}
+		\includegraphics[width=\textwidth]{img/grafico-ex3-3.pdf}
 		\caption*{Grafico del dominio completo.}
 	\end{figure}\newpage
 
@@ -521,7 +522,7 @@
 	Ovvero si impone le condizioni di esistenza sulla radice quadrata e il logaritmo. La sua rappresentazione grafica:
 	\begin{figure}[!htp]
 		\centering
-		\includegraphics[width=.8\textwidth]{img/grafico-ex3-4.png}
+		\includegraphics[width=\textwidth]{img/grafico-ex3-4.pdf}
 	\end{figure}
 	\begin{itemize}
 		\item \textbf{Limitato o illimitato?} Il dominio è illimitato, dato che continua all'infinito, ovvero non esiste una palla con centro l'origine e raggio $r \in \mathbb{R}$ che contiene $D$.
@@ -539,7 +540,7 @@
 	\end{equation*}
 	\begin{figure}[!htp]
 		\centering
-		\includegraphics[width=\textwidth]{img/grafico-ex3-5.png}
+		\includegraphics[width=.8\textwidth]{img/grafico-ex3-5.pdf}
 		\caption*{Dominio della funzione.}
 	\end{figure}
 
@@ -2186,5 +2187,149 @@
 	Questo ragionamento è confermato dal fatto che calcolando il minimo assoluto nell'estremo dell'intervallo più piccolo, ovvero $\overline{f}\left(-2\sqrt{2}\right)$, la funzione restituisce $8-8\sqrt{2}$, cioè il minimo assoluto. Al contrario, con il valore $2\sqrt{2}$ si ottiene il massimo assoluto, ovvero $8+8\sqrt{2}$.\newpage
 
 	\subsection{Alcuni esercizi d'esame svolti}
-	Da completare.
+	Da completare.\newpage
+
+	\section{Esercizio 6 - Integrali doppi, volume e insiemi}
+
+	\subsection{Tipologie di esercizio}
+
+	\subsubsection{Rappresentazione di un insieme sul piano cartesiano e calcolo dell'integrale doppio su tale insieme}
+
+	Questo paragrafo rappresenta al 90\% la tipologia di esercizi che si possono incontrare nell'esercizio 6. Minimo una volta all'anno è stato richiesto di rappresentare (o no) un insieme e di calcolare il relativo integrale doppio. Dunque, si inizia estraendo dall'esame del 2021/06/25 l'esercizio: \textcolor{Green4}{\textbf{\emph{Rappresentare nel piano cartesiano l'insieme:}}
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} : x^{2}+y^{2} \le 4, \: x+y \ge 0, \: x \le 0, \: y \ge 0\right\}
+	\end{equation*}
+	\textbf{\emph{e calcolare:}}
+	\begin{equation*}
+		\underset{D}{\int \hspace{-.5em} \int} \dfrac{1}{\left(1 + x^{2} + y^{2}\right)^{3}} \: \mathrm{d}x \mathrm{d}y
+	\end{equation*}}\newline
+
+	\noindent
+	Il \textbf{primo passo} è rappresentare l'insieme fornito dall'esercizio. Attenzione, spesso può essere utile rappresentare il grafico anche se alcuni esercizi d'esame non lo chiedono. Quindi, si consiglia di rappresentarlo, ma se il testo non lo esplicita, si può evitare!
+
+	In questo caso, si analizzano le quattro disuguaglianze definite all'interno dell'insieme:
+	\begin{enumerate}
+		\item La disuguaglianza $x^{2} + y^{2} \le 4$, che in forma canonica è $x^{2} + y^{2} - 4 \le 0$ è una circonferenza centrata nell'origine (poiché mancano i termini $x,y$) con raggio uguale a $2$ (poiché $\sqrt{a_{x}^{2} + b_{x}^{2} - c} = \sqrt{0 + 0 - \left(-4\right)}$, dove il $-4$ è il valore a destra della disuguaglianza che è stato portato a sinistra per avere la forma canonica).
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/grafico-ex6-1.pdf}
+			\caption*{1. Grafico di $x^{2} + y^{2} - 4 \le 0$}
+		\end{figure}
+
+		\item Si prosegue considerando la banale retta $x+y \ge 0$ che taglia il grafico a metà.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/grafico-ex6-2.pdf}
+			\caption*{2. Grafico di $x^{2} + y^{2} - 4 \le 0 \: \land \: x+y \ge 0$}
+		\end{figure}
+
+		\item Infine, si conclude considerando le due banalissime disuguaglianze $x \le 0$ e $y \ge 0$. Banali poiché con la condizione della $x$ si prendono solo i valori negativi e zero; invece, con la condizione della $y$ si prendono solo i valori positivi e zero.
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/grafico-ex6-3.pdf}
+			\caption*{3. Grafico di $x^{2} + y^{2} - 4 \le 0 \: \land \: x+y \ge 0 \: \land \: x \le 0 \: \land \: y \ge 0$}
+			\label{fig: grafico ex6-3}
+		\end{figure}
+	\end{enumerate}
+	Per capire il tipo di grafico rappresentato dalla figura, basta utilizzare il classico metodo della tabella $x$ e $y$. Quindi, si assegna un valore ad una delle due variabili e si esplicita l'altra incognita.\newpage
+
+	\noindent
+	Il \textbf{secondo passo} è ragionare sulla strategia da adottare. Una delle parti più complesse dell'esercizio è capire gli estremi di integrazione, ovvero i valori che dovranno andare agli estremi dell'integrale per calcolarlo. Le considerazioni da fare sono, per esempio: l'integrale presenta una forma $x^{2}+y^{2}$? Nel dominio $D$ vi è qualche circonferenza?
+	
+	Queste sono le classiche domande da porsi per capire se l'integrale è risolvibile tramite \textbf{coordinate polari}. Il metodo delle coordinate polari prevede la sostituzione dei termini così da avere un'integrazione più semplice e degli estremi facilmente riconoscibili.\newline
+
+	\noindent
+	Dopo aver deciso quale strategia adottare, il \textbf{terzo passo} è modificare il dominio portandolo nel sistema delle coordinate polari. Si ricorda che:
+	\begin{equation*}
+		\begin{cases}
+			x = \rho\cos\left(\theta\right) \\
+			y = \rho\sin\left(\theta\right)
+		\end{cases}
+	\end{equation*}
+	Quindi, guardando la figura del dominio finale (pagina~\pageref{fig: grafico ex6-3}), si stabilisce nel seguente modo il nuovo dominio. L'angolo $\theta$ determina l'ampiezza dell'angolo, quindi, immaginando un osservatore posizionato sull'origine, cercando di guardare a destra e a sinistra quali sono i suoi limiti? Sono:
+	\begin{itemize}
+		\item L'asse delle $y$;
+		\item Metà tra l'asse delle $x$ e delle $y$ (retta obliqua).
+	\end{itemize}
+	In un sistema trigonometrico, partendo dal punto $\left(x=2,y=0\right)$, quanti gradi si compie per arrivare al primo limite dell'osservatore sull'asse delle $y$ $\left(x=0, y=2\right)$? Esattamente $90$°. Invece, cercando di arrivare all'altro limite? Si compiono $90$° e metà di $90$, ovvero $45$°, per un totale di $90+45=135$°. Quindi, l'angolo $\theta$ è limitato tra:
+	\begin{equation*}
+		90\degree \le \theta \le 135\degree
+	\end{equation*}
+	Si convertono le misure da gradi a radianti:
+	\begin{equation*}
+		\begin{array}{rcl}
+			1\degree &=& \dfrac{\pi}{180} \\ [1em]
+			90\degree &=& 90 \cdot \dfrac{\pi}{180} = \dfrac{\pi}{2}	\\ [1em]
+			135\degree &=& 135 \cdot \dfrac{\pi}{180} = \dfrac{3\pi}{4}
+		\end{array}
+	\end{equation*}
+	E si riscrive la disuguaglianza:
+	\begin{equation*}
+		\dfrac{\pi}{2} \le \theta \le \dfrac{3\pi}{4}
+	\end{equation*}
+	Infine, manca $\rho$ da stabilire. Dato che con $\theta$ si ragiona sull'ampiezza, con $\rho$ si ragiona sulla lunghezza. Il dominio $D$ è limitato e chiuso, infatti, come si può vedere dalla figura, la massima distanza che può arrivare la vista dell'osservatore è il raggio, cioè $2$. Inoltre, l'osservatore è posizionato sull'origine, quindi il valore minimo sarà $0$:
+	\begin{equation*}
+		0 \le \rho \le 2
+	\end{equation*}
+	Quindi, il nuovo dominio diventa:
+	\begin{equation*}
+		D'=\left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{\pi}{2} \le \theta \le \dfrac{3\pi}{4}, 0 \le \rho \le 2\right\}
+	\end{equation*}\newpage
+
+	\noindent
+	Si noti adesso come l'aria di integrazione sia diventata molto più banale:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/grafico-ex6-4.pdf}
+		\caption*{4. Dominio $D'$}
+	\end{figure}
+
+	\noindent
+	Il \textbf{quarto passo} è risolvere l'integrale vero e proprio. Si scrivono gli estremi di integrazione e si sostituiscono a tutte le $x=\rho\cos\left(\theta\right)$ e a tutte le $y=\rho\sin\left(\theta\right)$ (come detto nella pagina precedente):
+	\begin{equation*}
+		\displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \int_{0}^{2} \dfrac{1}{\left(1+ \rho^{2}\cos^{2}\left(\theta\right) + \rho^{2}\sin^{2}\left(\theta\right)\right)^{3}} \cdot \rho \: \mathrm{d}\rho\mathrm{d}\theta
+	\end{equation*}
+	L'unità $\rho$ moltiplica l'integrale per una questione teorica (matrice Jacobiana). Si conclude quindi l'esercizio con la risoluzione dell'integrale.\newpage 
+	
+	\noindent
+	Si risolve l'integrale:
+	\begin{equation*}
+		\begin{array}{cl}
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \int_{0}^{2} \dfrac{1}{(1+ \rho^{2} \underbrace{\left(\cos^{2}\left(\theta\right) + \sin^{2}\left(\theta\right)\right)}_{=1})^{3}} \cdot \rho \: \mathrm{d}\rho\mathrm{d}\theta \\[1em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \int_{0}^{2} \dfrac{\rho}{\left(1 + \rho^{2}\right)^{3}} \: \mathrm{d}\rho\mathrm{d}\theta \\ [1.5em]
+			%
+			\rightarrow& \text{si risolve per sostituzione: }\mathrm{d}\rho = \dfrac{1}{t'} \cdot \mathrm{d}t; \hspace{1em} t = 1+\rho^{2}; \hspace{1em} t'=2\rho \\ [.7em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \int_{0}^{2} \dfrac{\rho}{\left(t\right)^{3}} \cdot \dfrac{1}{2\rho} \: \mathrm{d}t\mathrm{d}\theta \\ [1.5em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \int_{0}^{2} \dfrac{1}{t^{3}} \cdot \dfrac{1}{2} \: \mathrm{d}t\mathrm{d}\theta \\ [1.5em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \left( \dfrac{1}{2} \cdot \int_{0}^{2} \dfrac{1}{t^{3}} \: \mathrm{d}t \right) \mathrm{d}\theta \\ [1.5em]
+			%
+			\rightarrow& \text{ricordando che: } \displaystyle\int\dfrac{1}{x^{n}} = -\dfrac{1}{\left(n-1\right) \cdot x^{n-1}}, n \ne 1 \\ [.7em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \left[\dfrac{1}{2} \cdot - \dfrac{1}{2t^2}\right]_{0}^{2} \mathrm{d}\theta \\ [1.5em]
+			%
+			\rightarrow& \text{si rimuove la }t \\ [.7em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \left[\dfrac{1}{2} \cdot - \dfrac{1}{2 \cdot \left(1 + 2\rho^{2} + \rho^{4}\right)}\right]_{0}^{2} \mathrm{d}\theta \\ [1.5em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \left[- \dfrac{1}{4+8\rho^{2}+4\rho^{4}}\right]_{0}^{2} \mathrm{d}\theta \\ [1.5em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \left(-\dfrac{1}{4 + 8 \cdot 2^{2} + 4 \cdot 2^{4}} - \left(-\dfrac{1}{4 + 8 \cdot 0^{2} + 4 \cdot 0^{4}}\right)\right) \: \mathrm{d}\theta \\ [1.5em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \left(-\dfrac{1}{100} + \dfrac{1}{4}\right) \: \mathrm{d}\theta \\ [1.5em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \dfrac{24}{100} \: \mathrm{d}\theta \\ [1.5em]
+			%
+			=& \displaystyle\int_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \dfrac{6}{25} \: \mathrm{d}\theta \\ [1.5em]
+			%
+			=& \left[\dfrac{6}{25}\theta\right]_{\frac{\pi}{2}}^{\frac{3\pi}{4}} \\ [1.5em]
+			%
+			=& \dfrac{6}{25} \cdot \dfrac{3\pi}{4} - \dfrac{6}{25} \cdot \dfrac{\pi}{2} \\ [1.5em]
+			%
+			=& \dfrac{9\pi}{50} - \dfrac{3\pi}{25} = \dfrac{3\pi}{50}
+		\end{array}
+	\end{equation*}
 \end{document}
