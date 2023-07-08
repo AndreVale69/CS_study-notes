@@ -6,13 +6,13 @@
 ESAMI UGUALI: ~ 2021-07-22
                 2021-11-23
                 2022-02-08(A)
-                2022-06-23(A, B)
+                2022-06-23(A, B) (integrazione per fili)
                 2022-09-16
                 2023-06-21
-ESAMI SIMILI: ~ 2021-09-15(A) - VARIANTE: L'INSIEME È UN'UNIONE!!!
+ESAMI SIMILI: ~ 2021-09-15(A) - VARIANTE: L'INSIEME È UN'UNIONE!!!  (integrazione interessante)
                 2022-07-15 stessa variante di cui sopra
-                2023-02-07 variante con D rappresentata a parole
-                2023-03-03 da guardare anche questa variante un po' più complessa
+                2023-02-07 variante con D rappresentata a parole (integrazione per x-/y- semplice)
+                2023-03-03 da guardare anche questa variante un po' più complessa (integrazione con x/y semplice)
 
 
 2022-02-08(B):
@@ -25,3 +25,4 @@ ESAMI SIMILI: ~ 2021-09-15(A) - VARIANTE: L'INSIEME È UN'UNIONE!!!
     La regione R in figura è sia x-semplice che y-semplice.
     Calcolare in due modi diversi il seguente integrale:
         ...
+    (integrazione interessante, simili al 2022-06-23)

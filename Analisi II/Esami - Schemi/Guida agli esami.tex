@@ -2193,7 +2193,16 @@
 
 	\subsection{Tipologie di esercizio}
 
-	\subsubsection{Rappresentazione di un insieme sul piano cartesiano e calcolo dell'integrale doppio su tale insieme}
+	La risoluzione degli integrali prevede 3 tecniche:
+	\begin{itemize}
+		\item Coordinate polari (pagina~\pageref{par: coordinate polari})
+		\item $x$-semplice o $y$-semplice (pagina~\pageref{par: x-semplice e y-semplice - calcolo integrale doppio})
+		\item Per fili (pagina~\pageref{par: per fili - calcolo integrale doppio})
+	\end{itemize}
+
+	\longline
+
+	\subsubsection{Coordinate polari - Rappresentazione di un insieme sul piano cartesiano e calcolo dell'integrale doppio su tale insieme}\label{par: coordinate polari}
 
 	Questo paragrafo rappresenta al 90\% la tipologia di esercizi che si possono incontrare nell'esercizio 6. Minimo una volta all'anno è stato richiesto di rappresentare (o no) un insieme e di calcolare il relativo integrale doppio. Dunque, si inizia estraendo dall'esame del 2021/06/25 l'esercizio: \textcolor{Green4}{\textbf{\emph{Rappresentare nel piano cartesiano l'insieme:}}
 	\begin{equation*}
@@ -2331,5 +2340,95 @@
 			%
 			=& \dfrac{9\pi}{50} - \dfrac{3\pi}{25} = \dfrac{3\pi}{50}
 		\end{array}
+	\end{equation*}\newpage
+
+	\subsubsection{$x$-semplice e $y$-semplice - Calcolo integrale doppio con insieme definito da punti}\label{par: x-semplice e y-semplice - calcolo integrale doppio}
+
+	Questa tecnica, se trovata in un esame, è una delle più semplici. Questo paragrafo, oltre a introdurre tale tecnica, presenta anche il caso in cui l'esercizio dia solo dei punti e non un insieme definito. Si prenda in considerazione il tema d'esame del 07/02/2023: \textcolor{Green4}{\textbf{\emph{Calcolare:}}
+	\begin{equation*}
+		\underset{D}{\int\hspace{-.5em}\int} \left(y-2x\right) \: \mathrm{d}x \: \mathrm{d}y
 	\end{equation*}
+	\textbf{\emph{dove $D$ è la regione del piano limitata dal quadrilatero di vertici $\left(-1,0\right)$, $\left(0,0\right)$, $\left(-1,2\right)$, $\left(-2,2\right)$. Dare un'interpretazione geometrica o fisica del risultato ottenuto.}}}\newline
+
+	\noindent
+	Non viene dato un dominio, quindi il \textbf{primo passo} è marcare i punti dati sul piano cartesiano così da disegnare l'area interessata. I punti vengono collegati secondo le direttive dell'esercizio, in questo caso ci viene esplicitamente scritto che è un quadrilatero:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/grafico-ex6-5.pdf}
+		\caption*{Il dominio cercato.}
+	\end{figure}\newpage
+
+	\noindent
+	Il \textbf{secondo passo} è riscrivere il dominio. Per farlo, si cerca prima di capire se si è intenzionati a integrare per $x$-semplice o $y$-semplice.
+	\begin{mdframed}
+		\textbf{\emph{Teoria generale dell'integrazione per $x$-semplice e $y$-semplice}}\newline
+
+		\noindent
+		L'integrazione per \underline{$x$-semplice} viene applicata quando il dominio è delimitato rispetto all'asse delle $x$ da due valori e rispetto all'asse delle $y$ da due funzioni:
+		\begin{center}
+			\includegraphics[width=.37\textwidth]{img/grafico-ex6-6.pdf}
+		\end{center}
+		Così facendo, il dominio e l'integrale saranno:
+		\begin{gather*}
+			D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: a \le x \le b, \: f\left(x\right) \le y \le g\left(x\right)\right\} \\
+			\int_{a}^{b} \left(\int_{f\left(x\right)}^{g\left(x\right)} \varphi\left(x,y\right) \: \mathrm{d}y\right) \: \mathrm{d}x
+		\end{gather*}
+		%
+		Al contrario, con l'integrazione per \underline{$y$-semplice}, si applica quando il dominio è limitato rispetto ad $x$ da dei valori e rispetto $y$ da delle funzioni:
+		\begin{center}
+			\includegraphics[width=.37\textwidth]{img/grafico-ex6-7.pdf}
+		\end{center}
+		Così facendo, il dominio sarà del tipo:
+		\begin{gather*}
+			D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: a \le y \le b, \: f\left(y\right) \le x \le g\left(y\right)\right\} \\
+			\int_{a}^{b} \left(\int_{f\left(x\right)}^{g\left(x\right)} \varphi\left(x,y\right) \: \mathrm{d}x\right) \: \mathrm{d}y
+		\end{gather*}
+		\textbf{\underline{N.B.}} nel dominio le lettere $a,b$ devono essere valori numerici, mentre le funzioni non devono dipendere dalla stessa variabile! Quindi, non può esistere (e.g. nella $y$-semplice) il caso in cui $x$ sia compreso tra due funzioni di $x$: $\cancel{f\left(x\right) \le x \le g\left(x\right)}$ \textcolor{Red3}{\textbf{ NO! \ding{55}}}
+	\end{mdframed}\newpage
+
+	\noindent
+	Come si vede dal grafico, il dominio è limitato da due rette rispetto a $y$ (parallele a $x$), ovvero $y = 0$ e $y = 2$. Ne consegue, che conviene applicare l'integrazione per $y$-semplice.\newline
+
+	\noindent
+	Per trovare il dominio, è necessario calcolare l'equazione delle due rette. Per farlo, si utilizza la formula elementare per calcolare l'equazione di una retta passante per due punti:
+	\begin{gather*}
+		\dfrac{x-x_{1}}{x_{2} - x_{1}} = \dfrac{y-y_{1}}{y_{2} - y_{1}} \\
+		\\
+		\begin{array}{rcl}
+			\left(0,0\right) \rightarrow \left(-1,2\right) &\longrightarrow& \dfrac{x-0}{-1 - 0} = \dfrac{y-0}{2-0} \\
+			\\
+			&\longrightarrow& x = -\dfrac{1}{2}y \\
+			\\
+			\left(-1,0\right) \rightarrow \left(-2,2\right) &\longrightarrow& \dfrac{x+1}{-2-\left(-1\right)} = \dfrac{y-0}{2 - 0} \\
+			\\
+			&\longrightarrow& x = - \dfrac{1}{2}y-1 \\
+		\end{array}
+	\end{gather*}
+	Quindi, il dominio è:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \left(0 \le y \le 2\right), \: \left(-\dfrac{1}{2}y-1 \le x \le -\dfrac{1}{2}y\right)\right\}
+	\end{equation*}
+	Il \textbf{terzo passo} è risolvere l'integrale con gli estremi di integrazione trovati e concludere l'esercizio, quindi:
+	\begin{equation*}
+		\begin{array}{ll}
+			=& \displaystyle\int_{0}^{2} \int_{-\frac{1}{2}y-1}^{-\frac{1}{2}y} \left(y-2x\right) \: \mathrm{d}x \: \mathrm{d}y \\ [1.5em]
+			%
+			=& \displaystyle\int_{0}^{2} \left[xy - x^{2}\right]_{-\frac{1}{2}y-1}^{-\frac{1}{2}y} \: \mathrm{d}y \\ [1.5em]
+			%
+			=& \displaystyle\int_{0}^{2} \left[ \left(-\dfrac{1}{2}y\right)y - \left(-\dfrac{1}{2}y\right)^{2} \right] - \left[ \left(-\dfrac{1}{2}y-1\right)y - \left(-\dfrac{1}{2}y-1\right)^{2} \right] \: \mathrm{d}y \\[1.5em]
+			%
+			=& \displaystyle\int_{0}^{2} -\dfrac{1}{2}y^{2} - \dfrac{1}{4}y^{2} + \dfrac{1}{2}y^{2} + y + \dfrac{1}{4}y^{2} + y + 1 \: \mathrm{d}y \\ [1.5em]
+			%
+			=& \displaystyle\int_{0}^{2} 2y + 1 \: \mathrm{d}y \\ [1.5em]
+			%
+			=& \left[y^{2} + y\right]_{0}^{2} \\ [1em]
+			%
+			=& 2^{2} + 2 - 0^{2} + 0 \\ [1em]
+			%
+			=& 6
+		\end{array}
+	\end{equation*}
+
+	\newpage
+	\subsubsection{Per fili - Calcolo integrale doppio}\label{par: per fili - calcolo integrale doppio}
 \end{document}
