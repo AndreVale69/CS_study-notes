@@ -1,0 +1,208 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{mathtools}				% per sottolineare sotto le equazioni
+\usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
+\usepackage{amsthm}					% teoremi migliorati
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
+\usepackage{cancel}					% per cancellare delle espressioni matematiche
+\usepackage{caption}				% caption personalizzati
+\usepackage[]{mdframed}				% box per il testo
+\usepackage{multirow}				% più linee in una tabella
+\usepackage{gensymb}				% simbolo di degree
+
+
+% draw a frame around given text
+\newcommand{\framedtext}[1]{%
+	\par%
+	\noindent\fbox{%
+		\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{#1}%
+	}%
+}
+
+
+
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+\usepackage{tikz}
+\newcommand{\MyTikzmark}[2]{%
+	\tikz[overlay,remember picture,baseline] \node [anchor=base] (#1) {#2};%
+}
+\newcommand{\DrawVLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.3ex, #1] (#2.north) -- (#3.south);
+	\end{tikzpicture}
+}
+\newcommand{\DrawHLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.2em, #1] (#2.west) -- (#3.east);
+	\end{tikzpicture}
+}
+
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\newtheorem{theorem}{\textcolor{Red3}{\underline{Teorema}}}
+\newtheorem{lemma}{Lemma}
+\renewcommand{\qedsymbol}{QED}
+\newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+\newcommand{\dquotes}[1]{``#1''}
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+\newcommand{\circledtext}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
+
+\newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
+\newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
+
+\begin{document}
+	\author{VR443470}
+	\title{Guida agli Esami di Linguaggi}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Esercizio 1 - Domanda di teoria su Interprete e Compilatore}
+	
+	\subsection{Interprete}
+	
+	In molti esami si presenta la richiesta della definizione di interprete. Nonostante possa essere banale, viene richiesto un \dquotes{alto} livello di approfondimento dato che vale ben 4 punti all'interno dell'esame. In ogni caso, è possibile affermare che questa domanda sia una delle più gettonate.
+	
+	\subsection{Compilatore}
+	
+	Non è frequente la richiesta della definizione di compilatore, ma rimane una domanda di teoria che può essere richiesta.
+	
+	\section{Esercizio 2 - Induzione}
+	
+	\subsection{Dimostrare $\forall n \in \mathbb{N}.n + n^{2}$ è un numero pari}
+	
+	\subsection{Dimostrare $\displaystyle\sum_{i=1}^{n}\dfrac{1}{i\left(i+1\right)} = \dfrac{n}{n+1}$}
+	
+	\subsection{Dimostrare $\displaystyle\sum_{i=0}^{n} i^{2} = \dfrac{n\left(n+1\right)\left(2n+1\right)}{6}$}
+	
+	\subsection{Dimostrare $\forall n \in \mathbb{N}. \: n > 2$ si ha che $n^{2} > 2n + 1$}
+	
+	\section{Esercizio 3 - Scoping statico e dinamico}
+	
+	\subsection{Tipologia codice 1}
+	
+	% 2023-02-01
+	% 2022-09-19
+	% 2022-09-19
+	% 2020-02-03
+	
+	\subsection{Tipologia codice 2}
+	
+	% 2022-02-24
+	
+	\subsection{Tipologia codice 3}
+	
+	% 2021-07-13
+	
+	\subsection{Tipologia codice 4}
+	
+	% 2021-02-25
+	% 2020-02-20
+	
+	\subsection{Tipologia codice 5}
+	
+	% 2021-02-08
+	
+	\subsection{Tipologia codice 6}
+	
+	% 2020-09-24
+	
+	\subsection{Tipologia codice 7}
+	
+	% 2020-09-24
+	
+	\subsection{Tipologia codice 8}
+	
+	% 2020-02-04
+	
+	\subsection{Tipologia codice 9}
+	
+	% 2023-06-28
+	
+	\section{Esercizio 4 - Scoping (statico/dinamico) e Binding}
+	
+	\subsection{Regole di scoping e di binding}
+	
+	\subsection{Codice da inserire in caso di scoping statico/dinamico}
+	
+	\subsubsection{Tipologia di codice 1}
+	% 2022-02-24
+	
+	\subsubsection{Tipologia di codice 2}
+	% 2023-06-28
+	% 2020-02-20
+	
+	\subsubsection{Tipologia di codice 3}
+	% 2020-09-24
+	% 2020-02-24
+	
+	\section{Esercizio 5 - Ricorsione e passaggio di parametri}
+	
+	\subsection{Ricorsione e ricorsione in coda}
+	
+	\subsection{Passaggio di parametri: per valore e per riferimento}
+	
+	\subsubsection{Tipologia di codice 1}
+	% 2023-06-28
+	
+	\subsubsection{Tipologia di codice 2}
+	% 2023-02-01
+	
+	\subsubsection{Tipologia di codice 3}
+	% 2021-02-08
+	
+	\subsubsection{Tipologia di codice 4}
+	% 2020-02-04
+	
+	\section{Esercizio 6 - Regole della semantica dinamica}
+	
+	\subsection{Derivazioni semantica dinamica}
+	
+	\subsubsection{Tipologia di memoria 1}
+	% 2023-06-28
+	
+	\subsubsection{Tipologia di memoria 2}
+	% 2023-02-01
+	% 2022-09-19
+	% 2022-02-03
+	
+	\subsubsection{Tipologia di memoria 3}
+	% 2021-02-08
+	
+	\subsubsection{Vecchi esercizi}
+	% 2020-02-20
+	% 2020-09-24
+	% 2020-02-04
+	
+	\subsection{Regole della semantica dinamica per il comando condizionale}
+	
+	% 2022-02-24
+	% 2021-02-25
+	
+	\subsection{Regole della semantica dinamica per l'assegnamento}
+	
+	% 2021-07-13
+\end{document}
