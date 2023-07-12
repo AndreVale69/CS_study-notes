@@ -234,19 +234,216 @@
 		
 		\item Si conclude la struttura del compilatore con la generazione del codice macchina che, a differenza del codice intermedio, è dipendente dall'architettura.
 	\end{enumerate}
-	La parte finale dello schema mostra l'esecuzione del programma compilato su un computer con eventuali dati in input.
+	La parte finale dello schema mostra l'esecuzione del programma compilato su un computer con eventuali dati in input.\newpage
 	
-	\newpage
 	\section{Esercizio 2 - Induzione}
 	
 	\subsection{Dimostrare $\forall n \in \mathbb{N}.n + n^{2}$ è un numero pari}
 	
+	\textcolor{Red3}{\textbf{\emph{Dimostrare per induzione che $\forall n \in \mathbb{N}.n + n^{2}$ è un numero pari.}}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent	
+	L'\textbf{induzione} è una tecnica di dimostrazione che consente di dimostrare la validità di una tesi dalla verifica di due condizioni: la validità della \dquotes{base induttiva} e la validità del \dquotes{passo induttivo}.
+	\begin{proof}[\textbf{Caso base}]
+		Si sceglie come caso base il valore $n = 1$. Si sostituisce:
+		\begin{equation*}
+			\begin{array}{rcl}
+				n + n^{2} &\rightarrow& \text{ è pari? } \textcolor{Green4}{\checkmark} \\ [.3em]
+				&\downarrow& \text{sostituzione di }n=1 \\ [.3em]
+				1 + 1^{2} = 2 &\rightarrow& \text{ è pari? } \textcolor{Green4}{\checkmark}
+			\end{array}
+		\end{equation*}
+		Utilizzando un linguaggio più formale, utile per la dimostrazione, è anche possibile affermare che il modulo di $n+n^{2}$ diviso $2$ è uguale a zero. Ovvero, che dividendo un numero pari per $2$ (per definizione), si ottiene il valore zero:
+		\begin{equation*}
+			\begin{array}{rcl}
+				n+n^{2} &=& 0 \: \left(\mathrm{mod} \: 2\right) \\ [.3em]
+				%
+				&\downarrow& \text{sostituzione di }n=1 \\ [.3em]
+				%
+				1+1^{2} &=& 0 \: \left(\mathrm{mod} \: 2\right)
+			\end{array}
+		\end{equation*}
+	\end{proof}
+	
+	\noindent
+	\textbf{\emph{Ipotesi induttiva:}} si assume che sia vera:
+	\begin{equation*}
+		n+n^{2} = 0 \: \left(\mathrm{mod} \: 2\right) \hspace{1em} \forall n \in \mathbb{N}
+	\end{equation*}
+	
+	\begin{proof}[\textbf{Passo induttivo}]
+		Si dimostra che l'ipotesi induttiva implica la validità della proprietà per $n+1$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				n+n^{2} &=& 0 \: \left(\mathrm{mod} \: 2\right) \\ [.3em]
+				%                                                       
+				&\downarrow& \text{applico passo induttivo} \\ [.3em]    
+				%
+				n+1 + \left(n+1\right)^{2} &=& 0 \: \left(\mathrm{mod} \: 2\right) \\ [.3em]
+				%
+				n + 1 + n^{2} + 2n + 1 &=& 0  \: \left(\mathrm{mod} \: 2\right) \\ [.3em]
+				%
+				n^{2} + n + 2n + 2 &=& 0 \: \left(\mathrm{mod} \: 2\right) \\ [.3em]
+				%
+				&\downarrow& \text{applico l'ipotesi induttiva} \\ [.3em]
+				%
+				n^{2} + n + 2n + 2 &=& n^{2} + n \\ [.3em]
+				%
+				2n + 2 &=& 0 \: \left(\mathrm{mod} \: 2\right)
+			\end{array}
+		\end{equation*}
+		Per definizione:
+		\begin{itemize}
+			\item Qualsiasi numero moltiplicato per $2$ si ottiene un numero pari;
+			\item Il risultato tra la somma di due numeri pari è ancora un numero pari.
+		\end{itemize}
+	\end{proof}\newpage
+	
 	\subsection{Dimostrare $\displaystyle\sum_{i=1}^{n}\dfrac{1}{i\left(i+1\right)} = \dfrac{n}{n+1}$}
+	\textcolor{Red3}{\textbf{\emph{Dimostrare per induzione che }}$\displaystyle\sum_{i=1}^{n}\dfrac{1}{i\left(i+1\right)} = \dfrac{n}{n+1}$\textbf{\emph{.}}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	L'\textbf{induzione} è una tecnica di dimostrazione che consente di dimostrare la validità di una tesi dalla verifica di due condizioni: la validità della \dquotes{base induttiva} e la validità del \dquotes{passo induttivo}.
+	\begin{proof}[\textbf{Caso base}]
+		Si sceglie come caso base il valore $n = 1$. Quindi, si va a sostituire:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\displaystyle\sum_{i=1}^{n}\dfrac{1}{i\left(i+1\right)} &=& \dfrac{n}{n+1} \\ [1.5em]
+				%
+				&\downarrow& \text{sostituzione }n=1 \\ [.5em]
+				%
+				\displaystyle\sum_{i=1}^{1}\dfrac{1}{i\left(i+1\right)} &=& \dfrac{1}{1+1} \\ [1.5em]
+				%
+				&\downarrow& \text{calcolo della sommatoria} \\ [.5em]
+				%
+				\displaystyle\sum_{i=1}^{1}\dfrac{1}{1\left(1+1\right)} &=& \dfrac{1}{1+1} \\ [1.5em]
+				%
+				\dfrac{1}{2} &=& \dfrac{1}{2}
+			\end{array}
+		\end{equation*}
+	\end{proof}
+	
+	\noindent
+	\textbf{\emph{Ipotesi induttiva:}} si assume che sia vera:
+	\begin{equation*}
+		\displaystyle\sum_{i=1}^{n}\dfrac{1}{i\left(i+1\right)} = \dfrac{n}{n+1} \hspace{2em} \forall n
+	\end{equation*}
+	
+	\begin{proof}[\textbf{Passo induttivo}]
+		Si dimostra che l'ipotesi induttiva implica la validità della proprietà per $n + 1$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\displaystyle\sum_{i=1}^{n}\dfrac{1}{i\left(i+1\right)} &=& \dfrac{n}{n+1} \\ [1.5em]
+				%
+				&\downarrow& \text{applicazione passo induttivo} \\ [.5em]
+				%
+				\displaystyle\sum_{i=1}^{n+1}\dfrac{1}{i\left(i+1\right)} &=& \dfrac{n+1}{\left(n+1\right)+1} \\ [1.5em]
+				%
+				\displaystyle\sum_{i=1}^{n}\dfrac{1}{i\left(i+1\right)} + \dfrac{1}{\left(n+1\right)\cdot\left(\left(n+1\right) + 1\right)} &=& \dfrac{n+1}{\left(n+1\right)+1} \\ [1.5em]
+			\end{array}
+		\end{equation*}\newpage
+		\begin{equation*}
+			\begin{array}{rcl}
+				&\downarrow& \text{utilizzo ipotesi induttiva} \\ [.5em]
+				%
+				\dfrac{n}{n+1} + \dfrac{1}{\left(n+1\right)\cdot\left(\left(n+1\right) + 1\right)} &=& \dfrac{n+1}{\left(n+1\right)+1} \\ [1.5em]
+				%
+				\dfrac{n}{n+1} + \dfrac{1}{\left(n^{2} + 2n + 1\right) + \left(n+1\right)} &=& \dfrac{n+1}{\left(n+1\right)+1} \\ [1.5em]
+				%
+				\dfrac{n}{n+1} + \dfrac{1}{\left(n+1\right)\left(n+2\right)} &=& \dfrac{n+1}{\left(n+1\right)+1} \\ [1.5em]
+				%
+				\dfrac{n\left(n+2\right) + 1}{\left(n+1\right)\left(n+2\right)} &=& \dfrac{n+1}{\left(n+1\right)+1} \\ [1.5em]
+				%
+				\dfrac{n^{2} + 2n + 1}{\left(n+1\right)\left(n+2\right)} &=& \dfrac{n+1}{\left(n+1\right)+1} \\ [1.5em]
+				%
+				\dfrac{\left(n+1\right)^{2}}{\left(n+1\right)\left(n+2\right)} &=& \dfrac{n+1}{\left(n+1\right)+1} \\ [1.5em]
+				%
+				\dfrac{n+1}{n+2} &=& \dfrac{n+1}{n+2}
+			\end{array}
+		\end{equation*}
+	\end{proof}\newpage
 	
 	\subsection{Dimostrare $\displaystyle\sum_{i=0}^{n} i^{2} = \dfrac{n\left(n+1\right)\left(2n+1\right)}{6}$}
 	
+	\textcolor{Red3}{\textbf{\emph{Dimostrare per induzione che }}$\displaystyle\sum_{i=0}^{n} i^{2} = \dfrac{n\left(n+1\right)\left(2n+1\right)}{6}$ \textbf{\emph{.}}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	L'\textbf{induzione} è una tecnica di dimostrazione utilizzata per dimostrare la validità di una tesi grazie alla verifica di due condizioni: la validità della \dquotes{base induttiva} e la validità del \dquotes{passo induttivo}.
+	
+	\begin{proof}[\textbf{Caso base}]
+		Scelgo come caso base il valore $n = 0$. La sua applicazione:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\displaystyle\sum_{i=0}^{n} i^{2} &=& \dfrac{n\left(n+1\right)\left(2n+1\right)}{6} \\ [1.5 em]
+				%
+				&\downarrow& \text{sostituisco }n=0 \\ [1.5em]
+				%
+				\displaystyle\sum_{i=0}^{0} 0^{2} &=& \dfrac{0\left(0+1\right)\left(2 \cdot 0+1\right)}{6} \\ [1.5 em]
+				%
+				0 &=& 0
+			\end{array}
+		\end{equation*}
+	\end{proof}
+	
+	\noindent
+	\textbf{\emph{Ipotesi induttiva:}} assumo che per $\forall n$ sia sempre vera la seguente proprietà:
+	\begin{equation*}
+		\displaystyle\sum_{i=0}^{n} i^{2} = \dfrac{n\left(n+1\right)\left(2n+1\right)}{6}
+	\end{equation*}
+	
+	\begin{proof}[\textbf{Passo induttivo}]
+		Si dimostra che l'ipotesi induttiva implica la veridicità della proprietà per $n+1$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\displaystyle\sum_{i=0}^{n} i^{2} &=& \dfrac{n\left(n+1\right)\left(2n+1\right)}{6} \\ [1.5 em]
+				%
+				&\downarrow& \text{applico il passo induttivo} \\ [1.5em]
+				%
+				\displaystyle\sum_{i=0}^{n+1} i^{2} &=& \dfrac{\left(n+1\right)\left(\left(n+1\right)+1\right)\left(2 \left(n+1\right)+1\right)}{6} \\ [1.5 em]
+				%
+				\displaystyle\sum_{i=0}^{n} i^{2} + \left(n+1\right)^{2} &=& \dfrac{\left(n+1\right)\left(\left(n+1\right)+1\right)\left(2 \left(n+1\right)+1\right)}{6} \\ [1.5em]
+				%
+				&\downarrow& \text{applico l'ipotesi induttiva} \\ [1.5em]
+				%
+				\dfrac{n\left(n+1\right)\left(2n+1\right)}{6} + \left(n+1\right)^{2} &=& \dfrac{\left(n+1\right)\left(\left(n+1\right)+1\right)\left(2 \left(n+1\right)+1\right)}{6} \\ [1.5em]
+				%
+				\dfrac{n\left(n+1\right)\left(2n+1\right) + 6\left(n+1\right)^{2}}{6} &=& \dfrac{\left(n+1\right)\left(\left(n+1\right)+1\right)\left(2 \left(n+1\right)+1\right)}{6}
+			\end{array}
+		\end{equation*}\newpage
+		\begin{equation*}
+			\begin{array}{rcl}
+				2n^{3} + n^{2} + 2n^{2} + n +6n^{2} + 12n + 6
+				&=&
+				\left(n^{2} + 3n + 2\right)\left(2n + 3\right) \\ [1.5em]
+				%
+				2n^{3} + 9n^{2} + 13n + 6 &=& 2n^{3} + 9n^{2} + 13n + 6
+			\end{array}
+		\end{equation*}
+	\end{proof}\newpage
+	
 	\subsection{Dimostrare $\forall n \in \mathbb{N}. \: n > 2$ si ha che $n^{2} > 2n + 1$}
 	
+	\textcolor{Red3}{\textbf{\emph{Dimostrare per induzione che }}$\forall n \in \mathbb{N}. \: n > 2$ \textbf{\emph{si ha che}} $n^{2} > 2n + 1$ \textbf{\emph{.}}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	L'\textbf{induzione} è una tecnica di dimostrazione utilizzata per dimostrare la validità di una tesi tramite la verifica di due condizioni: la validità del \dquotes{passo base} e la validità del \dquotes{passo induttivo}.\newline
+	
+	\noindent
+	Qui.
+	
+	\newpage
 	\section{Esercizio 3 - Scoping statico e dinamico}
 	
 	\subsection{Tipologia codice 1}
