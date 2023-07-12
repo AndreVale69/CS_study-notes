@@ -84,12 +84,159 @@
 	
 	\subsection{Interprete}
 	
-	In molti esami si presenta la richiesta della definizione di interprete. Nonostante possa essere banale, viene richiesto un \dquotes{alto} livello di approfondimento dato che vale ben 4 punti all'interno dell'esame. In ogni caso, è possibile affermare che questa domanda sia una delle più gettonate.
+	In molti esami si presenta la richiesta della definizione di interprete. Nonostante possa essere banale, viene richiesto un \dquotes{alto} livello di approfondimento dato che vale ben 4 punti all'interno dell'esame. In ogni caso, è possibile affermare che questa domanda sia una delle più gettonate.\newline
 	
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{Definire intuitivamente e formalmente (mediante definizione semantica) cosa è un interprete. Descrivere la struttura di un interprete e spiegarne il funzionamento.}}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	La definizione intuitiva di un interprete è la seguente.
+	
+	Un \textbf{interprete} è un programma $\mathrm{int}^{L_{0}, L}$ che esegue, sulla macchina astratta per $L_{0}$, programmi $P^{L}$, i quali sono scritti nel linguaggio di programmazione $L$, su un input fissato appartenente all'insieme dei dati $D$ (input e output).\newline
+	Utilizzando parole povere, un interprete non è altro che una \dquotes{macchina universale} che preso un programma e un suo input, esegue (il programma) sul quel determinato input usando \underline{soltanto} le funzionalità messe a disposizione dal livello (macchina astratta) sottostante.
+	\begin{mdframed}
+		\emph{Un attimo, ma che cosa si intende per livello? E macchina astratta?} Cerchiamo di fare chiarezza.\newline
+		
+		\noindent
+		Dato un linguaggio di programmazione $L$, la \underline{macchina astratta} $M_{L}$ per $L$ è un insieme di strutture dati ed algoritmi che consentono di memorizzare ed eseguire programmi scritti in $L$. La sua realizzazione può essere fatta in Hardware, Firmware o Software.\newline
+		
+		\noindent
+		\emph{Si ma quindi cosa si intende per livello?}\newline
+		
+		\noindent
+		Con la scelta della categoria \dquotes{realizzazione software}, vengono utilizzati, per la realizzazione di strutture dati e algoritmi, linguaggi di programmazione ad alto livello poiché essi implementano una struttura suddivisa a \underline{livelli} di astrazione.\newline
+		Per concludere, la macchina astratta può essere dunque vista come una stratificazione di livelli dove ciascuno di essi coopera in modo sequenziale, ma allo stesso tempo è indipendente.\newline
+		
+		\noindent
+		Per non lasciare niente al caso, con \dquotes{\underline{linguaggio di programmazione ad alto} \underline{livello}} ci si riferisce a tutti quei linguaggi di programmazione che offrono un livello di astrazione molto alto dei dettagli del funzionamento del calcolatore.
+	\end{mdframed}\newpage
+	
+	\noindent
+	Prima della definizione formale di interprete, si illustrano due notazioni necessarie:
+	\begin{itemize}
+		\item Con il termine $Prog^{L}$ ci si riferisce all'insieme dei programmi scritti nel linguaggio di programmazione $L$;
+		
+		\item Con la dicitura:
+		\begin{equation*}
+			\exec{P^{L}} \: : \: D \rightarrow D
+		\end{equation*}
+		Si indica che l'esecuzione del programma scritto nel linguaggio di programmazione $L$ ($\exec{P^{L}}$) con input $in$ è uguale all'output $out$. Ovverosia:
+		\begin{equation*}
+			\exec{P^{L}}\left(in\right) = out	
+		\end{equation*}
+	\end{itemize}
+	Un \textbf{interprete formalmente} è descrivibile nel seguente modo. Si consideri un interprete da $L$ a $L_{0}$: dato $P^{L} \in Prog^{L}$ e $in \in D$, un interprete $int^{L, L_{0}}$ per $L$ su $L_{0}$ è un programma tale che:
+	\begin{equation*}
+		\exec{int^{L, L_{0}}} \: : \: \left(Prog^{L}\right) \rightarrow D
+	\end{equation*}
+	Ne consegue che:
+	\begin{equation*}
+		\exec{int^{L, L_{0}}} \: : \: \left(P^{L}, in\right) = \exec{P^{L}}\left(in\right)
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex1-1.png}
+		\caption*{Riassunto visivo di quanto appena descritto.}
+	\end{figure}\newpage
+	
+	\noindent
+	Qua di seguito si presenta il ciclo di esecuzione di un interprete:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex1-2.png}
+	\end{figure}
+	\begin{enumerate}
+		\item Il ciclo di esecuzione di un interprete si apre con l'acquisizione di un'istruzione da eseguire;
+		
+		\item L'operazione del passo precedente viene decodificata;
+		
+		\item Nel caso in cui l'operazione abbia bisogno di operandi, anch'essi vengono acquisiti dalla memoria;
+		
+		\item Data l'operazione acquisita al passo 1, viene selezionata una determinata operazione: nel caso di $OP_{...}$ si esegue un'operazione, nel caso di $HALT$ l'esecuzione di un interprete si ferma;
+		
+		\item Dopo l'operazione eseguita, se vi è un risultato, esso viene salvato. In ogni caso, il ciclo inizia nuovamente la sua esecuzione.
+	\end{enumerate}
+	
+	\newpage
 	\subsection{Compilatore}
 	
-	Non è frequente la richiesta della definizione di compilatore, ma rimane una domanda di teoria che può essere richiesta.
+	Non è frequente la richiesta della definizione di compilatore, ma rimane una domanda di teoria che può essere richiesta.\newline
 	
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{Definire intuitivamente e formalmente (mediante definizione semantica) cosa è un compilatore. Descrivere e spiegare poi la struttura di un compilatore (preferibilmente come flow-chart).}}}\newline
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	La definizione intuitiva di un compilatore è la seguente.
+	
+	Un \textbf{compilatore} è un programma $comp^{L_{0},L}$ che traduce, preservando semantica e funzionalità, programmi scritti nel linguaggio di programmazione $L$ in programmi scritti in $L_{0}$, e quindi eseguibili direttamente sulla macchina astratta per $L_{0}$.\newline
+	
+	\noindent
+	Dato un linguaggio di programmazione $L$, una macchina astratta $M_{L}$ per $L$ è un insieme di strutture dati e algoritmi che consentono la memorizzazione e l'esecuzione dei programmi scritti nel linguaggio di programmazione $L$ ($P^{L}$).\newline
+	
+	\noindent
+	Prima di dare la definizione formale di interprete, si forniscono alcune notazioni:
+	\begin{itemize}
+		\item $Prog^{L}$ è un insieme di programmi scritti nel linguaggio di programmazione $L$;
+		\item $D$ è l'insieme dei dati (input e output);
+		\item $P^{L}$ è il programma scritto nel linguaggio di programmazione $L$;
+		\item $\exec{P^{L}} \: : \: D \rightarrow D$ rappresenta la semantica di $P^{L}$, ovvero l'esecuzione del programma nel linguaggio di programmazione $L$ con input $in$ è uguale all'output $out$:
+		\begin{equation*}
+			\exec{P^{L}}(in) = (out)
+		\end{equation*}
+	\end{itemize}
+	La definizione formale di un compilatore è la seguente.
+	
+	Dato $P^{L} \in Prog^{L}$, un \textbf{compilatore formalmente} $comp^{L,L_{0}}$ da $L$ a $L_{0}$ è un programma che:
+	\begin{equation*}
+		\exec{comp^{L,L_{0}}}: Prog^{L} \rightarrow Prog^{L_{0}}
+	\end{equation*}
+	Ovvero:
+	\begin{equation*}
+		\exec{comp^{L,L_{0}}}\left(P^{L}\right) = \left(P^{L_{0}}\right) \hspace{1em} \text{tale che} \hspace{1em} \forall in \in D.\exec{P^{L_{0}}}\left(in\right) = \exec{P^{L}}\left(in\right)
+	\end{equation*}
+	In linguaggio non matematico, significa che l'esecuzione del compilatore da $L$ a $L_{0}$ insieme (input) ad un determinato programma scritto in un linguaggio di programmazione $L$ è uguale (output) al programma scritto nel linguaggio di programmazione $P^{L_{0}}$; tale che per ogni input $in$ appartenente all'insieme dei dati $D$, l'esecuzione di un programma scritto nel linguaggio di programmazione $L_{0}$ con input $in$ è uguale all'esecuzione del programma scritto nel linguaggio di programmazione $L$ con input $in$.\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex1-3.png}
+		\caption*{Flow-chart di quanto detto precedentemente.}
+	\end{figure}
+	
+	\noindent
+	Si presenta qua di seguito la \textbf{struttura di un compilatore}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex1-4.pdf}
+	\end{figure}\newpage
+	
+	\begin{enumerate}
+		\item Il programma sorgente, da compilare, passa in prima battuta da un analizzatore lessicale. Vengono \textbf{convertiti i caratteri del programma sorgente in unità lessicali}. Quest'ultime possono essere \emph{identificatori}, \emph{numeri}, \emph{parole riservate} e formano i linguaggi regolari.
+		
+		\item Le unità lessicali finiscono in un analizzatore sintattico, il quale crea una albero che rappresenta la sintassi del programma:
+		\begin{itemize}
+			\item Le foglie (\emph{token}) vengono lette da sinistra verso destra e costituiscono le frasi ben formate del linguaggio;
+			
+			\item Dal precedente punto, ne consegue che l'impossibilità della costruzione di un albero è dovuta all'illegalità di quale frase (mal formata, errore di compilazione!);
+		\end{itemize}
+		Quindi, l'\textbf{analizzatore sintattico trasforma unità lessicali in \emph{parse tree} (albero di parse) che rappresentano la struttura sintattica del programma}.
+		
+		\item Riceve informazioni dall'analizzatore lessicale/sintattico e \textbf{memorizza informazioni sui nomi presenti nel programma} (identificatori, chiamate di procedura, ecc.);
+		
+		\item A questo punto, viene \textbf{generato un codice intermedio} che è \emph{indipendente dall'architettura}, e vengono \textbf{rilevati eventuali errori semantici} grazie all'\emph{analizzatore semantico};
+		
+		\item (Opzionale) Il codice può essere ottimizzato in questa fase;
+		
+		\item Si conclude la struttura del compilatore con la generazione del codice macchina che, a differenza del codice intermedio, è dipendente dall'architettura.
+	\end{enumerate}
+	La parte finale dello schema mostra l'esecuzione del programma compilato su un computer con eventuali dati in input.
+	
+	\newpage
 	\section{Esercizio 2 - Induzione}
 	
 	\subsection{Dimostrare $\forall n \in \mathbb{N}.n + n^{2}$ è un numero pari}
