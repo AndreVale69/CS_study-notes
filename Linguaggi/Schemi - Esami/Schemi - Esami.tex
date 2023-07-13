@@ -17,7 +17,7 @@
 \usepackage[]{mdframed}				% box per il testo
 \usepackage{multirow}				% più linee in una tabella
 \usepackage{gensymb}				% simbolo di degree
-
+\usepackage{listings}				% pacchetto per i codici
 
 % draw a frame around given text
 \newcommand{\framedtext}[1]{%
@@ -66,6 +66,31 @@
 
 \newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
 \newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
 
 \begin{document}
 	\author{VR443470}
@@ -298,7 +323,8 @@
 		Per definizione:
 		\begin{itemize}
 			\item Qualsiasi numero moltiplicato per $2$ si ottiene un numero pari;
-			\item Il risultato tra la somma di due numeri pari è ancora un numero pari.
+			\item Il risultato tra la somma di due numeri pari è ancora un numero pari;
+			\item $2$ è un numero pari.
 		\end{itemize}
 	\end{proof}\newpage
 	
@@ -435,18 +461,233 @@
 	\textcolor{Red3}{\textbf{\emph{Dimostrare per induzione che }}$\forall n \in \mathbb{N}. \: n > 2$ \textbf{\emph{si ha che}} $n^{2} > 2n + 1$ \textbf{\emph{.}}}\newline
 	
 	\noindent
-	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\footnote{Fonte soluzione: \href{https://youtu.be/2GycaLOF1no}{YouTube Link}}\newline
 	
 	\noindent
-	L'\textbf{induzione} è una tecnica di dimostrazione utilizzata per dimostrare la validità di una tesi tramite la verifica di due condizioni: la validità del \dquotes{passo base} e la validità del \dquotes{passo induttivo}.\newline
+	L'\textbf{induzione} è una tecnica di dimostrazione utilizzata per dimostrare la validità di una tesi tramite la verifica di due condizioni: la validità del \dquotes{passo base} e la validità del \dquotes{passo induttivo}.
+	
+	\begin{proof}[\textbf{Caso base}]
+		Si sceglie come caso base $n = 3$, rispettando la condizione $n > 2$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				n^{2} &>& 2n + 1 \\ [.3em]
+				&\downarrow& \text{sostituisco }n=3 \\ [.3em]
+				3^{2} &>& 2 \cdot 3 + 1 \\ [.3em]
+				9 &>& 7
+			\end{array}
+		\end{equation*}
+	\end{proof}
 	
 	\noindent
-	Qui.
+	\textbf{\emph{Ipotesi induttiva:}} si assume per vero che $\forall n \in \mathbb{N}.n>2$ allora si ha $n^{2} > 2n + 1$ o equivalentemente, con qualche manipolazione algebrica $n^{2} -2n -1 > 0$.
 	
-	\newpage
+	\begin{proof}[\textbf{Passo induttivo}]
+		Si dimostra che l'ipotesi induttiva implica la veridicità della proprietà per $n + 1$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				n^{2} &>& 2n + 1 \\ [.3em]
+				&\downarrow& \text{applico il passo induttivo} \\ [.3em]
+				\left(n+1\right)^{2} &>& 2 \left(n+1\right) + 1 \\ [.3em]
+				n^{2} + 2n + 1 &>& 2n +2 +1 \\ [.3em]
+				n^{2} + 2n + 1 -2n -2 -1 &>& 0 \\ [.3em]
+				n^{2} -2n -1 + 2n + 1 -2 &>& 0 \\ [.3em]
+				n^{2} -2n -1 + 2n -1 &>& 0 \\ [.3em]
+				&\downarrow& \text{applico l'ipotesi induttiva} \\[.3em]
+				n^{2} -2n -1 &>& 0 +2n -1 > 0 \\ [.3em]
+				&\downarrow& \text{per } n > 2 \Rightarrow 2n-1 \text{ sarà sempre positiva e } >0 \\ [.3em]
+				n^{2} -2n -1 &>& 0
+			\end{array}
+		\end{equation*}
+	\end{proof}\newpage
+	
 	\section{Esercizio 3 - Scoping statico e dinamico}
 	
 	\subsection{Tipologia codice 1}
+	
+	\textcolor{Red3}{\textbf{\emph{Si consideri il programma sulla destra. Si dica cosa viene calcolato dall'assegnamento in caso di scoping statico (mostrando come vengono calcolati i link statici e come vengono risolti riferimenti non locali) e in caso di scoping dinamico (mostrando l'evoluzione della tabella centrale dei riferimenti (CRT) e come vengono risolti riferimenti non locali).}}}
+	\lstinputlisting[language=C]{code/ex3-1.c}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	Esistono \textbf{due tipologie} di scope:
+	\begin{itemize}
+		\item Scope \textbf{statico}, in cui un \textbf{nome non locale è risolto nel blocco} che testualmente lo racchiude;
+		\item Scope \textbf{dinamico}, in cui un \textbf{nome non locale è risolto nella chiamata} attivata \textbf{più di recente} e \textbf{non ancora terminata}.
+	\end{itemize}
+	La \textbf{tabella centrale dei riferimenti} si riferisce allo scope dinamico. Quest'ultimo, a livello pratico, può essere implementano con una tecnica chiamata Shallow Access, nella quale le variabili locali sono poste in delle strutture dati centrali. Ed ecco che entra in gioco la CRT, una tabella con le seguenti \textbf{caratteristiche}:
+	\begin{itemize}
+		\item Una \textbf{entry per ogni variabile} nel programma;
+		\item Ogni entry ha un \textbf{puntatore ad una lista di elementi};
+		\item Ogni lista di elementi contiene \textbf{informazioni} necessarie per \textbf{accedere} ad un eventuale \textbf{ambiente di riferimento}.
+	\end{itemize}
+	Si inizia con l'analisi del codice e l'applicazione dello scoping statico/dinamico.\newpage
+	
+	\begin{center}
+		\textbf{\emph{\underline{Scoping statico}}}
+	\end{center}
+	\textbf{\emph{Passo 1:}} si calcola la profondità del codice dato. Si indica con $Sd$ la profondità statica, ovvero la profondità di annidamento della definizione della procedura corrispondente al RdA (record di attivazione, i.e. stack/pila).\newline
+	
+	\noindent
+	\begin{minipage}{.7\textwidth}
+		\begin{center}
+			\includegraphics[width=\textwidth]{img/ex3-1.pdf}
+		\end{center}
+	\end{minipage}
+	\begin{minipage}{.3\textwidth}
+		\begin{equation*}
+			\begin{array}{rcl}
+				Sd\left(main\right) &=& 0 \\
+				Sd\left(pippo\right) &=& 1 \\
+				Sd\left(pluto\right) &=& 1 \\
+				Sd\left(minnie\right) &=& 2 \\
+			\end{array}
+		\end{equation*}
+	\end{minipage}\newline
+	
+	\noindent
+	\textbf{\emph{Passo 2:}} si procede con l'esecuzione del codice, calcolando, ad ogni chiamata, i link statici e mostrando come vengono risolti i riferimenti non locali. Si ricorda che la formula per calcolare i link statici è:
+	\begin{equation*}
+		k = Sd(Ch) - Sd(P) + 1
+	\end{equation*}
+	Un link dinamico punta sempre al chiamante, così da formare la catena dinamica, mentre un link statico dipende dalla formula soprastante.
+	
+	La profondità statica (Sd, \emph{static deep}) del chiamante $Ch$, meno la profondità statica del chiamato, cioè la procedura $P$, più uno. Inoltre, la formula per calcolare i riferimenti non locali è:
+	\begin{equation*}
+		N = Sd(P) - Sd(D)
+	\end{equation*}
+	Numero di volte necessario per risalire la catena statica è dato dalla differenza tra la profondità statica della procedura in cui viene utilizzato l'identificatore ($Sd(P)$), meno la profondità statica della procedura $D$ che definisce tale identificatore ($Sd(D)$).
+	
+	Infine, con $CS$ si indica l'abbreviazione di Catena Statica, ovvero la catena di link statici che collegano le istanze del RdA.\newpage
+	\begin{enumerate}
+		\item $\mathbf{main}$ invoca la funzione $\mathbf{pluto}$.
+		\begin{equation*}
+			\begin{array}{rcl}
+				\text{Link statico} &\rightarrow& Sd(main) - Sd(pluto) + 1 = 0 - 1 + 1 = 0 \\ [.3em]
+				&\Rightarrow& CS\left(pluto\right) = indirizzo\left(main\right) \\ [.3em]
+				\text{Riferimento non locale }a &\rightarrow& N = Sd(pluto) - Sd(main) = 1 - 0 = 1
+			\end{array}
+		\end{equation*}
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/ex3-2.pdf}
+			\caption*{Evoluzione della memoria.}
+		\end{figure}\newpage
+		
+		\item $\mathbf{pluto}$ invoca la funzione $\mathbf{pippo}$.
+		\begin{equation*}
+			\begin{array}{rcl}
+				\text{Link statico} &\rightarrow& Sd(pluto) - Sd(pippo) + 1 = 1 - 1 + 1 = 1 \\ [.3em]
+				&\Rightarrow& CS(pippo) = indirizzo(CS(pluto)) \\ [.3em]
+				& &\phantom{ CS(pippo) }= indrizzo(main) \\ [.3em]
+				\text{Riferimento non locale }a &\rightarrow& Sd(pippo) - Sd(main) = 1 - 0 = 1
+			\end{array}
+		\end{equation*}
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/ex3-3.pdf}
+			\caption*{Evoluzione della memoria.}
+		\end{figure}\newpage
+		
+		\item $\mathbf{pluto}$ invoca la funzione $\mathbf{minnie}$.
+		\begin{equation*}
+			\begin{array}{rcl}
+				\text{Link statico} &\rightarrow& Sd(pluto) - Sd(minnie) + 1 = 1 - 2 + 1 = 0 \\ [.3em]
+				&\Rightarrow& CS(minnie) = indirizzo(pluto) \\ [.3em]
+				\text{Riferimento non locale} &\rightarrow& \text{nessuno}
+			\end{array}
+		\end{equation*}
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/ex3-4.pdf}
+			\caption*{Evoluzione della memoria.}
+		\end{figure}\newpage
+		
+		\item $\mathbf{minnie}$ invoca la funzione $\mathbf{pippo}$.
+		\begin{equation*}
+			\begin{array}{rcl}
+				\text{Link statico} &\rightarrow& Sd(minnie) - Sd(pippo) + 1 = 2 - 1 + 1 = 2 \\ [.3em]
+				&\Rightarrow& CS(pippo) = indirizzo(CS(CS(minnie))) \\ [.3em]
+				&&\phantom{ CS(pippo) } = indirizzo(CS(pluto)) \\ [.3em]
+				&&\phantom{ CS(pippo) } = indirizzo(main) \\ [.3em]
+				\text{Riferimento non locale }a &\rightarrow& N = Sd(pippo) - Sd(main) = 1-0 = 1
+			\end{array}
+		\end{equation*}
+		\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=.6\textwidth]{img/ex3-5.pdf}
+			\caption*{Evoluzione della memoria.}
+		\end{figure}
+	\end{enumerate}\newpage
+	
+	\begin{center}
+		\textbf{\emph{\underline{Scope dinamico}}}
+	\end{center}
+	
+	\noindent
+	Ogni \underline{aggiornamento} della tabella, ovvero ogni aggiornamento della lista di elementi per gli identificatori, viene eseguita inserendo in cima l'ultima dichiarazione eseguita.\newline
+	
+	\noindent
+	\textbf{Chiamata principale del \emph{main}}. Variabile inizializzata a 2 e poi aggiornata al valore 3:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/ex3-6.pdf}
+	\end{figure}
+	
+	\noindent
+	$\mathbf{main}$\textbf{ invoca }$\mathbf{pluto}$. Aggiornamento del valore della variabile $a$ con il valore 3:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/ex3-7.pdf}
+	\end{figure}
+	
+	\noindent
+	$\mathbf{pluto}$\textbf{ invoca }$\mathbf{pippo}$. Incremento di $1$ del valore della variabile $a$, quindi $1+1 = 2$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/ex3-8.pdf}
+	\end{figure}
+	
+	\noindent
+	Ritorno da $\mathbf{pippo}$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/ex3-9.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	$\mathbf{pluto}$\textbf{ invoca }$\mathbf{minnie}$. Il parametro $b$ assume il valore $3$, viene aggiornata la lista degli elementi per l'identificatore $a$ inserendo la moltiplicazione tra $b$ e $2$, cioè $2 \times b = 2 \times 3 = 6$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/ex3-010.pdf}
+	\end{figure}
+	
+	\noindent
+	$\mathbf{minnie}$\textbf{ invoca }$\mathbf{pippo}$. Ancora una volta, $pippo$ incrementa la variabile $a$, la quale si riferisce al $main$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/ex3-011.pdf}
+	\end{figure}
+	
+	\noindent
+	Ritorno da $\mathbf{pippo}$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/ex3-012.pdf}
+	\end{figure}
+	
+	\noindent
+	Ritorno da $\mathbf{minnie}$. Vengono rimossi gli elementi $a,b$ che si riferiscono a $minnie$ poiché la chiamata è stata conclusa:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/ex3-013.pdf}
+	\end{figure}
+	
+	\noindent
+	La CRT dopo il ritorno da $\mathbf{pluto}$ è identico alla figura soprastante.
+	
+	\newpage
 	
 	% 2023-02-01
 	% 2022-09-19
@@ -456,35 +697,124 @@
 	\subsection{Tipologia codice 2}
 	
 	% 2022-02-24
+	\newpage
 	
 	\subsection{Tipologia codice 3}
 	
 	% 2021-07-13
+	\newpage
 	
 	\subsection{Tipologia codice 4}
 	
 	% 2021-02-25
 	% 2020-02-20
+	\newpage
 	
 	\subsection{Tipologia codice 5}
 	
 	% 2021-02-08
+	\newpage
 	
 	\subsection{Tipologia codice 6}
 	
 	% 2020-09-24
+	\newpage
 	
 	\subsection{Tipologia codice 7}
 	
 	% 2020-09-24
+	\newpage
 	
 	\subsection{Tipologia codice 8}
 	
 	% 2020-02-04
+	\newpage
 	
 	\subsection{Tipologia codice 9}
-	
 	% 2023-06-28
+	\textcolor{Red3}{\textbf{\emph{Si consideri il programma sulla destra. Si dica cosa viene calcolato dall'assegnamento in caso di scoping statico (mostrando come vengono calcolati i link statici e come vengono risolti riferimenti non locali) e in caso di scoping dinamico (mostrando l'evoluzione della tabella centrale dei riferimenti (CRT) e come vengono risolti riferimenti non locali).}}}
+	\lstinputlisting[language=C]{code/ex3-9.c}
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	Esistono due tipologie di scoping:
+	\begin{itemize}
+		\item Statico, in cui un nome non locale è risolto nel blocco che lo racchiude;
+		
+		\item Dinamico, in cui un nome non locale è risolto nella chiamata attivata più di recente e non ancora terminata.
+	\end{itemize}
+	La tabella centrale dei riferimenti (CRT) si riferisce allo scope dinamico. Quest'ultimo può essere implementato, a livello pratico, tramite una tecnica chiamata Shallow Access. Essa consente di avere una struttura dati centrale contenente le variabili locali. Dunque, la tabella CRT ha tre caratteristiche principali:
+	\begin{itemize}
+		\item Ogni entry corrisponde ad una variabile nel programma;
+		
+		\item Ogni entry ha un puntatore ad una lista di elementi;
+		
+		\item Ogni lista di elementi contiene informazioni necessarie ad accedere ad un eventuale ambiente di riferimento
+	\end{itemize}\newpage
+	
+	\begin{center}
+		\textbf{\emph{\underline{Scoping statico}}}
+	\end{center}
+	
+	\noindent
+	\textbf{\emph{Passo 1:}} si calcola la profondità statica ($Sd$, Static deep) di ciascuna funzione presente all'interno del programma. La profondità statica indica la profondità di annidamento della definizione della procedura corrispondente al Record di Attivazione (RdA), i.e. Stack/Pila).\newline
+	
+	\noindent
+	\begin{minipage}{.7\textwidth}
+		\begin{center}
+			\includegraphics[width=\textwidth]{img/ex3-014.pdf}
+		\end{center}
+	\end{minipage}
+	\begin{minipage}{.3\textwidth}
+		\begin{equation*}
+			\begin{array}{rcl}
+				Sd\left(main\right) &=& 0 \\
+				Sd\left(fun\right) &=& 1 \\
+				Sd\left(fun2\right) &=& 1 \\
+				Sd\left(fun3\right) &=& 2 \\
+			\end{array}
+		\end{equation*}
+	\end{minipage}\newline
+	
+	\noindent
+	\textbf{\emph{Passo 2:}} si inizia ad analizzare il codice. Come richiesto dall'esercizio, si espone il calcolo dei link statici:
+	\begin{equation*}
+		k = Sd(Ch) - Sd(P) + 1
+	\end{equation*}
+	Con $Sd(Ch)$ che rappresenta la profondità statica del chiamante, $Sd(P)$ la profondità statica del programma invocato e $k$ la profondità (def. di \emph{static deep}). L'insieme dei link statici forma una catena statica (CS), ovvero un collegamento delle varie istanze del RdA. Al contrario, i link dinamici (DL, \emph{dynamic link}) puntano sempre al chiamante e formano la catena dinamica;\newline
+	Il calcolo di eventuali riferimenti non locali:
+	\begin{equation*}
+		N = Sd(P) - Sd(D)
+	\end{equation*}
+	Con $Sd(P)$ che rappresenta la profondità statica della procedura che sta utilizzando il riferimento non locale, $Sd(D)$ che rappresenta la profondità statica della procedura in cui è stato definito il riferimento, $N$ che rappresenta il numero di volte necessarie per risalire la catena statica.\newpage
+	
+	\noindent
+	$\mathbf{main}$ invoca la funzione $\mathbf{fun2}$.
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Link statico} &\rightarrow& Sd(main) - Sd(fun2) + 1 = 0 - 1 + 1 = 0 \\ [.3em]
+			&\Rightarrow& CS(pluto) = indirizzo(main) \\ [.3em]
+			\text{Riferimento non locale }b &\rightarrow& N = Sd(fun2) - Sd(main) = 1 - 0 = 1
+		\end{array}
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex3-015.pdf}
+	\end{figure}\newpage
+	
+	$\mathbf{fun2}$ invoca la funzione $\mathbf{fun3}$.
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Link statico} &\rightarrow& Sd(fun2) - Sd(fun3) + 1 = 1 - 2 + 1 = 0 \\ [.3em]
+			&\Rightarrow& CS(fun3) = indirizzo(fun2) \\ [.3em]
+			\text{Riferimento non locale }c &\rightarrow& N = Sd(fun3) - Sd(fun2) = 2 - 1 = 1 \\ [.3em]
+			\text{Riferimento non locale }b &\rightarrow& N = Sd(fun3) - Sd(main) = 2 - 0 = 2
+		\end{array}
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/ex3-016.pdf}
+	\end{figure}
 	
 	\section{Esercizio 4 - Scoping (statico/dinamico) e Binding}
 	
