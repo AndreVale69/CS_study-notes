@@ -664,7 +664,7 @@
 	\end{figure}
 	
 	\noindent
-	$\mathbf{minnie}$\textbf{ invoca }$\mathbf{pippo}$. Ancora una volta, $pippo$ incrementa la variabile $a$, la quale si riferisce al $main$:
+	$\mathbf{minnie}$\textbf{ invoca }$\mathbf{pippo}$. Ancora una volta, $pippo$ incrementa la variabile $a$, ma questa volta si riferisce a $minnie$, a causa dello scoping dinamico (shallow binding):
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=.8\textwidth]{img/ex3-011.pdf}
@@ -793,7 +793,7 @@
 	\begin{equation*}
 		\begin{array}{rcl}
 			\text{Link statico} &\rightarrow& Sd(main) - Sd(fun2) + 1 = 0 - 1 + 1 = 0 \\ [.3em]
-			&\Rightarrow& CS(pluto) = indirizzo(main) \\ [.3em]
+			&\Rightarrow& CS(fun2) = indirizzo(main) \\ [.3em]
 			\text{Riferimento non locale }b &\rightarrow& N = Sd(fun2) - Sd(main) = 1 - 0 = 1
 		\end{array}
 	\end{equation*}
@@ -814,29 +814,307 @@
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=.6\textwidth]{img/ex3-016.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	$\mathbf{fun3}$ invoca la funzione $\mathbf{fun}$.
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Link statico} &\rightarrow& Sd(fun3) - Sd(fun) + 1 = 2 - 1 + 1 = 2 \\ [.3em]
+			&\Rightarrow& CS(fun) = indirizzo(CS(CS(fun3))) \\ [.3em]
+			&&\phantom{ CS(fun)} = indirizzo(CS(fun2)) \\ [.3em]
+			&&\phantom{ CS(fun)} = indirizzo(main) \\ [.3em]
+			\text{Riferimento non locale }a &\rightarrow& N = Sd(fun) - Sd(main) = 1 - 0 = 1 \\ [.3em]
+			\text{Riferimento non locale }b &\rightarrow& N = Sd(fun) - Sd(main) = 1 - 0 = 1
+		\end{array}
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/ex3-017.pdf}
+	\end{figure}\newpage
+	
+	\begin{center}
+		\textbf{\emph{\underline{Scoping dinamico}}}
+	\end{center}
+	
+	\noindent
+	Ogni \underline{aggiornamento} della tabella CRT, ovvero ogni aggiornamento della lista di elementi degli identificatori, viene effettuata inserendo in cima l'ultima dichiarazione eseguita.\newline
+	
+	\noindent
+	\textbf{Chiamata principale del }$\mathbf{main}$. Inizializzazione delle variabili $a,b$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/ex3-018.pdf}
 	\end{figure}
+	
+	\noindent
+	$\mathbf{main}$\textbf{ invoca }$\mathbf{fun2}$. Vengono inizializzate due variabili locali, quindi si aggiungono alla lista degli elementi dei rispettivi identificatori. Inoltre, la variabile $b$, che è stata dichiarata nel $main$, viene aumentata di $4$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/ex3-019.pdf}
+	\end{figure}
+	
+	\noindent
+	$\mathbf{fun2}$\textbf{ invoca }$\mathbf{fun3}$. Viene inizializzata una variabile locale, quindi si aggiunge alla lista degli elementi dell'identificatore $a$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/ex3-020.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	$\mathbf{fun3}$\textbf{ invoca }$\mathbf{fun}$. Viene inizializzata una variabile locale, quindi si aggiunge alla lista degli elementi dell'identificatore $z$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/ex3-021.pdf}
+	\end{figure}
+	
+	\noindent
+	\textbf{Ritorno di }$\mathbf{fun}$\textbf{ in }$\mathbf{fun3}$. La lista degli elementi dell'identificatore $z$ viene aggiornata eliminando l'elemento riferito alla procedura $fun$ (a causa della sua terminazione):
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/ex3-022.pdf}
+	\end{figure}
+	
+	\noindent
+	\textbf{Ritorno di }$\mathbf{fun3}$\textbf{ in }$\mathbf{fun2}$. La lista degli elementi dell'identificatore $a$ viene aggiornata eliminando l'elemento riferito alla procedura $fun3$ (sempre a causa della terminazione):
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/ex3-023.pdf}
+	\end{figure}\newpage
+	
+	\noindent
+	\textbf{Ritorno di }$\mathbf{fun2}$\textbf{ in }$\mathbf{main}$. Si libera $a,c$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/ex3-024.pdf}
+	\end{figure}\newpage
 	
 	\section{Esercizio 4 - Scoping (statico/dinamico) e Binding}
 	
 	\subsection{Regole di scoping e di binding}
 	
+	\textcolor{Red3}{\textbf{\emph{Spiegare dove e perché nel programma è necessario parlare di regole di scoping, e dove (e perché) anche di regole di binding. Si dica quale risulta essere il valore finale di $z$ nelle varie situazioni, ovvero con: (1) scoping statico; (2) scoping dinamico e deep-binding; (3) shallow-binding (e scoping dinamico).}}}
+	\lstinputlisting[language=C]{code/ex4-1.c}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	In questo caso, ma vale in generale, le regole di scope e di binding sono necessarie quando la procedura contiene un ambiente non locale. Precisamente:
+	\begin{itemize}
+		\item Le regole di scoping poiché è necessario risolvere riferimenti non locali;
+		
+		\item Le regole di binding poiché le chiamate a funzione hanno tra i parametri delle funzioni.
+	\end{itemize}
+	Ovviamente la premessa è che le procedure abbiano ambienti non locali.\newline
+	
+	\noindent
+	La definizione di \emph{scoping} è stata data in modo esaustivo nell'esercizio 3 (capitolo 3).\newline
+	
+	\noindent
+	Con \emph{binding} si intende l'associazione tra un nome e un valore. Quest'ultimo non deve per forza essere un valore numerico, ma può anche essere una stringa, una funzione, una lista, ecc.
+	\begin{itemize}
+		\item Deep-binding, viene utilizzato l'ambiente valido al momento della definizione del legame tra parametro attuale e formale;
+		
+		\item Shallow-binding, gli ambienti da tenere in considerazione sono due:
+		\begin{itemize}
+			\item L'ambiente valido al momento della creazione del legame tra parametro attuale e parametro formale;
+			
+			\item L'ambiente valido al momento della chiamata del parametro attuale attraverso il parametro formale.
+		\end{itemize}
+	\end{itemize}
+	Il parametro formale è un parametro noto nella definizione della funzione. Invece, il parametro attuale è quello che viene passato effettivamente alla funzione quando viene invocata.\newpage
+	
+	\begin{center}
+		\textbf{\emph{\underline{Scoping statico}}}
+	\end{center}
+	
+	\noindent
+	All'invocazione di $f\left(b\right)$ (riga 6), la funzione $pluto$ passa come parametro la sua variabile locale $b$, ovvero $5$. La funzione $f$, parametro formale, è legata al parametro attuale $pippo$. Quindi, nel corpo di $pippo$ viene fatto il calcolo:
+	\begin{equation*}
+		a + b - in
+	\end{equation*}
+	Dove $a$ si riferisce alla $a$ del $main$, ovvero la variabile a riga 1 con valore $4$; dove $b$ si riferisce alla $b$ del $main$, ovvero la variabile a riga 1 con valore $3$; dove $in$ si riferisce al parametro formale, quindi corrisponde a $5$, ovvero il valore che gli è stato passato.
+	\begin{equation*}
+		4 + 3 - 5 = 2
+	\end{equation*}
+	Il valore $2$ viene ritornato. Quindi, alla riga 6 viene effettuata la somma tra $2$ e la variabile locale $a$. Il risultato che viene ritornato dalla funzione $pluto$, che corrisponde al risultato della variabile $z$, è $2+6=8$.
+	
+	\begin{center}
+		\textbf{\emph{\underline{Scoping dinamico e deep-binding}}}
+	\end{center}
+	
+	\noindent
+	All'invocazione della funzione $f(b)$ (riga 6), la funzione $pluto$ passa come parametro la sua variabile locale $b$, ovvero $5$. La funzione $f$, parametro formale, è legata al parametro attuale $pippo$. Quindi, nel corpo di $pippo$ viene fatto il calcolo:
+	\begin{equation*}
+		a+b-in
+	\end{equation*}
+	\begin{itemize}
+		\item $a$ considera l'ambiente al momento della definizione. Quindi, si prende il valore $4$ del main;
+		
+		\item $b$ sempre considerando l'ambiente al momento della definizione, si prende il valore $2$;
+		
+		\item $in$ è sempre $5$.
+	\end{itemize}
+	\begin{equation*}
+		4 + 2 - 5 = 1
+	\end{equation*}
+	Quindi, viene tornato il valore $1$ alla funzione $pluto$. Quest'ultima ritorna la somma tra $1$ e la variabile locale $a$, cioè $1+6=7$. Quindi il valore finale di $z$ è $7$.
+	
+	\begin{center}
+		\textbf{\emph{\underline{Scoping dinamico e shallow-binding}}}
+	\end{center}
+	
+	\noindent
+	Il procedimento è lo stesso dei precedenti. L'unica differenza è nel calcolo che esegue la funzione $pippo$, che ovviamente si ripercuote sul valore ritornato dalla funzione $pluto$.
+	\begin{equation*}
+		a + b - in
+	\end{equation*}
+	Viene preso il valore $6$ per $a$, quello della funzione $pluto$; viene preso il valore $5$ per $b$, quello della funzione $pluto$; viene preso il valore $5$ per $in$, il valore passato come parametro da $pluto$.
+	\begin{equation*}
+		6 + 5 - 5 = 6
+	\end{equation*}
+	Il valore di $z$ sarà:
+	\begin{equation*}
+		6 + 6 = 12
+	\end{equation*}
+	Poiché si prende $a$ come variabile locale.\newpage
+	
 	\subsection{Codice da inserire in caso di scoping statico/dinamico}
 	
 	\subsubsection{Tipologia di codice 1}
 	% 2022-02-24
+	\newpage
 	
 	\subsubsection{Tipologia di codice 2}
 	% 2023-06-28
 	% 2020-02-20
 	
+	\textcolor{Red3}{\textbf{\emph{Si consideri lo schema del seguente codice, nel quale vi sono due buchi indicati rispettivamente con (*) e (**). Si dia il codice da inserire al posto di (*) e (**) in modo tale che:}}}
+	\begin{enumerate}[label=(\alph*)]
+		\item \textcolor{Red3}{\textbf{\emph{Se il linguaggio usato adotta lo scope statico, le due chiamate alla procedura pluto assegnino a $x$ lo stesso valore;}}}
+		
+		\item \textcolor{Red3}{\textbf{\emph{Se il linguaggio usato adotta lo scope dinamico, le due chiamate alla procedura pluto assegnino a $x$ valori diversi.}}}
+	\end{enumerate}
+	\textcolor{Red3}{\textbf{\emph{Si descrivano dettagliatamente le scelte fatte e si descriva cosa avviene a tempo di esecuzione in entrambi i casi e perché.}}}
+	\lstinputlisting[language=C]{code/ex4-2.c}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	La differenza tra scoping statico e scoping dinamico è stata data nell'esercizio 3. Si procede dunque con la soluzione dei due codici nelle due casistiche.\newline
+	
+	\noindent
+	Si riscrive il codice per avere una spaziatura migliore:
+	\lstinputlisting[language=C]{code/ex4-3.c}
+	\begin{itemize}
+		\item (*) il codice da inserire è:
+		\begin{lstlisting}[language=C]
+i = 0;
+int y = 2;
+void pluto(){
+	return y;
+}\end{lstlisting}
+		
+		\item (**) il codice da inserire è:
+		\begin{lstlisting}[language=C]
+y = i;
+x = 3;\end{lstlisting}
+	\end{itemize}\newpage
+	
+	\noindent
+	Quindi, il codice finale diventa:
+	\lstinputlisting[language=C]{code/ex4-4.c}
+	Alla partenza del codice, viene creata una variabile $y$ e gli viene assegnato il valore $2$. Alla chiamata della funzione $pippo$, viene dichiarata un'altra variabile $y$ e gli viene assegnato il valore di $i$ che inizialmente è $0$ e poi $1$. Alla variabile $x$, presente nel $main$ viene assegnato il valore $3$. Successivamente, viene chiamata la funzione $pluto$ e qua i risultati sono differenti:
+	\begin{itemize}
+		\item Scope statico:
+			\begin{itemize}
+				\item $i = 0$: la funzione $pluto$ ritorna il valore $2$, ovvero quello del $main$. Quindi la $x$ diventa $2 + 3 = 5$.
+				
+				\item $i = 1$: la funzione $pluto$ ritorna nuovamente il valore $2$ e la somma è di nuovo $5$ poiché la $x$ con il ciclo $i=0$ è stata aggiornata a $5$, ma con il ciclo $i=1$ è ritornata a $3$ grazie alla dichiarazione a riga 10.
+			\end{itemize}
+		
+		\item Scope dinamico:
+			\begin{itemize}
+				\item $i = 0$: la funzione $pluto$ ritorna il valore $0$, ovvero quello uguale alla variabile $i$. Quindi la $x$ diventa $0 + 3 = 3$.
+				
+				\item $i = 1$: la funzione $pluto$ ritorna il valore $1$, ovvero quello uguale alla variabile $i$. Quindi la $x$ diventa $1 + 3 = 4$. Il fatto che la $x$ non sia stata aggiornata è dovuta allo stesso motivo spiegato nello scope statico.
+			\end{itemize}
+	\end{itemize}\newpage
+	
 	\subsubsection{Tipologia di codice 3}
 	% 2020-09-24
 	% 2020-02-24
+	\newpage
+	
 	
 	\section{Esercizio 5 - Ricorsione e passaggio di parametri}
 	
 	\subsection{Ricorsione e ricorsione in coda}
 	
+	\textcolor{Red3}{\textbf{\emph{Definire brevemente il concetto di ricorsione e di ricorsione in coda. Si consideri il programma ricorsivo a destra e si descriva che cosa calcola mostrando anche il calcolo sulla lista $\left(2,4,6\right)$. Trasformare quindi tale programma in un programma ricorsivo in coda. Mostrare poi il funzionamento dell'algoritmo fornito sulla lista $\left(2,4,6\right)$.}}}\newline
+	
+	\noindent
+	\textcolor{Red3}{\textbf{\emph{NOTA: Data una lista list, length(list) restituisce la sua lunghezza, car(list) restituisce il primo elemento, cdr(list) restituisce tutta la lista tranne il primo elemento, concat concatena due liste (se un elemento non è una lista, concat lo converte prima in lista). () è la lista vuota.}}}
+	\lstinputlisting[language=C]{code/ex5-1.c}
+	
+	\noindent
+	\textcolor{Green4}{\textbf{\emph{\underline{Risposta}}}}\newline
+	
+	\noindent
+	Una funzione viene definita \textbf{ricorsiva} se viene definita in termini di se stessa. Le funzioni ricorsive derivano direttamente dalle definizioni di induzione, tuttavia rimangono concetti diversi:
+	\begin{itemize}
+		\item L'induzione è un concetto matematico ed è sempre ben fondata;
+		
+		\item L'induzione \dquotes{informatica} può divergere. Ovvero, un programma potrebbe non terminare mai (i.e. \textsf{while(true)\{x=x\}}).
+	\end{itemize}
+	Una chiamata di una funzione $g$ in una funzione $f$ viene definita \dquotes{in coda}, se la funzione $f$ restituisce il valore restituito dalla funzione $g$ senza ulteriore computazione. Se ne deduce, che una funzione ricorsiva viene chiamata \dquotes{\textbf{funzione ricorsiva in coda}} quando contiene solo chiamate ricorsive in coda.
+	
+	\begin{center}
+		\textbf{\emph{\underline{Calcolo ricorsione}}}
+	\end{center}
+	
+	\noindent
+	Considerando la lista $\left(2,4,6\right)$, la funzione ricorsiva esegue le seguenti operazioni:
+	\begin{equation*}
+		\begin{array}{llll}
+			&&& = (18,12,6)\\ [.6em]
+			function(2,4,6) &\longrightarrow& concat\left((4,6), 2*3\right);& \uparrow 7\degree\\ [.6em]
+			&& 1\degree\downarrow& (18, 12) \\ [.6em]
+			&& concat\left((6), 4*3\right);& \uparrow 6\degree \\ [.6em]
+			&& 2\degree\downarrow& \uparrow (18) \\ [.6em]
+			&& concat\left((), 6*3\right);& \uparrow 5\degree \\ [.6em]
+			&& 3\degree\downarrow& \uparrow() \\ [.6em]
+			&& return();& \uparrow 4\degree
+		\end{array}
+	\end{equation*}
+	L'\textbf{obbiettivo} della funzione ricorsiva è invertire l'ordine della lista e moltiplicare ciascun valore per 3. In caso di lista vuota, il risultato è una lista vuota.
+	
+	\begin{center}
+		\textbf{\emph{\underline{Trasformazione da ricorsione a ricorsione in coda}}}
+	\end{center}
+	
+	\noindent
+	La trasformazione da ricorsione a ricorsione in coda può avvenire se si definisce una funzione che restituisce il valore di un'altra funzione senza altre computazioni. Quindi, si definisce la funzione $functionrc$ che esegue le stesse cose della funzione $function$ originale, ma con un parametro in più, ovvero il risultato parziale. Questo consente di non elaborare valori dopo le chiamate ricorsive. Mentre la funzione $function$ (nuova, non l'originale) che prende come parametro una lista e ritorna come risultato la computazione della ricorsione senza eseguire ulteriori operazioni:
+	\lstinputlisting[language=C]{code/ex5-2.c}
+	Considerando la lista $\left(2,4,6\right)$, la ricorsione in coda esegue le seguenti operazioni:
+	\begin{equation*}
+		\begin{array}{llll}
+			&&& = (18,12,6)\\ [.6em]
+			function((2,4,6), ()) &\longrightarrow& functionrc\left((2,4,6), ()\right);& \uparrow 9\degree\\ [.6em]
+			&& 1\degree\downarrow () & (18, 12, 6) \\ [.6em]
+			&& functionrc\left((4,6), 2*3\right);& \uparrow 8\degree \\ [.6em]
+			&& 2\degree\downarrow (6)& \uparrow (18, 12, 6) \\ [.6em]
+			&& functionrc\left((6), 4*3\right);& \uparrow 7\degree \\ [.6em]
+			&& 3\degree\downarrow (12, 6)& \uparrow(18, 12, 6) \\ [.6em]
+			&& functionrc\left((), 6*3\right);& \uparrow 6\degree \\ [.6em]
+			&& 4\degree\downarrow (18, 12, 6)& \uparrow(18, 12, 6) \\ [.6em]
+			&& return res;& \uparrow 5\degree
+		\end{array}
+	\end{equation*}
+	
+	\newpage
 	\subsection{Passaggio di parametri: per valore e per riferimento}
 	
 	\subsubsection{Tipologia di codice 1}
