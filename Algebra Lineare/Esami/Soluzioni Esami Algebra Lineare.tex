@@ -2080,8 +2080,989 @@
 
 	\subsection{Esercizio 4}
 
-	QUA.
+	(\textbf{6 punti}) Considerare la seguente matrice: $M = \begin{pmatrix}
+		1 & -4 \\ -1 & 1
+	\end{pmatrix}$. Vero o falso? Si motivi la risposta!
+	
+	\longline
 
-	\newpage
+	\subsubsection{Parte a}
+
+	\textcolor{Green4}{\textbf{\emph{Gli autovalori di $M$ sono $\lambda_{1} = -1$ e $\lambda_{2} = 3$.}}}\newline
+
+	\noindent
+	Si scrive il polinomio caratteristico come il determinante di:
+	\begin{equation*}
+		\begin{array}{lll}
+			p_{M}\left(\lambda\right) &=& \det\left(M - \lambda\mathrm{Id}_{2}\right) \\ [1.5em]
+			&=& \det\left[
+				\begin{pmatrix}
+					1	& -4 \\
+					-1	& 1	 
+				\end{pmatrix} - \lambda
+				\begin{pmatrix}
+					1 & 0 \\
+					0 & 1 
+				\end{pmatrix}
+			\right] \\ [2.5em]
+			&=& \det\left[
+				\begin{pmatrix}
+					1	& -4 \\
+					-1	& 1	
+				\end{pmatrix} -
+				\begin{pmatrix}
+					\lambda & 0 \\
+					0 & \lambda 
+				\end{pmatrix}
+			\right] \\ [2.5em]
+			&=& \det\left[
+				\begin{pmatrix}
+					1 - \lambda	& -4 \\
+					-1	& 1	- \lambda
+				\end{pmatrix}
+			\right]
+		\end{array}
+	\end{equation*}
+	Si esegue l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{pmatrix}
+			1 - \lambda	& -4 \\
+			-1	& 1	- \lambda
+		\end{pmatrix}
+		\xlongrightarrow{E_{1,2}\left(\frac{1}{1-\lambda}\right)}
+		\begin{rowequmat}{cc}
+			1 - \lambda	& -4 \\ [.3em]
+			0	& 1	- \lambda - \frac{4}{1-\lambda}
+		\end{rowequmat}
+	\end{equation*}
+	E si calcola il determinante:
+	\begin{equation*}
+		\begin{array}{lll}
+			\det\left(M - \lambda \mathrm{Id}_{3}\right) &=& \left(1-\lambda\right) \left(1	- \lambda - \dfrac{4}{1-\lambda}\right) \\ [1em]
+			&=& 1 - \lambda -\lambda +\lambda^{2} -4 \\ [1em]
+			&=& \lambda^{2} -2 \lambda -3
+		\end{array}
+	\end{equation*}
+	Con gli autovalori forniti, il polinomio caratteristico si annulla, per cui essi sono gli autovalori di $M$. La risposta è: vero!\newpage
+
+	\subsubsection{Parte b}
+
+	\textcolor{Green4}{\textbf{\emph{La matrice $M$ è diagonalizzabile.}}}\newline
+
+	\noindent
+	La matrice $M$ è diagonalizzabile se la molteplicità algebrica corrisponde all'ordine della matrice e se la molteplicità geometrica corrisponde a quella algebrica.\newline
+
+	\noindent
+	La molteplicità algebrica di $\lambda_{1}$ è 1 e la molteplicità algebrica di $\lambda_{2}$ è 1. Adesso si calcolano le molteplicità geometriche:
+	\begin{itemize}
+		\item Con $\lambda_{1} = -1$:
+		\begin{gather*}
+			n - \mathrm{rk}\left(M - \left(-1\right)\mathrm{Id}_{2}\right) \\
+			\\
+			n - \mathrm{rk}\left(\begin{pmatrix}
+				2 & -4 \\
+				-1 & 2
+			\end{pmatrix} \xrightarrow{E_{1,2}\left(\frac{1}{2}\right)}
+			\begin{pmatrix}
+				2 & -4 \\
+				0 & 0
+			\end{pmatrix}\right) \\
+			\\
+			2 - 1 = 1
+		\end{gather*}
+
+		\item  Con $\lambda_{2} = 3$:
+		\begin{gather*}
+			n - \mathrm{rk}\left(M - \left(3\right)\mathrm{Id}_{2}\right) \\
+			\\
+			n - \mathrm{rk}\left(\begin{pmatrix}
+				-2 & -4 \\
+				-1 & -2
+			\end{pmatrix} \xrightarrow{E_{1,2}\left(-\frac{1}{2}\right)}
+			\begin{pmatrix}
+				-2 & -4 \\
+				0 & 0
+			\end{pmatrix}\right) \\
+			\\
+			2 - 1 = 1
+		\end{gather*}
+	\end{itemize}
+	Le molteplicità algebriche corrispondo alle rispettive molteplicità geometriche, per cui $M$ è diagonalizzabile. La risposta è: vero!\newline
+
+	\longline
+
+	\subsubsection{Parte c}
+
+	\textcolor{Green4}{\textbf{\emph{Le colonne di $M$ sono ortogonali.}}}\newline
+
+	\noindent
+	Una matrice è ortogonale se $A A^{T} = A^{T}A = \mathrm{Id}_{n}$. Quindi, si calcola la trasposta:
+	\begin{equation*}
+		\begin{array}{rll}
+			M &=& \begin{pmatrix}
+				1  & -4 \\
+				-1 & 1
+			\end{pmatrix} \\
+			M^{T} &=& \begin{pmatrix}
+				1 & -1 \\
+				-4 & 1 \\
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}
+	E si esegue la moltiplicazione:
+	\begin{equation*}
+		M \cdot M^{T} = \begin{pmatrix}
+			1  & -4 \\
+			-1 & 1
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 & -1 \\
+			-4 & 1 \\
+		\end{pmatrix} = \begin{pmatrix}
+			17 & -5 \\
+			-5 & 2
+		\end{pmatrix}
+	\end{equation*}
+	La matrice risultante non è una matrice identità di ordine 2, quindi le colonne di $M$ non sono ortogonali. La risposta è: falso!\newpage
+
+	\subsection{Esercizio 5}
+
+	(\textbf{1 punto}) Sia $A \in M_{n \times n}\left(\mathbb{K}\right)$. Dimostrare la seguente affermazione: se $A$ possiede un'inversa destra $R$ e un'inversa sinistra $L$, allora $L = R$.\newline
+
+	\noindent
+	Dimostrazione lasciata al lettore.\newpage
+
 	\section{Esame del 20/02/2023}
+
+	\subsection{Esercizio 1}
+
+	(\textbf{8 punti})\newline
+
+	\longline
+
+	\subsubsection{Punto a}
+
+	\textcolor{Green4}{\textbf{\emph{Si consideri la seguente matrice:}}
+	\begin{equation*}
+		A = \begin{pmatrix}
+			\alpha	& \alpha+3	& 2\alpha	\\
+			\alpha	& 2\alpha+2	& 3\alpha	\\
+			2\alpha	& \alpha+7	& 4\alpha	
+		\end{pmatrix}
+	\end{equation*}
+	\textbf{\emph{Si studi $\det\left(A\right), \mathrm{rk}\left(A\right)$ e l'invertibilità di $A$ al variare di $\alpha \in \mathbb{R}$.}}}\newline
+
+	\noindent
+	Si esegue l'eliminazione di Gauss:
+	\begin{equation*}
+		\begin{pmatrix}
+			\alpha	& \alpha+3	& 2\alpha	\\
+			\alpha	& 2\alpha+2	& 3\alpha	\\
+			2\alpha	& \alpha+7	& 4\alpha	
+		\end{pmatrix}
+		\xlongrightarrow[E_{1,3}\left(-2\right)]{E_{1,2}\left(-1\right)}
+		\begin{pmatrix}
+			\alpha	& \alpha+3	& 2\alpha	\\
+			0		& \alpha-1	&  \alpha	\\
+			0		& -\alpha+1	& 0	
+		\end{pmatrix}
+		\xlongrightarrow{E_{2,3}\left(1\right)}
+		\begin{pmatrix}
+			\alpha	& \alpha+3	& 2\alpha	\\
+			0		& \alpha-1	& \alpha	\\
+			0		& 0			& \alpha	
+		\end{pmatrix}
+	\end{equation*}
+	Il determinante è:
+	\begin{equation*}
+		\begin{array}{rll}
+			\det\left(A\right) &=& \alpha \cdot \left(\alpha -1\right) \cdot \alpha \\
+			&=& \alpha^{2} \cdot \left(\alpha-1\right)
+		\end{array}
+	\end{equation*}
+	Il rango è:
+	\begin{equation*}
+		\mathrm{rk}\left(A\right) = \begin{cases}
+			1	& \alpha = 0 \\
+			2	& \alpha = 1 \\
+			3	& \text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	La matrice $A$ è invertibile se e solo se il determinante è diverso da zero, ovvero se $\alpha \ne 0 \land \alpha \ne 1$, e se il rango è massimo, quindi con la stessa condizione del determinante.\newpage
+
+	\subsubsection{Parte b}
+
+	\textcolor{Green4}{\textbf{\emph{Si calcoli $z^{6}$ dove $z = \frac{2}{\sqrt{3}-i}+\frac{1}{i}$.}}}\newline
+
+	\noindent
+	Si ottiene la forma trigonometrica:
+	\begin{equation*}
+		z = \dfrac{2}{\sqrt{3}-i} \cdot \dfrac{\sqrt{3}+i}{\sqrt{3}+i} - i = \dfrac{\sqrt{3}}{2} - \dfrac{1}{2}i = \cos\left(\dfrac{1}{6}\pi\right) + i \sin\left(\dfrac{1}{6}\pi\right)
+	\end{equation*}
+	E si eleva a potenza\footnote{\href{https://www.andreaminini.org/matematica/numeri-complessi/la-potenza-del-numero-complesso}{Tutorial online}}:
+	\begin{equation*}
+		\begin{array}{lll}
+			z^{n} &=& d^{n} \cdot \left[\cos\left(n \cdot \alpha\right) + i \sin\left(n \cdot \alpha\right)\right] \\ [1em]
+			z^{6} &=& 1^{6}\left(\cos\left(6 \cdot \dfrac{1}{6}\pi\right) + i \sin\left(6 \cdot \dfrac{1}{6}\pi\right)\right) \\[1em]
+			&=& \cos\left(\pi\right) + i \sin\left(\pi\right) \\ [1em]
+			&=& -1 + i \cdot 0 \\ [1em]
+			&=& -1
+		\end{array}
+	\end{equation*}\newpage
+	
+	\subsection{Esercizio 2}
+	
+	(\textbf{8 punti}) Si consideri la seguente matrice:
+	\begin{equation*}
+		B = \begin{pmatrix}
+			0 & 0 & 1 \\
+			0 & 0 & -1 \\
+			1 & -1 & 0
+		\end{pmatrix}
+	\end{equation*}
+	
+	\longline
+	
+	\subsubsection{Punto a}
+	
+	\textcolor{Green4}{\textbf{\emph{Si calcolino tutti gli autovalori di $B$ su $\mathbb{R}$ e si trovino delle basi dei loro autospazi.}}}\newline
+	
+	\noindent
+	Per calcolare gli autovalori di $B$, è necessario innanzitutto calcolare il polinomio caratteristico, ovvero il determinante del risultato tra la differenza della matrice e la matrice identità per $\lambda$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			p_{B}\left(\lambda\right) &=& \det\left(B - \lambda \cdot \mathrm{Id}_{3}\right) \\ [.7em]
+			&=& \left(
+			\begin{pmatrix}
+				0 & 0 & 1 \\
+				0 & 0 & -1 \\
+				1 & -1 & 0
+			\end{pmatrix} -
+			\begin{pmatrix}
+				\lambda & 0 & 0 \\
+				0 & \lambda & 0 \\
+				0 & 0 & \lambda
+			\end{pmatrix}
+			\right) \\ [2.5em]
+			&=& \left(
+			\begin{pmatrix}
+				-\lambda & 0 & 1 \\
+				0 & -\lambda & -1 \\
+				1 & -1 & -\lambda
+			\end{pmatrix}
+			\right)
+		\end{array}
+	\end{equation*}
+	Si risolve rapidamente con EG per ottenere il determinante.
+	\begin{gather*}
+		\begin{rowequmat}{ccc}
+			-\lambda & 0 & 1 \\
+			0 & -\lambda & -1 \\
+			1 & -1 & -\lambda
+		\end{rowequmat}
+		\xlongrightarrow[E_{2,3}\left(-\frac{1}{\lambda}\right)]{E_{1,3}\left(\frac{1}{\lambda}\right)}
+		\begin{rowequmat}{ccc}
+			-\lambda & 0 & 1 \\ [.3em]
+			0 & -\lambda & -1 \\ [.3em]
+			0 & 0 & \frac{2-\lambda^{2}}{\lambda}
+		\end{rowequmat} \\
+		\\
+		\det\left(B - \lambda \cdot \mathrm{Id}_{3}\right) = \left(-\lambda\right) \cdot \left(-\lambda\right) \cdot \left(\dfrac{2-\lambda^{2}}{\lambda}\right) = 2\lambda - \lambda^{3}
+	\end{gather*}
+	Dunque, gli autovalori sono quei valori che pongono il polinomio caratteristico uguale a zero:
+	\begin{gather*}
+		2\lambda - \lambda^{3} = 0 \longrightarrow \lambda\left(2 - \lambda^{2}\right) = 0 \\
+		\lambda_{1} = 0; \hspace{2em} \lambda_{2} = -\sqrt{2}; \hspace{2em} \lambda_{3} = \sqrt{2}
+	\end{gather*}
+	Adesso si procede con la ricerca degli autospazi.\newpage
+	
+	\noindent
+	Si sostituisce l'autovalore $\lambda_{1} = 0$ all'interno della matrice:
+	\begin{equation*}
+		\begin{pmatrix}
+			-\lambda & 0 & 1 \\
+			0 & -\lambda & -1 \\
+			1 & -1 & -\lambda
+		\end{pmatrix}
+		\longrightarrow
+		\begin{pmatrix}
+			0 & 0 & 1 \\
+			0 & 0 & -1 \\
+			1 & -1 & 0
+		\end{pmatrix}
+	\end{equation*}
+	Si cerca la forma ridotta EG, si calcola il sistema generale e si cercano delle basi degli autospazi. In questo caso la matrice è quasi alla sua forma ridotta, per cui non si applicano ulteriori operazioni di riduzione. Si passa alla scrittura del sistema generale:
+	\begin{equation*}
+		\begin{cases}
+			x_{3} = 0 \\
+			-x_{3} = 0 \\
+			x_{1} - x_{2} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{3} = 0 \\
+			x_{3} = 0 \\
+			x_{1} = x_{2}
+		\end{cases}
+	\end{equation*}
+	Quindi, il sistema generale è:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = x_{2} \\
+			x_{2} = x_{2} \\
+			x_{3} = 0
+		\end{cases}
+	\end{equation*}
+	Se ne deduce che l'autospazio dell'autovalore $\lambda_{1} = 0$ è:
+	\begin{equation*}
+		\left\{\left.\begin{pmatrix}
+			x_{2} \\ x_{2} \\ 0
+		\end{pmatrix} \: \right| \: x_{2} \in \mathbb{R}\right\} = \left\{x_{2} \begin{pmatrix}
+			1 \\ 1 \\ 0
+		\end{pmatrix}\right\}
+	\end{equation*}
+	Quindi, una base dell'autospazio, con $x_{2} = 1$ è:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			1 \\ 1 \\ 0
+		\end{pmatrix}\right\}
+	\end{equation*}\newpage
+	
+	\noindent
+	Si sostituisce l'autovalore $\lambda_{2} = -\sqrt{2}$ all'interno della matrice:
+	\begin{equation*}
+		\begin{pmatrix}
+			-\lambda & 0 & 1 \\
+			0 & -\lambda & -1 \\
+			1 & -1 & -\lambda
+		\end{pmatrix}
+		\longrightarrow
+		\begin{pmatrix}
+			\sqrt{2} & 0 & 1 \\
+			0 & \sqrt{2} & -1 \\
+			1 & -1 & \sqrt{2}
+		\end{pmatrix}
+	\end{equation*}
+	Si cerca una forma ridotta con EG:
+	\begin{equation*}
+		\begin{pmatrix}
+			\sqrt{2} & 0 & 1 \\
+			0 & \sqrt{2} & -1 \\
+			1 & -1 & \sqrt{2}
+		\end{pmatrix}
+		\xlongrightarrow[E_{2,3}\left(\frac{1}{\sqrt{2}}\right)]{E_{1,3}\left(-\frac{1}{\sqrt{2}}\right)}
+		\begin{rowequmat}{ccc}
+			\sqrt{2} & 0 & 1 \\ 
+			0 & \sqrt{2} & -1 \\ 
+			0 & 0 & 0
+		\end{rowequmat}
+	\end{equation*}
+	Si scrive il sistema e si risolve:
+	\begin{gather*}
+		\begin{cases}
+			\sqrt{2}x_{1} + x_{3} = 0 \\
+			\sqrt{2}x_{2} - x_{3} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{3} = -\sqrt{2}x_{1} \\
+			\sqrt{2}x_{2} - \left(-\sqrt{2}x_{1}\right) = 0
+		\end{cases} \\
+		\longrightarrow
+		\begin{cases}
+			x_{3} = -\sqrt{2}x_{1} \\
+			\frac{1}{\sqrt{2}} \left(\sqrt{2}x_{2} + \sqrt{2}x_{1}\right) = 0 \cdot \frac{1}{\sqrt{2}}
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{3} = -\sqrt{2}x_{1} \\
+			x_{2} + x_{1} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{3} = -\sqrt{2}x_{1} \\
+			x_{2} = -x_{1}
+		\end{cases}
+	\end{gather*}
+	Il sistema generale:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = x_{1} \\
+			x_{2} = -x_{1} \\
+			x_{3} = -\sqrt{2}x_{1}
+		\end{cases}
+	\end{equation*}
+	Dunque, l'autospazio dell'autovalore $\lambda_{2} = -\sqrt{2}$ è:
+	\begin{equation*}
+		\left\{\left. \begin{pmatrix}
+			x_{1} \\
+			-x_{1} \\
+			-\sqrt{2}x_{1}
+		\end{pmatrix} \: \right| \: x_{1} \in \mathbb{R}\right\} =
+		\left\{x_{1} \begin{pmatrix}
+			1 \\ -1 \\ -\sqrt{2}
+		\end{pmatrix}\right\}
+	\end{equation*}
+	Una base dell'autospazio con $x_{1} = 1$ è:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			1 \\ -1 \\ -\sqrt{2}
+		\end{pmatrix}\right\}
+	\end{equation*}\newpage
+	
+	\noindent
+	Si sostituisce l'autovalore $\lambda_{3} = \sqrt{2}$ all'interno della matrice:
+	\begin{equation*}
+		\begin{pmatrix}
+			-\lambda & 0 & 1 \\
+			0 & -\lambda & -1 \\
+			1 & -1 & -\lambda
+		\end{pmatrix}
+		\longrightarrow
+		\begin{pmatrix}
+			-\sqrt{2} & 0 & 1 \\
+			0 & -\sqrt{2} & -1 \\
+			1 & -1 & -\sqrt{2}
+		\end{pmatrix}
+	\end{equation*}
+	Si cerca una forma ridotta con EG:
+	\begin{equation*}
+		\begin{pmatrix}
+			-\sqrt{2} & 0 & 1 \\
+			0 & -\sqrt{2} & -1 \\
+			1 & -1 & -\sqrt{2}
+		\end{pmatrix}
+		\xlongrightarrow[E_{2,3}\left(-\frac{1}{\sqrt{2}}\right)]{E_{1,3}\left(\frac{1}{\sqrt{2}}\right)}
+		\begin{rowequmat}{ccc}
+			-\sqrt{2} & 0 & 1 \\ [.3em]
+			0 & -\sqrt{2} & -1 \\ [.3em]
+			0 & 0 & 0
+		\end{rowequmat}
+	\end{equation*}
+	Si scrive e si risolve il sistema:
+	\begin{gather*}
+		\begin{cases}
+			-\sqrt{2}x_{1} + x_{3} = 0 \\
+			-\sqrt{2}x_{2} - x_{3} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{3} = \sqrt{2}x_{1} \\
+			-\sqrt{2}x_{2} - \sqrt{2}x_{1} = 0 \\
+		\end{cases} \\
+		\longrightarrow
+		\begin{cases}
+			x_{3} = \sqrt{2}x_{1} \\
+			x_{2} = -x_{1}
+		\end{cases}
+	\end{gather*}
+	Il sistema generale dunque è:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = x_{1} \\
+			x_{2} = -x_{1} \\
+			x_{3} = \sqrt{2}x_{1}
+		\end{cases}
+	\end{equation*}
+	L'autospazio dell'autovalore $\lambda_{3} = \sqrt{2}$:
+	\begin{equation*}
+		\left\{\left. x_{1} \begin{pmatrix}
+			x_{1} \\
+			-x_{1} \\
+			\sqrt{2}x_{1}
+		\end{pmatrix} \: \right| \: x_{1} \in \mathbb{R}\right\}
+	\end{equation*}
+	Una base dell'autospazio con $x_{1} = \sqrt{2}$ è:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			1 \\ -1 \\ \sqrt{2}
+		\end{pmatrix}\right\}
+	\end{equation*}\newpage
+	
+	\subsubsection{Punto b}
+	
+	\textcolor{Green4}{\textbf{\emph{Si verifichi che la matrice $B$ è diagonalizzabile e si trovino la matrice diagonale $D$ e le matrici $S$, $S^{-1}$ tali che $B = SDS^{-1}$.}}}\newline
+	
+	\noindent
+	Una matrice è diagonalizzabile se la somma della molteplicità algebrica degli autovalori è uguale all'ordine della matrice e se le molteplicità geometriche degli autovalori corrispondono alle rispettive molteplicità algebriche.\newline
+	
+	\noindent
+	Il polinomio caratteristico, trovato al punto precedente, è:
+	\begin{equation*}
+		p_{B}\left(\lambda\right) = -\lambda^{3} + 2\lambda
+	\end{equation*}
+	Le soluzioni trovate, con le rispettive molteplicità algebriche, sono:
+	\begin{equation*}
+		\begin{array}{rclcl}
+			\lambda_{1} &=& 0			&\longrightarrow& m_{1} = 1 \\
+			\lambda_{2} &=& -\sqrt{2}	&\longrightarrow& m_{2} = 1 \\
+			\lambda_{3} &=& \sqrt{2}	&\longrightarrow& m_{3} = 1 \\
+		\end{array}
+	\end{equation*}
+	La somma delle molteplicità algebriche è uguale all'ordine della matrice. Quindi, si prosegue la verifica e si controlla le molteplicità geometriche:
+	\begin{equation*}
+		\begin{array}{rclcl}
+			\lambda_{1} &=& 0			&\longrightarrow& m_{1} = n - \mathrm{rk}\left(B - 0 \cdot \mathrm{Id}_{3}\right) = 3 - 2 = 1 \\ [.3em]
+			\lambda_{2} &=& -\sqrt{2}	&\longrightarrow& m_{2} = n - \mathrm{rk}\left(B - \left(-\sqrt{2}\right) \cdot \mathrm{Id}_{3}\right) = 3 - 2 = 1 \\ [.3em]
+			\lambda_{3} &=& \sqrt{2}	&\longrightarrow& m_{3} = n - \mathrm{rk}\left(B - \sqrt{2} \cdot \mathrm{Id}_{3}\right) = 3 - 2 = 1
+		\end{array}
+	\end{equation*}
+	Anche le molteplicità geometriche corrispondono alle rispettive molteplicità algebriche. Quindi, si prosegue con la scrittura della matrice $D$ che corrisponde alla matrice diagonale di $B$:
+	\begin{equation*}
+		D = \begin{pmatrix}
+			0 & 0 & 0 \\
+			0 & -\sqrt{2} & 0 \\
+			0 & 0 & \sqrt{2}
+		\end{pmatrix}
+	\end{equation*}
+	La matrice ha sulla diagonale principale gli autovalori di $B$. La matrice $S$, invece, è composta dalle relative basi trovate nel punto precedente:
+	\begin{equation*}
+		S = \begin{pmatrix}
+			1 & 1			& 1			\\
+			1 & -1			& -1		\\
+			0 & -\sqrt{2}	& \sqrt{2}	\\
+		\end{pmatrix}
+	\end{equation*}
+	Ovviamente, la matrice inversa è l'inversa di $S$, quindi si affianca una matrice identità a destra e si eseguono le operazioni di EG per ottenere una matrice identità a sinistra:
+	\begin{equation*}
+		\left(S|\mathrm{Id}_{3}\right) = \begin{rowequmat}{ccc|ccc}
+			1 & 1			& 1			& 1 & 0 & 0 \\
+			1 & -1			& -1		& 0 & 1 & 0 \\
+			0 & -\sqrt{2}	& \sqrt{2}	& 0 & 0 & 1
+		\end{rowequmat}
+		\xlongrightarrow[E_{2,3}\left(-\frac{\sqrt{2}}{2}\right)]{E_{1,2}\left(-1\right)}
+		\begin{rowequmat}{ccc|ccc}
+			1 & 1			& 1			& 1 & 0 & 0 \\ [.3em]
+			0 & -2			& -2		& -1 & 1 & 0 \\ [.3em]
+			0 & 0	& 2\sqrt{2}	& \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} & 1
+		\end{rowequmat}
+	\end{equation*}\newpage
+	
+	\begin{equation*}
+		\xlongrightarrow[E_{3,2}\left(\frac{1}{\sqrt{2}}\right)]{E_{2,1}\left(\frac{1}{2}\right)}
+		\begin{rowequmat}{ccc|ccc}
+			1 & 0			& 0			& \frac{1}{2} & \frac{1}{2} & 0 \\ [.3em]
+			0 & -2			& 0		& -\frac{1}{2} & \frac{1}{2} & \frac{1}{\sqrt{2}} \\ [.3em]
+			0 & 0	& 2\sqrt{2}	& \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} & 1
+		\end{rowequmat}
+		\xlongrightarrow[E_{3}\left(\frac{1}{2\sqrt{2}}\right)]{E_{2}\left(-\frac{1}{2}\right)}
+		\begin{rowequmat}{ccc|ccc}
+			1 & 0			& 0			& \frac{1}{2} & \frac{1}{2} & 0 \\ [.3em]
+			0 & 1			& 0		& \frac{1}{4} & -\frac{1}{4} & -\frac{1}{2\sqrt{2}} \\ [.3em]
+			0 & 0	& 1	& \frac{1}{4} & -\frac{1}{4} & \frac{1}{2\sqrt{2}}
+		\end{rowequmat}
+	\end{equation*}
+	La matrice a destra risulta essere l'inversa di $S$:
+	\begin{equation*}
+		S^{-1} = \begin{rowequmat}{ccc}
+			\frac{1}{2} & \frac{1}{2} & 0 \\ [.3em]
+			\frac{1}{4} & -\frac{1}{4} & -\frac{1}{2\sqrt{2}} \\ [.3em]
+			\frac{1}{4} & -\frac{1}{4} & \frac{1}{2\sqrt{2}}
+		\end{rowequmat}
+	\end{equation*}
+	Si verifica che le matrici trovate siano corrette:
+	\begin{equation*}
+		\begin{array}{rcl}
+			B &=& SDS^{-1} \\
+			\begin{pmatrix}
+				0 & 0 & 1 \\
+				0 & 0 & -1 \\
+				1 & -1 & 0
+			\end{pmatrix} &=&
+			\begin{pmatrix}
+				1 & 1			& 1			\\
+				1 & -1			& -1		\\
+				0 & -\sqrt{2}	& \sqrt{2}	\\
+			\end{pmatrix}
+			\begin{pmatrix}
+				0 & 0 & 0 \\
+				0 & -\sqrt{2} & 0 \\
+				0 & 0 & \sqrt{2}
+			\end{pmatrix}
+			\begin{rowequmat}{ccc}
+				\frac{1}{2} & \frac{1}{2} & 0 \\ [.3em]
+				\frac{1}{4} & -\frac{1}{4} & -\frac{1}{2\sqrt{2}} \\ [.3em]
+				\frac{1}{4} & -\frac{1}{4} & \frac{1}{2\sqrt{2}}
+			\end{rowequmat} \\
+			\begin{pmatrix}
+				0 & 0 & 1 \\
+				0 & 0 & -1 \\
+				1 & -1 & 0
+			\end{pmatrix} &=&
+			\begin{pmatrix}
+				0	& -\sqrt{2} & \sqrt{2} \\
+				0	& \sqrt{2} & -\sqrt{2} \\
+				0	& 2 & 2
+			\end{pmatrix}
+			\begin{rowequmat}{ccc}
+				\frac{1}{2} & \frac{1}{2} & 0 \\ [.3em]
+				\frac{1}{4} & -\frac{1}{4} & -\frac{1}{2\sqrt{2}} \\ [.3em]
+				\frac{1}{4} & -\frac{1}{4} & \frac{1}{2\sqrt{2}}
+			\end{rowequmat} \\
+			\begin{pmatrix}
+				0 & 0 & 1 \\
+				0 & 0 & -1 \\
+				1 & -1 & 0
+			\end{pmatrix} &=&
+			\begin{pmatrix}
+				0 & 0 & 1 \\
+				0 & 0 & -1 \\
+				1 & -1 & 0
+			\end{pmatrix}
+		\end{array}
+	\end{equation*}\newpage
+	
+	\subsection{Esercizio 3}
+	
+	(\textbf{8 punti}) Si considerino le seguenti matrici:
+	\begin{equation*}
+		C = \begin{pmatrix}
+			3 & 0 \\ 2 & 13 \\ 0 & 8
+		\end{pmatrix}
+		\hspace{2em}
+		D = \begin{pmatrix}
+			3 & 2 & 0 \\ 1 & -2 & 3
+		\end{pmatrix}
+	\end{equation*}
+	
+	\longline
+	
+	\subsubsection{Punto a}
+	
+	\textcolor{Green4}{\textbf{\emph{Si trova una base di ciascuno dei seguenti sottospazi di $\mathbb{R}^{3}$:}}}
+	\begin{enumerate}
+		\item[i.] \textcolor{Green4}{\textbf{\emph{Il sottospazio $C(C)$ generato dalle colonne di $C$.}}}
+		\item[ii.] \textcolor{Green4}{\textbf{\emph{Lo spazio nullo $N(D)$ di $D$.}}}
+		\item[iii.] \textcolor{Green4}{\textbf{\emph{La somma $C(C) + N(D)$ dei sottospazi $C(C)$ e $N(D)$.}}}
+	\end{enumerate}
+	Una base del sottospazio $C(C)$ è possibile trovarla eseguendo la EG sulla matrice $C$:
+	\begin{equation*}
+		\begin{pmatrix}
+			3 & 0 \\
+			2 & 13 \\
+			0 & 8
+		\end{pmatrix}
+		\xlongrightarrow[E_{2,3}\left(-\frac{8}{13}\right)]{E_{1,2}\left(-\frac{2}{3}\right)}
+		\begin{pmatrix}
+			3 & 0 \\
+			0 & 13 \\
+			0 & 0
+		\end{pmatrix}
+	\end{equation*}
+	E prendere in considerazione le colonne dei pivot. Quindi, le basi corrispondono alle colonne originarie rispetto ai pivot:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			3 \\ 2 \\ 0
+		\end{pmatrix}, \begin{pmatrix}
+			0 \\ 13 \\ 8 
+		\end{pmatrix}\right\}
+	\end{equation*}
+	Una base dello spazio nullo $N(D)$ è possibile trovarlo eseguendo EG su D, ma considerando quest'ultima come la matrice aumentata, e calcolando le soluzioni del sistema lineare relativo:
+	\begin{equation*}
+		\begin{rowequmat}{ccc|c}
+			3 & 2 & 0  & 0 \\
+			1 & -2 & 3 & 0
+		\end{rowequmat}
+		\xlongrightarrow[E_{3}\left(-3\right)]{E_{1,2}\left(-\frac{1}{3}\right)}
+		\begin{rowequmat}{ccc|c}
+			3 & 2 & 0  & 0 \\ [.3em]
+			0 & 8 & -9 & 0
+		\end{rowequmat}
+	\end{equation*}
+	Si scrive e si risolve il relativo sistema:
+	\begin{equation*}
+		\begin{cases}
+			3x_{1} + 2x_{2} = 0 \\
+			8x_{2} - 9x_{3} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{2} = -\frac{3}{2}x_{1} \\
+			8\left(-\frac{3}{2}x_{1}\right) - 9x_{3} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x_{2} = -\frac{3}{2}x_{1} \\
+			x_{3} = -\frac{12}{9}x_{1} = -\frac{4}{3}x_{1}
+		\end{cases}
+	\end{equation*}
+	Quindi, il sistema generale:
+	\begin{equation*}
+		\begin{cases}
+			x_{1} = x_{1} \\
+			x_{2} = -\frac{3}{2}x_{1} \\
+			x_{3} = -\frac{4}{3}x_{1}
+		\end{cases}
+	\end{equation*}
+	E una base:
+	\begin{equation*}
+		\left\{\left.\begin{rowequmat}{c}
+			x_{1} \\ [.3em]
+			-\frac{3}{2}x_{1} \\ [.3em]
+			-\frac{4}{3}x_{1}
+		\end{rowequmat} \: \right| \: x_{1} \in \mathbb{R}\right\} = \left\{x_{1}\begin{rowequmat}{c}
+			1 \\ [.3em]
+			-\frac{3}{2} \\ [.3em]
+			-\frac{4}{3}
+		\end{rowequmat}\right\}
+		\xlongrightarrow{x_{1} = 1}
+		\left\{\begin{rowequmat}{c}
+			1 \\ [.3em]
+			-\frac{3}{2} \\ [.3em]
+			-\frac{4}{3}
+		\end{rowequmat}\right\}
+	\end{equation*}\newpage
+	
+	\noindent
+	La somma dei sottospazi $C(C)$ e $N(D)$ si forma unendo le basi trovate in un'unica matrice e cercando le rispettive basi guardando i pivot della matrice:
+	\begin{equation*}
+		A = C(C) + N(D) = \begin{rowequmat}{ccc}
+			3 & 0  & 1 \\ [.3em]
+			2 & 13 & -\frac{3}{2} \\ [.3em]
+			0 & 8  & -\frac{4}{3}
+		\end{rowequmat}
+	\end{equation*}
+	Si utilizza EG per trovare una forma ridotta:
+	\begin{equation*}
+		\begin{rowequmat}{ccc}
+			3 & 0  & 1 \\ [.3em]
+			2 & 13 & -\frac{3}{2} \\ [.3em]
+			0 & 8  & -\frac{4}{3}
+		\end{rowequmat}
+		\xlongrightarrow[E_{2,3}\left(-\frac{8}{13}\right)]{E_{1,2}\left(-\frac{2}{3}\right)}
+		\begin{rowequmat}{ccc}
+			3 & 0  & 1 \\ [.3em]
+			0 & 13 & -\frac{13}{6} \\ [.3em]
+			0 & 0  & 0
+		\end{rowequmat}
+	\end{equation*}
+	I pivot sono 3 e 13, quindi una base di $C(C) + N(D)$:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			3 \\ 2 \\ 0
+		\end{pmatrix}, \begin{pmatrix}
+			0 \\ 13 \\ 8 
+		\end{pmatrix}\right\}
+	\end{equation*}\newpage
+	
+	\subsubsection{Punto b}
+	
+	\textcolor{Green4}{\textbf{\emph{Si calcoli la dimensione dell'intersezione $C(C) \cap N(D)$ dei sottospazi $C(C)$ e $N(D)$.}}}\newline
+	
+	\noindent
+	Per calcolare la dimensione dell'intersezione è necessario ricordare la formula di Grassman\footnote{\href{https://www.youmath.it/domande-a-risposte/view/1090-chiarimenti-sul-teorema-di-grassman.html}{Link utile}}:
+	\begin{equation*}
+		\dim\left(C(C) + N(D)\right) = \dim\left(C(C)\right) + \dim\left(N(D)\right) - \dim\left(C(C) \cap N(D)\right)
+	\end{equation*}
+	La dimensione di $C(C)$ è pari a 2, infatti una sua base:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			3 \\ 2 \\ 0
+		\end{pmatrix}, \begin{pmatrix}
+			0 \\ 13 \\ 8 
+		\end{pmatrix}\right\}
+	\end{equation*}
+	La dimensione di $N(D)$ è pari a 1, infatti una sua base:
+	\begin{equation*}
+		\left\{\begin{rowequmat}{c}
+			1 \\ [.3em]
+			-\frac{3}{2} \\ [.3em]
+			-\frac{4}{3}
+		\end{rowequmat}\right\}
+	\end{equation*}
+	La dimensione di $C(C) + N(D)$ è pari a 2, infatti una sua base:
+	\begin{equation*}
+		\left\{\begin{pmatrix}
+			3 \\ 2 \\ 0
+		\end{pmatrix}, \begin{pmatrix}
+			0 \\ 13 \\ 8 
+		\end{pmatrix}\right\}
+	\end{equation*}
+	Quindi:
+	\begin{equation*}
+		\begin{array}{rcl}
+			2 &=& 2 + 1 - \dim\left(C(C) \cap N(D)\right) \\
+			\dim\left(C(C) \cap N(D)\right) &=& 2 + 1 -2 \\
+			&=& 1
+		\end{array}
+	\end{equation*}\newpage
+	
+	\subsection{Esercizio 4}
+	
+	(\textbf{6 punti}) Si considerino la matrice $P = \begin{pmatrix}
+		3 & i \\
+		-1 & 0
+	\end{pmatrix}$ Vero o falso? Si giustifichi la risposta!
+	
+	\longline
+	
+	\subsubsection{Punto a}
+	
+	\textcolor{Green4}{\textbf{\emph{La matrice $P$ è hermitiana, ovvero $P = P^{H}$.}}}\newline
+	
+	\noindent
+	La matrice hermitiana corrisponde alla matrice coniugata, ovvero è necessario cambiare i segni ai numeri immaginari:
+	\begin{equation*}
+		P^{H} = \begin{pmatrix}
+			3 & -i \\ -1 & 0
+		\end{pmatrix}
+	\end{equation*}
+	Dunque la risposta è falso, ovvero $P \ne P^{H}$.
+	
+	\longline
+	
+	\subsubsection{Punto b}
+	
+	\textcolor{Green4}{\textbf{\emph{La matrice $P$ è invertibile.}}}\newline
+	
+	\noindent
+	La matrice $P$ è invertibile se e solo se ha $\det\left(P\right) \ne 0$ e $\mathrm{rk}\left(P\right) = 2$, ovvero rango massimo.
+	\begin{gather*}
+		\begin{pmatrix}
+			3 & i \\
+			-1 & 0
+		\end{pmatrix}
+		\xlongrightarrow{E_{1,2}\left(\frac{1}{3}\right)}
+		\begin{rowequmat}{cc}
+			3 & i \\ [.3em]
+			0 & \frac{1}{3}i
+		\end{rowequmat} \\
+		\det\left(P\right) = 3 \cdot \dfrac{1}{3}i = i \\
+		\mathrm{rk}\left(P\right) = 2
+	\end{gather*}
+	Vero, la matrice $P$ è invertibile.
+	
+	\longline
+	
+	\subsubsection{Punto c}
+	
+	\textcolor{Green4}{\textbf{\emph{Il vettore $c_{\mathcal{B}}\left(Pv\right)$ è uguale a $\begin{pmatrix}
+		-1 \\ 4+i
+	\end{pmatrix}$ dove $\mathcal{B} = \left\{\begin{pmatrix}
+		1 \\ 1
+	\end{pmatrix}, \begin{pmatrix}
+		1 \\ 0
+	\end{pmatrix}\right\}$ e $v = \begin{pmatrix}
+		1 \\ 1
+	\end{pmatrix}$.}}}\newline
+
+	\noindent
+	Non risolto.
+	
+	\longline
+	
+	\subsection{Esercizio 5}
+	
+	(\textbf{1 punti}) Sia $A \in M_{m\times n}\left(\mathbb{C}\right)$ e sia $b \in \mathbb{C}^{m}$. Si dimostri che, se $p \in \mathbb{C}^{n}$ è una soluzione particolare di $Ax = b$, allora ogni soluzione è della forma $p + u$ per qualche $u \in N\left(A\right)$.\newpage
+	
+	\section{Esame del 28/06/2023}
+	
+	\subsection{Esercizio 1}
+	
+	(\textbf{7 punti}) Si consideri il numero complesso $z = - \frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i$.
+	
+	\longline
+	
+	\subsubsection{Punto a}
+	
+	\textcolor{Green4}{\textbf{\emph{Si calcolino i seguenti numeri:}}}
+	\begin{enumerate}
+		\item[i.] \textcolor{Green4}{\textbf{\emph{Il modulo $|z|$ di $z$.}}}
+		
+		\item[ii.] \textcolor{Green4}{\textbf{\emph{Il coniugato $\overline{z}$ di $z$.}}}
+		
+		\item[iii.] \textcolor{Green4}{\textbf{\emph{Il numero complesso $\frac{1}{z}$.}}}
+	\end{enumerate}
+	Il modulo $|z|$ di $z$ si calcola ricordando la formula:
+	\begin{equation*}
+		|z| = \sqrt{a^{2} + b^{2}}
+	\end{equation*}
+	Quindi, sostituendo il numero complesso dato:
+	\begin{equation*}
+		|z| = \sqrt{\left(-\dfrac{\sqrt{2}}{2}\right)^{2} + \left(-\dfrac{\sqrt{2}}{2}\right)^{2}} = \sqrt{\dfrac{1}{2} + \dfrac{1}{2}} = 1
+	\end{equation*}
+	Il coniugato di $z$ corrisponde alla parte immaginaria $i$ cambiata di segno:
+	\begin{equation*}
+		\overline{z} = -\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i
+	\end{equation*}
+	Il numero complesso $\frac{1}{z}$ corrisponde a $z^{-1}$, calcolabile con la formula:
+	\begin{equation*}
+		z^{-1} = \dfrac{\overline{z}}{|z|^{2}}
+	\end{equation*}
+	Quindi, sostituendo il numero complesso dato:
+	\begin{equation*}
+		\dfrac{1}{z} = \dfrac{-\dfrac{\sqrt{2}}{2} + \dfrac{\sqrt{2}}{2}i}{1^{2}} = -\dfrac{\sqrt{2}}{2} + \dfrac{\sqrt{2}}{2}i
+	\end{equation*}\newpage
+	
+	\subsubsection{Punto b}
+	
+	\textcolor{Green4}{\textbf{\emph{Si calcoli il prodotto $zw$ dove $w = 5\left(\cos\left(\frac{3\pi}{4}\right) + i \sin\left(\frac{3\pi}{4}\right)\right)$.}}}\newline
+	
+	\noindent
+	Si converte $w$ da forma trigonometrica a forma algebrica:
+	\begin{equation*}
+		\begin{cases}
+			a = 5 \cdot \cos\left(\frac{3\pi}{4}\right) \\
+			b = 5 \cdot \sin\left(\frac{3\pi}{4}\right)
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			a = -\frac{5\sqrt{2}}{2} \\
+			b = \frac{5\sqrt{2}}{2}
+		\end{cases}
+		\longrightarrow
+		w = -\frac{5\sqrt{2}}{2} + \frac{5\sqrt{2}}{2} i
+	\end{equation*}
+	A questo punto si procede con la moltiplicazione tra due forme algebriche, seguendo la seguente regola:
+	\begin{equation*}
+		\left(a+bi\right) \cdot \left(c+di\right) = a\left(c+di\right) + bi\left(c+di\right)
+	\end{equation*}
+	Andando a sostituire i valori:
+	\begin{gather*}
+		\begin{array}{cl}
+			=& -\dfrac{\sqrt{2}}{2}\left(-\dfrac{5\sqrt{2}}{2} + \dfrac{5\sqrt{2}}{2} i\right) -\dfrac{\sqrt{2}}{2}i\left(-\dfrac{5\sqrt{2}}{2} + \dfrac{5\sqrt{2}}{2} i\right) \\ [1.5em]
+			=& \dfrac{5}{2} -\dfrac{5}{2}i + \dfrac{5}{2}i - \dfrac{5}{2}i^{2} \\ [1.5em]
+			=& \dfrac{5}{2} + \dfrac{5}{2} \\ [1.5em]
+			=& \dfrac{10}{2} \\ [1.5em]
+			=& 5
+		\end{array}
+	\end{gather*}\newpage
+	
+	\subsubsection{Punto c}
+	
+	\textcolor{Green4}{\textbf{\emph{Si calcolino tutte le radici quadrate di $z$.}}}\newline
+	
+	\noindent
+	Per calcolare le radici quadrate di un numero complesso, si segue la seguente formula:
+	\begin{equation*}
+		\sqrt[n]{z} = \sqrt[n]{d}\left[\cos\left(\dfrac{a+2\pi k}{n}\right) + i\sin\left(\dfrac{a + 2 \pi k}{n}\right)\right]
+	\end{equation*}
+	Prima di passare al calcolo, si trasforma il numero complesso da forma algebrica a forma trigonometrica:
+	\begin{equation*}
+		\begin{cases}
+			d = |z| = 1 \\
+			\theta = \begin{cases}
+				\frac{\pi}{2}	& a=0, b>0 \\
+				\frac{3\pi}{2}	& a=0, b<0 \\
+				\text{non definito}	& a=0, b=0 \\
+				\arctan\left(\frac{b}{a}\right)	& a>0, b\ge0 \\
+				\arctan\left(\frac{b}{a}\right) + 2\pi	& a>0, b<0 \\
+				\arctan\left(\frac{b}{a}\right) + \pi	& a<0, b \: \text{qualsiasi} \\
+			\end{cases} = \arctan\left(1\right) + \pi = \dfrac{5\pi}{4}
+		\end{cases}
+	\end{equation*}
+	Quindi, la forma trigonometrica corrispondente:
+	\begin{equation*}
+		z = \cos\left(\dfrac{5\pi}{4}\right) + i\sin\left(\dfrac{5\pi}{4}\right)
+	\end{equation*}
+	Si calcola $\sqrt[2]{z}$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			z_{0} &=& \sqrt[2]{1}\left[\cos\left(\dfrac{\dfrac{5\pi}{4} + 2 \cdot 0 \cdot \pi}{2}\right) + i \sin\left(\dfrac{\dfrac{5\pi}{4} + 2 \cdot 0 \cdot \pi}{2}\right)\right] \\ [2em]
+			&=& \cos\left(\dfrac{5\pi}{8}\right) + i \sin\left(\dfrac{5\pi}{8}\right) \\ [2em]
+			%
+			z_{1} &=& \sqrt[2]{1}\left[\cos\left(\dfrac{\dfrac{5\pi}{4} + 2 \cdot 1 \cdot \pi}{2}\right) + i \sin\left(\dfrac{\dfrac{5\pi}{4} + 2 \cdot 1 \cdot \pi}{2}\right)\right] \\ [2em]
+			&=& \cos\left(\dfrac{13\pi}{8}\right) + i \sin\left(\dfrac{13\pi}{8}\right) \\
+		\end{array}
+	\end{equation*}
 \end{document}
