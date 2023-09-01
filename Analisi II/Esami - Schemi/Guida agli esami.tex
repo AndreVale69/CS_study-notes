@@ -171,6 +171,103 @@
 		\end{array}
 	\end{equation*}\newpage
 
+	\subsection{Riepilogo dei passaggi}
+
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l p{23em} @{}}
+			\toprule
+			\textbf{Passaggio} & \textbf{Descrizione} \\
+			\midrule
+			1°	& Esplicitare la $y'$ a sinistra. Può capitare, talvolta, che la $y'$ sia in compagnia. In questo caso, eseguire alcune manipolazioni algebriche così da isolarla. \\ [.5em]
+			2°	& Calcolare l'integrale a destra dell'uguale. Per farlo, si esegue l'integrale rispetto a $x$ così da portare fuori la costante $y$. \\ [.5em]
+			3°	& Portare la $y$ a sinistra dell'uguale, ricordando di \underline{non} cambiare segno, ma di moltiplicarla per $-1$, ovverosia di ribaltare numeratore e denominatore. \\ [.5em]
+			4°	& Eseguire l'integrale della parte a sinistra dell'uguale rispetto a $y$ (a questo punto a destra si dovrebbe avere il risultato dell'integrale rispetto ad $x$). \\ [.5em]
+			5°	& Si aggiunge la costante $+ c$, si applica la condizione iniziale e si esplicita la costante $c$. Infatti, applicando la condizione iniziale, l'unica incognita che rimane è $c$, per cui dovrebbe essere immediato ottenerla. \\ [.5em]
+			6°  & Adesso è necessario ottenere l'intervallo massimo. Si sostituisce la $c$ ottenuta al punto $5$ nella soluzione dei due integrali dove è stata inserita la costante $+ c$ (alla fine del passo $4$). \\ [.5em]
+			7°	& Con la sostituzione della costante $c$, si esplicita la $y$ eseguendo alcune operazioni algebriche. \\ [.5em]
+			8°  & Si ottiene la/le condizione/i di esistenza del valore che assume $y$ e si esplicita la $x$. \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+
+	\subsection{Vari esercizi d'esame}
+
+	\subsubsection{Esame del 10/07/2023 - Gruppo A}
+
+	\textcolor{Green4}{\textbf{\emph{Determinare la soluzione del seguente problema di Cauchy}}}
+	\begin{equation*}
+		\begin{cases}
+			y' = \dfrac{x^{2} e^{-y^{2}}}{y} \\
+			y\left(0\right) = 1
+		\end{cases}
+	\end{equation*}
+	\textcolor{Green4}{\textbf{\emph{e indicare il più ampio \underline{intervallo} su cui tale soluzione è definita.}}}\newline
+		
+	\noindent
+	Il primo passo è esplicitare la derivata. Tuttavia, in questo caso è già esplicitata. Si prosegue con il secondo passo che è risolvere l'integrale per ciascuna parte:
+	\begin{equation*}
+		\begin{array}{rcl}
+			&\rightarrow& \displaystyle\int\dfrac{x^{2} e^{-y^{2}}}{y} \: \mathrm{d}x \hspace{1em} y \ne 0 \\
+			\\
+			&\rightarrow& \displaystyle\int x^{2} \cdot \dfrac{e^{-y^{2}}}{y} \: \mathrm{d}x \\
+			\\
+			&\rightarrow& \dfrac{e^{-y^{2}}}{y} \cdot \displaystyle\int x^{2} \: \mathrm{d}x \\
+			\\
+			\displaystyle\int\dfrac{y}{e^{-y^{2}}} \: \mathrm{d}y &=& \displaystyle\int x^{2} \: \mathrm{d}x \\
+			\\
+			\displaystyle\int y \cdot \dfrac{1}{e^{-y^{2}}} &=& \dfrac{x^{3}}{3} \\
+			\\
+			\displaystyle\int y \cdot e^{y^{2}} &=& \dfrac{x^{3}}{3} \\
+			\\
+			&\downarrow& \text{integrale notevole del tipo } \displaystyle\int f'\left(x\right) \cdot e^{f\left(x\right)} \: \mathrm{d}x \text{ quindi si aggiunge }\times 2 \\
+			\\
+			\displaystyle\int 2 y \cdot e^{y^{2}} &=& 2 \cdot \dfrac{x^{3}}{3} \\
+			\\
+			e^{y^{2}} &=& \dfrac{2x^{3}}{3} + c
+		\end{array}
+	\end{equation*}
+	Il terzo passo è imporre la condizione iniziale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Condizione iniziale} 	&\longrightarrow& y\left(0\right) = 1 \\
+			\\
+			\text{Sostituzione}			&\longrightarrow& e^{1^{2}} = \dfrac{2 \cdot 0^{3}}{3} + c
+		\end{array}
+	\end{equation*}
+	Quindi il valore di $c = e$. Infine, l'esercizio si conclude cercando l'intervallo massimale. Esso è ottenibile prendendo la soluzione generale e sostituendo al posto della costante $c$, il valore trovato:
+	\begin{equation*}
+		\begin{array}{rcl}
+			e^{y^{2}} &=& \dfrac{2x^{3}}{3} + c \\
+			\\
+			e^{y^{2}} &=& \dfrac{2x^{3}}{3} + e \\
+			\\
+			y^{2} &=& \ln\left(\dfrac{2x^{3}}{3} + e\right) \\
+			\\
+			y &=& \sqrt{\ln\left(\dfrac{2x^{3}}{3} + e\right)} \\
+		\end{array}
+	\end{equation*}
+	Inoltre, grazie all'esplicitazione della $y$, adesso è possibile ottenere le condizioni di esistenza:
+	\begin{itemize}
+		\item Per il logaritmo $\dfrac{2x^{3}}{3} + e > 0$
+		\item Per la radice $\ln\left(\dfrac{2x^{3}}{3} + e\right) > 0$
+	\end{itemize}
+	Dato che la prima condizione di esistenza è contenuta nella seconda, allora quest'ultima implica la prima. Inoltre, nella seconda condizione è possibile rimuovere il logaritmo enunciando la proprietà dei logaritmi: un logaritmo è maggiore di zero se il suo argomento è maggiore di $1$. In questo caso, l'argomento è $\dfrac{2x^{3}}{3} + e$ per cui si pone maggiore di uno:
+	\begin{equation*}
+		\dfrac{2x^{3}}{3} + e > 1
+	\end{equation*}
+	Si procede esplicitando la $x$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x^{3} &>& \left(1-e\right) \cdot \dfrac{3}{2} \\ [.5em]
+			x &>& \sqrt[3]{\dfrac{3}{2} \cdot \left(1-e\right)}
+		\end{array}
+	\end{equation*}
+	Quindi, l'intervallo massimo parte dalla condizione esplicitata qua sopra e arriva fino ad $\infty$:
+	\begin{equation*}
+		\left] \sqrt[3]{\dfrac{3}{2} \cdot \left(1-e\right)}, \infty \right[
+	\end{equation*}\newpage
+
 	\section{Esercizio 2 - Problema di Cauchy con variabile $t$ e $y''$}
 
 	\subsection{Risoluzione del problema di cauchy con $y''$}
@@ -249,6 +346,14 @@
 				\end{array}
 			\end{equation*}
 
+			\item \textbf{Soluzioni dell'equazione caratteristica uguali tra di loro ($\lambda_{1} = \lambda_{2}$)}. In questo caso, è necessario aggiungere una $x$ alla soluzione generale e non alla soluzione particolare!
+			\begin{equation*}
+				\begin{array}{rcl}
+					\text{Esercizio di esempio:} &\longrightarrow& y'' - 2y' + y = \left(x-1\right)^{2} \\ [1em]
+					\text{Soluzione particolare:} &\longrightarrow& y\left(x\right) = y_{P}\left(x\right) + c_{1} e^{x} + c_{2} e^{x} \cdot x
+				\end{array}
+			\end{equation*}
+
 			\item \textbf{Coseno o seno}. In questo caso, è necessario scrivere entrambe le funzioni trigonometriche:
 			\begin{equation*}
 				\begin{array}{rcl}
@@ -324,6 +429,116 @@
 	\begin{equation*}
 		y\left(t\right) = t^{2} + t -1 + e^{t}
 	\end{equation*}\newpage
+
+	\subsection{Vari esercizi d'esame}
+
+	\subsubsection{Esame del 10/07/2023 - Gruppo A}
+
+	\textcolor{Green4}{\textbf{\emph{Si trovi la soluzione del seguente problema di Cauchy, definita per ogni $t \in \mathbb{R}$:}}}
+	\begin{equation*}
+		\begin{cases}
+			y''\left(t\right) - 2y'\left(t\right) + y\left(t\right) = \left(t-1\right)^{2} \\
+			y\left(0\right) = 1 \\
+			y'\left(0\right) = 0
+		\end{cases}
+	\end{equation*}
+	Il primo semplice passaggio è riscrivere l'equazione caratteristica corrispondente alla prima equazione e ottenere le relative soluzioni.
+	\begin{equation*}
+		\begin{array}{rcl}
+			y''\left(t\right) - 2y'\left(t\right) + y\left(t\right) &=& 0 \\ [.5em]
+			\lambda^{2} - 2\lambda + 1 &=& 0 \\
+			&\downarrow& \\
+			\lambda_{1} = \lambda_{2} &=& 1
+		\end{array}
+	\end{equation*}
+	Le soluzioni ottenute vengono inserite nella soluzione generale, ricordando di aggiungere una moltiplicazione per $t$ poiché le soluzioni $lambda$ sono uguali:
+	\begin{equation*}
+		y\left(t\right) = y_{P}\left(t\right) + c_{1} e^{1 \cdot t} + c_{2} e^{1 \cdot t} \cdot t
+	\end{equation*}
+	Si risolve con il metodo di somiglianza, quindi si scrive la soluzione particolare:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\left(t-1\right)^{2} &=& t^{2} -2t + 1 \\
+			y_{P}\left(t\right) &=& at^{2} + bt + c
+		\end{array}
+	\end{equation*}
+	Si eseguono le derivate prima e seconda poiché è necessario sostituirle nell'equazione originale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y_{P}\left(t\right) &=& at^{2} + bt + c \\ [.3em]
+			y_{P}'\left(t\right) &=& 2at + b \\ [.3em]
+			y_{P}''\left(t\right) &=& 2a
+		\end{array}
+	\end{equation*}
+	Sostituzione nell'equazione iniziale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y''\left(t\right) - 2y'\left(t\right) + y\left(t\right) &=& \left(t-1\right)^{2} \\ [.5em]
+			\left(2a\right) - 2\left(2at + b\right) + \left(at^{2} + bt + c\right) &=& t^{2} -2t + 1 \\ [.5em]
+			2a - 4at - 2b + at^{2} + bt + c &=& t^{2} -2t + 1 \\ [.5em]
+			\left(a\right)t^{2} + \left(-4a + b\right)t + \left(2a - 2b + c\right) &=& \left(1\right)t^{2} + \left(-2\right)t + \left(1\right)
+		\end{array}
+	\end{equation*}
+	Si costruisce il sistema relativo:
+	\begin{equation*}
+		\begin{cases}
+			a = 1 \\ 
+			-4a + b = -2 \\
+			2a - 2b + c = 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			a = 1 \\
+			b = 2 \\
+			2 - 2b + c = 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			a = 1 \\
+			b = 2 \\
+			c = 3
+		\end{cases}
+	\end{equation*}
+	Si inseriscono i valori delle incognite nella soluzione particolare:
+	\begin{equation*}
+		y_{P}\left(t\right) = at^{2} + bt + c = t^{2} + 2t + 3
+	\end{equation*}
+	E si riscrive l'integrale generale:
+	\begin{equation*}
+		y\left(t\right) = t^{2} + 2t + 3 + c_{1} e^{t} + c_{2} e^{t} \cdot t
+	\end{equation*}\newpage
+
+	\noindent
+	Adesso, si esegue la derivata parziale prima e si applicano le due condizioni iniziali rispetto $y$ e $y'$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y\left(t\right) &=& t^{2} + 2t + 3 + c_{1} e^{t} + c_{2} e^{t} \cdot t \\ [.5em]
+			y'\left(t\right) &=& 2t + 2 + c_{1} e^{t} + c_{2} e^{t} \cdot t + c_{2} e^{t}
+		\end{array}
+	\end{equation*}
+	Applicazione condizioni iniziali:
+	\begin{equation*}
+		\begin{cases}
+			1 = 0^{2} + 2 \cdot 0 + 3 + c_{1}e^{0} + c_{2}e^{0} \cdot 0 \\
+			0 = 2 \cdot 0 + 2 + c_{1} e^{0} + c_{2}e^{0} \cdot 0 + c_{2}e^{0}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			1 = 3 + c_{1} \\
+			0 = 2 + c_{1} + c_{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-2 = c_{1} \\
+			0 = c_{2}
+		\end{cases}
+	\end{equation*}
+	Infine, si riscrive la soluzione del problema di Cauchy:
+	\begin{equation*}
+		y\left(t\right) = t^{2} + 2t + 3 -2e^{t}
+	\end{equation*}
+
+	\newpage
 
 	\section{Esercizio 3 - Studio di funzione}
 
@@ -1710,7 +1925,7 @@
 
 	\subsubsection{Determinare valore di due parametri e trovare punti stazionari (con classificazione)}
 
-	Questa esercizio è una variante più complessa di quello ad un parametro, che si può trovare a pagina~\pageref{par: determinare valore di un parametro così da trovare un punto critico}. Anche in questo esercizio, l'obbiettivo è cercare di risolvere l'esercizio come se ci fossero valori reali, quindi si procede indifferenti. Il tema d'esame è quello del 01/03/2022 (A): \textcolor{Green4}{\textbf{\emph{Si consideri la funzione:}}
+	Questa esercizio è una variante più complessa di quello ad un parametro, che si può trovare a pagina~\pageref{par: determinare valore di un parametro così da trovare un punto critico}. Anche in questo esercizio, l'obiettivo è cercare di risolvere l'esercizio come se ci fossero valori reali, quindi si procede indifferenti. Il tema d'esame è quello del 01/03/2022 (A): \textcolor{Green4}{\textbf{\emph{Si consideri la funzione:}}
 	\begin{equation*}
 		f\left(x,y\right) = x^{2} + \alpha y^{2} - \beta x - y^{3}
 	\end{equation*}
