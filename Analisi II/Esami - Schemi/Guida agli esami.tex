@@ -1629,6 +1629,53 @@
 			\gamma\left(\theta\right) = \left(2\theta - 1, \theta^{\frac{3}{2}}\right), \theta \in \left[1,20\right]
 		\end{equation*}
 	\end{enumerate}
+	Per verificare se la funzione è continua, si sostituisce prima il valore $2$ e poi il valore $0$ all'interno della funzione. Se i risultati dei due limiti sono uguali, allora la funzione è continua, altrimenti no. I due valori appena citati, sono stati presi direttamente dal testo dell'esercizio.
+	\begin{equation*}
+		\begin{array}{rcl}
+			f\left(2,y\right) &=& \dfrac{2^{2} - 4 \cdot 2 + 4}{2^{2} + y^{2} - 4 \cdot 2 + 4} = \dfrac{0}{y^{2}} = 0 \\ [1em]
+			\displaystyle\lim_{x \rightarrow 2} f\left(2,y\right) &=& 0 \\ [1em]
+			f\left(x,0\right) &=& \dfrac{x^{2} - 4x + 4}{x^{2} + 0^{2} - 4x + 4} = \dfrac{x^{2} - 4x + 4}{x^{2} - 4x + 4} = 1 \\ [1em]
+			\displaystyle\lim_{y \rightarrow 0} f\left(x,0\right) &=& 1 \\ [1em]
+		\end{array}
+	\end{equation*}
+	I limiti sono diversi, quindi la funzione non è continua. Grazie a questo risultato, è possibile affermare anche che la funzione non è differenziabile! Questo perché la continuità è una condizione necessaria affinché una funzione sia differenziabile\footnote{\href{https://www.youmath.it/lezioni/analisi-due/varie/816-differenziabilita-di-una-funzione-a-due-variabili.html}{Quando una funzione è differenziabile?}}.\newline
+
+	\noindent
+	Adesso si passa alla parametrizzazione. Per calcolare la lunghezza, è necessario prima calcolare la derivata della parametrizzazione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma\left(\theta\right) &=& \left(2\theta - 1, \theta^{\frac{3}{2}}\right) \\ [1em]
+			\gamma'\left(\theta\right) &=& \left(2, \dfrac{3}{2}\theta^{\frac{1}{2}}\right) \\ [1em]
+			&=& \begin{cases}
+				x'\left(\theta\right) = 2 \\
+				y'\left(\theta\right) = \dfrac{3}{2}\theta^{\frac{1}{2}}
+			\end{cases}
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Adesso è possibile calcolare la lunghezza con la classica formula:
+	\begin{equation*}
+		L\left(\mathcal{L}\right) = \displaystyle\int_{a}^{b} || \gamma'\left(\theta\right) || \: \mathrm{d}\theta = \displaystyle\int_{a}^{b} \sqrt{x'\left(\theta\right)^{2} + y'\left(\theta\right)^{2}} \: \mathrm{d}\theta
+	\end{equation*}
+	Si sostituisce il punto $\theta$ fornito, ovvero $\theta \in \left[1,20\right]$, e si sostituiscono le due derivate della parametrizzazione:
+	\begin{equation*}
+		\begin{array}{lcl}
+			L\left(\mathcal{L}\right) &=& \displaystyle\int_{1}^{20} || \gamma'\left(\theta\right) || \: \mathrm{d}\theta = \displaystyle\int_{1}^{20} \sqrt{\left(2\right)^{2} + \left(\dfrac{3}{2}\theta^{\frac{1}{2}}\right)^{2}} \: \mathrm{d}\theta \\ [1em]
+			&=& \displaystyle\int_{1}^{20} \sqrt{4 + \dfrac{9}{4}\theta} \: \mathrm{d}\theta \\ [1em]
+			&\downarrow& \text{sostituzione per parti } t = 4+\frac{9}{4}\theta \hspace{1.5em} t' = \frac{9}{4} \hspace{1.5em} \mathrm{d}\theta = \frac{1}{t'} \:\mathrm{d}t \\ [1em]
+			&=& \displaystyle\int_{1}^{20} \sqrt{t} \cdot \dfrac{1}{\frac{9}{4}} \: \mathrm{d}t \\ [2em]
+			&=& \displaystyle\int_{1}^{20} \sqrt{t} \cdot \dfrac{4}{9} \: \mathrm{d}t \\ [2em]
+			&=& \dfrac{4}{9}\displaystyle\int_{1}^{20} \sqrt{t} \: \mathrm{d}t \\ [2em]
+			&=& \dfrac{4}{9}\displaystyle\int_{1}^{20} t^{\frac{1}{2}} \: \mathrm{d}t \\ [2em]
+			&=& \left. \dfrac{4}{9} \cdot \left(\dfrac{2}{3} t^{\frac{3}{2}}\right) \right|_{1}^{20} \\ [2em]
+			&=& \left. \dfrac{8}{27}\left(4 + \dfrac{9}{4}\theta\right)^{\frac{3}{2}} \right|_{1}^{20} \\ [2em]
+			&=& \dfrac{8}{27}\left(4 + \dfrac{9}{4} \cdot 20\right)^{\frac{3}{2}} - \dfrac{8}{27}\left(4 + \dfrac{9}{4} \cdot 1\right)^{\frac{3}{2}} \\ [2em]
+			&=& \dfrac{8}{27}\left(49\right)^{\frac{3}{2}} - \dfrac{8}{27}\left(\dfrac{25}{4}\right)^{\frac{3}{2}} \\ [2em]
+			&=& \dfrac{8}{27} \cdot 343 - \dfrac{8}{27}\left(\sqrt{\dfrac{15625}{64}}\right) \\ [2em]
+			&=& 97
+		\end{array}
+	\end{equation*}
 
 	\newpage
 
