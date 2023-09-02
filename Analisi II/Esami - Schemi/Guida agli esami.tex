@@ -990,10 +990,44 @@
 		
 		\item Connesso o sconnesso? L'insieme è sconnesso, possibile vederlo dalla figura e dalla condizione $x \ne 0$.
 	\end{itemize}
-	Si prosegue la risoluzione dell'esercizio risolvendo il punto $b$.
+	Si prosegue la risoluzione dell'esercizio risolvendo il punto $b$, il quale chiede di calcolare la derivata direzionale nel punto $P = \left(1,2\right)$ con vettore di coordinate $\overrightarrow{v} = \left(-\dfrac{1}{2}, \dfrac{\sqrt{3}}{2}\right)$.\newpage
 	
-	
-	\newpage
+	\noindent
+	Si inizia con il calcolo della derivata parziale rispetto a $x$:
+	\begin{equation*}
+		\begin{array}{lcl}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) &=& \sqrt[4]{2 - \left(x-1\right)^{2} - \left(y-1\right)^{2}} + e^{\frac{1}{x}} \\ [1em]
+			\dfrac{\partial f}{\partial x}\left(x,y\right) &=& \dfrac{1}{4 \cdot \sqrt[4]{\left(2-\left(x-1\right)^{2}-\left(y-1\right)^{2}\right)^{3}}} \cdot \left(-2x + 2\right) + \left(-x^{-2}\right) \cdot e^{\frac{1}{x}} \\ [2.5em]
+			\dfrac{\partial f}{\partial x}\left(x,y\right) &=& \dfrac{\left(-2x+2\right)}{4\sqrt[4]{\left(2-\left(x-1\right)^{2}-\left(y-1\right)^{2}\right)^{3}}} - \dfrac{1}{x^{2}} e^{\frac{1}{x}}
+		\end{array}
+	\end{equation*}
+	La derivata parziale rispetto a $y$:
+	\begin{equation*}
+		\begin{array}{lcl}
+			\dfrac{\partial f}{\partial y}\left(x,y\right) &=& \sqrt[4]{2 - \left(x-1\right)^{2} - \left(y-1\right)^{2}} + e^{\frac{1}{x}} \\ [1em]
+			\dfrac{\partial f}{\partial y}\left(x,y\right) &=& \dfrac{1}{4 \cdot \sqrt[4]{\left(2-\left(x-1\right)^{2}-\left(y-1\right)^{2}\right)^{3}}} \cdot \left(-2y + 2\right) + 0 \cdot e^{\frac{1}{x}} \\ [2.5em]
+			\dfrac{\partial f}{\partial y}\left(x,y\right) &=& \dfrac{\left(-2y+2\right)}{4\sqrt[4]{\left(2-\left(x-1\right)^{2}-\left(y-1\right)^{2}\right)^{3}}}
+		\end{array}
+	\end{equation*}
+	Adesso si provvede alla sostituzione del punto $P=\left(1,2\right)$ così da calcolare il gradiente $\nabla f\left(1,2\right)$:
+	\begin{equation*}
+		\begin{array}{lcl}
+			\dfrac{\partial f}{\partial x}\left(1,2\right) &=& \dfrac{\left(-2 \cdot \left(1\right) +2\right)}{4\sqrt[4]{\left(2 -\left(\left(1\right)-1\right)^{2}-\left(\left(2\right)-1\right)^{2}\right)^{3}}} - \dfrac{1}{1^{2}} e^{\frac{1}{1}} \\ [2.5em]
+			&=& 0 - e \\
+			&=& -e \\ [1em]
+			\dfrac{\partial f}{\partial y}\left(1,2\right) &=& \dfrac{\left(-2 \cdot \left(2\right) +2\right)}{4\sqrt[4]{\left(2 -\left(\left(1\right)-1\right)^{2}-\left(\left(2\right)-1\right)^{2}\right)^{3}}} \\ [2.5em]
+			&=& \dfrac{-2}{4} \\ [.8em]
+			&=& -\dfrac{1}{2} \\ [1em]
+			\nabla f \left(1,2\right) &=& \left(-e, -\dfrac{1}{2}\right)
+		\end{array}
+	\end{equation*}
+	Infine, si calcola la derivata direzionale eseguendo la moltiplicazione tra il gradiente e le coordinate del vettore $\overrightarrow{v}$:
+	\begin{equation*}
+		\begin{array}{lcl}
+			\dfrac{\partial f}{\partial \overrightarrow{v}}\left(1,2\right) = \nabla f\left(1,2\right) \cdot \overrightarrow{v} &=& \left(-e \cdot -\dfrac{1}{2}\right) + \left(-\dfrac{1}{2} \cdot \dfrac{\sqrt{3}}{2}\right) \\ [1em]
+			&=& \dfrac{e}{2} - \dfrac{\sqrt{3}}{4}
+		\end{array}
+	\end{equation*}\newpage
 
 	\section{Esercizio 4 - Stabilire se una funzione è continua e parametrizzazioni}
 
@@ -1570,6 +1604,33 @@
 		m = - \dfrac{\dfrac{\partial f}{\partial x}\left(1,0\right)}{\dfrac{\partial f}{\partial y}\left(1,0\right)} = - \dfrac{2}{e}
 	\end{equation*}
 	Attenzione che il valore meno appartiene alla formula del teorema di Dini e non è messo lì per caso.\newpage
+
+	\subsection{Vari esercizi d'esame}
+
+	\subsubsection{Esame del 10/07/2023 - Gruppo A}
+
+	\begin{enumerate}[label=\alph*)]
+		\item \textcolor{Green4}{\textbf{\emph{(2 punti) La funzione}}}
+		\begin{equation*}
+			f\left(x,y\right) = \begin{cases}
+				\dfrac{
+					x^{2} - 4x + 4
+				}{
+					x^{2} + y^{2} - 4x + 4
+				} & \left(x,y\right) \ne \left(2,0\right) \\
+				%
+				0 & \left(x,y\right) = \left(2,0\right)
+			\end{cases}
+		\end{equation*}
+		\textcolor{Green4}{\textbf{\emph{è continua e differenziabile in $\mathbb{R}^{2}$?}}}
+
+		\item \textcolor{Green4}{\textbf{\emph{(2 punti) calcolare la lunghezza dell'arco di curva piana parametrizzata da}}}
+		\begin{equation*}
+			\gamma\left(\theta\right) = \left(2\theta - 1, \theta^{\frac{3}{2}}\right), \theta \in \left[1,20\right]
+		\end{equation*}
+	\end{enumerate}
+
+	\newpage
 
 	\section{Esercizio 5 - Studio dei massimi, minimi, punti critici e di sella di una funzione}
 	
