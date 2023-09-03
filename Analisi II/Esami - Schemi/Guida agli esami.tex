@@ -1646,7 +1646,7 @@
 		\begin{array}{rcl}
 			\gamma\left(\theta\right) &=& \left(2\theta - 1, \theta^{\frac{3}{2}}\right) \\ [1em]
 			\gamma'\left(\theta\right) &=& \left(2, \dfrac{3}{2}\theta^{\frac{1}{2}}\right) \\ [1em]
-			&=& \begin{cases}
+			&\rightarrow& \begin{cases}
 				x'\left(\theta\right) = 2 \\
 				y'\left(\theta\right) = \dfrac{3}{2}\theta^{\frac{1}{2}}
 			\end{cases}
@@ -2523,6 +2523,242 @@
 		\overline{f}\left(x\right) = x^{2} + \dfrac{x^{3}}{2} \hspace{2em} x \in \left[-2\sqrt{2},\: +2\sqrt{2}\right]
 	\end{equation*}
 	Questo ragionamento è confermato dal fatto che calcolando il minimo assoluto nell'estremo dell'intervallo più piccolo, ovvero $\overline{f}\left(-2\sqrt{2}\right)$, la funzione restituisce $8-8\sqrt{2}$, cioè il minimo assoluto. Al contrario, con il valore $2\sqrt{2}$ si ottiene il massimo assoluto, ovvero $8+8\sqrt{2}$.\newpage
+
+	\subsection{Vari esercizi d'esame}
+
+	\subsubsection{Esame del 10/07/2023 - Gruppo A}
+
+	\textcolor{Green4}{\textbf{\emph{Si consideri la funzione:}}}
+	\begin{equation*}
+		f\left(x,y\right) = 2\alpha \left(x^{2} + y^{2} + 1\right) - \left(x^{4} - y^{4}\right)
+	\end{equation*}
+	\textcolor{Green4}{\textbf{\emph{con $\alpha$ parametro reale.}}}
+	\begin{enumerate}[label=\alph*)]
+		\item \textcolor{Green4}{\textbf{\emph{(2 punti) Posto $\alpha = 1$, determinare e classificare i punti stazionari della funzione $f$.}}}
+
+		\item \textcolor{Green4}{\textbf{\emph{(2 punti) Posto $\alpha = 0$, calcolare (se esistono) massimo e minimo assoluto della funzione $f$ su}}}
+		\begin{equation*}
+			E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} = 1\right\}
+		\end{equation*}
+	\end{enumerate}
+	Per risolvere il punto a, si inizia ponendo $\alpha = 1$:
+	\begin{equation*}
+		f\left(x,y\right) = 2\left(x^{2} + y^{2} + 1\right) - \left(x^{4} - y^{4}\right)
+	\end{equation*}
+	Per determinare i punti stazionari è necessario calcolare le derivate parziali della funzione, metterle a sistema e porle uguali a zero. La loro combinazione darà il/i punto/i stazionario/stazionari.
+	\begin{gather*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 4x - 4x^{3} \\
+			\\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = 4y + 4y^{3}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-4x^{3} + 4x = 0 \\
+			\\
+			4y^{3} + 4y = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x\left(-4x^{2} + 4\right) = 0 \\
+			\\
+			y\left(4y^{2} + 4\right) = 0
+		\end{cases}
+		\\
+		\rightarrow
+		\begin{cases}
+			x = 0 \lor x = \pm 1 \\
+			y = 0 \lor y = \pm i
+		\end{cases}
+	\end{gather*}
+	Adesso le combinazioni possibili sono:
+	\begin{itemize}
+		\begin{minipage}{.33\textwidth}
+			\item $P_{1} = \left(0, 0\right)$
+			\item $P_{2} = \left(0, i\right)$
+			\item $P_{3} = \left(0, -i\right)$
+		\end{minipage}
+		\begin{minipage}{.33\textwidth}
+			\item $P_{4} = \left(1, 0\right)$
+			\item $P_{5} = \left(1, i\right)$
+			\item $P_{6} = \left(1, -i\right)$
+		\end{minipage}
+		\begin{minipage}{.33\textwidth}
+			\item $P_{7} = \left(-1, 0\right)$
+			\item $P_{8} = \left(-1, i\right)$
+			\item $P_{9} = \left(-1, -i\right)$
+		\end{minipage}
+	\end{itemize}
+	\textbf{\underline{N.B.}} le uniche combinazioni possibili, ovvero gli unici punti stazionari ammessi, sono quelle che hanno valori reali. Di conseguenza, è possibile eliminare tutte le combinazioni con i valori immaginari:
+	\begin{equation*}
+		P_{1} = \left(0,0\right), \hspace{1em} P_{2} = \left(\pm 1, 0\right)
+	\end{equation*}
+	Adesso si provvede alla classificazione dei punti. Per cui, si crea la matrice Hessiana:
+	\begin{equation*}
+		H_f\left(x,y\right) = \begin{rowequmat}{cc}
+			\dfrac{\partial f}{\partial xx}\left(x,y\right) & \dfrac{\partial f}{\partial xy}\left(x,y\right) \\ [.8em]
+			\dfrac{\partial f}{\partial yx}\left(x,y\right) & \dfrac{\partial f}{\partial yy}\left(x,y\right)
+		\end{rowequmat}
+	\end{equation*}\newpage
+
+	\begin{gather*}
+		\begin{array}{lcl}
+			\dfrac{\partial f}{\partial xx}\left(x,y\right) = -12x^{2} + 4 	&\hspace{2em}& \dfrac{\partial f}{\partial xy}\left(x,y\right) = 0 \\ [1em]
+			\dfrac{\partial f}{\partial yx}\left(x,y\right) = 0				&\hspace{2em}& \dfrac{\partial f}{\partial yy}\left(x,y\right) = 12y^{2} + 4
+		\end{array}
+		\\
+		H_{f}\left(x,y\right) = \begin{rowequmat}{cc}
+			-12x^{2} + 4 & 0 \\
+			0 & 12y^{2} + 4
+		\end{rowequmat}
+	\end{gather*}
+	Si sostituiscono i valori all'interno della matrice Hessiana:
+	\begin{equation*}
+		\begin{array}{lclcl}
+			H_{f}\left(0,0\right) &=& \begin{rowequmat}{cc}
+				4 & 0 \\
+				0 & 4
+			\end{rowequmat} &\rightarrow& \det\left(H_{f}\left(0,0\right)\right) = 4 \cdot 4 = 16 \\ [1em]
+			H_{f}\left(1,0\right) &=& \begin{rowequmat}{cc}
+				-8 & 0 \\
+				0 & 4
+			\end{rowequmat} &\rightarrow& \det\left(H_{f}\left(1,0\right)\right) = -8 \cdot 4 = -32 \\ [1em]
+			H_{f}\left(-1,0\right) &=& \begin{rowequmat}{cc}
+				-8 & 0 \\
+				0 & 4
+			\end{rowequmat} &\rightarrow& \det\left(H_{f}\left(-1,0\right)\right) = -8 \cdot 4 = -32 \\ [1em]
+		\end{array}
+	\end{equation*}
+	Adesso è possibile valutare ciascun punto:
+	\begin{itemize}
+		\item $P_{1} = \left(0,0\right)$ ha determinante maggiore di zero ($= 16$) e derivata parziale rispetto a $x^{2}$ maggiore di zero ($= 4$), dunque è un \textbf{punto di minimo};
+		
+		\item $P_{2} = \left(\pm 1,0\right)$ ha determinante minore di zero ($= -32$), quindi è possibile subito affermare che sono \textbf{punti di sella}.
+	\end{itemize}
+	Adesso si prosegue con la risoluzione del punto b. Innanzitutto si pone $\alpha = 0$:
+	\begin{equation*}
+		f\left(x,y\right) = -x^{4} + y^{4}
+	\end{equation*}
+	Il massimo e minimo assoluto della funzione si calcolano con il metodo di Lagrange. La funzione lagrangiana dunque è formata con la funzione $f\left(x,y\right)$ e il vincolo:
+	\begin{equation*}
+		\mathcal{L}\left(x,y,\lambda\right) = -x^{4} + y^{4} - \lambda\left(x^{2} + y^{2} - 1\right)
+	\end{equation*}
+	Si crea il sistema con le tre derivate parziali (rispetto $x$, $y$ e $\lambda$):
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{\partial \mathcal{L}}{\partial x} = - 4x^{3} - \lambda\left(2x\right)\\
+			\\
+			\dfrac{\partial \mathcal{L}}{\partial y} = 4y^{3} - \lambda\left(2y\right) \\
+			\\
+			\dfrac{\partial \mathcal{L}}{\partial \lambda} = - x^{2} - y^{2} + 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			- 4x^{3} - 2x \lambda = 0 \\
+			4y^{3} - 2y \lambda = 0 \\
+			- x^{2} - y^{2} + 1 = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x\left(-4x^{2} - 2\lambda\right) = 0 \\
+			y\left(4y^{2} - 2 \lambda\right) = 0 \\
+			- x^{2} - y^{2} + 1 = 0
+		\end{cases}
+	\end{equation*}\newpage
+
+	\noindent
+	Si inizia con $x = 0$:
+	\begin{equation*}
+		\begin{array}{lcl}
+			\begin{cases}
+				0 = 0 \\
+				y\left(4y^{2} - 2 \lambda\right) = 0 \\
+				y^{2} = \pm 1
+			\end{cases}
+			&\xlongrightarrow{y = 1}&
+			\begin{cases}
+				0 = 0 \\
+				4 - 2 \lambda = 0 \\
+				y = 1
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				0 = 0 \\
+				\lambda = 2 \\
+				y = 1
+			\end{cases} \\
+			%
+			\\
+			%
+			&\xlongrightarrow{y = -1}&
+			\begin{cases}
+				0 = 0 \\
+				-4 +2 \lambda = 0 \\
+				y = -1
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				0 = 0 \\
+				\lambda = 2 \\
+				y = -1
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Si prosegue con $y = 0$:
+	\begin{equation*}
+		\begin{array}{lcl}
+			\begin{cases}
+				x\left(-4x^{2} - 2\lambda\right) = 0 \\
+				0 = 0 \\
+				x^{2} = \pm 1
+			\end{cases}
+			&\xlongrightarrow{x = 1}&
+			\begin{cases}
+				-4 - 2\lambda = 0 \\
+				0 = 0 \\
+				x = 1
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				\lambda = - 2 \\
+				0 = 0 \\
+				x = 1
+			\end{cases} \\
+			%
+			\\
+			%
+			&\xlongrightarrow{x = -1}&
+			\begin{cases}
+				4 + 2\lambda = 0 \\
+				0 = 0 \\
+				x = - 1
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				\lambda = -2 \\
+				0 = 0 \\
+				x = - 1
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Analizzando la terza equazione, ci si accorge che non esistono altre combinazioni:
+	\begin{equation*}
+		-x^{2} - y^{2} + 1 = 0 \rightarrow x^{2} = 1 - y^{2} \rightarrow x = \sqrt{1 - y^{2}}
+	\end{equation*}
+	Per rimanere nei reali, gli unici valori ammessi da $y$ sono $\pm 1$ e $0$. Tuttavia, quest'ultimi sono stati già trovati con i precedenti calcoli. Si conclude che i punti trovati sono:
+	\begin{equation*}
+		P_{1} = \left(0, \pm 1, 2\right) \hspace{1em} P_{2} = \left(\pm 1, 0, -2\right)
+	\end{equation*}
+	Tali punti si sostituiscono all'interno della funzione per verificare qual è il massimo e qual è il minimo:
+	\begin{equation*}
+		\begin{array}{lcl}
+			f\left(0, \pm 1\right) &=& 1 \\
+			f\left(\pm 1, 0\right) &=& -1 \\
+		\end{array}
+	\end{equation*}
+	Quindi il massimo valore assoluto è $1$ e il minimo valore assoluto è $-1$.
+
+	\newpage
 
 	\section{Esercizio 6 - Integrali doppi, volume e insiemi}
 
