@@ -1,0 +1,430 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}			% pacchetto per \chapter
+\usepackage[italian]{babel}
+\usepackage[italian]{isodate}  		% formato delle date in italiano
+\usepackage{graphicx}				% gestione delle immagini
+\usepackage{amsfonts}
+\usepackage{booktabs}				% tabelle di qualità superiore
+\usepackage{amsmath}				% pacchetto matematica
+\usepackage{mathtools}				% per sottolineare sotto le equazioni
+\usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
+\usepackage{amsthm}					% teoremi migliorati
+\usepackage{enumitem}				% gestione delle liste
+\usepackage{pifont}					% pacchetto con elenchi carini
+\usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
+\usepackage{cancel}					% per cancellare delle espressioni matematiche
+\usepackage{caption}				% caption personalizzati
+\usepackage[]{mdframed}				% box per il testo
+\usepackage{multirow}				% più linee in una tabella
+\usepackage{gensymb}				% simbolo di degree
+
+
+% draw a frame around given text
+\newcommand{\framedtext}[1]{%
+	\par%
+	\noindent\fbox{%
+		\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{#1}%
+	}%
+}
+
+
+
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+% Link ipertestuali per l'indice
+\usepackage{xcolor}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\hypersetup{
+	colorlinks=true
+}
+
+\usepackage{tikz}
+\newcommand{\MyTikzmark}[2]{%
+	\tikz[overlay,remember picture,baseline] \node [anchor=base] (#1) {#2};%
+}
+\newcommand{\DrawVLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.3ex, #1] (#2.north) -- (#3.south);
+	\end{tikzpicture}
+}
+\newcommand{\DrawHLine}[3][]{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw[shorten <=0.2em, #1] (#2.west) -- (#3.east);
+	\end{tikzpicture}
+}
+
+
+%\usepackage{showframe}				% visualizzazione bordi
+%\usepackage{showkeys}				% visualizzazione etichetta
+
+\newtheorem{theorem}{\textcolor{Red3}{\underline{Teorema}}}
+\newtheorem{lemma}{Lemma}
+\renewcommand{\qedsymbol}{QED}
+\newcommand{\exec}[1]{\llbracket #1\:\rrbracket}
+\newcommand{\dquotes}[1]{``#1''}
+\newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
+\newcommand{\circledtext}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
+
+\newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
+\newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
+
+\begin{document}
+	\author{VR443470}
+	\title{Schemi Analisi II}
+	\date{\printdayoff\today}
+	\maketitle
+	
+	\newpage
+	
+	% indice
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Prerequisiti}\label{section: prerequisiti}
+	
+	Il corso di Analisi II si articola in due macro sezioni: primo e secondo parziale. All'esame gli esercizi da svolgere saranno 10, suddivisi 5 per la prima parte e 5 per la seconda.
+	
+	Nonostante vengano date 3 ore per svolgere l'esame totale, dunque 1 ora e mezza per ciascuna prova parziale, il tempo è una risorsa fondamentale. Difatti, se un calcolo matematico dovesse richiedere una quantità eccessiva di risorse/tempo, si rischierebbe di non passare l'esame con esito positivo.
+	
+	Risulta dunque fondamentale, per ciascun studente, giungere con dei prerequisiti solidi e non banali. In questo capitolo si provvederà a fornire alcuni prerequisiti necessari per affrontare il percorso senza eccessive difficoltà.
+	
+	Ogni paragrafo presenterà degli esercizi e ognuno di essi sarà risolto nel seguente modo: il primo in modo approfondito per illustrare il modus operandi, gli altri facendo vedere i calcoli e risparmiando le spiegazioni prolisse. Chiaramente, nel caso in cui ci dovesse essere un caso particolare, esso verrà affrontato e spiegato passo passo.\newpage
+	
+	\subsection{Geometria analitica}\label{subsection: geometria analitica}
+	
+	\subsubsection{Circonferenza}\label{subsubsection: circonferenza}
+	
+	La circonferenza è graficamente rappresentata nel seguente modo:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/circonferenza.pdf}
+	\end{figure}
+	
+	\noindent
+	Chiamando con $C = \left(x_{C}, y_{C}\right)$ le coordinate del centro della circonferenza e con $r$ il raggio, la sua equazione generale è espressa nel seguente modo:
+	\begin{equation*}
+		\left(x-x_{C}\right)^{2} + \left(y-y_{C}\right)^{2} = r^{2}
+	\end{equation*}
+	Nel caso in cui la circonferenza fosse centrata nell'origine degli assi, ovvero $C = \left(0,0\right)$, allora l'equazione generale sarebbe ridotta a:
+	\begin{equation*}
+		x^{2} + y^{2} = r^{2}
+	\end{equation*}
+	Per essere più precisi, l'\textbf{equazione canonica} corrispondente alla circonferenza è la seguente:
+	\begin{equation*}
+		x^{2} + y^{2} + \alpha x + \beta y + \gamma = 0
+	\end{equation*}
+	Le formule più importanti per ricavare il centro della circonferenza $C$ e il raggio $r$:
+	\begin{equation*}
+		C = \left(-\dfrac{\alpha}{2}, -\dfrac{\beta}{2}\right) \hspace{1em} ; \hspace{1em} r = \sqrt{\dfrac{\alpha^{2}}{4} + \dfrac{\beta^{2}}{4} - \gamma}
+	\end{equation*}
+	Per ottenere l'equazione generale partendo dall'equazione canonica, si utilizza il metodo dei completamento dei quadrati (paragrafo~\ref{subsubsection: completamento dei quadrati}).\newline
+	
+	\noindent
+	Per ottenere il raggio nel caso in cui sia noto il centro $C$ e un punto $P = \left(x_{P}, y_{P}\right)$ appartenente alla circonferenza, si utilizza la seguente formula:
+	\begin{equation*}
+		r = \sqrt{\left(x_{P} - x_{C}\right)^{2} + \left(y_{P} - y_{C}\right)^{2}}
+	\end{equation*}
+	Per altri approfondimenti: \href{https://www.youmath.it/formulari/formulari-di-geometria-analitica/440-circonferenza-e-cerchio-nel-piano-cartesiano.html}{YouMath}.\newpage
+	
+	\subsubsection{Ellisse}\label{subsubsection: ellisse}
+	
+	Non esiste un'unica rappresentazione dell'ellisse, ma solitamente può essere facilmente riconoscibile perché di forma allungata:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/ellisse.pdf}
+	\end{figure}
+	
+	\noindent
+	Attenzione, che data l'\textbf{equazione canonica} dell'ellisse \textbf{centrata nell'origine}:
+	\begin{equation*}
+		\dfrac{x^{2}}{a^{2}} + \dfrac{y^{2}}{b^{2}} = 1 \hspace{2em} a \ne 0, \:\: b \ne 0
+	\end{equation*}
+	Il grafico corrisponde esattamente ad una circonferenza.\newline
+	
+	\noindent
+	Un'ellisse presenta quattro vertici nel caso in cui abbia centro nell'origine. Le relative coordinate sono:
+	\begin{equation*}
+		V_{1,2} = \left(\pm a, 0\right) \hspace{1em} V_{3,4} = \left(0, \pm b\right)
+	\end{equation*}
+	Per calcolare l'eccentricità di un'ellisse (\dquotes{quanto l'ellisse è schiacciata}) si devono confrontare i due valori $a^{2}$ e $b^{2}$:
+	\begin{equation*}
+		\begin{array}{rclcl}
+			e = \dfrac{c}{a} & \text{se} & a^{2} > b^{2} & \text{e quindi} & c = \sqrt{a^{2} - b^{2}}\\ [1em]
+			e = \dfrac{c}{b} & \text{se} & b^{2} > a^{2} & \text{e quindi} & c = \sqrt{b^{2} - a^{2}}
+		\end{array}
+	\end{equation*}
+	Il valore è compreso tra: $0 \le e < 1$.\newline
+	
+	\noindent
+	Nel caso in cui non fosse centrata nell'origine, l'\textbf{equazione canonica} di un'\textbf{ellisse traslata}, con $C=\left(x_{C}, y_{C}\right)$ come coordinate del centro:
+	\begin{equation*}
+		\dfrac{\left(x-x_{C}\right)^{2}}{a^{2}} + \dfrac{\left(y-y_{C}\right)^{2}}{b^{2}} = 1
+	\end{equation*}
+	I relativi vertici hanno le seguenti coordinate:
+	\begin{equation*}
+		\begin{array}{lcl}
+			V_{1} = \left(x_{C}-a, y_{C}\right) &;& V_{2} = \left(x_{C}+a, y_{C}\right) \\
+			V_{3} = \left(x_{C}, y_{C}-b\right) &;& V_{4} = \left(x_{C}, y_{C}+b\right) \\
+		\end{array}
+	\end{equation*}
+	L'\textbf{importanza dei vertici} è dovuta al fatto che se fosse necessario rappresentare l'ellisse su un piano cartesiano, grazie alle precedenti formule. È possibile ricordarsi facilmente le formule ricordando che le coordinate dei vertici sono ottenute eseguendo la somma/differenza prima sulla coordinata $x$ e poi sulla coordinata $y$.\newline
+	
+	\noindent
+	Per altri approfondimenti: \href{https://www.youmath.it/formulari/formulari-di-geometria-analitica/445-ellisse-nel-piano-cartesiano.html}{YouMath}.\newpage
+
+	\subsubsection{Iperbole}\label{subsubsection: iperbole}
+
+	Un iperbole con centro nell'origine ha un'equazione del tipo:
+	\begin{equation*}
+		\dfrac{x^{2}}{a^{2}} - \dfrac{y^{2}}{b^{2}} = \pm 1 \hspace{1.5em} \text{con } a \ne 0, \: b \ne 0
+	\end{equation*}
+	Il segno $+$ accanto all'$1$ rappresenta l'intersezione con l'asse delle ascisse ($x$), mentre il segno $-$ rappresenta l'intersezione con l'asse delle ordinate ($y$). Graficamente viene rappresentata nel seguente modo:\newline
+
+	\begin{minipage}{.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/iperbole_ascisse.pdf}
+		
+		\noindent
+		Con $+1$.
+	\end{minipage}
+	\begin{minipage}{.4\textwidth}
+		\centering
+		\includegraphics[width=.9\textwidth]{img/iperbole_ordinate.pdf}
+		
+		\noindent
+		Con $-1$.
+	\end{minipage}\newline
+
+	\noindent
+	Nel caso di una iperbole con gli assi paralleli agli assi cartesiani e quindi con centro in un punto $C = \left(x_{C}, y_{C}\right)$, essa è data da:
+	\begin{equation*}
+		\dfrac{\left(x-x_{C}\right)^{2}}{a^{2}} - \dfrac{\left(y-y_{C}\right)^{2}}{b^{2}} = \pm 1 \hspace{1.5em} \text{con } a \ne 0, \: b \ne 0
+	\end{equation*}
+	Dove il segno $\pm$ accanto all'$1$ indica la stessa cosa detta in precedenza.\newline
+	
+	\noindent
+	Per altri approfondimenti: \href{https://www.youmath.it/domande-a-risposte/view/6096-equazione-iperbole.html}{YouMath}.\newpage
+	
+	\subsubsection{Completamento dei quadrati}\label{subsubsection: completamento dei quadrati}
+	
+	Il completamento dei quadrati è un'operazione molto potente che può essere applicata sempre (a discapito dello studente se ha senso o no applicarla!). In questo caso viene applicata ad un'ellisse.\newline
+	
+	\noindent
+	Innanzitutto, la \textbf{prima operazione} dell'applicazione del completamento dei quadrati è il raggruppamento dei valori simili, ovverosia:
+	\begin{equation*}
+		\begin{array}{rcl}
+			9x^{2} + 4y^{2} + 36x - 24y + 36 &=& 0 \\
+			\left(9x^{2} + 36x\right) + \left(4y^{2} - 24y\right) + 36 &=& 0
+		\end{array}
+	\end{equation*}
+	La \textbf{seconda operazione} è prendere in considerazione i termini con le $x$, e poi quelli con le $y$, e cercare un quadrato. Ovvero sia un valore $c$ tale per cui il $\Delta$ (nella formula del calcolo di un'equazione di secondo grado $\Delta = b^{2} - 4 \cdot a \cdot c$) sia uguale a zero:
+	\begin{equation*}
+		\begin{array}{rcl}
+			9x^{2} + 36x &\longrightarrow& 36^{2} - 4 \cdot 9 \cdot c = 0 \\
+			&& 36^{2} - 36c = 0 \\
+			&& c = 36 \\ [1em]
+			4y^{2} - 24y &\longrightarrow& 24^{2} - 4 \cdot 4 \cdot c = 0 \\
+			&& 24^{2} - 16c = 0 \\
+			&& c = 36
+		\end{array}
+	\end{equation*}
+	\underline{Suggerimento}: per trovare tale valore, basta risolvere la banale equazione $b^{2} - 4 \cdot a \cdot c = 0$ con $c$ incognita e $a,b$ termini noti.\newline
+	
+	\noindent
+	La \textbf{terza operazione} è riscrivere l'equazione con i nuovi valori $c$, ma per lasciare invariata l'equazione è necessario annullarli, ovvero scrivere $c-c$ (nessun problema, con manipolazioni algebriche si riuscirà ad evitare di ritornare al punto di inizio):
+	\begin{equation*}
+		\left(9x^{2} + 36x + 36 - 36\right) + \left(4y^{2} - 24y + 36 - 36\right) + 36 = 0
+	\end{equation*}
+	Le manipolazioni algebriche riguardano $9x^{2} + 36x + 36$ e $4y^{2} - 24y + 36$. Ovvero, si riscrivono le due espressioni come quadrati!
+	\begin{equation*}
+		\begin{array}{rcl}
+			9x^{2} + 36x + 36 &\longrightarrow& 9\left(x+2\right)^{2} \\
+			4y^{2} - 24y + 36 &\longrightarrow& 4\left(y-3\right)^{2} \\
+		\end{array}
+	\end{equation*}
+	E si riscrive l'equazione generale:
+	\begin{equation*}
+		9\left(x+2\right)^{2} - 36 + 4\left(y-3\right)^{2} - 36 + 36 = 0
+	\end{equation*}
+	Banali semplificazioni algebriche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			9\left(x+2\right)^{2} \cancel{- 36} + 4\left(y-3\right)^{2} - 36 \cancel{+ 36} &=& 0 \\ [1em]
+			\dfrac{1}{36} \cdot \cancel{9}\left(x+2\right)^{2} + \cancel{4}\left(y-3\right)^{2} &=& \cancel{36} \cdot \dfrac{1}{\cancel{36}}  \\ [1em]
+			\dfrac{\left(x+2\right)^{2}}{4} + \dfrac{\left(y-3\right)^{2}}{9} &=& 1
+		\end{array}
+	\end{equation*}
+	Quest'ultima equazione corrisponde all'equazione canonica dell'ellisse.\newpage
+
+	\subsubsection{Esercizi}\label{subsubsection: esercizi (geometria analitica)}
+	
+	Si rappresenti analiticamente le seguenti equazioni canoniche:
+	\begin{enumerate}
+		\item $x^{2} + y^{2} - 4x + 2y - 6 = 0$
+		
+		\item $x^{2} + 4y^{2} - 1 = 0$
+		
+		\item $x^{2} - 4y^{2} - 1 = 0$
+		
+		\item $x^{2} - y^{2} + x + 4y - 4 = 0$
+		
+		\item $2x^{2} + y^{2} + 4x - y = 0$
+	\end{enumerate}
+	
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 1}}}
+	\end{flushleft}
+	
+	\noindent
+	Data l'equazione:
+	\begin{equation*}
+		x^{2} + y^{2} - 4x + 2y - 6 = 0
+	\end{equation*}
+	Prima di rappresentare analiticamente l'equazione, è necessario guardare immediatamente i termini $x^{2}$ e $y^{2}$ per vedere se si è di fronte ad una circonferenza. Infatti, ricordando l'equazione canonica della circonferenza (pagina~\pageref{subsubsection: circonferenza}):
+	\begin{equation*}
+		x^{2} + y^{2} + \alpha x + \beta y + \gamma = 0
+	\end{equation*}
+	Si può notare una grande assomiglianza. Quindi, si procede con il calcolo delle coordinate del centro della circonferenza:
+	\begin{equation*}
+		C = \left(-\dfrac{\alpha}{2}, -\dfrac{\beta}{2}\right) = \left(-\dfrac{\left(-4\right)}{2}, -\dfrac{2}{2}\right) = \left(2, -1\right)
+	\end{equation*}
+	Si procede con il calcolo del raggio:
+	\begin{equation*}
+		r = \sqrt{\dfrac{\alpha^{2}}{4} + \dfrac{\beta^{2}}{4} - \gamma} = \sqrt{\dfrac{\left(-4\right)^{2}}{4} + \dfrac{\left(2\right)^{2}}{4} - \left(-6\right)} = \sqrt{4 + 1 + 6} = \sqrt{11}
+	\end{equation*}
+	Infine, si scrive l'equazione canonica sostituendo i valori trovati:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\left(x-x_{C}\right)^{2} + \left(y-y_{C}\right)^{2} &=& r^{2} \\ [1em]
+			\left(x-2\right)^{2} + \left(y+1\right)^{2} &=& 11
+		\end{array}
+	\end{equation*}
+	
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 2}}}
+	\end{flushleft}
+	
+	\noindent
+	Data l'equazione:
+	\begin{equation*}
+		x^{2} + 4y^{2} - 1 = 0
+	\end{equation*}
+	Con una piccola manipolazione algebrica si può subito vedere che si è di fronte ad un'ellisse centrata nell'origine:
+	\begin{equation*}
+		x^{2} + 4y^{2} = 1
+	\end{equation*}
+	Si procede con un po' di intuito così da ricavare la forma canonica:
+	\begin{equation*}
+		\dfrac{\left(x-0\right)^{2}}{1^{2}} + \dfrac{\left(y-0\right)^{2}}{\left(\frac{1}{2}\right)^{2}} = 1
+	\end{equation*}
+	E il risultato (forma canonica) eliminando i termini inutili:
+	\begin{equation*}
+		\dfrac{x^{2}}{1^{2}} + \dfrac{y^{2}}{\frac{1}{4}} = 1 \hspace{1em} \xrightarrow{\text{equivale a}} \hspace{1em} x^{2} + 4y^{2} = 1
+	\end{equation*}\newpage
+	
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 3}}}
+	\end{flushleft}
+	
+	\noindent
+	Data l'equazione:
+	\begin{equation*}
+		x^{2} - 4y^{2} - 1 = 0
+	\end{equation*}
+	Con una piccola manipolazione algebrica si ottiene l'equazione:
+	\begin{equation*}
+		x^{2} - 4y^{2} = 1
+	\end{equation*}
+	Si tratta di un'iperbole che interseca l'asse delle ascisse ($x$) perché il segno dell'$1$ è $+$ ed è centrata nell'origine perché $x$ e $y$ \dquotes{non esistono}. Quindi:
+	\begin{equation*}
+		\dfrac{x^{2}}{1} - \dfrac{y^{2}}{\dfrac{1}{4}} = 1
+	\end{equation*}
+	
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 4}}}
+	\end{flushleft}
+
+	\noindent
+	Data l'equazione:
+	\begin{equation*}
+		x^{2} - y^{2} + x + 4y - 4 = 0
+	\end{equation*}
+	Ci si accorge immediatamente che è un iperbole a causa dei segni $x^{2}$ e $y^{2}$ discordi. Eseguendo alcune operazioni algebriche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x^{2} - y^{2} + x + 4y - 4 &=& 0 \\ [.5em]
+			x^{2} - y^{2} + x + 4y &=& 4 \\ [.5em]
+			\left(x^{2}+x\right) - \left(y^{2} - 4y\right) &=& 4
+		\end{array}
+	\end{equation*}
+	Si utilizza il completamento dei quadrati per ottenere la forma canonica:
+	\begin{gather*}
+		\begin{array}{rcl}
+			x^{2}+x & \longrightarrow 	& 1^{2} - 4 \cdot 1 \cdot c = 0 \\ [.5em]
+					&					& c = \dfrac{1}{4} \\ [1em]
+			y^{2}-4y& \longrightarrow	& \left(-4\right)^{2} - 4 \cdot 1 \cdot c = 0 \\ [.5em]
+					&					& c = 4
+		\end{array} \\ \\
+		\begin{array}{rcl}
+			\left(x^{2} + x + \dfrac{1}{4} - \dfrac{1}{4}\right) - \left(y^{2} - 4y + 4 - 4\right) &=& 4 \\ [1em]
+			%
+			\left[\left(x+1\right)^{2} - \dfrac{1}{4}\right] - \left[\left(y-2\right)^{2} - 4\right] &=& 4 \\ [1em]
+			%
+			\left(x+1\right)^{2} - \dfrac{1}{4} - \left(y-2\right)^{2} + 4 &=& 4 \\ [1em]
+			%
+			\left(x+1\right)^{2} - \left(y-2\right)^{2} &=& 4 - 4 + \dfrac{1}{4} \\ [1em]
+			%
+			\left(x+1\right)^{2} - \left(y-2\right)^{2} &=& \dfrac{1}{4} \\ [1em]
+			%
+			4\left(x+1\right)^{2} - 4\left(y-2\right)^{2} &=& 1 \\ [1em]
+			%
+			\dfrac{\left(x+1\right)^{2}}{\dfrac{1}{4}} - \dfrac{\left(y-2\right)^{2}}{\dfrac{1}{4}} &=& 1
+		\end{array}
+	\end{gather*}
+
+	\newpage
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 5}}}
+	\end{flushleft}
+
+	\noindent
+	Data l'equazione:
+	\begin{equation*}
+		2x^{2} + y^{2} + 4x - y = 0
+	\end{equation*}
+	Si utilizza il completamento dei quadrati:
+	\begin{equation*}
+		\begin{array}{rcl}
+			2x^{2} + y^{2} + 4x - y &=& 0 \\ [.5em]
+			\left(2x^{2} + 4x\right) + \left(y^{2} - y\right) &=& 0
+		\end{array}
+	\end{equation*}
+	\begin{gather*}
+		\begin{array}{rcl}
+			2x^{2} + 4x & \longrightarrow 	& 4^{2} - 4 \cdot 2 \cdot c = 0 \\ [.5em]
+						&					& c = 2 \\ [1em]
+			y^{2}-y 	& \longrightarrow	& \left(-1\right)^{2} - 4 \cdot 1 \cdot c = 0 \\ [.5em]
+						&					& c = \dfrac{1}{4}
+		\end{array} \\ \\
+		\begin{array}{rcl}
+			\left(2x^{2} + 4x + 2 - 2\right) + \left(y^{2} - y + \dfrac{1}{4} - \dfrac{1}{4}\right) &=& 0 \\ [1em]
+			%
+			\left[2\left(x+1\right)^{2} - 2\right] + \left[\left(y-\dfrac{1}{2}\right)^{2} - \dfrac{1}{4}\right] &=& 0 \\ [1em]
+			%
+			2\left(x+1\right)^{2} - 2 + \left(y-\dfrac{1}{2}\right)^{2} - \dfrac{1}{4} &=& 0 \\ [1em]
+			%
+			2\left(x+1\right)^{2} + \left(y-\dfrac{1}{2}\right)^{2} &=& 2 + \dfrac{1}{4} \\ [1em]
+			%
+			2\left(x+1\right)^{2} + \left(y-\dfrac{1}{2}\right)^{2} &=& \dfrac{9}{4} \\ [1em]
+			%
+			\dfrac{4}{9} \cdot 2 \cdot \left(x+1\right)^{2} + \dfrac{4}{9} \cdot \left(y-\dfrac{1}{2}\right)^{2} &=& 1 \\ [1em]
+			%
+			\dfrac{\left(x+1\right)^{2}}{\dfrac{9}{8}} + \dfrac{\left(y-\dfrac{1}{2}\right)^{2}}{\dfrac{9}{4}} &=& 1 \\ [1em]
+		\end{array}
+	\end{gather*}
+	L'equazione canonica si tratta di un'ellisse.\newpage
+
+	\subsection{Algebra}\label{subsection: algebra}
+	
+	\subsection{Calcolo differenziale e integrale}\label{subsection: calcolo differenziale e integrale}
+\end{document}
