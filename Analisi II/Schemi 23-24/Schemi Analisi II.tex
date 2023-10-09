@@ -82,12 +82,15 @@
 	
 	\section{Prerequisiti}\label{section: prerequisiti}
 	
-	Il corso di Analisi II si articola in due macro sezioni: primo e secondo parziale. All'esame gli esercizi da svolgere saranno 10, suddivisi 5 per la prima parte e 5 per la seconda.
+	Il corso di Analisi II si articola in due macro sezioni: primo e secondo parziale. All'esame gli esercizi da svolgere saranno 10, suddivisi 5 per la prima parte e 5 per la seconda.\newline
 	
-	Nonostante vengano date 3 ore per svolgere l'esame totale, dunque 1 ora e mezza per ciascuna prova parziale, il tempo è una risorsa fondamentale. Difatti, se un calcolo matematico dovesse richiedere una quantità eccessiva di risorse/tempo, si rischierebbe di non passare l'esame con esito positivo.
+	\noindent
+	Nonostante vengano date 3 ore per svolgere l'esame totale, dunque 1 ora e mezza per ciascuna prova parziale, il tempo è una risorsa fondamentale. Difatti, se un calcolo matematico dovesse richiedere una quantità eccessiva di risorse/tempo, si rischierebbe di non passare l'esame con esito positivo.\newline
 	
-	Risulta dunque fondamentale, per ciascun studente, giungere con dei prerequisiti solidi e non banali. In questo capitolo si provvederà a fornire alcuni prerequisiti necessari per affrontare il percorso senza eccessive difficoltà.
+	\noindent
+	Risulta dunque fondamentale, per ciascun studente, giungere con dei prerequisiti solidi e non banali. In questo capitolo si provvederà a fornire alcuni prerequisiti necessari per affrontare il percorso senza eccessive difficoltà.\newline
 	
+	\noindent
 	Ogni paragrafo presenterà degli esercizi e ognuno di essi sarà risolto nel seguente modo: il primo in modo approfondito per illustrare il modus operandi, gli altri facendo vedere i calcoli e risparmiando le spiegazioni prolisse. Chiaramente, nel caso in cui ci dovesse essere un caso particolare, esso verrà affrontato e spiegato passo passo.\newpage
 	
 	\subsection{Geometria analitica}\label{subsection: geometria analitica}
@@ -686,6 +689,7 @@
 		\textcolor{Green4}{\textbf{\underline{Esercizio 3}}}
 	\end{flushleft}
 
+	\noindent
 	Data l'equazione:
 	\begin{equation*}
 		\dfrac{y}{y+2} = mx^{2}
@@ -713,6 +717,7 @@
 		\textcolor{Green4}{\textbf{\underline{Esercizio 4}}}
 	\end{flushleft}
 
+	\noindent
 	Data l'equazione:
 	\begin{equation*}
 		\dfrac{1}{y+1} = \sqrt{x+2}-1
@@ -740,6 +745,7 @@
 		\textcolor{Green4}{\textbf{\underline{Esercizio 5}}}
 	\end{flushleft}
 
+	\noindent
 	Data l'equazione:
 	\begin{equation*}
 		\log{\dfrac{2-y}{1-y}} = x+3
@@ -769,4 +775,189 @@
 
 	\newpage
 	\subsection{Calcolo differenziale e integrale}\label{subsection: calcolo differenziale e integrale}
+
+	\subsubsection{Decomposizione in frazioni parziali}\label{subsubsection: decomposizione in frazioni parziali}
+
+	La decomposizione in frazioni parziali è un metodo per trasformare il rapporto tra due polinomi in una somma di frazioni più semplici.\newline
+	
+	\noindent
+	Questa tecnica viene inserita nel paragrafo degli integrali poiché spesso viene utilizzata per calcolare integrali che presentano frazioni apparentemente complesse.\newline
+
+	\noindent
+	Si presenta un integrale complesso:
+	\begin{equation*}
+		\displaystyle\int\dfrac{x^{2}}{\left(x^{2} - 1\right)^{2}} \: \mathrm{d}x
+	\end{equation*}
+	Innanzitutto, si eseguono alcune \textbf{operazioni preliminari}, ovverosia si prepara la frazione scomponendola il più possibile. In questo caso, al denominatore è possibile scomporre $x^{2}-1$ (ricordando $x^{2} = 1 \rightarrow x = \pm 1$):
+	\begin{equation*}
+		\displaystyle\int\dfrac{x^{2}}{\left[\left(x-1\right)\left(x+1\right)\right]^{2}} \: \mathrm{d}x
+	\end{equation*}
+	E inoltre, dato che vi è una potenza e una moltiplicazione all'interno, è possibile scomporre ancora di più:
+	\begin{equation*}
+		\displaystyle\int\dfrac{x^{2}}{\left(x-1\right)^{2}\left(x+1\right)^{2}} \: \mathrm{d}x
+	\end{equation*}
+	Adesso si parte con il vero algoritmo. Il \textbf{primo passo} è prendere ciascun fattore del denominatore e creare la sua corrispondenza con le lettere:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\left(x-1\right)^{2} &\longrightarrow& \dfrac{A}{x-1} + \dfrac{B}{\left(x-1\right)^{2}} \\ [1em]
+			\left(x+1\right)^{2} &\longrightarrow& \dfrac{C}{x+1} + \dfrac{D}{\left(x-1\right)^{2}}
+		\end{array}
+	\end{equation*}
+	Come si può notare, si parte dal grado minimo del fattore preso in considerazione, e lo si aumenta di grado fino a che non si trova il grado originario. Nel caso in cui ci fosse stato:
+	\begin{equation*}
+		\displaystyle \int\dfrac{1}{x\left(x-3\right)} \: \mathrm{d}x
+	\end{equation*}
+	Sarebbe bastato banalmente:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x &\longrightarrow& \dfrac{A}{x} \\ [1em]
+			x-3 &\longrightarrow& \dfrac{B}{x-3}
+		\end{array}
+	\end{equation*}
+	Ovviamente le lettere sono numeri reali da determinare (lo scopo dell'algoritmo). Quindi, il \textbf{secondo passo} è riscrivere i termini appena notati come un'uguaglianza:
+	\begin{equation*}
+		\dfrac{x^{2}}{\left(x^{2} - 1\right)^{2}} = \dfrac{A}{x-1} + \dfrac{B}{\left(x-1\right)^{2}} + \dfrac{C}{x+1} + \dfrac{D}{\left(x-1\right)^{2}}
+	\end{equation*}
+	Il \textbf{terzo passo} è mettere tutti i termini a denominatore comune:
+	\begin{equation*}
+		\dfrac{x^{2}}{\left(x^{2} - 1\right)^{2}} = \dfrac{
+			A\left(x-1\right)\left(x+1\right)^{2} +
+			B\left(x+1\right)^{2} +
+			C\left(x-1\right)^{2}\left(x+1\right) +
+			D\left(x-1\right)^{2}
+		}{
+			\left(x-1\right)^{2}\left(x+1\right)^{2}
+		}
+	\end{equation*}
+	Il \textbf{quarto passo} è eliminare il denominatore:
+	\begin{equation*}
+		x^{2} = A\left(x-1\right)\left(x+1\right)^{2} +
+		B\left(x+1\right)^{2} +
+		C\left(x-1\right)^{2}\left(x+1\right) +
+		D\left(x-1\right)^{2}
+	\end{equation*}
+	Il \textbf{quinto passo} è eseguire i calcoli e cercare di raggruppare i termini in comune:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x^{2} &=& A\left(x-1\right)\left(x+1\right)^{2} + B\left(x+1\right)^{2} + C\left(x-1\right)^{2}\left(x+1\right) + D\left(x-1\right)^{2} \\ [1em]
+			%
+			x^{2} &=& Ax^{3} + Cx^{3} + Ax^{2} - Cx^{2} + Dx^{2} - Ax + 2Bx - Cx - A + B + C + D \\ [1em]
+			%
+			x^{2} &=& \left(A+C\right)x^{3} + \left(A+B-C+D\right) x^{2} + \left(-A+2B-C-2D\right)x - A+B+C+D
+		\end{array}
+	\end{equation*}
+	Il \textbf{sesto passo} è costruire un sistema che avrà come incognite le lettere e come valori noti $1$ se vi è una corrispondenza con le $x$, $0$ altrimenti. Quindi, in questo caso solo il fattore $\left(A+B-C+D\right)$ avrà $1$ nel sistema:
+	\begin{equation*}
+		\begin{cases}
+			A+C = 0 \\
+			A+B-C+D = 1 \\
+			-A+2B-C-2D = 0 \\
+			-A +B +C +D = 0
+		\end{cases}
+	\end{equation*}
+	Usando il metodo di sostituzione si ottengono i valori:
+	\begin{equation*}
+		A=\dfrac{1}{4}; \hspace{.5em}
+		B=\dfrac{1}{4}; \hspace{.5em}
+		C=-\dfrac{1}{4}; \hspace{.5em}
+		D=\dfrac{1}{4};
+	\end{equation*}
+	Il \textbf{settimo passo} è sostituire i valori trovati all'interno dell'uguaglianza scritta con le lettere:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{x^{2}}{\left(x^{2} - 1\right)^{2}} &=& \dfrac{A}{x-1} + \dfrac{B}{\left(x-1\right)^{2}} + \dfrac{C}{x+1} + \dfrac{D}{\left(x-1\right)^{2}} \\ [2em]
+			%
+			\dfrac{x^{2}}{\left(x^{2} - 1\right)^{2}} &=& \dfrac{\dfrac{1}{4}}{x-1} + \dfrac{\dfrac{1}{4}}{\left(x-1\right)^{2}} + \dfrac{\dfrac{1}{4}}{x+1} + \dfrac{\dfrac{1}{4}}{\left(x-1\right)^{2}} \\ [2em]
+			%
+			\dfrac{x^{2}}{\left(x^{2} - 1\right)^{2}} &=& \dfrac{1}{4\left(x-1\right)} + \dfrac{1}{4\left(x-1\right)^{2}} + \dfrac{1}{4\left(x+1\right)} + \dfrac{1}{4\left(x+1\right)^{2}}
+		\end{array}
+	\end{equation*}
+	L'\textbf{ottavo} e ultimo \textbf{passo} è riscrivere l'integrale con i termini appena trovati. Adesso è evidente che il calcolo risulta molto più semplice:
+	\begin{equation*}
+		\displaystyle\int\dfrac{x^{2}}{\left(x^{2} - 1\right)^{2}} \: \mathrm{d}x = \int \left(
+			\dfrac{1}{4\left(x-1\right)} + \dfrac{1}{4\left(x-1\right)^{2}} + \dfrac{1}{4\left(x+1\right)} + \dfrac{1}{4\left(x+1\right)^{2}}
+		\right) \: \mathrm{d}x
+	\end{equation*}
+	Fonte: \href{https://www.youmath.it/forum/sezione-speciale-per-i-topic-a-pagamento/94247-metodo-delle-frazioni-parziali-applicato-agli-integrali-indefiniti.html}{YouMath}.\newpage
+
+	\subsubsection{Esercizi}\label{subsubsection: esercizi (calcolo differenziale e integrale)}
+
+	Calcolare la derivata delle seguenti funzioni:
+	\begin{enumerate}
+		\item $f\left(x\right) = \sqrt{\cos\left(3x+1\right)}$
+
+		\item $f\left(x\right) = \left(2x+1\right) \exp\left(-\dfrac{1}{2}x^{2}\right)$
+	\end{enumerate}
+	Calcolare i seguenti integrali:
+	\begin{enumerate}[resume]
+		\item $\displaystyle \int\dfrac{1}{x^{2} - 3x} \: \mathrm{d}x$
+
+		\item $\displaystyle \int x^{3} e^{-x^{2}} \: \mathrm{d}x$
+
+		\item $\displaystyle \int\dfrac{1}{\sqrt[3]{t-1}} \: \mathrm{d}t$
+
+		\item $\displaystyle \int\dfrac{t}{\sqrt{t^{2} - 1}} \: \mathrm{d}t$
+
+		\item $\displaystyle \int\dfrac{1}{4 + y^{2}} \: \mathrm{d}y$
+
+		\item $\displaystyle \int x \sqrt{1+x^{2}} \: \mathrm{d}x$
+	\end{enumerate}
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 1}}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x\right) = \sqrt{\cos\left(3x+1\right)}
+	\end{equation*}
+	La sua derivata è la seguente:
+	\begin{equation*}
+		\begin{array}{rcl}
+			f'\left(x\right) &=& \dfrac{1}{2 \cdot \sqrt{\left(\cos\left(3x+1\right)\right)^{1}}} \cdot \left(-\sin\left(3x+1\right) \cdot 3\right) \\ [2em]
+			%
+			f'\left(x\right) &=& - \dfrac{3 \sin\left(3x+1\right)}{2 \sqrt{\cos\left(3x+1\right)}}
+		\end{array}
+	\end{equation*}
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 2}}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x\right) = \left(2x+1\right) \exp\left(-\dfrac{1}{2}x^{2}\right)
+	\end{equation*}
+	La sua derivata è la seguente:
+	\begin{equation*}
+		\begin{array}{rcl}
+			f'\left(x\right) &=& 2 \cdot \exp\left(-\dfrac{1}{2}x^{2}\right) + \left(2x+1\right) \cdot \left(-x\right) \cdot \exp\left(-\dfrac{1}{2}x^{2}\right)\\ [2em]
+			%
+			f'\left(x\right) &=& 2 \cdot \exp\left(-\dfrac{1}{2}x^{2}\right) - 2x^{2}\exp\left(-\dfrac{1}{2}x^{2}\right) - x\exp\left(-\dfrac{1}{2}x^{2}\right)
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 3}}}
+	\end{flushleft}
+
+	\noindent
+	Dato l'integrale:
+	\begin{equation*}
+		\displaystyle \int\dfrac{1}{x^{2} - 3x} \: \mathrm{d}x
+	\end{equation*}
+	Si procede con la risoluzione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			&& \displaystyle \int\dfrac{1}{x^{2} - 3x} \: \mathrm{d}x \\ [1em]
+			%
+			&=& \displaystyle \int\dfrac{1}{x\left(x-3\right)} \: \mathrm{d}x \\ [2em]
+			%
+			&\downarrow& \text{ si utilizza la decomposizione in frazioni parziali (pag. \pageref{subsubsection: decomposizione in frazioni parziali})} \\ [1.5em]
+			%
+			\dfrac{1}{x^{2}-3x} &=& \dfrac{A}{x} + \dfrac{B}{x-3}
+		\end{array}
+	\end{equation*}
 \end{document}
