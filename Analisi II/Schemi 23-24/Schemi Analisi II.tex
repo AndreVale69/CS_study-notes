@@ -364,21 +364,21 @@
 					&					& c = \dfrac{1}{4} \\ [1em]
 			y^{2}-4y& \longrightarrow	& \left(-4\right)^{2} - 4 \cdot 1 \cdot c = 0 \\ [.5em]
 					&					& c = 4
-		\end{array} \\ \\
+		\end{array} \\
 		\begin{array}{rcl}
 			\left(x^{2} + x + \dfrac{1}{4} - \dfrac{1}{4}\right) - \left(y^{2} - 4y + 4 - 4\right) &=& 4 \\ [1em]
 			%
-			\left[\left(x+1\right)^{2} - \dfrac{1}{4}\right] - \left[\left(y-2\right)^{2} - 4\right] &=& 4 \\ [1em]
+			\left[\left(x+\dfrac{1}{2}\right)^{2} - \dfrac{1}{4}\right] - \left[\left(y-2\right)^{2} - 4\right] &=& 4 \\ [1em]
 			%
-			\left(x+1\right)^{2} - \dfrac{1}{4} - \left(y-2\right)^{2} + 4 &=& 4 \\ [1em]
+			\left(x+\dfrac{1}{2}\right)^{2} - \dfrac{1}{4} - \left(y-2\right)^{2} + 4 &=& 4 \\ [1em]
 			%
-			\left(x+1\right)^{2} - \left(y-2\right)^{2} &=& 4 - 4 + \dfrac{1}{4} \\ [1em]
+			\left(x+\dfrac{1}{2}\right)^{2} - \left(y-2\right)^{2} &=& 4 - 4 + \dfrac{1}{4} \\ [1em]
 			%
-			\left(x+1\right)^{2} - \left(y-2\right)^{2} &=& \dfrac{1}{4} \\ [1em]
+			\left(x+\dfrac{1}{2}\right)^{2} - \left(y-2\right)^{2} &=& \dfrac{1}{4} \\ [1em]
 			%
-			4\left(x+1\right)^{2} - 4\left(y-2\right)^{2} &=& 1 \\ [1em]
+			4\left(x+\dfrac{1}{2}\right)^{2} - 4\left(y-2\right)^{2} &=& 1 \\ [1em]
 			%
-			\dfrac{\left(x+1\right)^{2}}{\dfrac{1}{4}} - \dfrac{\left(y-2\right)^{2}}{\dfrac{1}{4}} &=& 1
+			\dfrac{\left(x+\dfrac{1}{2}\right)^{2}}{\dfrac{1}{4}} - \dfrac{\left(y-2\right)^{2}}{\dfrac{1}{4}} &=& 1
 		\end{array}
 	\end{gather*}
 
@@ -425,6 +425,348 @@
 	L'equazione canonica si tratta di un'ellisse.\newpage
 
 	\subsection{Algebra}\label{subsection: algebra}
+
+	\subsubsection{Esercizi}\label{subsubsection: esercizi (algebra)}
+
+	Risolvere le seguenti equazioni e i seguenti sistemi di equazioni algebriche:
+	\begin{enumerate}
+		\item $\begin{cases}
+			3x^{2}y - 6xy = 0 \\
+			x^{3} + 4y^{3} - 3x^{2} = 0
+		\end{cases}$
+
+		\item $\begin{cases}
+			x^{2} = \lambda x \\
+			y^{2} = 4\lambda y \\
+			x^{2} + 2y^{2} = 1
+		\end{cases}$
+
+		\item $\dfrac{y}{y+2} = mx^{2}$ (risolvere rispetto a $y$)
+		
+		\item $\dfrac{1}{y+1} = \sqrt{x+2}-1$ (risolvere rispetto a $y$)
+		
+		\item $\log{\dfrac{2-y}{1-y}} = x+3$ (risolvere rispetto a $y$)
+	\end{enumerate}
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 1}}}
+	\end{flushleft}
 	
+	\noindent
+	Dato il sistema:
+	\begin{equation*}
+		\begin{cases}
+			3x^{2}y - 6xy = 0 \\
+			x^{3} + 4y^{3} - 3x^{2} = 0
+		\end{cases}
+	\end{equation*}
+	Per trovare tutti i valori che annullano il sistema, si inizia con qualche manipolazione algebrica:
+	\begin{equation*}
+		\begin{cases}
+			3y \left(x^{2} - 2x\right) = 0 \\
+			x^{3} + 4y^{3} - 3x^{2} = 0
+		\end{cases}
+	\end{equation*}
+	Quale valore annulla $x^{2}-2x$? Si calcola:
+	\begin{equation*}
+		x^{2}-2x \longrightarrow x\left(x-2\right)
+	\end{equation*}
+	Quindi le soluzioni sono $0$ e $2$. Per cui i valori che annullano il sistema per adesso sono:
+	\begin{equation*}
+		y=0 
+		\longrightarrow
+		\begin{cases}
+			0 = 0 \\
+			x^{3} - 3x^{2} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			0 = 0 \\
+			x^{2}\left(x - 3\right) = 0
+		\end{cases}
+		\longrightarrow
+		x = 0; x = 3
+	\end{equation*}
+	Con $x = 0$ si è già trovata una soluzione ($y=0$), quindi si prova $x=2$:
+	\begin{equation*}
+		x = 2
+		\longrightarrow
+		\begin{cases}
+			0 = 0 \\
+			2^{3} + 4y^{3} - 3 \cdot 2^{2} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			0 = 0 \\
+			y^{3} = 1
+		\end{cases}
+	\end{equation*}
+	Le soluzioni sono terminate, quindi i possibili valori sono:
+	\begin{itemize}
+		\item $\left(x=0, y=0\right)$
+		\item $\left(x=3, y=0\right)$
+		\item $\left(x=2, y=1\right)$
+	\end{itemize}\newpage
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 2}}}
+	\end{flushleft}
+	
+	\noindent
+	Dato il sistema:
+	\begin{equation*}
+		\begin{cases}
+			x^{2} = \lambda x \\
+			y^{2} = 4\lambda y \\
+			x^{2} + 2y^{2} = 1
+		\end{cases}
+	\end{equation*}
+	Si eseguono alcune manipolazioni algebriche:
+	\begin{equation*}
+		\begin{cases}
+			x^{2} - \lambda x = 0 \\
+			y^{2} - 4\lambda y= 0 \\
+			x^{2} + 2y^{2} = 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x\left(x - \lambda\right) = 0 \\
+			y\left(y - 4\lambda\right) = 0 \\
+			x^{2} + 2y^{2} = 1
+		\end{cases}
+	\end{equation*}
+	I primi valori che si provano sono i soliti $x = 0$ e $y = 0$. Si inizia con $x=0$:
+	\begin{equation*}
+		\begin{array}{lllll}
+			\begin{cases}
+				0 = 0 \\
+				y\left(y - 4\lambda\right) = 0 \\
+				0 + 2y^{2} = 1
+			\end{cases}
+			&\longrightarrow&
+			\begin{cases}
+				0 = 0 \\
+				y\left(y - 4\lambda\right) = 0 \\
+				y^{2} = \dfrac{1}{2}
+			\end{cases}
+			&\longrightarrow&
+			\begin{cases}
+				0 = 0 \\
+				y\left(y - 4\lambda\right) = 0 \\
+				y = \pm\dfrac{1}{\sqrt{2}}
+			\end{cases} \\ [2.5em]
+			%
+			\begin{cases}
+				0 = 0 \\
+				\\
+				\dfrac{1}{\sqrt{2}} \left(\dfrac{1}{\sqrt{2}} - 4\lambda\right) = 0 \\
+				\\
+				y = \dfrac{1}{\sqrt{2}}
+			\end{cases}
+			&\longrightarrow&
+			\begin{cases}
+				0 = 0 \\
+				\\
+				\dfrac{1}{2} - \dfrac{4\lambda}{\sqrt{2}} = 0 \\
+				\\
+				y = \dfrac{1}{\sqrt{2}}
+			\end{cases}
+			&\longrightarrow&
+			\begin{cases}
+				0 = 0 \\
+				\\
+				\dfrac{\sqrt{2}}{4} \cdot \dfrac{4\lambda}{\sqrt{2}} = \dfrac{1}{2} \cdot \dfrac{\sqrt{2}}{4} \\
+				\\
+				y = \dfrac{1}{\sqrt{2}}
+			\end{cases} \\ [2.5em]
+			%
+			\begin{cases}
+				0 = 0 \\
+				\\
+				\lambda = \pm\dfrac{\sqrt{2}}{8} \\
+				\\
+				y = \dfrac{1}{\sqrt{2}}
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Si prosegue con $y=0$:
+	\begin{equation*}
+		\begin{array}{lllll}
+			\begin{cases}
+				x\left(x-\lambda\right) = 0 \\
+				0 = 0 \\
+				x^{2} + 0 = 1
+			\end{cases}
+			&\longrightarrow&
+			\begin{cases}
+				x\left(x-\lambda\right) = 0 \\
+				0 = 0 \\
+				x = \pm 1
+			\end{cases}
+			&\longrightarrow&
+			\begin{cases}
+				\lambda = \pm 1 \\
+				0 = 0 \\
+				x = \pm 1 
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Per concludere l'esercizio, si deve riscrivere il sistema utilizzando operazioni permesse dall'algebra:
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{1}{x} \cdot x^{2} = \lambda x \cdot \dfrac{1}{x} \\
+			\\
+			\dfrac{1}{y} \cdot y^{2} = 4\lambda y \cdot \dfrac{1}{y} \\
+			\\
+			x^{2} + 2y^{2} = 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = \lambda \\
+			y = 4\lambda \\
+			x^{2} + 2y^{2} = 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = \lambda \\
+			y = 4\lambda \\
+			\left(\lambda\right)^{2} + 2\left(4\lambda\right)^{2} = 1
+		\end{cases}
+	\end{equation*}
+	È evidente che con questa piccola manipolazione algebrica, i calcoli risultano più semplici. Adesso si calcola il quadrato di lambda e si trovano le sue soluzioni per concludere l'esercizio:
+	\begin{equation*}
+		\begin{cases}
+			x = \lambda \\
+			y = 4\lambda \\
+			\lambda^{2} + 32\lambda^{2} = 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = \lambda \\
+			y = 4\lambda \\
+			33\lambda^{2} = 1
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = \lambda \\
+			y = 4\lambda \\
+			\lambda^{2} = \dfrac{1}{33}
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			x = \lambda \\
+			y = 4\lambda \\
+			\lambda = \pm \dfrac{1}{\sqrt{33}}
+		\end{cases}
+	\end{equation*}
+	Si sostituisce $\lambda$ all'interno di $x$ e $y$:
+	\begin{equation*}
+		\begin{cases}
+			x = \pm \dfrac{1}{\sqrt{33}} \\
+			y = \pm \dfrac{4}{\sqrt{33}} \\
+			\lambda = \pm \dfrac{1}{\sqrt{33}}
+		\end{cases}
+	\end{equation*}
+	Le soluzioni sono terminate, sono state valutate tutte le linee del sistema. Quindi, i valori possibili sono:
+	\begin{itemize}
+		\item $\left(x=0, y=\dfrac{1}{\sqrt{2}}, \lambda=\dfrac{\sqrt{2}}{8}\right)$
+
+		\item $\left(x=0, y=-\dfrac{1}{\sqrt{2}}, \lambda=-\dfrac{\sqrt{2}}{8}\right)$
+
+		\item $\left(x=1, y=0, \lambda=1\right)$
+
+		\item $\left(x=-1, y=0, \lambda=-1\right)$
+
+		\item $\left(x=\dfrac{1}{\sqrt{33}}, y=\dfrac{4}{\sqrt{33}}, \lambda=\dfrac{1}{\sqrt{33}}\right)$
+
+		\item $\left(x=-\dfrac{1}{\sqrt{33}}, y=-\dfrac{4}{\sqrt{33}}, \lambda=-\dfrac{1}{\sqrt{33}}\right)$
+	\end{itemize}\newpage
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 3}}}
+	\end{flushleft}
+
+	Data l'equazione:
+	\begin{equation*}
+		\dfrac{y}{y+2} = mx^{2}
+	\end{equation*}
+	Si deve risolvere rispetto a $y$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{y}{y+2} &=& mx^{2} \\ [1em]
+			%
+			\dfrac{y+2}{1} \cdot \dfrac{y}{y+2} &=& mx^{2} \cdot \dfrac{y+2}{1} \\ [1em]
+			%
+			y &=& mx^{2}y + 2 m x^{2} \\ [1em]
+			%
+			y - mx^{2}y &=& 2 m x^{2} \\ [1em]
+			%
+			y\left(1 - mx^{2}\right) &=& 2 m x^{2} \\ [1em]
+			%
+			\dfrac{1}{1 - mx^{2}} \cdot y\left(1 - mx^{2}\right) &=& 2 m x^{2} \cdot \dfrac{1}{1 - mx^{2}} \\ [1em]
+			%
+			y &=& \dfrac{2 m x^{2}}{1 - mx^{2}}
+		\end{array}
+	\end{equation*}
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 4}}}
+	\end{flushleft}
+
+	Data l'equazione:
+	\begin{equation*}
+		\dfrac{1}{y+1} = \sqrt{x+2}-1
+	\end{equation*}
+	Si deve risolvere rispetto a $y$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{1}{y+1} &=& \sqrt{x+2}-1 \\ [1em]
+			%
+			\left(y+1\right) \cdot \dfrac{1}{y+1} &=& \left(\sqrt{x+2}-1\right) \cdot \left(y+1\right) \\ [1em]
+			%
+			1 &=& y\sqrt{x+2} + \sqrt{x+2} -y -1 \\ [1em]
+			%
+			-y\sqrt{x+2} + y &=& -2 + \sqrt{x+2} \\ [1em]
+			%
+			y\left(-\sqrt{x+2} + 1\right) &=& \sqrt{x+2} - 2 \\ [1em]
+			%
+			\dfrac{1}{1 - \sqrt{x+2}} \cdot y\left(-\sqrt{x+2} + 1\right) &=& \left(\sqrt{x+2} - 2\right) \cdot \dfrac{1}{1 - \sqrt{x+2}} \\ [1em]
+			%
+			y &=& \dfrac{\sqrt{x+2} -2}{1-\sqrt{x+2}}
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 5}}}
+	\end{flushleft}
+
+	Data l'equazione:
+	\begin{equation*}
+		\log{\dfrac{2-y}{1-y}} = x+3
+	\end{equation*}
+	Si deve risolvere rispetto a $y$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\log{\dfrac{2-y}{1-y}} &=& x+3 \\ [1em]
+			%
+			\dfrac{2-y}{1-y} &=& 10^{x+3} \\ [1em]
+			%
+			\left(1-y\right) \cdot \dfrac{2-y}{1-y} &=& 10^{x+3} \cdot \left(1-y\right) \\ [1em]
+			%
+			2-y &=& 10^{x+3} - 10^{x+3}y \\ [1em]
+			%
+			-y &=& 10^{x+3} - 10^{x+3}y -2 \\ [1em]
+			%
+			-y + 10^{x+3}y &=& 10^{x+3} - 2 \\ [1em]
+			%
+			y\left(-1 + 10^{x+3}\right) &=& 10^{x+3} - 2 \\ [1em]
+			%
+			\dfrac{1}{-1 + 10^{x+3}} \cdot y\left(-1 + 10^{x+3}\right) &=& \left(10^{x+3} - 2\right) \cdot \dfrac{1}{-1 + 10^{x+3}} \\ [1em]
+			%
+			y &=& \dfrac{10^{x+3} - 2}{10^{x+3} - 1}
+		\end{array}
+	\end{equation*}
+
+	\newpage
 	\subsection{Calcolo differenziale e integrale}\label{subsection: calcolo differenziale e integrale}
 \end{document}
