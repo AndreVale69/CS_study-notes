@@ -776,6 +776,94 @@
 	\newpage
 	\subsection{Calcolo differenziale e integrale}\label{subsection: calcolo differenziale e integrale}
 
+	\subsubsection{Integrali fondamentali (o notevoli)}\label{subsubsection: integrali fondamentali (o notevoli)}
+
+	Qua di seguito si presenta una lista di integrali fondamentali (o notevoli), che consentono di calcolare qualsiasi integrale basilare. Non devono essere imparati tutti a memoria poiché la maggior parte possono essere risolti ragionando:
+	\begin{itemize}
+		\item $\displaystyle\int x^{n} \: \mathrm{d}x = \dfrac{x^{n+1}}{n+1}+c$ \hspace{1em} con $n \ne -1$
+
+		\item $\displaystyle\int \dfrac{1}{x^{n}} \: \mathrm{d}x = - \dfrac{1}{\left(n-1\right) \cdot x^{n-1}}$ \hspace{1em} con $n \ne 1$
+
+		\item $\displaystyle\int \dfrac{1}{x} \: \mathrm{d}x = \ln\left(|x|\right) + c$
+
+		\item $\displaystyle\int \sin\left(x\right) \: \mathrm{d}x = -\cos\left(x\right) + c$
+
+		\item $\displaystyle\int \cos\left(x\right) \: \mathrm{d}x = \sin\left(x\right) + c$
+
+		\item $\displaystyle\int \dfrac{1}{\cos^{2}\left(x\right)} \: \mathrm{d}x = \tan\left(x\right) + c$
+
+		\item $\displaystyle\int \dfrac{1}{\sin^{2}\left(x\right)} \: \mathrm{d}x = -\cot\left(x\right) + c$
+
+		\item $\displaystyle\int e^{x} \: \mathrm{d}x = e^{x} + c$
+
+		\item $\displaystyle\int a^{x} \: \mathrm{d}x = \dfrac{a^{x}}{\ln\left(a\right)} + c$
+
+		\item $\displaystyle\int \sinh\left(x\right) \: \mathrm{d}x = \cosh\left(x\right) + c$
+
+		\item $\displaystyle\int \cosh\left(x\right) \: \mathrm{d}x = \sinh\left(x\right) + c$
+
+		\item $\displaystyle\int \dfrac{1}{1+x^{2}} \: \mathrm{d}x = \arctan\left(x\right) + c$
+
+		\item $\displaystyle\int \dfrac{1}{\sqrt{1-x^{2}}} \: \mathrm{d}x = \arcsin\left(x\right) + c$
+
+		\item $\displaystyle\int \dfrac{-1}{\sqrt{1-x^{2}}} \: \mathrm{d}x = \arccos\left(x\right) + c$
+	\end{itemize}
+	Per altri integrali, visita il sito: \href{https://www.youmath.it/lezioni/analisi-matematica/integrali/596-integrali-notevoli.html}{YouMath}.\newpage
+
+	\subsubsection{Integrare per sostituzione}\label{subsubsection: integrale per sostituzione}
+
+	Questa tecnica risolutiva è molto potente e può essere sempre applicata. Tuttavia, si tende a non utilizzarla talvolta poiché gli integrali notevoli (cap. \ref{subsubsection: integrali fondamentali (o notevoli)}) sono più immediati.\newline
+
+	\noindent
+	Il \textbf{primo passo} è prendere in considerazione l'integrale e sostituire il valore $dx$ con:
+	\begin{equation*}
+		dx = \dfrac{1}{t'} \: \mathrm{d}t
+	\end{equation*}
+	E cercare un valore $t$ comodo così da effettuare sostituzioni intelligenti. Per esempio, dato l'integrale:
+	\begin{equation*}
+		\displaystyle\int x^{3}e^{-x^{2}} \: \mathrm{d}x
+	\end{equation*}
+	Si può sostituire $dx$ scegliendo come $t$ la $x^{2}$, infatti:
+	\begin{gather*}
+		t = x^{2} \hspace{2em} t' = 2x \hspace{2em} dx = \dfrac{1}{2x} \: \mathrm{d}t \\ \\
+		\displaystyle\int x^{3}e^{-x^{2}} \cdot \dfrac{1}{2x} \: \mathrm{d}t
+		\longrightarrow
+		\displaystyle\int x^{\cancelto{2}{3}}e^{-x^{2}} \cdot \dfrac{1}{2\cancel{x}} \: \mathrm{d}t
+		\longrightarrow
+		\displaystyle\dfrac{1}{2}\int x^{2} \cdot e^{-x^{2}} \: \mathrm{d}t
+		\longrightarrow
+		\displaystyle\dfrac{1}{2}\int t \cdot e^{-t} \: \mathrm{d}t
+	\end{gather*}
+	Una volta risolto l'integrale, si ritorna alla forma con $x$ andando a risostituire.
+	
+	\longline
+
+	\subsubsection{Integrare per parti}
+
+	L'integrazione per parti è un metodo che viene applicato quando:
+	\begin{itemize}
+		\item Se l'integranda è il prodotto di due funzioni;
+		\item Se l'integranda è il prodotto di due funzioni, e una di queste è la derivata di una primitiva immediata (come esponenziali, trigonometriche, potenze, etc).
+	\end{itemize}
+	L'applicazione è la seguente a seconda dell'integrale definito o indefinito:	
+	\begin{itemize}
+		\item $\displaystyle \int_{a}^{b} f\left(x\right) g'\left(x\right) \: \mathrm{d}x = f\left(b\right)g\left(b\right) - f\left(a\right)g\left(a\right) - \int_{a}^{b} f'\left(x\right)g\left(x\right) \:\mathrm{d}x$
+
+		\item $\displaystyle \int f\left(x\right) g'\left(x\right) \: \mathrm{d}x = f\left(x\right)g\left(x\right) - \int f'\left(x\right)g\left(x\right) \: \mathrm{d}x$
+	\end{itemize}
+	Un esempio valido è il seguente integrale:
+	\begin{equation*}
+		\displaystyle \int t \cdot e^{-t} \: \mathrm{d}t
+	\end{equation*}
+	Si prosegue per parti:
+	\begin{equation*}
+		f\left(t\right) = t \hspace{2em} f'\left(t\right) = 1 \hspace{2em} g'\left(t\right) = e^{-t} \hspace{2em} g\left(t\right) = - e^{-t}
+	\end{equation*}
+	E si va alla sostituzione:
+	\begin{equation*}
+		\displaystyle \int t \cdot e^{-t} \: \mathrm{d}t = t \cdot \left(-e^{-t}\right) - \int 1 \cdot \left(-e^{-t}\right)
+	\end{equation*}\newpage
+
 	\subsubsection{Decomposizione in frazioni parziali}\label{subsubsection: decomposizione in frazioni parziali}
 
 	La decomposizione in frazioni parziali è un metodo per trasformare il rapporto tra due polinomi in una somma di frazioni più semplici.\newline
@@ -955,9 +1043,248 @@
 			%
 			&=& \displaystyle \int\dfrac{1}{x\left(x-3\right)} \: \mathrm{d}x \\ [2em]
 			%
-			&\downarrow& \text{ si utilizza la decomposizione in frazioni parziali (pag. \pageref{subsubsection: decomposizione in frazioni parziali})} \\ [1.5em]
+			&\downarrow& \text{si utilizza la decomposizione in frazioni parziali (pag. \pageref{subsubsection: decomposizione in frazioni parziali})} \\ [1.5em]
 			%
-			\dfrac{1}{x^{2}-3x} &=& \dfrac{A}{x} + \dfrac{B}{x-3}
+			\dfrac{1}{x^{2}-3x} &=& \dfrac{A}{x} + \dfrac{B}{x-3} \\ [2em]
+			%
+			\dfrac{1}{x^{2}-3x} &=& \dfrac{A\left(x-3\right) + B\left(x\right)}{x\left(x-3\right)} \\ [2em]
+			%
+			\dfrac{1}{x^{2}-3x} &=& \dfrac{Ax - 3A + Bx}{x\left(x-3\right)} \\ [2em]
+			%
+			x\left(x-3\right) \cdot \dfrac{1}{x^{2}-3x} &=& \dfrac{\left(A + B\right)x - 3A}{x\left(x-3\right)} \cdot x\left(x-3\right) \\ [2em]
+			%
+			1 &=& \left(A + B\right)x - 3A \\ [2em]
+			%
+			&=& \begin{cases}
+				A + B = 0 \\
+				-3A = 1
+			\end{cases} \longrightarrow
+			\begin{cases}
+				B = \frac{1}{3} \\
+				A = -\frac{1}{3}
+			\end{cases} \\ [2em]
+			%
+			\dfrac{1}{x^{2}-3x} &=& \dfrac{-\frac{1}{3}}{x} + \dfrac{\frac{1}{3}}{x-3} \\ [2em]
+			%
+			\dfrac{1}{x^{2}-3x} &=& -\dfrac{1}{3x} + \dfrac{1}{3\left(x-3\right)} \\ [2em]
+			%
+			&\downarrow& \text{si torna a risolvere l'integrale sostituendo il valore trovato} \\ [1.5em]
+			%
+			&=& \displaystyle\int -\dfrac{1}{3x} + \dfrac{1}{3\left(x-3\right)} \: \mathrm{d}x \\ [2em]
+			%
+			&=& \displaystyle-\int \dfrac{1}{3x} \: \mathrm{d}x + \displaystyle\int \dfrac{1}{3\left(x-3\right)} \: \mathrm{d}x \\ [2em]
+			%
+			&=& \displaystyle -\dfrac{1}{3}\int \dfrac{1}{x} \: \mathrm{d}x + \displaystyle\dfrac{1}{3}\int \dfrac{1}{x-3} \: \mathrm{d}x \\ [2em]
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Per risolvere questo integrale, si sfrutta uno degli integrali notevoli (pagina \pageref{subsubsection: integrali fondamentali (o notevoli)}):
+	\begin{equation*}
+		\begin{array}{rcl}
+			&=& \displaystyle -\dfrac{1}{3}\int \dfrac{1}{x} \: \mathrm{d}x + \displaystyle\dfrac{1}{3}\int \dfrac{1}{x-3} \: \mathrm{d}x \\ [2em]
+			%
+			&=& -\dfrac{1}{3}\ln\left(x\right) + \dfrac{1}{3}\ln\left(x-3\right) + c \hspace{1em} c \in \mathbb{R}
+		\end{array}
+	\end{equation*}
+	Questo è vero perché si ricorda che:
+	\begin{equation*}
+		f\left(x\right) = \ln\left(x-3\right) \longrightarrow f'\left(x\right) = \dfrac{1}{x-3} \cdot \dfrac{d}{dx}\left(x-3\right) = \dfrac{1}{x-3} \cdot 1
+	\end{equation*}
+
+	\longline
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 4}}}
+	\end{flushleft}
+	
+	\noindent
+	Dato l'integrale:
+	\begin{equation*}
+		\displaystyle \int x^{3} e^{-x^{2}} \: \mathrm{d}x
+	\end{equation*}
+	Si procede con la risoluzione usando inizialmente il metodo di sostituzione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			&& \displaystyle \int x^{3} e^{-x^{2}} \: \mathrm{d}x \\ [2em]
+			%
+			&\downarrow& \text{si imposta }t = x^{2}; \:\: t' = 2x; \:\: \mathrm{d}x = \dfrac{1}{t'}\:\mathrm{d}t \\ [1.5em]
+			%
+			&=& \displaystyle \int x^{3} e^{-x^{2}} \cdot \dfrac{1}{2x} \: \mathrm{d}t \\ [2em]
+			%
+			&=& \displaystyle \int x^{\cancelto{2}{3}} e^{-x^{2}} \cdot \dfrac{1}{2\cancel{x}} \: \mathrm{d}t \longrightarrow \displaystyle \int x^{2} e^{-x^{2}} \cdot \dfrac{1}{2} \: \mathrm{d}t \\ [2em]
+			%
+			&\downarrow& \text{si termina la sostituzione} \\ [1.5em]
+			%
+			&=& \displaystyle \dfrac{1}{2} \cdot \int t \cdot e^{-t} \: \mathrm{d}t \\ [2em]
+			%
+			&\downarrow& \text{data la moltiplicazione, adesso si cambia manovra e si utilizza il metodo per parti} \\ [1.5em]
+			%
+			&\downarrow& f\left(t\right) = t \hspace{2em} f'\left(t\right) = 1 \hspace{2em} g'\left(t\right) = e^{-t} \hspace{2em} g\left(t\right) = - e^{-t} \\ [2em]
+			%
+			&=& \dfrac{1}{2}\left[t \cdot \left(-e^{-t}\right) - \displaystyle\int 1 \cdot \left(-e^{-t}\right) \: \mathrm{d}t \right] \\ [2em]
+			%
+			&=& \dfrac{1}{2}\left[t \cdot \left(-e^{-t}\right) - e^{-t}\right] \\ [2em]
+			%
+			&\downarrow& \text{si ritorna alla }x \\ [1.5em]
+			%
+			&=& \dfrac{1}{2} \left(-x^{2}e^{-x^{2}} - e^{-x^{2}}\right)
+			\longrightarrow
+			-\dfrac{x^{2}e^{-x^{2}}}{2} - \dfrac{e^{-x^{2}}}{2}
+			\longrightarrow
+			-\dfrac{x^{2}+1}{2e^{x^{2}}}
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 5}}}
+	\end{flushleft}
+	
+	\noindent
+	Dato l'integrale:
+	\begin{equation*}
+		\displaystyle \int\dfrac{1}{\sqrt[3]{t-1}} \: \mathrm{d}t
+	\end{equation*}
+	Si inizia con il metodo di sostituzione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			&& \displaystyle \int \dfrac{1}{\sqrt[3]{t-1}} \: \mathrm{d}t \\ [2em]
+			%
+			&\downarrow& u = t-1; \hspace{2em} u' = 1; \hspace{2em} dt = \dfrac{1}{u'} \: \mathrm{d}u \\ [1.5em]
+			%
+			&=& \displaystyle \int \dfrac{1}{\sqrt[3]{u}} \cdot \dfrac{1}{1} \: \mathrm{d}u \\ [2em]
+			%
+			&=& \displaystyle \int \dfrac{1}{u^{\frac{1}{3}}} \: \mathrm{d}u \\ [2em]
+			%
+			&\downarrow& \text{si applica l'integrale notevole: }\displaystyle\int \dfrac{1}{x^{n}} \: \mathrm{d}x = - \dfrac{1}{\left(n-1\right) \cdot x^{n-1}} \\ [2em]
+			%
+			&=& -\dfrac{1}{\left(\dfrac{1}{3} - 1\right) \cdot u^{\frac{1}{3}-1}} \\ [3em]
+			%
+			&\downarrow& \text{si ritorna alla }t \\ [1.5em]
+			%
+			&=& - \dfrac{1}{-\dfrac{2}{3} \cdot \left(t-1\right)^{-\frac{2}{3}}} \\ [2em]
+			%
+			&=& - \dfrac{\sqrt[3]{\left(t-1\right)^{2}}}{-\dfrac{2}{3}} \\ [2.5em]
+			%
+			&=& \dfrac{3\sqrt[3]{\left(t-1\right)^{2}}}{2}
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 6}}}
+	\end{flushleft}
+	
+	\noindent
+	Dato l'integrale:
+	\begin{equation*}
+		\displaystyle \int\dfrac{t}{\sqrt{t^{2} - 1}} \: \mathrm{d}t
+	\end{equation*}
+	Si procede con la risoluzione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			&& \displaystyle \int\dfrac{t}{\sqrt{t^{2} - 1}} \: \mathrm{d}t \\ [2em]
+			%
+			&=& \displaystyle \int t \cdot \dfrac{1}{\sqrt{t^{2} - 1}} \: \mathrm{d}t \\ [2em]
+			%
+			&\downarrow& \text{si applica il metodo di sostituzione } u = t^{2}-1; \hspace{2em} u' = 2t; \hspace{2em} dt = \dfrac{1}{u'} \: \mathrm{d}u \\ [2em]
+			%
+			&=& \displaystyle \int t \cdot \dfrac{1}{\sqrt{u}} \cdot \dfrac{1}{2t} \: \mathrm{d}u \\ [2em]
+			%
+			&=& \displaystyle \int \dfrac{1}{\sqrt{u}} \cdot \dfrac{1}{2} \: \mathrm{d}u \\ [2em]
+			%
+			&=& \dfrac{1}{2} \displaystyle \int \dfrac{1}{\sqrt{u}} \: \mathrm{d}u \\ [2em]
+			%
+			&=& \dfrac{1}{2} \displaystyle \int \dfrac{1}{u^{\frac{1}{2}}} \: \mathrm{d}u \\ [2em]
+			%
+			&\downarrow& \text{si applica l'integrale notevole: }\displaystyle\int \dfrac{1}{x^{n}} \: \mathrm{d}x = - \dfrac{1}{\left(n-1\right) \cdot x^{n-1}} \\ [2em]
+			%
+			&=& \dfrac{1}{2} \cdot \left(-\dfrac{1}{\left(\dfrac{1}{2} - 1\right) \cdot u^{\frac{1}{2}-1}}\right) \\ [2.5em]
+			%
+			&=& \dfrac{1}{2} \cdot \left(-\dfrac{1}{-\dfrac{1}{2} \cdot u^{-\frac{1}{2}}}\right) \\ [2em]
+			%
+			&=& \dfrac{1}{2} \cdot \left(2\sqrt{u}\right) \\ [1em]
+			%
+			&=& \sqrt{u} \\ [1em]
+			%
+			&\downarrow& \text{si ritorna alla }t \\ [1em]
+			%
+			&=& \sqrt{t^{2} - 1}
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 7}}}
+	\end{flushleft}
+	
+	\noindent
+	Dato l'integrale:
+	\begin{equation*}
+		\displaystyle \int\dfrac{1}{4 + y^{2}} \: \mathrm{d}y
+	\end{equation*}
+	Si risolve con il metodo di sostituzione e utilizzando una grossa fetta di trigonometria:
+	\begin{equation*}
+		\begin{array}{rcl}
+			&& \displaystyle \int\dfrac{1}{4 + y^{2}} \: \mathrm{d}y \\ [2em]
+			%
+			&\downarrow& \text{metodo di sostituzione }y = 2\tan\left(t\right); \hspace{2em} y' = 2\sec\left(t\right)^{2}; \hspace{2em} dy = y' \: \mathrm{d}t \\ [2em]
+			%
+			&=& \displaystyle \int \dfrac{1}{4 + \left(2\tan\left(t\right)\right)^{2}} \cdot 2 \sec\left(t\right)^{2} \: \mathrm{d}t \\ [2em]
+			%
+			&=& \displaystyle \int \dfrac{2 \sec\left(t\right)^{2}}{4 + 4 \tan\left(t\right)^{2}} \\ [2em]
+			%
+			&=& \displaystyle \int \dfrac{2 \sec\left(t\right)^{2}}{4\left(1 + \tan\left(t\right)^{2}\right)} \\ [2em]
+			%
+			&=& \dfrac{\cancelto{1}{2}}{\cancelto{2}{4}} \displaystyle \int \dfrac{\sec\left(t\right)^{2}}{1+\tan\left(t\right)^{2}} \\ [2.5em]
+			%
+			&\downarrow& \text{si utilizza la proprietà }\tan\left(t\right)^{2} = \sec\left(t\right)^{2}-1 \\ [1.5em]
+			%
+			&=& \dfrac{1}{2} \displaystyle\int\dfrac{\sec\left(t\right)^{2}}{1 + \sec\left(t\right)^{2} - 1} \: \mathrm{d}t \\ [2em]
+			%
+			&=& \dfrac{1}{2} \cdot \displaystyle \int 1 \: \mathrm{d}t \\ [1em]
+			%
+			&=& \dfrac{1}{2}t \\ [1.5em]
+			%
+			&\downarrow& \text{si sostituisce la }t \\ [1em]
+			%
+			&\rightarrow& y = 2\tan\left(t\right) \rightarrow t = \arctan\left(\dfrac{y}{2}\right) \\ [1.5em]
+			%
+			&=& \dfrac{\arctan\left(\dfrac{y}{2}\right)}{2}
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\textcolor{Green4}{\textbf{\underline{Esercizio 8}}}
+	\end{flushleft}
+	
+	\noindent
+	Dato l'integrale:
+	\begin{equation*}
+		\displaystyle \int x \sqrt{1+x^{2}} \: \mathrm{d}x
+	\end{equation*}
+	Si procede con la risoluzione partendo dal metodo di sostituzione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			&& \displaystyle \int x \sqrt{1+x^{2}} \: \mathrm{d}x \\ [1.5em]
+			%
+			&\downarrow& \text{metodo di sostituzione } t = 1 + x^{2}; \hspace{2em} t' = 2x; \hspace{2em} dx = \dfrac{1}{t'} \: \mathrm{d}t \\ [1.5em]
+			%
+			&=& \displaystyle \int x \cdot \sqrt{t} \cdot \dfrac{1}{2x} \: \mathrm{d}t \\ [2em]
+			%
+			&=& \displaystyle \dfrac{1}{2} \int \sqrt{t} \: \mathrm{d}t \\ [2em]
+			%
+			&=& \displaystyle \dfrac{1}{2} \int t^{\frac{1}{2}} \: \mathrm{d}t \\ [1.5em]
+			%
+			&\downarrow& \text{si utilizza l'integrale notevole }\displaystyle\int x^{n} \: \mathrm{d}x = \dfrac{x^{n+1}}{n+1}+c \\ [1em]
+			%
+			&=& \dfrac{1}{2} \cdot \dfrac{t^{\frac{1}{2} + 1}}{\dfrac{1}{2} + 1} \\ [2.5em]
+			%
+			&=& \dfrac{1}{2} \cdot \dfrac{t^{\frac{3}{2}}}{\dfrac{3}{2}} \\ [2.5em]
+			%
+			&=& \dfrac{1}{2} \cdot \dfrac{2 \sqrt{\left(t\right)^{3}}}{3} \\ [1.5em]
+			%
+			&\downarrow& \text{si ritorna alla }x \\ [1em]
+			%
+			&=& \dfrac{\sqrt{\left(1+x^{2}\right)^{3}}}{3}
 		\end{array}
 	\end{equation*}
 \end{document}
