@@ -17,6 +17,8 @@
 \usepackage[]{mdframed}				% box per il testo
 \usepackage{multirow}				% più linee in una tabella
 \usepackage{gensymb}				% simbolo di degree
+\usepackage[x11names]{xcolor}		% pacchetto colori RGB
+\usepackage{tcolorbox}				% pacchetto per le box colorate
 
 
 % draw a frame around given text
@@ -28,8 +30,6 @@
 }
 
 
-
-\usepackage[x11names]{xcolor}		% pacchetto colori RGB
 % Link ipertestuali per l'indice
 \usepackage{xcolor}
 \usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
@@ -63,11 +63,16 @@
 \newcommand{\dquotes}[1]{``#1''}
 \newcommand{\longline}{\noindent\rule{\textwidth}{0.4pt}}
 \newcommand{\circledtext}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
+\newcommand{\definition}[1]{\textcolor{Red3}{\textbf{#1}}}
+\newcommand{\example}[1]{\textcolor{Green4}{\textbf{#1}}}
 
 \newenvironment{rowequmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
 \newenvironment{rowequmatbra}[1]{\left[\array{@{}#1@{}}}{\endarray\right]}
 
 \begin{document}
+	\newcounter{definition}[section]
+	\newtcolorbox{boxdef}{colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries,title=Definizione~\refstepcounter{definition}\thedefinition}
+
 	\author{VR443470}
 	\title{Schemi Analisi II}
 	\date{\printdayoff\today}
@@ -275,7 +280,7 @@
 	\end{enumerate}
 	
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 1}}}
+		\example{\underline{Esercizio 1}}
 	\end{flushleft}
 	
 	\noindent
@@ -304,7 +309,7 @@
 	\end{equation*}
 	
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 2}}}
+		\example{\underline{Esercizio 2}}
 	\end{flushleft}
 	
 	\noindent
@@ -326,7 +331,7 @@
 	\end{equation*}\newpage
 	
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 3}}}
+		\example{\underline{Esercizio 3}}
 	\end{flushleft}
 	
 	\noindent
@@ -344,7 +349,7 @@
 	\end{equation*}
 	
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 4}}}
+		\example{\underline{Esercizio 4}}
 	\end{flushleft}
 
 	\noindent
@@ -387,7 +392,7 @@
 
 	\newpage
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 5}}}
+		\example{\underline{Esercizio 5}}
 	\end{flushleft}
 
 	\noindent
@@ -452,7 +457,7 @@
 	\end{enumerate}
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 1}}}
+		\example{\underline{Esercizio 1}}
 	\end{flushleft}
 	
 	\noindent
@@ -512,7 +517,7 @@
 	\end{itemize}\newpage
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 2}}}
+		\example{\underline{Esercizio 2}}
 	\end{flushleft}
 	
 	\noindent
@@ -686,7 +691,7 @@
 	\end{itemize}\newpage
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 3}}}
+		\example{\underline{Esercizio 3}}
 	\end{flushleft}
 
 	\noindent
@@ -714,7 +719,7 @@
 	\end{equation*}
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 4}}}
+		\example{\underline{Esercizio 4}}
 	\end{flushleft}
 
 	\noindent
@@ -742,7 +747,7 @@
 	\end{equation*}\newpage
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 5}}}
+		\example{\underline{Esercizio 5}}
 	\end{flushleft}
 
 	\noindent
@@ -992,7 +997,7 @@
 	\end{enumerate}
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 1}}}
+		\example{\underline{Esercizio 1}}
 	\end{flushleft}
 
 	\noindent
@@ -1010,7 +1015,7 @@
 	\end{equation*}
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 2}}}
+		\example{\underline{Esercizio 2}}
 	\end{flushleft}
 
 	\noindent
@@ -1028,7 +1033,7 @@
 	\end{equation*}\newpage
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 3}}}
+		\example{\underline{Esercizio 3}}
 	\end{flushleft}
 
 	\noindent
@@ -1095,7 +1100,7 @@
 	\longline
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 4}}}
+		\example{\underline{Esercizio 4}}
 	\end{flushleft}
 	
 	\noindent
@@ -1137,7 +1142,7 @@
 	\end{equation*}\newpage
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 5}}}
+		\example{\underline{Esercizio 5}}
 	\end{flushleft}
 	
 	\noindent
@@ -1171,7 +1176,7 @@
 	\end{equation*}\newpage
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 6}}}
+		\example{\underline{Esercizio 6}}
 	\end{flushleft}
 	
 	\noindent
@@ -1213,7 +1218,7 @@
 	\end{equation*}\newpage
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 7}}}
+		\example{\underline{Esercizio 7}}
 	\end{flushleft}
 	
 	\noindent
@@ -1253,7 +1258,7 @@
 	\end{equation*}\newpage
 
 	\begin{flushleft}
-		\textcolor{Green4}{\textbf{\underline{Esercizio 8}}}
+		\example{\underline{Esercizio 8}}
 	\end{flushleft}
 	
 	\noindent
@@ -1279,12 +1284,61 @@
 			&=& \dfrac{1}{2} \cdot \dfrac{t^{\frac{1}{2} + 1}}{\dfrac{1}{2} + 1} \\ [2.5em]
 			%
 			&=& \dfrac{1}{2} \cdot \dfrac{t^{\frac{3}{2}}}{\dfrac{3}{2}} \\ [2.5em]
-			%
+			%ù
 			&=& \dfrac{1}{2} \cdot \dfrac{2 \sqrt{\left(t\right)^{3}}}{3} \\ [1.5em]
 			%
 			&\downarrow& \text{si ritorna alla }x \\ [1em]
 			%
 			&=& \dfrac{\sqrt{\left(1+x^{2}\right)^{3}}}{3}
 		\end{array}
+	\end{equation*}\newpage
+
+	\section{Equazioni differenziali ordinarie}
+
+	Le equazioni differenziali sono il primo argomento trattato durante il corso di Analisi II. È un argomento importante dal punto di vista teorico, ma soprattutto dal punto di vista pratico poiché ricopre $\frac{1}{4}$ dell'esame.
+
+	Si presenta una prima parte di teoria per capire il suo funzionamento e successivamente una parte pratica con degli esercizi.
+	
+	\longline
+
+	\subsection{Concetti e teoremi fondamentali}
+
+	Si chiama \definition{equazione differenziale ordinaria di ordine $n$} una relazione della forma:
+	\begin{equation}\label{eq: equazione differenziale ordinaria di ordine n}
+		F(t, y\left(t\right), y'\left(t\right), y''\left(t\right), ..., y^{\left(n\right)}\left(t\right)) = 0
+	\end{equation}
+	con $F: \mathbb{R}^{n+2} \supseteq U \rightarrow \mathbb{R}$. La funzione incognita $y=y\left(t\right)$ insieme alle sue derivate fino all'ordine $n$ incluso, calcolate nello stesso punto, in questo caso $t$.\newline
+
+	\noindent
+	L'\definition{ordine} di un'equazione è l'ordine massimo di derivazione che vi compare. Con \definition{ordinaria} si riferisce al fatto che l'incognita è una funzione di una variabile. È importante dire ordinaria, anche se talvolta viene omesso, poiché esistono anche equazioni a \definition{derivate parziali} quando l'incognita è una funzione di più variabili.\newline
+
+	\noindent
+	Esplicitando la derivata di ordine massimo nell'equazione \ref{eq: equazione differenziale ordinaria di ordine n}, si ottiene:
+	\begin{equation}\label{eq: equazione differenziale ordinaria di ordine n - esplicitata}
+		y^{\left(n\right)}\left(t\right) = f\left(t, y\left(t\right), y'\left(t\right), y''\left(t\right), ..., y^{\left(n-1\right)}\left(t\right)\right)
+	\end{equation}
+	con $f:\mathbb{R}^{n+1} \supseteq D \rightarrow \mathbb{R}$. Questa forma viene chiamata \definition{normale}. Inoltre, se nell'equazione \ref{eq: equazione differenziale ordinaria di ordine n} $F$ è un polinomio di primo grado, l'equazione viene definita \definition{lineare}. Per cui, la forma generale è la seguente:
+	\begin{equation}
+		a_{0}\left(t\right)y^{\left(n\right)}\left(t\right) + a_{1}\left(t\right)y^{\left(n-1\right)}\left(t\right) + \cdots + a_{n-1}y'\left(t\right) + a_{n}\left(t\right)y\left(t\right) = b\left(t\right)
+	\end{equation}
+	Nonostante la forma generale possa sembrare alquanto complessa, si presenta qua di seguito un \example{esempio} per dimostrare il contrario:
+	\begin{itemize}
+		\item Equazione del 1° ordine lineare:
+		\begin{equation*}
+			N\left(t\right) = ce^{\varepsilon t}
+		\end{equation*}
+		Primo grado poiché vi è solo $N\left(t\right)$ e non altre derivate (e.g. $N'\left(t\right), N''\left(t\right), ...$). Lineare poiché $N\left(t\right)$ è un polinomio di primo grado.
+	\end{itemize}
+	\begin{boxdef}
+		Si dice \definition{soluzione} (o integrale) dell'equazione \ref{eq: equazione differenziale ordinaria di ordine n - esplicitata} una funzione $\varphi = \varphi\left(t\right)$, definita e differenziabile $n$-volte in un intervallo $I \subseteq \mathbb{R}$ tale che $\left(t, \varphi\left(t\right), ..., \varphi^{\left(n-1\right)}\left(t\right)\right) \in D$ e:
+		\begin{equation}\label{eq: soluzione dell'equazione}
+			\varphi^{\left(n\right)}\left(t\right) = f\left(t, \varphi\left(t\right), \varphi'\left(t\right), ..., \varphi^{\left(n-1\right)}\left(t\right)\right) \hspace{1em} \forall t \in I
+		\end{equation}
+	\end{boxdef}
+	Il seguente modello, che modella il moto dei pianeti, è un \example{esempio} di tre equazioni differenziali del secondo ordine:
+	\begin{equation*}
+		x'' = - MG \cdot \dfrac{x}{r^{3}} \hspace{2em}
+		y'' = - MG \cdot \dfrac{y}{r^{3}} \hspace{2em}
+		z'' = - MG \cdot \dfrac{z}{r^{3}} 
 	\end{equation*}
 \end{document}
