@@ -1341,4 +1341,69 @@
 		y'' = - MG \cdot \dfrac{y}{r^{3}} \hspace{2em}
 		z'' = - MG \cdot \dfrac{z}{r^{3}} 
 	\end{equation*}
+	Da un \textbf{punto di vista geometrico}, un'equazione differenziale prescrive in ogni punto la \textbf{pendenza della tangente alla curva di soluzione che passa per quel punto}. Un \example{esempio}:
+	\begin{equation*}
+		y' = x + y
+	\end{equation*}
+	se $x=1$ e $y=2$, allora si avrà:
+	\begin{equation*}
+		y'\left(1\right) = 1 + 2
+	\end{equation*}
+	Risultato sensato vedendo il grafico:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/significato_geometrico_eq_diff.png}
+	\end{figure}
+
+	\noindent
+	La ricerca delle primitive di una data funzione $f$, continua su un intervallo, equivale a risolvere l'equazione differenziale:
+	\begin{equation*}
+		y'=f\left(t\right)
+	\end{equation*}
+	che ha infinite soluzioni del tipo $y\left(t\right) = \displaystyle\int f\left(t\right) \:\mathrm{d}t + c, c \in \mathbb{R}$.
+
+	Più in generale, l'\textbf{insieme delle soluzioni} di un'equazione differenziale di ordine $n$ o di un sistema di $n$ equazioni del primo ordine sia rappresentato da una famiglia di funzioni, \textbf{dipendente da $n$ parametri}. Tale famiglia prende il nome di \definition{integrale generale}.\newpage
+
+	\subsection{Problema di Cauchy}
+
+	Il \definition{problema di Cauchy (o dei valori iniziali)} ha due forme:
+	\begin{itemize}
+		\item Equazioni scalari di ordine $n$, con l'obbiettivo di trovare $y$ di classe\footnote{Con questa notazione si indica che una funzione ha una derivata continua di grado $n$. Quindi dicendo che $y$ è di classe $C^{4}$, vuol dire che $y$, $y'$, $y''$, $y'''$, $y''''$ sono tutte funzioni continue.} $C^{n}$ tale che:
+		\begin{equation*}
+			\begin{cases}
+				y^{\left(n\right)}\left(t\right) = f\left(t, y\left(t\right), y'\left(t\right), ..., y^{\left(n-1\right)}\left(t\right)\right) \\
+				%
+				y\left(\tau\right) = \xi_{0} \\
+				%
+				y'\left(\tau\right) = \xi_{1} \\
+				%
+				\vdots 
+				%
+				y^{\left(n-1\right)}\left(\tau\right) = \xi_{n-1}
+			\end{cases}
+		\end{equation*}
+		essendo $\tau, \xi_{0}, \cdots, \xi_{n-1}$ costanti assegnate;
+
+		\item Sistemi, con l'obbiettivo di trovare $y$ di classe $C^{1}$ tale che:
+		\begin{equation*}
+			\begin{cases}
+				y'=f\left(t, y\left(t\right)\right) \\
+				y\left(\tau\right) = \xi
+			\end{cases}
+		\end{equation*}
+		essendo $\tau \in \mathbb{R}$ e $\xi \in \mathbb{R}^{n}$ assegnati.
+	\end{itemize}
+	Le equazioni $y^{\left(j\right)}\left(\tau\right) = \xi_{j}$ con $j =0, \cdots, j=n-1$, e $y\left(\tau\right) = \xi$, prendono il nome di \definition{condizioni iniziali}. Le soluzioni si intendono definite localmente, ovvero in un intorno dell'istante iniziale $\tau$.\newline
+
+	\noindent
+	Un \example{esempio} di problema di Cauchy:
+	\begin{equation*}
+		\begin{cases}
+			z''\left(t\right) + 4z'\left(t\right) + 4z\left(t\right) = \left(t+1\right)^{2} \\
+			z\left(0\right) = \frac{1}{8} \\
+			z'\left(0\right) = -3
+		\end{cases}
+	\end{equation*}
+
+	% TODO: pag. 191 Esistenza e unicità locale
 \end{document}
