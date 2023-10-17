@@ -11,7 +11,6 @@
 \usepackage{amsthm}					% teoremi migliorati
 \usepackage{enumitem}				% gestione delle liste
 \usepackage{pifont}					% pacchetto con elenchi carini
-\usepackage{enumitem}				% pacchetto per elenchi con lettere dell'alfabeto
 \usepackage{cancel}					% per cancellare delle espressioni matematiche
 \usepackage{caption}				% caption personalizzati
 \usepackage[]{mdframed}				% box per il testo
@@ -85,6 +84,9 @@
 	
 	\newpage
 	
+	%%%%%%%%%%%%%%%%
+	% Prerequisiti %
+	%%%%%%%%%%%%%%%%
 	\section{Prerequisiti}\label{section: prerequisiti}
 	
 	Il corso di Analisi II si articola in due macro sezioni: primo e secondo parziale. All'esame gli esercizi da svolgere saranno 10, suddivisi 5 per la prima parte e 5 per la seconda.\newline
@@ -98,8 +100,14 @@
 	\noindent
 	Ogni paragrafo presenterà degli esercizi e ognuno di essi sarà risolto nel seguente modo: il primo in modo approfondito per illustrare il modus operandi, gli altri facendo vedere i calcoli e risparmiando le spiegazioni prolisse. Chiaramente, nel caso in cui ci dovesse essere un caso particolare, esso verrà affrontato e spiegato passo passo.\newpage
 	
+	%%%%%%%%%%%%%%%%%%%%%%%
+	% Geometria analitica %
+	%%%%%%%%%%%%%%%%%%%%%%%
 	\subsection{Geometria analitica}\label{subsection: geometria analitica}
 	
+	%%%%%%%%%%%%%%%%%
+	% Circonferenza %
+	%%%%%%%%%%%%%%%%%
 	\subsubsection{Circonferenza}\label{subsubsection: circonferenza}
 	
 	La circonferenza è graficamente rappresentata nel seguente modo:
@@ -134,6 +142,9 @@
 	\end{equation*}
 	Per altri approfondimenti: \href{https://www.youmath.it/formulari/formulari-di-geometria-analitica/440-circonferenza-e-cerchio-nel-piano-cartesiano.html}{YouMath}.\newpage
 	
+	%%%%%%%%%%%
+	% Ellisse %
+	%%%%%%%%%%%
 	\subsubsection{Ellisse}\label{subsubsection: ellisse}
 	
 	Non esiste un'unica rappresentazione dell'ellisse, ma solitamente può essere facilmente riconoscibile perché di forma allungata:
@@ -180,6 +191,9 @@
 	\noindent
 	Per altri approfondimenti: \href{https://www.youmath.it/formulari/formulari-di-geometria-analitica/445-ellisse-nel-piano-cartesiano.html}{YouMath}.\newpage
 
+	%%%%%%%%%%%%
+	% Iperbole %
+	%%%%%%%%%%%%
 	\subsubsection{Iperbole}\label{subsubsection: iperbole}
 
 	Un iperbole con centro nell'origine ha un'equazione del tipo:
@@ -213,6 +227,9 @@
 	\noindent
 	Per altri approfondimenti: \href{https://www.youmath.it/domande-a-risposte/view/6096-equazione-iperbole.html}{YouMath}.\newpage
 	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Completamento dei quadrati %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\subsubsection{Completamento dei quadrati}\label{subsubsection: completamento dei quadrati}
 	
 	Il completamento dei quadrati è un'operazione molto potente che può essere applicata sempre (a discapito dello studente se ha senso o no applicarla!). In questo caso viene applicata ad un'ellisse.\newline
@@ -264,6 +281,9 @@
 	\end{equation*}
 	Quest'ultima equazione corrisponde all'equazione canonica dell'ellisse.\newpage
 
+	%%%%%%%%%%%%
+	% Esercizi %
+	%%%%%%%%%%%%
 	\subsubsection{Esercizi}\label{subsubsection: esercizi (geometria analitica)}
 	
 	Si rappresenti analiticamente le seguenti equazioni canoniche:
@@ -432,8 +452,14 @@
 	\end{gather*}
 	L'equazione canonica si tratta di un'ellisse.\newpage
 
+	%%%%%%%%%%%
+	% Algebra %
+	%%%%%%%%%%%
 	\subsection{Algebra}\label{subsection: algebra}
 
+	%%%%%%%%%%%%
+	% Esercizi %
+	%%%%%%%%%%%%
 	\subsubsection{Esercizi}\label{subsubsection: esercizi (algebra)}
 
 	Risolvere le seguenti equazioni e i seguenti sistemi di equazioni algebriche:
@@ -776,11 +802,16 @@
 			%
 			y &=& \dfrac{10^{x+3} - 2}{10^{x+3} - 1}
 		\end{array}
-	\end{equation*}
+	\end{equation*}\newpage
 
-	\newpage
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Calcolo differenziale e integrale %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\subsection{Calcolo differenziale e integrale}\label{subsection: calcolo differenziale e integrale}
 
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Integrali fondamentali (o notevoli) %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\subsubsection{Integrali fondamentali (o notevoli)}\label{subsubsection: integrali fondamentali (o notevoli)}
 
 	Qua di seguito si presenta una lista di integrali fondamentali (o notevoli), che consentono di calcolare qualsiasi integrale basilare. Non devono essere imparati tutti a memoria poiché la maggior parte possono essere risolti ragionando:
@@ -815,6 +846,9 @@
 	\end{itemize}
 	Per altri integrali, visita il sito: \href{https://www.youmath.it/lezioni/analisi-matematica/integrali/596-integrali-notevoli.html}{YouMath}.\newpage
 
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Integrare per sostituzione %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\subsubsection{Integrare per sostituzione}\label{subsubsection: integrale per sostituzione}
 
 	Questa tecnica risolutiva è molto potente e può essere sempre applicata. Tuttavia, si tende a non utilizzarla talvolta poiché gli integrali notevoli (cap. \ref{subsubsection: integrali fondamentali (o notevoli)}) sono più immediati.\newline
@@ -843,7 +877,10 @@
 	
 	\longline
 
-	\subsubsection{Integrare per parti}
+	%%%%%%%%%%%%%%%%%%%%%%%
+	% Integrare per parti %
+	%%%%%%%%%%%%%%%%%%%%%%%
+	\subsubsection{Integrare per parti}\label{subsubsection: integrare per parti}
 
 	L'integrazione per parti è un metodo che viene applicato quando:
 	\begin{itemize}
@@ -869,6 +906,9 @@
 		\displaystyle \int t \cdot e^{-t} \: \mathrm{d}t = t \cdot \left(-e^{-t}\right) - \int 1 \cdot \left(-e^{-t}\right)
 	\end{equation*}\newpage
 
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Decomposizione in frazioni parziali %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\subsubsection{Decomposizione in frazioni parziali}\label{subsubsection: decomposizione in frazioni parziali}
 
 	La decomposizione in frazioni parziali è un metodo per trasformare il rapporto tra due polinomi in una somma di frazioni più semplici.\newline
@@ -973,6 +1013,9 @@
 	\end{equation*}
 	Fonte: \href{https://www.youmath.it/forum/sezione-speciale-per-i-topic-a-pagamento/94247-metodo-delle-frazioni-parziali-applicato-agli-integrali-indefiniti.html}{YouMath}.\newpage
 
+	%%%%%%%%%%%%
+	% Esercizi %
+	%%%%%%%%%%%%
 	\subsubsection{Esercizi}\label{subsubsection: esercizi (calcolo differenziale e integrale)}
 
 	Calcolare la derivata delle seguenti funzioni:
@@ -1293,7 +1336,10 @@
 		\end{array}
 	\end{equation*}\newpage
 
-	\section{Equazioni differenziali ordinarie}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Equazioni differenziali ordinarie %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Equazioni differenziali ordinarie}\label{section: equazioni differenziali ordinarie}
 
 	Le equazioni differenziali sono il primo argomento trattato durante il corso di Analisi II. È un argomento importante dal punto di vista teorico, ma soprattutto dal punto di vista pratico poiché ricopre $\frac{1}{4}$ dell'esame.
 
@@ -1301,7 +1347,10 @@
 	
 	\longline
 
-	\subsection{Concetti e teoremi fondamentali}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Concetti e teoremi fondamentali %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Concetti e teoremi fondamentali}\label{subsection: concetti e teoremi fondamentali (eq. diff. ordinarie)}
 
 	Si chiama \definition{equazione differenziale ordinaria di ordine $n$} una relazione della forma:
 	\begin{equation}\label{eq: equazione differenziale ordinaria di ordine n}
@@ -1364,7 +1413,86 @@
 
 	Più in generale, l'\textbf{insieme delle soluzioni} di un'equazione differenziale di ordine $n$ o di un sistema di $n$ equazioni del primo ordine sia rappresentato da una famiglia di funzioni, \textbf{dipendente da $n$ parametri}. Tale famiglia prende il nome di \definition{integrale generale}.\newpage
 
-	\subsection{Problema di Cauchy}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Equazioni a variabili separabili %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Equazioni a variabili separabili}\label{subsection: equazioni a variabili separabili}
+
+	Le \definition{equazioni a variabili separabili} sono della forma:
+	\begin{equation}\label{eq: equazione a variabili separabili}
+		y' = f\left(t\right)g\left(y\right)
+	\end{equation}
+	Con la funzione $f$ continua nell'intervallo $I$ ($f \in C\left(I\right)$) e la funzione $g$ continua nell'intervallo $J$ ($g \in C\left(J\right)$). Gli intervalli $I,J$ sono contenuti in $\mathbb{R}$.\newline
+
+	\noindent
+	\textbf{Nota bene:} se la funzione $\overline{y}$ è soluzione dell'equazione $g\left(y\right) = 0$, la retta $y = \overline{y}$ è una curva integrale (si veda l'esempio sottostante per convincersi di ciò).\newline
+
+	\noindent
+	Se $g\left(y\right) \ne 0$ in $J' \subseteq J$, l'integrale generale dell'equazione \ref{eq: equazione a variabili separabili} è:
+	\begin{equation}\label{eq: integrale generale eq. a variabili separabili}
+		\displaystyle\int \dfrac{1}{g\left(y\right)} \:\mathrm{d}y = \int f\left(t\right) \: \mathrm{d}t + c
+	\end{equation}
+
+	\begin{flushleft}
+		\example{\underline{Esempio}}
+	\end{flushleft}
+
+	\noindent
+	Data l'equazione:
+	\begin{equation*}
+		y' = 2t \sqrt{1-y^{2}}
+	\end{equation*}
+	Si può effettuare immediatamente un'osservazione importante. Come detto precedentemente, se $g\left(y\right) = 0$ e $\overline{y}$ è soluzione dell'equazione, allora $y = \overline{y}$ è una curva integrale. Si può facilmente trovare due valori di $y$ tali per cui l'equazione sia uguale a zero:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y = 1 & \longrightarrow & y' = 2t \sqrt{1 - 1^{2}} \\
+				  &					& y' = 2 t \cdot 0 \\
+				  &					& y' = 0 \\ [1em]
+			y = -1& \longrightarrow & y' = 2t \sqrt{1 - \left(-1\right)^{2}} \\
+				  & 				& y' = 2t \cdot 0 \\
+				  &					& y' = 0
+		\end{array}
+	\end{equation*}
+	Dato che:
+	\begin{equation*}
+		\begin{array}{rcl}
+			f\left(t\right) &=& 2t \\
+			g\left(y\right) &=& \sqrt{1-y^{2}}
+		\end{array}
+	\end{equation*}
+	E con $y = \pm 1$ la funzione $g$ si annulla, allora $\pm 1$ sono soluzioni dell'equazione.\newline
+
+	\noindent
+	Adesso si cercano le soluzioni tali che $g\left(y\right) \ne 0$, quindi con $y \ne \pm 1$. Per farlo, si applica semplicemente la \dquotes{formula} \ref{eq: integrale generale eq. a variabili separabili}:
+	\begin{equation*}
+		\displaystyle\int \dfrac{1}{\sqrt{1-y^{2}}} \: \mathrm{d}y = 2 \displaystyle\int t \: \mathrm{d}t + c
+	\end{equation*}
+	Si procede con la risoluzione degli integrali:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle 2 \cdot \int t \: \mathrm{d}t &=& 2 \cdot \dfrac{t^{2}}{2} = t^{2} + c \\ [2em]
+			%
+			\displaystyle \int \dfrac{1}{\sqrt{1 - y^{2}}} \: \mathrm{d}y & = & \arcsin\left(y\right) \\
+		\end{array}
+	\end{equation*}
+	Si riaggregano i risultati:
+	\begin{equation*}
+		\arcsin\left(y\right) = t^{2} + c
+	\end{equation*}
+	Si esplicita la $y$ ricordando le proprietà della trigonometria $\arcsin\left(y\right) = x \rightarrow \sin\left(x\right) = y$:
+	\begin{equation*}
+		y = \sin\left(t^{2} + c\right)
+	\end{equation*}
+	
+
+
+	\newpage
+
+	%%%%%%%%%%%%%%%%%%%%%%
+	% Problema di Cauchy %
+	%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Problema di Cauchy}\label{subsection: problema di Cauchy}
 
 	Il \definition{problema di Cauchy (o dei valori iniziali)} ha due forme:
 	\begin{itemize}
@@ -1405,5 +1533,27 @@
 		\end{cases}
 	\end{equation*}
 
-	% TODO: pag. 191 Esistenza e unicità locale
+	\noindent
+	Si consideri il seguente problema di Cauchy:
+	\begin{equation*}
+		(P)\begin{cases}
+			y'\left(x\right) = a\left(x\right) b\left(y\right) \\
+			y\left(x_{0}\right) = y_{0}
+		\end{cases}
+	\end{equation*}
+	\begin{theorem}[\textbf{Teorema di esistenza e unicità locale per equazioni differenziabili a variabili separabili}]\label{theorem: teorema di esistenza e unicità locale per equazioni differenziabili a variabili separabili}
+		Sia $a\left(x\right)$ una funzione continua in un intervallo aperto $I$ che contiene $x_{0}$ e $b\left(y\right)$ una funzione continua in un intervallo aperto $J$ che contiene $y_{0}$. Allora esiste $\delta > 0$ e una funzione definita per ogni $x \in I' \left[x_{0} - \delta, x_{0} + \delta\right] \subseteq I$ e ivi derivabile che risolve il problema di Cauchy. Se $b\left(y\right) \in C^{1}\left(J\right)$, allora tale soluzione unica.
+	\end{theorem}
+
+	\noindent
+	Considerando il teorema \ref{theorem: teorema di esistenza e unicità locale per equazioni differenziabili a variabili separabili} enunciato poco fa, si intende dire che esiste almeno una funzione ($\overline{y}\left(x\right)$) tale che la sua derivata è uguale alla funzione continua ($a\left(x\right)$) moltiplicata per un'altra funzione continua ($b\left(y\right)$) che ha come parametro la primitiva:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Primitiva} 	&\longrightarrow& \overline{y}\left(x\right) \\
+			\text{Derivata}		&\longrightarrow& \overline{y}'\left(x\right) = a\left(x\right) \cdot b\left(\overline{y}\left(x\right)\right) \hspace{1em} \forall x \in \left[x_{0} - \delta, x_{0} + \delta \right]
+		\end{array}
+	\end{equation*}
+	Ovviamente la derivata $\overline{y}\left(x\right)$ deve valere per qualsiasi $x$ che appartiene all'intorno $x_{0}$ aggiungendo/rimuovendo $\delta$. Inoltre la primitiva nel punto $x_{0}$ deve essere uguale a $y_{0}$ ($\overline{y}\left(x_{0}\right) = y_{0}$). Allora, la primitiva ($\overline{y}\left(x\right)$) è derivabile e la sua derivata è continua. L'unicità è possibile affermarla se la funzione $b\left(y\right)$ ha una proprietà più forte della continuità, ovvero la continuità nella derivata in $J$.
+
+	% TODO: aggiungere intervallo massimale, vedere prima frase slide n. 7
 \end{document}
