@@ -1555,5 +1555,81 @@
 	\end{equation*}
 	Ovviamente la derivata $\overline{y}\left(x\right)$ deve valere per qualsiasi $x$ che appartiene all'intorno $x_{0}$ aggiungendo/rimuovendo $\delta$. Inoltre la primitiva nel punto $x_{0}$ deve essere uguale a $y_{0}$ ($\overline{y}\left(x_{0}\right) = y_{0}$). Allora, la primitiva ($\overline{y}\left(x\right)$) è derivabile e la sua derivata è continua. L'unicità è possibile affermarla se la funzione $b\left(y\right)$ ha una proprietà più forte della continuità, ovvero la continuità nella derivata in $J$.
 
-	% TODO: aggiungere intervallo massimale, vedere prima frase slide n. 7
+	\longline
+
+	\subsubsection{Intervallo massimale}\label{subsubsection: intervallo massimale}
+
+	Si parte subito con il dire che determinare l'intervallo massimale non è un'operazione banale. Questo perché non esistono algoritmi (semplici) certi che consentono di ottenere un intervallo massimale. Tuttavia, lo studente può utilizzare il ragionamento ed eventuali intuizioni per capire quando una soluzione ha intervallo estendibile e quando esso è massimale.
+
+	\begin{boxdef}
+		Il più ampio intervallo su cui la soluzione è definita si chiama \definition{intervallo massimale}.
+	\end{boxdef}
+
+	\noindent
+	L'intervallo massimale è possibile determinarlo una volta che si è giunti al termine del problema di Cauchy (par. \ref{subsection: problema di Cauchy}). Una volta concluso l'esercizio, avendo trovato l'integrale generale e la costante $c$, è necessario eseguire alcuni passaggi:
+	\begin{enumerate}[label=\alph*)]
+		\item Nell'integrale generale, sostituire la costante $c$ trovata al termine dell'esercizio;
+		\item Esplicitare la $y$ tramite passaggi algebrici;
+		\item Porre la condizione di esistenza;
+		\item Studiare l'intervallo massimale con appositi ragionamenti.
+	\end{enumerate}
+	Si procede presentando due esempi e ricordando che un intervallo, \underline{\textbf{può}} essere esteso se rispetta certe condizioni.
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+
+	\noindent
+	Dato il seguente problema di Cauchy:
+	\begin{equation*}
+		\begin{cases}
+			y' = \sqrt{y}e^{-x} \\
+			y\left(0\right) = 1
+		\end{cases}
+	\end{equation*}
+	Calcolare l'intervallo massimale.\newline
+
+	\noindent
+	Il problema è risolvibile con il metodo delle variabili separabili (par. \ref{subsection: equazioni a variabili separabili}):
+	\begin{equation*}
+		\begin{array}{rcl}
+			y'\left(x\right) &=& f\left(y\right) g\left(x\right) \\
+			f\left(y\right) &=& \sqrt{y} \\
+			g\left(x\right) &=& e^{-x} \\ [1em]
+			\displaystyle\int \dfrac{1}{\sqrt{y}} \: \mathrm{d}y &=& \displaystyle\int e^{-x} \: \mathrm{d}x + c
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Si risolve l'integrale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int y^{-\frac{1}{2}} \: \mathrm{d}y &=& -e^{-x} + c \\ [1em]
+			%
+			&\downarrow& \text{si utilizza l'integrale notevole } \displaystyle\int x^{n} \: \mathrm{d}x = - \dfrac{x^{n+1}}{n+1} \hspace{1em} n \ne -1 \\ [1em]
+			%
+			\dfrac{y^{\frac{1}{2}}}{\dfrac{1}{2}} &=& -e^{-x} + c \\ [2.5em]
+			%
+			2\sqrt{y} &=& -e^{-x} + c
+		\end{array}
+	\end{equation*}
+	La soluzione trovata è l'integrale generale. Si conclude il problema di Cauchy trovando la costante $c$, quindi applicando la condizione iniziale $y\left(0\right) = 1$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			2\sqrt{1} &=& -e^{-0} + c \\
+			2 + 1 &=& c \\
+			3 &=& c
+		\end{array}
+	\end{equation*}
+	Adesso si calcola l'intervallo massimale:
+	\begin{itemize}
+		\item Si sostituisce nell'integrale generale la costante $c$:
+		\begin{equation*}
+			2\sqrt{y} = -e^{-x} + 3
+		\end{equation*}
+		Si esplicita la $y$:
+		\begin{equation*}
+			da terminare
+		\end{equation*}
+	\end{itemize}
 \end{document}
