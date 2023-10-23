@@ -1573,7 +1573,7 @@
 		\item Porre la condizione di esistenza;
 		\item Studiare l'intervallo massimale con appositi ragionamenti.
 	\end{enumerate}
-	Si procede presentando due esempi e ricordando che un intervallo, \underline{\textbf{può}} essere esteso se rispetta certe condizioni.
+	Si procede presentando due esempi e ricordando che un intervallo, \underline{\textbf{può}} essere esteso se rispetta certe condizioni.\newpage
 
 	\begin{flushleft}
 		\example{\underline{Esempio 1}}
@@ -1593,12 +1593,13 @@
 	Il problema è risolvibile con il metodo delle variabili separabili (par. \ref{subsection: equazioni a variabili separabili}):
 	\begin{equation*}
 		\begin{array}{rcl}
-			y'\left(x\right) &=& f\left(y\right) g\left(x\right) \\
-			f\left(y\right) &=& \sqrt{y} \\
-			g\left(x\right) &=& e^{-x} \\ [1em]
+			y'\left(x\right) &=& f\left(x\right) g\left(y\right) \\
+			f\left(x\right) &=& e^{-x} \\
+			g\left(y\right) &=& \sqrt{y} \\ [1em]
 			\displaystyle\int \dfrac{1}{\sqrt{y}} \: \mathrm{d}y &=& \displaystyle\int e^{-x} \: \mathrm{d}x + c
 		\end{array}
-	\end{equation*}\newpage
+	\end{equation*}
+	Si potrebbe tentare di calcolare una soluzione costante, ma risulterebbe evidente che l'unica soluzione costante, cioè $y = 0$, non è ammessa come soluzione del problema (condizione iniziale $y\left(0\right) = 1$!). Per questo motivo, si procede con il metodo delle variabili separabili.\newline
 
 	\noindent
 	Si risolve l'integrale:
@@ -1606,7 +1607,7 @@
 		\begin{array}{rcl}
 			\displaystyle\int y^{-\frac{1}{2}} \: \mathrm{d}y &=& -e^{-x} + c \\ [1em]
 			%
-			&\downarrow& \text{si utilizza l'integrale notevole } \displaystyle\int x^{n} \: \mathrm{d}x = - \dfrac{x^{n+1}}{n+1} \hspace{1em} n \ne -1 \\ [1em]
+			&\downarrow& \text{si utilizza l'integrale notevole } \displaystyle\int x^{n} \: \mathrm{d}x = \dfrac{x^{n+1}}{n+1} \hspace{1em} n \ne -1 \\ [1em]
 			%
 			\dfrac{y^{\frac{1}{2}}}{\dfrac{1}{2}} &=& -e^{-x} + c \\ [2.5em]
 			%
@@ -1629,7 +1630,128 @@
 		\end{equation*}
 		Si esplicita la $y$:
 		\begin{equation*}
-			da terminare
+			\begin{array}{rcl}
+				\sqrt{y} &=& -\dfrac{e^{-x}}{2} + \dfrac{3}{2} \\ [.5em]
+				y &=& \left(-\dfrac{e^{-x}}{2} + \dfrac{3}{2}\right)^{2}
+			\end{array}
 		\end{equation*}
+
+		\item Le condizioni d'esistenza del problema di Cauchy sono le seguenti:
+		\begin{equation*}
+			\sqrt{y}e^{-x} \hspace{1em} \longrightarrow \hspace{1em} \underbrace{\left]-\infty, +\infty\right[}_{def. x} \times \overbrace{\left[0, +\infty \right[}^{def. y}
+		\end{equation*}
+		La $y$ deve essere maggiore/uguale a zero, mentre la $x$ non ha grosse restrizioni. L'intervallo massimale per definizione può essere identico o un sottoinsieme. Per trovarlo è necessario studiare il valore della $y$ esplicitata al passaggio precedente. In questo caso, essa in zero ($y=0$) non ha soluzione, per cui si cercano le soluzioni per $y > 0$.
+
+		\item Andando a cercare una soluzione costante dell'equazione differenziale, ci si accorge che $g\left(y\right) = \sqrt{y}$ è uguale a zero solo se $y = 0$, e quindi essa sarebbe una soluzione costante del problema (ricordandosi quanto detto nel par. \ref{subsection: equazioni a variabili separabili}) poiché $g\left(y\right) = 0$ con $y = \overline{y}$. Tuttavia, $y = 0$ non è ammesso dal problema a causa della condizione iniziale $y\left(0\right) = 1$. 
+		
+		Per questo motivo, si cerca una soluzione tale che $y > 0$. E per farlo, si prende in considerazione la $y$ trovata al passaggio precedente e si impone una condizione:
+		\begin{equation*}
+			\begin{array}{rcl}
+				-\dfrac{e^{-x}}{2} + \dfrac{3}{2} &>& 0 \\ [1em]
+				-e^{-x} &>& -3 \\ [.3em]
+				e^{-x} &<& 3 \\ [.3em]
+				-x &<& \ln\left(3\right) \\ [.3em]
+				x &>& -\ln\left(3\right)
+			\end{array}
+		\end{equation*}
+
+		\item Per ciascun valore di $x$ che è maggiore di $-\ln\left(3\right)$, la $y$ deve valere:
+		\begin{equation*}
+			y = \left(-\dfrac{e^{-x}}{2} + \dfrac{3}{2}\right)^{2}
+		\end{equation*}
+		E per tutti gli altri casi? Nei casi in cui la $x$ sia minore o uguale a $-\ln\left(3\right)$, la $y$ dovrà valere $0$, come confermato nel caso della soluzione costante $y = 0$.
+
+		Da queste considerazioni, è possibile rappresentare la soluzione del problema di Cauchy $\overline{y}$ come:
+		\begin{equation*}
+			\overline{y}\left(x\right) = \begin{cases}
+				\left(-\dfrac{e^{-x}}{2} + \dfrac{3}{2}\right)^{2} 	& \text{se } x > -\ln\left(3\right) \\
+				\\
+				0													& \text{se } x \le -\ln\left(3\right)
+			\end{cases}
+		\end{equation*}
+		Per cui l'intervallo massimale è $-\infty,+\infty$ e difatti si può estendere a destra e sinistra.
+	\end{itemize}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+
+	\noindent
+	Dato il seguente problema di Cauchy:
+	\begin{equation*}
+		\begin{cases}
+			y'-y^{2}\cos\left(x\right) = 0 \\
+			\\
+			y\left(\dfrac{\pi}{2}\right) = -1
+		\end{cases}
+	\end{equation*}
+	Calcolare l'intervallo massimale.\newline
+
+	\noindent
+	Il problema è risolvibile con il metodo delle variabili separabili (par. \ref{subsection: equazioni a variabili separabili}):
+	\begin{equation*}
+		\begin{array}{rcl}
+			y'\left(x\right) - f\left(x\right) g\left(y\right) &=& 0 \longrightarrow y'\left(x\right) = f\left(x\right) g\left(y\right) \\
+			f\left(x\right) &=& \cos\left(x\right) \\
+			g\left(y\right) &=& y^{2} \\ [1em]
+			\displaystyle\int \dfrac{1}{y^{2}} \: \mathrm{d}y &=& \displaystyle\int \cos\left(x\right) \: \mathrm{d}x + c
+		\end{array}
+	\end{equation*}
+	Si potrebbe tentare di calcolare una soluzione costante, ma risulterebbe evidente che l'unica soluzione costante, cioè $y = 0$, non è ammessa come soluzione del problema (condizione iniziale $y\left(\frac{\pi}{2}\right) = -1$!). Per questo motivo, si procede con il metodo delle variabili separabili.\newline
+
+	\noindent
+	Si risolve l'integrale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int \dfrac{1}{y^{2}} \: \mathrm{d}y &=& \displaystyle\int \cos\left(x\right) \: \mathrm{d}x \\ [1em]
+			%
+			\displaystyle\int y^{-2} \: \mathrm{d}y &=& \displaystyle\int \cos\left(x\right) \: \mathrm{d}x \\ [1em]
+			%
+			&\downarrow& \text{si utilizza l'integrale notevole } \displaystyle\int x^{n} \:\mathrm{d}x = \dfrac{x^{n+1}}{n+1} \hspace{1em} n \ne -1 \\ [1em]
+			%
+			\dfrac{y^{-1}}{-1} &=& \sin\left(x\right) \\ [1em]
+			%
+			-y^{-1} &=& \sin\left(x\right) \\ [.5em]
+			%
+			y &=& -\dfrac{1}{\sin\left(x\right)} + c
+		\end{array}
+	\end{equation*}
+	La soluzione trovata è l'integrale generale. Si conclude il problema di Cauchy trovando la costante $c$, quindi applicando la condizione iniziale $y\left(\frac{\pi}{2}\right)=-1$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			-1 &=& -\dfrac{1}{\sin\left(\frac{\pi}{2}\right)} + c \\ [1em]
+			%
+			-1 &=& -\dfrac{1}{1} + c \\ [1em]
+			%
+			0 &=& c
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Adesso si calcola l'intervallo massimale:
+	\begin{itemize}
+		\item Si sostituisce nell'integrale generale la costante $c$:
+		\begin{equation*}
+			y = -\dfrac{1}{\sin\left(x\right)} + 0
+		\end{equation*}
+		
+		\item La condizione d'esistenza del problema di Cauchy sono le seguenti:
+		\begin{equation*}
+			y^{2}\cos\left(x\right) \hspace{1em} \longrightarrow \hspace{1em} \underbrace{\left] -\infty, +\infty \right[}_{def. x} \times \overbrace{\left] -\infty, +\infty \right[}^{def. y}
+		\end{equation*}
+
+		\item A differenza dell'esempio precedente, in questo caso la $x$ non può essere qualsiasi valore poiché il $\sin$ è al denominatore. Per cui, la condizione d'esistenza è:
+		\begin{equation*}
+			\sin\left(x\right) > 0
+		\end{equation*}
+		Calcolando il $\arcsin$ di $0$, si ottiene:
+		\begin{equation*}
+			x > \arcsin\left(0\right) \longrightarrow x > 0
+		\end{equation*}
+		Ma attenzione! Perché il valore $\sin$ si può annullare anche con altri valori di $x$, come per esempio $\pi$, per cui:
+		\begin{equation*}
+			0 < x < \pi
+		\end{equation*}
+		Questo risulta l'intervallo massimale, ovviamente estremi esclusi.
 	\end{itemize}
 \end{document}
