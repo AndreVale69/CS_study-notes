@@ -1555,7 +1555,41 @@
 	\end{equation*}
 	Ovviamente la derivata $\overline{y}\left(x\right)$ deve valere per qualsiasi $x$ che appartiene all'intorno $x_{0}$ aggiungendo/rimuovendo $\delta$. Inoltre la primitiva nel punto $x_{0}$ deve essere uguale a $y_{0}$ ($\overline{y}\left(x_{0}\right) = y_{0}$). Allora, la primitiva ($\overline{y}\left(x\right)$) è derivabile e la sua derivata è continua. L'unicità è possibile affermarla se la funzione $b\left(y\right)$ ha una proprietà più forte della continuità, ovvero la continuità nella derivata in $J$.
 
-	\longline
+	\begin{boxdef}
+		\definition{Teorema di esistenza e unicità globale per equazioni differenziali lineari.}\newline
+
+		Si consideri l'equazione differneziale lineare
+		\begin{equation*}
+			y'\left(x\right) + a\left(x\right) \cdot y\left(x\right) = b\left(x\right)
+		\end{equation*}
+		Con $a\left(x\right)$ e $b\left(x\right)$ funzioni continue su un intervallo $I$ della retta reale. Se $x_{0} \in I$, allora il problema:
+		\begin{equation*}
+			\begin{cases}
+				y'\left(x\right) + a\left(x\right) \cdot y\left(x\right) = b\left(x\right) & x \in I \\
+				y\left(x_{0}\right) = y_{0}
+			\end{cases}
+		\end{equation*}
+		Ammette un'unica soluzione in $I$.
+	\end{boxdef}
+	
+	\begin{boxdef}
+		\definition{Struttura dell'insieme delle soluzioni di un'equazione omogenea del primo ordine.}\newline
+
+		L'insieme $V$ delle soluzioni dell'equazione omogenea
+		\begin{equation*}
+			y' + a\left(x\right)y = 0
+		\end{equation*}
+		È uno spazio vettoriale su $\mathbb{R}$ di dimensione $1$.
+
+		Indicando con $y_{P}\left(x\right)$ una soluzione particolare dell'equazione completa
+		\begin{equation*}
+			y' + a\left(x\right) y = b\left(x\right)
+		\end{equation*}
+		Allora il suo integrale generale è
+		\begin{equation*}
+			y\left(x\right) = y_{P}\left(x\right) + y_{om}\left(x\right) \hspace{1em} y_{om}\left(x\right) \in V
+		\end{equation*}
+	\end{boxdef}\newpage
 
 	\subsubsection{Intervallo massimale}\label{subsubsection: intervallo massimale}
 
@@ -1573,7 +1607,7 @@
 		\item Porre la condizione di esistenza;
 		\item Studiare l'intervallo massimale con appositi ragionamenti.
 	\end{enumerate}
-	Si procede presentando due esempi e ricordando che un intervallo, \underline{\textbf{può}} essere esteso se rispetta certe condizioni.\newpage
+	Si procede presentando due esempi e ricordando che un intervallo, \underline{\textbf{può}} essere esteso se rispetta certe condizioni.
 
 	\begin{flushleft}
 		\example{\underline{Esempio 1}}
@@ -1670,7 +1704,7 @@
 			\end{cases}
 		\end{equation*}
 		Per cui l'intervallo massimale è $-\infty,+\infty$ e difatti si può estendere a destra e sinistra.
-	\end{itemize}\newpage
+	\end{itemize}
 
 	\begin{flushleft}
 		\example{\underline{Esempio 2}}
@@ -1740,7 +1774,7 @@
 			y^{2}\cos\left(x\right) \hspace{1em} \longrightarrow \hspace{1em} \underbrace{\left] -\infty, +\infty \right[}_{def. x} \times \overbrace{\left] -\infty, +\infty \right[}^{def. y}
 		\end{equation*}
 
-		\item A differenza dell'esempio precedente, in questo caso la $x$ non può essere qualsiasi valore poiché il $\sin$ è al denominatore. Per cui, la condizione d'esistenza è:
+		\item A differenza dell'esempio precedente, in questo caso la $x$ non può essere qualsiasi valore poiché c'è un $\sin$ al denominatore che potrebbe causare una divisione per zero (impossibile). Per cui, la condizione d'esistenza è:
 		\begin{equation*}
 			\sin\left(x\right) > 0
 		\end{equation*}
@@ -1753,5 +1787,58 @@
 			0 < x < \pi
 		\end{equation*}
 		Questo risulta l'intervallo massimale, ovviamente estremi esclusi.
-	\end{itemize}
+	\end{itemize}\newpage
+
+	\subsubsection{Equazioni differenziali lineari del secondo ordine}\label{subsubsection: equazioni differenziali lineari del secondo ordine}
+
+	Le \definition{equazioni differenziali lineari del secondo ordine} nella forma standard sono composte nel seguente modo:
+	\begin{equation*}
+		y''\left(x\right) + a\left(x\right)y'\left(x\right) + b\left(x\right)y\left(x\right) = f\left(x\right)
+	\end{equation*}
+	Con $a\left(x\right)$, $b\left(x\right)$, $f\left(x\right) \in \mathcal{C}^{0}\left(I\right)$.\newline
+
+	\noindent
+	Il problema di Cauchy per una equazione lineare del secondo ordine è composto nel seguente modo:
+	\begin{equation*}
+		\begin{cases}
+			y''\left(x\right) + a\left(x\right)y'\left(x\right) + b\left(x\right)y\left(x\right) = f\left(x\right) \\
+			y\left(x_{0}\right) = y_{0} \\
+			y'\left(x_{0}\right) = v_{0}
+		\end{cases}
+	\end{equation*}
+	
+	\begin{boxdef}
+		\definition{Teorema di esistenza e unicità globale per equazioni lineari del secondo ordine.}\newline
+		
+		Si consideri l'equazione differenziale lineare
+		\begin{equation*}
+			y''\left(x\right) + a\left(x\right) \cdot y'\left(x\right) + b\left(x\right) \cdot y\left(x\right) = f\left(x\right)
+		\end{equation*}
+		Con $a\left(x\right)$, $b\left(x\right)$ e $f\left(x\right)$ funzioni continue su un intervallo $I$ detta retta reale. Se $x_{0} \in I$, allora il problema:
+		\begin{equation*}
+			\begin{cases}
+				y''\left(x\right) + a\left(x\right)y'\left(x\right) + b\left(x\right)y\left(x\right) = f\left(x\right) \\
+				y\left(x_{0}\right) = y_{0} \\
+				y'\left(x_{0}\right) = v_{0}
+			\end{cases}
+		\end{equation*}
+		Ammette un'unica soluzione in $I$.
+	\end{boxdef}
+
+	\begin{boxdef}
+		\definition{Struttura dell'insieme delle soluzioni di un'equazione omogenea del secondo ordine}\newline
+
+		L'insieme $V$ delle soluzioni di un'equazione differenziale lineare omogenea del secondo ordine è uno spazio vettoriale su $\mathbb{R}$ di dimensione $2$.
+	\end{boxdef}
+
+	\noindent
+	L'insieme $S$ delle soluzioni dell'equazione completa è una varietà lineare:
+	\begin{equation*}
+		S = \left\{y_{P}\left(x\right) + y_{om}\left(x\right) : y_{om}\left(x\right) \in V\right\}
+	\end{equation*}
+	In cui $y_{P}\left(x\right)$ è una soluzione particolare dell'equazione completa.\newline
+
+	\noindent
+	Per risolvere questo tipo di equazioni, si utilizza il \textbf{metodo del confronto}.
+	\newpage
 \end{document}
