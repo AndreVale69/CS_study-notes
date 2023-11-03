@@ -19,7 +19,6 @@
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 \usepackage{tcolorbox}				% pacchetto per le box colorate
 
-
 % draw a frame around given text
 \newcommand{\framedtext}[1]{%
 	\par%
@@ -1839,6 +1838,117 @@
 	In cui $y_{P}\left(x\right)$ è una soluzione particolare dell'equazione completa.\newline
 
 	\noindent
-	Per risolvere questo tipo di equazioni, si utilizza il \textbf{metodo del confronto}.
-	\newpage
+	Per risolvere questo tipo di equazioni, si utilizza il \textbf{metodo di somiglianza o dei coefficienti indeterminati} (par. \ref{subsection: metodo di somiglianza o dei coefficienti indeterminati}).\newpage
+
+	\subsection{Metodo di somiglianza o dei coefficienti indeterminati}\label{subsection: metodo di somiglianza o dei coefficienti indeterminati}
+	Il metodo di somiglianza o dei coefficienti indeterminati è una tecnica che consente di risolvere le equazioni differenziali lineari del secondo ordine rapidamente.\\
+
+	\noindent
+	Non esiste un'unica tecnica risolutiva, ma è necessario avere a disposizione una serie di \textbf{\emph{pattern risolutivi}}. Il motivo è dovuto al fatto che ogniqualvolta si presenti un'equazione differenziale lineare del secondo grado, si eseguirà un \emph{matching} tra i \emph{pattern risolutivi} che si hanno a disposizione e l'equazione risultante (in parole povere, l'espressione a destra dell'uguale).\newline
+
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} l l l @{}}
+			\toprule
+			\textbf{Tipo}	& \textbf{Equazione differenziale} & \textbf{Soluzione particolare} \\
+			\midrule
+			Monomio	& $y'' + y' - 2y = 5$ & $y_{P}\left(x\right) = a$ \\
+			\cmidrule{1-3}
+			Primo grado 	& $y'' + y' - 2y = x + 2$ & $y_{P}\left(x\right) = ax + b$ \\ 
+			\cmidrule{1-3} 
+			Secondo grado	& $y'' + 3y' + 2y = 2x^{2} - 1$ & $y_{P}\left(x\right) = ax^{2} + bx + c$ \\
+			\cmidrule{1-3} 
+			\multirow{4}{*}{Esponenziale} 	& $y'' + 3y' - 2y = 3e^{-x}$	& $y_{P}\left(x\right) = ae^{-x}$ \\ [.3em]
+			& $y'' - 3y' + 2y = 3e^{-x} \cdot x$	& $y_{P}\left(x\right) = \left(ax + b\right) e^{-x}$ \\ [.3em]
+			& $y'' - 3y' + 2y = 3e^{x}$	& $y_{P}\left(x\right) = x \cdot ae^{x}$ \\ [.3em]
+			& $y'' - 3y' + 2y = 3e^{2x} \cdot x$	& $y_{P}\left(x\right) = \left(ax + b\right) e^{2x} \cdot x$ \\
+			\cmidrule{1-3}
+			Coseno/Seno 	& $y'' + y' = \cos\left(2x\right)$ & $y_{P}\left(x\right) = a \cdot \cos\left(2x\right) + b \cdot \sin\left(2x\right)$ \\
+			\bottomrule
+		\end{tabular}
+		\caption{Pattern risolutivi del metodo di somiglianza.}
+		\label{tab: pattern risolutivi del metodo di somiglianza}
+	\end{table}
+
+	\noindent
+	A questi pattern è necessario aggiungere alcuni casi che modificano la soluzione particolare. \textbf{Attenzione:} questi casi modificano la soluzione particolare scelta! Nella tabella \ref{tab: casi particolari del metodo di somiglianza}, si indicano con $\lambda$ le soluzioni dell'equazione caratteristica (in parole povere l'equazione a sinistra dell'uguale).\newline
+
+	\noindent
+	Un altro caso particolare è il \textbf{principio di sovrapposizione}. In questo caso, basta risolvere ogni fattore come un'equazione a sé stante. Per cui la soluzione particolare si compone nel seguente modo:
+	\begin{equation*}
+		y_{P}\left(x\right) = y_{P_{1}}\left(x\right) + y_{P_{2}}\left(x\right)
+	\end{equation*}
+	Per esempio, data l'equazione:
+	\begin{equation*}
+		y'' + 6y' + 8y = e^{2x} + \sqrt{\pi} x^{2}
+	\end{equation*}
+	Si risolve:
+	\begin{equation*}
+		y'' + 6y' + 8y = e^{2x}
+	\end{equation*}
+	E successivamente:
+	\begin{equation*}
+		y'' + 6y' + 8y = \sqrt{\pi} x^{2}
+	\end{equation*}\newpage
+
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} c c c @{}}
+			\toprule
+			$\boldsymbol{\lambda}$ & \textbf{Equazione differenziale} & \textbf{Che cosa viene modificato} \\
+			\midrule
+			%
+			\multicolumn{3}{p{32em}}{\framedtext{Nel caso in cui la soluzione dell'equazione caratteristica è uguale a zero, si moltiplica la \textbf{soluzione particolare} per $x$. Quest'ultima viene elevata ad un valore pari al numero di volte che essa annulla l'equazione caratteristica.
+			
+			Nell'esempio sottostante, la $x$ viene elevata ad $1$ poiché le soluzioni dell'equazione caratteristica sono $\lambda_{1} = 0$ e $\lambda_{2} = -1$. Dunque, $\lambda_{1}$ annulla soltanto una volta l'equazione caratteristica (chiamata formalmente molteplicità algebrica).
+			
+			\underline{Attenzione:} la regola viene applicata solo ai polinomi di primo e secondo grado.}}\\\\
+			$\lambda = 0$ & $y''+y' = x+2$ & $y_{P}\left(x\right) = \left(ax+b\right)x^{1}$ \\ [.5em]
+			%
+			\cmidrule{1-3}
+			%
+			\multicolumn{3}{p{32em}}{\framedtext{Nel caso in cui le soluzioni dell'equazione caratteristica siano uguale tra di loro, si modifica la \textbf{soluzione generale} aggiungendo una $x$.
+			
+			Nell'esempio sottostante, le soluzioni dell'equazione caratteristica sono $\lambda_{1} = \lambda_{2} = 1$ per cui viene aggiunta una $x$ nella soluzione generale.}} \\\\
+			$\lambda_{1} = \lambda_{2}$ & $y'' - 2y' + y = \left(x - 1\right)^{2}$ & $y\left(x\right) = y_{P}\left(x\right) + c_{1}e^{x} + c_{2}e^{x} \cdot x$ \\ [.5em]
+			%
+			\cmidrule{1-3}
+			%
+			\multicolumn{3}{p{32em}}{\framedtext{Nel caso in cui le soluzioni dell'equazione caratteristica siano uguali al termine dell'esponenziale ($e^{\alpha x}$) presente a destra dell'uguale dell'equazione caratteristica, alla \textbf{soluzione particolare} viene moltiplicata una $x$ elevata ad un valore pari alla sua molteplicità algebrica.
+			
+			Nell'esempio sottostante, le soluzioni dell'equazione caratteristica sono $\lambda_{1} = $ e $\lambda_{2} = $. E dato che il valore di $\lambda_{n}$ compare nell'esponenziale dell'equazione caratteristica, viene aggiunta una $x$.
+			
+			\underline{Attenzione:} la regola vale solo se l'esponenziale ha una $x$ tra i suoi termini, quindi non è valida per esempio con $e^{2}$. In generale deve essere: $e^{\alpha x}$}} \\\\
+			$\lambda_{1} = \alpha$ & $y'' - 5y' + 6y = 3x e^{2x}$ & $y_{P}\left(x\right) = x \cdot \left[e^{2x}\left(ax+b\right)\right]$ \\ [.5em]
+			%
+			\cmidrule{1-3}
+			%
+			\multicolumn{3}{p{32em}}{\framedtext{Nel caso in cui le soluzioni dell'equazione caratteristica siano numeri immaginari e uguali: al termine dell'esponenziale ($e^{\alpha x}$) e al termine del seno/coseno ($\cos\left(\beta x\right)$/$\sin\left(\beta x\right)$); allora viene aggiunta una $x$ alla \textbf{soluzione particolare}.}} \\\\
+			\multirow{2}{*}{$\lambda = \alpha \pm \beta i$} & $y'' \cdots = e^{\alpha x} \cos\left(\beta x\right)$ & \multirow{2}{*}{$y_{P}\left(x\right) = x \cdot e^{\alpha x}\left(\cos\left(\beta x\right) + \sin\left(\beta x\right)\right)$} \\
+			& $y'' \cdots = e^{\alpha x} \sin\left(\beta x\right)$ & \\
+			\bottomrule
+		\end{tabular}
+		\caption{Casi particolari della $\lambda$ nel metodo di somiglianza.}
+		\label{tab: casi particolari del metodo di somiglianza}
+	\end{table}\newpage
+
+	% Risolvere la seguente equazione differenziale:
+	% \begin{equation*}
+	% 	y'' + y' = cos(x)+2
+	% \end{equation*}
+	% Viene utilizzato il metodo di somiglianza per risolvere questa equazione differenziale, ma viene utilizzato anche il principio di % sovrapposizione. Prima di tutto vengono calcolate le soluzioni dell'equazione caratteristica:
+	% \begin{equation*}
+	% 	\dfrac{-1 \pm 1}{2} \longrightarrow \lambda_{1} = 0 \hspace{.5em} \lambda_{2} = -1
+	% \end{equation*}
+	% L'integrale generale corrisponde a:
+	% \begin{equation*}
+	% 	y\left(x\right) = y_{P}\left(x\right) + c_{1} e^{0 \cdot x} + c_{2}e^{-x} = y_{P}\left(x\right) + c_{2}e^{-x}
+	% \end{equation*}
+
+	% Per cui:
+	% \begin{equation*}
+	% 	y_{P}\left(x\right) = y_{P_{1}}\left(x\right) + y_{P_{2}}\left(x\right)
+	% \end{equation*}
+
+	% TODO: slides 6, end differential equations
 \end{document}
