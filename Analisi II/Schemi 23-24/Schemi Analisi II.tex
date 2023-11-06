@@ -822,8 +822,12 @@
 		\item $\displaystyle\int \dfrac{1}{x} \: \mathrm{d}x = \ln\left(|x|\right) + c$
 
 		\item $\displaystyle\int \sin\left(x\right) \: \mathrm{d}x = -\cos\left(x\right) + c$
+		
+		\item $\displaystyle\int \sin^{2}\left(x\right) \: \mathrm{d}x = \dfrac{1-\cos\left(2x\right)}{2} + c$
 
 		\item $\displaystyle\int \cos\left(x\right) \: \mathrm{d}x = \sin\left(x\right) + c$
+		
+		\item $\displaystyle\int \cos^{2}\left(x\right) \: \mathrm{d}x = \dfrac{1+\cos\left(2x\right)}{2} + c$
 
 		\item $\displaystyle\int \dfrac{1}{\cos^{2}\left(x\right)} \: \mathrm{d}x = \tan\left(x\right) + c$
 
@@ -1932,23 +1936,126 @@
 		\label{tab: casi particolari del metodo di somiglianza}
 	\end{table}\newpage
 
-	% Risolvere la seguente equazione differenziale:
-	% \begin{equation*}
-	% 	y'' + y' = cos(x)+2
-	% \end{equation*}
-	% Viene utilizzato il metodo di somiglianza per risolvere questa equazione differenziale, ma viene utilizzato anche il principio di % sovrapposizione. Prima di tutto vengono calcolate le soluzioni dell'equazione caratteristica:
-	% \begin{equation*}
-	% 	\dfrac{-1 \pm 1}{2} \longrightarrow \lambda_{1} = 0 \hspace{.5em} \lambda_{2} = -1
-	% \end{equation*}
-	% L'integrale generale corrisponde a:
-	% \begin{equation*}
-	% 	y\left(x\right) = y_{P}\left(x\right) + c_{1} e^{0 \cdot x} + c_{2}e^{-x} = y_{P}\left(x\right) + c_{2}e^{-x}
-	% \end{equation*}
+	% TODO: add examples
 
-	% Per cui:
-	% \begin{equation*}
-	% 	y_{P}\left(x\right) = y_{P_{1}}\left(x\right) + y_{P_{2}}\left(x\right)
-	% \end{equation*}
+	\subsection{Metodo di variazione delle costanti}
 
+	Il \definition{metodo di variazione} delle costanti è una tecnica più generale che consente di ricavare una soluzione particolare dell'equazione completa, qualunque sia la forma del termine forzante (cioè quello a destra dell'uguale).\newline
+
+	\noindent
+	Data l'equazione differenziale lineare del secondo ordine:
+	\begin{equation*}
+		y'' + ay' + by = f\left(x\right)
+	\end{equation*}
+	Dopo aver ottenuto la soluzione particolare con il metodo di somiglianza (par. \ref{subsection: metodo di somiglianza o dei coefficienti indeterminati}):
+	\begin{equation*}
+		y_{P}\left(x\right) = c_{1}\left(x\right)y_{1}\left(x\right) + c_{2}\left(x\right) y_{2}\left(x\right)
+	\end{equation*}
+	Si possono ottenere le due costanti grazie a queste operazioni tra matrici:
+	\begin{equation*}
+		\underbrace{
+			\begin{bmatrix}
+				y_{1}\left(x\right) & y_{2}\left(x\right) \\
+				y_{1}'\left(x\right) & y_{2}'\left(x\right)
+			\end{bmatrix}
+		}_{Wronskiana}
+		\cdot
+		\begin{bmatrix}
+			c_{1}'\left(x\right) \\
+			c_{2}'\left(x\right)
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			0 \\
+			f\left(x\right)
+		\end{bmatrix}
+	\end{equation*}
+	Attenzione, in questo caso le costanti sono derivate, per cui è necessario integrarle per ottenere la soluzione finale.
+
+	\begin{flushleft}
+		\example{\underline{\textbf{Esempio}}}
+	\end{flushleft}
+
+	\noindent
+	Determinare l'integrale generale dell'equazione:
+	\begin{equation*}
+		y'' + y = \sin\left(x\right)
+	\end{equation*}
+	Le soluzioni dell'equazione caratteristica sono:
+	\begin{equation*}
+		\dfrac{-0 \pm \sqrt{0^{2} - 4 \cdot 1 \cdot 1}}{2} = \dfrac{\pm\sqrt{-4}}{2} = \dfrac{\pm2i}{2} = \pm i
+	\end{equation*}
+	La soluzione generale dunque è:
+	\begin{equation*}
+		y\left(x\right) = y_{P}\left(x\right) + c_{1} e^{i \cdot x} + c_{2} e^{-i \cdot x}
+	\end{equation*}
+	Per ottenere la soluzione particolare viene utilizzato il metodo di somiglianza:
+	\begin{equation*}
+		y_{P}\left(x\right) = a \cdot \cos\left(x\right) + b \cdot \sin\left(x\right)
+	\end{equation*}
+	Adesso viene utilizzato il metodo di variazione per ottenere le costanti. Quindi si costruiscono le matrici:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\begin{bmatrix}
+				y_{1}\left(x\right) & y_{2}\left(x\right) \\
+				y_{1}'\left(x\right) & y_{2}'\left(x\right)
+			\end{bmatrix}
+			\cdot
+			\begin{bmatrix}
+				c_{1}'\left(x\right) \\
+				c_{2}'\left(x\right)
+			\end{bmatrix}
+			&=&
+			\begin{bmatrix}
+				0 \\
+				f\left(x\right)
+			\end{bmatrix} \\ [1em]
+			%
+			\begin{bmatrix}
+				\cos\left(x\right) & \sin\left(x\right) \\
+				-\sin\left(x\right) & \cos\left(x\right)
+			\end{bmatrix}
+			\cdot
+			\begin{bmatrix}
+				c_{1}' \\ c_{2}'
+			\end{bmatrix}
+			&=&
+			\begin{bmatrix}
+				0 \\ \sin\left(x\right)
+			\end{bmatrix} \\ [.8em]
+			%
+			\begin{bmatrix}
+				c_{1}' \\ c_{2}'
+			\end{bmatrix}
+			&=&
+			\begin{bmatrix}
+				\cos\left(x\right) & -\sin\left(x\right) \\
+				\sin\left(x\right) & \cos\left(x\right)
+			\end{bmatrix}^{-1}
+			\cdot
+			\begin{bmatrix}
+				0 \\ \sin\left(x\right)
+			\end{bmatrix} \\ [1em]
+			%
+			\begin{bmatrix}
+				c_{1}' \\ c_{2}'
+			\end{bmatrix}
+			&=&
+			\begin{bmatrix}
+				- \sin^{2}\left(x\right) \\
+				\cos\left(x\right) \sin\left(x\right)
+			\end{bmatrix}
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Per ottenere le costanti $c_{1}$ e $c_{2}$ è necessario integrare le derivate appena trovare, per cui:
+	\begin{equation*}
+		\begin{array}{rcl}
+			c_{1} &=& \displaystyle\int -\sin^{2}\left(x\right) \:\mathrm{d}x \\
+			&\downarrow& \text{si utilizza l'integrale fondamentale } \displaystyle\int \sin^{2}\left(x\right) \: \mathrm{d}x = \dfrac{1-\cos\left(2x\right)}{2} + c \\
+			&=& \displaystyle
+		\end{array}
+	\end{equation*}
 	% TODO: slides 6, end differential equations
 \end{document}
