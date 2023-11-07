@@ -821,13 +821,13 @@
 
 		\item $\displaystyle\int \dfrac{1}{x} \: \mathrm{d}x = \ln\left(|x|\right) + c$
 
-		\item $\displaystyle\int \sin\left(x\right) \: \mathrm{d}x = -\cos\left(x\right) + c$
+		\item $\displaystyle\int \sin\left(x\right) \: \mathrm{d}x = -\cos\left(x\right) + c$ \hspace{.5em} ma \hspace{.5em} $\displaystyle\int \sin\left(n \cdot x\right) \: \mathrm{d}x = -\left(n \cdot \cos\left(n \cdot x\right)\right) + c$
 		
-		\item $\displaystyle\int \sin^{2}\left(x\right) \: \mathrm{d}x = \dfrac{1-\cos\left(2x\right)}{2} + c$
+		\item $\displaystyle\int \sin^{2}\left(x\right) \: \mathrm{d}x = \int\dfrac{1-\cos\left(2x\right)}{2} \:\mathrm{d}x$
 
-		\item $\displaystyle\int \cos\left(x\right) \: \mathrm{d}x = \sin\left(x\right) + c$
+		\item $\displaystyle\int \cos\left(x\right) \: \mathrm{d}x = \sin\left(x\right) + c$ \hspace{.5em} ma \hspace{.5em} $\displaystyle\int \cos\left(n \cdot x\right) \: \mathrm{d}x = n \cdot \sin\left(n \cdot x\right) + c$
 		
-		\item $\displaystyle\int \cos^{2}\left(x\right) \: \mathrm{d}x = \dfrac{1+\cos\left(2x\right)}{2} + c$
+		\item $\displaystyle\int \cos^{2}\left(x\right) \: \mathrm{d}x = \int\dfrac{1+\cos\left(2x\right)}{2} \:\mathrm{d}x$
 
 		\item $\displaystyle\int \dfrac{1}{\cos^{2}\left(x\right)} \: \mathrm{d}x = \tan\left(x\right) + c$
 
@@ -2002,8 +2002,8 @@
 			\end{bmatrix}
 			\cdot
 			\begin{bmatrix}
-				c_{1}'\left(x\right) \\
-				c_{2}'\left(x\right)
+				a'\left(x\right) \\
+				b'\left(x\right)
 			\end{bmatrix}
 			&=&
 			\begin{bmatrix}
@@ -2017,7 +2017,7 @@
 			\end{bmatrix}
 			\cdot
 			\begin{bmatrix}
-				c_{1}' \\ c_{2}'
+				a' \\ b'
 			\end{bmatrix}
 			&=&
 			\begin{bmatrix}
@@ -2025,7 +2025,7 @@
 			\end{bmatrix} \\ [.8em]
 			%
 			\begin{bmatrix}
-				c_{1}' \\ c_{2}'
+				a' \\ b'
 			\end{bmatrix}
 			&=&
 			\begin{bmatrix}
@@ -2038,7 +2038,7 @@
 			\end{bmatrix} \\ [1em]
 			%
 			\begin{bmatrix}
-				c_{1}' \\ c_{2}'
+				a' \\ b'
 			\end{bmatrix}
 			&=&
 			\begin{bmatrix}
@@ -2049,13 +2049,53 @@
 	\end{equation*}\newpage
 
 	\noindent
-	Per ottenere le costanti $c_{1}$ e $c_{2}$ è necessario integrare le derivate appena trovare, per cui:
+	Per ottenere le costanti $a$ e $b$ è necessario integrare le derivate appena trovare, per cui:
 	\begin{equation*}
 		\begin{array}{rcl}
-			c_{1} &=& \displaystyle\int -\sin^{2}\left(x\right) \:\mathrm{d}x \\
-			&\downarrow& \text{si utilizza l'integrale fondamentale } \displaystyle\int \sin^{2}\left(x\right) \: \mathrm{d}x = \dfrac{1-\cos\left(2x\right)}{2} + c \\
-			&=& \displaystyle
+			a &=& \displaystyle\int -\sin^{2}\left(x\right) \:\mathrm{d}x \\
+			%
+			&\downarrow& \text{si utilizza l'integrale fondamentale } \displaystyle\int \sin^{2}\left(x\right) \: \mathrm{d}x = \int\dfrac{1-\cos\left(2x\right)}{2} \: \mathrm{d}x \\ [1em]
+			%
+			&=& - \displaystyle\int \dfrac{1-\cos\left(2x\right)}{2} \:\mathrm{d}x \\ [1em]
+			%
+			&=& -\displaystyle\int \dfrac{1}{2} - \dfrac{\cos\left(2x\right)}{2} \:\mathrm{d}x \\ [1em]
+			%
+			&=& \displaystyle -\left( \int\dfrac{1}{2} \:\mathrm{d}x - \int \dfrac{\cos\left(2x\right)}{2} \:\mathrm{d}x \right) \\ [1em]
+			%
+			&=& \displaystyle -\left( \dfrac{1}{2}x - \dfrac{1}{2}\cdot\int\cos\left(2x\right) \:\mathrm{d}x \right) \\ [1em]
+			%
+			&\downarrow& \text{si ricorda il risultato della seguente derivata } \dfrac{\mathrm{d}}{\mathrm{d} x} \sin\left(5x\right) = 5\cos\left(5x\right) \\ [1em]
+			%
+			&=& -\dfrac{1}{2}x -\left(-\dfrac{1}{2} \cdot \dfrac{\sin\left(2x\right)}{2}\right) \\ [1em]
+			%
+			&=& -\dfrac{1}{2}x + \dfrac{\sin\left(2x\right)}{4} \\ [3em]
+			%
+			%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+			%
+			b &=& \displaystyle\int \cos\left(x\right)\sin\left(x\right) \: \mathrm{d}x \\
+			%
+			&\downarrow& \text{si utilizza il metodo di sostituzione } t = \sin\left(x\right) \hspace{1em} \mathrm{d}x = \dfrac{1}{t'} \: \mathrm{d}t \\ [1em]
+			%
+			&=& \displaystyle\int \cos\left(x\right) \cdot t \cdot \dfrac{1}{\cos\left(x\right)} \: \mathrm{d}t \\ [1em]
+			%
+			&=& \displaystyle\int \cancel{\cos\left(x\right)} \cdot t \cdot \dfrac{1}{\cancel{\cos\left(x\right)}} \: \mathrm{d}t \\ [1em]
+			%
+			&=& \displaystyle\int t \: \mathrm{d}t \\ [1em]
+			%
+			&=& \dfrac{t^{2}}{2} \\ [1em]
+			%
+			&\downarrow& \text{si conclude il metodo di sostituzione} \\ [1em]
+			%
+			&=& \dfrac{\sin^{2}\left(x\right)}{2} + c
 		\end{array}
 	\end{equation*}
+	Per cui, andando a sostituire i due risultati nella soluzione particolare, è possibile ottenere anche la soluzione generale:
+	\begin{gather*}
+		\begin{array}[pos]{rcl}
+			y_{P}\left(x\right) &=& \left(-\dfrac{1}{2}x + \dfrac{\sin\left(2x\right)}{4}\right)\cos\left(x\right) + \left(\dfrac{\sin^{2}\left(x\right)}{2}\right)\sin\left(x\right) \\ [1.4em]
+			%
+			y\left(x\right) &=& y_{P}\left(x\right) + c_{1} e^{i \cdot x} + c_{2} e^{-i \cdot x}
+		\end{array}
+	\end{gather*}
 	% TODO: slides 6, end differential equations
 \end{document}
