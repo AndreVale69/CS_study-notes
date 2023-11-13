@@ -2375,6 +2375,124 @@
 		e^{-t}
 	\end{equation*}\newpage
 
+	\subsection{Esercizi}\label{subsection: esercizi equazioni differenziali}
+
+	\subsubsection{Variabili separabili e problema di Cauchy}\label{subsubsection: variabili separabili e problema di Cauchy}
+
+	\begin{flushleft}
+		\definition{\underline{Esame 21 giugno 2023 - Gruppo A}}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
+	\end{flushleft}
+	\example{\emph{Determinare la soluzione del seguente problema di Cauchy}
+	\begin{equation*}
+		\begin{cases}
+			y'=6x+6xy^{2} \\
+			y\left(2\right) = 0
+		\end{cases}
+	\end{equation*}
+	\emph{e indicare il più ampio \underline{intervallo} su cui tale soluzione è definita.}}\newline
+
+	\noindent
+	Data l'equazione differenziale, non è possibile risolverla direttamente utilizzando le variabili separabili poiché dovrebbe essere nella forma del tipo $y' = f\left(t\right) g\left(y\right)$ (vedi eq. \ref{eq: equazione a variabili separabili}). Per cui, si raccoglie a fattore comune:
+	\begin{equation*}
+		\begin{cases}
+			y'=6x\left(1+y^{2}\right) \\
+			y\left(2\right) = 0
+		\end{cases}
+	\end{equation*}
+	E a questo punto è possibile applicare le variabili separabili. Si scrive l'integrale (vedi eq. \ref{eq: integrale generale eq. a variabili separabili}):
+	\begin{equation*}
+		\displaystyle \int \dfrac{1}{1+y^{2}} \:\mathrm{d}y = \int 6x \:\mathrm{d}x
+	\end{equation*}
+	E si risolvono entrambe le parti utilizzando gli integrali immediati (par. \ref{subsubsection: integrali fondamentali (o notevoli)}):
+	\begin{equation*}
+		\arctan\left(y\right) = 3x^{2} + c
+	\end{equation*}
+	Per trovare l'integrale generale, si trova $c$ applicando la condizione iniziale del problema di Cauchy:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\arctan\left(0\right) &=& 3 \cdot 2^{2} + c \\
+			0 &=& 12 + c \\
+			-12 &=& c
+		\end{array}
+	\end{equation*}
+	E si esplicita la $y$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\arctan\left(y\right) &=& 3x^{2} -12 \\ [.3em]
+			\tan\left(3x^{2} - 12\right) &=& y
+		\end{array}
+	\end{equation*}
+	La prima parte dell'esercizio è conclusa. Si procede adesso con il calcolo dell'intervallo massimale.\newline
+
+	\noindent
+	La funzione $\tan$, in generale, è definita tra $\pm \frac{\pi}{2}$ (vedi figura \ref{fig: esame 21 giugno 2023 - Gruppo A - 1 esercizio}), quindi l'argomento della funzione deve essere compreso tra:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/tangentgraph.png}
+		\caption{Grafico della funzione $\tan$ (\href{https://mathbooks.unl.edu/PreCalculus/tangent-and-cofunctions.html}{fonte}).}
+		\label{fig: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
+	\end{figure}
+	\begin{equation*}
+		-\dfrac{\pi}{2} < 3x^{2} - 12 < \dfrac{\pi}{2}
+	\end{equation*}
+	Adesso il ragionamento da fare per capire l'intervallo massimale non è banale. Inizialmente, magari presi dalla furia in sede d'esame, si potrebbe cadere nella tentazione di procedere immediatamente con l'esplicitazione della $x$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			3x^{2} - 12 &<& \dfrac{\pi}{2} \\ [1em]
+			3x^{2} &<& \dfrac{\pi}{2} + 12 \\ [1em]
+			x^{2} &<& \dfrac{\frac{\pi}{2}}{3} + 4 \\ [1em]
+			x^{2} &<& \dfrac{\pi}{6} + 4 \\ [1em]
+			x &<& \sqrt{\dfrac{\pi}{6} + 4}
+		\end{array}
+	\end{equation*}
+	E a specchio anche l'altra parte (non si riportano i calcoli perché basta cambiare il segno...). Lo studente potrebbe erroneamente concludere dicendo che questo è l'intervallo massimale:
+	\begin{equation*}
+		\sqrt{- \dfrac{\pi}{6} + 4} < x < \sqrt{\dfrac{\pi}{6} + 4}
+	\end{equation*}
+	E in parte è vero, perché nei pressi di $x = 2$, dove l'equazione $3x^{2}-12$ si annulla, la precedente disuguaglianza è sensata. Ma \emph{attenzione} all'argomento della funzione $\tan$! L'equazione $3x^{2} - 12$ si annulla con i valori di $x = \pm 2$. Questo significa che vicino ai valori in cui si annulla, la $x$ potrebbe avere dei valori che interessano le condizioni dell'intervallo massimale che si sta prendendo in considerazione.\newline
+
+	\noindent
+	Nel dettaglio, con $x = 2$ la seguente disuguaglianza è sensata:
+	\begin{equation*}
+		\sqrt{- \dfrac{\pi}{6} + 4} < x < \sqrt{\dfrac{\pi}{6} + 4}
+	\end{equation*}
+	Per convincersi di ciò, si prenda come esempio $x = 2.1$, la disuguaglianza è vera:
+	\begin{equation*}
+		1.8645\cdots < 2.1 < 2.1268\cdots
+	\end{equation*}
+	Con $x = -2$ non è più sensata, poiché prendendo come valore $x = -2.1$ e sostituendola nell'intervallo trovato inizialmente:
+	\begin{gather*}
+		-\dfrac{\pi}{2} < 3\left(-2.1\right)^{2} - 12 < \dfrac{\pi}{2} \\ \\
+		-1.57\cdots < 1.23 < 1.57 \hspace{.5em}
+	\end{gather*}
+	La disuguaglianza è vera, mentre con quella trovata esplicitando la $x$ no:
+	\begin{equation*}
+		1.8645\cdots < -2.1 < 2.1268\cdots
+	\end{equation*}
+	Per renderla vera, basta semplicemente affermare che l'intervallo massimale dipende dalla condizione iniziale:
+	\begin{equation*}
+		-\sqrt{\dfrac{\pi}{6} + 4} < x < -\sqrt{- \dfrac{\pi}{6} + 4} \hspace{1em} \lor \hspace{1em}
+		\sqrt{- \dfrac{\pi}{6} + 4} < x < \sqrt{\dfrac{\pi}{6} + 4}
+	\end{equation*}
+	Si riportano qui i grafici della funzione $3x^{2} - 12$ e dell'intervallo massimale. Ed è interessare notare come il \dquotes{buco} tra i due intervalli sia causato dalla funzione che con quei valori di $x$ decresce a tal punto da non rispettare più la disuguaglianza.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/exercise/2023-06-21-A-ex1_2.pdf}
+		\caption{Grafico dell'intervallo massimale.}
+	\end{figure}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/exercise/2023-06-21-A-ex1.pdf}
+		\caption{Grafico della funzione $3x^{2}-12$.}
+	\end{figure}\newpage
+
+	\subsubsection{Metodo di somiglianza e problema di Cauchy}\label{subsubsection: metodo di somiglianza e problema di Cauchy}
+	
+	Work in progress...
+	\newpage
+
 	\section{Spazi funzionali}\label{section: spazi funzionali}
 
 	Gli spazi funzionali sono il secondo argomento trattato durante il corso di Analisi II. È un argomento importante dal punto di visto teorico poiché è ha stretto contatto con l'esercizio d'esame.
@@ -2605,4 +2723,29 @@
 		U = \left(0,3\right) \times \left(0,2\right)
 	\end{equation*}
 	Esso è un intorno di $P$ poiché $B_{\frac{1}{2}}\left(P\right) \subseteq U$
+
+	\newpage
+	\newpage
+	\newpage
+	\section{Testi d'esame}
+
+	In questo paragrafo viene presentata una lista di temi d'esame svolti durante la scrittura di questi appunti. Le risorse vengono raggruppate per appello, per cui nel caso in cui si fosse intenzionati a ripassare un solo argomento, si consiglia di andare alla fine del capitolo nella sezione \dquotes{Esercizi}. Infine, con \dquotes{Ex.} si intende il numero dell'esercizio nel testo d'esame.
+	%\begin{table}[!htp]
+	%	\centering
+	%	\begin{tabular}{@{} @{}}
+	%		\textbf{Anno} & \textbf{Appello} & \textbf{Gruppo} & \textbf{Argomenti}
+	%	\end{tabular}
+	%\end{table}
+	\begin{itemize}
+		\item 2023
+		\begin{itemize}
+			\item 21 giugno
+			\begin{itemize}
+				\item Gruppo A
+				\begin{itemize}
+					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.\pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
 \end{document}
