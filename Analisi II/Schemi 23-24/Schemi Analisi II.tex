@@ -6,6 +6,7 @@
 \usepackage{amsfonts}
 \usepackage{booktabs}				% tabelle di qualità superiore
 \usepackage{amsmath}				% pacchetto matematica
+\usepackage{amssymb}				% un altro pacchetto di matematica (e.g. \nexists)
 \usepackage{mathtools}				% per sottolineare sotto le equazioni
 \usepackage{stmaryrd} 				% per '\llbracket' e '\rrbracket'
 \usepackage{amsthm}					% teoremi migliorati
@@ -2717,17 +2718,180 @@
 		\example{\underline{Esempio}}
 	\end{flushleft}
 
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/intorno_di_un_punto.pdf}
+	\end{figure}
+
 	\noindent
 	Dato l'insieme:
 	\begin{equation*}
 		U = \left(0,3\right) \times \left(0,2\right)
 	\end{equation*}
-	Esso è un intorno di $P$ poiché $B_{\frac{1}{2}}\left(P\right) \subseteq U$
+	Esso è un intorno di $P$ poiché $B_{\frac{1}{2}}\left(P\right) \subseteq U$. Al contempo, $U$ non è un intorno di $Q$ poiché non esiste un raggio appartenente a $\mathbb{R}^{+}$ tale che una palla con quel raggio sia contenuta dentro $U$:
+	\begin{equation*}
+		\nexists \: r \in \mathbb{R}^{+} \hspace{.5em} t.c. \hspace{.5em} B_{r}\left(Q\right) \subseteq U
+	\end{equation*}
+	Infatti con $\left(3+\dfrac{r}{2}, 0\right) \in B_{r}\left(Q\right)$ per ogni $r>0$, viene di conseguenza che $\left(3+\dfrac{r}{2}, 0\right) \notin U$.\newpage
+
+	\subsubsection{Punti interni, esterni e di frontiera}\label{subsubsection: punti interni, esterni e di frontiera}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/punto-interno_esterno_frontiera.pdf}
+	\end{figure}
+
+	\begin{itemize}
+		\item Un punto $P$ è \definition{interno} ad $A$ se esiste un raggio $r>0$ tale che la sua palla sia contenuta in $A$.
+		\begin{equation*}
+			r > 0 \hspace{.5em} t.c. \hspace{.5em} B_{r}\left(P\right) \subseteq A \Longrightarrow P \text{ è interno ad } A 
+		\end{equation*}
+		L'\textbf{insieme} dei punti interni all'insieme $A$ è rappresentato con il simbolo $\mathring{A}$ o con la scritta $\mathrm{int}\left(A\right)$.
+
+		\item Un punto $P$ è \definition{esterno} ad $A$ se è un punto interno a $\mathbb{R}^{n}$ ma non ad $A$:
+		\begin{equation*}
+			P \text{ interno a } \mathbb{R}^{n} \setminus A \Longrightarrow P \text{ esterno a } A
+		\end{equation*}
+		L'\textbf{insieme} dei punti esterni si indica con $\mathrm{ext}\left(A\right)$. E questo tipo di insieme viene chiamato anche \textbf{complementare} di $A$ in $\mathbb{R}^{n}$.
+
+		\item Un punto $P$ è \definition{frontiera} di $A$ se non è né interno né esterno ad $A$. L'\textbf{insieme} dei punti di frontiera si indica con $\partial A$.
+	\end{itemize}
+	Infine, si esprime come \definition{chiusura} di $A$ ($\overline{A}$), l'unione tra l'insieme stesso e i punti di frontiera, ovvero:
+	\begin{equation*}
+		\overline{A} = A \cup \partial A
+	\end{equation*}
+	Per vedere alcuni esempi, andare alla fine del prossimo paragrafo.\newpage
+
+	\subsubsection{Insiemi aperti, chiusi e limitati}\label{subsubsection: insiemi aperti, chiusi e limitati}
+
+	\begin{itemize}
+		\item Un insieme $A$ è \definition{aperto} se è intorno di ogni suo punto. 
+		
+		Quindi l'insieme è aperto \textbf{se e solo se} $A = \mathring{A}$, ovvero se l'\textbf{insieme è uguale all'insieme dei punti interni}.
+		
+		\item Un insieme è \definition{chiuso} se il suo complementare (insieme dei punti esterni) è aperto.
+		
+		Quindi l'insieme è chiuso \textbf{se e solo se} $A = \overline{A}$, ovvero se l'\textbf{insieme è uguale all'insieme dei punti esterni}.
+
+		\item Un insieme $A \subseteq \mathbb{R}^{n}$ è \definition{limitato} se esiste un raggio maggiore di zero $r > 0$ tale che una palla nel punto zero con quel raggio contenga l'insieme $A$ ($A \subseteq B_{r}\left(0\right)$).
+		
+		In altre parole, l'\textbf{insieme} $A$ \textbf{è limitato se esiste un raggio maggiore di zero tale per cui la norma} $x$ (somma delle sue coordinate in parole poverissime) \textbf{è minore del raggio per ogni} $x$ \textbf{appartenente ad} $A$:
+		\begin{equation*}
+			\exists \: r > 0 \hspace{.5em} t.c. \hspace{.5em} ||x|| < r \: , \hspace{.5em} \forall x \in A \Longrightarrow A \text{ è limitato}
+		\end{equation*}
+	\end{itemize}
+	Gli insiemi $\mathbb{R}^{n}$ e $\emptyset$ sono gli unici insiemi aperti e chiusi in $\mathbb{R}^{n}$.\newpage
+	
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+
+	\noindent
+	Dato l'insieme $A$:
+	\begin{equation*}
+		A = \left\{x \in \mathbb{R}^{2} \: : \: 2 \le ||x|| < 3 \right\}
+	\end{equation*}
+	La sua rappresentazione grafica:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/insiemi_aperti-chiusi-1.pdf}
+	\end{figure}
+
+	\noindent
+	Si calcolano i vari insiemi per capire se è aperto, chiuso, limitato (e di conseguenza quali sono i punti interni, esterni e di frontiera).\newline
+	L'insieme dei punti interni ad $A$ sono tutte quelle $x$ che si trovano nell'intervallo ammesso da $A$ e non sono di frontiera:
+	\begin{equation*}
+		\mathrm{int}\left(A\right) = \mathring{A} = \left\{x \in \mathbb{R}^{2} \: : \: 2 < ||x|| < 3\right\}
+	\end{equation*}
+	L'insieme dei punti di frontiera di $A$ è rappresentabile come l'unione di due insiemi:
+	\begin{equation*}
+		\partial A = \left\{x \in \mathbb{R}^{2} \: : \: ||x|| = 2\right\} \cup \left\{x \in \mathbb{R}^{2} \: : \: ||x|| = 3\right\}
+	\end{equation*}
+	Infine, si calcola la chiusura di $A$ (complementare), per controllare se l'insieme è chiuso:
+	\begin{equation*}
+		\overline{A} = A \cup \partial A = \left\{x \in \mathbb{R}^{2} \: : \: 2 \le ||x|| \le 3 \right\}
+	\end{equation*}
+	\begin{itemize}
+		\item L'insieme è aperto? No, perché $A \ne \mathring{A}$;
+		\item L'insieme è chiuso? No, perché $A \ne \overline{A}$.
+	\end{itemize}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+
+	\noindent
+	Dato l'insieme $A$:
+	\begin{equation*}
+		A = \left\{x \in \mathbb{R}^{2} \: : \: ||x|| < 1 \right\} 
+		\cup 
+		\left\{\left(2,t\right) \: : \: 0 < t < 1\right\} 
+		\cup 
+		\left\{\left(2,2\right)\right\}
+	\end{equation*}
+	E frammentandolo in piccoli insiemi:
+	\begin{itemize}
+		\item $A_{1} = \left\{x \in \mathbb{R}^{2} \: : \: ||x|| < 1 \right\} $
+		
+		\item $A_{2} = \left\{\left(2,t\right) \: : \: 0 < t < 1\right\} $
+
+		\item $A_{3} = \left\{\left(2,2\right)\right\} $
+	\end{itemize}
+	Si ottiene facilmente la sua rappresentazione grafica:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/insiemi_aperti-chiusi-2.pdf}
+	\end{figure}
+
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(A\right) = \mathring{A} = \left\{x \in \mathbb{R}^{2} \: : \: || x || < 1\right\} 
+		\end{equation*}
+		Riguardo $A_{2}$ e $A_{3}$, non hanno punti interni poiché non avendo \dquotes{area}, prendendo dei punti essi sarebbero punti di frontiera.
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial A = \left\{x \in \mathbb{R}^{2} \: : \: || x || = 1\right\} \cup \left\{\left(2,t\right) \: : \: 0 \le t \le 1\right\} \cup \left\{\left(2,2\right)\right\}
+		\end{equation*}
+		Al contrario del precedente insieme, con i punti di frontiera si sceglie la frontiera di $A_{1}$, l'intero segmento $A_{2}$, inclusi gli estremi, e il punto $A_{3}$.
+
+		\item La chiusura:
+		\begin{equation*}
+			\overline{A} = A \cup \partial A = \left\{x \in \mathbb{R}^{2} \: : \: || x || \le 1\right\} \cup \left\{\left(2,t\right) \: : \: 0 \le t \le 1\right\} \cup \left\{\left(2,2\right)\right\}
+		\end{equation*}
+	\end{itemize}
+	L'insieme non è né aperto ($A \ne \mathring{A}$) né chiuso ($A \ne \overline{A}$).\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 3}}
+	\end{flushleft}
+	
+	\noindent
+	Da finire.
+
+	\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 4}}
+	\end{flushleft}
+
+	\noindent
+	Da finire.
+
+
+
+	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
 	\newpage
 	\newpage
 	\newpage
-	\section{Testi d'esame}
+	\section{Temi d'esame}
 
 	In questo paragrafo viene presentata una lista di temi d'esame svolti durante la scrittura di questi appunti. Le risorse vengono raggruppate per appello, per cui nel caso in cui si fosse intenzionati a ripassare un solo argomento, si consiglia di andare alla fine del capitolo nella sezione \dquotes{Esercizi}. Infine, con \dquotes{Ex.} si intende il numero dell'esercizio nel testo d'esame.
 	%\begin{table}[!htp]
