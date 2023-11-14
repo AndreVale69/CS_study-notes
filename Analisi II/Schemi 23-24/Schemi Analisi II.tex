@@ -2487,12 +2487,79 @@
 		\centering
 		\includegraphics[width=.6\textwidth]{img/exercise/2023-06-21-A-ex1.pdf}
 		\caption{Grafico della funzione $3x^{2}-12$.}
-	\end{figure}\newpage
+	\end{figure}
+
+	\newpage
 
 	\subsubsection{Metodo di somiglianza e problema di Cauchy}\label{subsubsection: metodo di somiglianza e problema di Cauchy}
 	
 	Work in progress...
 	\newpage
+
+	\subsubsection{Casi particolari}\label{subsubsection: casi particolari equazioni differenziali}
+
+	\begin{flushleft}
+		\example{\underline{E se non posso applicare le variabili separabili? Niente panico...}}
+	\end{flushleft}
+
+	\noindent
+	Dato il seguente problema di Cauchy:
+	\begin{equation*}
+		\begin{cases}
+			y' - \dfrac{y}{x} = 1 \\
+			y\left(1\right) = 2
+		\end{cases}
+	\end{equation*}
+	Non è possibile applicare direttamente la tecnica delle variabili separabili perché non è nella forma classica, sono necessarie prima alcune manipolazioni algebriche.\newline
+
+	\noindent
+	Si tenta di applicare la regola del prodotto (Reverse Product Rule) tra derivate ma all'inverso:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{1}{x} \cdot \left(y' - \dfrac{y}{x}\right) &=& 1 \cdot \dfrac{1}{x} \\ [1em]
+			%
+			\left(\dfrac{1}{x} \cdot y'\right) + \left(-\dfrac{1}{x^{2}} \cdot y\right) &=& \dfrac{1}{x} \\ [1.5em]
+			%
+			&\downarrow & \text{ricordando l'integrale fondamentale: } \\
+			&			& \displaystyle\int \dfrac{1}{x^{n}} \:\mathrm{d}x = - \dfrac{1}{\left(n-1\right) \cdot x^{n-1}} \hspace{1em} n \ne -1 \\ [2em]
+			%
+			&\downarrow& \displaystyle\int -\dfrac{1}{x^{2}} = \dfrac{1}{x} \\ [1em]
+			%
+			\left(\dfrac{1}{x} \cdot y'\right) + \left(\left(\dfrac{1}{x}\right)' \cdot y\right) &=& \dfrac{1}{x} \\ [1.5em]
+			%
+			&\downarrow & \text{ricordando la regola del prodotto tra derivate:} \\
+			&			& \left[f\left(x\right) \cdot g\left(x\right)\right]' = f'\left(x\right) \cdot g\left(x\right) + f\left(x\right) \cdot g'\left(x\right) \\ [1.5em]
+			%
+			&\downarrow & \left(\dfrac{1}{x}\right)' \cdot y + \dfrac{1}{x} \cdot y' = \left[\dfrac{1}{x} \cdot y\right]' \\ [1.5em]
+			%
+			\left[\dfrac{1}{x} \cdot y\right]' &=& \dfrac{1}{x}
+		\end{array}
+	\end{equation*}
+	Giunti a questo punto, non è possibile andare avanti cercando la disperata strada delle variabili separabili! Tuttavia, vi è un'opzione più semplice: risolverla come un'equazione lineare. Per cui, nella prossima pagina si presentano i calcoli.\newpage
+	\begin{equation*}
+		\begin{array}{rcl}
+			\left[\dfrac{1}{x} \cdot y\right]' &=& \dfrac{1}{x} \\ [1.5em]
+			%
+			\displaystyle\int \left[\dfrac{1}{x} \cdot y\right]' \:\mathrm{d}x &=& \displaystyle\int \dfrac{1}{x} \:\mathrm{d}x \\ [1.5em]
+			%
+			\dfrac{1}{x} \cdot y &=& \ln\left(x\right) + c \\ [1em]
+			%
+			\cancel{x} \cdot \dfrac{1}{\cancel{x}} \cdot y &=& \left(\ln\left(x\right) + c\right) \cdot x  \\ [1em]
+			%
+			y &=& x\left(\ln\left(x\right) + c\right)
+		\end{array}
+	\end{equation*}
+	Applicando la condizione iniziale $y\left(1\right) = 2$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			2 &=& 1 \cdot \left(\ln\left(1\right) + c\right) \\
+			2 &=& c
+		\end{array}
+	\end{equation*}
+	Quindi la soluzione finale del problema:
+	\begin{equation*}
+		y = x\left(\ln\left(x\right) + 2\right)
+	\end{equation*}\newpage
 
 	\section{Spazi funzionali}\label{section: spazi funzionali}
 
@@ -2868,18 +2935,287 @@
 	\end{flushleft}
 	
 	\noindent
-	Da finire.
+	Dato l'insieme $A$:
+	\begin{equation*}
+		A = \left(B_{2}\left(\overrightarrow{0}\right) \setminus \left(\left[-1,1\right] \times \left\{0\right\}\right)\right) \cup \left(\left(-1,1\right) \times \left\{3\right\}\right)
+	\end{equation*}
+	Con la notazione $B_{2}\left(\overrightarrow{0}\right)$ si intende una palla aperta centrata in $\left(0,0\right)$ e di raggio $2$. Inoltre, è possibile riscrivere due parti dell'insieme:
+	\begin{itemize}
+		\item $\left(\left[-1,1\right] \times \left\{0\right\}\right)$ è una linea tratteggiata da $-1$ a $1$ (entrambi inclusi) ad altezza $0$, per cui:
+		\begin{equation*}
+			\left\{\left(t,0\right) \: : \: -1 \le t \le 1\right\}
+		\end{equation*}
 
-	\newpage
+		\item $\left(\left(-1,1\right) \times \left\{3\right\}\right)$ è una linea tratteggiata da $-1$ a $1$ (entrambi esclusi) ad altezza $3$, per cui:
+		\begin{equation*}
+			\left\{\left(t,3\right) \: : \: -1 < t < 1\right\}
+		\end{equation*}
+	\end{itemize}
+	La relativa rappresentazione grafica è:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.65\textwidth]{img/insiemi_aperti-chiusi-3.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(A\right) = \mathring{A} = \left\{x \in \mathbb{R}^{2} \: : \: || x || < 2\right\} \setminus \left\{\left(t,0\right) \: : \: -1 \le t \le 1\right\}
+		\end{equation*}
+		Tutti quei punti interni alla palla ma escludendo la linea all'interno.
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial A = \left\{x \in \mathbb{R}^{2} \: : \: || x || = 2\right\} \cup \left\{\left(t,0\right) \: : \: -1 \le t \le 1\right\} \cup \left\{\left(t,3\right) \: : \: -1 \le t \le 1\right\}
+		\end{equation*}
+		Tutti quei punti sulla frontiera della palla e tutte le linee fino agli estremi compresi.
+		
+		\item La chiusura, uguale a $A \cup \partial A$:
+		\begin{equation*}
+			\overline{A} = \left\{x \in \mathbb{R}^{2} \: : \: || x || \le 2\right\} \cup \left\{\left(t,0\right) \: : \: -1 \le t \le 1\right\} \cup \left\{\left(t,3\right) \: : \: -1 \le t \le 1\right\}
+		\end{equation*}
+		L'insieme non è aperto né aperto ($A \ne \mathring{A}$), né chiuso ($A \ne \overline{A}$).
+	\end{itemize}\newpage
 
 	\begin{flushleft}
 		\example{\underline{Esempio 4}}
 	\end{flushleft}
 
 	\noindent
-	Da finire.
+	Dato l'insieme $A$:
+	\begin{equation*}
+		A = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \max\left\{|x|, |y|\right\} \ge 3, \: x^{2}+y^{2} \le 16\right\}
+	\end{equation*}
+	In questo caso è possibile osservare delle cose interessanti. La funzione $\max$ sceglie il valore massimo tra i due proposti e tale valore deve essere maggiore o uguale a $3$. Questo significa che è necessario disegnare un quadrato dato che potenzialmente il valore potrebbe andare all'infinito (vedi la figura a pagina \pageref{fig: alcune rappresentazioni di norme in due dimensioni} in cui si mostrano alcune norme a due dimensioni).
 
+	Negli esempi precedenti, è sempre stato chiesto di rappresentare delle norme ben definite. In questo caso, viene fornita un'equazione di una circonferenza (le formule si trovano nel paragrafo \ref{subsubsection: circonferenza}), che rappresenta una palla chiusa ($\le$) di raggio $r = 4$ $\left(\sqrt{16}\right)$ e centro $\left(0,0\right)$ (mancano gli altri valori rispetto l'equazione canonica).\newline
 
+	\noindent
+	Quindi, la sua rappresentazione grafica:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/insiemi_aperti-chiusi-4.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(A\right) = \mathring{A} =\left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \max\left\{|x|, |y|\right\} > 3, \: x^{2}+y^{2} < 16\right\}
+		\end{equation*}
+		
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial A = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \max\left\{|x|, |y|\right\} = 3, \: x^{2}+y^{2} = 16\right\}
+		\end{equation*}
+
+		\item La chiusura, uguale a $A \cup \partial A$, è identica ad $A$ poiché è già presente l'uguale nelle condizioni.
+	\end{itemize}
+	L'insieme non è aperto perché $A \ne \mathring{A}$, ma è chiuso poiché $A = \overline{A}$.
+
+	\subsection{Funzioni da \texorpdfstring{$\mathbb{R}^{n}$}{Rn} in \texorpdfstring{$\mathbb{R}$}{R} (funzioni scalari)}\label{subsection: funzioni da R^n in R (funzioni scalari)}
+
+	Le funzioni da $\mathbb{R}^{n}$ in $\mathbb{R}$, vengono chiamate \definition{funzioni scalari}. Associando ad ogni $n$-upla di numeri reali in un insieme $D$ un unico numero reale in base a una specifica regola, si definisce una funzione da $D$ a $\mathbb{R}$:
+	\begin{equation}
+		\begin{array}{rcl}
+			f \: : \: D \subseteq \mathbb{R}^{n} &\rightarrow& \mathbb{R} \\
+			x &\mapsto& f\left(x\right)
+		\end{array}
+	\end{equation}
+	In particolare, con $n = 2$, si può ridurre alla seguente forma:
+	\begin{equation}
+		\begin{array}{rcl}
+			f \: : \: D \subseteq \mathbb{R}^{2} &\rightarrow& \mathbb{R} \\
+			\left(x,y\right) &\mapsto& z = f\left(x,y\right)
+		\end{array}
+	\end{equation}
+	In cui le variabili $x$ e $y$ sono indipendenti, mentre la variabile $z$ è dipendente.
+
+	\longline
+
+	\subsubsection{Rappresentazione grafica del dominio di funzioni (\texorpdfstring{$n = 2$}{n = 2})}\label{subsubsection: rappresentazione grafica del dominio di funzioni (n = 2)}
+
+	Determinare e rappresentare il dominio delle seguenti funzioni:
+	\begin{enumerate}
+		\item $f\left(x,y\right) = x\ln\left(x-y\right)$
+		\item $f\left(x,y\right) = \sqrt{x-3} + \sqrt{y+1} - \sqrt{x^{2} + y^{2}}$
+		\item $f\left(x,y\right) = \sqrt{4x^{2} + y^{2} - 4}$
+		\item $f\left(x,y\right) = \sqrt{x+y+1} - \ln\left(x^{2} - y\right)$
+		\item $f\left(x,y\right) = \arccos\left(xy\right)$
+		\item $f\left(x,y,z\right) = \dfrac{1}{y^{2} + z^{2} - 4}$
+	\end{enumerate}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = x\ln\left(x-y\right)
+	\end{equation*}
+	L'unica condizione d'esistenza è data dal logaritmo, il quale deve avere l'argomento maggiore di zero. Per cui, il dominio della funzione è:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x-y > 0\right\}
+	\end{equation*}
+	Per rappresentarlo, si può manipolare velocemente la disuguaglianza:
+	\begin{equation*}
+		x-y>0 \rightarrow x > y
+	\end{equation*}
+	Nel caso in cui fosse $x = y$, il grafico sarebbe una retta, ma in questo caso c'è il maggiore. Di conseguenza, la retta deve essere tratteggiata e il dominio di interesse è quello sotto la retta:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/dominio_di_funzioni-1.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(D\right) = \mathring{D} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x-y > 0\right\}
+		\end{equation*}
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x - y = 0\right\}
+		\end{equation*}
+
+		\item La chiusura:
+		\begin{equation*}
+			\overline{D} = D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x - y \ge 0\right\}
+		\end{equation*}
+	\end{itemize}
+	L'insieme $D$ è aperto poiché $D = \mathring{D}$ e non è chiuso poiché $D \ne \overline{D}$.\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{x-3} + \sqrt{y+1} - \sqrt{x^{2} + y^{2}}
+	\end{equation*}
+	Le condizioni d'esistenza sono i valori sotto le radici, i quali devono essere maggiori uguali a zero per evitare di entrare nell'insieme dei numeri immaginari. Per cui, il dominio della funzione è:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x-3 \ge 0 \: \land \: y+1 \ge 0 \: \land \: x^{2}+y^{2} \ge 0\right\}
+	\end{equation*}
+	Per rappresentarlo, si possono manipolare velocemente la disuguaglianze:
+	\begin{itemize}
+		\item $x-3 \ge 0 \rightarrow x \ge 3$
+
+		\item $y+1 \ge 0 \rightarrow y \ge -1$
+	\end{itemize}
+	La rappresentazione delle due rette è immediato. Si prende in considerazione il piano da $x$ maggiore/uguale di $3$ in poi e da $y$ maggiore uguale di $-1$ in poi. Per quanto riguarda $x^{2} + y^{2}$, non si prende in considerazione poiché la disuguaglianza è sempre verificata dato che un numero reale elevato al quadrato non potrà mai essere negativo (figuriamoci una somma tra due numeri reali al quadrato).
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/dominio_di_funzioni-2.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(D\right) = \mathring{D} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x > 3 \: \land \: y > 1\right\}
+		\end{equation*}
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x = 3 \: \land \: y = -1\right\}
+		\end{equation*}
+
+		\item La chiusura:
+		\begin{equation*}
+			\overline{D} = D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \ge 3 \: \land \: y \ge -1\right\}
+		\end{equation*}
+	\end{itemize}
+	L'insieme $D$ non è aperto poiché $D \ne \mathring{D}$ ma è chiuso poiché $D = \overline{D}$.\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 3}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{4x^{2} + y^{2} - 4}
+	\end{equation*}
+	La condizione d'esistenza è il valore sotto radice, quindi il dominio è:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 4x^{2} + y^{2} - 4 \ge 0\right\}
+	\end{equation*}
+	In questo caso, dato che la disuguaglianza non è sempre vera come nell'esempio precedente, è necessario rappresentare l'ellisse (paragrafo \ref{subsubsection: ellisse}) utilizzando l'equazione canonica che si ricava:
+	\begin{equation*}
+		4x^{2} + y^{2} - 4 \ge 0 \rightarrow 4x^{2} + y^{2} \ge 4 \rightarrow \dfrac{x^{2}}{1} + \dfrac{y^{2}}{4} = 1
+	\end{equation*}
+	La rappresentazione dell'ellisse non è complessa. Sapendo che è centrata nell'origine, i vertici vengono calcolati nel seguente modo. Riguardo l'asse $x$, l'ellisse intersecherà su $\pm 1$, mentre sull'asse delle $y$ intersecherà su $\pm 2$ ($\sqrt{4}$, si ricorda che i valori al denominatore vengono considerati al quadrato secondo la forma canonica). Infine, dopo aver disegnato l'ellisse, si considera l'esterno e il bordo poiché la condizione è maggiore o uguale.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.63\textwidth]{img/dominio_di_funzioni-3.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(D\right) = \mathring{D} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 4x^{2} + y^{2} - 4 > 0\right\}
+		\end{equation*}
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 4x^{2} + y^{2} - 4 = 0\right\}
+		\end{equation*}
+
+		\item La chiusura:
+		\begin{equation*}
+			\overline{D} = D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 4x^{2} + y^{2} - 4 \ge 0\right\}
+		\end{equation*}
+	\end{itemize}
+	L'insieme $D$ non è aperto poiché $D \ne \mathring{D}$ ma è chiuso poiché $D = \overline{D}$.\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 4}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{x+y+1} - \ln\left(x^{2} - y\right)
+	\end{equation*}
+	La condizione d'esistenza è il valore sotto radice e il logaritmo:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x+y+1 \ge 0 \: \land \: x^{2}-y > 0\right\}
+	\end{equation*}
+	In questo caso, la prima disuguaglianza è semplice. Sarebbe come dire $x$ deve essere l'opposto di $y$ ($x = -y$), ma con $y$ che poi viene incrementata di $1$. Per cui, se $x = 1$, la $y = -1 + 1$, cioè $0$. Invece, per la seconda dovrebbe essere immediato il fatto che sia un'iperbole. Difatti, se $x=\pm1^{2}$, allora $y = 1$, se $x=\pm2^{2}=4$ allora $y=4$ e così via.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/dominio_di_funzioni-4.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(D\right) = \mathring{D} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x+y+1 > 0 \: \land \: x^{2}-y > 0\right\}
+		\end{equation*}
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x+y+1 = 0 \: \land \: x^{2}-y = 0\right\}
+		\end{equation*}
+
+		\item La chiusura:
+		\begin{equation*}
+			\overline{D} = D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x+y+1 \ge 0 \: \land \: x^{2}-y \ge 0\right\}
+		\end{equation*}
+	\end{itemize}
+	L'insieme $D$ non è aperto poiché $D \ne \mathring{D}$ ma neanche chiuso poiché $D = \overline{D}$.\newpage
+
+	\newpage
+	\newpage
+
+	\subsubsection{Grafico di una funzione scalare in \texorpdfstring{$n$}{n} variabili}\label{subsubsection: grafico di una funzione scalare in n variabili}
+
+	\subsubsection{Esempi di grafico di funzioni a due variabili}\label{subsubsection: esempi di grafico di funzioni a due variabili}
+
+	\subsection{Insiemi (curve) di livello}\label{subsection: insiemi (curve) di livello}
+
+	\subsubsection{Alcuni esempi}\label{subsubsection: alcuni esempi}
+
+	\subsection{Continuità e limiti}\label{subsection: continuità e limiti}
+
+	\subsubsection{Continuità}\label{subsubsection: continuità}
+
+	\subsubsection{Limiti}\label{subsubsection: limiti}
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
