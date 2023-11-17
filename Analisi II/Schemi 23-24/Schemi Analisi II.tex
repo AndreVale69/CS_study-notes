@@ -3039,6 +3039,7 @@
 		\item $f\left(x,y\right) = \sqrt{4x^{2} + y^{2} - 4}$
 		\item $f\left(x,y\right) = \sqrt{x+y+1} - \ln\left(x^{2} - y\right)$
 		\item $f\left(x,y\right) = \arccos\left(xy\right)$
+		\item $f\left(x,y\right) = \dfrac{\ln\left(1-x^{2}-y^{2}\right)}{\sqrt{x}}$ 
 		\item $f\left(x,y,z\right) = \dfrac{1}{y^{2} + z^{2} - 4}$
 	\end{enumerate}\newpage
 
@@ -3198,24 +3199,609 @@
 			\overline{D} = D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x+y+1 \ge 0 \: \land \: x^{2}-y \ge 0\right\}
 		\end{equation*}
 	\end{itemize}
-	L'insieme $D$ non è aperto poiché $D \ne \mathring{D}$ ma neanche chiuso poiché $D = \overline{D}$.\newpage
+	L'insieme $D$ non è aperto poiché $D \ne \mathring{D}$ ma neanche chiuso poiché $D \ne \overline{D}$.\newpage
 
-	\newpage
-	\newpage
+	\begin{flushleft}
+		\example{\underline{Esempio 5}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \arccos\left(xy\right)
+	\end{equation*}
+	La funzione $\arccos$ corrisponde a $\alpha = \arccos\left(xy\right)$ ovvero $\cos\left(\alpha\right) = xy$. Ricordando (\href{https://www.youmath.it/lezioni/analisi-matematica/le-funzioni-elementari-e-le-loro-proprieta/376-arcocoseno.html}{approfondimento}) che la funzione $\arccos$ ha il suo argomento, in questo caso $xy$, definito nell'intervallo $\left[-1, 1\right]$ e il valore $\alpha$ sarà definito nell'intervallo $\left[0,\pi\right]$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\arccos &:& \left[-1, +1\right] \rightarrow \left[0,\pi\right] \\ [.5em]
+			&& x \mapsto \arccos\left(x\right) \\ [.5em]
+			D &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: -1 \le xy \le 1\right\}
+		\end{array}
+	\end{equation*}
+	Il dominio è rappresentabile banalmente sapendo che $xy = \pm 1 \rightarrow x = \pm \dfrac{1}{y}$.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/dominio_di_funzioni-5.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(D\right) = \mathring{D} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: -1 < xy < 1\right\}
+		\end{equation*}
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: -1 = xy \: \lor \: xy = 1\right\}
+		\end{equation*}
+
+		\item La chiusura:
+		\begin{equation*}
+			\overline{D} = D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: -1 \le xy \le 1\right\}
+		\end{equation*}
+	\end{itemize}
+	L'insieme $D$ non è aperto poiché $D \ne \mathring{D}$ ma è chiuso poiché $D = \overline{D}$.\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 6}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \dfrac{\ln\left(1-x^{2}-y^{2}\right)}{\sqrt{x}}
+	\end{equation*}
+	Le condizioni d'esistenza sono sulla radice (maggiore di zero) e sul logaritmo (maggiore di zero):
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1-x^{2}-y^{2} > 0 \: \land \: x > 0\right\}
+	\end{equation*}
+	Il dominio è rappresentabile accorgendosi che $1-x^{2}-y^{2}$ è una circonferenza con un'equazione canonica del tipo $x^{2} + y^{2} = 1$.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/dominio_di_funzioni-6.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(D\right) = \mathring{D} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1-x^{2}-y^{2} > 0 \: \land \: x > 0\right\}
+		\end{equation*}
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1-x^{2}-y^{2} = 0 \: \land \: x = 0\right\}
+		\end{equation*}
+
+		\item La chiusura:
+		\begin{equation*}
+			\overline{D} = D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1-x^{2}-y^{2} \ge 0 \: \land \: x \ge 0\right\}
+		\end{equation*}
+	\end{itemize}
+	L'insieme $D$ è aperto poiché $D = \mathring{D}$ ma non è chiuso poiché $D \ne \overline{D}$.\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 7}}
+	\end{flushleft}
+
+	\noindent
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y,z\right) = \dfrac{1}{y^{2} + z^{2} - 4}
+	\end{equation*}
+	Sotto radice il valore deve essere diverso da zero, per cui $y^{2} + z^{2} - 4 \ne 0$. È possibile fare alcune manipolazioni $y^{2} + z^{2} \ne 4$ e scrivere il dominio come:
+	\begin{equation*}
+		D = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: y^{2} + z^{2} \ne 4\right\}
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/dominio_di_funzioni-7.png}
+		\caption*{La linea blu è l'asse $z$ (intersecata in $\pm 2$), la linea verde è l'asse $y$ (intersecata in $\pm 2$), la linea rossa è l'asse $x$ (all'interno del cilindro).}
+	\end{figure}
+	\begin{itemize}
+		\item L'insieme dei punti interni:
+		\begin{equation*}
+			\mathrm{int}\left(D\right) = \mathring{D} = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: y^{2} + z^{2} \ne 4 \right\}
+		\end{equation*}
+
+		\item L'insieme dei punti di frontiera:
+		\begin{equation*}
+			\partial D = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: y^{2} + z^{2} = 4\right\}
+		\end{equation*}
+
+		\item La chiusura:
+		\begin{equation*}
+			\overline{D} = D \cup \partial D = \text{non possibile}
+		\end{equation*}
+	\end{itemize}
+	L'insieme $D$ è aperto poiché $D = \mathring{D}$ ma non è chiuso poiché $D \ne \overline{D}$.\newpage
 
 	\subsubsection{Grafico di una funzione scalare in \texorpdfstring{$n$}{n} variabili}\label{subsubsection: grafico di una funzione scalare in n variabili}
 
-	\subsubsection{Esempi di grafico di funzioni a due variabili}\label{subsubsection: esempi di grafico di funzioni a due variabili}
+	\begin{boxdef}
+		Se $f$ è una funzione reale di due variabili reali con dominio $D$, il \definition{grafico} della funzione $f$ è l'insieme di tutti i punti $\left(x,y,z\right) \in \mathbb{R}^{3}$ tali che $z = f\left(x,y\right)$, con $\left(x,y\right) \in D$.
+	\end{boxdef}
+	
+	\noindent
+	La definizione si può estendere per $n > 2$. In altre parole, il grafico di una funzione è:
+	\begin{equation*}
+		\Gamma\left(f\right) = \left\{\left(x, f\left(x\right)\right) \in \mathbb{R}^{n+1}\right\}
+	\end{equation*}
+	Nel caso di $n = 2$, il grafico della funzione $f$ risulta:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/grafico_di_una_funzione.pdf}
+	\end{figure}
+
+	\longline
+
+	\subsubsection{Esempio di grafico di funzioni a due variabili}\label{subsubsection: esempi di grafico di funzioni a due variabili}
+
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{9 - x^{2} - y^{2}}
+	\end{equation*}
+	La sua condizione d'esistenza è determinata dalla radice quadrata:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 9 - x^{2} - y^{2} \ge 0 \right\}
+	\end{equation*}
+	Il dominio è una circonferenza di raggio $3$ ($\sqrt{9}$):\newpage
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/grafico_di_funzioni-1.pdf}
+	\end{figure}
+
+	\noindent
+	Invece, per quanto riguarda il grafico della funzione, si applica la formula. Per cui, il grafico avrà il seguente dominio:
+	\begin{equation*}
+		\Gamma\left(f\right) = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: z = f\left(x,y\right)\right\} = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: z = \sqrt{9 - x^{2} - y^{2}}\right\}
+	\end{equation*}
+	Per rappresentare la figura, si deve avere un po' di intuito poiché è noto che una sfera abbia i termini $x,y,z$ al quadrato. Di conseguenza, la $z$ può essere anche vista come $x^{2} = 9 - x^{2} - y^{2}$. E con alcuni aggiustamenti aritmetici, si giunge all'equazione canonica $x^{2} + y^{2} + z^{2} = 9$. Il dominio del grafico può essere riscritto ricordandosi di aggiungere la condizione d'esistenza sulla $z$, cioè il maggiore uguale dovuto alla radice quadrata.
+	\begin{equation*}
+		\Gamma\left(f\right) = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: z \ge 0, \: x^{2} + y^{2} + z^{2} = 9 \right\}
+	\end{equation*}
+	Il grafico è una sfera tagliata a metà a causa della $z \ge 0$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/grafico_di_una_funzione.png}
+	\end{figure}\newpage
 
 	\subsection{Insiemi (curve) di livello}\label{subsection: insiemi (curve) di livello}
 
+	L'insieme dei punti nel dominio di una funzione $f$ che hanno la stessa immagine $k \in \mathbb{R}$ si chiama \definition{insieme di livello} $k$ (o curve di livello):
+	\begin{equation}\label{eq: curve di livello}
+		L_{k}\left(f\right) = \left\{x \in \mathbb{R}^{n} \: : \: f\left(x\right) = k\right\}
+	\end{equation}
+	Nel caso in cui $n = 2$, la funzione $L_{k}\left(f\right)$ è la proiezione sul piano $xy$ della curva che si ottiene intersecando il grafico della funzione $f$ con il piano $z = k$.\newline
+
+	\noindent
+	In parole povere, le \definition{curve di livello} forniscono una rappresentazione bidimensionale del grafico della funzione $f$. Questo rendere la rappresentazione, talvolta, più chiara e semplice da eseguire.\newpage
+
 	\subsubsection{Alcuni esempi}\label{subsubsection: alcuni esempi}
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{9-x^{2} -y^{2}}
+	\end{equation*}
+	E il dominio relativo (già calcolato nel par. \ref{subsubsection: esempi di grafico di funzioni a due variabili}):
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 9 - x^{2} - y^{2} \ge 0 \right\}
+	\end{equation*}
+	La funzione è una circonferenza di raggio $3$. Di conseguenza, le curve di livello andranno da un massimo di raggio pari a $3$ ad un minimo pari a $0$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.65\textwidth]{img/curve_di_livello-1.pdf}
+	\end{figure}
+	
+	\noindent
+	In forma matematica (eq. \ref{eq: curve di livello}):
+	\begin{equation*}
+		L_{k}\left(f\right) = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: f\left(x,y\right) = k\right\} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \sqrt{9-x^{2} -y^{2}} = k\right\}
+	\end{equation*}
+	Per rappresentarla facilmente, si utilizzano alcune manipolazioni algebriche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\sqrt{9-x^{2} -y^{2}} &=& k \\ [.3em]
+			9-x^{2} -y^{2} &=& k^{2} \\ [.3em]
+			-x^{2} -y^{2} &=& k^{2} - 9 \\ [.3em]
+			x^{2} + y^{2} &=& 9 - k^{2}
+		\end{array}
+	\end{equation*}
+	Risulta evidente adesso che modificando la $k$, si modifica il raggio della circonferenza ($x^{2}+y^{2}$). Per cui, è immediato il fatto che la $k$ debba essere compresa tra $0$ e $3$:
+	\begin{equation*}
+		0 \le k \le 3
+	\end{equation*}
+	Infatti, nel grafico delle curve di livello nella pagina precedente, la seconda curva di livello interseca il valore $2$. Questo perché con $k = \sqrt{5}$ si ha:
+	\begin{equation*}
+		L_{\sqrt{5}}\left(f\right) = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} = 9 - \left(\sqrt{5}\right)^{2} \Rightarrow x^{2} + y^{2} = 4\right\}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = e^{-x^{2}-y^{2}}
+	\end{equation*}
+	E il dominio risulta essere:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \mathbb{R}^{2}\right\}
+	\end{equation*}
+	Si applicano le curve di livello, utilizzando sempre l'equazione \ref{eq: curve di livello}:
+	\begin{equation*}
+		L_{k}\left(f\right) = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: e^{-x^{2}-y^{2} = k}\right\}
+	\end{equation*}
+	L'espressione è possibile riscriverla come:
+	\begin{equation*}
+		-x^{2}-y^{2} = \ln\left(k\right) \rightarrow x^{2} + y^{2} = -\ln\left(k\right)
+	\end{equation*}
+	Dalla quale si ricava la condizione d'esistenza $k > 0$. Si deduce che se $k \le 0$, le curve di livello hanno valore $0$:
+	\begin{equation*}
+		\begin{cases}
+			L_{k} = 0 & k \le 0 \\
+			L_{k} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2}+y^{2} = -\ln\left(k\right)\right\} & k > 0
+		\end{cases}
+	\end{equation*}
+	Ma non solo, nel caso in cui $k > 0$, la condizione è rispettata finché il risultato del logaritmo è negativo o uguale a zero. Con $k = 1$ il logaritmo si annulla e la condizione $x^{2} + y^{2} = 0$ è rispettata. Ma con $k = 2$ il risultato è $\approx - 0.69$ e la condizione non viene rispettata. Di conseguenza, si aggiorna il sistema:
+	\begin{equation*}
+		\begin{cases}
+			L_{k} = 0 & k \le 0 \\
+			L_{k} = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2}+y^{2} = -\ln\left(k\right)\right\} & 0 < k \le 1 \\
+			\uparrow & \text{otherwise}
+		\end{cases}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 3}}
+	\end{flushleft}
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{11 - 4x^{2} - 9y^{2} + 16x - 18y}
+	\end{equation*}
+	Il dominio è semplicemente maggiore o uguale a zero:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 11 - 4x^{2} - 9y^{2} + 16x - 18y \ge 0\right\}
+	\end{equation*}
+	Con qualche manipolazione algebrica, per ottenere l'equazione canonica, si ottiene:
+	\begin{equation*}
+		4x^{2} + 9y^{2} - 16x + 18y - 11 \le 0
+	\end{equation*}
+	Prima di tracciare le curve di livello è necessario rappresentare il dominio. Quindi, si sceglie di rappresentarlo alla frontiera, ovvero sia:
+	\begin{equation*}
+		4x^{2} + 9y^{2} - 16x + 18y = 11
+	\end{equation*}
+	Per convincersi che sia la frontiera, basta considerare la disuguaglianza del dominio:
+	\begin{equation*}
+		4x^{2} + 9y^{2} - 16x + 18y - 11 \le 0 \: \rightarrow \: 4x^{2} + 9y^{2} - 16x + 18y \le 11
+	\end{equation*}
+	Risulta evidente che i valori di sinistra devono essere minore o al massimo uguale a $11$.\newline
+
+	\noindent
+	Per rappresentare l'ellisse, è necessario ottenere l'equazione canonica. Quindi, si eseguono alcune manipolazioni algebriche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			4x^{2} + 9y^{2} - 16x + 18y &=& 11 \\ [.3em]
+			4\left(x^{2} - 4x\right) + 9\left(y^{2} + 2y\right) &=& 11
+		\end{array}
+	\end{equation*}
+	Dal paragrafo \ref{subsubsection: ellisse} si ricorda che l'equazione canonica è nella forma:
+	\begin{equation*}
+		\dfrac{\left(x-x_{C}\right)^{2}}{a^{2}} + \dfrac{\left(y-y_{C}\right)^{2}}{b^{2}} = 1
+	\end{equation*}
+	Per cui come è possibile procedere? Ci viene in soccorso il completamento dei quadrati (par. \ref{subsubsection: completamento dei quadrati}):
+	\begin{enumerate}[label=\alph*.]
+		\item Si cerca un $\Delta$ per ogni equazione di secondo grado (per $x$ e per $y$) tale che sia uguale a zero:
+		\begin{equation*}
+			\begin{array}{rcl}
+				4x^{2} + 9y^{2} - 16x + 18y &=& 11 \\ [.3em]
+				4x^{2} - 16x + 9y^{2} + 18y &=& 11 \\ [1em]
+				%%
+				4x^{2} - 16x &\rightarrow& \left(-16\right)^{2} - 4 \cdot 4 \cdot c = 0 \\ [.3em]
+				&& -16c = -\left(-16\right)^{2} \\ [.3em]
+				&& c = 16 \\ [1em]
+				%%
+				9y^{2} + 18y &\rightarrow& \left(18\right)^{2} - 4 \cdot 9 \cdot c = 0 \\ [.3em]
+				&& -36c = -324 \\ [.3em]
+				&& c = 9
+			\end{array}
+		\end{equation*}
+
+		\item Si riscrive l'equazione con i nuovi termini ma lasciandola invariata, per cui:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\left(4x^{2} - 16x\right) + \left(9y^{2} + 18y\right) &=& 11 \\ [.3em]
+				\left(4x^{2} - 16x + 16 - 16\right) + \left(9y^{2} + 18y + 9 - 9\right) &=& 11
+			\end{array}
+		\end{equation*}
+		
+		\item Si resiste alla voglia di semplificare e si esegue un raggruppamento:
+		\begin{equation*}
+			\begin{array}{rcl}
+				4x^{2} - 16x + 16 &\rightarrow& 4\left(x^{2} - 4x + 4\right) \\ [.3em]
+											 && 4\left(x-2\right)^{2} \\ [1em]
+				9y^{2} + 18y + 9  &\rightarrow& 9\left(y^{2} + 2y + 1\right) \\ [.3em]
+											 && 9\left(y+1\right)^{2}
+			\end{array}
+		\end{equation*}
+		Per raggruppare in questo modo basta calcolare trovare le soluzioni dell'equazione di secondo grado e riscriverle come quadrato. Quindi, data l'equazione di secondo grado $ax^{2}+bx+c$:
+		\begin{equation*}
+			\dfrac{-b \pm \sqrt{b^{2} - 4 \cdot a \cdot c}}{2 \cdot a} \: \xRightarrow{\Delta = 0} \: \dfrac{-b}{2a} = \lambda \: \rightarrow \: \left(x-\lambda\right)^{2}
+		\end{equation*}
+		E infatti sostituendo l'equazione $x^{2} - 4x + 4$:
+		\begin{equation*}
+			\dfrac{-\left(-4\right) \pm \sqrt{\left(-4\right)^{2} - 4 \cdot 1 \cdot 4}}{2 \cdot 1} \: \xRightarrow{\Delta = 0} \: \dfrac{4}{2} = 2 \: \rightarrow \: \left(x-2\right)^{2}
+		\end{equation*}
+
+		\item Si riscrive l'equazione dopo il raggruppamento:
+		\begin{equation*}
+			\left(4\left(x-2\right)^{2} - 16\right) + \left(9\left(y+1\right)^{2} - 9\right) = 11
+		\end{equation*}
+		A questo punto si possono portare a destra i termini non legati alle variabili $x$ e $y$:
+		\begin{equation*}
+			4\left(x-2\right)^{2} + 9\left(y+1\right)^{2} = 36
+		\end{equation*}
+
+		\item A destra è necessario il valore $1$ per l'equazione canonica, dunque viene in automatico dividere tutto per $36$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\dfrac{1}{36} \cdot 4\left(x-2\right)^{2} + \dfrac{1}{36} \cdot 9\left(y+1\right)^{2} &=& 36 \cdot \dfrac{1}{36} \\ [1em]
+				\dfrac{\left(x-2\right)^{2}}{9} + \dfrac{\left(y+1\right)^{2}}{4} &=& 1
+			\end{array}
+		\end{equation*}
+	\end{enumerate}
+	Dato che il centro dell'ellisse è dato dai valori che vengono sottratti a $x^{2}$ ($x^{2}-x_{C}$) e $y^{2}$ ($y^{2}-y_{C}$), in questo caso le coordinate sono: $\left(2, -1\right)$. I vertici sono piuttosto immediati:
+	\begin{equation*}
+		\begin{array}{lclclcl}
+			\text{Vertice sx} &\rightarrow& \left(2-\sqrt{9}, -1\right) && \text{Vertice dx} &\rightarrow& \left(2+\sqrt{9}, -1\right) \\ [.3em]
+										 && \left(-1, -1\right) && && \left(5, -1\right) \\ [.3em]
+			\text{Vertice up} &\rightarrow& \left(2, -1 + \sqrt{4}\right) && \text{Vertice down} &\rightarrow& \left(2, -1-\sqrt{4}\right) \\ [.3em]
+			&& \left(2, 1\right) && && \left(2, -3\right) \\
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/curve_di_livello-2.pdf}
+		\caption*{La figura dell'ellisse alla frontiera e rappresenta anche la curva di livello più bassa poiché è al limite.}
+	\end{figure}
+
+	\noindent
+	Il motivo per cui si dice "è al limite" è dato dal fatto che con $k$ sotto radice, la sua condizione d'esistenza è $k\ge 0$. Per cui, rappresentare:
+	\begin{equation*}
+		4x^{2}+9y^{2}-16x+18y-11 = 0
+	\end{equation*}
+	È identico a rappresentare:
+	\begin{equation*}
+		4x^{2}+9y^{2}-16x+18y-11 = \sqrt{k} \hspace{1em} \text{con } k = 0
+	\end{equation*}
+	Per completezza, si rappresenta una curva di livello utilizzando $k = \sqrt{11}$ e l'equazione \ref{eq: curve di livello} delle curve di livello:
+	\begin{equation*}
+		L_{\sqrt{11}}\left(f\right) = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: f\left(x,y\right) = \sqrt{11}\right\}
+	\end{equation*}
+	Per cui l'equazione da rappresentare è:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\sqrt{11 - 4x^{2} - 9y^{2} + 16x - 18y} &=& \sqrt{11} \\ [.3em]
+			11 - 4x^{2} - 9y^{2} + 16x - 18y &=& 11 \\ [.3em]
+			4x^{2} + 9y^{2} - 16x + 18y &=& 0
+		\end{array}
+	\end{equation*}
+	Come in precedenza, si procede con il completamento dei quadrati:
+	\begin{gather*}
+		4x^{2} - 16x + 9y^{2} + 18y = 0 \\
+		\downarrow \\
+		\begin{array}{rcl}
+			4x^{2} - 16x &\rightarrow& \left(-16\right)^{2} - 4 \cdot 4 \cdot c = 0 \\ [.3em]
+									&& -16c = -\left(-16\right)^{2} \\ [.3em]
+									&& c = 16 \\ [1em]
+			9y^{2} + 18y &\rightarrow& \left(18\right)^{2} - 4 \cdot 9 \cdot c = 0 \\ [.3em]
+									&& -36c = -324 \\ [.3em]
+									&& c = 9
+		\end{array}
+	\end{gather*}
+	\begin{gather*}
+		\downarrow \\
+		\left(4x^{2} - 16x + 16 - 16\right) + \left(9y^{2} + 18y + 9 - 9\right) = 0 \\
+		\downarrow \\
+		\begin{array}{rcl}
+			4x^{2} - 16x + 16 &\rightarrow& 4\left(x^{2} - 4x + 4\right) \\ [.3em]
+										 && 4\left(x-2\right)^{2} \\ [1em]
+			9y^{2} + 18y + 9  &\rightarrow& 9\left(y^{2} + 2y + 1\right) \\ [.3em]
+										 && 9\left(y+1\right)^{2}
+		\end{array} \\
+		\downarrow \\
+		4\left(x-2\right)^{2} - 16 + 9\left(y+1\right)^{2} - 9 = 0 \\
+		4\left(x-2\right)^{2} + 9\left(y+1\right)^{2} = 25 \\
+		\downarrow \\
+		\begin{array}{rcl}
+			\dfrac{1}{25} \cdot 4\left(x-2\right)^{2} + \dfrac{1}{25} \cdot 9\left(y+1\right)^{2} &=& 25 \cdot \dfrac{1}{25} \\ [1em]
+			\dfrac{\left(x-2\right)^{2}}{\frac{25}{4}} + \dfrac{\left(y+1\right)^{2}}{\frac{25}{9}} &=& 1
+		\end{array}
+	\end{gather*}
+	Il centro dell'ellisse è $\left(2, -1\right)$ e i vertici sono:
+	\begin{equation*}
+		\begin{array}{lclclcl}
+			\text{Vertice sx} &\rightarrow& \left(2-\sqrt{\frac{25}{4}}, -1\right) && \text{Vertice dx} &\rightarrow& \left(2+\sqrt{\frac{25}{4}}, -1\right) \\ [.8em]
+										 && \left(-\frac{1}{2}, -1\right) && && \left(\frac{9}{2}, -1\right) \\ [.8em]
+			\text{Vertice up} &\rightarrow& \left(2, -1 + \sqrt{\frac{25}{9}}\right) && \text{Vertice down} &\rightarrow& \left(2, -1-\sqrt{\frac{25}{9}}\right) \\ [.8em]
+			&& \left(2, \frac{2}{3}\right) && && \left(2, -\frac{8}{3}\right)
+		\end{array}
+	\end{equation*}
+	La figura dell'ellisse:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/curve_di_livello-3.pdf}
+	\end{figure}\newpage
 
 	\subsection{Continuità e limiti}\label{subsection: continuità e limiti}
 
 	\subsubsection{Continuità}\label{subsubsection: continuità}
 
+	Si mostra la definizione di continuità.
+
+	\begin{boxdef}
+		Si consideri una funzione $f \: : \: D \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}$ e un punto $x_{0} \in D$. La funzione $f$ è \definition{continua} nel punto $x_{0}$ se per ogni intorno $V$ di $f\left(x_{0}\right)$ esiste un intorno di $U$ di $x_{0}$ tale che:
+		\begin{equation*}
+			f\left(x\right) \in V \hspace{1.5em} \forall \: x \in U \cap D
+		\end{equation*}
+	\end{boxdef}
+
+	\noindent
+	Una \definition{notazione} utilizzata talvolta per dimostrare la continuità, è $\varepsilon - \delta$: per ogni $\varepsilon$ esiste un $\delta > 0$ tale che $\left| f\left(x\right) - f\left(x_{0}\right) \right| < \varepsilon$ per ogni $x$ appartenente a $D$ e dunque la distanza (par. \ref{subsection: spazio metrico e distanza}, eq. \ref{eq: distanza euclidea}) è minore di $\delta$ ($\left|\left| x - x_{0} \right|\right| < \delta$).\newline
+
+	\framedtext{%
+		\begin{flushleft}
+			\example{\underline{Esempio}}
+		\end{flushleft}
+		
+		Questo metodo è estendibile a qualsiasi altra funzione.
+
+		\begin{proof}[\example{Dimostrare che la funzione $f\left(x,y\right)=\sin\left(x\right)$ è continua.}]
+			Fissati un punto di coordinate $\left(\overline{x},\overline{y}\right) \in \mathbb{R}^{2}$ e un qualunque numero reale positivo $\varepsilon$, secondo la notazione $\varepsilon - \delta$ si ha:
+			\begin{equation*}
+				\left| f\left(x,y\right) - f\left(\overline{x},\overline{y}\right) \right| = \left| \sin\left(x\right) - \sin\left(\overline{x}\right) \right| < \varepsilon
+			\end{equation*}
+			Ovviamente tale affermazione è vera se:
+			\begin{equation*}
+				\left|\left| x - \overline{x} \right|\right| < \delta
+			\end{equation*}
+			Perciò, si consideri una palla aperta $U$ di centro $\left(\overline{x}, \overline{y}\right)$ e raggio $\delta$. Se $\left(x,y\right) \in U$ allora:
+			\begin{equation*}
+				\left|\left| x - \overline{x}\right|\right| < \left|\left| \left(x,y\right) - \left(\overline{x}, \overline{y}\right) \right|\right| < \delta
+			\end{equation*}
+			Dove $\left|\left| \left(x,y\right) - \left(\overline{x}, \overline{y}\right) \right|\right|$  corrisponde a $\sqrt{\left(x-\overline{x}\right)^{2} + \left(y-\overline{y}\right)^{2}}$.
+			
+			Ma da questa affermazione, si deduce che:
+			\begin{equation*}
+				\left| f\left(x,y\right) - f\left(\overline{x}, \overline{y}\right)\right| < \varepsilon = \left| \sin\left(x\right) - \sin\left(\overline{x}\right)\right| < \varepsilon
+			\end{equation*}
+		\end{proof}
+
+		Nella dimostrazione:
+		\begin{itemize}
+			\item $\left|\left| x-\overline{x} \right|\right|$ rappresenta la distanza di $x$ da $\overline{x}$ (come spiegato nel paragrafo \ref{subsection: spazio metrico e distanza});
+			
+			\item $\left|\left| \left(x,y\right) - \left(\overline{x}, \overline{y}\right) \right|\right| = \sqrt{\left(x-\overline{x}\right)^{2} + \left(y-\overline{y}\right)^{2}}$ rappresenta la distanza dal punto di coordinate $\left(x,y\right)$ al punto $\left(\overline{x}, \overline{y}\right)$
+		\end{itemize}
+	}\newpage
+
+	\noindent
+	Si elencano qua di seguito alcune proprietà delle funzioni continue:
+	\begin{itemize}
+		\item Se $f$ e $g$ sono funzioni continue su $A \subseteq \mathbb{R}^{n}$, allora $f \pm g$ e $f \times g$ sono continue su $A$, mentre $f \div g$ è continua sull'insieme identico ma con il risultato della funzione $g$ diverso da zero. Quindi, la differenza tra insiemi:
+		\begin{equation*}
+			A \setminus \left\{x \in A \: : \: g\left(x\right) = 0\right\}
+		\end{equation*}
+
+		\item Se $f$ è continua su $A \subseteq \mathbb{R}^{n}$ e $g$ è continua su $I \subseteq \mathbb{R}$, allora $h=g \circ f$ è continua su $D = \left\{x \in A \: : \: f\left(x\right) \in I\right\}$.
+		
+		In altre parole, componendo funzioni continue si ottengono funzioni continue.
+	\end{itemize}
+
+	\longline
+
 	\subsubsection{Limiti}\label{subsubsection: limiti}
+
+	\begin{boxdef}
+		Sia $f$ una funzione di due variabili e $\left(a,b\right)$ un punto di accumulazione del dominio $D \subseteq \mathbb{R}^{2}$ della funzione $f$.
+
+		Si afferma che:
+		\begin{equation}\label{eq: limite uguale a L}
+			\lim_{\left(x,y\right) \rightarrow \left(a,b\right)} f\left(x,y\right) = L \in \mathbb{R}
+		\end{equation}
+		Se per ogni $\varepsilon > 0$ esiste un $\delta > 0$ tale che se:
+		\begin{itemize}
+			\item Per ogni $x,y$ appartenenti al dominio $D$ della funzione $f$, $\left(x,y\right) \in D$;
+			\item La distanza tra il punto $\left(x,y\right)$ e il punto di accumulazione $\left(a,b\right)$ sia maggiore di zero ma minore di $\delta$:
+			\begin{equation*}
+				0 < \sqrt{\left(x-a\right)^{2} + \left(y-b\right)^{2}} < \delta
+			\end{equation*}
+		\end{itemize}
+		Allora la distanza tra la funzione e il risultato del limite (che parte da $x,y$ e tende a $a,b$ della funzione $f$ nel punto $x,y$) è minore di $\varepsilon$:
+		\begin{equation*}
+			\left|\left| f\left(x,y\right) - L \right|\right| < \varepsilon
+		\end{equation*}
+	\end{boxdef}
+
+	\noindent
+	In generale, se la funzione $f \: : \: D \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}$ e $\overline{x}$ è un punto di accumulazione del dominio $D$:
+	\begin{boxdef}
+		Si dice che:
+		\begin{equation}\label{eq: (generale) limite uguale a L}
+			\lim_{x \rightarrow \overline{x}} f\left(x\right) = L\in\mathbb{R}
+		\end{equation}
+		Se per ogni $\varepsilon > 0$ esiste un $\delta > 0$ tale che se $x$ appartiene al dominio $D$ e $\left|\left| x - \overline{x} \right|\right| < \delta$ allora $\left|\left| f\left(x,y\right) - L \right|\right| < \varepsilon$.
+	\end{boxdef}
+
+	\noindent
+	Da queste definizioni si può affermare che la funzione $f$ è \definition{continua} in $\overline{x} \in D$ se e solo se:
+	\begin{equation*}
+		\lim_{x \rightarrow \overline{x}} f\left(x\right) = f\left(\overline{x}\right)
+	\end{equation*}
+	Mostrare che i seguenti limiti \underline{non esistono}:
+	\begin{enumerate}
+		\item $\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{x^{3}+y^{2}}{x^{2}+y^{2}}$
+		
+		\item $\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} f\left(x,y\right)$ con:
+		\begin{equation*}
+			f\left(x,y\right) = \begin{cases}
+				xe^{\frac{x}{y}} & y \ne 0 \\
+				0 & y = 0
+			\end{cases}
+		\end{equation*}
+
+		\item $\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy}{x^{2}+y^{2}}$
+	\end{enumerate}
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Dato il limite:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{x^{3}+y^{2}}{x^{2}+y^{2}}
+	\end{equation*}
+	Si considera la restrizione della funzione alla retta $y=0$:
+	\begin{equation*}
+		\displaystyle\lim_{x \rightarrow 0} f\left(x,0\right) = \dfrac{x^{3}+0^{2}}{x^{2}+0^{2}} = \dfrac{x^{3}}{x^{2}} = x = 0
+	\end{equation*}
+	Si considera la restrizione della funzione alla retta $x=0$:
+	\begin{equation*}
+		\displaystyle\lim_{y \rightarrow 0} f\left(0,y\right) = \dfrac{0^{3}+y^{2}}{0^{2}+y^{2}} = \dfrac{y^{2}}{y^{2}} = 1
+	\end{equation*}
+	I limiti sono diversi, quindi essi non esistono.
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	Dato il limite:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} f\left(x,y\right) = \displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \begin{cases}
+			xe^{\frac{x}{y}} & y \ne 0 \\
+			0 & y = 0
+		\end{cases}
+	\end{equation*}
+	Esso non può esistere dato che la $y$ al denominatore non è ammessa.
+
+	\begin{flushleft}
+		\example{\underline{Esempio 3}}
+	\end{flushleft}
+	Dato il limite:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy}{x^{2}+y^{2}}
+	\end{equation*}
+	Si considera la restrizione della funzione alla retta $y=0$:
+	\begin{equation*}
+		\displaystyle\lim_{x \rightarrow 0} f\left(x,0\right) = \dfrac{x \cdot 0}{x^{2}+0^{2}} = \dfrac{0}{x^{2}} = 0
+	\end{equation*}
+	Si considera la restrizione della funzione alla retta $x=0$:
+	\begin{equation*}
+		\displaystyle\lim_{y \rightarrow 0} f\left(0,y\right) = \dfrac{0 \cdot y}{0^{2} + y^{2}} = \dfrac{0}{y^{2}} = 0
+	\end{equation*}
+	I due limiti sono uguali. Questa condizione è necessaria ma non sufficiente per affermare che i limiti esistano. Difatti, andando a risolvere il limite con $\left(x,x\right)$ si ottiene:
+	\begin{equation*}
+		\displaystyle\lim_{x \rightarrow 0}f\left(x,x\right) = \dfrac{x \cdot x}{x^{2} + x^{2}} = \dfrac{x^{2}}{2x^{2}} = \dfrac{1}{2} \cdot 1 = \dfrac{1}{2}
+	\end{equation*}
+	Risulta evidente che il limite non esiste.
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
