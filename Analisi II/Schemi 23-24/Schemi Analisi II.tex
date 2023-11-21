@@ -76,7 +76,7 @@
 	\title{Schemi Analisi II}
 	\date{\printdayoff\today}
 	\maketitle
-	
+
 	\newpage
 	
 	% indice
@@ -225,7 +225,49 @@
 	Dove il segno $\pm$ accanto all'$1$ indica la stessa cosa detta in precedenza.\newline
 	
 	\noindent
-	Per altri approfondimenti: \href{https://www.youmath.it/domande-a-risposte/view/6096-equazione-iperbole.html}{YouMath}.\newpage
+	Il calcolo dei vertici, utile per rappresentare l'iperbole, ricorda molto quello utilizzato per l'ellisse. Tuttavia, dato che in questo caso i vertici sono solo 2 e non 4 (ellisse), tale calcolo cambia a seconda dell'intersezione con l'asse delle $x$ o delle $y$ (determinato dal segno $\pm$ dell'$1$ a sinistra dell'uguale):
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Intersezione asse }x\text{, caso }+1 &\rightarrow& V_{1} = \left(x_{C}-a, y_{C}\right) \\ [.3em]
+			&& V_{2} = \left(x_{C}+a, y_{C}\right) \\ [1em]
+			%
+			\text{Intersezione asse }y\text{, caso }-1 &\rightarrow& V_{1} = \left(x_{C}, y_{C}-b\right) \\ [.3em]
+			&& V_{2} = \left(x_{C}, y_{C}+b\right)
+		\end{array}
+	\end{equation*}
+	Purtroppo tutto questo non basta per rappresentare un'iperbole, è necessario calcolare anche gli asintoti di un'iperbole per capire l'andamento dell'iperbole. Gli asintoti sono due punti dai quali passa una retta, la quale non viene mai toccata dall'iperbole:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\text{Intersezione asse }x\text{, caso }+1 &\rightarrow& \text{asintoto } = \left(V_{x}, \pm\dfrac{b}{a} + V_{y}\right) \\ [1em]
+			%
+			\text{Intersezione asse }y\text{, caso }-1 &\rightarrow& \text{asintoto } = \left(\pm\dfrac{b}{a} + V_{x}, V_{y}\right)
+		\end{array}
+	\end{equation*}
+	Con $V_{x},V_{y}$ si intendono le coordinate $x,y$ dei vertici.\newline
+
+	\noindent
+	Ricapitolando, i passi per disegnare un'iperbole partendo dall'equazione canonica sono:
+	\begin{enumerate}
+		\item Posizionarsi sulle coordinate di centro $x_{C}, y_{C}$
+
+		\item Calcolare i vertici, aumentando/diminuendo la $x_{C}$ se l'$1$ nell'equazione canonica ha segno $+$, altrimenti aumentando/diminuendo la $y_{C}$ se l'$1$ nell'equazione canonica ha segno $-$
+		
+		\item Individuare i punti del fuoco e far passare una retta, per ciascun punto, passante per il centro $x_{C}, y_{C}$
+		
+		\item Disegnare l'iperbole evitando di toccare le assi
+	\end{enumerate}
+	Un esempio si può vedere nel seguente grafico:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/iperbole_esempio.pdf}
+		\caption*{Iperbole di equazione: $x^{2} - y^{2} = -1$}
+	\end{figure}
+
+	\noindent
+	Ovviamente le rette non vanno disegnate, ma in questo grafico sono state rappresentate per mostrare come disegnare un'iperbole.
+
+	\noindent
+	Per altri approfondimenti: \href{https://www.youmath.it/formulari/formulari-di-geometria-analitica/453-iperbole-nel-piano-cartesiano.html}{YouMath}.\newpage
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% Completamento dei quadrati %
@@ -1418,6 +1460,87 @@
 	Più in generale, l'\textbf{insieme delle soluzioni} di un'equazione differenziale di ordine $n$ o di un sistema di $n$ equazioni del primo ordine sia rappresentato da una famiglia di funzioni, \textbf{dipendente da $n$ parametri}. Tale famiglia prende il nome di \definition{integrale generale}.\newpage
 
 
+	%%%%%%%%%%%%%%%%%%%%%
+	% Equazioni lineari %
+	%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection{Equazioni lineari}
+
+	Le \definition{equazioni lineari} sono della forma:
+	\begin{equation}\label{eq: forma equazioni lineari}
+		y'\left(t\right) + a_{0}\left(t\right)y\left(t\right) = g\left(t\right)
+	\end{equation}
+	Con $a_{0}$ e $g$ funzioni reali di una variabile reale continue nel loro insieme di definizione, ossia:
+	\begin{equation*}
+		a_{0}, g \: : \: I \subseteq \mathbb{R} \rightarrow \mathbb{R}, \hspace{2em} a_{0}, g \in C^{0}\left(I\right)
+	\end{equation*}
+	L'\definition{integrale generale} dell'equazione differenziale lineare è data dalla formula:
+	\begin{equation*}
+		y\left(t\right) = e^{A\left(t\right)} \left[c_{1} + \displaystyle\int\left(g\left(t\right) e^{A\left(t\right)}\right) \: \mathrm{d}t \right]
+	\end{equation*}
+	In cui:
+	\begin{equation*}
+		A\left(t\right) = \displaystyle\int \left(a_{0}\left(t\right)\right) \:\mathrm{d}t
+	\end{equation*}
+	Attenzione, prima di applicare la formula, è importante avere la forma dell'equazione \ref{eq: forma equazioni lineari}.
+
+	\begin{flushleft}
+		\example{\underline{Esempio}}
+	\end{flushleft}
+	Data l'equazione:
+	\begin{equation*}
+		y' = y + x
+	\end{equation*}
+	Si porta nella forma dell'equazione \ref{eq: forma equazioni lineari}:
+	\begin{equation*}
+		y' - y = x
+	\end{equation*}
+	Si calcola l'integrale:
+	\begin{equation*}
+		e^{\int -1 \: \mathrm{d}x} \rightarrow -\displaystyle\int 1 \: \mathrm{d}x = -x \rightarrow e^{-x}
+	\end{equation*}
+	Si moltiplica il termine per entrambi i lati:
+	\begin{equation*}
+		\left(e^{-x}\right) y' + \left(-1 \cdot e^{-x}\right)y = x e^{-x}
+	\end{equation*}
+	E risulta evidente che adesso è possibile applicare la proprietà delle moltiplicazioni delle derivate:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\left[f\left(x\right) \cdot g\left(x\right)\right]' &=& f'\left(x\right) \cdot g\left(x\right) + f\left(x\right) \cdot g'\left(x\right) \\ [.3em]
+			%
+			\left(-1 \cdot e^{-x}\right)y + \left(e^{-x}\right) y' &=& \left[e^{-x} \cdot y\right]'
+		\end{array}
+	\end{equation*}
+	Sostituendo il risultato, ottenuto eseguendo manipolazioni algebriche, all'interno dell'equazione:
+	\begin{equation*}
+		\left[\left(e^{-x}\right) y\right]' = x e^{-x}
+	\end{equation*}
+	A questo punto si esegue l'integrale:
+	\begin{equation*}
+		\displaystyle\int \left[\left(e^{-x}\right) y\right]' \:\mathrm{d}x = \displaystyle\int x e^{-x} \: \mathrm{d}x
+	\end{equation*}
+	A sinistra si può sempre semplificare la derivata con l'integrale, per cui non ci sono problemi:
+	\begin{equation*}
+		\left(e^{-x}\right) y = \displaystyle\int x e^{-x} \: \mathrm{d}x
+	\end{equation*}
+	A destra, si esegue il metodo per parti (par. \ref{subsubsection: integrare per parti}):
+	\begin{gather*}
+		f = x \hspace{1em} g' = e^{-x} \hspace{1em} f' = 1 \hspace{1em} g = -e^{-x} \\
+		x \cdot \left(- e^{-x}\right) - \displaystyle\int 1 \cdot \left(- e^{-x}\right) \: \mathrm{d}x \\
+		x \cdot \left(- e^{-x}\right) - \left(e^{-x}\right)
+	\end{gather*}
+	Dunque il risultato finale è:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\left(e^{-x}\right) y &=& -x e^{-x} - e^{-x} + c \\ [.3em]
+			\left(e^{-x}\right) y &=& e^{-x}\left(-x - 1\right) + c \\ [1em]
+			y &=& -x-1 + c \cdot \dfrac{1}{e^{-x}} \\ [1em]
+			y &=& -x-1 + c \cdot e^{x}
+		\end{array}
+	\end{equation*}\newpage
+
+
+
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% Equazioni a variabili separabili %
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2561,6 +2684,37 @@
 		y = x\left(\ln\left(x\right) + 2\right)
 	\end{equation*}\newpage
 
+	\begin{flushleft}
+		\example{\underline{Altro esempio di risoluzione lineare}}
+	\end{flushleft}
+	Equazione differenziale:
+	\begin{equation*}
+		y' = e^{x} + 3y
+	\end{equation*}
+	La risolvo come un'equazione lineare. Cerco di sfruttare la regola del prodotto tra derivate:
+	\begin{equation*}
+		\left[f\left(x\right) \cdot g\left(x\right)\right]' = f'\left(x\right) \cdot g\left(x\right) + f\left(x\right) \cdot g'\left(x\right)
+	\end{equation*}
+	\begin{gather*}
+		\begin{array}{rcl}
+			y' &=& e^{x} + 3y \\ [.3em]
+			y' - 3y &=& e^{x} \\ [1em]
+			&\downarrow& \text{utilizzo l'esponenziale per cercare una forma accettabile} \\ [.3em]
+			&& \displaystyle e^{\int -3 \:\mathrm{d}x} = e^{-3x} \\ [1em]
+			e^{-3x} \cdot \left(y' - 3y\right) &=& e^{-3x} \cdot e^{x} \\ [.3em]
+			\left(e^{-3x}\right)y' + \left(-3e^{-3x}\right)y &=& e^{-2x} \\ [1em]
+			&\downarrow& \text{ora è possibile applicare la regola del prodotto tra derivate} \\ [.3em]
+			&& \left(-3e^{-3x}\right)y + \left(e^{-3x}\right)y' = y' \cdot y + y \cdot y' = (e^{-3x} \cdot y)' \\ [1em]
+			(e^{-3x} \cdot y)' &=& e^{-2x} \\ [1em]
+			&\downarrow& \text{integrando ambo i lati} \\ [1em]
+			\displaystyle\int(e^{-3x} \cdot y)' \:\mathrm{d}x &=& \displaystyle\int e^{-2x} \:\mathrm{d}x \\ [1em]
+			e^{-3x} \cdot y &=& - \dfrac{1}{2} \cdot e^{-2x} + c \\ [1em]
+			y &=& -\dfrac{1}{2} \cdot \dfrac{e^{-2x}}{e^{-3x}} + c \cdot \dfrac{1}{e^{-3x}} \\ [1em]
+			y &=& -\dfrac{1}{2} \cdot e^{x} + c \cdot e^{3x}
+		\end{array}
+	\end{gather*}
+	\newpage
+
 	\section{Spazi funzionali}\label{section: spazi funzionali}
 
 	Gli spazi funzionali sono il secondo argomento trattato durante il corso di Analisi II. È un argomento importante dal punto di visto teorico poiché è ha stretto contatto con l'esercizio d'esame.
@@ -3313,6 +3467,33 @@
 	\end{itemize}
 	L'insieme $D$ è aperto poiché $D = \mathring{D}$ ma non è chiuso poiché $D \ne \overline{D}$.\newpage
 
+	\begin{flushleft}\label{esempio bonus rappresentare un dominio}
+		\example{\underline{Esempio bonus}}
+	\end{flushleft}
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \ln\left(x^{2}-y^{2}+1\right) - \dfrac{1}{\sqrt{x}}
+	\end{equation*}
+	Il dominio è influenzato dal logaritmo e dalla radice al denominatore (combinazione di condizioni):
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} - y^{2} + 1 > 0 \: \land \: x > 0\right\}
+	\end{equation*}
+	L'equazione $x^{2} - y^{2} + 1$ è un'iperbole (par. \ref{subsubsection: iperbole}). Infatti basta ricordare che se $x^{2}$ e $y^{2}$ hanno segno concorde, allora si tratta di un'ellisse o di una circonferenza, mentre nel caso di segno discorde, si tratta di un'iperbole. Per rappresentarla, si eseguono alcune operazioni algebriche:
+	\begin{equation*}
+		x^{2} - y^{2} + 1 \rightarrow x^{2} - y^{2} = - 1
+	\end{equation*}
+	Si scrive l'equazione canonica:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\left(x-x_{C}\right)^{2}}{a^{2}} - \dfrac{\left(y-y_{C}\right)^{2}}{b^{2}} &=& \pm 1 \hspace{1.5em} \text{con } a \ne 0, \: b \ne 0 \\ [1em]
+			%
+			\dfrac{\left(x-0\right)^{2}}{1^{2}} - \dfrac{\left(y-0\right)^{2}}{1^{2}} &=& -1
+		\end{array}
+	\end{equation*}
+	Per cui, l'iperbole ha centro nell'origine (lo si capisce dai $-0$!), il segno dell'$1$ è negativo, per cui l'iperbole ha un'intersezione nell'asse delle ordinate ($y$).
+
+	\newpage
+
 	\subsubsection{Grafico di una funzione scalare in \texorpdfstring{$n$}{n} variabili}\label{subsubsection: grafico di una funzione scalare in n variabili}
 
 	\begin{boxdef}
@@ -3831,7 +4012,8 @@
 	\begin{equation*}
 		\displaystyle\lim_{y \rightarrow 0} f\left(0,y\right) = \dfrac{0}{0^{2} + y^{2}} = \dfrac{0}{y^{2}} = 0
 	\end{equation*}
-	Il risultato è differente, per cui il limite non esiste.
+	Il risultato dei due limiti è differente, per cui il limite non esiste.
+
 
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
