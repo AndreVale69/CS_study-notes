@@ -4344,6 +4344,134 @@
 	\begin{equation*}
 		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(a,b\right)} f\left(x,y\right) = L
 	\end{equation*}
+	\framedtext{%
+		\underline{\textbf{N.B.}}: si ricorda che per passare alle coordinate polari bisogna trasformare la $x$ e la $y$ in:
+		\begin{equation*}
+			\begin{cases}
+				x = a + \rho\cos\left(\theta\right) \\
+				y = b + \rho\sin\left(\theta\right)
+			\end{cases}
+		\end{equation*}
+		Dove $a$ e $b$ sono le coordinate in cui viene definito il limite
+	}\:\newline
+
+	\noindent
+	Nelle seguenti pagine si riportano alcuni esempi di limiti risolti con le coordinate polari (il limite numero 4 è importante come esempio):
+	\begin{enumerate}
+		\item $\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy}{\sqrt{x^{2} + y^{2}}} = 0$
+		\item $\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,1\right)} \dfrac{x^{2}}{\sqrt{x^{2} + \left(y-1\right)^{2}}} = 0$
+		\item $\displaystyle\lim_{\left(x,y\right) \rightarrow \left(2,-1\right)} \dfrac{\left(x-2\right)^{3} + 4\left(x-2\right)^{2} + 4\left(y+1\right)^{2}}{\left(x-2\right)^{2} + \left(y+1\right)^{2}} = 4$
+		\item $\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy^{2}}{x^{2} + y^{4}} = 0$
+	\end{enumerate}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Verificare il risultato del limite:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy}{\sqrt{x^{2} + y^{2}}} = 0
+	\end{equation*}
+	Si applica il teorema per i limiti in coordinate polari. Per cui, la funzione, ovvero la frazione, meno il suo risultato, in questo caso $0$, deve essere minore o uguale alla funzione $g\left(r\right)$, in questo caso l'incognita da trovare. Ovviamente la funzione $g$ deve avere il limite per $0^{+}$ che è uguale a zero. Prima di tutto si riscrive l'espressione con le coordinate polari:
+	\begin{equation*}
+		\dfrac{xy}{\sqrt{x^{2} + y^{2}}} \rightarrow F\left(r, \theta\right) = \dfrac{r\cos\left(\theta\right) \cdot r\sin\left(\theta\right)}{\sqrt{\left(r \cos\left(\theta\right)\right)^{2} + \left(r \sin\left(\theta\right)\right)^{2}}}
+	\end{equation*}
+	Poi si eseguono alcune manipolazioni algebriche:
+	\begin{gather*}
+		\dfrac{r^{2} \cos\left(\theta\right)\sin\left(\theta\right)}{\sqrt{r^{2}\cos^{2}\left(\theta\right) + r^{2}\sin^{2}\left(\theta\right)}}
+		=
+		\dfrac{r^{2} \cos\left(\theta\right)\sin\left(\theta\right)}{\sqrt{r^{2} \left(\cos^{2}\left(\theta\right)+ \sin^{2}\left(\theta\right)\right)}}
+		=
+		\dfrac{r^{2} \cos\left(\theta\right)\sin\left(\theta\right)}{\sqrt{r^{2} \cdot 1}} \\ \\
+		%
+		\dfrac{r^{2}}{\sqrt{r^{2}}} \cdot \cos\left(\theta\right)\sin\left(\theta\right) = \sqrt{r^{2}} \cdot \cos\left(\theta\right)\sin\left(\theta\right)
+	\end{gather*}
+	Per definizione del seno e del coseno, si è certi che la funzione $F\left(r,\theta\right)$ è sicuramente minore o uguale a $\sqrt{r^{2}}$:
+	\begin{equation*}
+		0 \le \left| F\left(r,\theta\right) - L \right| \le \sqrt{r^{2}}
+	\end{equation*}
+	Il risultato del limite che tende a $0^{+}$ su $\sqrt{r^{2}}$ è zero. Inoltre, dipende solo da $r$ e non da $\theta$, per cui è una condizione abbastanza forte per dire che il limite esiste ed è uguale a zero (in riferimento a $f\left(x,y\right)$).\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	Verificare che il limite esista e valga zero:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,1\right)} \dfrac{x^{2}}{\sqrt{x^{2} + \left(y-1\right)^{2}}}
+	\end{equation*}
+	In questo caso le coordinate polari saranno $r \cos\left(\theta\right)$ e $1 + r\sin\left(\theta\right)$. Questo perché il limite tende a $a=0$ e $b=1$:
+	\begin{equation*}
+		0 \le \left| \dfrac{r^{2} \cos^{2}\left(\theta\right)}{\sqrt{r^{2} \cos^{2}\left(\theta\right) + \left(1 + r \sin\left(\theta\right)-1\right)^{2}}} \right| \le \: ???
+	\end{equation*}
+	Si semplifica la frazione:
+	\begin{equation*}
+		\left| \dfrac{r^{2} \cos^{2}\left(\theta\right)}{\sqrt{r^{2} \cos^{2}\left(\theta\right) + r^{2} \sin^{2}\left(\theta\right)}} \right| = \left| \dfrac{r^{2} \cos^{2}\left(\theta\right)}{\sqrt{r^{2}}} \right| = \left| \dfrac{r^{2} \cos^{2}\left(\theta\right)}{r} \right| = r \cos^{2}\left(\theta\right)
+	\end{equation*}
+	Il valore trovato è sicuramente sempre minore o uguale a $r$:
+	\begin{equation*}
+		0 \le r \cos^{2}\left(\theta\right) \le r
+	\end{equation*}
+	Il limite in $r$ di $0^{+}$ è sempre $0^{+}$. Per cui, il limite della funzione esiste ed è uguale a zero.\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 3}}
+	\end{flushleft}
+	Verificare che il limite esista e valga $4$:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(2,-1\right)} \dfrac{\left(x-2\right)^{3} + 4\left(x-2\right)^{2} + 4\left(y+1\right)^{2}}{\left(x-2\right)^{2} + \left(y+1\right)^{2}}
+	\end{equation*}
+	Si riscrive la funzione con le coordinate polari:
+	\begin{gather*}
+		\begin{cases}
+			x = 2 + r\cos\left(\theta\right) \\
+			y = -1 + r\sin\left(\theta\right)
+		\end{cases} \\
+		\begin{array}{rcl}
+			\dfrac{r^{3}\cos^{3}\left(\theta\right) + 4 r^{2} \cos^{2}\left(\theta\right) + 4 r^{2} \sin^{2}\left(\theta\right)}{r^{2} \cos^{2}\left(\theta\right) + r^{2} \sin^{2}\left(\theta\right)} 
+			&=&
+			\dfrac{
+				r^{3}\cos^{3}\left(\theta\right) + 4r^{2}\left(\cos^{2}\left(\theta\right) + \sin^{2}\left(\theta\right)\right)
+			}{
+				r^{2}\left(\cos^{2}\left(\theta\right) + \sin^{2}\left(\theta\right)\right)
+			} \\ [1.5em]
+			%
+			&=&
+			\dfrac{r^{3}\cos^{3}\left(\theta\right) + 4r^{2}}{r^{2}} \\ [1.5em]
+			%
+			&=& \dfrac{r^{3}\cos^{3}\left(\theta\right)}{r^{2}} + \dfrac{4r^{2}}{r^{2}} \\ [1.5em]
+			%
+			&=& r \cos^{3}\left(\theta\right) + 4
+		\end{array}
+	\end{gather*}
+	A questo punto, si può notare che la formula $\left| F\left(r,\theta\right) - L \right|$ prevede $- L$, che in questo esempio è identificato dal $+4$ ottenuto nell'ultimo passaggio. Per cui:
+	\begin{equation*}
+		\left| F\left(r,\theta\right) - 4 \right| = \left| r \cos^{3}\left(\theta\right) \right|
+	\end{equation*}
+	Quel valore è sicuramente minore o uguale a $r$ (classico ragionamento fatto anche per gli esercizi precedenti):
+	\begin{equation*}
+		\left| r \cos^{3}\left(\theta\right) \right| \le r
+	\end{equation*}
+	E il limite di $r$ in $0^{+}$ è uguale a $0^{+}$, ovvero un'unità infinitesima. L'esercizio si conclude affermando che il limite esiste e ha risultato uguale a $4$. Questo perché si considera $F-L$ e non solo la funzione $F$.
+
+	\longline
+
+	\begin{flushleft}
+		\example{\underline{Esempio 4 (importante)}}
+	\end{flushleft}
+	Questo limite, a differenza degli altri, può essere risolto in maniera differente:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} \dfrac{xy^{2}}{x^{2} + y^{4}}
+	\end{equation*}
+	Nel caso in cui il limite esistesse, varrebbe zero. Questo perché la restrizione della funzione $f$ a qualunque retta passante per l'origine, porta a:
+	\begin{equation*}
+		\displaystyle\lim_{x \rightarrow 0} f\left(x,mx\right) = \displaystyle\lim_{x \rightarrow 0} \dfrac{mx^{3}}{x^{2} + m^{4}x^{4}} = \displaystyle\lim_{x \rightarrow 0} \dfrac{mx}{1 + m^{4}x^{2}} = 0
+	\end{equation*}
+	Qualunque sia $m \in \mathbb{R}$. Tuttavia, questo modo differente di dimostrare l'esistenza di un limite, non è una condizione sufficiente per concludere la dimostrazione. Infatti, nel caso in cui ci si muovesse lungo l'asse $y$ con $y = \sqrt{x}$ accadrebbe:
+	\begin{equation*}
+		\displaystyle\lim_{x \rightarrow 0^{+}} f\left(x, \sqrt{x}\right) = \displaystyle\lim_{x \rightarrow 0^{+}} \dfrac{x \cdot x}{x^{2} + x^{2}} = \displaystyle\lim_{x \rightarrow 0^{+}} \dfrac{x^{2}}{2x^{2}} = \dfrac{1}{2}
+	\end{equation*}
+	E questo dimostra che il limite originale non esiste.
+
+
 
 
 
