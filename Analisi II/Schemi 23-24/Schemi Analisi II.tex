@@ -3874,7 +3874,15 @@
 		\item Se $f$ è continua su $A \subseteq \mathbb{R}^{n}$ e $g$ è continua su $I \subseteq \mathbb{R}$, allora $h=g \circ f$ è continua su $D = \left\{x \in A \: : \: f\left(x\right) \in I\right\}$.
 		
 		In altre parole, componendo funzioni continue si ottengono funzioni continue.
-	\end{itemize}\newpage
+	\end{itemize}
+	\begin{theorem}{\textbf{Teorema di Weierstrass}}\label{theorem: Weierstrass}
+		Sia $f$ una funzione continua su un insieme chiuso e limitato $D \subseteq \mathbb{R}^{n}$. Allora $f$ ha minimo e massimo assoluto, cioè esistono $x_{min}, x_{max} \in D$ tali per cui:
+		\begin{equation*}
+			f\left(x_{min}\right) \le f\left(x\right) \le f\left(x_{max}\right) \hspace{2em} \forall x \in D
+		\end{equation*}
+	\end{theorem}
+	La tecnica utilizza nel teorema è presente anche nel metodo del confronto (par \ref{subsubsection: maggiorazioni utili per risolvere limiti e Teorema del confronto (dei due carabinieri)})
+	\newpage
 
 	\subsection{Limiti}\label{subsection: limiti}
 
@@ -4011,7 +4019,7 @@
 	\end{equation*}
 	Il risultato dei due limiti è differente, per cui il limite non esiste.\newpage
 
-	\subsubsection{Verificare l'esistenza di limiti: Manipolazioni algebriche}\label{subsubsection: manipolazioni algebriche}
+	\subsubsection{Manipolazioni algebriche}\label{subsubsection: manipolazioni algebriche}
 
 	Per verificare l'esistenza di limiti per funzioni di due variabili, spesso si utilizzano tecniche di manipolazione algebrica per ottenere forme più convenienti.\newline
 
@@ -4050,7 +4058,7 @@
 		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(\pi, \frac{\pi}{2}\right)} \dfrac{1 - 2\sin\left(y\right)}{\cos\left(x\right)} = +1
 	\end{equation*}\newpage
 
-	\subsubsection{Verificare l'esistenza di limiti: Maggiorazioni utili per risolvere limiti e Teorema del confronto (dei due carabinieri)}\label{subsubsection: maggiorazioni utili per risolvere limiti e Teorema del confronto (dei due carabinieri)}
+	\subsubsection{Maggiorazioni utili per risolvere limiti e Teorema del confronto (dei due carabinieri)}\label{subsubsection: maggiorazioni utili per risolvere limiti e Teorema del confronto (dei due carabinieri)}
 
 	Purtroppo, le manipolazioni algebriche talvolta non sono abbastanza. Risulta dunque necessario introdurre una nuova tecnica utilizzata in combo con un teorema famoso: il teorema del confronto o dei due carabinieri.
 	\begin{theorem}[\textbf{Teorema del confronto}]
@@ -4314,7 +4322,7 @@
 	\end{gather*}
 	E la funzione è continua. Come negli altri esempi, qui la maggiorazione è stata applicata facendo alcune considerazioni su una parte di funzione.\newpage
 
-	\subsubsection{Verificare l'esistenza di limiti: Calcolo limiti in coordinate polari}\label{subsubsection: calcolo limiti in coordinate polari}
+	\subsubsection{Calcolo limiti in coordinate polari}\label{subsubsection: calcolo limiti in coordinate polari}
 
 	Per studiare il comportamento di una funzione $f$ che da $\left(x,y\right) \rightarrow \left(a,b\right)$, si può vedere che cosa accade alla funzione:
 	\begin{equation}
@@ -4469,7 +4477,205 @@
 	\begin{equation*}
 		\displaystyle\lim_{x \rightarrow 0^{+}} f\left(x, \sqrt{x}\right) = \displaystyle\lim_{x \rightarrow 0^{+}} \dfrac{x \cdot x}{x^{2} + x^{2}} = \displaystyle\lim_{x \rightarrow 0^{+}} \dfrac{x^{2}}{2x^{2}} = \dfrac{1}{2}
 	\end{equation*}
-	E questo dimostra che il limite originale non esiste.
+	E questo dimostra che il limite originale non esiste.\newpage
+
+	\subsection{Curve in $\mathbb{R}^{n}$}
+
+	\begin{boxdef}
+		Sia $I$ un intervallo della retta reale. Si chiama \definition{curva in $\mathbb{R}^{n}$} una funzione del tipo:
+		\begin{equation}\label{eq: curva in Rn}
+			\begin{array}{rcl}
+				\gamma \: : \: I &\rightarrow& \mathbb{R}^{n} \\ [.5em]
+				%
+				t &\mapsto& \left(\gamma_{1}\left(t\right), \gamma_{2}\left(t\right), \cdots, \gamma_{n}\left(t\right)\right)
+			\end{array}
+		\end{equation}
+		Che ha tutte le componenti $\gamma_{i} \: : \: I \rightarrow \mathbb{R}$ continue su $I$. Inoltre, viene detto \textbf{sostegno della curva} l'immagine di $\gamma$:
+		\begin{equation}\label{eq: sostegno della curva}
+			\gamma\left(I\right) = \left\{\gamma\left(t\right) \: : \: t \in I\right\}
+		\end{equation}
+	\end{boxdef}
+
+	\noindent
+	Con il termine \dquotes{curva} si intende una funzione di variabile reale\footnote{A ogni valore del parametro $t \in I$ è associato uno e un solo punto del sostegno.}, con \dquotes{sostegno di una curva} si intende un \textbf{insieme di punti} nello spazio euclideo.\newline
+
+	\noindent
+	Nel caso in cui l'insieme $I$ è chiuso e limitato, cioè $I = \left[a,b\right]$, si dice che la curva $\gamma$ è un \textbf{arco} o un \textbf{cammino continuo}. Inoltre, $\gamma\left(a\right)$ e $\gamma\left(b\right)$ sono estremi dell'arco (punto iniziale e punto finale). Alcuni esempi di parametrizzazione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/parametrizzazioni-1.pdf}
+		\caption*{$\gamma: \left[0, 2\pi\right] \rightarrow \mathbb{R}^{2} \hspace{2em} t\mapsto\left(\cos\left(t\right), 2\sin\left(t\right)\right)$ è un cammino chiuso semplice.}
+	\end{figure}\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/parametrizzazioni-2.pdf}
+		\caption*{$\gamma: \left[0, \dfrac{\pi}{2}\right] \rightarrow \mathbb{R}^{2} \hspace{2em} t\mapsto\left(1+\cos\left(t\right), \sin\left(t\right)\right)$ è un arco di circonferenza semplice, ma non è chiuso.}
+	\end{figure}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/parametrizzazioni-3.pdf}
+		\caption*{$\gamma: \mathbb{R} \rightarrow \mathbb{R}^{2} \hspace{2em} t\mapsto\left(t^{2}, t^{3}-t\right)$ è una curva non semplice.}
+	\end{figure}\newpage
+
+	\subsubsection{Parametrizzazioni notevoli}\label{subsubsection: parametrizzazioni notevoli}
+
+	Esistono tre tipi di parametrizzazioni notevoli: per un segmento, per un grafico di una funzione e per le coniche.
+
+	\begin{flushleft}\label{parametrizzazione notevole: segmento}
+		\definition{Parametrizzazione notevole: \underline{segmento}}
+	\end{flushleft}
+	Dato il seguente grafico:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/parametrizzazioni_notevoli-1.pdf}
+	\end{figure}
+
+	\noindent
+	Si definisce il vettore $\overrightarrow{v}$ che parte dal punto $B$ e finisce al punto $A$ come:
+	\begin{equation*}
+		\overrightarrow{v} = B - A = \left(5,2\right) - \left(2,1\right) = \left(3,1\right)
+	\end{equation*}
+	La \textbf{parametrizzazione notevole} di una retta (segmento) è la seguente formula:
+	\begin{equation}\label{eq: parametrizzazione notevole: segmento o retta}
+		\gamma\left(t\right) = A + t \cdot \overrightarrow{v} \hspace{2em} \text{con } t \in \left[0,1\right]
+	\end{equation}
+	Sostituendo i valori noti in questo esempio:
+	\begin{equation*}
+		\gamma\left(t\right) = \left(2,1\right) + t\left(3,1\right) = \left(2 + 3t, 1 + t\right)
+	\end{equation*}
+	La parametrizzazione dunque è:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma : \left[0,1\right] &\rightarrow& \mathbb{R}^{2} \\
+			t &\mapsto& \left(2+3t, 1+t\right)
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\definition{Parametrizzazione notevole: \underline{grafico di una funzione}}
+	\end{flushleft}
+	Dato il seguente grafico come esempio:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.55\textwidth]{img/parametrizzazioni_notevoli-2.pdf}
+	\end{figure}
+
+	\noindent
+	Il grafico di una funzione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			f : I &\rightarrow& \mathbb{R} \\
+			x &\mapsto& f\left(x\right)
+		\end{array}
+	\end{equation*}
+	Ha una parametrizzazione del tipo:
+	\begin{equation}
+		\begin{array}{rcl}
+			\gamma : I &\rightarrow& \mathbb{R}^{2} \\
+			t &\mapsto& \left(t, f\left(t\right)\right)
+		\end{array}
+	\end{equation}
+	L'esempio ha i punti $A = \left(0,1\right)$ e $B = \left(2,-3\right)$ e dunque la parametrizzazione è:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma\left[0,2\right] &\rightarrow& \mathbb{R}^{2} \\
+			t &\mapsto& \left(t, 1-t^{2}\right)
+		\end{array}
+	\end{equation*}
+
+	\begin{flushleft}
+		\definition{Parametrizzazione notevole: \underline{conica}}
+	\end{flushleft}
+	\begin{itemize}
+		\item La parametrizzazione di un'\textbf{ellisse di centro} $\left(x_{c}, y_{c}\right)$ e semiassi $a,b$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\gamma:\left[0,2\pi\right] &\rightarrow& \mathbb{R}^{2} \\
+				t &\mapsto& \left(x_{c} + a \cos\left(t\right), y_{c} + b \sin\left(t\right)\right)
+			\end{array}
+		\end{equation*}
+
+		\item La parametrizzazione dell'\textbf{iperbole equilatera} $\left(x^{2}-y^{2} = 1, \: x > 0\right)$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\mathbb{R} &\rightarrow& \mathbb{R}^{2} \\
+				t &\mapsto& \left(\cosh\left(t\right), \sinh\left(t\right)\right)
+			\end{array}
+		\end{equation*}
+		Ricordando che $\cosh\left(t\right) = \dfrac{e^{t} + e^{-t}}{2}$ e $\sinh\left(t\right) = \dfrac{e^{t} - e^{-t}}{2}$
+	\end{itemize}\newpage
+
+	\subsubsection{Retta tangente a una curva}\label{subsubsection: retta tangente a una curva}
+
+	Una curva $\gamma\left(t\right)$, con $t \in I$, è derivabile in $I$ se e solo se tutte le sue componenti sono derivabili in $I$ e in tal caso:
+	\begin{equation*}
+		\gamma'\left(t\right) = \left(\gamma_{1}'\left(t\right), \gamma_{2}'\left(t\right), \cdots, \gamma_{n}'\left(t\right)\right)
+	\end{equation*}
+	Si può interpretare la derivata della curva $\gamma'\left(t\right)$ come un vettore velocità di un punto, il quale descrive la traiettoria (sostegno della curva $\gamma$) secondo la parametrizzazione data.
+
+	Nel caso in cui la derivata è diversa dal vettore zero, $\gamma'\left(t_{0}\right) \ne \overrightarrow{0}$, allora una \definition{parametrizzazione della retta tangente alla curva} in $\gamma\left(t_{0}\right)$ è:
+	\begin{equation}\label{eq: parametrizzazione della retta tangente alla curva}
+		r\left(t\right) = \gamma\left(t_{0}\right) + t\gamma'\left(t_{0}\right) \hspace{2em} t \in \mathbb{R}
+	\end{equation}
+
+	\longline
+
+	\subsubsection{Esercizio retta tangente}\label{subsubsection: esercizio retta tangente}
+	
+	Trovare l'equazione della retta tangente al sostegno della curva:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma:\left(-1, +\infty\right) &\rightarrow& \mathbb{R}^{3} \\
+			t &\mapsto& \left(e^{t}, \ln\left(t+1\right), t\right)
+		\end{array}
+	\end{equation*}
+	Nel suo punto di coordinate $\left(1, 0, 0\right)$. Il \textbf{primo passo} è trovare un punto $t_{0}$ appartenente alla curva $\left(-1,+\infty\right)$ tale che il risultato sia $\gamma\left(t_{0}\right) = \left(1,0,0\right)$. Per questo motivo, si inseriscono i valori nel sistema:
+	\begin{equation*}
+		\begin{cases}
+			e^{t} = 1 \\
+			\ln\left(t+1\right) = 0 \\
+			t = 0
+		\end{cases}
+		\xrightarrow{\text{soluzione immediata}}
+		t_{0} = 0
+	\end{equation*}
+	Il \textbf{secondo passo} è calcolare la derivata in quel punto:
+	\begin{equation*}
+		\left. \gamma'\left(t\right) \right|_{t = 0} 
+		=
+		\left. 
+		\begin{cases}
+			\frac{d}{dt} \left(e^{t}\right) \\
+			\frac{d}{dt} \left(\ln\left(t+1\right)\right) \\
+			\frac{d}{dt} \left(t\right)
+		\end{cases} 
+		\right|_{t=0}
+		=
+		\left.
+		\begin{cases}
+			e^{t} \\
+			\frac{1}{t+1} \\
+			1
+		\end{cases}
+		\right|_{t=0}
+		=
+		\left(1,1,1\right)
+	\end{equation*}
+	Il \textbf{terzo e ultimo passo} è scrivere l'equazione della tangente (eq. \ref{eq: parametrizzazione della retta tangente alla curva}):
+	\begin{equation*}
+		r\left(s\right) = \gamma\left(t_{0}\right) s \gamma'\left(t_{0}\right) = \left(1,0,0\right) + s\left(1,1,1\right) = \left(1+s, s, s\right)
+	\end{equation*}
+	Questa risulta essere l'equazione parametrica:
+	\begin{equation*}
+		\begin{cases}
+			x = 1+s \\
+			y = s \\
+			z = s
+		\end{cases}
+		\hspace{s \in \mathbb}
+	\end{equation*}
 
 
 
