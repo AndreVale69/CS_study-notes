@@ -4622,7 +4622,7 @@
 
 	\longline
 
-	\subsubsection{Esercizio retta tangente}\label{subsubsection: esercizio retta tangente}
+	\subsubsection{Esercizio parametrizzazione retta tangente}\label{subsubsection: esercizio parametrizzazione retta tangente}
 	
 	Trovare l'equazione della retta tangente al sostegno della curva:
 	\begin{equation*}
@@ -4665,7 +4665,7 @@
 	\end{equation*}
 	Il \textbf{terzo e ultimo passo} è scrivere l'equazione della tangente (eq. \ref{eq: parametrizzazione della retta tangente alla curva}):
 	\begin{equation*}
-		r\left(s\right) = \gamma\left(t_{0}\right) s \gamma'\left(t_{0}\right) = \left(1,0,0\right) + s\left(1,1,1\right) = \left(1+s, s, s\right)
+		r\left(s\right) = \gamma\left(t_{0}\right) + s \cdot \gamma'\left(t_{0}\right) = \left(1,0,0\right) + s\left(1,1,1\right) = \left(1+s, s, s\right)
 	\end{equation*}
 	Questa risulta essere l'equazione parametrica:
 	\begin{equation*}
@@ -4674,11 +4674,320 @@
 			y = s \\
 			z = s
 		\end{cases}
-		\hspace{s \in \mathbb}
+		\hspace{1em}
+		s \in \mathbb{R}
+	\end{equation*}\newpage
+
+	\subsubsection{Esercizio parametrizzazione arco di ellisse}\label{subsubsection: esercizio parametrizzazione arco di ellisse}
+	
+	Trovare una parametrizzazione dell'arco di ellisse di equazione:
+	\begin{equation*}
+		4x^{2} + 9y^{2} + 8x - 36y + 4 = 0
+	\end{equation*}
+	E si scriva poi l'equazione della tangente alla curva in $P\left(-1 - \dfrac{3\sqrt{3}}{2}, +1\right)$.
+	
+	\noindent
+	Il \textbf{primo passo} è verificare che l'equazione data sia in forma canonica e in caso contrario ottenerla con le varie tecniche introdotte nel capitolo dei Prerequisiti. Quindi, si esegue la tecnica del completamento dei quadrati (par. \ref{subsubsection: completamento dei quadrati}) per ottenere la forma canonica:
+	\begin{itemize}
+		\item Si raggruppano le variabili:
+		\begin{equation*}
+			4\left(x^{2} + 2x\right) + 9\left(y^{2} - 4y\right) + 4 = 0
+		\end{equation*}
+
+		\item Si cerca un $\Delta = 0$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				x^{2} + 2x &\rightarrow& 2^{2} - 4 \cdot 1 \cdot c = 0 \\ [.3em]
+									  && -4c = -4 \\ [.3em]
+									  && c = 1 \\ [1em]
+				y^{2} - 4y &\rightarrow& \left(-4\right)^{2} - 4 \cdot 1 \cdot c = 0 \\ [.3em]
+									  && -4c = -16 \\ [.3em]
+									  && c = 4
+			\end{array}
+		\end{equation*}
+
+		\item Si riscrive l'equazione:
+		\begin{equation*}
+			4\left(x^{2} + 2x + 1 - 1\right) + 9\left(y^{2} - 4y + 4 - 4\right) + 4 = 0
+		\end{equation*}
+
+		\item Si raggruppano le equazioni di secondo grado con i nuovi termini e si ottiene l'equazione canonica:
+		\begin{gather*}
+			\begin{array}{rcl}
+				x^{2} + 2x + 1 &\rightarrow& \dfrac{-2 \pm 0}{2 \cdot 1} = -1 \\ [1em]
+				y^{2} - 4y + 4 &\rightarrow& \dfrac{-\left(-4\right) \pm 0}{2 \cdot 1} = 2
+			\end{array}
+			\\ \\
+			\begin{array}{rcl}
+				4\left(\left(x+1\right)^{2} - 1\right) + 9\left(\left(y-2\right)^{2} - 4\right) + 4 &=& 0 \\ [1em]
+				4\left(x+1\right)^{2} - 4 + 9\left(y-2\right)^{2} - 36 + 4 &=& 0 \\ [1em]
+				4\left(x+1\right)^{2} + 9\left(y-2\right)^{2} &=& 36 \\ [1em]
+				\dfrac{1}{36} \cdot 4\left(x+1\right)^{2} + \dfrac{1}{36} \cdot 9\left(y-2\right)^{2} &=& 36 \cdot \dfrac{1}{36} \\ [1em]
+				\dfrac{\left(x+1\right)^{2}}{9} + \dfrac{\left(y-2\right)^{2}}{4} &=& 1
+			\end{array}
+		\end{gather*}
+	\end{itemize}
+	La parametrizzazione di un'ellisse di centro $\left(x_{c}, y_{c}\right)$ e semiassi $a,b$ è:
+	\begin{equation*}
+		\gamma:\left[0,2\pi\right] \rightarrow \mathbb{R}^{2} \hspace{2em}
+		t 
+		\mapsto 
+		\begin{cases}
+			x_{c} + a \cos\left(t\right) \\
+			y_{c} + b \sin\left(t\right)
+		\end{cases}
+	\end{equation*}
+	Quindi, il \textbf{secondo passo} è trovare la parametrizzazione. In questo esempio, l'ellisse è centrata in $\left(-1, 2\right)$ mentre i semiassi sono $a = \sqrt{9} = 3$ e $b = \sqrt{4} = 2$. Per cui, la parametrizzazione di un'ellisse è:
+	\begin{equation*}
+		\gamma:\left[0,2\pi\right] \rightarrow \mathbb{R}^{2} \hspace{2em}
+		t 
+		\mapsto 
+		\begin{cases}
+			-1 + 3 \cos\left(t\right) \\
+			2  + 2 \sin\left(t\right)
+		\end{cases}
+	\end{equation*}
+	Il \textbf{terzo passo} è eguagliare la parametrizzazione al punto $P$ questo perché è necessario trovare l'equazione della tangente alla curva. Per questo motivo, si procede il calcolo con il sistema:
+	\begin{equation*}
+		\begin{cases}
+			-1 + 3 \cos\left(t\right) = -1 - \dfrac{3\sqrt{3}}{2} \\
+			2  + 2 \sin\left(t\right) = +1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\cos\left(t\right) = - \dfrac{3\sqrt{3}}{2} \cdot \dfrac{1}{3} \\
+			\\
+			\sin\left(t\right) = -1 \cdot \dfrac{1}{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\cos\left(t\right) = - \dfrac{\sqrt{3}}{2} \\
+			\\
+			\sin\left(t\right) = - \dfrac{1}{2}
+		\end{cases}
+	\end{equation*}
+	A questo punto il calcolo della $t$ non è banale perché applicando la funzione $\arccos$ e $\arcsin$, si otterrebbero due valori differenti di $t$. Quindi come è possibile ottenerla? Si utilizza la definizione di tangente che è seno fratto coseno:
+	\begin{equation*}
+		\tan\left(t\right) = \dfrac{\sin\left(t\right)}{\cos\left(t\right)} \rightarrow \tan\left(t\right) = \dfrac{-\frac{1}{2}}{-\frac{\sqrt{3}}{2}} = -\dfrac{1}{2} \div -\dfrac{\sqrt{3}}{2} = -\dfrac{1}{2} \cdot -\dfrac{2}{\sqrt{3}} = \dfrac{1}{\sqrt{3}}
+	\end{equation*}
+	Con l'arcotangente si ottiene il valore $t$:
+	\begin{equation*}
+		\arctan\left(\dfrac{1}{\sqrt{3}}\right) = t = \dfrac{\pi}{6}
+	\end{equation*}
+	Ma attenzione! Con $\frac{\pi}{6}$ il valore del coseno e seno sarebbero differenti (riguardo il segno). Questo perché, la funzione arcotangente restituisce il primo valore trovato, ovvero quello nel quadrante positivo (si veda la figura \ref{fig: funzione tan} nella pagina successiva).
+	
+	Per risolvere questo problema, si disegna una circonferenza su un piano cartesiano, e partendo dal punto $\left(1,0\right)$, si cerca, con i diversi livelli di gradi, di arrivare nel quadrante interessato. Quindi:
+	\begin{itemize}
+		\item Il primo quadrante (in alto a dx) avrà i valori del seno e coseno positivi. Il range dei gradi è: $\left(0\degree,90\degree\right)$
+		\item Il secondo quadrante (in alto a sx) avrà i valori del coseno negativi e del seno positivi. Il range dei gradi è: $\left(90\degree, 180\degree\right)$
+		\item Il terzo quadrante (in basso a sx) avrà i valori del coseno e del seno negativi. Il range dei gradi è: $\left(180\degree, 270\degree\right)$
+		\item Il quarto quadrante (in basso a dx) avrà i valori del coseno positivi e i valori del seno negativi. Il range dei gradi è: $\left(270\degree, 0\degree\right)$
+	\end{itemize}\newpage
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/trigonometria_tan.pdf}
+		\caption{I valori assunti dalla funzione $\tan$.}
+		\label{fig: funzione tan}
+	\end{figure}
+	
+	\noindent
+	Portando il valore $\frac{\pi}{6}$ da radianti a gradi (ricordando $\pi = 180\degree$, quindi $\frac{1}{6}\pi = \frac{1}{6} \cdot 180 = 30\degree$) si ottengono $30\degree$. Quindi, sapendo che il terzo quadrante è quello interessato, per arrivarci si continua ad aumentare il valore stesso:
+	\begin{gather*}
+		\begin{array}{rcl}
+			30\degree+30\degree+30\degree=90\degree &\rightarrow& \text{primo quadrante passato} \\
+			90\degree+30\degree+30\degree+30\degree=180\degree &\rightarrow& \text{secondo quadrante passato} \\
+			180\degree+30\degree = 210\degree &\rightarrow& \text{primo valore ammesso nel terzo quadrante}
+		\end{array}
+	\end{gather*}
+	Il valore è stato aumentato $7$ volte, per cui, al valore $\frac{\pi}{6}$ (corrispondente valore in radianti di $30\degree$) basterà moltiplicare $7$:
+	\begin{equation*}
+		t = \dfrac{7\pi}{6}
 	\end{equation*}
 
+	\noindent
+	Come viene mostrata nell'equazione \ref{eq: parametrizzazione della retta tangente alla curva}, per ottenere l'equazione è necessaria la derivata della parametrizzazione. Per cui, il \textbf{quarto passo} è eseguire la derivata della parametrizzazione e valutarla nel valore $t$ trovato con il punto $P$ nel passaggio precedente:
+	\begin{equation*}
+		\gamma'\left(t\right) = \begin{cases}
+			-3\sin\left(t\right) \\
+			2\cos\left(t\right)
+		\end{cases}
+		\rightarrow
+		\gamma'\left(\dfrac{7\pi}{6}\right) = \begin{cases}
+			-3\sin\left(\dfrac{7\pi}{6}\right) \\ \\
+			2\cos\left(\dfrac{7\pi}{6}\right)
+		\end{cases} = \begin{cases}
+			\dfrac{3}{2} \\ \\
+			-\sqrt{3}
+		\end{cases}
+	\end{equation*}\newpage
 
+	\noindent
+	Il \textbf{quinto passo} è applicare l'equazione \ref{eq: parametrizzazione della retta tangente alla curva}:
+	\begin{equation*}
+		\begin{array}{rcl}
+			r\left(t\right) &=& \gamma\left(t\right) + t \cdot \gamma'\left(t\right) \hspace{2em} t \in \mathbb{R} \\ [1em]
+			%
+			&=& \begin{cases}
+				-1 + 3 \cos\left(\dfrac{7\pi}{6}\right) \\
+				\\
+				2  + 2 \sin\left(\dfrac{7\pi}{6}\right)
+			\end{cases}
+			+
+			t \cdot
+			\begin{cases}
+				-3\sin\left(\dfrac{7\pi}{6}\right) \\ \\
+				2\cos\left(\dfrac{7\pi}{6}\right)
+			\end{cases} \\ [3.5em]
+			%
+			&=& 
+			\begin{cases}
+				-1-\dfrac{3\sqrt{3}}{2} \\
+				1
+			\end{cases}
+			+
+			t \cdot
+			\begin{cases}
+				\dfrac{3}{2} \\ \\
+				-\sqrt{3}
+			\end{cases} \\ [3em]
+			%
+			&=&
+			\begin{cases}
+				-1-\dfrac{3\sqrt{3}}{2} + \dfrac{3}{2}t \\ \\
+				1 - \sqrt{3} t
+			\end{cases}
+			\hspace{2em}
+			t \in \mathbb{R}
+		\end{array}
+	\end{equation*}
+	L'esercizio si conclude qua con l'equazione della retta tangente.\newpage
 
+	\newpage
+	\newpage
+	\newpage
+	\subsection{Esercizi}
+
+	\subsubsection{Limiti e continuità}
+
+	\begin{flushleft}\label{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio}
+		\definition{\underline{Esame 1 marzo 2022 - Gruppo A}}
+	\end{flushleft}
+	\example{\emph{Stabilire se la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \begin{cases}
+			\dfrac{\left(x-1\right)\left(y-2\right)}{\sqrt{\left(x-1\right)^{2} + \left(y-2\right)^{2}}} & \left(x,y\right) \ne \left(1,2\right) \\
+			\\
+			0 & \left(x,y\right) = \left(1,2\right)
+		\end{cases}
+	\end{equation*}
+	\emph{è continua in $\mathbb{R}^{2}$.}}
+	
+	\noindent
+	\example{\emph{Se sostituiamo l'espressione $\sqrt{\left(x-1\right)^{2} + \left(y-2\right)^{2}}$ con $\left(x-1\right)^{2} + \left(y-2\right)^{2}$, la risposta cambia?}}\newline
+
+	\noindent
+	Vedendo i termini al denominatore (al quadrato) e i punti $a,b$, cioè $1,2$, si può tentare di utilizzare le coordinate polari così da avere una semplificazione, non da poco, al denominatore. Quindi, le coordinate polari sono:
+	\begin{equation*}
+		\begin{cases}
+			x = 1 + r\cos\left(\theta\right) \\
+			y = 2 + r\sin\left(\theta\right)
+		\end{cases}
+	\end{equation*}
+	Si sostituiscono le coordinate polari nell'espressione:
+	\begin{equation*}
+		\dfrac{\left(x-1\right)\left(y-2\right)}{\sqrt{\left(x-1\right)^{2} + \left(y-2\right)^{2}}} 
+		\rightarrow
+		\dfrac{
+			\left(1 + r\cos\left(\theta\right)-1\right)\left(2 + r\sin\left(\theta\right)-2\right)
+		}{
+			\sqrt{\left(1 + r\cos\left(\theta\right)-1\right)^{2} + \left(2 + r\sin\left(\theta\right)-2\right)^{2}}
+		}
+	\end{equation*}
+	Si eseguono alcune manipolazioni algebriche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{
+				\left(1 + r\cos\left(\theta\right)-1\right)\left(2 + r\sin\left(\theta\right)-2\right)
+			}{
+				\sqrt{\left(1 + r\cos\left(\theta\right)-1\right)^{2} + \left(2 + r\sin\left(\theta\right)-2\right)^{2}}
+			}
+			&=&
+			\dfrac{
+				\left(r\cos\left(\theta\right)\right) \cdot \left(r\sin\left(\theta\right)\right)
+			}{
+				\sqrt{r^{2}\cos^{2}\left(\theta\right) + r^{2}\sin^{2}\left(\theta\right)}
+			} \\ [2em]
+			%
+			&=&
+			\dfrac{
+				r^{2} \cos\left(\theta\right)\sin\left(\theta\right)
+			}{
+				\sqrt{r^{2}\left(\cos^{2}\left(\theta\right) + \sin^{2}\left(\theta\right)\right)}
+			} \\ [2em]
+			%
+			&=&
+			\dfrac{
+				r^{2} \cos\left(\theta\right)\sin\left(\theta\right)
+			}{
+				\sqrt{r^{2} \cdot \cancel{\left(1\right)}}
+			} \\ [2em]
+			%
+			&=&
+			\dfrac{
+				r^{2} \cos\left(\theta\right)\sin\left(\theta\right)
+			}{
+				r
+			} \\ [1.5em]
+			%
+			&=&
+			r \cos\left(\theta\right)\sin\left(\theta\right)
+		\end{array}
+	\end{equation*}
+	Adesso si può applicare il teorema del calcolo dei limiti con coordinate polari, ovverosia se è vero che:
+	\begin{equation*}
+		\left| F\left(r, \theta\right) - L \right| \le g\left(r\right) \hspace{2em} \text{con} \hspace{2em}
+		\displaystyle\lim_{r \rightarrow 0^{+}} g\left(r\right) = 0
+	\end{equation*}
+	Allora si può concludere che il limite della funzione è uguale a $L$:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(a,b\right)} f\left(x,y\right) = L
+	\end{equation*}
+	Applicando la teoria alla pratica, si ha che:
+	\begin{equation*}
+		\left| F\left(r, \theta\right) - 0 \right| \le g\left(r\right) = \left| r \cos\left(\theta\right)\sin\left(\theta\right) \right| \le r
+	\end{equation*}
+	La maggiorazione fatta in questo caso è sempre vera poiché il valore $r$, a sinistra, è influenzato dalle due funzioni trigonometriche le quali, si ricorda, non potranno mai essere maggiori di $1$. Per cui $r$ sarà sempre uguale a sé stessa o minore. Inoltre, la funzione $g\left(r\right)$, in questo caso $r$, ha come risultato del limite per $r \rightarrow 0^{+}$ un valore infinitesimo. Infine, la funzione $g\left(r\right)$ non dipende da $\theta$, per cui rispetta il teorema (si dice che è uniformemente rispetto a $\theta$).\newline
+
+	\noindent
+	Con queste osservazioni, si può affermare con certezza che la funzione è continua in $\mathbb{R}^{2}$ e che il limite in $\left(1,2\right)$ ha risultato $0$:
+	\begin{equation*}
+		\displaystyle\lim_{\left(x,y\right) \rightarrow \left(1,2\right)} f\left(x,y\right) = 0
+	\end{equation*}\:
+	
+	\noindent
+	\example{\emph{Se sostituiamo l'espressione $\sqrt{\left(x-1\right)^{2} + \left(y-2\right)^{2}}$ con $\left(x-1\right)^{2} + \left(y-2\right)^{2}$, la risposta cambia?}}\newline
+
+	\noindent
+	La risposta è assolutamente sì! Il motivo è semplice. Riprendendo le manipolazioni algebriche effettuate nella pagina precedente, è facile notare che nel punto in cui al denominatore è presente solo $r^{2}$ sotto radice (si riportano qua i calcoli essenziali per comodità):
+	\begin{equation*}
+		\dfrac{
+				r^{2} \cos\left(\theta\right)\sin\left(\theta\right)
+		}{
+			\sqrt{r^{2}}
+		}
+		\xlongrightarrow{\text{caso particolare}}
+		\dfrac{
+			r^{2} \cos\left(\theta\right)\sin\left(\theta\right)
+		}{
+			r^{2}
+		}
+	\end{equation*}
+	La mancanza della radice avrebbe portato a semplificare al numeratore e al denominatore $r$, causando così l'alterazione della funzione $F\left(r,\theta\right)$ nel teorema, la quale sarebbe stata:
+	\begin{equation*}
+		\left| \cos\left(\theta\right)\sin\left(\theta\right) \right| \le g\left(r\right)
+	\end{equation*}
+	E avrebbe impedito di trovare una maggiorazione (funzione $g$) uniformemente rispetto a $\theta$. Ne consegue che la funzione non sarebbe stata continua in $\mathbb{R}^{2}$.
+	
 
 
 
@@ -4709,6 +5018,17 @@
 				\item Gruppo A
 				\begin{itemize}
 					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.\pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+
+		\item 2022
+		\begin{itemize}
+			\item 01 marzo
+			\begin{itemize}
+				\item Gruppo A
+				\begin{itemize}
+					\item (Ex. 4) Limiti e continuità: pag.\pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
