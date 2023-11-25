@@ -2029,7 +2029,7 @@
 			
 			Nell'esempio sottostante, la $x$ viene elevata ad $1$ poiché le soluzioni dell'equazione caratteristica sono $\lambda_{1} = 0$ e $\lambda_{2} = -1$. Dunque, $\lambda_{1}$ annulla soltanto una volta l'equazione caratteristica (chiamata formalmente molteplicità algebrica).
 			
-			\underline{Attenzione:} la regola viene applicata solo ai polinomi di primo e secondo grado.}}\\\\
+			\underline{Attenzione:} la regola viene applicata solo ai monomi ($a$), polinomi di primo e secondo grado, ovvero nella forma $ax+b$ o $ax^{2}+bx+c$.}}\\\\
 			$\lambda = 0$ & $y''+y' = x+2$ & $y_{P}\left(x\right) = \left(ax+b\right)x^{1}$ \\ [.5em]
 			%
 			\cmidrule{1-3}
@@ -4920,6 +4920,60 @@
 	\begin{equation*}
 		\displaystyle\int_{0}^{2\pi} \sqrt{\left(-\sin\left(t\right)\right)^{2} + \left(\cos\left(t\right)\right)^{2} + \left(3\right)^{2}} \:\mathrm{d}t = \displaystyle\int_{0}^{2\pi} \sqrt{10} \:\mathrm{d}t = \left[\sqrt{10}t\right]_{0}^{2\pi} = \sqrt{10} \cdot 2\pi
 	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	Calcolare la lunghezza dell'arco di curva parametrizzato da:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma : \left[0,3\right] &\rightarrow& \mathbb{R}^{2} \\
+			t &\mapsto& \left(\dfrac{2}{3}t^{3}, 1-t^{2}\right)
+		\end{array}
+	\end{equation*}
+	Il \textbf{primo passo} per calcolare la lunghezza è trovare la derivata:
+	\begin{equation*}
+		\gamma'\left(t\right) = \begin{cases}
+			2t^{2} \\
+			-2t
+		\end{cases}
+	\end{equation*}
+	Il \textbf{secondo passo} è calcolare l'integrale applicando l'equazione \ref{eq: lunghezza di una curva}:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{0}^{3} \left|\left| \gamma'\left(t\right) \right|\right| 
+			&=& 
+			\displaystyle\int_{0}^{3} \sqrt{\left(2t^{2}\right)^{2} + \left(-2t\right)^{2}} \:\mathrm{d}t \\ [1em]
+			%
+			&=& \displaystyle\int_{0}^{3} \sqrt{4t^{4} + 4t^{2}} \:\mathrm{d}t \\ [1em]
+			%
+			&=& \displaystyle\int_{0}^{3} \sqrt{4t^{2}\left(t^{2} + 1\right)} \:\mathrm{d}t \\ [1em]
+			%
+			&=& \displaystyle\int_{0}^{3} 2t \cdot \sqrt{\left(t^{2} + 1\right)} \:\mathrm{d}t \\ [1em]
+			%
+			&=& 2 \cdot \displaystyle\int_{0}^{3} t \cdot \sqrt{\left(t^{2} + 1\right)} \:\mathrm{d}t \\ [1em]
+			%
+			&\downarrow& \text{si procede per sostituzione: }x = t^{2} + 1; \:\:\: \mathrm{d}t = \dfrac{1}{t'} \:\mathrm{d}x \\ [1em]
+			%
+			&=& \cancel{2} \cdot \displaystyle\int_{0}^{3} \cancel{t} \cdot \sqrt{x} \dfrac{1}{\cancel{2t}} \:\mathrm{d}x \\ [1em]
+			%
+			&=& \displaystyle\int_{0}^{3} \sqrt{x} \:\mathrm{d}x \\ [1em]
+			%
+			&\downarrow& \text{proprietà fondamentale della radice quadrata: }\sqrt[\beta]{\left(x\right)^{\alpha}} = x^{\frac{\alpha}{\beta}} \\ [1em]
+			%
+			&=& \displaystyle\int_{0}^{3} x^{\frac{1}{2}} \:\mathrm{d}x \\ [1em]
+			%
+			&=& \left[\dfrac{x^{\frac{3}{2}}}{\frac{3}{2}}\right]_{0}^{3} \\ [1.5em]
+			%
+			&\downarrow& \text{si torna alla forma pre-sostituzione} \\ [1em]
+			%
+			&=& \left[\dfrac{\left(t^{2}+1\right)^{\frac{3}{2}}}{\frac{3}{2}}\right]_{0}^{3} \\ [2em]
+			%
+			&=& \dfrac{\left(3^{2}+1\right)^{\frac{3}{2}}}{\frac{3}{2}} - \dfrac{\left(0^{2}+1\right)^{\frac{3}{2}}}{\frac{3}{2}} \\ [1.5em]
+			%
+			&=& \dfrac{2\sqrt{\left(10\right)^{3}}}{3} - \dfrac{2}{3} = \dfrac{2\sqrt{\left(10\right)^{3}} - 2}{3}
+		\end{array}
+	\end{equation*}
 
 
 	\newpage
