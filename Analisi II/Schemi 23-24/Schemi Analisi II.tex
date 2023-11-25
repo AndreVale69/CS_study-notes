@@ -860,7 +860,7 @@
 	\begin{itemize}
 		\item $\displaystyle\int x^{n} \: \mathrm{d}x = \dfrac{x^{n+1}}{n+1}+c$ \hspace{1em} con $n \ne -1$
 
-		\item $\displaystyle\int \dfrac{1}{x^{n}} \: \mathrm{d}x = - \dfrac{1}{\left(n-1\right) \cdot x^{n-1}}$ \hspace{1em} con $n \ne 1$
+		\item $\displaystyle\int \dfrac{1}{x^{n}} \: \mathrm{d}x = - \dfrac{1}{\left(n-1\right) \cdot x^{n-1}} + c$ \hspace{1em} con $n \ne 1$
 
 		\item $\displaystyle\int \dfrac{1}{x} \: \mathrm{d}x = \ln\left(|x|\right) + c$
 
@@ -4861,6 +4861,66 @@
 		\end{array}
 	\end{equation*}
 	L'esercizio si conclude qua con l'equazione della retta tangente.\newpage
+
+	\subsubsection{Lunghezza di una curva}\label{subsubsection: lunghezza di una curva}
+
+	Dato l'arco di curva:
+	\begin{equation*}
+		\gamma:\left[a,b\right] \rightarrow \mathbb{R}^{n}
+	\end{equation*}
+	E una partizione dell'intervallo $\left[a,b\right]$:
+	\begin{equation*}
+		\mathcal{P} = \left\{a=t_{0}, t_{1}, t_{2}, \cdots, b = t_{m}\right\}
+	\end{equation*}
+	Alla partizione rimane associata una poligonale, di cui si può \textbf{calcolare la lunghezza} (di una curva):
+	\begin{equation}\label{eq: lunghezza di una curva}
+		L\left(\mathcal{P}\right) = \displaystyle\sum_{i=1}^{m} \left|\left| \gamma\left(t_{i}\right) - \gamma \left(t_{i-1}\right) \right|\right|
+	\end{equation}
+
+	\begin{boxdef}
+		Si dice che un \definition{arco di curva} è \definition{rettificabile} se $\sup_{\mathcal{P}} L\left(\mathcal{P} < \infty\right)$. In tal caso, per definizione:
+		\begin{equation*}
+			L\left(\gamma\right) = \sup_{\mathcal{P}} L\left(\mathcal{P}\right)
+		\end{equation*}
+	\end{boxdef}
+
+	\begin{boxdef}
+		Se $\gamma : \left[a,b\right] \rightarrow \mathbb{R}^{n}$ è un arco di curva regolare, ovvero la derivata prima è diverso al vettore nullo ed è continua, allora è rettificabile e la sua \definition{lunghezza} è:
+		\begin{equation}
+			\displaystyle\int_{a}^{b} \left|\left| \gamma'\left(t\right) \right|\right| \: \mathrm{d}t
+		\end{equation}
+	\end{boxdef}
+
+	\noindent
+	Dove la lunghezza viene calcolata in questo modo:
+	\begin{equation}\label{eq: lunghezza di una curva}
+		\left|\left| \gamma'\left(t\right) \right|\right| = \sqrt{x^{2} + y^{2} + \cdots n^{2}}
+	\end{equation}
+	In cui tutte le variabili sotto radice sono i valori della parametrizzazione. Ovviamente devono essere inseriti post derivata. Si veda gli esempi.
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Calcolare la lunghezza dell'arco di curva:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma:\left[0,2\pi\right] &\rightarrow& \mathbb{R}^{3} \\
+			t &\mapsto& \left(\cos\left(t\right), \sin\left(t\right), 3t\right)
+		\end{array}
+	\end{equation*}
+	Il \textbf{primo passo} per calcolare la lunghezza è trovare la derivata:
+	\begin{equation*}
+		\gamma'\left(t\right) = \begin{cases}
+			-\sin\left(t\right) \\
+			\cos\left(t\right) \\
+			3
+		\end{cases}
+	\end{equation*}
+	Il \textbf{secondo passo} è calcolare l'integrale applicando l'equazione \ref{eq: lunghezza di una curva}:
+	\begin{equation*}
+		\displaystyle\int_{0}^{2\pi} \sqrt{\left(-\sin\left(t\right)\right)^{2} + \left(\cos\left(t\right)\right)^{2} + \left(3\right)^{2}} \:\mathrm{d}t = \displaystyle\int_{0}^{2\pi} \sqrt{10} \:\mathrm{d}t = \left[\sqrt{10}t\right]_{0}^{2\pi} = \sqrt{10} \cdot 2\pi
+	\end{equation*}\newpage
+
 
 	\newpage
 	\newpage
