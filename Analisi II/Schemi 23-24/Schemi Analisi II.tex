@@ -4973,8 +4973,92 @@
 			%
 			&=& \dfrac{2\sqrt{\left(10\right)^{3}}}{3} - \dfrac{2}{3} = \dfrac{2\sqrt{\left(10\right)^{3}} - 2}{3}
 		\end{array}
-	\end{equation*}
+	\end{equation*}\newpage
 
+	\subsubsection{Derivate parziali}\label{subsubsection: derivate parziali}
+
+	Sia $f$ una funzione di due variabili, definita in un intorno di $\left(x_{0}, y_{0}\right) \in \mathbb{R}^{2}$. Se la restrizione della funzione $f$ alla retta di equazione $y=y_{0}$ è derivabile in $x_{0}$, si dice che $f$ \textbf{ammette} \definition{derivata parziale} rispetto a $x$ nel punto $\left(x_{0}, y_{0}\right)$ e si scrive:
+	\begin{equation}\label{eq: derivate parziali}
+		\begin{array}{rcl}
+			\dfrac{\partial f}{\partial x}\left(x_{0}, y_{0}\right) &=& \displaystyle\lim_{h \rightarrow 0} \dfrac{f\left(x_{0}+h, y_{0}\right) - f\left(x_{0}, y_{0}\right)}{h} \\ [2em]
+			\dfrac{\partial f}{\partial y}\left(x_{0}, y_{0}\right) &=& \displaystyle\lim_{h \rightarrow 0} \dfrac{f\left(x_{0}, y_{0}+h\right) - f\left(x_{0}, y_{0}\right)}{h}
+		\end{array}
+	\end{equation}
+	Le derivate parziali sono i \textbf{coefficienti angolari} delle rette tangenti alle curve ottenute selezionando il grafico di $f$ con i piani $y=y_{0}$ e $x=x_{0}$.
+
+	\begin{flushleft}
+		\textbf{\underline{Generalizzazione al caso $n$-dimensionale}}
+	\end{flushleft}
+	Sia $f$ definita in un intorno di $x \in \mathbb{R}^{n}$. Indicato con $e_{i}$ il vettore:
+	\begin{equation*}
+		\left(0,0,0,\cdots,0,\boldsymbol{1},0,\cdots,0,0,0\right)
+	\end{equation*}
+	Ovvero l'unico elemento non nullo nella $i$-esima posizione, allora si ha:
+	\begin{equation}\label{eq: derivata parziale n-dimensionale}
+		\dfrac{\partial f}{\partial x_{i}}\left(x\right) = \displaystyle\lim_{h \rightarrow 0} \dfrac{f\left(x+h e_{i}\right) - f\left(x\right)}{h}
+	\end{equation}
+	Se questo limite esiste finito.
+
+	\begin{flushleft}
+		\example{\underline{Esempi}}
+	\end{flushleft}
+	\begin{enumerate}[label=\alph*)]
+		\item Data $f\left(x,y\right) = x^{2} + 3xy^{4}$ e calcolare le derivate parziali:
+		\begin{equation*}
+			\dfrac{\partial f}{\partial x}\left(x, y\right) = 2x + 3y^{4} \hspace{3em}
+			\dfrac{\partial f}{\partial y}\left(x, y\right) = 12xy^{3}
+		\end{equation*}
+
+		\item Data $f\left(x,y\right) = ye^{xy}$ e calcolare le derivate parziali:
+		\begin{equation*}
+			\dfrac{\partial f}{\partial x}\left(x, y\right) = \left(1\cdot y\right) \cdot ye^{xy} = y^{2} e^{xy} \hspace{3em}
+			\dfrac{\partial f}{\partial y}\left(x, y\right) = e^{xy} + xye^{xy}
+		\end{equation*}
+
+		\item Data $f\left(x,y,z\right) = y \cdot \tan\left(x+2z\right)$ e calcolare le derivate parziali:
+		\begin{gather*}
+			\dfrac{\partial f}{\partial x}\left(x, y, z\right) = \dfrac{y}{\cos^{2}\left(x+2z\right)} \hspace{3em}
+			\dfrac{\partial f}{\partial y}\left(x, y, z\right) = \tan\left(x+2z\right) \\ \\
+			\dfrac{\partial f}{\partial z}\left(x, y, z\right) = \dfrac{2y}{\cos^{2}\left(x+2z\right)}
+		\end{gather*}
+
+		\item Sia $f\left(x,y\right) = y\sqrt[3]{x}$, calcolare, se esiste, $\dfrac{\partial f}{\partial x}\left(0,0\right)$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\dfrac{\partial f}{\partial x}\left(0,0\right) &=& \dfrac{y}{3\sqrt[3]{x^{2}}} \\ [1em]
+				&=& \displaystyle\lim_{h\rightarrow 0} \dfrac{f\left(0+h,0\right)-f\left(0,0\right)}{h} \\
+				&=& \displaystyle\lim_{h\rightarrow 0} \dfrac{0-0}{h} \\ 
+				&=& 0
+			\end{array}
+		\end{equation*}
+		La derivata della funzione $f$ nell'origine vale $0$.
+
+		\item Sia $f\left(x,y\right) = \exp\left(\sqrt{x^{2}+y^{2}}\right)$, calcolare, se esiste, $\dfrac{\partial f}{\partial y}\left(0,0\right)$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\dfrac{\partial f}{\partial y}\left(0,0\right) &=& \exp\left(\sqrt{x^{2}+y^{2}}\right) \cdot \dfrac{1}{2\sqrt{x^{2}+y^{2}}} \cdot 2y \\ [2em]
+				&=& \exp\left(\sqrt{x^{2}+y^{2}}\right) \cdot \dfrac{y}{\sqrt{x^{2}+y^{2}}} \\ [2em]
+				&=& \displaystyle\lim_{h\rightarrow 0} \dfrac{f\left(0+h,0\right)-f\left(0,0\right)}{h} \\ [1.5em]
+				&=& \displaystyle\lim_{h\rightarrow 0} \dfrac{e^{\sqrt{h^{2}}}-1}{h} \\ [2em]
+			\end{array}
+		\end{equation*}
+		In questo caso il limite non esiste poiché venendo da destra ($0^{+}$) o da sinistra ($0^{-}$), il limite assume diversi valori:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\displaystyle\lim_{h\rightarrow 0^{+}} \dfrac{e^{\sqrt{h^{2}}}-1}{h} 
+				\longrightarrow
+				\displaystyle\lim_{h\rightarrow 0^{+}} \dfrac{1^{+}-1}{0^{+}}
+				\longrightarrow
+				\displaystyle\lim_{h\rightarrow 0^{+}} \dfrac{0^{+}}{0^{+}} = +1 
+				\\ [2em]
+				\displaystyle\lim_{h\rightarrow 0^{-}} \dfrac{e^{\sqrt{h^{2}}}-1}{h} 
+				\longrightarrow
+				\displaystyle\lim_{h\rightarrow 0^{-}} \dfrac{1^{+}-1}{0^{-}}
+				\longrightarrow
+				\displaystyle\lim_{h\rightarrow 0^{-}} \dfrac{0^{+}}{0^{-}} = -1
+			\end{array}
+		\end{equation*}
+	\end{enumerate}
 
 	\newpage
 	\newpage
