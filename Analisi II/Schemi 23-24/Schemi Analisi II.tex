@@ -5059,6 +5059,174 @@
 			\end{array}
 		\end{equation*}
 	\end{enumerate}
+	Ovviamente esistono anche \definition{derivate di ordine superiore} che si risolvono banalmente una dopo l'altra:
+	\begin{itemize}
+		\item $f\left(x,y\right)$:
+		\begin{itemize}
+			\item $f_{x}\left(x,y\right)$
+			\begin{itemize}
+				\item $f_{xx}\left(x,y\right)$
+				\item $f_{xy}\left(x,y\right)$
+			\end{itemize}
+			\item $f_{y}\left(x,y\right)$
+			\begin{itemize}
+				\item $f_{yy}\left(x,y\right)$
+				\item $f_{yx}\left(x,y\right)$
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	Le variabili $f_{xy}$ e $f_{yx}$ sono dette \definition{derivate miste}:
+	\begin{equation}\label{eq: derivate parziali miste}
+		\begin{array}{rcl}
+			f_{xy}\left(x, y\right) 
+			&=& 
+			\dfrac{\partial}{\partial y}\left(\dfrac{\partial f}{\partial x}\right)\left(x,y\right)
+			=
+			\displaystyle\lim_{h \rightarrow 0} \dfrac{\frac{\partial f}{\partial x}\left(x, y+h\right) - \frac{\partial f}{\partial x}\left(x, y\right)}{h} \\ [2em]
+			%
+			f_{yx}\left(x, y\right) 
+			&=& 
+			\dfrac{\partial}{\partial x}\left(\dfrac{\partial f}{\partial y}\right)\left(x,y\right)
+			=
+			\displaystyle\lim_{h \rightarrow 0} \dfrac{\frac{\partial f}{\partial y}\left(x+h, y\right) - \frac{\partial f}{\partial y}\left(x, y\right)}{h} \\ [2em]
+		\end{array}
+	\end{equation}\newpage
+
+	\subsubsection{Gradiente}\label{subsubsection: gradiente}
+
+	\begin{boxdef}
+		Se $f$ ammette derivate parziali in un punto $\overline{x}$, si chiama \definition{gradiente} di $f$ in $\overline{x}$ il vettore:
+		\begin{equation}\label{eq: gradiente}
+			\nabla f\left(\overline{x}\right) = 
+			\left(
+				\dfrac{\partial f}{\partial x_{1}}\left(\overline{x}\right), 
+				\dfrac{\partial f}{\partial x_{2}}\left(\overline{x}\right), 
+				\cdots, 
+				\dfrac{\partial f}{\partial x_{n}}\left(\overline{x}\right)
+			\right)
+		\end{equation}
+	\end{boxdef}
+
+	\noindent
+	Per capire al meglio il gradiente, si introduce un esercizio dettagliato con anche l'introduzione della matrice Hessiana (utilizzata in futuro).
+
+	\begin{flushleft}
+		\example{\underline{Esempio guidato}}
+	\end{flushleft}
+	\begin{itemize}
+		\item Scrivere il gradiente della funzione:
+		\begin{equation*}
+			f\left(x,y\right) = x^{2}y - xy^{2} + xy
+		\end{equation*}
+		in un generico punto di $\mathbb{R}^{2}$.
+
+		\item Trovare i punti in cui il gradiente è nullo (punti stazionari di $f$).
+
+		\item Calcolare il determinante della matrice:
+		\begin{equation}
+			H_{f}\left(x,y\right) = 
+			\begin{pmatrix}
+				f_{xx}\left(x,y\right) & f_{xy}\left(x,y\right) \\
+				f_{yx}\left(x,y\right) & f_{yy}\left(x,y\right)
+			\end{pmatrix}
+		\end{equation}
+		nel punto stazionario $\left(0,0\right)$.
+	\end{itemize}
+	Il gradiente è facilmente calcolabile facendo la derivata parziale rispetto a $x$ e un'altra rispetto a $y$:
+	\begin{gather*}
+		\dfrac{\partial f}{\partial x} \left(x,y\right) = 2xy - y^{2} + y 
+		\hspace{3em}
+		\dfrac{\partial f}{\partial y} \left(x,y\right) = x^{2} - 2xy + x \\
+		\nabla f \left(x,y\right) = \left(2xy - y^{2} + y, \: x^{2} - 2xy + x\right)
+	\end{gather*}
+	Per trovare i punti in cui il gradiente è nullo, basta porre le condizioni uguale a zero e ottenere tutte le possibili soluzioni:
+	\begin{equation*}
+		\begin{cases}
+			2xy - y^{2} + y = 0 \\
+			x^{2} - 2xy + x = 0
+		\end{cases}
+	\end{equation*}
+	Le derivate parziali miste e parziali seconde sono:
+	\begin{gather*}
+		\begin{array}{lcl}
+			\dfrac{\partial^{2} f}{\partial xx}\left(x,y\right) = 2y
+			&\hspace{2em}&
+			\dfrac{\partial^{2} f}{\partial xy}\left(x,y\right) = 2x-2y+1 \\ [1em]
+			\dfrac{\partial^{2} f}{\partial yy}\left(x,y\right) = -2x
+			&\hspace{2em}&
+			\dfrac{\partial^{2} f}{\partial yx}\left(x,y\right) = 2x-2y+1
+		\end{array}
+		\\ \\
+		H_{f}\left(x,y\right) = 
+		\begin{pmatrix}
+			2y & 2x-2y+1 \\
+			2x-2y+1 & -2x
+		\end{pmatrix}
+		\rightarrow
+		H_{f}\left(0,0\right) = 
+		\begin{pmatrix}
+			0 & 1 \\
+			1 & 0
+		\end{pmatrix}
+	\end{gather*}
+	Le derivate miste sono uguali! E questo non è un caso perché dichiarato nel Teorema di Schwarz (pag. \pageref{theorem: Schwarz}).\newpage
+
+	\begin{theorem}[\textbf{Teorema di Schwarz}]\label{theorem: Schwarz}
+		Sia $f$ una funzione $f:A\subseteq \mathbb{R}^{n}\rightarrow\mathbb{R}$ con $A$ aperto. Se le due derivate miste:
+		\begin{equation*}
+			\dfrac{\partial^{2} f}{\partial x_{j} \partial x_{i}} \hspace{1em} \text{e} \hspace{1em} \dfrac{\partial^{2} f}{\partial x_{i} \partial x_{j}}
+		\end{equation*}
+		esistono in un intorno di $\overline{x} \in A$ e sono entrambe continue in $\overline{x}$, allora in tale punto esse coincidono.
+	\end{theorem}
+
+	\noindent
+	Nota bene:
+	\begin{enumerate}
+		\item Se la funzione $f$ ha tutte le derivate parziali fino all'ordine due continue in $A$ si dice che $f$ è di classe $\mathcal{C}^{2}$ in $A$.
+
+		\item Il teorema si generalizza a funzioni di classe $\mathcal{C}^{k}\left(A\right)$, cioè funzioni che hanno tutte le derivate parziali fino all'ordine $k$ continue in $A$.
+		
+		Per esempio, con $A$ aperto di $\mathbb{R}^{3}$, $f \in \mathcal{C}^{4}\left(A\right)$, $\overline{x} \in A$:
+		\begin{equation*}
+			\dfrac{\partial^{4} f}{\partial x_{1} \partial x_{2} \partial x_{3}^{2}}\left(\overline{x}\right)
+			=
+			\dfrac{\partial^{4} f}{\partial x_{2} \partial x_{3} \partial x_{1} \partial x_{3}}\left(\overline{x}\right)
+			=
+			D^{\left(1,1,2\right)}f\left(\overline{x}\right)
+		\end{equation*}
+	\end{enumerate}
+
+	\longline
+
+	\subsubsection{Derivate direzionali}\label{subsubsection: derivate direzionali}
+
+	Si consideri la restrizione della funzione $f$ a una retta tipo $r\left(t\right) = P + t\overrightarrow{v}$, con $t \in \mathbb{R}$, dove $\overrightarrow{v}$ è un \textbf{versore} (vettore unitario) che indica una particolare direzione e $P$ è un punto interno al dominio di $f$.
+	\begin{boxdef}
+		La funzione $f$ ha una \definition{derivata direzionale} in $P$ nella direzione di $\overrightarrow{v}$ se esiste finito il limite:
+		\begin{equation}
+			\dfrac{\partial f}{\partial v}\left(P\right) = \displaystyle\lim_{t \rightarrow 0} \dfrac{f\left(P + t\overrightarrow{v}\right) - f\left(P\right)}{t}
+		\end{equation}
+	\end{boxdef}\newpage
+
+	\subsubsection{Differenziabilità}\label{subsubsection: differenziabilità}
+
+	\begin{boxdef}
+		Una funzione $f: D\subseteq \mathbb{R}^{2} \rightarrow \mathbb{R}$ si dice differenziabile in un punto $\left(a,b\right)$ interno a $D$ se esistono le derivate parziali $\frac{\partial f}{\partial x}\left(a,b\right)$ e $\frac{\partial f}{\partial y}\left(a,b\right)$ e inoltre:
+		\begin{equation}
+			\displaystyle\lim_{\left(x,y\right) \rightarrow \left(a,b\right)} \dfrac{f\left(x,y\right) - T\left(x,y\right)}{\sqrt{\left(x-a\right)^{2} + \left(y-b\right)^{2}}} = 0
+		\end{equation}
+		dove:
+		\begin{equation}\label{eq: differenziabilità}
+			T\left(x,y\right) = f\left(a,b\right) + \dfrac{\partial f}{\partial x}\left(a,b\right)\left(x-a\right) + \frac{\partial f}{\partial y}\left(a,b\right)\left(y-b\right)
+		\end{equation}
+	\end{boxdef}
+
+	\noindent
+	In altre parole, basta utilizzare l'equazione \ref{eq: differenziabilità} per calcolare la differenziabilità.\newline
+
+	\noindent
+	Da inserire esempi.
+	
 
 	\newpage
 	\newpage
