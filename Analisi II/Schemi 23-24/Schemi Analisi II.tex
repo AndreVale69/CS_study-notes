@@ -5195,8 +5195,31 @@
 			D^{\left(1,1,2\right)}f\left(\overline{x}\right)
 		\end{equation*}
 	\end{enumerate}
+	Qua di seguito, si fornisce una formula fondamentale. Sia $D$ un insieme aperto in $\mathbb{R}^{n}$:
+	\begin{theorem}[\textbf{Formula del gradiente}]
+		Se $f$ è differenziabile (par. \ref{subsubsection: differenziabilità}) in $\overline{x} \in D$, allora $f$ ammette in $\overline{x}$ la derivata direzionale $\dfrac{\partial f}{\partial \overrightarrow{v}}\left(\overline{x}\right)$ qualunque sia il vettore unitario $\overrightarrow{v}$ e inoltre si ha:
+		\begin{equation}\label{eq: formula gradiente}
+			\dfrac{\partial f}{\partial \overrightarrow{v}}\left(\overline{x}\right) = \nabla f\left(\overline{x}\right)\cdot \overrightarrow{v}
+		\end{equation}
+	\end{theorem}
 
-	\longline
+	\noindent
+	Questa formula è fondamentale in alcuni esercizi. Il prodotto nell'equazione \ref{eq: formula gradiente}, è un prodotto vettoriale, per cui si moltiplicano le coordinate del gradiente per le coordinate del vettore (la $x$ del gradiente con la $x$ del vettore e la $y$ del gradiente con la $y$ del vettore) e si sommano i due valori.\newline
+
+	\noindent
+	Un altro aspetto \textbf{importante} che viene chiesto talvolta in sede d'esame è la \definition{massima crescita}. Se $f$ è differenziabile in $\overline{x} \in D$ e $\nabla f\left(\overline{x}\right) \ne \overrightarrow{0}$, cioè il gradiente non è nullo, allora:
+	\begin{itemize}
+		\item La \textbf{massima crescita} di $f$, a partire da $\overline{x}$, avviene nella \textbf{direzione del gradiente}
+
+		\item La \textbf{massima decrescita} avviene nella \textbf{direzione opposta a quella del gradiente}
+	\end{itemize}
+	E ancora, si presenta qua di seguito un altro argomento richiesto spesso in sede d'esame: quando un gradiente è \definition{ortogonale}.
+	\begin{theorem}[Ortogonale]\label{theorem: ortogonale}
+		Sia $f$ di classe $\mathcal{C}^{1}$ in un intorno di $\overline{x}$ e supponiamo che $\nabla f\left(\overline{x}\right) \ne \overrightarrow{0}$. Allora $\nabla f\left(\overline{x}\right)$ è \definition{ortogonale} alla curva di livello di $f$ che passa per $\overline{x}$.
+	\end{theorem}
+	
+
+	\newpage
 
 	\subsubsection{Derivate direzionali}\label{subsubsection: derivate direzionali}
 
@@ -5206,7 +5229,37 @@
 		\begin{equation}
 			\dfrac{\partial f}{\partial v}\left(P\right) = \displaystyle\lim_{t \rightarrow 0} \dfrac{f\left(P + t\overrightarrow{v}\right) - f\left(P\right)}{t}
 		\end{equation}
-	\end{boxdef}\newpage
+	\end{boxdef}
+	
+	\longline
+
+	\subsubsection{Teorema della funzione implicita (Ulisse Dini)}\label{subsubsection: teorema della funzione implicita (Ulisse Dini)}
+
+	\begin{theorem}[\definition{Teorema di Dini}]\label{theorem: teorema della funzione implicita (Ulisse Dini)}
+		Sia $f$ una funzione di classe $\mathcal{C}^{1}$ in un aperto $A$ di $\mathbb{R}^{2}$ e supponiamo che esista un punto $\left(\overline{x}, \overline{y}\right)$ tale che la funzione valutata in quel punto sia uguale a zero $f\left(\overline{x}, \overline{y}\right) = 0$ e la sua derivata parziale rispetto a $y$ non sia nulla $\frac{\partial f}{\partial y}\left(\overline{x}, \overline{y}\right) \ne 0$.
+
+		Allora esiste un intorno $I$ di $\overline{x}$ e un'unica funzione $\varphi: I \rightarrow \mathbb{R}$ di classe $\mathcal{C}^{1}$ in $I$ tale che $\overline{y}=\varphi\left(\overline{x}\right)$ e $f\left(x, \varphi\left(x\right)\right) = 0$ per ogni $x \in I$.
+
+		\noindent
+		Inoltre:
+		\begin{equation}
+			\varphi'\left(x\right) = - \dfrac{
+				f_{x}\left(x, \varphi\left(x\right)\right)
+			}{
+				f_{y}\left(x, \varphi\left(x\right)\right)
+			}
+			\hspace{2em}
+			\forall x \in I
+		\end{equation}
+	\end{theorem}
+
+	\noindent
+	In parole povere, la curva di livello $f\left(x,y\right) = 0$ è localmente il grafico di una funzione $y = \varphi\left(x\right)$.\newline
+
+	\noindent
+	Nei temi d'esame, il Teorema di Dini viene richiesto quando si chiede di calcolare la pendenza di una retta tangente in un punto. Il procedimento è quello di calcolare le derivate parziali, l'equazione della retta tangente e infine di applicare la frazione, ovvero il teorema di Dini.
+	
+	\newpage
 
 	\subsubsection{Differenziabilità}\label{subsubsection: differenziabilità}
 
@@ -5225,7 +5278,36 @@
 	In altre parole, basta utilizzare l'equazione \ref{eq: differenziabilità} per calcolare la differenziabilità.\newline
 
 	\noindent
-	Da inserire esempi.
+	Inoltre, quando si dice che una funzione è differenziabile? Sia $f$ definita in un intorno di $\overline{x} \in \mathbb{R}^{n}$ e si supponga che esistano tutte le derivate parziali di $f$ in $\overline{x}$. Si dice che la funzione $f$ è \definition{differenziabile} in $\overline{x}$ se:
+	\begin{equation*}
+		\displaystyle\lim_{x \rightarrow \overline{x}} \dfrac{f\left(x\right) - T\left(x\right)}{\left|\left| x-\overline{x} \right|\right|} = 0
+	\end{equation*}
+	In cui:
+	\begin{equation*}
+		T\left(x\right) = f\left(\overline{x}\right) + \displaystyle\sum_{i=1}^{n}\dfrac{\partial f}{\partial x_{i}} \left(\overline{x}\right)\left(x_{i} - \overline{x}_{i}\right) = f\left(\overline{x}\right) + \nabla f\left(\overline{x}\right) \cdot \left(x-\overline{x}\right)
+	\end{equation*}
+	L'importanza di dire se una funzione è differenziabile o meno è una conseguenza del fatto che:
+	\begin{theorem}
+		Se $f$ è differenziabile in un punto $P$, allora $f$ è continua in $P$.
+	\end{theorem}
+
+	\noindent
+	Senza dover fare calcoli pesanti, una funzione è \textbf{differenziabile} nel caso in cui le derivate parziali in un intorno di un punto sono continue:
+	\begin{theorem}
+		Se $f$ ammette derivate parziali in un intorno di $\overline{x}$, continue in $\overline{x}$, allora $f$ è differenziabile in $\overline{x}$.
+
+		In particolare, se le derivate parziali di $f$ esistono e sono continue in un aperto $A$, allora $f$ è differenziabile in tutti i punti di $A$.
+	\end{theorem}
+
+	\noindent
+	Ricapitolando:
+	\begin{gather*}
+		\begin{array}{rcl}
+			\text{Esistenza derivate in ogni direzione} &\nRightarrow& \text{Continuità} \\ [.3em]
+			\text{Differenziabilità} &\Rightarrow& \text{Esistenza derivate in ogni direzione} \\
+			&& \text{e continuità}
+		\end{array}
+	\end{gather*}\newpage
 	
 
 	\newpage
