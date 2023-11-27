@@ -1987,8 +1987,9 @@
 			\cmidrule{1-3} 
 			\multirow{4}{*}{Esponenziale} 	& $y'' + 3y' - 2y = 3e^{-x}$	& $y_{P}\left(x\right) = ae^{-x}$ \\ [.3em]
 			& $y'' - 3y' + 2y = 3e^{-x} \cdot x$	& $y_{P}\left(x\right) = \left(ax + b\right) e^{-x}$ \\ [.3em]
-			& $y'' - 3y' + 2y = 3e^{x}$	& $y_{P}\left(x\right) = x \cdot ae^{x}$ \\ [.3em]
-			& $y'' - 3y' + 2y = 3e^{2x} \cdot x$	& $y_{P}\left(x\right) = \left(ax + b\right) e^{2x} \cdot x$ \\
+			& $y'' + 3y' + 2y = 3e^{x}$	& $y_{P}\left(x\right) = ae^{x}$ \\ [.3em]
+			& $y'' - 3y' + 2y = 3e^{2x} \cdot x$	& $y_{P}\left(x\right) = \left(ax + b\right) e^{2x} \cdot x$ \\ [.3em]
+			\multicolumn{3}{p{35em}}{\textbf{\underline{N.B.}} nell'ultima equazione viene aggiunta una $x$ in $y_{P}$ a causa delle soluzioni dell'equazione caratteristica (vedi la tab. \ref{tab: casi particolari del metodo di somiglianza}), le quali sono $1$ e $2$. Quindi, la seconda soluzione, cioè $2$, corrisponde al valore nell'esponenziale (non considerando la variabile ovviamente).} \\
 			\cmidrule{1-3}
 			Coseno/Seno 	& $y'' + y' = \cos\left(2x\right)$ & $y_{P}\left(x\right) = a \cdot \cos\left(2x\right) + b \cdot \sin\left(2x\right)$ \\
 			\bottomrule
@@ -2717,7 +2718,120 @@
 
 	\subsubsection{Metodo di somiglianza e problema di Cauchy}\label{subsubsection: metodo di somiglianza e problema di Cauchy}
 	
-	Work in progress...
+	\begin{flushleft}
+		\definition{\underline{Esame 06 settembre 2023 - Gruppo A}}
+		\label{exam: esame 06 settembre 2023 - Gruppo A - 2 esercizio}
+	\end{flushleft}
+	\example{\emph{Si trovi la soluzione del seguente problema di Cauchy, definita per ogni $t \in \mathbb{R}$:}
+	\begin{equation*}
+		\begin{cases}
+			y''\left(t\right) - 3y'\left(t\right) + 2y\left(t\right) = 7 + 2t + e^{-t} \\
+			y\left(0\right) = 5 \\
+			y'\left(0\right) = 1
+		\end{cases}
+	\end{equation*}}
+
+	\noindent
+	Il primo passo per risolvere questo genere di esercizi è risolvere l'equazione caratteristica:
+	\begin{gather*}
+		\lambda^{2} - 3\lambda + 2 = 0 \\
+		\dfrac{3 \pm \sqrt{9 - 4 \cdot 1 \cdot 2}}{2} = \dfrac{3 \pm 1}{2} \longrightarrow \lambda_{1} = 2; \hspace{1em} \lambda_{2} = 1
+	\end{gather*}
+	Per risolvere questo problema è necessario utilizzare il metodo di somiglianza. Si può identificare un esponenziale e un polinomio di primo grado. Quindi, l'integrale generale è formato dalla soluzione particolare e la somma delle soluzioni dell'equazione caratteristica:
+	\begin{equation*}
+		y\left(t\right) = y_{P} + c_{1}e^{2t} + c_{2}e^{t} \hspace{2em} c_{1}, c_{2} \in \mathbb{R}
+	\end{equation*}
+	La soluzione particolare è possibile vederla come la somma tra il metodo di somiglianza applicato sul polinomio di primo grado e l'esponenziale. Inoltre, per calcolare le costanti, è necessario calcolare le derivate fino al secondo livello:
+	\begin{gather*}
+		y_{P}\left(t\right) = y_{P_{1}}\left(t\right) + y_{P_{2}}\left(t\right) \\
+		\begin{array}{lclcl}
+			y_{P_{1}}\left(t\right) = at + b   &\hspace{2em}&
+			y_{P_{1}}'\left(t\right) = a 	   &\hspace{2em}&
+			y_{P_{1}}''\left(t\right) = 0 \\ [.5em]
+			y_{P_{2}}\left(t\right) = ae^{-t}  		&\hspace{2em}&
+			y_{P_{2}}'\left(t\right) = -ae^{-t} 	&\hspace{2em}&
+			y_{P_{2}}''\left(t\right) = ae^{-t} 
+		\end{array}
+	\end{gather*}
+	Si sostituiscono i valori di ciascuna soluzione particolare all'interno dell'equazione differenziale:
+	\begin{equation*}
+		\begin{array}{lrcl}
+			\text{Polinomio di primo grado:} & 0 - 3\left(a\right) + 2\left(at+b\right) &=& 7 + 2t + e^{-t} \\ [.5em]
+			& -3a + 2at + 2b &=& 7 + 2t + e^{-t} \\ [.5em]
+			& \left(2a\right)t + \left(-3a + 2b\right) &=& \left(2\right)t + 7 + e^{-t} \\ [.5em]
+			& \begin{cases}
+				2a = 2 \\
+				-3a + 2b = 7
+			\end{cases}
+			&=&
+			\begin{cases}
+				a = 1 \\
+				b = 5
+			\end{cases} \\ \\
+			%
+			\text{Esponenziale:} & ae^{-t} - 3\left(-ae^{-t}\right) + 2\left(ae^{-t}\right) &=& 7 + 2t + e^{-t} \\ [.5em]
+			& \left(a + 3a + 2a\right)e^{-t} &=& 7 + 2t + \left(1\right)e^{-t} \\ [.5em]
+			& \begin{cases}
+				6a = 1
+			\end{cases}
+			&=&
+			\begin{cases}
+				a = \dfrac{1}{6}
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Si riscrive la soluzione particolare:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y_{P}\left(t\right) &=& y_{P_{1}}\left(t\right) + y_{P_{2}}\left(t\right) \\ [.7em]
+			&=& \left(at + b\right) + \left(ae^{-t}\right) \\ [.7em]
+			&=& t+5 + \dfrac{1}{6}e^{-t}
+		\end{array}
+	\end{equation*}
+	E l'integrale generale diventa:
+	\begin{equation*}
+		y\left(t\right) = t+5 + \dfrac{1}{6}e^{-t} + c_{1}e^{2t} + c_{2}e^{t}
+	\end{equation*}
+	Per applicare le condizioni iniziali è necessario prima fare la derivata prima dell'integrale generale:
+	\begin{equation*}
+		y'\left(t\right) = 1 - \dfrac{1}{6}e^{-t} + 2c_{1}e^{2t} + c_{2}e^{t}
+	\end{equation*}
+	Si mettono a sistema le due equazioni applicando le condizioni iniziali:
+	\begin{gather*}
+		\begin{cases}
+			5 = 0 + 5 + \dfrac{1}{6}e^{-0} + c_{1}e^{2 \cdot 0} + c_{2}e^{0} \\ \\
+			1 = 1 - \dfrac{1}{6}e^{-0} + 2c_{1}e^{2 \cdot 0} + c_{2}e^{0}
+		\end{cases} \rightarrow
+		\begin{cases}
+			5 = 5 + \dfrac{1}{6} + c_{1} + c_{2} \\ \\
+			1 = 1 - \dfrac{1}{6} + 2c_{1} + c_{2}
+		\end{cases} \\ \\
+		%
+		\rightarrow \begin{cases}
+			c_{2} = -c_{1} -\dfrac{1}{6} \\ \\
+			1 = 1 - \dfrac{1}{6} + 2c_{1} -c_{1} -\dfrac{1}{6}
+		\end{cases} \rightarrow
+		\begin{cases}
+			c_{2} = -c_{1} -\dfrac{1}{6} \\ \\
+			0 = - \dfrac{1}{6} + c_{1} - \dfrac{1}{6}
+		\end{cases} \rightarrow
+		\begin{cases}
+			c_{2} = -c_{1} -\dfrac{1}{6} \\ \\
+			\dfrac{1}{3} = c_{1}
+		\end{cases} \\ \\
+		%
+		\rightarrow
+		\begin{cases}
+			c_{2} = -\dfrac{1}{3} - \dfrac{1}{6} = -\dfrac{1}{2} \\ \\
+			c_{1} = \dfrac{1}{3}
+		\end{cases}
+	\end{gather*}
+	L'integrale generale, sostituendo le costanti, sono:
+	\begin{equation*}
+		y\left(t\right) = t + 5 + \dfrac{1}{6}e^{-t} + \dfrac{1}{3}e^{2t} - \dfrac{1}{2}e^{t}
+	\end{equation*}
+
+
 	\newpage
 
 	\subsubsection{Casi particolari}\label{subsubsection: casi particolari equazioni differenziali}
@@ -5564,7 +5678,7 @@
 			\begin{itemize}
 				\item Gruppo A
 				\begin{itemize}
-					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag. \pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
+					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
 				\end{itemize}
 			\end{itemize}
 
@@ -5572,7 +5686,8 @@
 			\begin{itemize}
 				\item Gruppo A
 				\begin{itemize}
-					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag. \pageref{exam: esame 06 settembre 2023 - Gruppo A - 1 esercizio}
+					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 1 esercizio}
+					\item (Ex. 2) Metodo di somiglianza e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 2 esercizio}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
@@ -5583,7 +5698,7 @@
 			\begin{itemize}
 				\item Gruppo A
 				\begin{itemize}
-					\item (Ex. 4) Limiti e continuità: pag. \pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio}
+					\item (Ex. 4) Limiti e continuità: pag.~\pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
