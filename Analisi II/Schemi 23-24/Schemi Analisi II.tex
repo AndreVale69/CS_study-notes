@@ -2603,15 +2603,117 @@
 		\centering
 		\includegraphics[width=\textwidth]{img/exercise/2023-06-21-A-ex1_2.pdf}
 		\caption{Grafico dell'intervallo massimale.}
-	\end{figure}\newpage
+	\end{figure}
 
 	\begin{figure}[!htp]
 		\centering
 		\includegraphics[width=.6\textwidth]{img/exercise/2023-06-21-A-ex1.pdf}
 		\caption{Grafico della funzione $3x^{2}-12$.}
-	\end{figure}
+	\end{figure}\newpage
 
-	\newpage
+	\begin{flushleft}
+		\definition{\underline{Esame 06 settembre 2023 - Gruppo A}}
+		\label{exam: esame 06 settembre 2023 - Gruppo A - 1 esercizio}
+	\end{flushleft}
+	\example{\emph{Determinare la soluzione del seguente problema di Cauchy}
+	\begin{equation*}
+		\begin{cases}
+			y' = 1 + x + y + xy \\
+			y\left(0\right) = 1
+		\end{cases}
+	\end{equation*}
+	\emph{e indicare il più ampio \underline{intervallo} su cui tale soluzione è definita.}}\newline
+
+	\noindent
+	Il problema può essere risolto in due modi: il primo, quello più immediato probabilmente, è risolverlo come un'equazione lineare; il secondo, quello più ragionato, è risolverlo con il metodo di separazione delle variabili eseguendo alcune manipolazioni algebriche.\newline
+
+	\noindent
+	Con il \textbf{metodo delle variabili separabili} è necessario raccogliere i termini usando un po' di intuizione:
+	\begin{equation*}
+		1 + x + y + xy = \left(x+1\right) \left(y+1\right)
+	\end{equation*}
+	La soluzione costante dell'equazione è $y = -1$, ma non è concessa dal problema di Cauchy dato che la condizione iniziale impone $y\left(0\right) = 1$. Adesso si applica la definizione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int \dfrac{1}{y+1} \:\mathrm{d}y &=& \displaystyle\int x+1 \:\mathrm{d}x \\ [1em]
+			%
+			\displaystyle\int \dfrac{1}{y+1} \:\mathrm{d}y &=& \displaystyle\int x \:\mathrm{d}x + \displaystyle\int 1 \:\mathrm{d}x \\ [1em]
+			%
+			\displaystyle\int \dfrac{1}{y+1} \:\mathrm{d}y &=& \dfrac{x^{2}}{2} + x + c \\ [1em]
+			%
+			\displaystyle\int \dfrac{1}{y+1} \:\mathrm{d}y &=& \dfrac{x^{2}}{2} + x + c \\ [1em]
+			%
+			&\downarrow& \text{si risolve per sostituzione } t = y+1 \:\:\:\: \mathrm{d}t = \dfrac{1}{t'} \:\mathrm{d}y \\ [1em]
+			%
+			\displaystyle\int \dfrac{1}{t} \cdot 1 \:\mathrm{d}t &=& \dfrac{x^{2}}{2} + x + c \\ [1em]
+			%
+			\ln\left( y+1 \right) &=& \dfrac{x^{2}}{2} + x + c \\ [1em]
+		\end{array}
+	\end{equation*}
+	Si esplicita la costante $c$ imponendo la condizione iniziale:
+	\begin{equation*}
+		\ln\left(1+1\right) = \dfrac{0^{2}}{2} + 0 + c \longrightarrow \ln\left(2\right) = c
+	\end{equation*}
+	Adesso si scrive l'integrale generale esplicitando la $y$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\ln\left( y+1 \right) &=& \dfrac{x^{2}}{2} + x + \ln\left(2\right) \\
+			y+1 &=& e^{\frac{x^{2}}{2} + x + \ln\left(2\right)} \\
+			y &=& e^{\frac{x^{2}}{2} + x + \ln\left(2\right)} - 1 \\
+			y &=& 2e^{\frac{x^{2}}{2} + x} - 1
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Risolvendo l'equazione come un'\textbf{equazione lineare}, sono necessarie alcune manipolazioni algebriche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y' &=& 1 + x + y + xy \\ [.3em]
+			%
+			y' &=& 1 + x + y\left(1 + x\right) \\ [.3em]
+			%
+			y' - \left(1 + x\right)y &=& 1 + x \\ [.3em]
+			%
+			y' + \left(-1 - x\right)y &=& 1 + x \\ [.5em]
+			%
+			&\downarrow& e^{\int -1-x} \rightarrow e^{-x-\frac{x^{2}}{2}} \\ [.5em]
+			%
+			\left(e^{-x-\frac{x^{2}}{2}}\right)y' + \left(e^{-x-\frac{x^{2}}{2}}\right)\left(-1-x\right)y &=& \left(1+x\right) \left(e^{-x-\frac{x^{2}}{2}}\right) \\ [1em]
+			%
+			\left(e^{-x-\frac{x^{2}}{2}}\right)y' + \left(-e^{-x-\frac{x^{2}}{2}} - xe^{-x-\frac{x^{2}}{2}}\right)y &=& \left(1+x\right) \left(e^{-x-\frac{x^{2}}{2}}\right) \\ [1.5em]
+			%
+			&\downarrow& \text{si applica la proprietà delle derivate: } \\
+			&& \left(f \cdot g\right)' = f\cdot g' + f'\cdot g \\ [1em]
+			%
+			\displaystyle\int\left(e^{-x-\frac{x^{2}}{2}} \cdot y\right)' \:\mathrm{d}x &=& \displaystyle\int e^{-x-\frac{x^{2}}{2}} + x e^{-x-\frac{x^{2}}{2}} \:\mathrm{d}x \\ [1em]
+			%
+			e^{-x-\frac{x^{2}}{2}} \cdot y &=& \displaystyle\int \left(1+x\right) \left(e^{-x-\frac{x^{2}}{2}}\right) \:\mathrm{d}x \\ [1em]
+			%
+			&\downarrow& \text{si procede per sostituzione:} \\ [.5em]
+			&& t = -x-\dfrac{x^{2}}{2} \:\:\:\: \mathrm{d}t = \dfrac{1}{-1-x} \:\mathrm{d}x \\ [1em]
+			%
+			e^{-x-\frac{x^{2}}{2}} \cdot y &=& \displaystyle\int \left(1+x\right) \left(e^{t}\right) \dfrac{1}{-1-x} \:\mathrm{d}x \\ [1.5em]
+			%
+			e^{-x-\frac{x^{2}}{2}} \cdot y &=& \displaystyle\int \left(e^{t}\right) \cdot \cancelto{-1}{\dfrac{1+x}{-1-x}} \:\mathrm{d}x \\ [1.5em]
+			%
+			e^{-x-\frac{x^{2}}{2}} \cdot y &=& -e^{-x-\frac{x^{2}}{2}} + c \\ [1em]
+			%
+			y &=& -e^{-x-\frac{x^{2}}{2}} \cdot \dfrac{1}{e^{-x-\frac{x^{2}}{2}}} + c \cdot \dfrac{1}{e^{-x-\frac{x^{2}}{2}}} \\ [1.5em]
+			%
+			y &=& -1 + \dfrac{c}{e^{-x-\frac{x^{2}}{2}}} \\ [1em]
+			%
+			y &=& -1 + c \cdot e^{x+\frac{x^{2}}{2}}
+		\end{array}
+	\end{equation*}
+	Applicando la condizione inziale:
+	\begin{equation*}
+		1 = -1 + c \cdot e^{0+\frac{0^{2}}{2}} \longrightarrow c = 2
+	\end{equation*}
+	Quindi l'integrale generale sarebbe di nuovo:
+	\begin{equation*}
+		y = - 1 + 2e^{\frac{x^{2}}{2} + x}
+	\end{equation*}
+	L'\textbf{intervallo massimale} è tutta la retta reale. Sia guardando l'integrale generale che l'equazione originale, ci si accorge che non c'è nessuna restrizione con i valori (e.g. una $x$ al denominatore).\newpage
 
 	\subsubsection{Metodo di somiglianza e problema di Cauchy}\label{subsubsection: metodo di somiglianza e problema di Cauchy}
 	
@@ -5435,9 +5537,6 @@
 		\left| \cos\left(\theta\right)\sin\left(\theta\right) \right| \le g\left(r\right)
 	\end{equation*}
 	E avrebbe impedito di trovare una maggiorazione (funzione $g$) uniformemente rispetto a $\theta$. Ne consegue che la funzione non sarebbe stata continua in $\mathbb{R}^{2}$.
-	
-
-
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -5465,7 +5564,15 @@
 			\begin{itemize}
 				\item Gruppo A
 				\begin{itemize}
-					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.\pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
+					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag. \pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
+				\end{itemize}
+			\end{itemize}
+
+			\item 06 settembre
+			\begin{itemize}
+				\item Gruppo A
+				\begin{itemize}
+					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag. \pageref{exam: esame 06 settembre 2023 - Gruppo A - 1 esercizio}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
@@ -5476,7 +5583,7 @@
 			\begin{itemize}
 				\item Gruppo A
 				\begin{itemize}
-					\item (Ex. 4) Limiti e continuità: pag.\pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio}
+					\item (Ex. 4) Limiti e continuità: pag. \pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
