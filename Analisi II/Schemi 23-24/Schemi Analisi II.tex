@@ -5076,7 +5076,24 @@
 			t \in \mathbb{R}
 		\end{array}
 	\end{equation*}
-	L'esercizio si conclude qua con l'equazione della retta tangente.\newpage
+	L'esercizio si conclude qua con l'equazione della retta tangente.
+	
+	\longline
+
+	\subsubsection{Insiemi connessi per archi e teorema degli zeri}\label{subsubsection: insiemi connessi per archi e teorema degli zeri}
+
+	\begin{boxdef}
+		Un insieme $A \subseteq \mathbb{R}^{n}$ si dice \definition{connesso per archi} se presi due punti qualunque $x,y\in A$ esiste un arco continuo in $A$ che ha per estremi $x$ e $y$.
+	\end{boxdef}
+
+	\noindent
+	Banalmente un insieme è connesso per archi se si riesce a disegnare una strada tra due punti appartenenti all'insieme stesso.
+
+	\begin{theorem}[\textbf{Teorema degli zeri}]
+		Sia $f$ una funzione continua su un insieme $D \subseteq \mathbb{R}^{n}$ connesso per archi. Se $x$ e $y$ sono due punti di $D$ tali che $f\left(x\right) > 0$ e $f\left(y\right) < 0$, allora esiste $z \in D$ tale che $f\left(z\right) = 0$.
+	\end{theorem}
+	
+	\newpage
 
 	\subsubsection{Lunghezza di una curva}\label{subsubsection: lunghezza di una curva}
 
@@ -5524,17 +5541,117 @@
 			&& \text{e continuità}
 		\end{array}
 	\end{gather*}\newpage
-	
 
-	\newpage
-	\newpage
-	\newpage
 	\subsection{Esercizi}
+
+	\subsubsection{Dominio, insieme aperto/chiuso, limitato/illimitato, connesso/sconnesso}
+
+	\begin{flushleft}\label{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (a)}
+		\definition{\underline{Esame 6 settembre 2023 - Gruppo A - 3 esercizio (\emph{a})}}
+	\end{flushleft}
+	\example{\emph{Data la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{1-x^{2}-4y^{2}} - \sqrt{2x+1}
+	\end{equation*}
+	\emph{determinare analiticamente il suo dominio naturale $D$ e poi rappresentarlo (con cura!) nel piano cartesiano. Stabilire se $D$ è un insieme limitato/illimitato, aperto/chiuso, connesso/sconnesso (motivare le risposte!).}}\newline
+
+	\noindent
+	Il dominio della funzione dipende dalle due radici quadrate:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1 - x^{2} - 4y^{2} \ge 0 \: \land \: 2x + 1 \ge 0\right\}
+	\end{equation*}
+	Per rappresentare il grafico si parte dalla retta $2x+1$. Quindi, si manipola la disuguaglianza esplicitando la $x$:
+	\begin{equation*}
+		2x+1 \ge 0 \longrightarrow x \ge -\dfrac{1}{2}
+	\end{equation*}
+	Mentre per l'equazione di secondo grado, è evidente che sia un'ellisse centrata nell'origine (dato che mancano i termini che si sottraggono alle variabili di secondo grado):
+	\begin{equation*}
+		1 - x^{2} - 4y^{2} \ge 0 \longrightarrow x^{2} + 4y^{2} \le 1 \longrightarrow x^{2} + \dfrac{y^{2}}{\frac{1}{4}} \le 1
+	\end{equation*}
+	Il centro dell'ellisse è nell'origine $\left(0,0\right)$, mentre i vertici sono:
+	\begin{equation*}
+		\begin{array}{lll}
+			\text{Orizzontali:} & V_{1}=\left(0-1,0\right) 	& V_{2}=\left(0+1,0\right) \\ [.3em]
+								& V_{1}=\left(-1,0\right)	& V_{2}=\left(1,0\right) \\ [1em]
+			\text{Verticali:}	& V_{3}=\left(0,0-\sqrt{\frac{1}{4}}\right) & V_{4}=\left(0,0+\sqrt{\frac{1}{4}}\right) \\ [.8em]
+								& V_{3}=\left(0,-\dfrac{1}{2}\right) & V_{4}=\left(0,\dfrac{1}{2}\right)
+		\end{array}
+	\end{equation*}
+	La disuguaglianza ha il minore uguale, quindi l'ellisse deve essere considerata solo al suo interno. La figura viene rappresentata nella pagina successiva.\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/exercise/2023-09-06-A-ex3(a).pdf}
+		\caption*{Rappresentazione di $1 - x^{2} - 4y^{2} \ge 0 \: \land \: 2x + 1 \ge 0$.}
+	\end{figure}
+
+	\noindent
+	Si calcolano i punti interni e di frontiera per capire se è un insieme aperto o chiuso:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{D} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1 - x^{2} - 4y^{2} > 0 \: \land \: 2x + 1 > 0\right\} \\ [.8em]
+			%
+			\partial D &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1 - x^{2} - 4y^{2} = 0 \: \land \: 2x + 1 = 0\right\} \\ [.8em]
+			%
+			\overline{D} &=& D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1 - x^{2} - 4y^{2} \ge 0 \: \land \: 2x + 1 \ge 0\right\}
+		\end{array}
+	\end{equation*}
+	Il dominio $D$ è uguale alla chiusura $\overline{D}$, questo significa che l'insieme è chiuso e non aperto poiché $D \ne \mathring{D}$.
+
+	Inoltre, l'insieme è limitato poiché esiste una palla di centro $\left(0,0\right)$ con un raggio maggiore di zero tale che essa racchiuda questo insieme.
+
+	Infine, l'insieme è anche connesso per aperti perché è possibile prendere due punti all'interno dell'insieme e disegnare una strada.\newpage
+
+	\subsubsection{Derivata direzionale con valore massimo}
+
+	\begin{flushleft}\label{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (b)}
+		\definition{\underline{Esame 6 settembre 2023 - Gruppo A - 3 esercizio (\emph{b})}}
+	\end{flushleft}
+	\example{\emph{Data la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt{1-x^{2}-4y^{2}} - \sqrt{2x+1}
+	\end{equation*}
+	\emph{calcolare la derivata direzionale $f$ nel punto $P\left(0,\frac{1}{4}\right)$ in direzione $\overrightarrow{v} = \left(\frac{1}{2}, \frac{\sqrt{3}}{2}\right)$.}}\newline
+	\example{\emph{Qual è il valore massimo di $\frac{\partial f}{\partial \overrightarrow{v}}\left(P\right)$ al variare di $\overrightarrow{v}$?}}\newline
+
+	\noindent
+	Si calcolano le derivate direzionali nel punto $P$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) &=& \dfrac{1}{2\sqrt{1-x^{2}-4y^{2}}} \cdot \left(-2x\right) - \dfrac{1}{2\sqrt{2x+1}} \cdot \left(2\right) \\ [1.5em]
+			%
+			&=& -\dfrac{x}{\sqrt{1-x^{2}-4y^{2}}} - \dfrac{1}{\sqrt{2x+1}} \\ [1em]
+			%
+			\dfrac{\partial f}{\partial x}\left(0,\dfrac{1}{4}\right) &=& -1 \\ [2em]
+			%
+			%
+			%
+			\dfrac{\partial f}{\partial y}\left(x,y\right) &=& \dfrac{1}{2\sqrt{1-x^{2}-4y^{2}}} \cdot \left(-8y\right) - \dfrac{1}{2\sqrt{2x+1}} \cdot \left(0\right) \\ [1.5em]
+			%
+			&=& -\dfrac{4y}{\sqrt{1-x^{2}-4y^{2}}} \\ [1em]
+			%
+			\dfrac{\partial f}{\partial y}\left(0,\dfrac{1}{4}\right) &=& -\dfrac{1}{\sqrt{\frac{3}{4}}} \\ [2.5em]
+			&=& - \dfrac{1}{\frac{\sqrt{3}}{2}} \\ [2em]
+			&=& - \dfrac{2}{\sqrt{3}} \xrightarrow{\text{razionalizzazione}} - \dfrac{2}{\sqrt{3}} \cdot \dfrac{\sqrt{3}}{\sqrt{3}}  = -\dfrac{2\sqrt{3}}{3}
+		\end{array}
+	\end{equation*}
+	Il gradiente è:
+	\begin{equation*}
+		\nabla f\left(0,\dfrac{1}{4}\right) = \left(-1, -\dfrac{2\sqrt{3}}{3}\right)
+	\end{equation*}
+	Per calcolare la derivata direzionale si utilizza la formula del gradiente (prodotto vettoriale):
+	\begin{equation*}
+		\nabla f\left(0,\dfrac{1}{4}\right) \cdot \overrightarrow{v} = \left(-1 \cdot \dfrac{1}{2}\right) + \left(-\dfrac{2\sqrt{3}}{3} \cdot \dfrac{\sqrt{3}}{2}\right) = -\dfrac{1}{2} - 1 = -\dfrac{3}{2}
+	\end{equation*}
+	Per calcolare il valore massimo al variare del vettore, si calcola con la norma del gradiente:
+	\begin{equation*}
+		\left|\left| \nabla f\left(P\right) \right|\right| = \left|\left| \nabla f\left(0,\dfrac{1}{4}\right) \right|\right| = \sqrt{\left(-1\right)^{2} + \left(-\dfrac{2\sqrt{3}}{3}\right)^{2}} = \sqrt{\dfrac{7}{3}}
+	\end{equation*}\newpage
 
 	\subsubsection{Limiti e continuità}
 
-	\begin{flushleft}\label{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio}
-		\definition{\underline{Esame 1 marzo 2022 - Gruppo A}}
+	\begin{flushleft}\label{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)}
+		\definition{\underline{Esame 1 marzo 2022 - Gruppo A - 4 esercizio (\emph{a})}}
 	\end{flushleft}
 	\example{\emph{Stabilire se la funzione}
 	\begin{equation*}
@@ -5688,6 +5805,8 @@
 				\begin{itemize}
 					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 1 esercizio}
 					\item (Ex. 2) Metodo di somiglianza e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 2 esercizio}
+					\item (Ex. 3 - \emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (a)}
+					\item (Ex. 3 - \emph{b}) Derivata direzionale con valore massimo: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (b)}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
@@ -5698,7 +5817,7 @@
 			\begin{itemize}
 				\item Gruppo A
 				\begin{itemize}
-					\item (Ex. 4) Limiti e continuità: pag.~\pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio}
+					\item (Ex. 4 - \emph{a}) Limiti e continuità: pag.~\pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
