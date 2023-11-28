@@ -5650,6 +5650,53 @@
 
 	\subsubsection{Limiti e continuità}
 
+	\begin{flushleft}\label{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (a)}
+		\definition{\underline{Esame 6 settembre 2023 - Gruppo A - 4 esercizio (\emph{a})}}
+	\end{flushleft}
+	\example{\emph{Stabilire se la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \begin{cases}
+			\dfrac{\sqrt{\left|y\right|} \sin\left(xy\right)}{x^{4} + y^{2}} & \left(x,y\right) \ne \left(0,0\right) \\
+			\\
+			0 & \left(x,y\right) = \left(0,0\right)
+		\end{cases}
+	\end{equation*}
+	\emph{è continua in $\mathbb{R}^{2}$?}}\newline
+	\example{\emph{Suggerimento: prendere in considerazione la restrizione di $f$ alla parabole di equazione $y=x^{2}$.}}\newline
+
+	\noindent
+	Si sfrutta il suggerimento a nostro favore. Per cui, si evita di applicare le coordinate polari. Si potrebbe procedere con la sostituzione parziale (spostarsi lungo una retta), ovverosia considerando prima $y=0$ e poi $x=0$. Ma attenzione! Che cosa dice il suggerimento? $x^{2} = y$. Per cui, si procede prima verificando cosa accade percorrendo lungo $y = 0$:
+	\begin{equation*}
+		\displaystyle\lim_{x \rightarrow 0} f\left(x,0\right) = \displaystyle\lim_{x \rightarrow 0} \dfrac{0}{x^{4}} = 0
+	\end{equation*}
+	Adesso si studia cosa accade percorrendo lungo $y = x^{2}$:
+	\begin{equation*}
+		f\left(x,x^{2}\right) 
+		= 
+		\dfrac{\sqrt{\left|x^{2}\right|} \sin\left(x^{3}\right)}{x^{4}+\left(x^{2}\right)^{2}}
+		=
+		\dfrac{\left|x\right| \sin\left(x^{3}\right)}{2x^{4}}
+	\end{equation*}
+	Dato che la $x$ dovrà essere sempre maggiore di zero, condizione imposta dal dominio poiché si trova al denominatore, si può togliere il valore assoluto e semplificare:
+	\begin{equation*}
+		\dfrac{x \sin\left(x^{3}\right)}{2x^{4}} = \dfrac{\sin\left(x^{3}\right)}{2x^{3}} = \dfrac{1}{2}\cdot \dfrac{\sin\left(x^{3}\right)}{x^{3}}
+	\end{equation*}
+	Adesso, applicando il limite che tende a $0^{+}$ (non zero poiché non è ammesso!), si ottiene:
+	\begin{equation*}
+		\displaystyle\lim_{x \rightarrow 0^{+}} \dfrac{1}{2}\cdot \dfrac{\sin\left(x^{3}\right)}{x^{3}} 
+		= 
+		\dfrac{1}{2}\cdot \dfrac{\sin\left(0^{+}\right)}{0^{+}} 
+		= 
+		\dfrac{1}{2} \cdot \dfrac{0^{+}}{0^{+}}
+		=
+		\dfrac{1}{2} \cdot 1
+		=
+		\dfrac{1}{2}
+	\end{equation*}
+	I due limiti hanno risultati diversi, per cui il limite che tende a $\left(0,0\right)$ non esiste e la funzione non è continua in $\left(0,0\right)$ (ma lo è in tutti gli altri punti, ovvero $\mathbb{R}^{2} \setminus \left\{\left(0,0\right)\right\}$).
+
+	\newpage
+
 	\begin{flushleft}\label{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)}
 		\definition{\underline{Esame 1 marzo 2022 - Gruppo A - 4 esercizio (\emph{a})}}
 	\end{flushleft}
@@ -5662,7 +5709,7 @@
 		\end{cases}
 	\end{equation*}
 	\emph{è continua in $\mathbb{R}^{2}$.}}
-	
+
 	\noindent
 	\example{\emph{Se sostituiamo l'espressione $\sqrt{\left(x-1\right)^{2} + \left(y-2\right)^{2}}$ con $\left(x-1\right)^{2} + \left(y-2\right)^{2}$, la risposta cambia?}}\newline
 
@@ -5767,7 +5814,40 @@
 	\begin{equation*}
 		\left| \cos\left(\theta\right)\sin\left(\theta\right) \right| \le g\left(r\right)
 	\end{equation*}
-	E avrebbe impedito di trovare una maggiorazione (funzione $g$) uniformemente rispetto a $\theta$. Ne consegue che la funzione non sarebbe stata continua in $\mathbb{R}^{2}$.
+	E avrebbe impedito di trovare una maggiorazione (funzione $g$) uniformemente rispetto a $\theta$. Ne consegue che la funzione non sarebbe stata continua in $\mathbb{R}^{2}$.\newpage
+
+	\subsubsection{Parametrizzazione}
+	\begin{flushleft}\label{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (b)}
+		\definition{\underline{Esame 6 settembre 2023 - Gruppo A - 4 esercizio (\emph{b})}}
+	\end{flushleft}
+	\example{\emph{Data la curva parametrizzata da:}
+	\begin{equation*}
+		\gamma\left(t\right) = \left(\cos^{2}\left(t\right), \cos\left(t\right) \sin\left(t\right)\right) \hspace{2em} t \in \left[0, \frac{\pi}{2}\right]
+	\end{equation*}
+	\emph{scrivere le equazioni parametriche della retta tangente e della retta normale a $\gamma$ nel suo punto $T$ di coordinate $\left(\dfrac{1}{4}, \dfrac{\sqrt{3}}{4}\right)$.}}\newline
+
+	\noindent
+	Per trovare la retta tangente ad una curva è necessario applicare la formula nota:
+	\begin{equation*}
+		r\left(t\right) = \gamma\left(t\right) + s\gamma'\left(t\right)
+	\end{equation*}
+	Per cui, prima è necessario trovare la $t$ partendo dalla parametrizzazione nota, successivamente si ottiene la derivata e si applica il punto $t$, infine si esegue la somma. Ovviamente il tutto deve passare dal punto $T$:
+	\begin{equation*}
+		\gamma\left(t\right) = \begin{cases}
+			\cos^{2}\left(t\right) = \frac{1}{4} \\
+			\cos\left(t\right) \sin\left(t\right) = \frac{\sqrt{3}}{4}
+		\end{cases}
+		=
+		\begin{cases}
+			\sqrt{\cos^{2}\left(t\right)} = \sqrt{\frac{1}{4}} \\
+			\cos\left(t\right) \sin\left(t\right) = \frac{\sqrt{3}}{4}
+		\end{cases}
+		=
+		\begin{cases}
+			\cos\left(t\right) = \frac{1}{2}
+		\end{cases}
+	\end{equation*}
+
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -5807,6 +5887,8 @@
 					\item (Ex. 2) Metodo di somiglianza e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 2 esercizio}
 					\item (Ex. 3 - \emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (a)}
 					\item (Ex. 3 - \emph{b}) Derivata direzionale con valore massimo: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (b)}
+					\item (Ex. 4 - \emph{a}) Limiti e continuità: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (a)}
+					\item (Ex. 4 - \emph{b}) Parametrizzazione: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (b)}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
