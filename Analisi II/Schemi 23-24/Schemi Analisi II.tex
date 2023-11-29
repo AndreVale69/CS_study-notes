@@ -2504,7 +2504,7 @@
 	\subsubsection{Variabili separabili e problema di Cauchy}\label{subsubsection: variabili separabili e problema di Cauchy}
 
 	\begin{flushleft}
-		\definition{\underline{Esame 21 giugno 2023 - Gruppo A}}
+		\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 1 esercizio}}
 		\label{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
 	\end{flushleft}
 	\example{\emph{Determinare la soluzione del seguente problema di Cauchy}
@@ -2613,7 +2613,7 @@
 	\end{figure}\newpage
 
 	\begin{flushleft}
-		\definition{\underline{Esame 06 settembre 2023 - Gruppo A}}
+		\definition{\underline{Esame 06 settembre 2023 - Gruppo A - 1 esercizio}}
 		\label{exam: esame 06 settembre 2023 - Gruppo A - 1 esercizio}
 	\end{flushleft}
 	\example{\emph{Determinare la soluzione del seguente problema di Cauchy}
@@ -2716,10 +2716,82 @@
 	\end{equation*}
 	L'\textbf{intervallo massimale} è tutta la retta reale. Sia guardando l'integrale generale che l'equazione originale, ci si accorge che non c'è nessuna restrizione con i valori (e.g. una $x$ al denominatore).\newpage
 
+	\begin{flushleft}
+		\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 1 esercizio}}
+		\label{exam: esame 10 luglio 2023 - Gruppo A - 1 esercizio}
+	\end{flushleft}
+	\example{\emph{Determinare la soluzione del seguente problema di Cauchy}
+	\begin{equation*}
+		\begin{cases}
+			y' = \dfrac{x^{2} e^{-y^{2}}}{y} \vspace{.3em}\\
+			y\left(0\right) = 1
+		\end{cases}
+	\end{equation*}
+	\emph{e indicare il più ampio \underline{intervallo} su cui tale soluzione è definita.}}\newline
+
+	\noindent
+	Il problema può essere risolto con il metodo delle variabili separabili ed è evidente:
+	\begin{equation*}
+		\dfrac{x^{2} e^{-y^{2}}}{y} = x^{2} \cdot \left(\dfrac{1}{y e^{y^{2}}}\right)
+	\end{equation*}
+	Non esistono soluzioni costanti poiché $e^{y^{2}}$ deve essere diverso da zero poiché è al denominatore. Si procede con il metodo delle variabili separabili:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int y \cdot e^{y^{2}} \: \mathrm{d}y &=& \displaystyle\int x^{2} \:\mathrm{d}x \\ [1em]
+			%
+			\displaystyle\int y \cdot e^{y^{2}} \: \mathrm{d}y &=& \dfrac{x^{3}}{3} + c \\ [1em]
+			%
+			&\downarrow& \text{si utilizza la sostituzione: } t = y^{2} \:\:\:\: t'=2y \:\:\:\: \mathrm{d}y = \dfrac{1}{t'}\:\mathrm{d}t \\ [1em]
+			%
+			\displaystyle\int y \cdot e^{t} \dfrac{1}{2y} \:\mathrm{d}t &=& \dfrac{x^{3}}{3} + c \\ [1em]
+			%
+			\displaystyle\int \cancel{y} \cdot e^{t} \dfrac{1}{2\cancel{y}} \:\mathrm{d}t &=& \dfrac{x^{3}}{3} + c \\ [1em]
+			%
+			\dfrac{1}{2} \cdot \displaystyle\int e^{t} \:\mathrm{d}t &=& \dfrac{x^{3}}{3} + c \\ [1em]
+			%
+			\dfrac{1}{2} \cdot e^{t} &=& \dfrac{x^{3}}{3} + c \\ [1em]
+			%
+			\dfrac{1}{2} \cdot e^{y^{2}} &=& \dfrac{x^{3}}{3} + c
+		\end{array}
+	\end{equation*}
+	Si calcola la costante $c$ applicando la condizione iniziale:
+	\begin{equation*}
+		\dfrac{1}{2} \cdot e^{1^{2}} = \dfrac{0^{3}}{3} + c \rightarrow c = \dfrac{e}{2}
+	\end{equation*}
+	Dunque, l'integrale generale diventa, esplicitando la $y$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{1}{2} \cdot e^{y^{2}} &=& \dfrac{x^{3}}{3} + \dfrac{1}{2}e \\ [1em]
+			e^{y^{2}} &=& \dfrac{2}{3}x^{3} + e \\ [1em]
+			y^{2} &=& \ln\left(\dfrac{2}{3}x^{3} + e\right) \\ [1em]
+			y &=& \pm\sqrt{\ln\left(\dfrac{2}{3}x^{3} + e\right)}
+		\end{array}
+	\end{equation*}
+	La condizione iniziale è $y\left(0\right) = 1$, il valore di $y$ è positivo, per cui la radice da scegliere è quella positiva. L'integrale generale:
+	\begin{equation*}
+		y = \sqrt{\ln\left(\dfrac{2}{3}x^{3} + e\right)}
+	\end{equation*}
+	La condizione d'esistenza è:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\ln\left(\dfrac{2}{3}x^{3} + e\right) &>& 0 \\
+			&\downarrow& \text{il logaritmo non può essere uguale a zero per definizione} \\
+			&& \text{per cui, può essere minimo uguale a }1 \\
+			\dfrac{2}{3}x^{3} + e &>& 1 \\
+			\dfrac{2}{3}x^{3} &>& 1 - e \\
+			x^{3} &>& \left(1 - e\right)\dfrac{3}{2} \\ [.5em]
+			x &>& \sqrt[3]{\left(1 - e\right)\dfrac{3}{2}}
+		\end{array}
+	\end{equation*}
+	L'intervallo massimale ha un valore minimo, corrispondente al valore sotto radice, e un valore massimo uguale all'infinito:
+	\begin{equation*}
+		\left] \sqrt[3]{\left(1 - e\right)\dfrac{3}{2}}, +\infty \right[
+	\end{equation*}\newpage
+
 	\subsubsection{Metodo di somiglianza e problema di Cauchy}\label{subsubsection: metodo di somiglianza e problema di Cauchy}
 	
 	\begin{flushleft}
-		\definition{\underline{Esame 06 settembre 2023 - Gruppo A}}
+		\definition{\underline{Esame 06 settembre 2023 - Gruppo A - 2 esercizio}}
 		\label{exam: esame 06 settembre 2023 - Gruppo A - 2 esercizio}
 	\end{flushleft}
 	\example{\emph{Si trovi la soluzione del seguente problema di Cauchy, definita per ogni $t \in \mathbb{R}$:}
@@ -2829,6 +2901,96 @@
 	L'integrale generale, sostituendo le costanti, sono:
 	\begin{equation*}
 		y\left(t\right) = t + 5 + \dfrac{1}{6}e^{-t} + \dfrac{1}{3}e^{2t} - \dfrac{1}{2}e^{t}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 2 esercizio}}
+		\label{exam: esame 10 luglio 2023 - Gruppo A - 2 esercizio}
+	\end{flushleft}
+	\example{\emph{Si trovi la soluzione del seguente problema di Cauchy, definita per ogni $t \in \mathbb{R}$:}
+	\begin{equation*}
+		\begin{cases}
+			y''\left(t\right) - 2y'\left(t\right) + y\left(t\right) = \left(t-1\right)^{2} \\
+			y\left(0\right) = 1 \\
+			y'\left(0\right) = 0
+		\end{cases}
+	\end{equation*}}
+
+	\noindent
+	Si calcola l'equazione caratteristica:
+	\begin{gather*}
+		\lambda^{2} - 2\lambda + 1 = 0 \rightarrow
+		\dfrac{2 \pm \sqrt{4 - 4 \cdot 1 \cdot 1}}{2} = \dfrac{2}{2} \rightarrow \lambda_{1} = \lambda_{2} = 1
+	\end{gather*}
+	La forma dell'integrale generale è:
+	\begin{equation*}
+		y\left(t\right) = y_{P}\left(t\right) + c_{1}e^{t} + c_{2}e^{t} \cdot t
+	\end{equation*}
+	La soluzione particolare è un polinomio di secondo grado:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y_{P}\left(t\right) &=& at^{2} + bt + c \\
+			y_{P}'\left(t\right) &=& 2at + b \\
+			y_{P}''\left(t\right) &=& 2a
+		\end{array}
+	\end{equation*}
+	Si sostituisce all'interno dell'equazione differenziale iniziale e si calcolano le incognite $a,b,c$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			2a - 2\left(2at + b\right) + \left(at^{2} + bt + c\right) &=& \left(t^{2} -2t +1\right) \\ [.5em]
+			%
+			2a - 4at - 2b + at^{2} + bt + c &=& t^{2} -2t +1 \\ [.5em]
+			%
+			\left(a\right)t^{2} + \left(-4a+b\right)t + \left(2a - 2b + c\right) &=& \left(1\right)t^{2} + \left(-2\right)t + 1 \\ [.5em]
+			%
+			= \begin{cases}
+				a = 1 \\
+				-4a+b = -2 \\
+				2a - 2b + c = 1
+			\end{cases}
+			&\rightarrow&
+			\begin{cases}
+				a = 1 \\
+				b = 2 \\
+				2a - 2b + c = 1
+			\end{cases} \\ [2em]
+			%
+			&\rightarrow&
+			\begin{cases}
+				a = 1 \\
+				b = 2 \\
+				c = 3
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Si sostituiscono le incognite all'interno della soluzione particolare e si riscrive l'integrale generale. Inoltre, si calcola la derivata prima così da ottenere le incognite $c_{1,2}$:
+	\begin{gather*}
+		\begin{array}{rcl}
+			y\left(t\right) &=& \left(t^{2} + 2t + 3\right) + c_{1}e^{t} + c_{2}e^{t} \cdot t \\ [.5em]
+			y'\left(t\right) &=& 2t + 2 + c_{1}e^{t} + c_{2}e^{t} \cdot t + c_{2}e^{t}
+		\end{array} \\ 
+		\begin{cases}
+			y\left(t\right) = \left(t^{2} + 2t + 3\right) + c_{1}e^{t} + c_{2}e^{t} \cdot t \\
+			y'\left(t\right) = 2t + 2 + c_{1}e^{t} + c_{2}e^{t} \cdot t + c_{2}e^{t}
+		\end{cases} \\
+		\begin{cases}
+			1 = \left(0^{2} + 2 \cdot 0 + 3\right) + c_{1}e^{0} + c_{2}e^{0} \cdot 0 \\
+			0 = 2 \cdot 0 + 2 + c_{1}e^{0} + c_{2}e^{0} \cdot 0 + c_{2}e^{0}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			1 = 3 + c_{1} \\
+			0 = 2 + c_{1} + c_{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-2 = c_{1} \\
+			0 = c_{2}
+		\end{cases}
+	\end{gather*}
+	La soluzione del problema è:
+	\begin{equation*}
+		y\left(t\right) = t^{2} + 2t + 3 - 2e^{t}
 	\end{equation*}
 
 
@@ -5600,7 +5762,46 @@
 
 	Inoltre, l'insieme è limitato poiché esiste una palla di centro $\left(0,0\right)$ con un raggio maggiore di zero tale che essa racchiuda questo insieme.
 
-	Infine, l'insieme è anche connesso per aperti perché è possibile prendere due punti all'interno dell'insieme e disegnare una strada.\newpage
+	Infine, l'insieme è anche connesso per archi perché è possibile prendere due punti all'interno dell'insieme e disegnare una strada.\newpage
+
+	\begin{flushleft}\label{exam: esame 10 luglio 2023 - Gruppo A - 3 esercizio (a)}
+		\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 3 esercizio (\emph{a})}}
+	\end{flushleft}
+	\example{\emph{Data la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt[4]{2-\left(x-1\right)^{2}-\left(y-1\right)^{2}} + e^{\frac{1}{x}}
+	\end{equation*}
+	\emph{determinare analiticamente il suo dominio naturale $D$ e poi rappresentarlo (con cura!) nel piano cartesiano. Stabilire se $D$ è un insieme limitato/illimitato, aperto/chiuso, connesso/sconnesso (motivare le risposte!).}}\newline
+
+	\noindent
+	Il dominio della funzione $f$ è condizionato dalla radice quadrata e dalla frazione nell'esponenziale:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 2-\left(x-1\right)^{2}-\left(y-1\right)^{2} \ge 0 \: \land \: x \ne 0\right\}
+	\end{equation*}
+	Si rappresenta il dominio partendo dalla circonferenza, ma trasformandola prima in un'equazione canonica:
+	\begin{equation*}
+		\begin{array}{rcl}
+			2-\left(x-1\right)^{2}-\left(y-1\right)^{2} &\ge& 0 \\ [.3em]
+			-\left(x-1\right)^{2}-\left(y-1\right)^{2} &\ge& -2 \\ [.3em]
+			\left(x-1\right)^{2}+\left(y-1\right)^{2} &\le& 2
+		\end{array}
+	\end{equation*}
+	Sul piano cartesiano, si disegna una circonferenza centrata in $\left(1,1\right)$ e si esclude l'asse $x\ne 0$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/exercise/2023-07-10-A-ex3(a).pdf}
+	\end{figure}
+
+	\noindent
+	Si calcolano i vari insiemi:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{D} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 2-\left(x-1\right)^{2}-\left(y-1\right)^{2} > 0\right\} \\
+			\partial D &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 2-\left(x-1\right)^{2}-\left(y-1\right)^{2} = 0 \: \land \: x = 0\right\} \\
+			\overline{D} &=& D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 2-\left(x-1\right)^{2}-\left(y-1\right)^{2} \ge 0\right\}
+		\end{array}
+	\end{equation*}
+	L'insieme non è né aperto ($D \ne \mathring{D}$) né chiuso ($D \ne \overline{D}$). Inoltre, l'insieme è limitato poiché esiste una palla con un raggio maggiore di zero tale che possa racchiudere questo insieme. Infine, l'insieme non è connesso per archi.\newpage
 
 	\subsubsection{Derivata direzionale con valore massimo}
 
@@ -5646,6 +5847,39 @@
 	Per calcolare il valore massimo al variare del vettore, si calcola con la norma del gradiente:
 	\begin{equation*}
 		\left|\left| \nabla f\left(P\right) \right|\right| = \left|\left| \nabla f\left(0,\dfrac{1}{4}\right) \right|\right| = \sqrt{\left(-1\right)^{2} + \left(-\dfrac{2\sqrt{3}}{3}\right)^{2}} = \sqrt{\dfrac{7}{3}}
+	\end{equation*}\newpage
+
+	\begin{flushleft}\label{exam: esame 10 luglio 2023 - Gruppo A - 3 esercizio (b)}
+		\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 3 esercizio (\emph{b})}}
+	\end{flushleft}
+	\example{\emph{Data la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \sqrt[4]{2-\left(x-1\right)^{2}-\left(y-1\right)^{2}} + e^{\frac{1}{x}}
+	\end{equation*}
+	\emph{calcolare $\dfrac{\partial f}{\partial \overrightarrow{v}}\left(1,2\right)$, con $\overrightarrow{v} = \left(-\frac{1}{2}, \frac{\sqrt{3}}{2}\right)$}}\newline
+
+	\noindent
+	Si calcolano inizialmente le derivate parziali:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial f}{\partial x} f\left(x,y\right) &=& \dfrac{1}{4\sqrt[4]{\left(2-\left(x-1\right)^{2}-\left(y-1\right)^{2}\right)^{3}}} \left(-2x+2\right) -\dfrac{1}{x^{2}} e^{\frac{1}{x}} \\ [2.5em]
+			%
+			\dfrac{\partial f}{\partial x} f\left(1,2\right) &=& \dfrac{1}{4\sqrt[4]{\left(2-\left(1-1\right)^{2}-\left(2-1\right)^{2}\right)^{3}}} \left(-2\cdot 1+2\right) -\dfrac{1}{1^{2}} e^{\frac{1}{1}} \\ [2.5em]
+			%
+			&=& -e \\ [1.5em]
+			%
+			\dfrac{\partial f}{\partial y} f\left(x,y\right) &=& \dfrac{1}{4\sqrt[4]{\left(2-\left(x-1\right)^{2}-\left(y-1\right)^{2}\right)^{3}}} \left(-2y+2\right) \\ [2.5em]
+			%
+			\dfrac{\partial f}{\partial y} f\left(1,2\right) &=& \dfrac{1}{4\sqrt[4]{\left(2-\left(1-1\right)^{2}-\left(2-1\right)^{2}\right)^{3}}} \left(-2\cdot 2+2\right) \\ [2.5em]
+			%
+			&=& \dfrac{-2}{4 \cdot 1} \\ [1em]
+			%
+			&=& -\dfrac{1}{2}
+		\end{array}
+	\end{equation*}
+	Quindi il gradiente in $\left(1,2\right)$ è: $\nabla f\left(1,2\right) = \left(-e, -\dfrac{1}{2}\right)$. La derivata direzionale si calcola con il prodotto vettoriale:
+	\begin{equation*}
+		\nabla f\left(1,2\right) \cdot \overrightarrow{v} = \left(-e, -\dfrac{1}{2}\right) \cdot \left(-\frac{1}{2}, \frac{\sqrt{3}}{2}\right) = \dfrac{e}{2} - \dfrac{\sqrt{3}}{4}
 	\end{equation*}\newpage
 
 	\subsubsection{Limiti e continuità}
@@ -6027,9 +6261,6 @@
 		\end{array}
 	\end{equation*}
 
-
-
-
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -6058,6 +6289,17 @@
 				\begin{itemize}
 					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
 					\item (Ex. 4 - \emph{b}) Parametrizzazione: pag.~\pageref{exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (b)}
+				\end{itemize}
+			\end{itemize}
+
+			\item 10 luglio
+			\begin{itemize}
+				\item Gruppo A
+				\begin{itemize}
+					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 1 esercizio}
+					\item (Ex. 2) Metodo di somiglianza e problema di Cauchy: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 2 esercizio}
+					\item (Ex. 3 - \emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 3 esercizio (a)}
+					\item (Ex. 3 - \emph{b}) Derivata direzionale con valore massimo: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 3 esercizio (b)}
 				\end{itemize}
 			\end{itemize}
 
