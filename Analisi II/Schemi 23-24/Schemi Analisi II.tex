@@ -31,7 +31,7 @@
 
 % Link ipertestuali per l'indice
 \usepackage{xcolor}
-\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref}
+\usepackage[linkcolor=black, citecolor=blue, urlcolor=cyan]{hyperref} % hypertexnames=false
 \hypersetup{
 	colorlinks=true
 }
@@ -5931,6 +5931,62 @@
 
 	\newpage
 
+	\begin{flushleft}\label{exam: esame 10 luglio 2023 - Gruppo A - 4 esercizio (a)}
+		\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 4 esercizio (\emph{a})}}
+	\end{flushleft}
+	\example{\emph{La funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \begin{cases}
+			\dfrac{x^{2} - 4x + 4}{x^{2}+y^{2}-4x +4} & \left(x,y\right) \ne \left(2,0\right) \\
+			\\
+			0 & \left(x,y\right) = \left(2,0\right)
+		\end{cases}
+	\end{equation*}
+	\emph{è continua e differenziabile in $\mathbb{R}^{2}$?}}\newline
+
+	\noindent
+	Si prova a semplificare la l'equazione soprastante:
+	\begin{equation*}
+		x^{2}-4x+4 = 0 \rightarrow \dfrac{4 \pm \sqrt{16 - 4 \cdot 1 \cdot 4}}{2} \rightarrow \lambda_{1}=\lambda_{2}=2
+	\end{equation*}
+	Per cui è possibile riscriverla come:
+	\begin{equation*}
+		\dfrac{\left(x-2\right)^{2}}{x^{2}-4x +4 +y^{2}}
+	\end{equation*}
+	E si può notare che:
+	\begin{equation*}
+		\dfrac{\left(x-2\right)^{2}}{\left(x-2\right)^{2} +y^{2}}
+	\end{equation*}
+	A questo punto, è possibile passare alle variabili polari:
+	\begin{equation*}
+		\begin{cases}
+			x = 2 + r\cos\left(\theta\right) \\
+			y = 0 + r\sin\left(\theta\right)
+		\end{cases}
+		\rightarrow
+		\dfrac{\left(2 + r\cos\left(\theta\right)-2\right)^{2}}{\left(2 + r\cos\left(\theta\right)-2\right)^{2} +\left(r\sin\left(\theta\right)\right)^{2}}
+	\end{equation*}
+	A questo punto, si prova ad eseguire alcune manipolazioni algebriche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\left(2 + r\cos\left(\theta\right)-2\right)^{2}}{\left(2 + r\cos\left(\theta\right)-2\right)^{2} +\left(r\sin\left(\theta\right)\right)^{2}}
+			&=&
+			\dfrac{r^{2}\cos^{2}\left(\theta\right)}{r^{2}\cos^{2}\left(\theta\right) + r^{2}\sin^{2}\left(\theta\right)} \\ [1.5em]
+			%
+			&=& \dfrac{r^{2}\cos^{2}\left(\theta\right)}{r^{2}\left(\cos^{2}\left(\theta\right) + \sin^{2}\left(\theta\right)\right)} \\ [1.5em]
+			%
+			&=& \dfrac{r^{2}\cos^{2}\left(\theta\right)}{r^{2}} \\ [1.5em]
+			%
+			&=& \cos^{2}\left(\theta\right)
+		\end{array}
+	\end{equation*}
+	A questo punto risulta evidente che il limite non esiste. La motivazione è semplice, non esiste nessuna maggiorazione tale che sia indipendente da $\theta$ (teoria nel par. \ref{subsubsection: calcolo limiti in coordinate polari}).
+
+	Da questa conclusione, si può affermare anche che la funzione non è differenziabile. Infatti, una condizione necessaria della differenziabilità è la continuità.
+
+
+	\newpage
+
 	\begin{flushleft}\label{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)}
 		\definition{\underline{Esame 1 marzo 2022 - Gruppo A - 4 esercizio (\emph{a})}}
 	\end{flushleft}
@@ -6173,8 +6229,83 @@
 	\end{equation*}
 	N.B. che la variabile $s$ chiaramente non è la stessa.\newpage
 
-	\begin{flushleft}\label{exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (b)}
+	\begin{flushleft}\label{exam: esame 10 luglio 2023 - Gruppo A - 4 esercizio (b)}
+		\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 4 esercizio (\emph{b})}}
+	\end{flushleft}
+	\example{\emph{Calcolare la lunghezza dell'arco di curva piana parametrizzata da}
+	\begin{equation*}
+		\gamma\left(\theta\right) = \left(2\theta - 1, \theta^{\frac{3}{2}}\right) \hspace{2em} \theta \in \left[1, 20\right]
+	\end{equation*}}
+
+	\noindent
+	La lunghezza dell'arco di una curva piana si calcola con la norma della derivata prima della parametrizzazione, inserita all'interno dell'integrale definito da $1$ a $20$. Quindi, prima di tutto si calcola la derivata:
+	\begin{equation*}
+		\gamma\left(\theta\right) = 
+		\begin{cases}
+			2\theta-1 \\
+			\theta^{\frac{3}{2}}
+		\end{cases}
+		\hspace{2em}
+		\gamma'\left(\theta\right) 
+		= 
+		\begin{cases}
+			2 \\
+			\frac{3}{2} \cdot \theta^{\frac{1}{2}}
+		\end{cases}
+	\end{equation*}
+	L'integrale con la norma è la seguente:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{1}^{20} \left|\left| \gamma'\left(\theta\right) \right|\right| \:\mathrm{d}\theta 
+			&=& 
+			\displaystyle\int_{1}^{20} \sqrt{\left(2\right)^{2} + \left(\frac{3}{2} \cdot \theta^{\frac{1}{2}}\right)^{2}} \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=& 
+			\displaystyle\int_{1}^{20} \sqrt{4 + \frac{9}{4} \cdot \theta} \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=& 
+			\displaystyle\int_{1}^{20} \sqrt{\dfrac{1}{4}\left(16 + 9\theta\right)} \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=& 
+			\displaystyle\int_{1}^{20} \dfrac{1}{2}\sqrt{16 + 9\theta} \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=& 
+			\dfrac{1}{2} \displaystyle\int_{1}^{20} \sqrt{16 + 9\theta} \:\mathrm{d}\theta \\ [1em]
+			%
+			&\downarrow& \text{metodo di sostituzione: }t = 16+9\theta \:\:\:\: t'=9 \:\:\:\: \mathrm{d}\theta = \dfrac{1}{t'} \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\dfrac{1}{2} \displaystyle\int_{1}^{20} \sqrt{t} \cdot \dfrac{1}{9} \:\mathrm{d}t \\ [1.3em]
+			%
+			&=&
+			\dfrac{1}{2} \cdot \dfrac{1}{9} \cdot \displaystyle\int_{1}^{20} \sqrt{t} \:\mathrm{d}t \\ [1.3em]
+			%
+			&=&
+			\dfrac{1}{18} \displaystyle\int_{1}^{20} \sqrt{t} \:\mathrm{d}t \\ [1.3em]
+			%
+			&=&
+			\dfrac{1}{18} \displaystyle\int_{1}^{20} t^{\frac{1}{2}} \:\mathrm{d}t \\ [1.3em]
+			%
+			&=&
+			\left[\dfrac{1}{18} \cdot \dfrac{2}{3} t^{\frac{3}{2}}\right]_{1}^{20} \\ [1.3em]
+			%
+			&=&
+			\left[
+				\dfrac{1}{18} \cdot \dfrac{2}{3} \left(\sqrt[2]{\left(16+9 \cdot 20\right)^{3}}\right) 
+				- 
+				\dfrac{1}{18} \cdot \dfrac{2}{3} \left(\sqrt[2]{\left(16+9 \cdot 1\right)^{3}}\right)
+			\right]_{1}^{20} \\ [1.3em]
+			%
+			&=&
+			\dfrac{5488}{54} - \dfrac{250}{54} \\ [1em]
+			%
+			&=& 97
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
 		\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 4 esercizio (\emph{b})}}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (b)}
 	\end{flushleft}
 	\example{\emph{Scrivere le equazioni parametriche della retta $r$ tangente all'arco di curva:}
 	\begin{equation*}
@@ -6271,7 +6402,9 @@
 	\newpage
 	\newpage
 	\newpage
-	\section{Temi d'esame}
+	\section{Appendice}
+
+	\subsection{Temi d'esame}
 
 	In questo paragrafo viene presentata una lista di temi d'esame svolti durante la scrittura di questi appunti. Le risorse vengono raggruppate per appello, per cui nel caso in cui si fosse intenzionati a ripassare un solo argomento, si consiglia di andare alla fine del capitolo nella sezione \dquotes{Esercizi}. Infine, con \dquotes{Ex.} si intende il numero dell'esercizio nel testo d'esame.
 	%\begin{table}[!htp]
@@ -6281,51 +6414,65 @@
 	%	\end{tabular}
 	%\end{table}
 	\begin{itemize}
-		\item 2023
+		\item \textbf{2023}
 		\begin{itemize}
-			\item 21 giugno
+			\item \textbf{21 giugno}
 			\begin{itemize}
 				\item Gruppo A
-				\begin{itemize}
-					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
-					\item (Ex. 4 - \emph{b}) Parametrizzazione: pag.~\pageref{exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (b)}
-				\end{itemize}
+				\begin{enumerate}[label*=Ex. \arabic*), leftmargin = 4em]
+					\item Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 21 giugno 2023 - Gruppo A - 1 esercizio}
+					\setcounter{enumi}{3}
+					\item (\emph{b}) Parametrizzazione di una retta tangente e trovare l'equazione cartesiana: pag.\pageref{exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (b)}
+				\end{enumerate}
 			\end{itemize}
 
-			\item 10 luglio
+			\item \textbf{10 luglio}
 			\begin{itemize}
 				\item Gruppo A
-				\begin{itemize}
-					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 1 esercizio}
-					\item (Ex. 2) Metodo di somiglianza e problema di Cauchy: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 2 esercizio}
-					\item (Ex. 3 - \emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 3 esercizio (a)}
-					\item (Ex. 3 - \emph{b}) Derivata direzionale con valore massimo: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 3 esercizio (b)}
-				\end{itemize}
+				\begin{enumerate}[label*=Ex. \arabic*), leftmargin = 4em]
+					\item Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 1 esercizio}
+					\item Metodo di somiglianza e problema di Cauchy: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 2 esercizio}
+					\item (\emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 3 esercizio (a)}
+					\setcounter{enumi}{2}
+					\item (\emph{b}) Derivata direzionale: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 3 esercizio (b)}
+					\item (\emph{a}) Limiti e continuità con differenziabilità: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 4 esercizio (a)}
+					\setcounter{enumi}{3}
+					\item (\emph{b}) Calcolo della lunghezza di una curva piana: pag.~\pageref{exam: esame 10 luglio 2023 - Gruppo A - 4 esercizio (b)}
+				\end{enumerate}
 			\end{itemize}
 
-			\item 06 settembre
+			\item \textbf{06 settembre}
 			\begin{itemize}
 				\item Gruppo A
-				\begin{itemize}
-					\item (Ex. 1) Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 1 esercizio}
-					\item (Ex. 2) Metodo di somiglianza e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 2 esercizio}
-					\item (Ex. 3 - \emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (a)}
-					\item (Ex. 3 - \emph{b}) Derivata direzionale con valore massimo: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (b)}
-					\item (Ex. 4 - \emph{a}) Limiti e continuità: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (a)}
-					\item (Ex. 4 - \emph{b}) Parametrizzazione: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (b)}
-				\end{itemize}
+				\begin{enumerate}[label*=Ex. \arabic*), leftmargin = 4em]
+					\item Variabili separabili e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 1 esercizio}
+					\item Metodo di somiglianza e problema di Cauchy: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 2 esercizio}
+					\item (\emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (a)}
+					\setcounter{enumi}{2}
+					\item (\emph{b}) Derivata direzionale e calcolo del valore massimo della derivata direzionale al variare del vettore $\overrightarrow{v}$: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 3 esercizio (b)}
+					\item (\emph{a}) Limiti e continuità: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (a)}
+					\setcounter{enumi}{3}
+					\item (\emph{b}) Parametrizzazione di una retta tangente e di una retta normale: pag.~\pageref{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (b)}
+				\end{enumerate}
 			\end{itemize}
 		\end{itemize}
 
-		\item 2022
+		\item \textbf{2022}
 		\begin{itemize}
-			\item 01 marzo
+			\item \textbf{01 marzo}
 			\begin{itemize}
 				\item Gruppo A
-				\begin{itemize}
-					\item (Ex. 4 - \emph{a}) Limiti e continuità: pag.~\pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)}
-				\end{itemize}
+				\begin{enumerate}[label*=Ex. \arabic*), leftmargin = 4em]
+					\setcounter{enumi}{3}
+					\item (\emph{a}) Limiti e continuità: pag.~\pageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)}
+				\end{enumerate}
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
+
+	\newpage
+
+	\subsection{Raccoglitore di argomenti}
+
+	In questo paragrafo viene presenta una lista di argomenti presenti all'esame raggruppata per esercizio. Per esempio, l'esercizio 3 sarà composto da argomenti del tipo: limiti, continuità, derivate direzionali, valore massimo, ecc. L'intento è quello di analizzare ogni tipo di argomento raggruppato per numero di esercizio, così da abituarsi all'esame.
 \end{document}
