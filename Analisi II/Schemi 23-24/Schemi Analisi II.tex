@@ -2787,15 +2787,15 @@
 	\begin{equation*}
 		\begin{array}{rcl}
 			\ln\left(\dfrac{2}{3}x^{3} + e\right) &>& 0 \\
-			&\downarrow& \text{il logaritmo non può essere uguale a zero per definizione} \\
-			&& \text{per cui, può essere minimo uguale a }1 \\
+			&\downarrow& \text{il logaritmo può essere uguale o maggiore a zero soltanto} \\
+			&& \text{se l'argomento è uguale o maggiore ad }1 \\
 			\dfrac{2}{3}x^{3} + e &>& 1 \\
 			\dfrac{2}{3}x^{3} &>& 1 - e \\
 			x^{3} &>& \left(1 - e\right)\dfrac{3}{2} \\ [.5em]
 			x &>& \sqrt[3]{\left(1 - e\right)\dfrac{3}{2}}
 		\end{array}
 	\end{equation*}
-	L'intervallo massimale ha un valore minimo, corrispondente al valore sotto radice, e un valore massimo uguale all'infinito:
+	Viene imposto il $>$ e non il $\ge$ poiché si cercando soluzioni per $y \ne 0$ (la condizione d'esistenza della frazione iniziale è $y \ne 0$!). L'intervallo massimale ha un valore minimo, corrispondente al valore sotto radice, e un valore massimo uguale all'infinito:
 	\begin{equation*}
 		\left] \sqrt[3]{\left(1 - e\right)\dfrac{3}{2}}, +\infty \right[
 	\end{equation*}\newpage
@@ -5928,6 +5928,56 @@
 	\end{equation*}
 	L'insieme non è né aperto ($D \ne \mathring{D}$) né chiuso ($D \ne \overline{D}$). Inoltre, l'insieme è limitato poiché esiste una palla con un raggio maggiore di zero tale che possa racchiudere questo insieme. Infine, l'insieme non è connesso per archi.\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 3 esercizio (a)}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 3 esercizio (a)
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 3 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Data la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \left(x+y^{2}\right)\ln\left(\left|x\right|-y\right) + \dfrac{1}{\sqrt{x-1}}
+	\end{equation*}
+	\emph{determinare analiticamente il suo dominio naturale $D$ e poi rappresentarlo (con cura!) nel piano cartesiano. Stabilire se $D$ è un insieme limitato/illimitato, aperto/chiuso, connesso/sconnesso (motivare le risposte!).}}\newline
+
+	\noindent
+	Il dominio è influenzato dal logaritmo e dalla radice quadrata al denominatore:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \left|x\right|-y > 0 \: \land \: x-1 > 0\right\}
+	\end{equation*}
+	Ricordando la rappresentazione di un valore assoluto:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/valore-assoluto.pdf}
+		\caption{Rappresentazione grafica di $\left|x\right|$.}
+	\end{figure}
+
+	\noindent
+	Si rappresenta il dominio nel piano cartesiano, considerando la parte di grafico da $x = 1$ (escluso) in poi verso infinito e disegnando una retta comprendendo la parte di destra a causa della disuguaglianza. Si veda il grafico per comprendere meglio.\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/exercise/2023-06-21-A-ex3(a).pdf}
+		\caption*{Rappresentazione nel piano cartesiano del dominio.}
+	\end{figure}
+
+	\noindent
+	Si dimostra se l'insieme è aperto o chiuso:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{D} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \left|x\right|-y > 0 \: \land \: x-1 > 0\right\} \\ [.3em]
+			\partial {D} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \left|x\right|-y = 0 \: \land \: x-1 = 0\right\} \\ [.3em]
+			\overline{D} &=& D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \left|x\right|-y \ge 0 \: \land \: x-1 \ge 0\right\} \\
+		\end{array}
+	\end{equation*}
+	Per cui, l'insieme non è chiuso perché $D \ne \overline{D}$, ma invece è aperto poiché $\mathring{D} = D$.
+
+	L'insieme è illimitato poiché non esiste una palla di raggio $r$ maggiore zero che riesca a contenere un insieme.
+
+	Infine, l'insieme è connesso per archi.\newpage
+
 	\subsubsection{Derivata direzionale con valore massimo}
 
 	\begin{flushleft}
@@ -6016,6 +6066,52 @@
 	\begin{equation*}
 		\nabla f\left(1,2\right) \cdot \overrightarrow{v} = \left(-e, -\dfrac{1}{2}\right) \cdot \left(-\frac{1}{2}, \frac{\sqrt{3}}{2}\right) = \dfrac{e}{2} - \dfrac{\sqrt{3}}{4}
 	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 3 esercizio (b)}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 3 esercizio (b)
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 3 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Scrivere l'equazione del piano tangente al grafico di $f\left(x,y\right)$:}
+	\begin{equation*}
+		f\left(x,y\right) = \left(x+y^{2}\right)\ln\left(\left|x\right|-y\right) + \dfrac{1}{\sqrt{x-1}}
+	\end{equation*}
+	\emph{nel punto $\left(2,1,f\left(2,1\right)\right)$}}\newline
+
+	\noindent
+	Il primo passo è calcolare il gradiente nel punto $\left(2,1\right)$ e considerando la $\left|x\right| = x$ perché il punto interessato è $\left(2,1\right)$:
+	\begin{gather*}
+		\begin{array}{rcl}
+			\dfrac{\partial f}{\partial x} f\left(x,y\right) &=& \ln\left(x-y\right) + \left(x+y^{2}\right) \dfrac{1}{x-y} \cdot 1 - \dfrac{1}{2\sqrt{x-1}\left(x-1\right)} \\ [1em]
+			\dfrac{\partial f}{\partial x} f\left(2,1\right) &=& \ln\left(2-1\right) + \left(2+1^{2}\right) \dfrac{1}{2-1} - \dfrac{1}{2\sqrt{2-1}\left(2-1\right)} \\ [1em]
+			\dfrac{\partial f}{\partial x} f\left(2,1\right) &=& 3 - \dfrac{1}{2} \\ [1em]
+			\dfrac{\partial f}{\partial x} f\left(2,1\right) &=& \dfrac{5}{2} \\ [2em]
+			%
+			\dfrac{\partial f}{\partial y} f\left(x,y\right) &=& 2y \cdot \ln\left(x-y\right) + \left(x+y^{2}\right) \dfrac{1}{x-y} \cdot \left(-1\right) \\ [1em]
+			\dfrac{\partial f}{\partial y} f\left(2,1\right) &=& 2 \cdot 1 \cdot \ln\left(2-1\right) + \left(2+1^{2}\right) \dfrac{1}{2-1} \cdot \left(-1\right) \\ [1em]
+			\dfrac{\partial f}{\partial y} f\left(2,1\right) &=& -3
+		\end{array} \\
+		\nabla f\left(2,1\right) = \left(\dfrac{5}{2}, -3\right)
+	\end{gather*}
+	Il secondo passo è scrivere l'equazione del piano tangente al grafico. Per cui si utilizza la formula:
+	\begin{equation*}
+		z = f\left(x_{0}, y_{0}\right) + \dfrac{\partial f}{\partial x}\left(x_{0},y_{0}\right)\left(x-x_{0}\right) + \dfrac{\partial f}{\partial y}\left(x_{0},y_{0}\right)\left(y-y_{0}\right)
+	\end{equation*}
+	Si sostituiscono i valori ricordando che $f\left(x,y,f\left(x_{0},y_{0}\right)\right) = f\left(2,1,f\left(2,1\right)\right)$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			z &=& f\left(2, 1\right) + \dfrac{\partial f}{\partial x}\left(2,1\right)\left(x-2\right) + \dfrac{\partial f}{\partial y}\left(2,1\right)\left(y-1\right) \\ [1em]
+			%
+			z &=& 1 + \dfrac{5}{2}x -5 -3y +3 \\ [1em]
+			%
+			z &=& \dfrac{5}{2}x - 3y -1
+		\end{array}
+	\end{equation*}
+	
+	\newpage
 
 	\subsubsection{Limiti e continuità}
 
@@ -6127,8 +6223,50 @@
 	\end{equation*}
 	A questo punto risulta evidente che il limite non esiste. La motivazione è semplice, non esiste nessuna maggiorazione tale che sia indipendente da $\theta$ (teoria nel par. \ref{subsubsection: calcolo limiti in coordinate polari}).
 
-	Da questa conclusione, si può affermare anche che la funzione non è differenziabile. Infatti, una condizione necessaria della differenziabilità è la continuità.
+	Da questa conclusione, si può affermare anche che la funzione non è differenziabile. Infatti, una condizione necessaria della differenziabilità è la continuità.\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (a)}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (a)
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 4 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \begin{cases}
+			\dfrac{x}{y} \sqrt{x^{2} + y^{2}} & y \ne 0 \\
+			\\
+			0 & y = 0
+		\end{cases}
+	\end{equation*}
+	\emph{Esiste $\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)}f\left(x,y\right)$?}}\newline
+
+	\noindent
+	\example{\emph{Suggerimento: prendere in considerazione la restrizione di $f$ alla parabola di equazione $y = x^{2}$}}
+
+	\noindent
+	Dato il suggerimento, si sfrutta cercando di fare una sostituzione parziale. Per cui, si guarda il comportamento del limite nel caso in cui $y = x^{2}$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\lim_{\left(x,y\right) \rightarrow \left(0,0\right)} f\left(x,x^{2}\right) &=& \dfrac{x}{x^{2}} \cdot \sqrt{x^{2} + x^{4}} \\ [1em]
+			&=& \dfrac{1}{x} \cdot \sqrt{x^{2}\left(1+x^{2}\right)} \\ [1em]
+			&=& \dfrac{\left| x \right|}{x} \cdot \sqrt{1+x^{2}}
+		\end{array}
+	\end{equation*}
+	A questo punto, provando il limite che viene da destra ($0^{+}$) o da sinistra ($0^{-}$) e non da $0$ poiché la $x$ è al denominatore, risulta evidente che il limite non esiste:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x \rightarrow 0^{+} &\longrightarrow& \dfrac{0^{+}}{0^{+}} \cdot \sqrt{1+\left(0^{+}\right)^{2}} \\ [1em]
+			&& 1 \sqrt{1^{+}} \\ [.5em]
+			&& 1^{+} \\ [2em]
+			%
+			y \rightarrow 0^{+} &\longrightarrow& \dfrac{\left|0^{-}\right|}{0^{-}} \cdot \sqrt{1+\left(0^{-}\right)^{2}} \\ [1em]
+			&& 1^{-} \sqrt{1^{+}} \\ [.5em]
+			&& -1
+		\end{array}
+	\end{equation*}
 
 	\newpage
 
@@ -6594,6 +6732,26 @@
 						exam: esame 21 giugno 2023 - Gruppo A - 2 esercizio
 					}{
 						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 2 esercizio}
+					}
+
+					\item (\emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 3 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 3 esercizio (a)}
+					}
+
+					\setcounter{enumi}{2}
+
+					\item (\emph{b}) Equazione del piano tangente al grafico di una funzione $f\left(x,y\right)$ nel punto $\left(x,y,f\left(x,y\right)\right)$: pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 3 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 3 esercizio (b)}
+					}
+
+					\item (\emph{a}) Limiti e continuità: pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (a)}
 					}
 					
 					\setcounter{enumi}{3}
