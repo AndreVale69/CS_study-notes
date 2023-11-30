@@ -6169,6 +6169,44 @@
 
 	Infine, l'insieme è connesso per archi.\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (a)}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (a)
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 3 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Data la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = y e^{\sqrt{x-2y}}-\ln\left(xy\right)
+	\end{equation*}
+	\emph{determinare analiticamente il suo dominio naturale $D$ e poi rappresentarlo (con cura!) nel piano cartesiano. Stabilire se $D$ è un insieme limitato/illimitato, aperto/chiuso, connesso/sconnesso (motivare le risposte!).}}\newline
+
+	\noindent
+	Il dominio è condizionato dal logaritmo e dalla radice quadrata:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x-2y \ge 0 \: \land \: xy > 0\right\}
+	\end{equation*}
+	Il grafico si rappresenta facilmente, $xy>0$ non consente di comprendere le linee cartesiane, mentre $x \ge 2y$ taglia a metà il grafico dal lato opposto:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/exercise/2023-03-03-A-ex3(a).pdf}
+	\end{figure}
+
+	\noindent
+	Si dimostra se è aperto o chiuso:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{D} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x-2y > 0 \: \land \: xy > 0\right\} \\ [.3em]
+			\partial D &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x-2y = 0 \: \land \: xy = 0\right\} \\ [.3em]
+			\overline{D} &=& D \cup \partial D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x-2y \ge 0 \: \land \: xy \ge 0\right\}
+		\end{array}
+	\end{equation*}
+	L'insieme non è né aperto ($D \ne \mathring{D}$) né chiuso ($D \ne \overline{D}$). L'insieme è illimitato poiché non esiste una palla di raggio $r$ maggiore di zero che contenga l'insieme. Infine, l'insieme non è connesso per archi.
+
+	\newpage
+
 	\subsubsection{Derivata direzionale con valore massimo}
 
 	\begin{flushleft}
@@ -6300,7 +6338,51 @@
 			%
 			z &=& \dfrac{5}{2}x - 3y -1
 		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (b)}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (b)
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 3 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Calcolare la derivata direzionale di $f\left(x,y\right)$:}
+	\begin{equation*}
+		f\left(x,y\right) = y e^{\sqrt{x-2y}}-\ln\left(xy\right)
 	\end{equation*}
+	\emph{in $P\left(3,1\right)$ nella direzione del versore $\left(\frac{3}{\sqrt{10}}, -\frac{1}{\sqrt{10}}\right)$. Qual è la direzione di massima crescita per $f$?}}\newline
+
+	\noindent
+	Il primo passo è calcolare la derivata parziale nel punto $P$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial f}{\partial x}f\left(x,y\right) &=& \left(\dfrac{1}{2\sqrt{x-2y}}\right)y e^{\sqrt{x-2y}}-\dfrac{1}{xy} \cdot y \\ [1em]
+			%
+			&=& \left(\dfrac{1}{2\sqrt{x-2y}}\right)y e^{\sqrt{x-2y}}-\dfrac{1}{x} \\ [1em]
+			%
+			\dfrac{\partial f}{\partial x}f\left(3,1\right) &=& \left(\dfrac{1}{2\sqrt{3-2 \cdot 1}}\right) \cdot 1 e^{\sqrt{3-2 \cdot 1}}-\dfrac{1}{3} \\ [1em]
+			%
+			&=& \dfrac{1}{2} e - \dfrac{1}{3} \\ [2em]
+			%
+			%
+			\dfrac{\partial f}{\partial y}f\left(x,y\right) &=& e^{\sqrt{x-2y}}+y\left(-\dfrac{1}{\sqrt{x-2y}}\right)e^{\sqrt{x-2y}} - \dfrac{1}{xy} \cdot x \\ [1em]
+			%
+			&=& e^{\sqrt{x-2y}} + ye^{\sqrt{x-2y}} \left(-\dfrac{1}{\sqrt{x-2y}}\right) - \dfrac{1}{y} \\ [1em]
+			%
+			\dfrac{\partial f}{\partial y}f\left(3,1\right) &=& e^{\sqrt{3-2 \cdot 1}} + 1 \cdot e^{\sqrt{3-2 \cdot 1}} \left(-\dfrac{1}{\sqrt{3-2 \cdot 1}}\right) - \dfrac{1}{1} \\ [1em]
+			%
+			&=& e - e - 1 \\ [.5em]
+			%
+			&=& -1
+		\end{array}
+	\end{equation*}
+	Adesso si calcola la derivata direzionale:
+	\begin{equation*}
+		\nabla f\left(P\right) \cdot \overrightarrow{v} = \left(\dfrac{1}{2} e - \dfrac{1}{3}, -1\right) \cdot \left(\frac{3}{\sqrt{10}}, -\frac{1}{\sqrt{10}}\right) = \dfrac{3e}{2\sqrt{10}}
+	\end{equation*}
+	Per definizione, la massima crescita della funzione $f$ è quella data dal gradiente in $P$.
 	
 	\newpage
 
@@ -6919,10 +7001,24 @@
 						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 1 esercizio}
 					}
 
-					\item Metodo di somiglianza e problema di Cauchy: pag.~\hyperlink{
+					\item Metodo di somiglianza e problema di Cauchy con soluzioni dell'equazione caratteristica immaginarie (esercizio interessante): pag.~\hyperlink{
 						exam: esame 03 marzo 2023 - Gruppo A - 2 esercizio
 					}{
 						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 2 esercizio}
+					}
+
+					\item (\emph{a}) Dominio, insieme aperto o chiuso, limitato o illimitato, connesso o sconnesso: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (a)}
+					}
+
+					\setcounter{enumi}{2}
+
+					\item (\emph{b}) Derivata direzionale e direzione di massima crescita per $f$: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
