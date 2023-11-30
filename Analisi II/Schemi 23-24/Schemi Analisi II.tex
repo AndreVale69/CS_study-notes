@@ -2800,6 +2800,83 @@
 		\left] \sqrt[3]{\left(1 - e\right)\dfrac{3}{2}}, +\infty \right[
 	\end{equation*}\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 1 esercizio}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 1 esercizio
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 1 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Determinare la soluzione del seguente problema di Cauchy}
+	\begin{equation*}
+		\begin{cases}
+			y' = 3x^{2}\left(y-1\right)^{2} \\
+			y\left(0\right) = -1
+		\end{cases}
+	\end{equation*}
+	\emph{e indicare il più ampio \underline{intervallo} su cui tale soluzione è definita.}}\newline
+
+	\noindent
+	L'unica soluzione costante è $y = 1$, ma non è concessa dalla condizione inziale ($y = -1$):
+	\begin{equation*}
+		\left(y-1\right)^{2} \rightarrow \lambda = 1
+	\end{equation*}
+	Il metodo delle variabili separabili è possibile applicarlo immediatamente:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y' &=& 3x^{2}\left(y-1\right)^{2} \\ [.5em]
+			%
+			\displaystyle\int \dfrac{1}{\left(y-1\right)^{2}} \: \mathrm{d}y &=& \displaystyle\int 3x^{2} \: \mathrm{d}x \\ [1em]
+			%
+			\displaystyle\int \dfrac{1}{\left(y-1\right)^{2}} \: \mathrm{d}y &=& 3 \cdot \dfrac{x^{3}}{3} + c \\ [1em]
+			%
+			&\downarrow& \text{si utilizza il metodo di sostituzione: } t = y-1 \:\:\:\: t' = 1 \:\:\:\: \mathrm{d}y = \dfrac{1}{t'} \:\mathrm{d}t \\ 
+			%
+			\displaystyle\int \dfrac{1}{t^{2}} \cdot \dfrac{1}{1} \: \mathrm{d}t &=& x^{3} + c \\ [1em]
+			%
+			-\dfrac{1}{y-1} &=& x^{3} + c
+		\end{array}
+	\end{equation*}
+	Applicando la condizione iniziale si ottiene la costante $c$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			-\dfrac{1}{y-1} &=& x^{3} + c \\ [1em]
+			-\dfrac{1}{\left(-1\right)-1} &=& 0^{3} + c \\ [1em]
+			\dfrac{1}{2} &=& c
+		\end{array}
+	\end{equation*}
+	Esplicitando la $y$ l'integrale generale diventa:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\left(y-1\right)\dfrac{1}{y-1} &=& \left(- x^{3} - \dfrac{1}{2}\right) \left(y-1\right) \\ [1em]
+			%
+			1 &=& -x^{3}y -\dfrac{1}{2}y + x^{3} + \dfrac{1}{2} \\ [1em]
+			%
+			x^{3}y + \dfrac{1}{2}y &=& x^{3} + \dfrac{1}{2} - 1 \\ [.8em]
+			%
+			y \left(x^{3} + \dfrac{1}{2}\right) &=& x^{3} + \dfrac{1}{2} - 1 \\ [.8em]
+			%
+			\dfrac{1}{x^{3} + \frac{1}{2}} y \left(x^{3} + \dfrac{1}{2}\right) &=& \left(x^{3} + \dfrac{1}{2} - 1\right)\dfrac{1}{x^{3} + \frac{1}{2}} \\ [.8em]
+			%
+			y &=& 1 - \dfrac{1}{x^{3} + \frac{1}{2}}
+		\end{array}
+	\end{equation*}
+	Per trovare l'intervallo massimale, si consideri il denominatore che deve essere maggiore di zero poiché si cerca una soluzione maggiore di zero:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x^{3} + \frac{1}{2} &>& 0 \\ [.3em]
+			x^{3} &>& -\frac{1}{2} \\ [.3em]
+			x &>& -\frac{1}{\sqrt[3]{2}}
+		\end{array}
+	\end{equation*}
+	Quindi, l'intervallo massimo è:
+	\begin{equation*}
+		\left] -\frac{1}{\sqrt[3]{2}}, \infty \right[
+	\end{equation*}
+
+	\newpage
+
 	\subsubsection{Metodo di somiglianza e problema di Cauchy}\label{subsubsection: metodo di somiglianza e problema di Cauchy}
 	
 	\begin{flushleft}
@@ -3109,6 +3186,120 @@
 	Per cui l'integrale generale è:
 	\begin{equation*}
 		y\left(t\right) = -\sin\left(t\right) - \cos\left(t\right) -1 + 2e^{-t}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 2 esercizio}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 2 esercizio
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 2 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Si trovi la soluzione del seguente problema di Cauchy, definita per ogni $t \in \mathbb{R}$:}
+	\begin{equation*}
+		\begin{cases}
+			y''\left(t\right) + 4y\left(t\right) = 2\sin\left(3t\right) \vspace{.3em}\\
+			y\left(0\right) = 2 \vspace{.3em}\\
+			y'\left(0\right) = \frac{4}{5}
+		\end{cases}
+	\end{equation*}}
+
+	\noindent
+	Si calcola l'equazione caratteristica:
+	\begin{equation*}
+		\lambda^{2} + 4 = 0 \: \rightarrow \: \lambda = \pm\sqrt{-4} \: \rightarrow \: \lambda_{1} = 2i, \lambda_{2} = -2i
+	\end{equation*}
+	L'integrale generale:
+	\begin{equation*}
+		y\left(t\right) = y_{P}\left(t\right) + c_{1}e^{2i t} + c_{2}e^{-2it}
+	\end{equation*}
+	Grazie alla formula di Eulero:
+	\begin{equation*}
+		e^{\alpha + i\beta} = e^{\alpha}\left(\cos\left(\beta\right) + i\sin\left(\beta\right)\right)
+	\end{equation*}
+	È possibile riscrivere l'equazione in maniera più semplice:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y\left(t\right) &=& y_{P}\left(t\right) +
+			c_{1}\left(\cos\left(2t\right)+i\sin\left(2t\right)\right) + 
+			c_{2}\left(\cos\left(-2t\right)+i\sin\left(-2t\right)\right) \\ [.5em]
+			%
+			y\left(t\right) &=& y_{P}\left(t\right) +
+			\left(c_{1}+c_{2}\right)\cos\left(2t\right) + \left(c_{1}-c_{2}\right)i\sin\left(2t\right) \\ [.5em]
+			%
+			y\left(t\right) &=& y_{P}\left(t\right) +
+			c_{1}\cos\left(2t\right) + c_{2}\sin\left(2t\right) 
+		\end{array}
+	\end{equation*}
+	Risulta evidente che la somma e la differenza delle costanti è stata ridefinita con nuove variabili. Con il metodo di somiglianza si scrive la soluzione particolare e le relative derivate per ottenere le costanti:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y_{P}\left(t\right) &=& a\sin\left(3t\right) + b\cos\left(3t\right) \\ [.3em]
+			y_{P}'\left(t\right) &=& 3a\cos\left(3t\right) - 3b\sin\left(3t\right) \\ [.3em]
+			y_{P}''\left(t\right) &=& -9a\sin\left(3t\right) - 9b\cos\left(3t\right) 
+		\end{array}
+	\end{equation*}
+	Si sostituiscono le soluzioni particolari nell'equazione differenziali così da ottenere le costanti:
+	\begin{gather*}
+		\begin{array}{rcl}
+			-9a\sin\left(3t\right) - 9b\cos\left(3t\right) + 4\left(a\sin\left(3t\right) + b\cos\left(3t\right)\right) &=& 2\sin\left(3t\right) \\ [.3em]
+			%
+			\left(-9a +4a\right)\sin\left(3t\right) + \left(-9b + 4b\right)\cos\left(3t\right) &=& 2\sin\left(3t\right)
+		\end{array} \\
+		\begin{cases}
+			-9a+4a = 2 \\
+			-9b+4b = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			a = -\dfrac{2}{5} \vspace{.3em}\\
+			b = 0
+		\end{cases}
+	\end{gather*}
+	Si riscrive l'integrale generale e si calcola anche la derivata:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y\left(t\right) &=& -\dfrac{2}{5}\sin\left(3t\right) +
+			c_{1}\cos\left(2t\right) + c_{2}\sin\left(2t\right) \\ [1em]
+			%
+			y'\left(t\right) &=& -\dfrac{6}{5}\cos\left(3t\right) - 
+			2c_{1}\sin\left(2t\right) + 2c_{2}\cos\left(2t\right)
+		\end{array}
+	\end{equation*}
+	Per calcolare le costanti si inseriscono i valori in un sistema e si utilizzano le condizioni:
+	\begin{gather*}
+		\begin{cases}
+			y\left(t\right) = -\dfrac{2}{5}\sin\left(3t\right) +
+			c_{1}\cos\left(2t\right) + c_{2}\sin\left(2t\right) \vspace{.3em}\\
+			%
+			y'\left(t\right) = -\dfrac{6}{5}\cos\left(3t\right) - 
+			2c_{1}\sin\left(2t\right) + 2c_{2}\cos\left(2t\right)
+		\end{cases} \\\\
+		%
+		\begin{cases}
+			2 = \cancel{-\dfrac{2}{5}\sin\left(3 \cdot 0\right)} +
+			c_{1}\cos\left(2 \cdot 0\right) + \cancel{c_{2}\sin\left(2 \cdot 0\right)} \vspace{.3em}\\
+			%
+			\dfrac{4}{5} = -\dfrac{6}{5}\cos\left(3 \cdot 0\right) - 
+			\cancel{2c_{1}\sin\left(2 \cdot 0\right)} + 2c_{2}\cos\left(2 \cdot 0\right)
+		\end{cases} 
+		\rightarrow
+		\begin{cases}
+			2 = c_{1} \vspace{.3em}\\
+			%
+			2 = 2c_{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			2 = c_{1} \vspace{.3em}\\
+			%
+			1 = c_{2}
+		\end{cases}
+	\end{gather*}
+	Si sostituiscono le costanti nell'integrale generale:
+	\begin{equation*}
+		y\left(t\right) = -\dfrac{2}{5}\sin\left(3t\right) + 2\cos\left(2t\right) + \sin\left(2t\right)
 	\end{equation*}\newpage
 
 	\subsubsection{Casi particolari}\label{subsubsection: casi particolari equazioni differenziali}
@@ -6718,6 +6909,24 @@
 	\begin{itemize}
 		\item \textbf{2023}
 		\begin{itemize}
+			\item \textbf{03 marzo}
+			\begin{itemize}
+				\item Gruppo A
+				\begin{enumerate}[label*=Ex. \arabic*), leftmargin = 4em]
+					\item Variabili separabili e problema di Cauchy: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 1 esercizio
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 1 esercizio}
+					}
+
+					\item Metodo di somiglianza e problema di Cauchy: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 2 esercizio
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 2 esercizio}
+					}
+				\end{enumerate}
+			\end{itemize}
+
 			\item \textbf{21 giugno}
 			\begin{itemize}
 				\item Gruppo A
