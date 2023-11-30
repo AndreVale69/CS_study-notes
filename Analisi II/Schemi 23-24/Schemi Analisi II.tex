@@ -2873,7 +2873,86 @@
 	Quindi, l'intervallo massimo è:
 	\begin{equation*}
 		\left] -\frac{1}{\sqrt[3]{2}}, \infty \right[
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 07 febbraio 2023 - Gruppo A - 1 esercizio}
+		\hypertarget{
+			exam: esame 07 febbraio 2023 - Gruppo A - 1 esercizio
+		}{
+			\definition{\underline{Esame 07 febbraio 2023 - Gruppo A - 1 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Tra tutte le soluzioni dell'equazione differenziale a variabili separabili}
+	\begin{equation*}
+		y' = e^{x-1+3y}
 	\end{equation*}
+	\emph{trovare quella per cui $y\left(1\right) = 0$.}}
+
+	\noindent
+	\example{\emph{Qual è il più ampio intervallo su cui è definita tale soluzione?}}\newline
+
+	\noindent
+	Si riscrive l'equazione differenziabile:
+	\begin{equation*}
+		y' = e^{x-1+3y} \Longrightarrow y' = e^{x-1}e^{3y}
+	\end{equation*}
+	Non esiste nessuna soluzione costante poiché $y'$ è sempre positiva. Si applica il metodo delle variabili separabili:
+	\begin{equation*}
+		\begin{array}{rcl}
+			y' &=& e^{x-1}e^{3y} \\ [1em]
+			%
+			e^{-3y} &=& e^{x-1} \\ [1em]
+			%
+			\displaystyle\int e^{-3y} \:\mathrm{d}y &=& \displaystyle\int e^{x-1} \:\mathrm{d}x \\ [1em]
+			%
+			-\dfrac{e^{-3y}}{3} &=& \displaystyle\int e^{x}e^{-1} \:\mathrm{d}x \\ [1em]
+			%
+			-\dfrac{e^{-3y}}{3} &=& e^{-1}\displaystyle\int e^{x} \:\mathrm{d}x \\ [1em]
+			%
+			-\dfrac{e^{-3y}}{3} &=& e^{-1} e^{x} + c\\ [1em]
+			%
+			-e^{-3y} &=& 3e^{x-1} + 3c \\ [.5em]
+			%
+			-\dfrac{e^{-3y}}{3} -\dfrac{3e^{x-1}}{3} &=& c \\ [1em]
+			%
+			-\dfrac{e^{-3y}}{3} -e^{x-1} &=& c \\
+			%
+			&\downarrow& \text{si applica la condizione }y\left(1\right) = 0 \\
+			%
+			-\dfrac{e^{-3 \cdot 0}}{3} -e^{1-1} &=& c \\
+			%
+			-\dfrac{1}{3} - 1 &=& c \\
+			%
+			-\dfrac{4}{3} &=& c
+		\end{array}
+	\end{equation*}
+	L'integrale generale dunque è:
+	\begin{equation*}
+		\begin{array}{rcl}
+			-e^{-3y} &=& 3e^{x-1} + 3 \left(-\dfrac{4}{3}\right) \\ [1em]
+			e^{-3y} &=& -3e^{x-1} + 4 \\ [1em]
+			-3y &=& \ln\left(-3e^{x-1} + 4\right) \\ [1em]
+			y &=& -\dfrac{1}{3} \cdot \ln\left(-3e^{x-1} + 4\right)
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Si calcola l'intervallo massimale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			-3e^{x-1} + 4 &>& 0 \\ [.5em]
+			-3e^{x-1} &>& -4 \\ [.5em]
+			e^{x-1} &<& \dfrac{4}{3} \\ [1em]
+			x-1 &<& \ln\left(\dfrac{4}{3}\right) \\ [1em]
+			x &<& \ln\left(\dfrac{4}{3}\right) + 1 \\ [1em]
+		\end{array}
+	\end{equation*}
+	Per cui, l'intervallo massimale è:
+	\begin{equation*}
+		\left]-\infty , \ln\left(\dfrac{4}{3}\right) + 1 \right[
+	\end{equation*}
+	
 
 	\newpage
 
@@ -6539,7 +6618,58 @@
 			&& 1^{-} \sqrt{1^{+}} \\ [.5em]
 			&& -1
 		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (a)}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (a)
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 4 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \begin{cases}
+			\dfrac{x^{2}+y^{2}}{x^{2}+xy+y^{2}} & \left(x,y\right) \ne \left(0,0\right) \\
+			\\
+			k & \left(x,y\right) = \left(0,0\right)
+		\end{cases}
 	\end{equation*}
+	\emph{Esiste un valore di $k \in \mathbb{R}$ tale che $f$ risulta continua nell'origine?}}\newline
+
+	\noindent
+	Si utilizza le coordinate polari per verificare se esiste il limite in $\left(0,0\right)$:
+	\begin{equation*}
+		\begin{cases}
+			x=0+r\cos\left(\theta\right) \\
+			y=0+r\sin\left(\theta\right)
+		\end{cases}
+	\end{equation*}
+	Andando a sostituirle nella frazione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{x^{2}+y^{2}}{x^{2}+xy+y^{2}} 
+			&\rightarrow& 
+			\dfrac{
+				r^{2}\cos^{2}\left(\theta\right)+r^{2}\sin^{2}\left(\theta\right)
+			}{
+				r^{2}\cos^{2}\left(\theta\right) + r\cos\left(\theta\right) \cdot r\sin\left(\theta\right) + r^{2}\sin^{2}\left(\theta\right)
+			} \\ [1em]
+			%
+			&=&
+			\dfrac{r^{2}\overbrace{\left(\cos^{2}\left(\theta\right)+\sin^{2}\left(\theta\right)\right)}^{1}}{r^{2}\underbrace{\left(\cos^{2}\left(\theta\right)+\sin^{2}\left(\theta\right)\right)}_{1} + r^{2} \cos\left(\theta\right)\sin\left(\theta\right)} \\ [1em]
+			%
+			&=& \dfrac{r^{2}}{r^{2} + r^{2}\cos\left(\theta\right)\sin\left(\theta\right)} \\ [1em]
+			%
+			&=& \dfrac{\cancel{r^{2}}}{\cancel{r^{2}} \left(1 + \cos\left(\theta\right)\sin\left(\theta\right)\right)} \\ [1em]
+			%
+			&=& \dfrac{1}{1 + \cos\left(\theta\right)\sin\left(\theta\right)}
+		\end{array}
+	\end{equation*}
+	Risulta evidente nell'ultima espressione che è impossibile ottenere una maggiorazione uniformemente a $\theta$ poiché $r$ non c'è più.
+
+	Si conclude che non esiste un valore di $k \in \mathbb{R}$ tale che la funzione $f$ risulta continua nell'origine.
 
 	\newpage
 
@@ -6965,6 +7095,116 @@
 			\dfrac{1}{18} + 3x &=& \dfrac{3}{2}y \\ [1.5em]
 			\dfrac{1}{27} + 2x &=& y
 		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (b)}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (b)
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 4 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri l'arco di curva parametrizzato da:}
+	\begin{equation*}
+		\gamma\left(t\right) = \left(t-\sin\left(t\right), 1-\cos\left(t\right)\right) \hspace{2em} t \in \left[0, 2\pi\right]
+	\end{equation*}
+	\emph{Calcolare la lunghezza dell'arco e scrivere le equazioni parametriche della retta tangente alla curva nel punto $P\left(\frac{\pi}{2}-1, 1\right)$.}}
+
+	\noindent
+	\example{\emph{NOTA: è utile ricordare la seguente identità goniometrica:}
+	\begin{equation*}
+		\sin\left(\dfrac{x}{2}\right) = \sqrt{\dfrac{1-\cos\left(x\right)}{2}}, \hspace{2em} \forall x \in \left[0,2\pi\right]
+	\end{equation*}}
+
+	\noindent
+	Si parte dal calcolo della lunghezza dell'arco, per cui innanzitutto si calcola la derivata prima:
+	\begin{equation*}
+		\gamma'\left(t\right) = \begin{cases}
+			1 - \cos\left(t\right) \\
+			\sin\left(t\right)
+		\end{cases}
+	\end{equation*}
+	Adesso è possibile calcolare l'integrale negli estremi $0,2\pi$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{0}^{2\pi} \left|\left| \gamma'\left(t\right) \right|\right| \:\mathrm{d}t 
+			&=& 
+			\displaystyle\int_{0}^{2\pi} \sqrt{\left(1-\cos\left(t\right)\right)^{2} + \left(\sin\left(t\right)\right)^{2}} \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \sqrt{1 - 2\cos\left(t\right) + \cos^{2}\left(t\right) + \sin^{2}\left(t\right)} \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \sqrt{1 - 2\cos\left(t\right) + 1} \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \sqrt{2 - 2\cos\left(t\right)} \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \sqrt{2\left(1 - \cos\left(t\right)\right)} \:\mathrm{d}t \\ [1em]
+			%
+			&\downarrow& \text{si sfrutta il prezioso suggerimento in questo modo: } \\ [.3em] 
+			&& 2\left(1-\cos\left(t\right)\right) = 4\left(\dfrac{1}{2} - \dfrac{\cos\left(t\right)}{2}\right) \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \sqrt{4\left(\dfrac{1}{2} - \dfrac{\cos\left(t\right)}{2}\right)} \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} 2 \cdot \sqrt{\dfrac{1}{2} - \dfrac{\cos\left(t\right)}{2}} \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			2 \cdot \displaystyle\int_{0}^{2\pi} \sqrt{\dfrac{1 - \cos\left(t\right)}{2}} \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			2 \cdot \displaystyle\int_{0}^{2\pi} \sin\left(\dfrac{t}{2}\right) \:\mathrm{d}t \\ [1.2em]
+			%
+			&=&
+			2 \cdot \left[\left(-2\cos\left(\dfrac{t}{2}\right)\right)\right]_{0}^{2\pi} \\ [1em]
+			%
+			&=&
+			2 \cdot \left(-2\left(\cos\left(\pi\right)\right) - \left(-2\right)\cos\left(0\right)\right) \\ [.3em]
+			%
+			&=& 2 \left(4\right) = 8
+		\end{array}
+	\end{equation*}
+	Adesso si scrivono le equazioni parametriche della retta tangente. Quindi si calcola il sistema:
+	\begin{equation*}
+		\begin{cases}
+			t-\sin\left(t\right) = \dfrac{\pi}{2}-1 \vspace{.3em} \\
+			1-\cos\left(t\right) = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			t-\sin\left(t\right) = \dfrac{\pi}{2}-1 \vspace{.3em} \\
+			\cos\left(t\right) = 0
+		\end{cases}
+		\rightarrow
+		t = \dfrac{\pi}{2} \hspace{2em} t \in \mathbb{R}
+	\end{equation*}
+	Quindi $\gamma\left(\dfrac{\pi}{2}\right) = P$. Adesso si calcola la derivata in $t = \dfrac{\pi}{2}$:
+	\begin{equation*}
+		\gamma'\left(\dfrac{\pi}{2}\right) 
+		= 
+		\begin{cases}
+			1-\cos\left(\dfrac{\pi}{2}\right) \vspace{.3em}\\
+			\sin\left(\dfrac{\pi}{2}\right)
+		\end{cases}
+		=
+		\begin{cases}
+			1 \\
+			1
+		\end{cases}
+	\end{equation*}
+	L'equazione della retta tangente si calcola con:
+	\begin{equation*}
+		r\left(\dfrac{\pi}{2}\right) = \gamma\left(\dfrac{\pi}{2}\right) + s\gamma'\left(\dfrac{\pi}{2}\right) = \left(\dfrac{\pi}{2}-1, 1\right) + s\left(1,1\right) =
+		\begin{cases}
+			\dfrac{\pi}{2}-1 + s \vspace{.3em}\\
+			1 + s
+		\end{cases}
+		\hspace{2em}
+		s\in\mathbb{R}
 	\end{equation*}
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -6991,6 +7231,18 @@
 	\begin{itemize}
 		\item \textbf{2023}
 		\begin{itemize}
+			\item \textbf{07 febbraio}
+			\begin{itemize}
+				\item Gruppo A
+				\begin{enumerate}[label*=Ex. \arabic*), leftmargin = 4em]
+					\item Variabili separabili e problema di Cauchy ma posto in maniera differente: pag.~\hyperlink{
+						exam: esame 07 febbraio 2023 - Gruppo A - 1 esercizio
+					}{
+						\hypergetpageref{exam: esame 07 febbraio 2023 - Gruppo A - 1 esercizio}
+					}
+				\end{enumerate}
+			\end{itemize}
+
 			\item \textbf{03 marzo}
 			\begin{itemize}
 				\item Gruppo A
@@ -7019,6 +7271,20 @@
 						exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 3 esercizio (b)}
+					}
+
+					\item (\emph{a}) Limiti e continuità e calcolare per quale valore la funzione risulta continua nell'origine: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (a)}
+					}
+					
+					\setcounter{enumi}{3}
+					
+					\item (\emph{b}) Parametrizzazione di una retta tangente e trovare l'equazione cartesiana: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
