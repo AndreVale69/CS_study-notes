@@ -19,6 +19,7 @@
 \usepackage{gensymb}				% simbolo di degree
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 \usepackage{tcolorbox}				% pacchetto per le box colorate
+\usepackage{multicol}				% pacchetto per creare più colonne (utilizzato per le liste)
 
 % draw a frame around given text
 \newcommand{\framedtext}[1]{%
@@ -5903,7 +5904,7 @@
 		\item Trovare i punti in cui il gradiente è nullo (punti stazionari di $f$).
 
 		\item Calcolare il determinante della matrice:
-		\begin{equation}
+		\begin{equation}\label{eq: matrice Hessiana}
 			H_{f}\left(x,y\right) = 
 			\begin{pmatrix}
 				f_{xx}\left(x,y\right) & f_{xy}\left(x,y\right) \\
@@ -7205,7 +7206,186 @@
 		\end{cases}
 		\hspace{2em}
 		s\in\mathbb{R}
+	\end{equation*}\newpage
+
+	\section{Ottimizzazione delle funzioni di più variabili}\label{section: ottimizzazione delle funzioni di più variabili}
+
+	\subsection{Classificazione dei punti stazionari}\label{subsection: ricerca massimi, minimi e punti di sella}
+
+	Sia $A$ un  insieme aperto in $\mathbb{R}^{n}$ e $f$ una funzione definita su $A$:
+	\begin{equation*}
+		f: A \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}
 	\end{equation*}
+	\begin{boxdef}
+		\begin{itemize}
+			\item $\overline{x} \in A$ è un punto di \definition{\underline{massimo} globale} per $f$ se $f\left(\overline{x}\right) \ge f\left(x\right)$ per ogni $x \in A$;
+			
+			\item $\overline{x} \in A$ è un punto di \definition{\underline{minimo} globale} per $f$ se $f\left(x\right) \ge f\left(\overline{x}\right)$ per ogni $x \in A$;
+
+			\item $\overline{x} \in A$ è un punto di \definition{\underline{massimo} locale} per $f$ se esiste $r > 0$ tale che $f\left(\overline{x}\right) \ge f\left(x\right)$ per ogni $x \in B_{r}\left(\overline{x}\right) \cap A$. Con $B_{r}\left(\overline{x}\right)$ si intende una palla aperta centrata in $\overline{x}$ di raggio $r$;
+
+			\item $\overline{x} \in A$ è un punto di \definition{\underline{minimo} locale} per $f$ se esiste $r > 0$ tale che $f\left(x\right) \ge f\left(\overline{x}\right)$ per ogni $x \in B_{r}\left(\overline{x}\right) \cap A$. Con $B_{r}\left(\overline{x}\right)$ si intende una palla aperta centrata in $\overline{x}$ di raggio $r$.
+		\end{itemize}
+	\end{boxdef}
+
+	\noindent
+	Nonostante la teoria possa sembrare complessa, la classificazione dei punti stazionari è piuttosto semplice grazie al \textbf{teorema delle derivate seconde} e alla famosa matrice Hessiana (eq. \ref{eq: matrice Hessiana}) e riportata qua di seguito per semplicità:
+	\begin{equation*}
+		H_{f}\left(x,y\right) = 
+		\begin{pmatrix}
+			f_{xx}\left(x,y\right) & f_{xy}\left(x,y\right) \\
+			f_{yx}\left(x,y\right) & f_{yy}\left(x,y\right)
+		\end{pmatrix}
+	\end{equation*}
+	\begin{theorem}[\textbf{delle derivate seconde}]\label{theorem: delle derivate seconde}
+		Sia $f$ una funzione di classe $\mathcal{C}^{2}$ su un insieme aperto $A \subseteq \mathbb{R}^{2}$ e sia $\left(\overline{x}, \overline{y}\right) \in A$ un punto stazionario per $f$. Valgono le seguenti implicazioni:
+		\begin{itemize}
+			\item Se la derivata seconda rispetto $x$ è maggiore di zero e il determinante della matrice Hessiana è maggiore di zero, allora il punto $\left(\overline{x},\overline{y}\right)$ è un \textbf{punto di minimo}:
+			\begin{equation*}
+				f_{xx}\left(\overline{x},\overline{y}\right) > 0, \hspace{1em} \det\left(H_{f}\left(\overline{x}, \overline{y}\right)\right) > 0 \hspace{.5em} \Longrightarrow \hspace{.5em} \left(\overline{x},\overline{y}\right) \text{ è punto di \textbf{minimo}}
+			\end{equation*}
+			
+			\item Se la derivata seconda rispetto $x$ è minore di zero e il determinante della matrice Hessiana è maggiore di zero, allora il punto $\left(\overline{x},\overline{y}\right)$ è un \textbf{punto di massimo}:
+			\begin{equation*}
+				f_{xx}\left(\overline{x},\overline{y}\right) < 0, \hspace{1em} \det\left(H_{f}\left(\overline{x}, \overline{y}\right)\right) > 0 \hspace{.5em} \Longrightarrow \hspace{.5em} \left(\overline{x},\overline{y}\right) \text{ è punto di \textbf{massimo}}
+			\end{equation*}
+
+			\item Se il determinante della matrice Hessiana è minore di zero, allora il punto $\left(\overline{x},\overline{y}\right)$ è un \textbf{punto di sella}:
+			\begin{equation*}
+				\det\left(H_{f}\left(\overline{x}, \overline{y}\right)\right) < 0 \hspace{.5em} \Longrightarrow \hspace{.5em} \left(\overline{x},\overline{y}\right) \text{ è punto di \textbf{sella}}
+			\end{equation*}
+
+			\item Se il determinante è uguale a zero, allora \textbf{non è possibile stabilire la natura} del punto $\left(\overline{x}, \overline{y}\right)$ senza ulteriori indagini:
+			\begin{equation*}
+				\det\left(H_{f}\left(\overline{x}, \overline{y}\right)\right) = 0 \hspace{.5em} \Longrightarrow \hspace{.5em} \left(\overline{x},\overline{y}\right) \textbf{ indeterminabile}
+			\end{equation*}
+		\end{itemize}
+	\end{theorem}
+
+	\begin{flushleft}
+		\example{\underline{Esempio guidato}}
+	\end{flushleft}
+	Trovare i punti stazionari della funzione:
+	\begin{equation*}
+		f\left(x,y\right) = x^{2} + 2y^{2} + x^{2}y
+	\end{equation*}
+	e specificarne la natura.\newline
+
+	\noindent
+	Il \textbf{primo passo} è calcolare le derivate parziali prime e seconde:
+	\begin{equation*}
+		\begin{array}{rcl c rcl c rcl}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) &=& 2x + 2xy &&
+			\dfrac{\partial f}{\partial xy}\left(x,y\right) &=& 2x &&
+			\dfrac{\partial f}{\partial xx}\left(x,y\right) &=& 2 + 2y \\ [1em]
+			\dfrac{\partial f}{\partial y}\left(x,y\right) &=& 4y + x^{2} &&
+			\dfrac{\partial f}{\partial yx}\left(x,y\right) &=& 2x &&
+			\dfrac{\partial f}{\partial yy}\left(x,y\right) &=& 4  \\ [1em]
+		\end{array}
+	\end{equation*}
+
+	\noindent
+	Grazie alle derivate prime, si possono trovare i punti stazionari, ovvero quei punti che annullano sia la derivata prima rispetto $x$, sia rispetto $y$. Per cui, il \textbf{secondo passo} è porre le derivate parziali come sistema e trovare soluzioni:
+	\begin{gather*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 0 \vspace{.5em}\\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			2x + 2xy = 0 \\
+			4y + x^{2} = 0
+		\end{cases}
+		\longrightarrow
+		\begin{cases}
+			2x\left(1+y\right) = 0 & x=0 \lor y=-1 \\
+			4y + x^{2} = 0
+		\end{cases} \\
+		%
+		x = 0 \rightarrow
+		\begin{cases}
+			x = 0 \\
+			4y + 0^{2} = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x = 0 \\
+			y = 0
+		\end{cases} \\
+		%
+		y = -1 \rightarrow
+		\begin{cases}
+			y = -1 \\
+			-4 + x^{2} = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = -1 \\
+			x = \pm 2
+		\end{cases}
+	\end{gather*}
+	Quindi i punti stazionari sono:
+	\begin{multicols}{3}
+		\begin{itemize}
+			\item $A\left(0,0\right)$
+			\item $B\left(2,-1\right)$
+			\item $C\left(-2,-1\right)$
+		\end{itemize}
+	\end{multicols}
+	
+	\noindent
+	Il \textbf{terzo e ultimo passo} è la classificazione dei punti stazionari. Per farlo si utilizza la matrice Hessiana (eq. \ref{eq: matrice Hessiana}):
+	\begin{equation*}
+		H_{f}\left(x,y\right) = 
+		\begin{pmatrix}
+			2+2y 	& 2x \\
+			2x		& 4
+		\end{pmatrix}
+	\end{equation*}
+	In particolare, si è interessati ad analizzare soltanto il determinante, per cui:
+	\begin{equation*}
+		\det\left(H_{f}\left(x,y\right)\right) = \left[\left(2+2y\right)\cdot \left(4\right)\right] - \left[\left(2x\right)\left(2x\right)\right] = 8+8y-4x^{2}
+	\end{equation*}\newpage
+
+	\noindent
+	Dopodiché si sostituiscono all'interno della matrice i punti stazionari trovati:
+	\begin{equation*}
+		\begin{array}{rclclcl}
+			H_{f}\left(0,0\right) 
+			&=& 
+			\begin{pmatrix}
+				2 & 0 \\ 0 & 4
+			\end{pmatrix}
+			&\rightarrow&
+			\det\left(H_{f}\left(0,0\right)\right) &=& 8 \\ [1em]
+			%
+			H_{f}\left(2,-1\right) 
+			&=& 
+			\begin{pmatrix}
+				0 & 4 \\ 4 & 4
+			\end{pmatrix}
+			&\rightarrow&
+			\det\left(H_{f}\left(2,-1\right)\right) &=& 8 - 8 - 16 = -16 \\ [1em]
+			%
+			H_{f}\left(-2,-1\right) 
+			&=& 
+			\begin{pmatrix}
+				0 & -4 \\ -4 & 4
+			\end{pmatrix}
+			&\rightarrow&
+			\det\left(H_{f}\left(-2,-1\right)\right) &=& 8 - 8 - 16 = -16 \\ [1em]
+		\end{array}
+	\end{equation*}
+	La classificazione, seguendo il teorema \ref{theorem: delle derivate seconde} delle derivate seconde:
+	\begin{itemize}
+		\item $A\left(0,0\right)$ ha la derivata parziale seconda rispetto $x$ maggiore di zero ($2$) e il determinante maggiore di zero ($8$). Per cui è un punto di minimo;
+
+		\item $B\left(2,-1\right)$ ha la derivata parziale seconda rispetto $x$ uguale a zero, ma soprattutto il determinante minore di zero ($-16$). Per cui è un punto di sella;
+
+		\item $C\left(0,0\right)$ ha la derivata parziale seconda rispetto $x$ uguale a zero, ma soprattutto il determinante minore di zero ($-16$). Per cui è anch'esso un punto di sella.
+	\end{itemize}
+	In generale, è conveniente prima guardare il determinante e in caso sia maggiore di zero valutare anche la derivata seconda rispetto a $x$.
+	
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
