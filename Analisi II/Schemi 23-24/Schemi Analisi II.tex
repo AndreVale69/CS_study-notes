@@ -7210,7 +7210,7 @@
 
 	\section{Ottimizzazione delle funzioni di più variabili}\label{section: ottimizzazione delle funzioni di più variabili}
 
-	\subsection{Classificazione dei punti stazionari}\label{subsection: ricerca massimi, minimi e punti di sella}
+	\subsection{Ricerca dei punti stazionari}\label{subsection: ricerca dei punti stazionari}
 
 	Sia $A$ un  insieme aperto in $\mathbb{R}^{n}$ e $f$ una funzione definita su $A$:
 	\begin{equation*}
@@ -7229,7 +7229,195 @@
 	\end{boxdef}
 
 	\noindent
-	Nonostante la teoria possa sembrare complessa, la classificazione dei punti stazionari è piuttosto semplice grazie al \textbf{teorema delle derivate seconde} e alla famosa matrice Hessiana (eq. \ref{eq: matrice Hessiana}) e riportata qua di seguito per semplicità:
+	Nonostante la teoria possa sembrare complessa, la classificazione dei punti stazionari si divide in alcuni passaggi che consentono di trovare i punti di massimo e minimo senza commettere errori.
+	
+	\longline
+
+	\subsubsection{Approssimazioni quadratiche e polinomio di Taylor (ordine 2)}\label{subsubsection: approssimazioni quadratiche e polinomio di Taylor (ordine 2)}
+
+	Le \definition{approssimazioni quadratiche} devono essere introdotte poiché riguardano la \textbf{costruzione di polinomi di secondo grado che approssimano una funzione in un intorno di un punto}. Questi polinomi sono \emph{utili} per stimare il comportamento di una funzione in un punto vicino a quello di interesse. Questo argomento sarà importante tra poco, perché prima è necessario introdurre qualche formula riguardo Taylor (cose banali, niente di fantascientifico), e alcune deduzioni.
+
+	\begin{theorem}
+		Sia $f$ una funzione di classe $\mathcal{C}$ in un intorno di $\left(\overline{x}, \overline{y}\right)$. Allora $f$ ammette nel punto $\left(\overline{x}, \overline{y}\right)$ il seguente sviluppo di Taylor di ordine 2 (con resto di Peano):
+		\begin{equation}\label{eq: sviluppo di Taylor di ordine 2 (con resto di Peano)}
+			\begin{array}{rcl}
+				f\left(\overline{x}+h, \overline{y}+k\right) 
+				& = &
+				f\left(\overline{x},\overline{y}\right) +
+				\nabla f\left(\overline{x}, \overline{y}\right) \cdot \left(h,k\right) + \\ [.5em]
+				%
+				&&
+				\dfrac{1}{2} 
+				\left(
+					h^{2} f_{xx}\left(\overline{x},\overline{y}\right) +
+					2 h k f_{xy}\left(\overline{x},\overline{y}\right) +
+					k^{2} f_{yy}\left(\overline{x},\overline{y}\right)
+				\right) + \\ [1em]
+				%
+				&& + o\left(h^{2} + k^{2}\right)
+			\end{array}
+		\end{equation}
+		Per $\left(h,k\right) \rightarrow \left(0,0\right)$.
+	\end{theorem}\newpage
+
+	\noindent
+	Dall'equazione \ref{eq: sviluppo di Taylor di ordine 2 (con resto di Peano)}, si estrapola il polinomio di secondo grado:
+	\begin{equation*}
+		h^{2} f_{xx}\left(\overline{x},\overline{y}\right) + 2 h k f_{xy}\left(\overline{x},\overline{y}\right) + k^{2} f_{yy}\left(\overline{x},\overline{y}\right)
+	\end{equation*}
+	Il quale rappresenta una \textbf{forma quadratica} delle variabili $h,k$:
+	\begin{equation}\label{eq: forma quadratica dello sviluppo di Taylor}
+		Q\left(h,k\right) = h^{2} f_{xx}\left(\overline{x},\overline{y}\right) + 2 h k f_{xy}\left(\overline{x},\overline{y}\right) + k^{2} f_{yy}\left(\overline{x},\overline{y}\right)
+	\end{equation}
+	Questa equazione è importante poiché sarà utilizzata nella classificazione dei punti critici. Questa equazione si può riscrivere come moltiplicazione tra matrici:
+	\begin{equation}
+		Q\left(h,k\right) = 
+		\left(h,k\right) 
+		\begin{pmatrix}
+			f_{xx}\left(\overline{x}, \overline{y}\right) & f_{xy}\left(\overline{x}, \overline{y}\right) \\
+			f_{xy}\left(\overline{x}, \overline{y}\right) & f_{yy}\left(\overline{x}, \overline{y}\right) \\
+		\end{pmatrix}
+		\begin{pmatrix}
+			h \\ k
+		\end{pmatrix}
+	\end{equation}
+	La matrice $2 \times 2$ costruita con le derivate parziali seconde di $f$ si chiama \definition{matrice hessiana} di $f$ nel puto $\left(\overline{x}, \overline{y}\right)$ ed era già strata introdotta in passato (eq. \ref{eq: matrice Hessiana}).\newline
+
+	\noindent
+	Inoltre, sia $\left(\overline{x}, \overline{y}\right)$ un punto stazionario per $f$. Allora:
+	\begin{equation*}
+		f\left(\overline{x}+h, \overline{y}+k\right) \approx f\left(\overline{x}, \overline{y}\right) + \dfrac{1}{2} \left(h^{2} f_{xx}\left(\overline{x}, \overline{y}\right) + 2 hk f_{xy}\left(\overline{x}, \overline{y}\right) + k^{2}f_{yy}\left(\overline{x}, \overline{y}\right)\right)
+	\end{equation*}
+	Il segno della funzione $f\left(\overline{x}+h, \overline{y}+k\right) - f\left(\overline{x}, \overline{y}\right)$, dipende dal segno di $Q\left(h,k\right)$ se si rimane abbastanza vicini al punto $\left(\overline{x}, \overline{y}\right)$. Il segno della funzione aiuta a capire che tipo di punto è:
+	\begin{boxdef}
+		\begin{itemize}
+			\item $Q\left(h,k\right)$ è definita \definition{positiva}, se $Q\left(h,k\right) > 0$ per ogni $\left(h,k\right) \ne \left(0,0\right)$. Questo comporta che il punto $\left(\overline{x}, \overline{y}\right)$ sia un \definition{punto di minimo}.
+
+			\item $Q\left(h,k\right)$ è definita \definition{negativa}, se $Q\left(h,k\right) < 0$ per ogni $\left(h,k\right) \ne \left(0,0\right)$. Questo comporta che il punto $\left(\overline{x}, \overline{y}\right)$ sia un \definition{punto di massimo}.
+
+			\item $Q\left(h,k\right)$ è definita \definition{indefinita}, se $Q\left(h,k\right)$ è sia maggiore di zero che minore di zero. Quindi, se esistono due coppie $\left(h_{1}, k_{1}\right)$ e $\left(h_{2}, k_{2}\right)$ tali che $Q\left(h_{1},k_{1}\right)>0$ e $Q\left(h_{2},k_{2}\right)<0$, allora $\left(\overline{x}, \overline{y}\right)$ è un \definition{punto di sella}.
+		\end{itemize}
+	\end{boxdef}
+
+	\noindent
+	Per capire quando $Q$ è positiva, negativa o indefinita, si legga il capitolo \ref{subsubsection: forme quadratiche}.
+
+	\newpage
+
+	\subsubsection{Forme quadratiche}\label{subsubsection: forme quadratiche}
+
+	Esistono due forme quadratiche che consentono di \textbf{classificare una forma quadratica}:
+	
+	\begin{flushleft}
+		\example{\textbf{\underline{1\degree forma}}}
+	\end{flushleft}
+	\begin{equation}\label{eq: 1a forma quadratica}
+		Q\left(h,k\right) = Ah^{2} + 2B hk + Ck^{2} = \left(h,k\right)\begin{pmatrix}
+			A & B \\ B & C
+		\end{pmatrix}
+		\begin{pmatrix}
+			h \\ k
+		\end{pmatrix}
+	\end{equation}
+	Supponendo che $A\ne 0$, si riscrive $Q\left(h,k\right)$ nella seguente forma:
+	\begin{equation*}
+		\dfrac{1}{A}\left(Ah + Bk\right)^{2} + \dfrac{k^{2}}{A}\left(AC - B^{2}\right)
+	\end{equation*}
+	Si deduce quindi:
+	\begin{boxdef}
+		\begin{itemize}
+			\item $A > 0$ e $AC - B^{2} > 0$ allora $Q\left(h,k\right)$ è definita \definition{positiva}.
+	
+			\item $A < 0$ e $AC - B^{2} > 0$ allora $Q\left(h,k\right)$ è definita \definition{negativa}.
+			
+			\item $AC - B^{2} < 0$ allora $Q\left(h,k\right)$ è \definition{indefinita}.
+	
+			\item $AC - B^{2} = 0$ allora $Q\left(h,k\right)$ è \definition{semidefinita}.
+		\end{itemize}
+	\end{boxdef}
+
+	\begin{flushleft}
+		\example{\textbf{\underline{2\degree forma}}}
+	\end{flushleft}
+	Una matrice $2 \times 2$ è simmetrica e pertanto diagonalizzabile. Per cui è possibile scegliere un sistema del tipo:
+	\begin{equation}\label{eq: 2a forma quadratica}
+		Q\left(h', k'\right) = 
+		\left(h', k'\right)
+		\begin{pmatrix}
+			\lambda_{1} & 0 \\ 0 & \lambda_{2}
+		\end{pmatrix}
+		\begin{pmatrix}
+			h' \\ k'
+		\end{pmatrix}
+		=
+		\lambda_{1} \left(h'\right)^{2} + \lambda_{2} \left(k'\right)^{2}
+	\end{equation}
+	\begin{boxdef}
+		\begin{itemize}
+			\item $\lambda_{1}, \lambda_{2} > 0$ allora $Q\left(h,k\right)$ è definita \definition{positiva}.
+			
+			\item $\lambda_{1}, \lambda_{2} < 0$ allora $Q\left(h,k\right)$ è definita \definition{negativa}.
+
+			\item Se $\lambda_{1}$ e $\lambda_{2}$ hanno segni discorde allora $Q\left(h,k\right)$ è \definition{indefinita}.
+			
+			\item Se $\lambda_{1}$ o $\lambda_{2}$ è nullo, allora $Q\left(h,k\right)$ è \definition{semidefinita}.
+		\end{itemize}
+	\end{boxdef}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio}}
+	\end{flushleft}
+	Data la forma quadratica:
+	\begin{equation*}
+		Q\left(h,k\right) = 12h^{2} - 8hk + 12k^{2}
+	\end{equation*}
+	\begin{enumerate}[label=\alph*)]
+		\item Qual è la matrice associata a $Q\left(h,k\right)$?
+		\item $Q\left(h,k\right)$ è definita positiva? Motivare.
+		\item $\left(1,1\right)$ è un punto stazionario per:
+		\begin{equation*}
+			f\left(x,y\right) = x^{4} + y^{4} - 4xy + 1
+		\end{equation*}
+		Tale che:
+		\begin{equation*}
+			\Delta f = f\left(1+h, 1+k\right) - f\left(1,1\right) = \dfrac{1}{2}Q\left(h,k\right) + o\left(h^{2} + k^{2}\right)
+		\end{equation*}
+		Cosa è possibile dire riguardo $\left(1,1\right)$?
+	\end{enumerate}
+	La matrice associata $Q\left(h,k\right)$ è possibile ricavarla grazie alla prima forma quadratica (eq. \ref{eq: 1a forma quadratica}):
+	\begin{equation*}
+		\begin{array}{rcl}
+			Q\left(h,k\right) &=& Ah^{2} + 2B hk + Ck^{2} = \left(h,k\right)\begin{pmatrix}
+				A & B \\ B & C
+			\end{pmatrix}
+			\begin{pmatrix}
+				h \\ k
+			\end{pmatrix} \\ [1em]
+			%
+			&=& 12h^{2} - 8hk + 12k^{2} \\ [.5em]
+			&=& \left(12\right)h^{2} + 2\left(-4\right)hk + \left(12\right)k^{2} \\ [.5em]
+			&=& \left(h,k\right)
+			\begin{pmatrix}
+				12 & -4 \\ -4 & 12
+			\end{pmatrix}
+			\begin{pmatrix}
+				h \\ k
+			\end{pmatrix} \\ [1em]
+		\end{array}
+	\end{equation*}
+	Grazie alla precedente forma quadratica, è possibile stabilire anche il segno di $Q$. La lettera $A$, cioè $12$ è positiva, per cui si studia il risultato di:
+	\begin{equation*}
+		AC-B^{2} > 0 \Longrightarrow 12 \cdot 12 - \left(-4\right)^{2} > 0 \longrightarrow 144 - 16 > 0 \longrightarrow 128 > 0
+	\end{equation*}
+	Quindi la risposta è: sì, $Q\left(h,k\right)$ è definita positiva.
+
+	Il segno della funzione $f$ è positivo poiché, come scritto alla fine del paragrafo \ref{subsubsection: approssimazioni quadratiche e polinomio di Taylor (ordine 2)}, il segno di $f$ è dato dal segno di $Q\left(h,k\right)$ se si rimane abbastanza vicini al punto $\left(\overline{x}, \overline{y}\right)$. Per cui, è possibile affermare che $\left(1,1\right)$ è un punto di minimo dato che $\Delta f > 0$.
+
+	\newpage
+	
+	\subsubsection{Test delle derivate seconde}\label{subsubsection: test delle derivate seconde}
+
+	Questo metodo è un test, per cui non può essere l'unico metodo per trovare i punti di massimo e minimo, poiché potrebbe accadere che alcuni punti non lo siano. Il \textbf{teorema delle derivate seconde} sfrutta la matrice Hessiana (eq. \ref{eq: matrice Hessiana}) per enunciare delle euristiche (o regole) che consentono di trovare i punti di max/min:
 	\begin{equation*}
 		H_{f}\left(x,y\right) = 
 		\begin{pmatrix}
@@ -7345,9 +7533,7 @@
 	In particolare, si è interessati ad analizzare soltanto il determinante, per cui:
 	\begin{equation*}
 		\det\left(H_{f}\left(x,y\right)\right) = \left[\left(2+2y\right)\cdot \left(4\right)\right] - \left[\left(2x\right)\left(2x\right)\right] = 8+8y-4x^{2}
-	\end{equation*}\newpage
-
-	\noindent
+	\end{equation*}
 	Dopodiché si sostituiscono all'interno della matrice i punti stazionari trovati:
 	\begin{equation*}
 		\begin{array}{rclclcl}
@@ -7386,6 +7572,57 @@
 	\end{itemize}
 	In generale, è conveniente prima guardare il determinante e in caso sia maggiore di zero valutare anche la derivata seconda rispetto a $x$.
 	
+	\subsection{Ricerca dei massimi e minimi assoluti}\label{subsection: ricerca dei massimi e minimi assoluti}
+
+	La ricerca dei punti estremi di una funzione:
+	\begin{equation*}
+		f: A \subseteq \mathbb{R}^{2} \longrightarrow \mathbb{R}
+	\end{equation*}
+	Si concentra sui:
+	\begin{itemize}
+		\item Punti critici ($\left(x,y\right) \in \mathring{A}$ tale che $\nabla f\left(x,y\right) = \left(0,0\right)$), ovvero tutti quei punti interni (appartenenti quindi all'insieme dei punti interni, par. \ref{subsubsection: punti interni, esterni e di frontiera}) tale che il gradiente in quei punti sia zero.
+
+		\item Punti di $A$ che sono punti di frontiera.
+
+		\item Punti di $A$ in cui $f$ non è derivabile.
+	\end{itemize}
+	Nelle applicazioni spesso si chiede di trovare i massimi e minimi di $f$ su sottoinsiemi del dominio descritti da equazioni o disequazioni:
+	\begin{equation*}
+		\begin{array}{rl}
+			\max & f\left(x,y\right) \\
+			s.t. & g\left(x,y\right)=0 \\
+		\end{array}
+	\end{equation*}
+	Dove $s.t.$ indica \emph{subject to}, cioè soggetta al vincolo $g$.\newline
+	
+	\noindent
+	In questi casi, esistono due approcci:
+	\begin{itemize}
+		\item Ridursi al problema di ricerca degli estremi in una variabile, ovvero \definition{parametrizzazione del vincolo};
+
+		\item \definition{Metodo dei moltiplicatori di Lagrange}
+	\end{itemize}
+	\textbf{Indipendentemente dal metodo scelto}, è \underline{importante} utilizzare il Teorema di Weierstrass (teorema num. \ref{theorem: Weierstrass}, pagina \pageref{theorem: Weierstrass}) per mostrare al lettore (professore) che i punti di massimo/minimo assoluto esistano. In altre parole, basta \textbf{verificare che la funzione $f$ sia chiusa e limitata} (e continua) e per farlo si può riprendere la teoria (par. \ref{subsubsection: insiemi aperti, chiusi e limitati}).\newpage
+
+	\subsubsection{Parametrizzazione del vincolo}\label{subsubsection: parametrizzazione del vincolo}
+
+	% Inserire i due esempi, magari inserendo prima una piccola "anteprima".
+
+	\subsubsection{Metodo dei moltiplicatori di Lagrange}\label{subsubsection: metodo dei moltiplicatori di Lagrange}
+
+	% Teoria, partendo dal teorema dal moltiplicatore di Lagrande (vedi slide)
+	% continua con quello che c'è scritto sugli appunti arrivando fino alla fine.
+
+
+
+
+
+
+
+
+
+
+
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
