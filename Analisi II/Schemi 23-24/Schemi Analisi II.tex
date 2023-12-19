@@ -7598,25 +7598,264 @@
 	\noindent
 	In questi casi, esistono due approcci:
 	\begin{itemize}
-		\item Ridursi al problema di ricerca degli estremi in una variabile, ovvero \definition{parametrizzazione del vincolo};
+		\item Ridursi al problema di ricerca degli estremi in una variabile, ovvero \definition{parametrizzazione del vincolo} (par. \ref{subsubsection: parametrizzazione del vincolo});
 
-		\item \definition{Metodo dei moltiplicatori di Lagrange}
+		\item \definition{Metodo dei moltiplicatori di Lagrange} (par. \ref{subsubsection: metodo dei moltiplicatori di Lagrange}).
 	\end{itemize}
 	\textbf{Indipendentemente dal metodo scelto}, è \underline{importante} utilizzare il Teorema di Weierstrass (teorema num. \ref{theorem: Weierstrass}, pagina \pageref{theorem: Weierstrass}) per mostrare al lettore (professore) che i punti di massimo/minimo assoluto esistano. In altre parole, basta \textbf{verificare che la funzione $f$ sia chiusa e limitata} (e continua) e per farlo si può riprendere la teoria (par. \ref{subsubsection: insiemi aperti, chiusi e limitati}).\newpage
 
 	\subsubsection{Parametrizzazione del vincolo}\label{subsubsection: parametrizzazione del vincolo}
 
-	% Inserire i due esempi, magari inserendo prima una piccola "anteprima".
+	Determinare il massimo e il minimo assoluto di:
+	\begin{equation*}
+		f\left(x,y\right) = x^{2} + y^{2} - xy
+	\end{equation*}
+	Sulla regione (verde) in figura:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.4\textwidth]{img/parametrizzazione_del_vincolo.pdf}
+	\end{figure}
+
+	\noindent
+	Il dominio della regione, ovvero l'applicazione del metodo parametrico, è il seguente:
+	\begin{equation*}
+		T = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 2 \: \land \: 0 \le y \le -\dfrac{3}{2}x + 3\right\}
+	\end{equation*}
+	Il primo passo è verificare il Teorema di Weierstrass, quindi si verifica se è un insieme limitato e chiuso:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{T} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 < x < 2 \: \land \: 0 < y < -\dfrac{3}{2}x + 3\right\} \\ [1em]
+			%
+			\partial T &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \left(x = 0 \lor x = 2\right) \: \land \: \left(y=0 \lor y=-\dfrac{3}{2}x + 3\right)\right\} \\ [1em]
+			%
+			\overline{T} &=& A \cup \partial T = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 2 \: \land \: 0 \le y \le -\dfrac{3}{2}x + 3\right\}
+		\end{array}
+	\end{equation*}
+	Quindi l'insieme è limitato e chiuso (perché $T = \overline{T}$).\newline
+
+	\noindent
+	Si cercano eventuali massimi/minimi interni al triangolo:
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x} \left(x,y\right) = 2x-y = 0 \vspace{.5em}\\
+			\dfrac{\partial f}{\partial y} \left(x,y\right) = 2y-x = 0 
+		\end{cases}
+	\end{equation*}
+	L'unica soluzione del sistema è $\left(0,0\right)$, il quale non è all'interno di $T$ ma sulla frontiera.\newline
+
+	\noindent
+	La ricerca continua sulla frontiera di $T$ andando a cercare gli estremi di $f$, per cui si considerano i tre lati del triangolo:
+	\begin{itemize}
+		\item La base da $x = 0$ a $x = 2$:
+		\begin{equation*}
+			f_{1}\left(x\right) = f\left(x,0\right) = x^{2} + 0^{2} - x \cdot 0 = x^{2} \hspace{2em} x \in \left[0,2\right]
+		\end{equation*}
+		In cui il minimo valore, cioè andando a sostituire $0$, è:
+		\begin{equation*}
+			f_{1}\left(0\right) = 0^{2} = 0
+		\end{equation*}
+		Mentre il massimo, cioè andando a sostituire $2$, è:
+		\begin{equation*}
+			f_{1}\left(2\right) = 2^{2} = 4
+		\end{equation*}
+
+		\item Il lato di sinistra, cioè quello che percorre lungo $y$ da $y = 0$ a $y = 3$:
+		\begin{equation*}
+			f_{2}\left(y\right) = f\left(0,y\right) = 0^{2} + y^{2} - 0 \cdot y = y^{2} \hspace{2em} y \in \left[0,3\right]
+		\end{equation*}
+		Studiando gli estremi si ha:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\min f_{2}\left(y\right) &=& f_{2}\left(0\right) = 0 \\ [.5em]
+				\max f_{2}\left(y\right) &=& f_{2}\left(3\right) = 9
+			\end{array}
+		\end{equation*}
+
+		\item Il lato obliquo, cioè quello da $\left(2,0\right)$ a $\left(0,3\right)$:
+		\begin{equation*}
+			f_{3}\left(x, -\dfrac{3}{2}x + 3\right) = x^{2} +\left(-\dfrac{3}{2}x + 3\right)^{2} - x \cdot \left(-\dfrac{3}{2}x + 3\right) = \dfrac{19}{4}x^{2} - 12x + 9
+		\end{equation*}
+		Studiando gli estremi si ha:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\min f_{3}\left(x\right) &=& f_{3}\left(0\right) = \dfrac{19}{4} \cdot 0^{2} - 12 \cdot 0 + 9 = 9 \\ [.5em]
+				\max f_{3}\left(x\right) &=& f_{3}\left(2\right) = \dfrac{19}{4} \cdot  2^{2} - 12 \cdot 2 + 9 = \dfrac{27}{19} \approx 1,4210
+			\end{array}
+		\end{equation*}
+	\end{itemize}
+	Da queste analisi, è possibile dedurre che il minimo di $f$ su $T$ è $0$ (nel punto $\left(0,0\right)$), mentre il massimo di $f$ su $T$ è $9$ (nel punto $0,3$), come dimostrato in $\max f_{2}\left(y\right)$.\newpage
 
 	\subsubsection{Metodo dei moltiplicatori di Lagrange}\label{subsubsection: metodo dei moltiplicatori di Lagrange}
 
-	% Teoria, partendo dal teorema dal moltiplicatore di Lagrande (vedi slide)
-	% continua con quello che c'è scritto sugli appunti arrivando fino alla fine.
+	\begin{theorem}
+		Siano $f$ e $g$ due funzioni di classe $\mathcal{C}^{1}$ su un aperto $A \subseteq \mathbb{R}^{n}$. Se $\overline{x}$ è un punto di estremo per $f$ su $G = \left\{x \in A \: : \: g\left(x\right)=0\right\}$ e $\nabla g\left(\overline{x}\right) = \overrightarrow{0}$, allora esiste $\lambda \in \mathbb{R}$ tale che:
+		\begin{equation*}
+			\nabla f\left(\overline{x}\right) = \lambda \nabla g\left(\overline{x}\right)
+		\end{equation*}
+	\end{theorem}
 
+	\noindent
+	La lettera $\lambda$ rappresenta il \definition{moltiplicatore di Lagrange}.\newline
 
+	\noindent
+	Il teorema afferma che per trovare dei punti \textbf{regolari} sul vincolo imposto, nei quali $f$ assuma un valore massimo o minimo, bisogna cercare tra quelli che verificano le equazioni:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) &=& \lambda \dfrac{\partial f}{\partial x}\left(x,y\right) \\ [1em]
+			\dfrac{\partial f}{\partial y}\left(x,y\right) &=& \lambda \dfrac{\partial f}{\partial y}\left(x,y\right) \\ [1em]
+			g\left(x,y\right) &=& 0
+		\end{array}
+	\end{equation*}
+	Ma dato che le precedenti equazioni sono vere se e solo se:
+	\begin{equation*}
+		\nabla \left(f\left(x,y\right) - \lambda g\left(x,y\right)\right) = \left(0,0\right)
+	\end{equation*}
+	Allora, si può definire la \definition{funzione Lagrangiana} come:
+	\begin{equation}\label{eq: funzione Lagrangiana}
+		\mathcal{L}\left(x,y,\lambda\right) \triangleq f\left(x,y\right) - \lambda g\left(x,y\right)
+	\end{equation}
+	Grazie a questa formula, il problema di ottimizzazione si trasforma nella ricerca dei punti critici di $\mathcal{L}$.
 
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = x^{2} + xy + 2y^{2}
+	\end{equation*}
+	Definita sul vincolo:
+	\begin{equation*}
+		G = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{1}{2}x^{2} + y^{2} \le 1\right\}
+	\end{equation*}
+	Si parte con l'analisi del vincolo. Come prima passo si verifica che sia possibile ottenere punti di massimo/minimo assoluto:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{G} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{1}{2}x^{2} + y^{2} < 1\right\} \\ [.5em]
+			\partial G &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{1}{2}x^{2} + y^{2} = 1\right\} \\ [.5em]
+			\overline{G} &=& G \cup \partial G = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{1}{2}x^{2} + y^{2} \le 1\right\}
+		\end{array}
+	\end{equation*}
+	Il vincolo è un insieme chiuso e limitato, per cui il teorema di Weierstrass ci assicura, dato che la funzione è anche continua, l'esistenza di massimi e minimi assoluti.\newline
 
+	\noindent
+	Il \textbf{secondo passo} è l'applicazione del Teorma di Lagrange utilizzando la funzione Lagrangiana (eq. \ref{eq: funzione Lagrangiana}):
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathcal{L}\left(x,y,\lambda\right) &=& f\left(x,y\right) - \lambda g\left(x,y\right) \\ [.5em]
+			\mathcal{L}\left(x,y,\lambda\right) &=& x^{2} + xy + 2y^{2} - \lambda \left(\dfrac{1}{2}x^{2} + y^{2} - 1\right)
+		\end{array}
+	\end{equation*}
+	Il \textbf{terzo passo} è calcolare le derivate parziali rispetto $x,y,\lambda$ e trovare le soluzioni del sistema posto uguale a zero:
+	\begin{gather*}
+		\begin{cases}
+			\dfrac{\partial\mathcal{L}}{\partial x}\left(x,y,\lambda\right) = 0 \vspace{.5em}\\
+			\dfrac{\partial\mathcal{L}}{\partial y}\left(x,y,\lambda\right) = 0 \vspace{.5em}\\
+			\dfrac{\partial\mathcal{L}}{\partial \lambda}\left(x,y,\lambda\right) = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			2x + y - \lambda x = 0 \vspace{.5em}\\
+			x + 4y - 2y\lambda = 0 \vspace{.5em}\\
+			-\left(\dfrac{1}{2}x^{2} + y^{2} - 1\right) = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y - x\left(\lambda - 2\right) = 0 \vspace{.5em}\\
+			x + 4y - 2y\lambda = 0 \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+		\\
+		\begin{cases}
+			y = x\left(\lambda - 2\right) \vspace{.5em}\\
+			x = - 2y\left(\lambda - 2\right) \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = x\left(\lambda - 2\right) \vspace{.5em}\\
+			x = - 2x\left(\lambda - 2\right)\left(\lambda - 2\right) \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = x\left(\lambda - 2\right) \vspace{.5em}\\
+			\dfrac{1}{2} = -\left(\lambda - 2\right)\left(\lambda - 2\right) \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+		\\
+		\begin{cases}
+			y = x\left(\lambda - 2\right) \vspace{.5em}\\
+			-\dfrac{1}{2} = \left(\lambda - 2\right)^{2} \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = x\left(\lambda - 2\right) \vspace{.5em}\\
+			\pm \dfrac{1}{\sqrt{2}} = \left(\lambda - 2\right) \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = x\left(\lambda - 2\right) \vspace{.5em}\\
+			2 \pm \dfrac{1}{\sqrt{2}} = \lambda \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+	\end{gather*}
+	Dopo aver trovato le soluzioni di $\lambda$, si prosegue cercando le soluzioni di $x$ e successivamente di $y$:
+	\begin{gather*}
+		\begin{cases}
+			y = x\left(\lambda - 2\right) \vspace{.5em}\\
+			\lambda = 2 \pm \dfrac{1}{\sqrt{2}} \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = x\left(2 \pm \dfrac{1}{\sqrt{2}} - 2\right) \vspace{.5em}\\
+			\lambda = 2 \pm \dfrac{1}{\sqrt{2}} \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + y^{2} = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = \pm \dfrac{1}{\sqrt{2}}x \vspace{.5em}\\
+			\lambda = 2 \pm \dfrac{1}{\sqrt{2}} \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + \left(\pm \dfrac{1}{\sqrt{2}}x\right)^{2} = 1
+		\end{cases}
+		\\
+		\begin{cases}
+			y = \pm \dfrac{1}{\sqrt{2}}x \vspace{.5em}\\
+			\lambda = 2 \pm \dfrac{1}{\sqrt{2}} \vspace{.5em}\\
+			\dfrac{1}{2}x^{2} + \dfrac{1}{2}x^{2} = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = \pm \dfrac{1}{\sqrt{2}}x & \rightarrow y = \pm \dfrac{1}{\sqrt{2}}\vspace{.5em}\\
+			\lambda = 2 \pm \dfrac{1}{\sqrt{2}} \vspace{.5em}\\
+			x^{2} = 1 & \rightarrow x = \pm 1
+		\end{cases}
+	\end{gather*}\newpage
 
+	\noindent
+	Quindi i punti stazionari sono:
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item $A = \left(1, \dfrac{1}{\sqrt{2}}\right)$
+			\item $B = \left(1, -\dfrac{1}{\sqrt{2}}\right)$
+			\item $C = \left(-1, \dfrac{1}{\sqrt{2}}\right)$
+			\item $D = \left(-1, -\dfrac{1}{\sqrt{2}}\right)$
+		\end{itemize}
+	\end{multicols}
+
+	\noindent
+	Il \textbf{terzo} e ultimo passo è confrontare i punti trovare e stabilire il massimo e il minimo. Quindi, basta sostituire i punti all'interno della funzione $f$, ottenere il risultato e verificare quale sia il valore più alto e più basso:
+	\begin{itemize}
+		\item $f\left(A\right) = f\left(1, \dfrac{1}{\sqrt{2}}\right) = 2+\dfrac{1}{\sqrt{2}}$
+		\item $f\left(D\right) = f\left(-1, -\dfrac{1}{\sqrt{2}}\right) = 2+\dfrac{1}{\sqrt{2}}$
+		\item $f\left(B\right) = f\left(1, -\dfrac{1}{\sqrt{2}}\right) = 2-\dfrac{1}{\sqrt{2}}$
+		\item $f\left(C\right) = f\left(-1, \dfrac{1}{\sqrt{2}}\right) = 2-\dfrac{1}{\sqrt{2}}$
+	\end{itemize}
+	Quindi il valore massimo assoluto è $2+\frac{1}{\sqrt{2}}$, mentre il minimo assoluto è $2-\frac{1}{\sqrt{2}}$.
+
+	% TODO: esempio 8, 9, 10 e 12 (? punti del vincolo sono regolari?). Meglio scegliere il 12 rispetto al 10 perché ha una funzione più semplice.
 
 
 
