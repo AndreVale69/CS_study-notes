@@ -7853,7 +7853,122 @@
 		\item $f\left(B\right) = f\left(1, -\dfrac{1}{\sqrt{2}}\right) = 2-\dfrac{1}{\sqrt{2}}$
 		\item $f\left(C\right) = f\left(-1, \dfrac{1}{\sqrt{2}}\right) = 2-\dfrac{1}{\sqrt{2}}$
 	\end{itemize}
-	Quindi il valore massimo assoluto è $2+\frac{1}{\sqrt{2}}$, mentre il minimo assoluto è $2-\frac{1}{\sqrt{2}}$.
+	Quindi il valore massimo assoluto è $2+\frac{1}{\sqrt{2}}$, mentre il minimo assoluto è $2-\frac{1}{\sqrt{2}}$.\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = \dfrac{1}{x} + \dfrac{1}{y}
+	\end{equation*}
+	Definita sul vincolo:
+	\begin{equation*}
+		G = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} = 1\right\}
+	\end{equation*}
+	Si analizza il vincolo:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{G} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} \ne 1\right\} \\ [1em]
+			\partial G &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} = 1\right\} \\ [1em]
+			\overline{G} &=& G \cup \partial G = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} = 1\right\}
+		\end{array}
+	\end{equation*}
+	L'insieme è chiuso, ma non limitato poiché non esiste una palla di raggio maggiore zero che lo contenga. Quindi il Teorema di Weierstrass non assicura la presenza di max/min assoluti. Si procede comunque l'analisi con Lagrange.
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathcal{L}\left(x,y,\lambda\right) &=& f\left(x,y\right) - \lambda G\left(x,y\right) \\ [.3em]
+			\mathcal{L}\left(x,y,\lambda\right) &=& \left(\dfrac{1}{x} + \dfrac{1}{y}\right) - \lambda \underbrace{\left(\dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} - 1\right)}_{\frac{1}{x^{2}} + \frac{1}{y^{2}} - 1 = 0}
+		\end{array}
+	\end{equation*}
+	Si costruisce il sistema con le derivate parziali poste a zero:
+	\begin{gather*}
+		\begin{cases}
+			\dfrac{\partial \mathcal{L}}{\partial x}\left(x,y,\lambda\right) = -\dfrac{1}{x^{2}} -\left(\lambda\left(-\dfrac{2}{x^{3}}\right)\right) = 0 \vspace{.5em} \\
+			%
+			\dfrac{\partial \mathcal{L}}{\partial y}\left(x,y,\lambda\right) = -\dfrac{1}{y^{2}} -\left(\lambda\left(-\dfrac{2}{y^{3}}\right)\right) = 0\vspace{.5em} \\
+			%
+			\dfrac{\partial \mathcal{L}}{\partial \lambda}\left(x,y,\lambda\right) = \dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} - 1 = 0 \\
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-\dfrac{1}{x^{2}} + \lambda\dfrac{2}{x^{3}} = 0 \vspace{.5em} \\
+			%
+			-\dfrac{1}{y^{2}} + \lambda\dfrac{2}{y^{3}} = 0\vspace{.5em} \\
+			%
+			\dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} - 1 = 0 \\
+		\end{cases}
+		%
+		\\
+		%
+		\begin{cases}
+			\dfrac{-x + 2\lambda}{x^{3}} = 0 \vspace{.5em} \\
+			%
+			\dfrac{-y + 2\lambda}{y^{3}} = 0 \vspace{.5em} \\
+			%
+			\dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} - 1 = 0 \\
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-x + 2\lambda = 0 \vspace{.5em} \\
+			%
+			-y + 2\lambda = 0 \vspace{.5em} \\
+			%
+			\dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} - 1 = 0 \\
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x = 2\lambda \vspace{.5em} \\
+			%
+			y = 2\lambda \vspace{.5em} \\
+			%
+			\dfrac{1}{x^{2}} + \dfrac{1}{y^{2}} - 1 = 0 \\
+		\end{cases}
+		%
+		\\
+		%
+		\begin{cases}
+			x = 2\lambda \vspace{.5em} \\
+			%
+			y = 2\lambda \vspace{.5em} \\
+			%
+			\dfrac{1}{4\lambda^{2}} + \dfrac{1}{4\lambda^{2}} - 1 = 0 \\
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x = 2\lambda \vspace{.5em} \\
+			%
+			y = 2\lambda \vspace{.5em} \\
+			%
+			\dfrac{1}{2\lambda^{2}} = 1 \\
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x = 2\lambda & \rightarrow x = 2\cdot\left(\pm \dfrac{1}{\sqrt{2}}\right) \vspace{.5em} \\
+			%
+			y = 2\lambda & \rightarrow y = x \vspace{.5em} \\
+			%
+			\dfrac{1}{2\lambda^{2}} = 1 & \rightarrow \lambda = \pm\dfrac{1}{\sqrt{2}} \\
+		\end{cases}
+	\end{gather*}\newpage
+
+	\noindent
+	I punti stazionari sono:
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item $A = \left(\dfrac{2}{\sqrt{2}}, \dfrac{2}{\sqrt{2}}\right)$
+
+			\item $B = \left(-\dfrac{2}{\sqrt{2}}, -\dfrac{2}{\sqrt{2}}\right)$
+		\end{itemize}
+	\end{multicols}
+	E applicando tali punti nella funzione $f$ si trovano i valori:
+	\begin{equation*}
+		\begin{array}{rcl}
+			f\left(A\right) &=& \sqrt{2} \approx 1.4142 \\ [.3em]
+			f\left(B\right) &=& -\sqrt{2} \approx -1.4142
+		\end{array}
+	\end{equation*}
+	Quindi il punto $A$ è un punto di massimo e il punto $B$ è un punto di minimo.
 
 	% TODO: esempio 8, 9, 10 e 12 (? punti del vincolo sono regolari?). Meglio scegliere il 12 rispetto al 10 perché ha una funzione più semplice.
 
