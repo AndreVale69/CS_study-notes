@@ -2061,8 +2061,6 @@
 		\label{tab: casi particolari del metodo di somiglianza}
 	\end{table}\newpage
 
-	% TODO: add examples
-
 	\subsection{Metodo di variazione delle costanti}
 
 	Il \definition{metodo di variazione} delle costanti è una tecnica più generale che consente di ricavare una soluzione particolare dell'equazione completa, qualunque sia la forma del termine forzante (cioè quello a destra dell'uguale).\newline
@@ -7714,7 +7712,7 @@
 	\begin{equation}\label{eq: funzione Lagrangiana}
 		\mathcal{L}\left(x,y,\lambda\right) \triangleq f\left(x,y\right) - \lambda g\left(x,y\right)
 	\end{equation}
-	Grazie a questa formula, il problema di ottimizzazione si trasforma nella ricerca dei punti critici di $\mathcal{L}$.
+	Grazie a questa formula, il problema di ottimizzazione si trasforma nella ricerca dei punti critici di $\mathcal{L}$. Qua di seguito si presenta un metodo per risolvere tali problemi, ma \href{https://www.youmath.it/lezioni/analisi-due/varie/822-massimi-e-minimi-vincolati-in-2-variabili.html}{questa} potrebbe essere una fonte utile.\newpage
 
 	\begin{flushleft}
 		\example{\underline{Esempio 1}}
@@ -7832,9 +7830,7 @@
 			\lambda = 2 \pm \dfrac{1}{\sqrt{2}} \vspace{.5em}\\
 			x^{2} = 1 & \rightarrow x = \pm 1
 		\end{cases}
-	\end{gather*}\newpage
-
-	\noindent
+	\end{gather*}
 	Quindi i punti stazionari sono:
 	\begin{multicols}{2}
 		\begin{itemize}
@@ -7968,11 +7964,183 @@
 			f\left(B\right) &=& -\sqrt{2} \approx -1.4142
 		\end{array}
 	\end{equation*}
-	Quindi il punto $A$ è un punto di massimo e il punto $B$ è un punto di minimo.
+	Quindi il punto $A$ è un punto di massimo e il punto $B$ è un punto di minimo.\newpage
 
-	% TODO: esempio 8, 9, 10 e 12 (? punti del vincolo sono regolari?). Meglio scegliere il 12 rispetto al 10 perché ha una funzione più semplice.
+	\begin{flushleft}
+		\example{\underline{Esempio 3 - Lagrange può non restituire sempre quello che si cerca}}
+	\end{flushleft}
+	Data la funzione:
+	\begin{equation*}
+		f\left(x,y\right) = 2x+3y
+	\end{equation*}
+	Definita sul vincolo:
+	\begin{equation*}
+		G = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \sqrt{x} + \sqrt{y} = 5\right\}
+	\end{equation*}
+	Il primo passo è sempre capire se il vincolo è chiuso e limitato:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{G} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \sqrt{x} + \sqrt{y} \ne 5\right\} \\ [.5em]
+			\partial G &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \sqrt{x} + \sqrt{y} = 5\right\} \\ [.5em]
+			\overline{G} &=& G \cup \partial G = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: \sqrt{x} + \sqrt{y} = 5\right\}
+		\end{array}
+	\end{equation*}
+	L'insieme è chiuso e limitato dato che la somma di due radici quadrate non può essere negativa (siamo nei numeri reali!) e non può superare $5$. Per cui, il teorema di Weierstrass assicura la presenza di massimi e minimi assoluti. Si procede con Lagrange:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathcal{L}\left(x,y,\lambda\right) &=& f\left(x,y\right) - \lambda G\left(x,y\right) \\ [.5em]
+			\mathcal{L}\left(x,y,\lambda\right) &=& \left(2x+3y\right) - \lambda \left(\sqrt{x} + \sqrt{y} - 5\right)
+		\end{array}
+	\end{equation*}
+	Il sistema di derivate parziali poste a zero:
+	\begin{gather*}
+		\begin{cases}
+			\dfrac{\partial \mathcal{L}}{\partial x}\left(x,y,\lambda\right) = 2 - \lambda\dfrac{1}{2\sqrt{x}} = 0 \vspace{.5em} \\
+			\dfrac{\partial \mathcal{L}}{\partial y}\left(x,y,\lambda\right) = 3 - \lambda\dfrac{1}{2\sqrt{y}} = 0 \vspace{.5em} \\
+			\dfrac{\partial \mathcal{L}}{\partial \lambda}\left(x,y,\lambda\right) = \sqrt{x}+\sqrt{y}-5 = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\lambda\dfrac{1}{2\sqrt{x}} = 2 \vspace{.5em} \\
+			\lambda\dfrac{1}{2\sqrt{y}} = 3 \vspace{.5em} \\
+			\sqrt{x}+\sqrt{y} = 5
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\dfrac{2}{\lambda} \cdot \lambda\dfrac{1}{2\sqrt{x}} = 2 \cdot \dfrac{2}{\lambda} \vspace{.5em} \\
+			\dfrac{2}{\lambda} \cdot \lambda\dfrac{1}{2\sqrt{y}} = 3 \cdot \dfrac{2}{\lambda} \vspace{.5em} \\
+			\sqrt{x}+\sqrt{y} = 5
+		\end{cases}
+		%
+		\\
+		%
+		\begin{cases}
+			\dfrac{1}{\sqrt{x}} = \dfrac{4}{\lambda} \vspace{.5em} \\
+			\dfrac{1}{\sqrt{y}} = \dfrac{6}{\lambda} \vspace{.5em} \\
+			\sqrt{x}+\sqrt{y} = 5
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\dfrac{\lambda}{\sqrt{x}} = 4 \vspace{.5em} \\
+			\dfrac{\lambda}{\sqrt{y}} = 6 \vspace{.5em} \\
+			\sqrt{x}+\sqrt{y} = 5
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\lambda = 4\sqrt{x} \vspace{.5em} \\
+			\lambda = 6\sqrt{y} \vspace{.5em} \\
+			\sqrt{x}+\sqrt{y} = 5
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\sqrt{x} = \dfrac{\lambda}{4} \vspace{.5em} \\
+			\sqrt{y} = \dfrac{\lambda}{6} \vspace{.5em} \\
+			\dfrac{3\lambda + 2\lambda}{12} = 5
+		\end{cases}
+		%
+		\\
+		%
+		\begin{cases}
+			x = \left(\dfrac{12}{4}\right)^{2} = 9 \vspace{.5em} \\
+			y = \left(\dfrac{12}{6}\right)^{2} = 4 \vspace{.5em} \\
+			\lambda = \dfrac{60}{5} = 12
+		\end{cases}
+	\end{gather*}
+	Il punto trovato e sostituito nella funzione restituisce $f\left(9,4\right) = 30$ che è un minimo assoluto. Il massimo assoluto sarebbe $75$ con il punto $\left(0,25\right)$. Tuttavia, Lagrange non ha intercettato tale punto poiché non è regolare a causa della condizione fornita! Infatti, si vede immediatamente che se nel sistema si sostituisce $x=0,y=0$, il risultato o è impossibile o non sensato.\newpage
 
+	\section{Integrali multipli}\label{section: integrali multipli}
 
+	\subsection{Integrali doppi}\label{subsection: integrali doppi}
+
+	\subsubsection{Definizione su regioni rettangolari}\label{subsubsection: definizione su regioni rettangolari}
+
+	Si vuole definire un integrale del tipo:
+	\begin{equation*}
+		\displaystyle\iint\limits_{R} f\left(x,y\right) \:\mathrm{d}x\mathrm{d}y
+	\end{equation*}
+	Di modo che il suo valore sia il volume del solido:
+	\begin{equation*}
+		S = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: \left(x,y\right) \in \mathbb{R}, \: 0 \le z \le f\left(x,y\right)\right\}
+	\end{equation*}
+	La situazione più semplice che è possibile incontrare è una regione rettangolare. Si supponga inizialmente la regione:
+	\begin{equation*}
+		R = \left[a, b\right] \times \left[c,d\right]
+	\end{equation*}
+	\begin{minipage}{.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/integrali-doppi-rettangolo.jpg}
+	\end{minipage}
+	\begin{minipage}{.5\textwidth}
+		\centering
+		\includegraphics[width=.8\textwidth]{img/integrali_doppi_regioni_rettangolari.pdf}
+	\end{minipage}\:\newline
+	
+	\noindent
+	Con la funzione $f$ limitata sulla regione $R$ e non negativa. Allora l'integrale doppio non è altro che:
+	\begin{theorem}\label{theorem: integrale doppio su regione rettangolare}
+		Se $f: \left[a,b\right] \times \left[c,d\right] \rightarrow \mathbb{R}$ è continua, allora è \textbf{integrabile}. Inoltre:
+		\begin{equation}\label{eq: integrale doppio su regione rettangolare}
+			\begin{array}{rcl}
+				\displaystyle\iint\limits_{R} f\left(x,y\right) \: \mathrm{d}x\mathrm{d}y &=& \displaystyle\int_{a}^{b} \left(\int_{c}^{d} f\left(x,y\right) \: \mathrm{d}y \right) \: \mathrm{d}x \\ [1em]
+				%
+				&=& \displaystyle\int_{d}^{c} \left(\int_{a}^{b} f\left(x,y\right) \: \mathrm{d}x \right) \: \mathrm{d}y
+			\end{array}
+		\end{equation}
+	\end{theorem}
+
+	\newpage
+
+	\subsubsection{Esempi}\label{subsubsection: esempi}
+	
+	\begin{enumerate}
+		\item Sia:
+		\begin{equation*}
+			I = \displaystyle\iint \limits_{R} \left(x^{2}+y^{2}\right) \:\mathrm{d}x \:\mathrm{d}y
+		\end{equation*}
+		Dove:
+		\begin{equation*}
+			R = \left[0,1\right] \times \left[0,1\right]
+		\end{equation*}
+		Calcolare $I$.
+		
+		\item Sia:
+		\begin{equation*}
+			I = \displaystyle\iint \limits_{R} x \cos\left(xy\right) \:\mathrm{d}x \:\mathrm{d}y
+		\end{equation*}
+		Dove:
+		\begin{equation*}
+			R = \left[0,1\right] \times \left[0,\pi\right]
+		\end{equation*}
+		Calcolare $I$.
+		
+		\item Sia:
+		\begin{equation*}
+			I = \displaystyle\iint \limits_{R} \mathrm{d}x \: \mathrm{d}y
+		\end{equation*}
+		Dove:
+		\begin{equation*}
+			R = \left[a,b\right] \times \left[c,d\right]
+		\end{equation*}
+		Calcolare $I$.
+	\end{enumerate}
+
+	\begin{flushleft}
+		\example{\underline{Esercizio 1}}
+	\end{flushleft}
+
+	\begin{flushleft}
+		\example{\underline{Esercizio 2}}
+	\end{flushleft}
+
+	\begin{flushleft}
+		\example{\underline{Esercizio 3}}
+	\end{flushleft}
+
+	\subsubsection{Definizione su regioni non rettangolari}\label{subsubsection: definizione su regioni non rettangolari}
+
+	\subsubsection{Altri esempi}\label{subsubsection: altri esempi}
+
+	\subsubsection{Proprietà degli integrali doppi}\label{subsubsection: proprietà degli integrali doppi}
 
 
 
