@@ -20,6 +20,7 @@
 \usepackage[x11names]{xcolor}		% pacchetto colori RGB
 \usepackage{tcolorbox}				% pacchetto per le box colorate
 \usepackage{multicol}				% pacchetto per creare più colonne (utilizzato per le liste)
+\usepackage{url}
 
 % draw a frame around given text
 \newcommand{\framedtext}[1]{%
@@ -8089,8 +8090,6 @@
 	\end{theorem}
 
 	\newpage
-
-	\subsubsection{Esempi}\label{subsubsection: esempi}
 	
 	\begin{enumerate}
 		\item Sia:
@@ -8127,20 +8126,341 @@
 	\begin{flushleft}
 		\example{\underline{Esercizio 1}}
 	\end{flushleft}
-
+	\begin{equation*}
+		I = \displaystyle\iint \limits_{R} \left(x^{2}+y^{2}\right) \:\mathrm{d}x \:\mathrm{d}y \hspace{3em} R = \left[0,1\right] \times \left[0,1\right]
+	\end{equation*}
+	Gli integrali doppi, nel caso semplice di un rettangolo, devono essere risolti osservando attentamente la regione definita. Come \textbf{primo passo}, è necessario identificare gli estremi di integrazione. Ricordando che la regione è scritta nella forma del tipo $\left[a,b\right] \times \left[c,d\right]$, come suggerisce il teorema \ref{theorem: integrale doppio su regione rettangolare}, e che $a,b$ sono sull'asse $x$, gli estremi di integrazione saranno:
+	\begin{equation*}
+		R = \left[\textcolor{Red3}{\mathbf{0}},\textcolor{Red3}{\mathbf{1}}\right] \times \left[\textcolor{Green4}{\mathbf{0}},\textcolor{Green4}{\mathbf{1}}\right] 
+		\Longrightarrow 
+		\displaystyle \int_{\textcolor{Green4}{\mathbf{0}}}^{\textcolor{Green4}{\mathbf{1}}} \left(\int_{\textcolor{Red3}{\mathbf{0}}}^{\textcolor{Red3}{\mathbf{1}}} \left(x^{2}+y^{2}\right) \:\mathrm{d}x\right) \:\mathrm{d}y
+	\end{equation*}
+	Il \textbf{secondo passo} è il calcolo dell'integrale più interno:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle \int_{0}^{1} \left(\int_{0}^{1} \left(x^{2}+y^{2}\right) \:\mathrm{d}x\right) \:\mathrm{d}y 
+			&=& 
+			\displaystyle \int_{0}^{1} \left(\int_{0}^{1} x^{2} \:\mathrm{d}x + \int_{0}^{1} y^{2} \:\mathrm{d}x\right) \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle \int_{0}^{1} \left(\left[\dfrac{1}{3}x^{3}\right]_{0}^{1} + \left[xy^{2}\right]_{0}^{1}\right) \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle \int_{0}^{1} \left(\left[\dfrac{1}{3} \cdot 1^{3} - \dfrac{1}{3} \cdot 0^{3}\right] + \left[1 \cdot y^{2} - 0 \cdot y^{2}\right]\right) \:\mathrm{d}y \\ [1.5em]
+			%
+			&=& \displaystyle \int_{0}^{1} \dfrac{1}{3} + y^{2} \: \mathrm{d}y \\ [1em]
+			%
+			&=& \left[\dfrac{1}{3}y + \dfrac{1}{3}y^{3}\right]_{0}^{1} = \dfrac{1}{3} + \dfrac{1}{3} = \dfrac{2}{3}
+		\end{array}
+	\end{equation*}\newpage
+	
 	\begin{flushleft}
 		\example{\underline{Esercizio 2}}
 	\end{flushleft}
+	\begin{equation*}
+		I = \displaystyle\iint \limits_{R} x \cos\left(xy\right) \:\mathrm{d}x \:\mathrm{d}y \hspace{3em} R = \left[0,1\right] \times \left[0,\pi\right]
+	\end{equation*}
+	Si scrivono gli estremi di integrazione:
+	\begin{equation*}
+		\displaystyle\int_{0}^{\pi} \left(\int_{0}^{1} x \cos\left(xy\right) \: \mathrm{d}x\right) \:\mathrm{d}y
+	\end{equation*}
+	Ma prima di procedere con il calcolo, si spiega il motivo per cui si mostra questo esempio. Come si vede dall'espressione, un integrale di questo tipo non è semplice da calcolare e non è affatto immediato. In questi casi è fortemente consigliato sfruttare il teorema \ref{theorem: integrale doppio su regione rettangolare} e riscrivere l'intero integrale:
+	\begin{equation*}
+		\displaystyle\int_{0}^{\pi} \left(\int_{0}^{1} x \cos\left(xy\right) \: \mathrm{d}x\right) \:\mathrm{d}y
+		=
+		\displaystyle\int_{0}^{1} \left(\int_{0}^{\pi} x \cos\left(xy\right) \: \mathrm{d}y\right) \:\mathrm{d}x
+	\end{equation*}
+	E qui la situazione cambia. La $x$ diventa costante e dunque diventa un integrale con un argomento composto. Per cui:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{\pi} x \cos\left(xy\right) \: \mathrm{d}y\right) \:\mathrm{d}x
+			&=&
+			\displaystyle\int_{0}^{1} \left(\left[\sin\left(xy\right)\right]_{0}^{\pi}\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \sin\left(\pi x\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&\downarrow&
+			\text{per sostituzione } t = \pi x \hspace{1.5em} \mathrm{d}x = \dfrac{1}{t'} \:\mathrm{d}t \\ [1.5em]
+			%
+			&=& \displaystyle\int_{0}^{1} \sin\left(t\right) \cdot \dfrac{1}{\pi} \: \mathrm{d}t \\ [1.5em]
+			%
+			&=& \dfrac{1}{\pi} \cdot \left[- \cos\left(t\right)\right]_{0}^{1} \\ [1.5em]
+			%
+			&=& \dfrac{1}{\pi} \cdot \left[- \cos\left(\pi x\right)\right]_{0}^{1} \\ [1.5em]
+			%
+			&=& \dfrac{1}{\pi} \cdot \left[- \cos\left(\pi\right) - \left(- \cos\left(0\right)\right)\right] \\ [1.5em]
+			%
+			&=& \dfrac{1}{\pi} \cdot \left[- \left(-1\right) - \left(- 1\right)\right] \\ [1.5em]
+			%
+			&=& \dfrac{2}{\pi}
+		\end{array}
+	\end{equation*}\newpage
 
 	\begin{flushleft}
 		\example{\underline{Esercizio 3}}
 	\end{flushleft}
+	\begin{equation*}
+		I = \displaystyle\iint \limits_{R} \mathrm{d}x \: \mathrm{d}y \hspace{3em} R = \left[a,b\right] \times \left[c,d\right]
+	\end{equation*}
+	Si scrivono gli estremi di integrazione:
+	\begin{equation*}
+		\displaystyle\int_{c}^{d}\int_{a}^{b} \mathrm{d}x \: \mathrm{d}y
+	\end{equation*}
+	Si risolve l'integrale del valore $1$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{c}^{d}\int_{a}^{b} \mathrm{d}x \: \mathrm{d}y 
+			&=& 
+			\displaystyle\int_{c}^{d}\int_{a}^{b} 1 \: \mathrm{d}x \: \mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{c}^{d} \left[x\right]_{a}^{b} \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{c}^{d} b-a \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\left[by-ay\right]_{c}^{d} \\ [1.5em]
+			%
+			&=&
+			\left(bd - ad\right) - \left(bc - ac\right) \\ [1.5em]
+			%
+			&=&
+			bd - ad - bc + ac
+		\end{array}
+	\end{equation*}\newpage
 
-	\subsubsection{Definizione su regioni non rettangolari}\label{subsubsection: definizione su regioni non rettangolari}
+	\subsubsection{Definizione su regioni non rettangolari: insiemi x e y semplici}\label{subsubsection: definizione su regioni non rettangolari: insiemi x e y semplici}
 
-	\subsubsection{Altri esempi}\label{subsubsection: altri esempi}
+	Si consideri un sottoinsieme limitato $D$ di $\mathbb{R}^{2}$. Per definire l'integrale di una funzione $f$ su $D$, si estende la funzione $f$ ad un rettangolo $R$ che contiene il dominio $D$:
+	\begin{equation*}
+		\overline{f}\left(x,y\right) 
+		= 
+		\begin{cases}
+			f\left(x,y\right) 	& \text{se } \left(x,y\right) \in D \\
+			0					& \text{se } \left(x,y\right) \in R \setminus D
+		\end{cases}
+	\end{equation*}
+	Si dice che la funzione $f$ è integrabile su $D$ se $\overline{f}$ è integrabile su $R$ e, in tal caso:
+	\begin{equation*}
+		\iint \limits_{D} f\left(x,y\right) \:\mathrm{d}x \: \mathrm{d}y \triangleq \iint \limits_{R} \overline{f}\left(x,y\right) \:\mathrm{d}x \: \mathrm{d}y
+	\end{equation*}
+	Nonostante le regioni non siano rettangolari, esistono alcuni pattern risolutivi.
 
-	\subsubsection{Proprietà degli integrali doppi}\label{subsubsection: proprietà degli integrali doppi}
+	\begin{boxdef}
+		L'insieme:
+		\begin{equation}\label{eq: insieme y-semplice}
+			D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \in \left[a,b\right], g_{1}\left(x\right) \le y \le g_{2}\left(x\right)\right\}
+		\end{equation}
+		Con $g_{1},g_{2}$ funzioni continue su $\left[a,b\right]$, viene definito \definition{insieme $y$-semplice} o \textbf{insieme verticalmente convesso}. In questo caso l'integrale doppio è:
+		\begin{equation}\label{eq: formula integrale doppio y-semplice}
+			\displaystyle \iint \limits_{D} f\left(x,y\right) \:\mathrm{d}x\:\mathrm{d}y = \int_{a}^{b} \left(\int_{g_{1}\left(x\right)}^{g_{2}\left(x\right)} f\left(x,y\right) \:\mathrm{d}y\right) \:\mathrm{d}x
+		\end{equation}
+		L'insieme:
+		\begin{equation}\label{eq: insieme x-semplice}
+			D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \in \left[c,d\right], h_{1}\left(y\right) \le x \le h_{2}\left(y\right)\right\}
+		\end{equation}
+		Con $h_{1},h_{2}$ funzioni continue su $\left[c,d\right]$, viene definito \definition{insieme $x$-semplice} o \textbf{insieme orizzontalmente convesso}. In questo caso l'integrale doppio è:
+		\begin{equation}\label{eq: formula integrale doppio x-semplice}
+			\displaystyle \iint \limits_{D} f\left(x,y\right) \:\mathrm{d}x\:\mathrm{d}y = \int_{c}^{d} \left(\int_{h_{1}\left(y\right)}^{h_{2}\left(y\right)} f\left(x,y\right) \:\mathrm{d}x\right) \:\mathrm{d}y
+		\end{equation}
+	\end{boxdef}
+
+	\noindent
+	In figura \ref{fig: insieme x e y semplice} è possibile vedere la rappresentazione grafica dei due insiemi.
+	
+	\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/integrali_doppi_regione_generale.png}
+		\caption{A sinistra l'insieme $y$-semplice e a destra l'insieme $x$-semplice (\href{http://tinyurl.com/mv34tp62}{fonte}).}
+		\label{fig: insieme x e y semplice}
+	\end{figure}
+
+	\noindent
+	Si presenta nelle prossime pagine due esempi:
+	\begin{enumerate}
+		\item Calcolare:
+		\begin{equation*}
+			I = \iint \limits_{R} \left(4 - 4x - 4y\right) \:\mathrm{d}x \:\mathrm{d}y
+		\end{equation*}
+		Dove:
+		\begin{equation*}
+			R = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \in \left[0,1\right], \: 0 \le y \le 1-x\right\}
+		\end{equation*}
+
+		\item Calcolare:
+		\begin{equation*}
+			I = \iint \limits_{R} ye^{xy} \: \mathrm{d}x \: \mathrm{d}y
+		\end{equation*}
+		Dove:
+		\begin{equation*}
+			R = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \in \left[0,1\right], y\in\left[0,\ln\left(2\right)\right]\right\}
+		\end{equation*}
+
+		\item Calcolare:
+		\begin{equation*}
+			I = \iint \limits_{R} e^{y^{3}} \:\mathrm{d}x \:\mathrm{d}y
+		\end{equation*}
+		Dove $R$ è la regione piana limitata nel primo quadrante da $y = 1, x = 0$ e da $y = \sqrt{x}$.
+	\end{enumerate}
+	
+	\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	\begin{equation*}
+		\begin{array}{rcl}
+			I &=& \displaystyle\iint \limits_{R} \left(4 - 4x - 4y\right) \:\mathrm{d}x \:\mathrm{d}y \\ [1.5em]
+			R &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \in \left[0,1\right], \: 0 \le y \le 1-x\right\}
+		\end{array}
+	\end{equation*}
+	Il \textbf{primo passo} è sempre capire gli estremi di integrazione. Questo è un caso semplificato e la regione è già ben specificata. Risulta subito evidente che è un insieme $y$-semplice poiché le due funzioni agli estremi ($0$ e $1-x$) dipendono da $x$ e la $y$ si trova al centro della disuguaglianza. Dunque, applicando l'equazione \ref{eq: formula integrale doppio y-semplice} si scrive l'integrale come:
+	\begin{equation*}
+		\begin{array}{ll}
+			\text{Integrale dato: } & I = \displaystyle\iint \limits_{R} \left(4 - 4x - 4y\right) \:\mathrm{d}x \:\mathrm{d}y \\ [1.5em]
+			\text{Eq. $y$-semplice: } & \displaystyle \iint \limits_{D} f\left(x,y\right) \:\mathrm{d}x\:\mathrm{d}y = \int_{a}^{b} \left(\int_{g_{1}\left(x\right)}^{g_{2}\left(x\right)} f\left(x,y\right) \:\mathrm{d}y\right) \:\mathrm{d}x \\ [2em]
+			\text{Applicazione: } & \displaystyle \int_{0}^{1} \left(\int_{0}^{1-x} \left(4-4x-4y\right) \:\mathrm{d}y\right) \:\mathrm{d}x
+		\end{array}
+	\end{equation*}
+	Il \textbf{secondo passo} è risolvere il doppio integrale come al solito:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint \limits_{R} \left(4 - 4x - 4y\right) \:\mathrm{d}x \:\mathrm{d}y 
+			&=& 
+			\displaystyle \int_{0}^{1} \left(\int_{0}^{1-x} \left(4-4x-4y\right) \:\mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle \int_{0}^{1} \left[4y - 4xy - 2y^{2}\right]_{0}^{1-x} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle \int_{0}^{1} \left[2y\left(2 - 2x - y\right)\right]_{0}^{1-x} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle \int_{0}^{1} 2 \left(1-x\right) \left(2 - 2x -1 +x\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle \int_{0}^{1} 2 \left(1-x\right) \left(1 - x\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle 2 \int_{0}^{1} 1 - 2x + x^{2} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle 2 \left[x - x^{2} + \dfrac{x^{3}}{3}\right]_{0}^{1} \\ [1.5em]
+			%
+			&=&
+			\displaystyle 2 \left[1 - 1^{2} + \dfrac{1^{3}}{3}\right] \\ [1.5em]
+			%
+			&=&
+			\dfrac{2}{3}
+		\end{array}
+	\end{equation*}
+
+	\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	\begin{equation*}
+		\begin{array}{rcl}
+			I &=& \displaystyle\iint \limits_{R} ye^{xy} \: \mathrm{d}x \: \mathrm{d}y \\ [1.5em]
+			R &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \in \left[0,1\right], y\in\left[0,\ln\left(2\right)\right]\right\}
+		\end{array}
+	\end{equation*}
+	A differenza del precedente esercizio, in questo caso la regione è scritta in maniera leggermente differente. Tuttavia, questo non cambia la risoluzione. Si ha a disposizione due strade:
+	\begin{itemize}
+		\item Insieme $x$-semplice:
+		\begin{equation*}
+			\left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 1, y\in\left[0,\ln\left(2\right)\right]\right\}
+		\end{equation*}
+
+		\item Insieme $y$-semplice:
+		\begin{equation*}
+			\left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \in \left[0,1\right], 0 \le y \le \ln\left(2\right) \right\}
+		\end{equation*}
+	\end{itemize}
+	Qua di seguito si presenta il calcolo con $x$-semplice giusto per variare dal precedente esercizio che è stato svolto con $y$-semplice.
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint \limits_{R} ye^{xy} \: \mathrm{d}x \: \mathrm{d}y 
+			&=&
+			\displaystyle \int_{0}^{\ln\left(2\right)} \int_{0}^{1} ye^{xy} \: \mathrm{d}x\:\mathrm{d}y \\ [1.5em]
+			%
+			&\downarrow& \text{integrale immediato o per sostituzione} \\ [1em]
+			%
+			&=&
+			\displaystyle \int_{0}^{\ln\left(2\right)} e^{y}-e^{0} \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle \int_{0}^{\ln\left(2\right)} e^{y}-1 \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\left[e^{y} - y\right]_{0}^{\ln\left(2\right)} \\ [1.5em]
+			%
+			&=&
+			\left[e^{\ln\left(2\right)} - \ln\left(2\right) - \left(e^{0} - 0\right)\right] \\ [1.5em]
+			%
+			&=&
+			\left[2 - \ln\left(2\right) - 1\right] \\ [1.5em]
+			%
+			&=&
+			1 - \ln\left(2\right)
+		\end{array}
+	\end{equation*}
+
+	\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 3}}
+	\end{flushleft}
+	\begin{equation*}
+		I = \iint \limits_{R} e^{y^{3}} \:\mathrm{d}x \:\mathrm{d}y
+	\end{equation*}
+	A differenza degli altri, in questo esempio è necessario un po' di ragionamento. I dati dicono che la $y$ può arrivare al massimo ad $1$ ($y = 1$) e ad un minimo di $x=0$, ovvero $y=\sqrt{x}=\sqrt{0}=0$. Quindi il range di $y$ è ben definito. Per quanto riguarda $x$, è noto che parta da $0$ e può arrivare ad un massimo di $y = \sqrt{x} \Rightarrow x = y^{2}$. Per cui la regione sarà:
+	\begin{equation*}
+		R = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: y \in \left[0,1\right], \: 0 \le x \le y^{2}\right\}
+	\end{equation*}
+	Quindi, risolvendo con $x$-semplice, gli estremi di integrazione saranno:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle \iint \limits_{R} e^{y^{3}} \:\mathrm{d}x \:\mathrm{d}y
+			&=& 
+			\displaystyle\int_{0}^{1} \int_{0}^{y^{2}} e^{y^{3}} \:\mathrm{d}x \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left[x \cdot e^{y^{3}}\right]_{0}^{y^{2}} \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} y^{2} \cdot e^{y^{3}} \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} y^{2} \cdot e^{y^{3}} \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\left[\dfrac{1}{3} \cdot e^{y^{3}}\right]_{0}^{1} \\ [1.5em]
+			%
+			&=&
+			\dfrac{e}{3} - \dfrac{e^{0}}{3} \\ [1.5em]
+			%
+			&=&
+			\dfrac{e - 1}{3}
+		\end{array}
+	\end{equation*}
+	
+	\longline
+
+	\subsubsection{Proprietà additiva degli integrali doppi}\label{subsubsection: proprietà additiva degli integrali doppi}
+
+	Si consideri una regione piana $D = \bigcup_{i=1}^{n} D_{i}$, dove ogni $D_{i}$ è un insieme semplice ($x$ o $y$) e inoltre gli insiemi $D_{i}$ si intersecano a due a due eventuale solo lungo il bordo. Se è valida questa premessa, allora è valida anche la \textbf{proprietà additiva}:
+	\begin{equation*}
+		\displaystyle \iint \limits_{D} f\left(x,y\right) \:\mathrm{d}x \: \mathrm{d}y = \displaystyle \sum_{i=1}^{n} \iint \limits_{D_{i}} f\left(x,y\right) \:\mathrm{d}x \: \mathrm{d}y
+	\end{equation*}
+	Insieme anche alle proprietà di linearità e monotonia.
+
+	In parole povere, se due insiemi si intersecano e sono semplici, allora si può calcolare la loro somma considerando ogni insieme indipendente.
 
 
 
