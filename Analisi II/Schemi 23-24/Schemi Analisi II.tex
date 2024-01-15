@@ -8259,7 +8259,7 @@
 		\end{equation}
 		L'insieme:
 		\begin{equation}\label{eq: insieme x-semplice}
-			D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x \in \left[c,d\right], h_{1}\left(y\right) \le x \le h_{2}\left(y\right)\right\}
+			D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: y \in \left[c,d\right], h_{1}\left(y\right) \le x \le h_{2}\left(y\right)\right\}
 		\end{equation}
 		Con $h_{1},h_{2}$ funzioni continue su $\left[c,d\right]$, viene definito \definition{insieme $x$-semplice} o \textbf{insieme orizzontalmente convesso}. In questo caso l'integrale doppio è:
 		\begin{equation}\label{eq: formula integrale doppio x-semplice}
@@ -8460,9 +8460,217 @@
 	\end{equation*}
 	Insieme anche alle proprietà di linearità e monotonia.
 
-	In parole povere, se due insiemi si intersecano e sono semplici, allora si può calcolare la loro somma considerando ogni insieme indipendente.
+	In parole povere, se due insiemi si intersecano e sono semplici, allora si può calcolare la loro somma considerando ogni insieme indipendente.\newpage
 
+	\subsection{Integrali tripli}\label{subsection: integrali tripli}
 
+	\subsubsection{Definizione su intervalli di $\mathbb{R}^{3}$}\label{subsubsection: definizione su intervalli di R3}
+
+	Si parte con la \textbf{definizione teorica degli integrali tripli}.\newline
+
+	\noindent
+	Si consideri l'intervallo $D$ di $\mathbb{R}^{3}$:
+	\begin{equation*}
+		D = \left[a_{1}, b_{1}\right] \times \left[a_{2}, b_{2}\right] \times \left[a_{3}, b_{3}\right]
+	\end{equation*}
+	E una funzione $f\left(x,y,z\right)$ definita su $D$.\newline
+
+	\noindent
+	Si procede, come nel caso di intervalli in $\mathbb{R}^{2}$, a una divisione:
+	\begin{itemize}
+		\item Di $\left[a_{1}, b_{1}\right]$ in $I$ parti $\left[x_{i-1}, x_{i}\right]$ di uguale ampiezza $\Delta x$
+
+		\item Di $\left[a_{2}, b_{2}\right]$ in $I$ parti $\left[y_{j-1}, y_{j}\right]$ di uguale ampiezza $\Delta y$
+
+		\item Di $\left[a_{3}, b_{3}\right]$ in $I$ parti $\left[z_{k-1}, x_{k}\right]$ di uguale ampiezza $\Delta z$
+	\end{itemize}
+	Per cui, l'intervallo tridimensionale $D$ è diviso in $l \cdot m \cdot n$ sottointervalli:
+	\begin{equation*}
+		D_{ijk} = \left[x_{i-1}, x_{i}\right] \times \left[y_{j-1}, y_{j}\right] \times \left[z_{k-1}, x_{k}\right]
+	\end{equation*}
+	Scegliendo un punto $\left(x_{ijk}*, y_{ijk}*, z_{ijk}*\right)$ in ogni sottorettangolo $D_{ijk}$ si può costruire la somma di Riemann:
+	\begin{equation}\label{eq: somma di Riemann}
+		\displaystyle\sum_{i=1}^{l}\sum_{j=1}^{m}\sum_{k=1}^{n} f\left(x_{ijk}*, y_{ijk}*, z_{ijk}*\right) \Delta x \: \Delta y \: \Delta z
+	\end{equation}
+	\begin{boxdef}
+		La funzione $f: D \rightarrow \mathbb{R}$, limitata, si dice \definition{integrabile} su $D$ se esiste finito:
+		\begin{equation}
+			\displaystyle\lim_{l,m,n \rightarrow +\infty} \sum_{i=1}^{l}\sum_{j=1}^{m}\sum_{k=1}^{n} f\left(x_{ijk}*, y_{ijk}*, z_{ijk}*\right) \Delta x \: \Delta y \: \Delta z
+		\end{equation}
+		E se tale valore non dipende dalla scelta dei punti $\left(x_{ijk}*, y_{ijk}*, z_{ijk}*\right)$.
+
+		Se $f$ è integrabile, il valore del limite si chiama \definition{integrale triplo} di $f$ su $D$ e si indica con il simbolo:
+		\begin{equation}
+			\displaystyle \iiint\limits_{D} f\left(x,y,z\right) \:\mathrm{d}x \:\mathrm{d}y \:\mathrm{d}z
+		\end{equation}
+	\end{boxdef}\newpage
+
+	\noindent
+	Alcune \definition{interpretazioni del risultato} di un integrale triplo (importanti nel caso in cui in sede d'esame venga richiesto):
+	\begin{itemize}
+		\item Se la funzione da integrare $f\left(x,y,z\right)$ è maggiore o uguale a zero $\ge 0$, allora è possibile interpretare la funzione come la \textbf{densità di massa} (variabile punto per punto) di un corpo che occupa la regione $D$ dello spazio. In questo modo, l'integrale triplo è la massa $m$ del corpo:
+		\begin{equation*}
+			m = \displaystyle\iiint\limits_{D} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+		\end{equation*}
+		E le coordinate del baricentro del corpo sarebbero:
+		\begin{equation*}
+			\begin{array}{rcl}
+				x_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} x f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z \\ [2em]
+				y_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} y f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z \\ [2em]
+				z_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} z f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			\end{array}
+		\end{equation*}
+
+		\item Se la funzione da integrare $f\left(x,y,z\right)$ è uguale ad uno, allora l'integrale triplo:
+		\begin{equation*}
+			\displaystyle\iiint\limits_{D} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+		\end{equation*}
+		È il volume della regione di $D$.
+	\end{itemize}
+	
+	\begin{theorem}\label{theorem: integrali tripli}
+		Se la funzione $f$ è continua su:
+		\begin{equation*}
+			D = \left[a_{1}, b_{1}\right] \times \left[a_{2}, b_{2}\right] \times \left[a_{3}, b_{3}\right]
+		\end{equation*}
+		Allora è integrabile. Inoltre:
+		\begin{equation}
+			\displaystyle\iiint\limits_{D} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z 
+			= 
+			\displaystyle\int_{a_{1}}^{b_{1}} \left(\int_{a_{2}}^{b_{2}} \left(\int_{a_{3}}^{b_{3}} f\left(x,y,z\right) \:\mathrm{d}z\right) \: \mathrm{d}y\right) \:\mathrm{d}x
+		\end{equation}
+	\end{theorem}
+
+	\noindent
+	Cambiando l'ordine di integrazione, \textbf{il valore dell'integrale non cambia}.
+	
+	\begin{boxdef}
+		Il \definition{valore medio} $\overline{f}$ di una funzione $f$ sulla regione $D$ si calcola facendo la divisione tra l'integrale triplo della funzione $f$ nella regione $D$ e il volume della regione $D$, ovvero l'integrale triplo in $D$ di $1$:
+		\begin{equation}
+			\overline{f} = \dfrac{
+				\displaystyle\iiint\limits_{D} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			}{
+				\displaystyle\iiint\limits_{D} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			}
+		\end{equation}
+	\end{boxdef}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Nella regione $D = \left[0,1\right] \times \left[0,1\right] \times \left[0,3\right]$ la temperatura è definita in gradi centigradi punto per punto dalla funzione:
+	\begin{equation*}
+		T\left(x,y,z\right) = xyz
+	\end{equation*}
+	Calcolare la temperatura media nella regione $D$.\newline
+
+	\noindent
+	Il \textbf{valore medio} della funzione $T\left(x,y,z\right)$ sulla regione $D$ è dato dalla frazione tra l'integrale triplo nella regione $D$ della funzione $T$, diviso il volume della regione $D$ (ovvero l'integrale triplo senza nessun argomento). Quindi la formula è:
+	\begin{equation*}
+		\overline{T} = \dfrac{
+			\displaystyle\iiint\limits_{D} xyz \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+		}{
+			\displaystyle\iiint\limits_{D} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+		}
+	\end{equation*}
+	Il \textbf{primo passo} è definire gli estremi di integrazione (ricordando il teorema \ref{theorem: integrali tripli} degli integrali tripli), che in questo caso sono ben definiti:
+	\begin{equation*}
+		D = 
+		\left[\textcolor{Red3}{\mathbf{0}},\textcolor{Red3}{\mathbf{1}}\right] \times 
+		\left[\textcolor{Green4}{\mathbf{0}},\textcolor{Green4}{\mathbf{1}}\right] \times 
+		\left[\textcolor{Blue2}{\mathbf{0}},\textcolor{Blue2}{\mathbf{3}}\right] 
+		\Rightarrow
+		\displaystyle\int_{\textcolor{Red3}{\mathbf{0}}}^{\textcolor{Red3}{\mathbf{1}}} \left(\int_{\textcolor{Green4}{\mathbf{0}}}^{\textcolor{Green4}{\mathbf{1}}} \left(\int_{\textcolor{Blue2}{\mathbf{0}}}^{\textcolor{Blue2}{\mathbf{3}}} xyz \:\mathrm{d}z\right) \: \mathrm{d}y\right) \:\mathrm{d}x
+	\end{equation*}
+	E il \textbf{secondo passo} è risolverli partendo dall'espressione più interna ed andando verso l'esterno, come se fosse una matriosca:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} \left(\int_{0}^{3} xyz \:\mathrm{d}z\right) \: \mathrm{d}y\right) \:\mathrm{d}x
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} \left( xy \cdot \left[\dfrac{z^{2}}{2}\right]_{0}^{3} \right) \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} xy \cdot \dfrac{3^{2}}{2} \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(\dfrac{9}{2}x \cdot \left[\dfrac{y^{2}}{2}\right]_{0}^{1} \right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} x \cdot \dfrac{9}{2} \cdot \dfrac{1^{2}}{2} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{9}{4} \left[\dfrac{x^{2}}{2}\right]_{0}^{1} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{9}{4} \cdot \dfrac{1}{2} \\ [1em]
+			%
+			&=& 
+			\dfrac{9}{8}
+		\end{array}
+	\end{equation*}\newpage
+
+	\noindent
+	Si calcola anche il denominatore con i medesimi estremi:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} \left(\int_{0}^{3} \:\mathrm{d}z\right) \: \mathrm{d}y\right) \:\mathrm{d}x
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} \left(\int_{0}^{3} 1 \:\mathrm{d}z\right) \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} \left[z\right]_{0}^{3} \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} 3 \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left[3y\right]_{0}^{1} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} 3 \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\left[3x\right]_{0}^{1} \\ [1em]
+			%
+			&=&
+			3
+		\end{array}
+	\end{equation*}
+	E infine si esegue la divisione per calcolare il risultato, ovvero il valore medio:
+	\begin{equation*}
+		\overline{T} 
+		= 
+		\dfrac{
+			\displaystyle\iiint\limits_{D} xyz \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+		}{
+			\displaystyle\iiint\limits_{D} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+		}
+		=
+		\dfrac{
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} \left(\int_{0}^{3} xyz \:\mathrm{d}z\right) \: \mathrm{d}y\right) \:\mathrm{d}x
+		}{
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1} \left(\int_{0}^{3} \:\mathrm{d}z\right) \: \mathrm{d}y\right) \:\mathrm{d}x
+		}
+		=
+		\dfrac{
+			\dfrac{9}{8}
+		}{
+			3
+		}
+		=
+		\dfrac{3}{8}
+	\end{equation*} 
+	
+	\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	Un cubo occupa la regione $D = \left[0,2\right] \times \left[0,2\right] \times \left[0,2\right]$ in $\mathbb{R}^{3}$. In ogni punto la sua densità è definita dalla funzione $\rho\left(x,y,z\right) = x^{2} + y^{2} + z^{2}$. Trovare la massa e il baricentro del cubo.
+
+	\newpage
+
+	\subsubsection{Metodo di integrazione per fili}
 
 
 
