@@ -8509,17 +8509,17 @@
 	Alcune \definition{interpretazioni del risultato} di un integrale triplo (importanti nel caso in cui in sede d'esame venga richiesto):
 	\begin{itemize}
 		\item Se la funzione da integrare $f\left(x,y,z\right)$ è maggiore o uguale a zero $\ge 0$, allora è possibile interpretare la funzione come la \textbf{densità di massa} (variabile punto per punto) di un corpo che occupa la regione $D$ dello spazio. In questo modo, l'integrale triplo è la massa $m$ del corpo:
-		\begin{equation*}
+		\begin{equation}\label{eq: densità di massa}
 			m = \displaystyle\iiint\limits_{D} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
-		\end{equation*}
+		\end{equation}
 		E le coordinate del baricentro del corpo sarebbero:
-		\begin{equation*}
+		\begin{equation}\label{eq: coordinate del baricentro}
 			\begin{array}{rcl}
 				x_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} x f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z \\ [2em]
 				y_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} y f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z \\ [2em]
 				z_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} z f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
 			\end{array}
-		\end{equation*}
+		\end{equation}
 
 		\item Se la funzione da integrare $f\left(x,y,z\right)$ è uguale ad uno, allora l'integrale triplo:
 		\begin{equation*}
@@ -8666,11 +8666,195 @@
 	\begin{flushleft}
 		\example{\underline{Esempio 2}}
 	\end{flushleft}
-	Un cubo occupa la regione $D = \left[0,2\right] \times \left[0,2\right] \times \left[0,2\right]$ in $\mathbb{R}^{3}$. In ogni punto la sua densità è definita dalla funzione $\rho\left(x,y,z\right) = x^{2} + y^{2} + z^{2}$. Trovare la massa e il baricentro del cubo.
+	Un cubo occupa la regione $D = \left[0,2\right] \times \left[0,2\right] \times \left[0,2\right]$ in $\mathbb{R}^{3}$. In ogni punto la sua densità è definita dalla funzione $\rho\left(x,y,z\right) = x^{2} + y^{2} + z^{2}$. Trovare la massa e il baricentro del cubo.\newline
+
+	\noindent
+	Per calcolare la massa si utilizza l'equazione \ref{eq: densità di massa} presentata con gli integrali tripli:
+	\begin{equation*}
+		\begin{array}{rcl}
+			m = \displaystyle\iiint\limits_{D} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z 
+			&=&
+			\displaystyle\int_{0}^{2} \left(\int_{0}^{2} \left(\int_{0}^{2} \left(x^{2}+y^{2}+z^{2}\right) \:\mathrm{d}z\right) \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2} \left(\int_{0}^{2} \left[ zx^{2}+zy^{2}+ \dfrac{z^{3}}{3} \right]_{0}^{2} \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2} \left(\int_{0}^{2} 2x^{2}+ 2y^{2}+ \dfrac{2^{3}}{3} \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2} \left(\int_{0}^{2} 2x^{2}+ 2y^{2}+ \dfrac{8}{3} \: \mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2} \left[ 2yx^{2}+ 2 \cdot \dfrac{y^{3}}{3}+ \dfrac{8}{3}y \right]_{0}^{2} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2} 4x^{2}+ \dfrac{16}{3} + \dfrac{16}{3} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\left[4\dfrac{x^{3}}{3} + \dfrac{32}{3}x\right]_{0}^{2} \\ [1.5em]
+			%
+			&=&
+			\dfrac{8\cdot 4}{3} + \dfrac{32 \cdot 2}{3} \\ [1em]
+			%
+			&=&
+			32
+		\end{array}
+	\end{equation*}
+	Invece, per calcolare il baricentro del cubo, è necessario ottenere le tre coordinate ($x,y,z$) usando l'equazione \ref{eq: coordinate del baricentro}:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} x f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z \\ [2em]
+			y_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} y f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z \\ [2em]
+			z_{G} &=& \dfrac{1}{m} \displaystyle\iiint\limits_{D} z f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+		\end{array}
+	\end{equation*}
+	Per cui si riportano i calcoli delle varie coordinate.
+	
+	\newpage
+
+	\noindent
+	Calcolo di $x_{G}$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{1}{m} \displaystyle\iiint\limits_{D} x f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			&=&
+			\dfrac{1}{32}\displaystyle\int_{0}^{2} \int_{0}^{2} \int_{0}^{2} x\left(x^{2}+y^{2}+z^{2}\right) \:\mathrm{d}z \: \mathrm{d}y \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{32}\displaystyle\int_{0}^{2} \int_{0}^{2} \left[x^{3}z + xy^{2}z + x \cdot \dfrac{z^{3}}{3}\right]_{0}^{2} \: \mathrm{d}y \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{32}\displaystyle\int_{0}^{2} \int_{0}^{2} 2x^{3} + 2xy^{2} + \dfrac{8}{3} \cdot x \: \mathrm{d}y \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{32}\displaystyle\int_{0}^{2} \left[2yx^{3} + 2x \cdot \dfrac{y^{3}}{3} + \dfrac{8}{3}xy\right]_{0}^{2} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{32}\displaystyle\int_{0}^{2} 4x^{3} + \dfrac{16}{3}x + \dfrac{16}{3}x \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{32}\displaystyle\int_{0}^{2} 4x^{3} + \dfrac{32}{3}x \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{32}\left[x^{4} + \dfrac{16}{3}x^{2}\right]_{0}^{2} \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{32} \cdot \left(16 + \dfrac{64}{3}\right) \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{2} + \dfrac{2}{3} \\ [1em]
+			%
+			&=&
+			\dfrac{7}{6}
+		\end{array}
+	\end{equation*}
+	I passaggi per $y_{G}$ e $z_{G}$ sono uguali, si omettono dunque i passaggi.
 
 	\newpage
 
 	\subsubsection{Metodo di integrazione per fili}
+
+	Il metodo di integrazione per fili è utilizzato, come $x$-semplice e $y$-semplice per gli integrali doppi, per estendere il calcolo degli integrali tripli a regioni più complesse.
+
+	\begin{boxdef}
+		L'insieme:
+		\begin{equation}\label{eq: insieme integrazione per fili}
+			\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: \left(x,y\right) \in D, \: g_{1}\left(x,y\right) \le z \le g_{2}\left(x,y\right)\right\}
+		\end{equation}
+		Con $g_{1}$ e $g_{2}$ funzioni continue sull'insieme semplice $D \subset \mathbb{R}$, si dice \definition{insieme semplice rispetto all'asse z}. Infatti, è verificato che (con il teorema di Fubini):
+		\begin{equation}\label{eq: formula di integrazione per fili}
+			\displaystyle\iiint\limits_{\Omega} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			=
+			\displaystyle\iint\limits_{D}\left(\int_{g_{1}\left(x,y\right)}^{g_{2}\left(x,y\right)} f\left(x,y,z\right) \:\mathrm{d}z\right) \:\mathrm{d}x \:\mathrm{d}y
+		\end{equation}
+	\end{boxdef}
+
+	\noindent
+	Questa formula di riduzione è nota come \definition{formula di integrazione per fili} (\emph{shadow method}).\newline
+
+	\noindent
+	Si noti che la lettera Omega $\Omega$ viene \textbf{utilizzata per identificare i domini semplici rispetto all'asse} $z$. Questo è importante poiché in sede d'esame un insieme di questo tipo dovrebbe dare un punto di partenza allo studente per consentire di svolgere l'esercizio facilmente.
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Calcolare:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\Omega &=& \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: x \ge 0, \: y \ge 0, \: z \ge 0, \: x+y+z \le 1\right\} \\ [1.5em]
+			%
+			\text{Integrale} &=& \displaystyle\iiint\limits_{\Omega} x \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+		\end{array}
+	\end{equation*}
+	L'insieme non è esplicitato in maniera chiara poiché le disuguaglianze non consentono di esplicitare in maniera limpida le funzioni che andranno agli estremi dell'integrale. Per cui, il \textbf{primo passo} (obbligatorio sempre) è capire come riuscire a riscrivere le condizioni d'esistenza in modo da avere una forma riconoscibile (eq. \ref{eq: insieme integrazione per fili}).
+
+	Dato che le tre variabili non possono essere negative (sempre maggiori di zero), ma non possono neanche superare $1$, allora si può riscrivere:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 0 \le x \le 1, \: 0 \le y \le 1 \: x+y+z\le 1\right\}
+	\end{equation*}
+	Adesso, la $z$ deve essere al centro di una disuguaglianza doppia, mentre la $x$ e la $y$ devono far parte di un altro insieme, per esempio $D$:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: \left(x,y\right) \in D, \: z\le 1-x-y\right\}
+	\end{equation*}
+	Dai ragionamenti precedenti e dalla definizione dell'insieme, risulta logico pensare che la $z$ non possa essere minore di zero:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: \left(x,y\right) \in D, \: 0 \le z\le 1-x-y\right\}
+	\end{equation*}
+	L'insieme $D$ è scontato:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 1, \: 0 \le y \le 1, \: x+y \le 1\right\}
+	\end{equation*}
+	Il \textbf{secondo passo} è scrivere la formula di integrazione per fili (eq. \ref{eq: formula di integrazione per fili}) si scrivono gli estremi di integrazione:
+	\begin{equation*}
+		\displaystyle\iint\limits_{D}\left(\int_{0}^{1-x-y} x \:\mathrm{d}z\right) \:\mathrm{d}x\:\mathrm{d}y
+	\end{equation*}
+	Si risolve l'integrale è poi si ragiona sul rimanente:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint\limits_{D}\left(\int_{0}^{1-x-y} x \:\mathrm{d}z\right) \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			\displaystyle\iint\limits_{D}\left[ zx \right]_{0}^{1-x-y} \:\mathrm{d}x\:\mathrm{d}y \\ [2em]
+			%
+			&=&
+			\displaystyle\iint\limits_{D} x - x^{2} - yx \:\mathrm{d}x\:\mathrm{d}y
+		\end{array}
+	\end{equation*}
+	A questo punto l'esercizio diventa lo svolgimento di un integrale doppio con le seguenti caratteristiche:
+	\begin{equation*}
+		\begin{array}{rcl}
+			D &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 1, \: 0 \le y \le 1, \: x+y \le 1\right\} \\ [1.5em]
+			%
+			\text{Risolvere} &:& \displaystyle\iint\limits_{D} x - x^{2} - yx \:\mathrm{d}x\:\mathrm{d}y
+		\end{array}
+	\end{equation*}
+	Si sceglie $x$ o $y$ semplice. In questo caso, si usa $x$-semplice:
+	\begin{equation*}
+		\begin{array}{rcl} 1 -2x +x^2
+			D &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 1, \: 0 \le y \le 1-x\right\} \\ [1em]
+			%
+			\displaystyle\iint\limits_{D} x - x^{2} - yx \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{1-x} x-x^{2}-yx \:\mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left[ yx-yx^{2}-\dfrac{y^{2}}{2}x \right]_{0}^{1-x} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} x-x^{2} - x^{2} + x^{3} - \left(\dfrac{x}{2} - x^{2} + \dfrac{x^{3}}{2}\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \dfrac{1}{2}x - x^{2} + \dfrac{1}{2}x^{3} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\left[ \dfrac{x^{2}}{4} - \dfrac{x^{3}}{3} + \dfrac{x^{4}}{8} \right]_{0}^{1} \\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{4} - \dfrac{1}{3} + \dfrac{1}{8} \\ [1em]
+			%
+			&=& \dfrac{1}{24}
+		\end{array}
+	\end{equation*}
 
 
 
