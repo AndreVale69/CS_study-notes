@@ -8461,6 +8461,112 @@
 	Insieme anche alle proprietà di linearità e monotonia.
 
 	In parole povere, se due insiemi si intersecano e sono semplici, allora si può calcolare la loro somma considerando ogni insieme indipendente.\newpage
+	
+	\subsubsection{Coordinate polari}
+
+	In questo paragrafo si presenta una tecnica utile e facile da applicare per risolvere determinati esercizi riguardante gli integrali doppi.\newline
+
+	\noindent
+	Prima di esporre teoricamente e praticamente questa tecnica, si cerca di capire \emph{perché è necessario eseguire un cambio di variabili in coordinate polari?} Poiché esistono integrali abbastanza complessi. Quindi, usando un cambio di variabili (in coordinate polari) è possibile ricavare una forma semplice da risolvere.\newline
+
+	\noindent
+	Dato un sistema di coordinate:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/integrali_doppi-coordinate_polari.pdf}
+	\end{figure}
+	
+	\noindent
+	E fissati due punti:
+	\begin{equation*}
+		P_{0} = \left(x_{0}, y_{0}\right)
+		\hspace{2em}
+		P = \left(x,y\right)
+	\end{equation*}
+	Si vogliono esprimere le coordinate del punto $P_{0}$ al punto $P$. Per fare ciò, si utilizzano le classiche coordinate polari:
+	\begin{equation}\label{eq: coordinate polari}
+		\begin{cases}
+			x = x_{0} + \rho\cos\left(\theta\right) \\
+			y = y_{0} + \rho\sin\left(\theta\right)
+		\end{cases}
+	\end{equation}
+
+	\begin{boxdef}
+		Dato un integrale definito in una regione $D$ semplice o non:
+		\begin{equation*}
+			\displaystyle\iint\limits_{D} f\left(x,y\right) \:\mathrm{d}x\:\mathrm{d}y
+		\end{equation*}
+		È possibile riscriverlo in coordinate polari, riscrivendo il suo insieme:
+		\begin{equation}
+			D = \left\{\left(\rho,\theta\right) \in \mathbb{R}^{2} \: : \: \theta \in \left[a,b\right], \: g_{1}\left(\theta\right) \le \rho \le g_{2}\left(\theta\right) \right\}
+		\end{equation}
+		E cambiando le sue variabili inserendo anche il determinante della matrice Jacobiana $\rho$:
+		\begin{equation}\label{eq: coordinate polari per gli integrali doppi}
+			\displaystyle\iint\limits_{D} f\left(x,y\right) \:\mathrm{d}x\:\mathrm{d}y 
+			= 
+			\int_{a}^{b} \left(\int_{g_{1}\left(\theta\right)}^{g_{2}\left(\theta\right)} f\left(\rho, \theta\right) \:\mathrm{d}\rho\right)\:\mathrm{d}\theta
+		\end{equation}
+	\end{boxdef}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Data la regione:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1 \le x^{2}+y^{2} \le 4, \: 0 \le x \le y \le \sqrt{3}x\right\}
+	\end{equation*}
+	Calcolare l'integrale:
+	\begin{equation*}
+		\displaystyle\iint\limits_{D} \left(x+y\right)^{2} \:\mathrm{d}x\:\mathrm{d}y
+	\end{equation*}
+	Il \textbf{primo passo} è rappresentare il dominio per capire meglio quali sono gli estremi di integrazione. Si inizia con la rappresentazione di:
+	\begin{equation*}
+		x^{2} + y^{2} \ge 1 \hspace{3em} x^{2} + y^{2} \le 4
+	\end{equation*}
+	Che sono entrambe circonferenze di raggio rispettivamente $1$ ($\sqrt{1}$) e $2$ ($\sqrt{4}$):
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/integrali_doppi-coordinate_polari-1.pdf}
+	\end{figure}
+
+	\noindent
+	Si continua la rappresentazione considerando la seconda disuguaglianza. In questo caso si ha $0 \le x$ e di conseguenza anche $0 \le y$. A questo punto rimane in considerazione solo il primo quadrante (in alto a dx). Dopodiché si valuta $x \le y$, ovvero una retta che taglia a metà il grafico. Infine, $y \le \sqrt{3}x$ è la retta $x$ corrispondente a $y$ ma con coefficiente $\sqrt{3}$.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/integrali_doppi-coordinate_polari-2.pdf}
+	\end{figure}
+
+	\newpage
+	
+	\noindent
+	Il \textbf{secondo passo} è trasformare le coordinate del dominio in coordinate polari. Quindi è necessario trovare due valori costanti per $\theta$ e due funzioni dipendenti da $\theta$ in cui è \dquotes{contenuta} $\rho$. Per trovare $\theta$ basta prendere l'ampiezza della regione, ovvero si prendono i limiti considerando il valore in radianti. Per cui la retta $x = y$, quella che taglia a metà il grafico, ha come gradi $45\degree$, per trasformarlo in radianti si usa la proporzione:
+	\begin{equation*}
+		360\degree : 2\pi = 45 : x \hspace{3em} x = 45 \cdot 2\pi \cdot \dfrac{1}{360} = \dfrac{1}{4}\pi
+	\end{equation*}
+	Questo è il limite inferiore, invece il limite superiore è $y = \sqrt{3}x$. Per calcolare l'angolo compiuto da una retta si utilizza l'arcotangente del suo coefficiente angolare:
+	\begin{equation*}
+		\arctan\left(\sqrt{3}\right) = \dfrac{\pi}{3}
+	\end{equation*}
+	Nota bene: questa formula sarebbe andata bene anche nel caso precedente con l'equazione $x = y$ e coefficiente angolare $m = 1$:
+	\begin{equation*}
+		\arctan\left(1\right) = \dfrac{\pi}{4}
+	\end{equation*}
+	Una volta definito l'intervallo di $\theta$ si passa a $\rho$. La situazione è semplice, come limite inferiore basta prendere la distanza dal punto di origine alla prima circonferenza incontrata: in questo caso il raggio della prima circonferenza è $1$, ovvero la distanza dall'origine alla prima circonferenza partendo dall'origine. Come limite superiore, si prende la distanza dall'origine fino alla seconda circonferenza: in questo caso il raggio della seconda è $2$.
+	\begin{equation*}
+		D = \left\{\left(\rho,\theta\right) \in \mathbb{R}^{2} \: : \: \dfrac{\pi}{4} \le \theta \le \dfrac{\pi}{3}, \: 1 \le \rho \le 2\right\}
+	\end{equation*}\newpage
+
+	\noindent
+	Il \textbf{terzo passo} a questo punto è calcolare l'integrale doppio utilizzando l'equazione (definizione) \ref{eq: coordinate polari per gli integrali doppi} e sostituendo al posto delle variabili $x,y$ le coordinate polari (eq. \ref{eq: coordinate polari}) considerando $x_{0},y_{0} = 1$, cioè inesistenti:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint\limits_{D} \left(x+y\right)^{2} \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \left(\int_{1}^{2} \left(\rho\cos\left(\theta\right)+\rho\sin\left(\theta\right)\right)^{2} \cdot \rho \:\mathrm{d}\rho\right) \:\mathrm{d}\theta
+		\end{array}
+	\end{equation*}
+
+	\newpage
 
 	\subsection{Integrali tripli}\label{subsection: integrali tripli}
 
@@ -8855,6 +8961,107 @@
 			&=& \dfrac{1}{24}
 		\end{array}
 	\end{equation*}
+
+	\newpage
+
+	\subsubsection{Metodo di integrazione per strati}
+
+	Si supponga che un sottoinsieme $\Omega$ di $\mathbb{R}^{3}$ si possa rappresentare nel seguente modo:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: z \in \left[\alpha, \beta\right], \left(x,y\right) \in A_{z}\right\}
+	\end{equation*}
+	Dove $A_{z}$ è la proiezione sul piano $xy$ dell'intersezione tra $\Omega$ e il piano parallelo al piano $xy$ che si trova a quota $z$.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/metodo_di_integrazione_per_strati.png}
+	\end{figure}
+
+	\begin{boxdef}
+		La \definition{formula di integrazione per strati paralleli al piano} $xy$ (\emph{cross-section method}) è la seguente:
+		\begin{equation}\label{eq: formula di integrazione per strati}
+			\displaystyle\iiint\limits_{\Omega} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z = \displaystyle\int_{\alpha}^{\beta}\left(\iint\limits_{A_{z}} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\right) \:\mathrm{d}z
+		\end{equation}
+		Con $A_{z}$ insieme semplice o unione di insiemi semplici.
+	\end{boxdef}
+
+	\noindent
+	Lo scopo di questo metodo è quello di calcolare l'integrale doppio su $A_{z}$ e successivamente \dquotes{estenderlo} a tutta la regione, da $\alpha$ a $\beta$.\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Data la regione:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: x^{2} + y^{2} + z^{2} \le 8, \: x^{2} + y^{2} - z^{2} \le 0, \: z \ge 0\right\}
+	\end{equation*}
+	Calcolare l'integrale:
+	\begin{equation*}
+		\displaystyle\iiint\limits_{\Omega} 8x^{2}z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}
+	Il \textbf{primo passo} è capire le forme che compongono la regione. In questo caso, si ha una sfera ($x^{2} + y^{2} + z^{2} \le 8$) e un cono ($x^{2} + y^{2} - z^{2} \le 0$) centrato nell'origine. La $z$ deve essere maggiore o uguale di zero, per cui è necessario prendere l'area positiva. La figura dunque è:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrazione_per_strati.pdf}
+	\end{figure}
+	Il \textbf{secondo passo} è intuire gli estremi di integrazione. In questo caso, la sfera avrà come valore massimo il suo raggio, ovvero $\sqrt{8}$. Mentre il valore all'origine è chiaramente $0$.
+
+	Questo esempio è particolare poiché è composto da due forme. Per cui non è possibile calcolare direttamente un integrale doppio da $0$ a $\sqrt{8}$, è necessario prima capire l'intersezione tra i due:
+	\begin{equation*}
+		\begin{cases}
+			x^{2} + y^{2} + z^{2} = 8 \\
+			x^{2} + y^{2} - z^{2} = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x^{2} + y^{2} + z^{2} = 8 \\
+			z^{2} = x^{2} + y^{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			2z^{2} = 8 \\
+			\cdots
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			z = \pm 2 \\
+			\cdots
+		\end{cases}
+	\end{equation*}
+	Per cui adesso sono chiari gli estremi di integrazione (come si vede nella figura nella pagina successiva).\newpage
+	
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/integrazione_per_strati_2.pdf}
+	\end{figure}
+
+	\noindent
+	Supponendo che la regione $\Omega$ sia formata da $\Omega_{1} + \Omega_{2}$, ovvero dalla somma della regione del cono (blu sotto) e dalla regione della mezza sfera (rosso sopra), allora è possibile definire le due regioni come:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\Omega_{1} &=& \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 0 \le z \le 2, \: x^{2} + y^{2} - z^{2} \le 0\right\} \\ [.5em]
+			%
+			\Omega_{2} &=& \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 2 \le z \le \sqrt{8}, \: x^{2} + y^{2} + z^{2} \le 8\right\} \\ [.5em]
+		\end{array}
+	\end{equation*}
+	Il \textbf{terzo passo} è risolvere gli integrali e sommare i risultati. Giunti a questo punto, è evidente che l'ostacolo più grande è l'individuazione dei vari dati. Si calcola prima l'integrale rispetto al cono:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iiint\limits_{\Omega} 8x^{2}z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z &=& \displaystyle\int_{0}^{2} \left(\iint\right) \:\mathrm{d}z
+		\end{array}
+	\end{equation*}
+	TODO: Da risolvere quando saranno state fatte le coordinate polari
+
+	\newpage
+
+	\subsection{Tecnica del cambiamento di variabili}
+
+	\newpage
+
+	\subsubsection{Negli integrali doppi}
+
+	\newpage
+
+	\subsubsection{Negli integrali tripli}
 
 
 
