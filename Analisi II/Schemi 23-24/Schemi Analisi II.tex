@@ -8509,7 +8509,7 @@
 	\end{boxdef}\newpage
 
 	\begin{flushleft}
-		\example{\underline{Esempio 1}}
+		\example{\underline{Esempio 1 - Esercizio passo per passo}}
 	\end{flushleft}
 	Data la regione:
 	\begin{equation*}
@@ -8562,7 +8562,190 @@
 		\begin{array}{rcl}
 			\displaystyle\iint\limits_{D} \left(x+y\right)^{2} \:\mathrm{d}x\:\mathrm{d}y
 			&=&
-			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \left(\int_{1}^{2} \left(\rho\cos\left(\theta\right)+\rho\sin\left(\theta\right)\right)^{2} \cdot \rho \:\mathrm{d}\rho\right) \:\mathrm{d}\theta
+			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \left(\int_{1}^{2} \left(\rho\cos\left(\theta\right)+\rho\sin\left(\theta\right)\right)^{2} \cdot \rho \:\mathrm{d}\rho\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \left(
+				\int_{1}^{2} \left(\rho\left(\cos\left(\theta\right)+\sin\left(\theta\right)\right)\right)^{2} \cdot \rho \:\mathrm{d}\rho
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \left(
+				\int_{1}^{2} \rho^{2}\left(\cos\left(\theta\right)+\sin\left(\theta\right)\right)^{2} \cdot \rho \:\mathrm{d}\rho
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \left(
+				\int_{1}^{2} \rho^{3}\left(\cos\left(\theta\right)+\sin\left(\theta\right)\right)^{2} \:\mathrm{d}\rho
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \left(
+				\left(\cos\left(\theta\right)+\sin\left(\theta\right)\right)^{2} \cdot \int_{1}^{2} \rho^{3}\:\mathrm{d}\rho
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \left(
+				\left(\cos\left(\theta\right)+\sin\left(\theta\right)\right)^{2} \cdot \left(\left[\dfrac{\rho^{4}}{4}\right]_{1}^{2}\right)
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \dfrac{15}{4}\left(\cos\left(\theta\right)+\sin\left(\theta\right)\right)^{2} \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\dfrac{15}{4} \cdot \displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \cos^{2}\left(\theta\right)+\sin^{2}\left(\theta\right) + 2\cos\left(\theta\right)\sin\left(\theta\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\dfrac{15}{4} \cdot \left(\displaystyle\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} 1 \:\mathrm{d}\theta + 2\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \cos\left(\theta\right)\sin\left(\theta\right) \:\mathrm{d}\theta\right) \\ [1.5em]
+			%
+			&\downarrow&
+			\text{sostituzione: } t = \sin\left(\theta\right) \hspace{1.5em} \mathrm{d}\theta = \dfrac{1}{t'}\:\mathrm{d}t \hspace{1.5em} t' = \cos\left(\theta\right) \\ [1em]
+			%
+			&=&
+			\displaystyle\dfrac{15}{4} \cdot \left(\left[\dfrac{}{} \theta \dfrac{}{}\right]_{\frac{\pi}{4}}^{\frac{\pi}{3}} + 2\int_{\frac{\pi}{4}}^{\frac{\pi}{3}} \cancel{\cos\left(\theta\right)} \cdot t \cdot \dfrac{1}{\cancel{\cos\left(\theta\right)}} \:\mathrm{d}t\right) \\ [1.5em]
+			%
+			&=&
+			\displaystyle\dfrac{15}{4} \cdot \left(\dfrac{\pi}{3} - \dfrac{\pi}{4} + 2 \left[\dfrac{t^{2}}{2}\right]_{\frac{\pi}{4}}^{\frac{\pi}{3}} \right) \\ [1.5em]
+			%
+			&=&
+			\displaystyle\dfrac{15}{4} \cdot \left(\dfrac{\pi}{3} - \dfrac{\pi}{4} + 2 \left[\dfrac{\sin^{2}\left(\theta\right)}{2}\right]_{\frac{\pi}{4}}^{\frac{\pi}{3}} \right) \\ [1.5em]
+			%
+			&=&
+			\displaystyle\dfrac{15}{4} \cdot \left(\dfrac{\pi}{3} - \dfrac{\pi}{4} + 2 \left[\dfrac{\frac{3}{4}}{2} - \dfrac{\frac{1}{2}}{2}\right] \right) \\ [1.5em]
+			%
+			&=&
+			\displaystyle\dfrac{15}{4} \cdot \left(\dfrac{\pi}{3} - \dfrac{\pi}{4} + \dfrac{1}{4}\right) \\ [1.5em]
+			%
+			&=&
+			\displaystyle\dfrac{15}{4} \cdot \left(\dfrac{\pi}{12} + \dfrac{1}{4}\right) \\ [1.5em]
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2 - Non solo circonferenze}}
+	\end{flushleft}
+	Data la regione:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1 \le x+y \le 2, \: x \ge 0, \: y \ge 0\right\}
+	\end{equation*}
+	Calcolare l'integrale:
+	\begin{equation*}
+		\displaystyle\iint\limits_{D} \dfrac{x-y}{x^{2}+y^{2}} \:\mathrm{d}x\:\mathrm{d}y
+	\end{equation*}
+	Il primo passo è rappresentare il dominio. Le due condizioni più semplici sono $x \ge 0$ e $y \ge 0$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/integrali_doppi-coordinate_polari-3.pdf}
+	\end{figure}
+
+	\noindent
+	Si passa alla seconda condizione:
+	\begin{equation*}
+		1 \le x+y \longrightarrow y = -x + 1 \hspace{3em} x+y \le 2 \longrightarrow y = -x + 2
+	\end{equation*}
+	Cioè tutte rette:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/integrali_doppi-coordinate_polari-4.pdf}
+	\end{figure}
+
+	\newpage
+
+	\noindent
+	Il grafico finale:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrali_doppi-coordinate_polari-5.pdf}
+	\end{figure}
+
+	\noindent
+	Questo tipo di esercizio potrebbe essere risolto con il metodo $x$ o $y$ semplice. Tuttavia, si dovrebbe dividere l'esercizio in due parti rischiando di aumentare la percentuale di errore. In questo caso, è consigliato utilizzare le coordinate polari, le quali \underline{non} si applicano soltanto nel caso di equazioni di circonferenze presenti nel dominio. Un \textbf{indizio} che dovrebbe aiutare è vedere nella funzione da integrare l'espressione $x^{2}+y^{2}$.\newline
+
+	\noindent
+	Si procede con l'individuazione degli estremi di integrazione. Il valore di $\theta$ sarà da $0\degree$ a $90\degree$, ovvero (in radianti):
+	\begin{equation*}
+		90\degree \rightarrow 90 \cdot 2\pi \cdot \dfrac{1}{360} = \dfrac{\pi}{2} \hspace{4em} 0 \le \theta \le \dfrac{\pi}{2}
+	\end{equation*}
+	Per identificare $\rho$ si utilizza un escamotage. Data la condizione $1 \le x+y \le 2$, si applicano le coordinate polari:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\begin{cases}
+				x = \rho \cos\left(\theta\right) \\
+				y = \rho \sin\left(\theta\right)
+			\end{cases}
+			&\longrightarrow&
+			1 \le x+y \le 2 \\ [1em]
+			%
+			&&
+			1 \le \rho \cos\left(\theta\right) + \rho \sin\left(\theta\right) \le 2 \\ [.8em]
+			%
+			&&
+			1 \le \rho \left(\cos\left(\theta\right) + \sin\left(\theta\right)\right) \le 2 \\ [.8em]
+			%
+			&\downarrow& \text{si esplicita }\rho \\ [.8em]
+			%
+			&&
+			\dfrac{1}{\cos\left(\theta\right) + \sin\left(\theta\right)} \le \rho \le \dfrac{2}{\cos\left(\theta\right) + \sin\left(\theta\right)}
+		\end{array}
+	\end{equation*}
+	Quindi il dominio in coordinate polari è definito:
+	\begin{equation*}
+		D = \left\{\left(\rho, \theta\right) \in \mathbb{R}^{2} \: : \: 0 \le \theta \le \dfrac{\pi}{2}, \: \dfrac{1}{\cos\left(\theta\right) + \sin\left(\theta\right)} \le \rho \le \dfrac{2}{\cos\left(\theta\right) + \sin\left(\theta\right)}\right\}
+	\end{equation*}\newpage
+
+	\noindent
+	Si risolve l'integrale applicando gli estremi:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint\limits_{D} \dfrac{x-y}{x^{2}+y^{2}} \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{2}} \left(\int_{\frac{1}{\cos\left(\theta\right) + \sin\left(\theta\right)}}^{\frac{2}{\cos\left(\theta\right) + \sin\left(\theta\right)}} \dfrac{\rho\left(\cos\left(\theta\right) - \sin\left(\theta\right)\right)}{\rho^{2}\left(\cos^{2}\left(\theta\right) + \sin^{2}\left(\theta\right)\right)} \cdot \rho \:\mathrm{d}\rho\right) \:\mathrm{d}\theta \\ [2em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{2}}\left(
+				\displaystyle\int_{\frac{1}{\cos\left(\theta\right) + \sin\left(\theta\right)}}^{\frac{2}{\cos\left(\theta\right) + \sin\left(\theta\right)}}
+					\dfrac{\rho\left(\cos\left(\theta\right) - \sin\left(\theta\right)\right)}{\rho^{2}} \cdot \rho
+				\:\mathrm{d}\rho
+			\right)\:\mathrm{d}\theta \\ [2em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{2}}\left(
+				\displaystyle\int_{\frac{1}{\cos\left(\theta\right) + \sin\left(\theta\right)}}^{\frac{2}{\cos\left(\theta\right) + \sin\left(\theta\right)}}
+					\cos\left(\theta\right) - \sin\left(\theta\right)
+				\:\mathrm{d}\rho
+			\right)\:\mathrm{d}\theta \\ [2em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{2}}\left(
+				\left[\cos\left(\theta\right) - \sin\left(\theta\right)\right] \cdot \left[\rho\right]_{\frac{1}{\cos\left(\theta\right) + \sin\left(\theta\right)}}^{\frac{2}{\cos\left(\theta\right) + \sin\left(\theta\right)}}
+			\right)\:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{2}}
+				\dfrac{\cos\left(\theta\right) - \sin\left(\theta\right)}{\cos\left(\theta\right) + \sin\left(\theta\right)}
+			\:\mathrm{d}\theta \\ [1.5em]
+			%
+			&\downarrow& \text{sostituzione: } t = \cos\left(\theta\right) + \sin\left(\theta\right) \hspace{2em} \mathrm{d}\theta = \dfrac{1}{t'} \:\mathrm{d}t \hspace{2em} \\
+			&& t' = -\sin\left(\theta\right) + \cos\left(\theta\right) \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{2}}
+				\dfrac{\cancel{\cos\left(\theta\right) - \sin\left(\theta\right)}}{t} \cdot \dfrac{1}{\cancel{-\sin\left(\theta\right) + \cos\left(\theta\right)}}
+			\:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{2}} \dfrac{1}{t} \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\left[\ln\left(t\right)\right]_{0}^{\frac{\pi}{2}} \\ [1em]
+			%
+			&=&
+			\ln\left(\cos\left(\dfrac{\pi}{2}\right) + \sin\left(\dfrac{\pi}{2}\right)\right) - \ln\left(\cos\left(0\right) + \sin\left(0\right)\right) \\ [1em]
+			%
+			&=&
+			\ln\left(1\right) - \ln\left(1\right) \\ [.5em]
+			%
+			&=& 0
 		\end{array}
 	\end{equation*}
 
