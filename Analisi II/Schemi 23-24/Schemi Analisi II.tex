@@ -871,27 +871,32 @@
 		\item $\displaystyle\int \sin^{2}\left(x\right) \: \mathrm{d}x = \int\dfrac{1-\cos\left(2x\right)}{2} \:\mathrm{d}x$
 
 		\item $\displaystyle\int \cos\left(x\right) \: \mathrm{d}x = \sin\left(x\right) + c$ \hspace{.5em} ma \hspace{.5em} $\displaystyle\int \cos\left(n \cdot x\right) \: \mathrm{d}x = n \cdot \sin\left(n \cdot x\right) + c$
-		
-		\item $\displaystyle\int \cos^{2}\left(x\right) \: \mathrm{d}x = \int\dfrac{1+\cos\left(2x\right)}{2} \:\mathrm{d}x$
-
-		\item $\displaystyle\int \dfrac{1}{\cos^{2}\left(x\right)} \: \mathrm{d}x = \tan\left(x\right) + c$
-
-		\item $\displaystyle\int \dfrac{1}{\sin^{2}\left(x\right)} \: \mathrm{d}x = -\cot\left(x\right) + c$
-
-		\item $\displaystyle\int e^{x} \: \mathrm{d}x = e^{x} + c$
-
-		\item $\displaystyle\int a^{x} \: \mathrm{d}x = \dfrac{a^{x}}{\ln\left(a\right)} + c$
-
-		\item $\displaystyle\int \sinh\left(x\right) \: \mathrm{d}x = \cosh\left(x\right) + c$
-
-		\item $\displaystyle\int \cosh\left(x\right) \: \mathrm{d}x = \sinh\left(x\right) + c$
-
-		\item $\displaystyle\int \dfrac{1}{1+x^{2}} \: \mathrm{d}x = \arctan\left(x\right) + c$
-
-		\item $\displaystyle\int \dfrac{1}{\sqrt{1-x^{2}}} \: \mathrm{d}x = \arcsin\left(x\right) + c$
-
-		\item $\displaystyle\int \dfrac{-1}{\sqrt{1-x^{2}}} \: \mathrm{d}x = \arccos\left(x\right) + c$
 	\end{itemize}
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item $\displaystyle\int \cos^{2}\left(x\right) \: \mathrm{d}x = \int\dfrac{1+\cos\left(2x\right)}{2} \:\mathrm{d}x$
+
+			\item $\displaystyle\int \dfrac{1}{\cos^{2}\left(x\right)} \: \mathrm{d}x = \tan\left(x\right) + c$
+
+			\item $\displaystyle\int \dfrac{1}{\sin^{2}\left(x\right)} \: \mathrm{d}x = -\cot\left(x\right) + c$
+
+			\item $\displaystyle\int e^{x} \: \mathrm{d}x = e^{x} + c$
+
+			\item $\displaystyle\int a^{x} \: \mathrm{d}x = \dfrac{a^{x}}{\ln\left(a\right)} + c$
+
+			\item $\displaystyle\int \sinh\left(x\right) \: \mathrm{d}x = \cosh\left(x\right) + c$
+
+			\item $\displaystyle\int \cosh\left(x\right) \: \mathrm{d}x = \sinh\left(x\right) + c$
+
+			\item $\displaystyle\int \dfrac{1}{1+x^{2}} \: \mathrm{d}x = \arctan\left(x\right) + c$
+
+			\item $\displaystyle\int \dfrac{1}{\sqrt{1-x^{2}}} \: \mathrm{d}x = \arcsin\left(x\right) + c$
+
+			\item $\displaystyle\int \dfrac{-1}{\sqrt{1-x^{2}}} \: \mathrm{d}x = \arccos\left(x\right) + c$
+			
+			\item $\displaystyle\int\ln\left(x\right) = x\left(\ln\left(x\right)-1\right) + c$
+		\end{itemize}
+	\end{multicols}
 	Per altri integrali, visita il sito: \href{https://www.youmath.it/lezioni/analisi-matematica/integrali/596-integrali-notevoli.html}{YouMath}.\newpage
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9066,7 +9071,7 @@
 	Si noti che la lettera Omega $\Omega$ viene \textbf{utilizzata per identificare i domini semplici rispetto all'asse} $z$. Questo è importante poiché in sede d'esame un insieme di questo tipo dovrebbe dare un punto di partenza allo studente per consentire di svolgere l'esercizio facilmente.
 
 	\begin{flushleft}
-		\example{\underline{Esempio 1}}
+		\example{\underline{Esempio 1 - Esercizio di introduzione}}
 	\end{flushleft}
 	Calcolare:
 	\begin{equation*}
@@ -9080,7 +9085,7 @@
 
 	Dato che le tre variabili non possono essere negative (sempre maggiori di zero), ma non possono neanche superare $1$, allora si può riscrivere:
 	\begin{equation*}
-		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 0 \le x \le 1, \: 0 \le y \le 1 \: x+y+z\le 1\right\}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 0 \le x \le 1, \: 0 \le y \le 1, \: x+y+z\le 1\right\}
 	\end{equation*}
 	Adesso, la $z$ deve essere al centro di una disuguaglianza doppia, mentre la $x$ e la $y$ devono far parte di un altro insieme, per esempio $D$:
 	\begin{equation*}
@@ -9119,7 +9124,7 @@
 	\end{equation*}
 	Si sceglie $x$ o $y$ semplice. In questo caso, si usa $x$-semplice:
 	\begin{equation*}
-		\begin{array}{rcl} 1 -2x +x^2
+		\begin{array}{rcl}
 			D &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 1, \: 0 \le y \le 1-x\right\} \\ [1em]
 			%
 			\displaystyle\iint\limits_{D} x - x^{2} - yx \:\mathrm{d}x\:\mathrm{d}y
@@ -9142,6 +9147,228 @@
 			\dfrac{1}{4} - \dfrac{1}{3} + \dfrac{1}{8} \\ [1em]
 			%
 			&=& \dfrac{1}{24}
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2 - La rappresentazione aiuta la risoluzione!}}
+	\end{flushleft}
+	Data la regione:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: x^{2} + y^{2} \le z, \: x^{2}+y^{2} \ge z^{2}\right\}
+	\end{equation*}
+	Calcolare l'integrale:
+	\begin{equation*}
+		\displaystyle\iiint\limits_{\Omega} 2\left(x^{2}+y^{2}\right)z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}
+	A differenza dell'esercizio precedente in cui era possibile eseguire delle operazioni modificando direttamente il dominio, in questo caso conviene rappresentarlo per capire l'area di integrazione. Quindi, si inizia con $x^{2}+y^{2} = z$ che rappresenta un \href{https://it.wikipedia.org/wiki/Paraboloide}{paraboloide ellittico} centrato nell'origine:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrazione_per_fili.pdf}
+		\caption{Rappresentazione grafica di $x^{2}+y^{2} = z$}
+	\end{figure}
+
+	\noindent
+	Ovviamente si considerano tutti i punti all'interno poiché prendendo un punto di test $x=0,y=0, z=1$, rispetta la condizione $x^{2}+y^{2}\le z$. La seconda condizione è semplicemente un \href{https://en.wikipedia.org/wiki/Cone#Elliptic_cone}{cono ellittico} dato che la sua equazione canonica è $x^{2} + y^{2} = z^{2}$. I punti da prendere in considerazione sono quelli esterni al cono.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrazione_per_fili_2.pdf}
+		\caption{$x^{2}+y^{2} = z^{2}$}
+	\end{figure}\newpage
+
+	\noindent
+	Per cui, andando ad unire le due figure, è possibile calcolare l'integrale proiettando la circonferenza che si incontra nell'intersezione. Per capire dove si intersecano, basta mettere a sistema le due equazioni:
+	\begin{equation*}
+		\begin{cases}
+			x^{2} + y^{2} = z \\
+			x^{2} + y^{2} = z^{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\cdots \\
+			z = z^{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\cdots \\
+			z^{2} - z = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\cdots \\
+			z=0 \lor z=1
+		\end{cases}
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/integrazione_per_fili_3.png}
+		\caption{Da questa figura è possibile capire l'area di integrazione. Precisamente tra il cono e il paraboloide.}
+	\end{figure}
+
+	\noindent
+	Quindi l'integrale doppio sarà in $x,y$, ovvero il calcolo di una circonferenza di raggio $1$ (cioè il risultato del sistema):
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} \le 1\right\}
+	\end{equation*}
+	Per quanto riguarda la $z$, si guardi attentamente il grafico. La $z$ varia tra una funzione che corrisponde al paraboloide ellittico (base) e la funzione del cono. Quest'ultima deve essere adattata a $z$, quindi facendo una radice quadrata:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: \left(x,y\right) \in D, \: x^{2} + y^{2} \le z \le \sqrt{x^{2} + y^{2}}\right\}
+	\end{equation*}
+	Si calcola dunque l'integrale più interno rispetto a $z$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iiint\limits_{\Omega} 2\left(x^{2}+y^{2}\right)z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			&=&
+			\displaystyle\iint\limits_{D} \left(\int_{x^{2}+y^{2}}^{\sqrt{x^{2}+y^{2}}} 2\left(x^{2}+y^{2}\right)z \:\mathrm{d}z\right) \:\mathrm{d}x\:\mathrm{d}y \\ [2em]
+			%
+			&=&
+			\displaystyle\iint\limits_{D} \left(2\left(x^{2}+y^{2}\right)\int_{x^{2}+y^{2}}^{\sqrt{x^{2}+y^{2}}} z \:\mathrm{d}z\right) \:\mathrm{d}x\:\mathrm{d}y \\ [2em]
+			%
+			&=&
+			\displaystyle\iint\limits_{D} \left(2\left(x^{2}+y^{2}\right) \left[\dfrac{z^{2}}{2}\right]_{x^{2}+y^{2}}^{\sqrt{x^{2}+y^{2}}} \:\mathrm{d}z\right) \:\mathrm{d}x\:\mathrm{d}y
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{equation*}
+		\begin{array}{rcl}
+			\phantom{\displaystyle\iiint\limits_{\Omega} 2\left(x^{2}+y^{2}\right)z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z}
+			&=&
+			\displaystyle\iint\limits_{D} \left(\cancel{2}\left(x^{2}+y^{2}\right) \left[\dfrac{z^{2}}{\cancel{2}}\right]_{x^{2}+y^{2}}^{\sqrt{x^{2}+y^{2}}}\right) \:\mathrm{d}x\:\mathrm{d}y \\ [2em]
+			%
+			&=&
+			\displaystyle\iint\limits_{D} \left(\left(x^{2}+y^{2}\right) \left[x^{2}+y^{2} - \left(x^{2}+y^{2}\right)^{2}\right]\right) \:\mathrm{d}x\:\mathrm{d}y \\ [2em]
+			%
+			&=&
+			\displaystyle\iint\limits_{D} \left(x^{2}+y^{2}\right)^{2} - \left(x^{2}+y^{2}\right)^{3} \:\mathrm{d}x\:\mathrm{d}y \\ [2em]
+		\end{array}
+	\end{equation*}
+	Adesso si applicano gli estremi dell'integrale doppio rispetto a $D$. Prima di farlo, si passa alle coordinate polari per facilitare i calcoli dato che la regione è la seguente:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrazione_per_fili_4.pdf}
+		\caption{La nuova regione da calcolare: $D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} \le 1\right\}$.}
+	\end{figure}
+
+	\noindent
+	Il valore $\theta$ varia da $0$ a $2\pi$, allo stesso modo $\rho$ varia da $0$ a $1$ (raggio). Per cui la nuova regione diventa:
+	\begin{equation*}
+		D = \left\{\left(\rho,\theta\right) \in \mathbb{R}^{2} \: : \: 0 \le \theta \le 2\pi, \: 0 \le \rho \le 1\right\}
+	\end{equation*}
+	Si esegue la conversione in coordinate polari delle costanti:
+	\begin{equation*}
+		\displaystyle\iint\limits_{D} \left(\left(\rho^{2}\cos\left(\theta\right)^{2}+\rho^{2}\sin\left(\theta\right)^{2}\right)^{2} - \left(\rho^{2}\cos\left(\theta\right)^{2}+\rho^{2}\sin\left(\theta\right)^{2}\right)^{3}\right) \cdot \rho \:\mathrm{d}\rho\:\mathrm{d}\theta
+	\end{equation*}\newpage
+
+	\noindent
+	Adesso si calcola l'integrale:
+	\begin{equation*}
+		\begin{array}{ll}
+			& \displaystyle\int_{0}^{2\pi}\int_{0}^{1} \left(\rho^{4} - \rho^{6}\right) \cdot \rho \:\mathrm{d}\rho\:\mathrm{d}\theta \\ [2em]
+			%
+			& \displaystyle\int_{0}^{2\pi}\int_{0}^{1} \rho^{5} \:\mathrm{d}\rho - \int_{0}^{1} \rho^{7} \:\mathrm{d}\rho\:\mathrm{d}\theta \\ [2em]
+			%
+			& \displaystyle\int_{0}^{2\pi} \left[\dfrac{\rho^{6}}{6}\right]_{0}^{1} - \left[\dfrac{\rho^{8}}{8}\right]_{0}^{1} \:\mathrm{d}\theta \\ [2em]
+			%
+			& \displaystyle\int_{0}^{2\pi} \dfrac{1}{6} - \dfrac{1}{8} \:\mathrm{d}\theta \\ [2em]
+			%
+			& \left[\dfrac{1}{24}\theta\right]_{0}^{2\pi} \\ [1.7em]
+			%
+			& \dfrac{1}{12}\pi
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 3}}
+	\end{flushleft}
+	Data la regione:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 0 \le y \le x^{3} \le 1, \: 0 \le z \le \dfrac{1}{x^{2}y^{2} + 1}\right\}
+	\end{equation*}
+	Calcolare l'integrale:
+	\begin{equation*}
+		\displaystyle\iiint\limits_{\Omega} 16x^{9}y \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}
+	A differenza dell'esempio precedente, in questo caso risulta molto complesso rappresentare il dominio. È possibile farlo con un \emph{tool} online, ma all'esame non sarà possibile. Per cui in questi casi è necessario eseguire alcune considerazioni sul dominio. È possibile notare che la $z$ è già impostata come intervallo che dipende da funzioni $x$ e $y$, per cui si parte immediatamente:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iiint\limits_{\Omega} 16x^{9}y \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			&=&
+			\displaystyle\iint\limits_{D} \left(\int_{0}^{\frac{1}{x^{2}y^{2} + 1}} 16x^{9}y \:\mathrm{d}z\right) \:\mathrm{d}x\:\mathrm{d}y \\ [1.8em]
+			%
+			&=&
+			\displaystyle\iint\limits_{D} 16x^{9}y \cdot \dfrac{1}{x^{2}y^{2} + 1} \:\mathrm{d}x\:\mathrm{d}y \\ [2em]
+		\end{array}
+	\end{equation*}
+	Gli estremi di integrazione della regione $D$ devono essere calcolati poiché adesso si ha:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le y \le x^{3} \le 1\right\}
+	\end{equation*}
+	In questo caso, è possibile utilizzare la convenzione grafica per risolvere l'integrale. Per cui, $y$ è maggiore di zero e di conseguenza anche $x^{3}$ deve esserlo. Inoltre, la $y$ deve essere minore uguale di $1$ e lo stesso vale per $x$ ($\sqrt[3]{x} = \sqrt[3]{1} \rightarrow x = 1$):
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrazione_per_fili_5.pdf}
+	\end{figure}\newpage
+
+	\noindent
+	Si ricorda che la funzione $x^{3}$ è la seguente curva:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/integrazione_per_fili_6.pdf}
+	\end{figure}
+
+	\noindent
+	Per cui, si può riscrivere il dominio come:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 1, \: 0 \le y \le x^{3}\right\}
+	\end{equation*}
+	E si risolve l'integrale doppio esplicitando gli estremi:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint\limits_{D} 16x^{9}y \cdot \dfrac{1}{x^{2}y^{2} + 1} \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{x^{3}} \dfrac{16x^{9}y}{x^{2}y^{2} + 1} \:\mathrm{d}y\right) \:\mathrm{d}x \\ [1em]
+			%
+			&\downarrow& \text{sostituzione: }t=x^{2}y^{2}+1 \: \mathrm{d}y = \dfrac{1}{x^{2}2y} \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{x^{3}} \dfrac{16x^{9}y}{t} \cdot \dfrac{1}{x^{2}2y} \:\mathrm{d}t\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{x^{3}} \dfrac{8x^{7}}{t} \:\mathrm{d}t\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} 8x^{7} \cdot \left[\ln\left(t\right)\right]_{0}^{x^{3}} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} 8x^{7} \cdot \left[\ln\left(x^{2}y^{2}+1\right)\right]_{0}^{x^{3}} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} 8x^{7} \cdot \ln\left(x^{8}+1\right) \:\mathrm{d}x \\ [1em]
+			%
+			&\downarrow& \text{sostituzione: }t=x^{8}+1 \hspace{1em} \mathrm{d}x = \dfrac{1}{8x^{7}} \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \cancel{8x^{7}} \cdot \ln\left(t\right) \cdot \dfrac{1}{\cancel{8x^{7}}} \:\mathrm{d}t
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{equation*}
+		\begin{array}{rcl}
+			\phantom{\displaystyle\iint\limits_{D} 16x^{9}y \cdot \dfrac{1}{x^{2}y^{2} + 1} \:\mathrm{d}x\:\mathrm{d}y}
+			&=&
+			\displaystyle\int_{0}^{1} \ln\left(t\right) \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\left[t\left(\ln\left(t\right) - 1\right)\right]_{0}^{1} \\ [1em]
+			%
+			&=&
+			\left[\left(x^{8}+1\right)\left(\ln\left(x^{8}+1\right) - 1\right)\right]_{0}^{1} \\ [1em]
+			%
+			&=&
+			\left[\left(1^{8}+1\right)\left(\ln\left(1^{8}+1\right) - 1\right)\right] - \left[\left(0^{8}+1\right)\left(\ln\left(0^{8}+1\right) - 1\right)\right] \\ [1em]
+			%
+			&=& 2 \ln\left(2\right) - 2 + 1 \\ [.5em]
+			&=& 2 \ln\left(2\right) - 1
 		\end{array}
 	\end{equation*}
 
