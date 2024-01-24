@@ -9572,19 +9572,106 @@
 	Quindi il risultato dell'integrale è la somma delle due aree calcolate:
 	\begin{equation*}
 		\displaystyle\iiint\limits_{\Omega} 8x^{2}z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z = \dfrac{64}{3}\pi + \dfrac{64}{3}\pi = \dfrac{128}{3}\pi
+	\end{equation*}\newpage
+
+	\subsubsection{Coordinate cilindriche}
+
+	Negli integrali doppi, quindi nello spazio $\mathbb{R}^{2}$, le coordinate polari erano state identificate con la trasformazione da $\left(x,y\right)$ a $\left(\rho, \theta\right)$, con $x = \rho\cos\left(\theta\right)$ e $y = \rho\sin\left(\theta\right)$.\newline
+
+	\noindent
+	Negli integrali tripli, per cui nella terza dimensione $\mathbb{R}^{3}$, un punto con coordinate $\left(x,y,z\right)$ può essere identificato con le coordinate cilindriche $\left(\rho, \theta, z\right)$. Ebbene, si utilizza la stessa identica regola di conversione, ma lasciando immutata la variabile $z$.
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/integrali_tripli-coordinate_sferiche.png}
+		\caption{Rappresentazione grafica di un punto con le coordinate cilindriche.}
+	\end{figure}
+
+	\noindent
+	Quindi le coordinate cilindriche si trasformano con la seguente regola:
+	\begin{equation}
+		\begin{cases}
+			x = \rho \cos\left(\theta\right) \\
+			y = \rho \sin\left(\theta\right) \\
+			z = z
+		\end{cases}
+	\end{equation}
+
+	\begin{boxdef}
+		Data una funzione $f\left(x,y,z\right)$ continua in una box rettangolare $B$, quest'ultima descritta con le \definition{coordinate cilindriche}:
+		\begin{equation}
+			B = \left\{\left(r, \theta, z\right) \in \mathbb{R}^{3} \: : \: a \le \rho \le b, \: \alpha \le \theta \le \beta, \: c \le z \le d\right\}
+		\end{equation}
+		Allora la funzione $f\left(x,y,z\right) = f\left(\rho\cos\left(\theta\right), \rho\sin\left(\theta\right), z\right)$ è possibile calcolarla con l'integrale triplo:
+		\begin{equation}\label{eq: integrale triplo - coordinate cilindriche}
+			\displaystyle\iiint\limits_{B} f\left(x,y,z\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			=
+			\displaystyle\int_{c}^{d} \left(\int_{\beta}^{\alpha} \left(\int_{a}^{b} f\left(r,\theta, z\right) \cdot \rho \:\mathrm{d}\rho\right) \:\mathrm{d}\theta\right) \:\mathrm{d}z
+		\end{equation}
+		\textbf{Nota:} anche qui, come per le coordinate polari, il determinante della matrice Jacobiana $\rho$ deve essere moltiplicato alla funzione!
+	\end{boxdef}
+
+	\noindent
+	Per capire l'ordine di integrazione della formula \ref{eq: integrale triplo - coordinate cilindriche}, si supponga che la box cilindrica abbia il dominio:
+	\begin{equation*}
+		B = \left\{\left(r, \theta, z\right) \in \mathbb{R}^{3} \: : \: a \le \rho \le b, \: \alpha \le \theta \le \beta, \: c \le z \le d\right\}
 	\end{equation*}
+	E si supponga di dividere ogni intervallo in costanti $l,m,n$ come:
+	\begin{equation*}
+		\Delta r = \dfrac{b \cdot a}{l} \hspace{2em}
+		\Delta \theta = \dfrac{\beta \cdot \alpha}{m} \hspace{2em}
+		\Delta r = \dfrac{d \cdot c}{n}
+	\end{equation*}
+	Allora la figura può essere rappresentata come:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/integrali_tripli-coordinate_cilindriche.jpg}
+		\caption{Integrali tripli con le coordinate cilindriche.}
+	\end{figure}
 
-	\newpage
+	\noindent
+	Se la regione cilindrica da integrare è un solido generale, è possibile sfruttare la proiezione sul piano \dquotes{polare}. Precisamente, data una funzione continua $f\left(\rho\cos\left(\theta\right),\rho\sin\left(\theta\right),z\right)$ definita su una regione solida:
+	\begin{equation}
+		E = \left\{\left(\rho, \theta, z\right) \in \mathbb{R}^{3} \: : \: \left(\rho, \theta\right) \in D,\: u_{1}\left(\rho, \theta\right) \le z \le u_{2}\left(\rho,\theta\right)\right\}
+	\end{equation}
+	Dove la regione $D$ è la proiezione della regione $E$ sul piano $\rho\theta$ (esattamente come nell'integrazione per fili, eq. \ref{eq: insieme integrazione per fili}) e l'integrale è:
+	\begin{equation}
+		\displaystyle\iiint\limits_{E} f\left(\rho,\theta,z\right) \cdot \rho \:\mathrm{d}\rho\:\mathrm{d}\theta\:\mathrm{d}z
+		=
+		\displaystyle\iint\limits_{D} \left(\int_{u_{1}\left(\rho, \theta\right)}^{u_{2}\left(\rho, \theta\right)} f\left(\rho,\theta,z\right) \:\mathrm{d}z \right) \cdot\rho \:\mathrm{d}\rho\:\mathrm{d}\theta
+	\end{equation}
+	In particolare, se l'insieme $D$ è così definito:
+	\begin{equation}
+		D = \left\{\left(\rho, \theta\right) \: : \: g_{1}\left(\theta\right) \le \rho \le g_{2}\left(\theta\right), \: \alpha \le \theta \le \beta\right\}
+	\end{equation}
+	Allora l'integrale è possibile definirlo in maniera più dettagliata:
+	\begin{equation}
+		\displaystyle\iiint\limits_{E} f\left(\rho,\theta,z\right) \cdot \rho \:\mathrm{d}\rho\:\mathrm{d}\theta\:\mathrm{d}z
+		=
+		\displaystyle \int_{\alpha}^{\beta} \left(\int_{g_{1}\left(\theta\right)}^{g_{2}\left(\theta\right)} \left(\int_{u_{1}\left(\rho, \theta\right)}^{u_{2}\left(\rho, \theta\right)} f\left(\rho,\theta,z\right) \:\mathrm{d}z \right) \cdot\rho \:\mathrm{d}\rho \right) \:\mathrm{d}\theta
+	\end{equation}\newpage
 
-	\subsection{Tecnica del cambiamento di variabili}
-
-	\newpage
-
-	\subsubsection{Negli integrali doppi}
-
-	\newpage
-
-	\subsubsection{Negli integrali tripli}
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Sia $D$ la regione $\mathbb{R}^{3}$ contenuta nel primo ottante e delimitata dalle superfici cilindriche:
+	\begin{equation*}
+		x^{2}+y^{2} = 1 \hspace{3em} x^{2}+y^{2} = 4
+	\end{equation*}
+	E dai piani: $z=0,z=1,x=0,x=y$. Calcolare:
+	\begin{equation*}
+		\displaystyle\iiint\limits_{D}\left(x^{2}+y^{2}\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}
+	Il \textbf{primo passo} è rappresentare i due cilindri:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrali_tripli-coordinate_cilindriche_1.png}
+		\caption{Rappresentazione dell'equazione $x^{2}+y^{2} = 1$ con raggio $1$.}
+	\end{figure}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrali_tripli-coordinate_cilindriche_2.png}
+		\caption{Rappresentazione dell'equazione $x^{2}+y^{2} = 4$ con raggio $2$.}
+	\end{figure}
 
 
 
