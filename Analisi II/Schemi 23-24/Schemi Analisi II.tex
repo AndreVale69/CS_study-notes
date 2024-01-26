@@ -8816,9 +8816,9 @@
 		\end{equation}
 
 		\item Se la funzione da integrare $f\left(x,y,z\right)$ è uguale ad uno, allora l'integrale triplo:
-		\begin{equation*}
+		\begin{equation}\label{eq: integrale triplo - volume}
 			\displaystyle\iiint\limits_{D} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
-		\end{equation*}
+		\end{equation}
 		È il volume della regione di $D$.
 	\end{itemize}
 	
@@ -9400,7 +9400,7 @@
 	A differenza del metodo di integrazione precedente (per fili) qui in prima battuta viene calcolata l'area proiettata e successivamente viene \dquotes{estesa} da $\alpha$ a $\beta$. Ovviamente l'area proiettata varia a seconda dell'altezza, ovvero varia a seconda dell'apertura di $z$. Vedendo l'esempio 1, si può vedere come l'integrale che è stato calcolato varia a seconda di $z$.\newpage
 
 	\begin{flushleft}
-		\example{\underline{Esempio 1}}
+		\example{\underline{Esempio}}
 	\end{flushleft}
 	Data la regione:
 	\begin{equation*}
@@ -9410,6 +9410,8 @@
 	\begin{equation*}
 		\displaystyle\iiint\limits_{\Omega} 8x^{2}z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
 	\end{equation*}
+	Attenzione! Questo esercizio viene eseguito in questo modo per mostrare come adoperare il metodo di integrazione per strati. Tuttavia, nei casi in cui ci fosse una sfera, è sempre consigliato adoperare le coordinate sferiche (par. \ref{subsubsection: coordinate sferiche}, esercizio a pagina \pageref{esempio coordinate sferiche}).
+
 	Il \textbf{primo passo} è capire le forme che compongono la regione. In questo caso, si ha una sfera ($x^{2} + y^{2} + z^{2} \le 8$) e un cono ($x^{2} + y^{2} - z^{2} \le 0$) centrato nell'origine. La $z$ deve essere maggiore o uguale di zero, per cui è necessario prendere l'area positiva. La figura dunque è:
 	\begin{figure}[!htp]
 		\centering
@@ -9574,7 +9576,7 @@
 		\displaystyle\iiint\limits_{\Omega} 8x^{2}z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z = \dfrac{64}{3}\pi + \dfrac{64}{3}\pi = \dfrac{128}{3}\pi
 	\end{equation*}\newpage
 
-	\subsubsection{Coordinate cilindriche}
+	\subsubsection{Coordinate cilindriche}\label{subsubsection: coordinate cilindriche}
 
 	Negli integrali doppi, quindi nello spazio $\mathbb{R}^{2}$, le coordinate polari erano state identificate con la trasformazione da $\left(x,y\right)$ a $\left(\rho, \theta\right)$, con $x = \rho\cos\left(\theta\right)$ e $y = \rho\sin\left(\theta\right)$.\newline
 
@@ -9582,7 +9584,7 @@
 	Negli integrali tripli, per cui nella terza dimensione $\mathbb{R}^{3}$, un punto con coordinate $\left(x,y,z\right)$ può essere identificato con le coordinate cilindriche $\left(\rho, \theta, z\right)$. Ebbene, si utilizza la stessa identica regola di conversione, ma lasciando immutata la variabile $z$.
 	\begin{figure}[!htp]
 		\centering
-		\includegraphics[width=.5\textwidth]{img/integrali_tripli-coordinate_sferiche.png}
+		\includegraphics[width=.5\textwidth]{img/integrali_tripli-coordinate_cilindriche.png}
 		\caption{Rappresentazione grafica di un punto con le coordinate cilindriche.}
 	\end{figure}
 
@@ -9651,7 +9653,7 @@
 	\end{equation}\newpage
 
 	\begin{flushleft}
-		\example{\underline{Esempio 1}}
+		\example{\underline{Esempio}}
 	\end{flushleft}
 	Sia $D$ la regione $\mathbb{R}^{3}$ contenuta nel primo ottante e delimitata dalle superfici cilindriche:
 	\begin{equation*}
@@ -9784,9 +9786,158 @@
 			&=&
 			\dfrac{15}{16}\pi
 		\end{array}
+	\end{equation*}\newpage
+
+	\subsubsection{Coordinate sferiche}\label{subsubsection: coordinate sferiche}
+
+	Le coordinate sferiche sono pressoché identiche alle coordinate cilindriche (par. \ref{subsubsection: coordinate cilindriche}) ma con l'unica differenza che un punto viene identificato con delle coordinate polari un po' più complesse:
+	\begin{equation}\label{eq: conversione in coordinate sferiche}
+		\begin{cases}
+			x = \rho\sin\left(\varphi\right)\cos\left(\theta\right) \\
+			y = \rho\sin\left(\varphi\right)\sin\left(\theta\right) \\
+			z = \rho\cos\left(\varphi\right)
+		\end{cases}
+		\hspace{2em}
+		\rho \in \left[0, +\infty\right), \: \varphi \in \left[0, \pi\right], \: \theta \in \left[0, 2\pi\right)
+	\end{equation}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.55\textwidth]{img/integrali_tripli-coordinate_sferiche.png}
+		\caption{Rappresentazione grafica di un punto con le coordinate sferiche.}
+	\end{figure}
+
+	\begin{boxdef}
+		Data una funzione $f\left(x,y,z\right)$ continua in un solido sferico $B$:
+		\begin{equation}
+			\begin{array}{rcl}
+				B &=& \left\{\left(\rho,\theta,\varphi\right) \in \mathbb{R}^{3} \: : \: a \le \rho \le b,\: \alpha \le \theta \le \beta, \: \gamma \le \varphi \le \psi\right\} \\ [.5em]
+				B &=& \left[a, b\right] \times \left[\alpha, \beta\right] \times \left[\gamma, \psi\right]
+			\end{array}
+		\end{equation}
+		Allora la funzione $f$ è possibile calcolarla con l'integrale triplo:
+		\begin{equation}
+			\displaystyle\iiint\limits_{B} f\left(\rho, \theta, \varphi\right) \cdot \rho^{2} \sin\left(\varphi\right) \:\mathrm{d}\rho\:\mathrm{d}\theta\:\mathrm{d}\varphi
+		\end{equation}
+		Ovvero con gli estremi definiti:
+		\begin{equation}\label{eq: integrale triplo - formula delle coordinate sferiche}
+			\displaystyle\int_{\gamma}^{\psi} \left(\int_{\alpha}^{\beta} \left(\int_{a}^{b} f\left(\rho, \theta, \varphi\right) \rho^{2} \sin\left(\varphi\right) \:\mathrm{d}\rho\right) \:\mathrm{d}\theta\right) \:\mathrm{d}\varphi
+		\end{equation}
+	\end{boxdef}\newpage
+
+	\noindent
+	Rappresentazione grafica dell'integrale triplo con coordinate sferiche:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/integrali_tripli-coordinate_sferiche_1.png}
+		\includegraphics[width=.6\textwidth]{img/integrali_tripli-coordinate_sferiche_2.png}
+		\includegraphics[width=\textwidth]{img/integrali_tripli-coordinate_sferiche_3.png}
+	\end{figure}\newpage
+
+	\begin{flushleft}\label{esempio coordinate sferiche}
+		\example{\underline{Esempio}}
+	\end{flushleft}
+	Data la regione:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: x^{2} + y^{2} - z^{2} \le 0,\: x^{2} + y^{2} + z^{2} \le 8,\: z \ge 0\right\}
 	\end{equation*}
+	Calcolare l'integrale:
+	\begin{equation*}
+		\displaystyle\iiint\limits_{\Omega} 8x^{2}z \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}
+	Il \textbf{primo passo} è rappresentare le due figure:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=\textwidth]{img/integrazione_per_strati_3.png}
+		\includegraphics[width=.7\textwidth]{img/integrazione_per_strati.pdf}
+	\end{figure}
+	
+	\noindent
+	In cui il cono è l'equazione $x^{2} + y^{2} - z^{2} \le 0$. Il \textbf{secondo passo} è l'applicazione delle coordinate sferiche. Immediatamente poiché si è davanti ad una sfera. Quindi, si parte con la variabile più semplice: $\rho$. Essa rappresenta la porzione verticale, cioè lungo $z$, in cui è calcolato l'integrale. In questo caso, varia da un minimo di zero, ad un massimo di \dquotes{raggio della sfera}. Infatti, il punto più alto è il raggio della sfera, che corrisponde a $\sqrt{8}$.
+	\begin{equation*}
+		0 \le \rho \le \sqrt{8}
+	\end{equation*}
+	Per quanta riguarda $\varphi$, ci si riferisce alla pendenza (valore dell'angolo) partendo dall'asse parallelo a $z$. Per cui, la pendenza parte da $0$ e arriva fino all'intersezione tra il cono e la sfera, il quale è il valore più distante e quindi il limite superiore. Dato che è un cono, per definizione esso taglia esattamente a metà il grafico tra $x$ e $y$, per cui il limite massimo è $45\degree$, che in radianti corrisponde a:
+	\begin{equation*}
+		45 \cdot 2\pi \cdot \dfrac{1}{360} = \dfrac{1}{4}\pi 
+		\hspace{1em} \longrightarrow \hspace{1em}
+		0 \le \varphi \le \dfrac{1}{4}\pi
+	\end{equation*}
+	Infine, l'ultimo valore da ottenere è $\theta$. Rappresenta l'angolo giro della circonferenza e in questo caso non ci sono limitazioni, si prende tutta l'area:
+	\begin{equation*}
+		0 \le \theta \le 2\pi
+	\end{equation*}
+	Il \textbf{terzo passo} è l'applicazione della formula \ref{eq: integrale triplo - formula delle coordinate sferiche} dell'integrale triplo ricordando la conversione in coordinate sferiche e il determinante della matrice Jacobiana $\rho^{2} \sin\left(\varphi\right)$:
+	\begin{gather*}
+		\begin{cases}
+			x = \rho \sin\left(\varphi\right) \cos\left(\theta\right) \\
+			y = \rho \sin\left(\varphi\right) \sin\left(\theta\right) \\
+			z = \rho \cos\left(\varphi\right)
+		\end{cases} \\
+		%
+		\Omega = \left\{\left(\rho,\theta,\varphi\right) \in \mathbb{R}^{3} \: : \: 0 \le \rho \le \sqrt{8},\: 0 \le \varphi \le \dfrac{1}{4}\pi,\: 0 \le \theta \le 2\pi\right\} \\
+		%
+		\begin{array}{ll}
+			&\displaystyle\int_{0}^{\frac{\pi}{4}} \left(
+				\int_{0}^{2\pi} \left(
+					\int_{0}^{\sqrt{8}} 8\left(\rho^{2}\sin\left(\varphi\right)^{2}\cos\left(\theta\right)^{2}\right)\rho\cos\left(\varphi\right)\rho^{2}\sin\left(\varphi\right) \:\mathrm{d}\rho
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}\varphi \\ [1.5em]
+			%
+			&\displaystyle\int_{0}^{\frac{\pi}{4}} \left(
+				\int_{0}^{2\pi} \left(
+					\int_{0}^{\sqrt{8}} 8 \rho^{5} \sin\left(\varphi\right)^{3} \cos\left(\theta\right)^{2} \cos\left(\varphi\right) \:\mathrm{d}\rho
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}\varphi \\ [1.5em]
+			%
+			& 8 \cdot \displaystyle\int_{0}^{\frac{\pi}{4}} \sin\left(\varphi\right)^{3} \cos\left(\varphi\right) \cdot \left(
+				\int_{0}^{2\pi} \cos\left(\theta\right)^{2} \cdot \left(
+					\int_{0}^{\sqrt{8}} \rho^{5} \:\mathrm{d}\rho
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}\varphi \\ [1.5em]
+			%
+			& 8 \cdot \displaystyle\int_{0}^{\frac{\pi}{4}} \sin\left(\varphi\right)^{3} \cos\left(\varphi\right) \cdot \left(
+				\int_{0}^{2\pi} \cos\left(\theta\right)^{2} \cdot \left(
+					\left[\dfrac{\rho^{6}}{6}\right]_{0}^{\sqrt{8}}
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}\varphi \\ [1.5em]
+			%
+			& 8 \cdot \displaystyle\int_{0}^{\frac{\pi}{4}} \sin\left(\varphi\right)^{3} \cos\left(\varphi\right) \cdot \left(
+				\int_{0}^{2\pi} \cos\left(\theta\right)^{2} \cdot \dfrac{256}{3} \:\mathrm{d}\theta
+			\right) \:\mathrm{d}\varphi \\ [1.5em]
+			%
+			& \dfrac{2048}{3} \cdot \displaystyle\int_{0}^{\frac{\pi}{4}} \sin\left(\varphi\right)^{3} \cos\left(\varphi\right) \cdot \left(
+				\int_{0}^{2\pi} \cos\left(\theta\right)^{2} \:\mathrm{d}\theta
+			\right) \:\mathrm{d}\varphi \\ [1.5em]
+			%
+			& \dfrac{2048}{3} \cdot \displaystyle\int_{0}^{\frac{\pi}{4}} \sin\left(\varphi\right)^{3} \cos\left(\varphi\right) \cdot \left(
+				\int_{0}^{2\pi} \dfrac{1+\cos\left(2\theta\right)}{2} \:\mathrm{d}\theta
+			\right) \:\mathrm{d}\varphi \\ [1.5em]
+			%
+			& \dfrac{2048}{3} \cdot \pi \cdot \displaystyle\int_{0}^{\frac{\pi}{4}} \sin\left(\varphi\right)^{3} \cos\left(\varphi\right) \:\mathrm{d}\varphi \\ [1em]
+			%
+			& \downarrow \text{ sostituzione: } t = \sin\left(\varphi\right) \hspace{1em} \mathrm{d}\varphi = \dfrac{1}{\cos\left(\varphi\right)} \:\mathrm{d}t \\ [1em]
+			%
+			& \dfrac{2048}{3} \cdot \pi \cdot \displaystyle\int_{0}^{\frac{\pi}{4}} t^{3} \cos\left(\varphi\right) \cdot \dfrac{1}{\cos\left(\varphi\right)} \:\mathrm{d}t
+		\end{array}
+	\end{gather*}\newpage
 
-
+	\begin{equation*}
+		\begin{array}{ll}
+			& \phantom{\displaystyle\int_{0}^{\frac{\pi}{4}} \left(
+				\int_{0}^{2\pi} \left(
+					\int_{0}^{\sqrt{8}} 8\left(\rho^{2}\sin\left(\varphi\right)^{2}\cos\left(\theta\right)^{2}\right)\rho\cos\left(\varphi\right)\rho^{2}\sin\left(\varphi\right) \:\mathrm{d}\rho
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}\varphi} \\
+			%
+			& \dfrac{2048}{3} \cdot \pi \cdot \left[\dfrac{t^{4}}{4}\right]_{0}^{\frac{\pi}{4}} \\ [1.5em]
+			%
+			& \dfrac{2048}{3} \cdot \pi \cdot \left[\dfrac{\sin\left(\varphi\right)^{4}}{4}\right]_{0}^{\frac{\pi}{4}} \\ [1.5em]
+			%
+			& \dfrac{2048}{3} \cdot \pi \cdot \dfrac{1}{16} \\ [1.5em]
+			%
+			& \dfrac{128}{3} \pi
+		\end{array}
+	\end{equation*}
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
