@@ -9588,7 +9588,7 @@
 
 	\noindent
 	Quindi le coordinate cilindriche si trasformano con la seguente regola:
-	\begin{equation}
+	\begin{equation}\label{eq: conversione in coordinate cilindriche}
 		\begin{cases}
 			x = \rho \cos\left(\theta\right) \\
 			y = \rho \sin\left(\theta\right) \\
@@ -9671,7 +9671,120 @@
 		\centering
 		\includegraphics[width=.7\textwidth]{img/integrali_tripli-coordinate_cilindriche_2.png}
 		\caption{Rappresentazione dell'equazione $x^{2}+y^{2} = 4$ con raggio $2$.}
+	\end{figure}\newpage
+
+	\noindent
+	L'esercizio chiede il calcolo della superficie delimitata dai due cilindri, per cui si intende l'area interna tra i due:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrali_tripli-coordinate_cilindriche_3.png}
+		\caption{Rappresentazione dell'equazione $x^{2}+y^{2} = 1 \: \land \:x^{2}+y^{2} = 4$.}
 	\end{figure}
+
+	\noindent
+	Infine, si rappresentano i piani richiesti: $z=0,z=1,x=0,x=y$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrali_tripli-coordinate_cilindriche_4.png}
+		\caption{L'area interessata è tra i due cilindri e delimitata dalle pareti (rette in due dimensioni).}
+	\end{figure}
+
+	\noindent
+	Quindi, l'area interessata è delimitata da $0 \le z \le 1$, mentre la $x$ ha una retta che passa per $0$ e, infine, vi è una retta che taglia il grafico a metà: $x = y$.\newpage
+
+	\noindent
+	Il \textbf{secondo passo} è capire gli estremi di integrazione dell'integrale triplo. Per quanto riguarda la terza dimensione, ovvero $z$, la questione è semplice poiché essa va da $0$ a $1$ (come viene esplicitato). Per quanta riguarda gli estremi di $x$ e $y$ è necessario uno \dquotes{sguardo dall'alto}:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/integrali_tripli-coordinate_cilindriche_5.pdf}
+	\end{figure}
+
+	\noindent
+	Come è possibile osservare dalla figura, risulta evidente che $y$ sia nell'intervallo $\left[1,2\right]$. Per quanto riguarda la $x$, essa è compresa in $0 \le x \le y$. Adesso è possibile risolvere l'integrale triplo poiché si hanno tutti gli estremi chiari:
+	\begin{gather*}
+		D = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 0 \le x \le y, \: 1 \le y \le 2, \: 0 \le z \le 1\right\} \\
+		\begin{array}{rcl}
+			\displaystyle\iiint\limits_{D} \left(x^{2}+y^{2}\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{1}^{2} \left(\int_{0}^{y} \left(x^{2}+y^{2}\right) \:\mathrm{d}x\right) \:\mathrm{d}y\right) \:\mathrm{d}z
+		\end{array}
+	\end{gather*}
+	Prima di risolvere l'integrale e rischiare di complicarsi i calcoli in questo modo, si osservi bene la sua forma. Come accadeva per le coordinate polari, anche qua si è di fronte ad una forma $x^{2}+y^{2}$ che senza coordinate polari (o cilindriche in questo caso!) potrebbe essere ardua risolvere.
+
+	Il \textbf{terzo passo} è eseguire la conversione in coordinate cilindriche che non è altro che la conversione in coordinate polari dato che la variabile $z$ rimane uguale (eq. \ref{eq: conversione in coordinate cilindriche})!
+	\begin{equation*}
+		\begin{cases}
+			x = \rho\cos\left(\theta\right) \\
+			y = \rho\sin\left(\theta\right) \\
+			z = z
+		\end{cases}
+	\end{equation*}
+	Per convertire l'insieme, è necessario ragionare sugli estremi degli intervalli. Assodato che la $z$ è identica, nel piano a due dimensioni, la $x$ è limitata da $45\degree$ fino a $90\degree$, che tradotto in radianti:
+	\begin{equation*}
+		\begin{array}{rcl}
+			45\degree &\rightarrow& 45 \cdot 2\pi \cdot \dfrac{1}{360} = \dfrac{\pi}{4} \\ [1em]
+			90\degree &\rightarrow& 90 \cdot 2\pi \cdot \dfrac{1}{360} = \dfrac{\pi}{2} 
+		\end{array}
+	\end{equation*}
+	Per quanto riguarda la $y$, essa è limitata da $1$ a $2$, valori che corrispondono anche al raggio delle due circonferenze (e cilindri nel piano $\mathbb{R}^{3}$). Si hanno tutti i valori per costruire il nuovo insieme con le coordinate cilindriche:
+	\begin{equation*}
+		D = \left\{\left(\rho,\theta,z\right) \in \mathbb{R}^{3} \: : \: \dfrac{\pi}{4} \le \theta \le \dfrac{\pi}{2},\: 1 \le \rho \le 2,\: 0 \le z \le 1\right\}
+	\end{equation*}
+	Applicando la formula \ref{eq: integrale triplo - coordinate cilindriche} si riscrive l'integrale come:
+	\begin{equation*}
+		\begin{array}{rcl}
+			&=&
+			\displaystyle\int_{0}^{1} \left(
+				\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \left(
+					\int_{1}^{2} \left(\rho^{2}\cos\left(\theta\right)^{2}+\rho^{2}\sin\left(\theta\right)^{2}\right) \rho \:\mathrm{d}\rho
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}z \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(
+				\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \left(
+					\int_{1}^{2} \left(\rho^{2}\left(\cos\left(\theta\right)^{2}+\sin\left(\theta\right)^{2}\right)\right) \rho \:\mathrm{d}\rho
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}z \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(
+				\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \left(
+					\int_{1}^{2} \rho^{3} \:\mathrm{d}\rho
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}z \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(
+				\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \left(
+					\left[\dfrac{\rho^{4}}{4}\right]_{1}^{2}
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}z \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(
+				\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \left(
+					\dfrac{16}{4} - \dfrac{1}{4}
+				\right) \:\mathrm{d}\theta
+			\right) \:\mathrm{d}z \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(
+				\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \dfrac{15}{4} \:\mathrm{d}\theta
+			\right) \:\mathrm{d}z \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(
+				\dfrac{15}{4} \cdot \left[\dfrac{}{} \theta \dfrac{}{} \right]_{\frac{\pi}{4}}^{\frac{\pi}{2}}
+			\right) \:\mathrm{d}z \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \dfrac{15}{4} \cdot \dfrac{1}{4}\pi \:\mathrm{d}z \\ [1.5em]
+			%
+			&=&
+			\dfrac{15}{16}\pi
+		\end{array}
+	\end{equation*}
 
 
 
