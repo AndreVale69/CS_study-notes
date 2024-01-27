@@ -5671,7 +5671,7 @@
 
 	\begin{boxdef}
 		Se $\gamma : \left[a,b\right] \rightarrow \mathbb{R}^{n}$ è un arco di curva regolare, ovvero la derivata prima è diverso al vettore nullo ed è continua, allora è rettificabile e la sua \definition{lunghezza} è:
-		\begin{equation}
+		\begin{equation}\label{eq: integrale - lunghezza di una curva}
 			\displaystyle\int_{a}^{b} \left|\left| \gamma'\left(t\right) \right|\right| \: \mathrm{d}t
 		\end{equation}
 	\end{boxdef}
@@ -9937,7 +9937,246 @@
 			%
 			& \dfrac{128}{3} \pi
 		\end{array}
+	\end{equation*}\newpage
+
+	\section{Integrali di linea}
+
+	\subsection{Di prima specie}
+
+	\begin{boxdef}
+		Sia $\gamma : \left[a,b\right] \rightarrow \mathbb{R}^{n}$ un arco di curva regolare:
+		\begin{equation*}
+			\gamma \in \mathcal{C}^{1}\left(\left[a,b\right]\right) \hspace{2em} \gamma'\left(t\right) \ne \overset{\rightarrow}{0} \:\:\forall t \in \left[a,b\right]
+		\end{equation*}
+		E sia $f$ una funzione continua del tipo:
+		\begin{equation*}
+			f : A \subseteq \mathbb{R}^{2} \rightarrow \mathbb{R}
+		\end{equation*}
+		In cui $A$ è un insieme aperto contenente il sostegno di $\gamma$.
+
+		Si chiama \definition{integrale di linea di prima specie}, cioè l'integrale di $f$ esteso al cammino $\gamma$ il numero reale:
+		\begin{equation}\label{eq: integrale di linea di prima specie}
+			\displaystyle\int_{\gamma} f\left(x,y\right) \:\mathrm{d}s = \displaystyle\int_{a}^{b} f\left(\gamma\left(t\right)\right) \cdot \left|\left| \gamma'\left(t\right) \right|\right| \:\mathrm{d}t
+		\end{equation}
+	\end{boxdef}
+
+	\noindent
+	\textbf{Nota bene}: se la funzione $f\left(x,y\right) = 1$ per ogni $x,y$ appartenente all'insieme $A$, allora l'integrale di linea di prima specie si riduce ad un banale calcolo della lunghezza dell'arco di curva $\gamma$ (come calcolarlo: eq. \ref{eq: lunghezza di una curva}).\newline
+
+	\noindent
+	\definition{\underline{Interpretazione geometrica} dell'integrale di linea:} se $\gamma$ è una curva in $\mathbb{R}^{2}$, allora $\displaystyle\int_{\gamma} f \:\mathrm{d}s$ è l'\textbf{area della superficie verticale limitata in basso dal sostegno di $\gamma$ e in alto dalla superficie $z = f\left(x,y\right)$}.
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Data:
+	\begin{equation*}
+		\gamma\left(t\right) = \left(\cos\left(t\right), \sin\left(t\right)\right) \hspace{3em} t \in \left[0, \dfrac{\pi}{4}\right]
 	\end{equation*}
+	Calcolare l'integrale di linea:
+	\begin{equation*}
+		\displaystyle\int_{\gamma} x \:\mathrm{d}s
+	\end{equation*}
+	Il \textbf{primo passo} è calcolare la lunghezza della curva poiché la formula (\ref{eq: integrale di linea di prima specie}) dell'integrale di linea è:
+	\begin{equation*}
+		\displaystyle\int_{a}^{b} f\left(\gamma\left(t\right)\right) \cdot \left|\left| \gamma'\left(t\right) \right|\right| \:\mathrm{d}t
+	\end{equation*}
+	Per calcolare la lunghezza di una curva si utilizza l'eq. \ref{eq: lunghezza di una curva}:
+	\begin{equation*}
+		\left|\left| \gamma'\left(t\right) \right|\right| =
+		\left|\left| \begin{cases}
+			-\sin\left(t\right) \\
+			\cos\left(t\right)
+		\end{cases} \right|\right| =
+		\sqrt{\sin\left(t\right)^{2} + \cos\left(t\right)^{2}} =
+		\sqrt{1} = 1
+	\end{equation*}
+	Il \textbf{secondo passo} è calcolare l'integrale di linea. In questo caso, come argomento dell'integrale c'è la $x$, per cui si utilizza la $x$ della parametrizzazione:
+	\begin{equation*}
+		\displaystyle\int_{\gamma} x \:\mathrm{d}s = \displaystyle\int_{0}^{\frac{\pi}{4}} \cos\left(t\right) \cdot 1 \:\mathrm{d}t = \left[\sin\left(t\right)\right]_{0}^{\frac{\pi}{4}} = \dfrac{1}{\sqrt{2}}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	Data:
+	\begin{equation*}
+		\gamma\left(t\right) = \left(\sin\left(t\right) - t\cos\left(t\right), t\sin\left(t\right)+\cos\left(t\right)\right) \hspace{3em} t \in \left[0, 1\right]
+	\end{equation*}
+	Calcolare l'integrale di linea:
+	\begin{equation*}
+		\displaystyle\int_{\gamma} \dfrac{1}{x^{2}+y^{2}} \:\mathrm{d}s
+	\end{equation*}
+	Il \textbf{primo passo} è calcolare la lunghezza della curva:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\left|\left| \gamma'\left(t\right) \right|\right| 
+			&=&
+			\left|\left|\left( \begin{cases}
+				\sin\left(t\right) - t\cos\left(t\right) \\
+				t\sin\left(t\right) + \cos\left(t\right)
+			\end{cases} \right)'\right|\right| \\ [1.8em]
+			%
+			&=&
+			\left|\left| \begin{cases}
+				\cos\left(t\right) - \left(\cos\left(t\right) - t\sin\left(t\right)\right) \\
+				\sin\left(t\right) + t\cos\left(t\right) - \sin\left(t\right)
+			\end{cases} \right|\right| \\ [1.8em]
+			%
+			&=&
+			\left|\left| \begin{cases}
+				\cancel{\cos\left(t\right)} \cancel{- \cos\left(t\right)} + t\sin\left(t\right) \\
+				\cancel{\sin\left(t\right)} + t\cos\left(t\right) \cancel{- \sin\left(t\right)}
+			\end{cases} \right|\right| \\ [1.8em]
+			%
+			&=&
+			\sqrt{\left(t\sin\left(t\right)\right)^{2} + \left(t\cos\left(t\right)\right)^{2}} \\ [1em]
+			%
+			&=&
+			\sqrt{t^{2}} \\ [.8em]
+			%
+			&=&
+			t
+		\end{array}
+	\end{equation*}
+	Il \textbf{secondo passo} è calcolare l'integrale di linea (ricordando di moltiplicare la lunghezza):
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{\gamma} \dfrac{1}{x^{2}+y^{2}} \:\mathrm{d}s 
+			&=&
+			\displaystyle\int_{0}^{1} \dfrac{1}{\left(\sin\left(t\right) - t\cos\left(t\right)\right)^{2}+\left(t\sin\left(t\right)+\cos\left(t\right)\right)^{2}} \cdot t \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \dfrac{1}{t^{2} + 1} \cdot t \:\mathrm{d}t \\ [1em]
+			%
+			&\downarrow&
+			\text{sostituzione: } x = t^{2}+1 \hspace{1em} \mathrm{d}t = \dfrac{1}{2t} \:\mathrm{d}x \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \dfrac{1}{x} \cdot t \cdot \dfrac{1}{2t} \:\mathrm{d}x \\ [1em]
+			%
+			&=&
+			\dfrac{1}{2} \cdot \displaystyle\int_{0}^{1} \dfrac{1}{x} \:\mathrm{d}x \\ [1em]
+			%
+			&=&
+			\dfrac{1}{2} \cdot \left[\ln(t^{2}+1)\right]_{0}^{1} \\ [1em]
+			%
+			&=&
+			\dfrac{\ln\left(2\right)}{2}
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\example{\underline{Esempio 3}}
+	\end{flushleft}
+	Calcolare:
+	\begin{equation*}
+		\displaystyle\int_{\gamma} \left(xy+2z\right) \:\mathrm{d}s
+	\end{equation*}
+	Lungo il segmento di estremi $P\left(1,0,0\right)$ e $Q\left(0,1,1\right)$.\newline
+
+	\noindent
+	Per calcolare la parametrizzazione si utilizza la formula utilizzata nell'equazione \ref{eq: parametrizzazione notevole: segmento o retta} (par. \ref{subsubsection: parametrizzazioni notevoli}):
+	\begin{equation*}
+		\gamma\left(t\right) = \left(1,0,0\right) + t \left[\left(0,1,1\right) - \left(1,0,0\right)\right] = \begin{cases}
+			1-t \\
+			t \\
+			t
+		\end{cases}
+		\hspace{2em}
+		t \in \left[0,1\right]
+	\end{equation*}
+	Adesso si calcola la lunghezza:
+	\begin{equation*}
+		\left|\left| \gamma\left(t\right)' \right|\right| = \left|\left| \left(-1,1,1\right) \right|\right| = \sqrt{\left(-1\right)^{2} + 1^{2} + 1^{2}} = \sqrt{3}
+	\end{equation*}
+	Si conclude con il calcolo dell'integrale di linea:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{\gamma} \left(xy+2z\right) \:\mathrm{d}s
+			&=&
+			\displaystyle\int_{0}^{1} \left(\left(1-t\right)t+2t\right)\sqrt{3} \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\sqrt{3} \cdot \displaystyle\int_{0}^{1} t-t^{2}+2t \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\sqrt{3} \cdot \displaystyle\int_{0}^{1} -t^{2}+3t \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			-\sqrt{3} \cdot \left(\displaystyle\int_{0}^{1} t^{2} \:\mathrm{d}t + \displaystyle\int_{0}^{1} 3t \:\mathrm{d}t\right) \\ [1.5em]
+			%
+			&=&
+			-\sqrt{3} \cdot \left(\left[\dfrac{t^{3}}{3}\right]_{0}^{1} + 3\left[\dfrac{t^{2}}{2}\right]_{0}^{1}\right) \\ [1.5em]
+			%
+			&=&
+			-\sqrt{3} \cdot \left(\dfrac{1}{3} + \dfrac{3}{2}\right) \\ [1.5em]
+			%
+			&=&
+			\sqrt{3} \cdot \dfrac{7}{6}
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsection{Campi vettoriali}
+
+	Si chiama \definition{campo vettoriale} in $\mathbb{R}^{n}$ un'applicazione:
+	\begin{equation*}
+		\overset{\rightarrow}{F} : \Omega \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}
+	\end{equation*}
+	Che associa a ogni punto di $\Omega$ un vettore $n$-dimensionale. La costante $\overset{\rightarrow}{F}$ è un campo vettoriale continuo (differenziabile) su $\Omega$ se tutte le sue componenti $F_{i}\left(x_{1}, x_{2}, \cdots, x_{n}\right)$ sono funzioni continue (differenziabili). Per esempio:
+	\begin{itemize}
+		\item $\overset{\rightarrow}{F}\left(x,y\right) = \left(x,y\right) = x\overset{\rightarrow}{i}+y\overset{\rightarrow}{j}$
+		\item $\overset{\rightarrow}{G}\left(x,y\right) = \left(-y,x\right) = -y\overset{\rightarrow}{i}+x\overset{\rightarrow}{j}$
+	\end{itemize}
+
+	\begin{boxdef}
+		Sia $\overset{\rightarrow}{F}$ un campo vettoriale continuo su una regione che contiene il sostegno di una curva $\gamma$, regolare a tratti e orientata. Si chiama \definition{integrale del campo $\overset{\rightarrow}{F}$ lungo $\gamma$} il numero reale:
+		\begin{equation}
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \:\mathrm{d}\overset{\rightarrow}{r} 
+			=
+			\displaystyle\int_{a}^{b} \overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) \cdot \gamma'\left(t\right) \:\mathrm{d}t
+		\end{equation}
+	\end{boxdef}
+
+	\noindent
+	Alcune note:
+	\begin{itemize}
+		\item Sia $\gamma$ un arco di curva orientata. Se si indica con $-\gamma$ lo stesso arco percorso nel verso opposto, allora:
+		\begin{equation*}
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \:\mathrm{d}\overset{\rightarrow}{r} 
+			=
+			- \displaystyle\int_{-\gamma} \overset{\rightarrow}{F} \cdot \:\mathrm{d}\overset{\rightarrow}{r}
+		\end{equation*}
+
+		\item L'espressione formale:
+		\begin{equation*}
+			\omega\left(x,y\right) = A\left(x,y\right) \:\mathrm{d}x + B\left(x,y\right) \:\mathrm{d}y
+		\end{equation*}
+		Si chiama forma differenziale lineare (in $\mathbb{R}^{2}$) ed è un modo alternativo di esprimere il prodotto scalare $\overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}$, con:
+		\begin{equation*}
+			\overset{\rightarrow}{F}\left(x,y\right) = \left(A\left(x,y\right), B\left(x,y\right)\right) \hspace{2em} \mathrm{d}\overset{\rightarrow}{r} = \left(\mathrm{d}x, \mathrm{d}y\right)
+		\end{equation*}
+		Si è quindi soliti scrivere l'integrale di linea di un campo vettoriale anche nella forma:
+		\begin{equation*}
+			\displaystyle\int_{\gamma} \omega
+		\end{equation*}
+	\end{itemize}\newpage
+
+	\subsubsection{Conservativi}
+
+	\begin{boxdef}
+		Sia $\Omega$ un insieme aperto in $\mathbb{R}^{n}$ e $\overset{\rightarrow}{F} : \Omega \rightarrow \mathbb{R}^{n}$ un campo vettoriale. Si dice che $\overset{\rightarrow}{F}$ è \definition{conservativo} se esiste una funzione $U: \mathbb{R}^{n} \rightarrow \mathbb{R}$ tale che $\overset{\rightarrow}{F} = \nabla U$. In cui $U$ è chiamato \textbf{potenziale} di $\overset{\rightarrow}{F}$.
+	\end{boxdef}
+
+	%\subsubsection{Insiemi semplicemente connessi}
+
+	%\subsection{Operatori differenziali}
+
+	
+
+
+
+
 
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
