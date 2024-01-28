@@ -5358,7 +5358,7 @@
 	\end{flushleft}
 	\begin{itemize}
 		\item La parametrizzazione di un'\textbf{ellisse di centro} $\left(x_{c}, y_{c}\right)$ e semiassi $a,b$:
-		\begin{equation*}
+		\begin{equation*}\label{eq: parametrizzazione ellisse di centro}
 			\begin{array}{rcl}
 				\gamma:\left[0,2\pi\right] &\rightarrow& \mathbb{R}^{2} \\
 				t &\mapsto& \left(x_{c} + a \cos\left(t\right), y_{c} + b \sin\left(t\right)\right)
@@ -10376,22 +10376,173 @@
 	Dato che la derivata di $c_{1}\left(z\right)$ è uguale a zero, vuol dire che essa è una costante (un numero, infatti la derivata di un numero è zero!). Si conclude l'esercizio scrivendo la forma finale del potenziale con il dettaglio di $k$:
 	\begin{equation*}
 		U\left(x,y,z\right) = ye^{xz} + k \hspace{3em} k \in \mathbb{R}
+	\end{equation*}\newpage
+
+	\subsubsection{Condizione necessaria e sufficiente per campi conservativi: insiemi semplicemente connessi}
+
+	\begin{boxdef}
+		Un insieme aperto connesso $\Omega \subseteq \mathbb{R}^{n}$ si dice \definition{semplicemente connesso} se ogni curva chiusa semplice $\gamma$ in $\Omega$ si può ridurre a un punto, con deformazioni continue, senza uscire da $\Omega$.
+	\end{boxdef}
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/differenza_insiemi.png}
+	\end{figure}
+
+	\noindent
+	Alcune osservazioni:
+	\begin{itemize}
+		\item In $\mathbb{R}^{2}$:
+		\begin{itemize}
+			\item Ogni insieme aperto connesso, cioè \dquotes{formato da un solo pezzo}, e privo di buchi, è semplicemente connesso. In particolare, ogni aperto convesso è semplicemente connesso: \definition{per cui l'insieme $\mathbb{R}^{2}$ è semplicemente connesso}.
+			
+			\item Il piano privo di un punto (per esempio $\mathbb{R}^{2} \setminus \left\{0,0\right\}$) \textbf{non} è semplicemente connesso.
+
+			\item Il piano privo di un segmento \textbf{non} è semplicemente connesso.
+		\end{itemize}
+
+		\item In $\mathbb{R}^{3}$:
+		\begin{itemize}
+			\item Ogni sottoinsieme aperto convesso è un insieme semplicemente connesso. Quindi, \definition{l'insieme $\mathbb{R}^{3}$ è semplicemente connesso}.
+
+			\item Lo spazio privato di un punto (per esempio $\mathbb{R}^{3} \setminus \left\{0,0,0\right\}$) è semplicemente connesso.
+
+			\item Lo spazio privato di una retta (per esempio uno degli assi cartesiani) \textbf{non} è semplicemente connesso.
+		\end{itemize}
+	\end{itemize}
+
+	\noindent
+	Ora che gli insiemi sono stati definiti teoricamente, si può dare una condizione sufficiente e necessaria per gli insiemi conservativi.\newpage
+
+	\begin{theorem}
+		Se il campo vettoriale $\overset{\rightarrow}{F}$ è definito su una regione aperta \textbf{semplicemente connessa} $\Omega \subseteq \mathbb{R}^{n}$, allora la condizione:
+		\begin{equation}
+			\dfrac{\partial F_{i}}{\partial x_{j}} = \dfrac{\partial F_{j}}{\partial x_{i}}
+		\end{equation}
+		Per ogni $i,j$ e per ogni $\left(x_{1}, x_{2}, \dots, x_{n}\right) \in \Omega$, è \definition{necessaria e sufficiente} affinché $\overset{\rightarrow}{F}$ sia conservativo su $\Omega$.
+	\end{theorem}
+
+	\noindent
+	\underline{\textbf{Attenzione}}: in sede d'esame è necessario dire esplicitamente che l'insieme dell'esercizio è semplicemente connesso (se lo è) e che la matrice Jacobiana è simmetrica. Questo garantisce che il campo sia conservativo. L'omissione di una delle due parti (l'affermazione o la scrittura della matrice), non garantisce la correttezza dell'esercizio.\newpage
+
+	\subsection{Operatori differenziali}
+
+	Sia $\overset{\rightarrow}{F} : \Omega \subset \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ un campo vettoriale di classe $\mathcal{C}^{1}$ su $\Omega$ (insieme aperto, connesso). Si definisce \definition{divergenza} e \definition{rotore} del campo $\overset{\rightarrow}{F}$ in questo modo:
+	\begin{equation}
+		\begin{array}{rcl}
+			\mathrm{div} \:\overset{\rightarrow}{F}
+			&=&
+			\dfrac{\partial F_{1}}{\partial x} + \dfrac{\partial F_{2}}{\partial y} + \dfrac{\partial F_{3}}{\partial z} = \nabla \cdot \overset{\rightarrow}{F} \\ [1.5em]
+			%
+			\mathrm{rot} \:\overset{\rightarrow}{F}
+			&=&
+			\left(\dfrac{\partial F_{3}}{\partial y} - \dfrac{\partial F_{2}}{\partial z}, \: \dfrac{\partial F_{1}}{\partial z} - \dfrac{\partial F_{3}}{\partial x}, \: \dfrac{\partial F_{2}}{\partial x} - \dfrac{\partial F_{1}}{\partial y}\right) = \nabla \times \overset{\rightarrow}{F} \\ [1.5em]
+			&=&
+			\begin{cases}
+				\dfrac{\partial F_{3}}{\partial y} - \dfrac{\partial F_{2}}{\partial z} \vspace{1em} \\
+				\dfrac{\partial F_{1}}{\partial z} - \dfrac{\partial F_{3}}{\partial x} \vspace{1em} \\
+				\dfrac{\partial F_{2}}{\partial x} - \dfrac{\partial F_{1}}{\partial y}
+			\end{cases}
+		\end{array}
+	\end{equation}
+	Si noti che se il rotore $\mathrm{rot} \:\overset{\rightarrow}{F} = \overset{\rightarrow}{0}$ in ogni punto di $\Omega$, si dice che $\overset{\rightarrow}{F}$ è un \definition{irrotazionale}.
+
+	\noindent
+	\textbf{\underline{Nota}:} \textbf{un campo conservativo è necessariamente irrotazionale}.\newline
+
+	\noindent
+	Si può stabilire una corrispondenza tra i campi vettoriali e le forme differenziali:
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} p{16em} | p{16em} @{}}
+			\toprule
+			\textbf{Linguaggio dei campi vettoriali} & \textbf{Linguaggio delle forme}\newline \textbf{differenziali} \\
+			\midrule
+			Lavoro del campo $\overset{\rightarrow}{F}$ sul cammino $\gamma$ & Integrale della forma differenziale $\omega$ su $\gamma$ \\
+			%
+			\cmidrule{1-2}
+			%
+			$\overset{\rightarrow}{F}$ è conservativo in $\Omega$
+			\begin{equation*}
+				\exists U : \overset{\rightarrow}{F} = \nabla U \vspace{-2em}
+			\end{equation*}
+			&
+			$\omega$ è esatta in $\Omega$
+			\begin{equation*}
+				\exists f:\omega = df = f_{x}\mathrm{d}x + f_{y}\mathrm{d}y + f_{z}\mathrm{d}z \vspace{-2em}
+			\end{equation*} \\
+			%
+			\cmidrule{1-2}
+			%
+			$\overset{\rightarrow}{F}$ è irrotazionale in $\Omega$
+			\begin{equation*}
+				\mathrm{rot} \overset{\rightarrow}{F} = \overset{\rightarrow}{0}, \text{ cioè } \dfrac{\partial F_{i}}{\partial x_{j}} = \dfrac{\partial F_{j}}{\partial x_{i}} \in \Omega \vspace{-1.5em}
+			\end{equation*}
+			&
+			$\omega$ è chiusa in $\Omega$
+			\begin{equation*}
+				\mathrm{rot} \overset{\rightarrow}{F} = \overset{\rightarrow}{0}, \text{ cioè } \dfrac{\partial F_{i}}{\partial x_{j}} = \dfrac{\partial F_{j}}{\partial x_{i}} \in \Omega \vspace{-1.5em}
+			\end{equation*} \\
+			%
+			\cmidrule{1-2}
+			%
+			Un campo conservativo è irrotazionale & Una forma differenziale esatta è chiusa \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+
+	\subsubsection{Relazione tra integrali doppi e integrali di linea}
+	
+	\begin{theorem}[\textbf{Di Green nel piano}]\label{theorem: teorema di Green nel piano}
+		Sia $\gamma$ una curva semplice chiusa regolare a tratti orientata positivamente, immersa in un campo vettoriale piano $\overset{\rightarrow}{F}$ di classe $\mathcal{C}^{1}$. Sia $R$ la regione limitata da $\gamma$. Allora vale la seguente uguaglianza:
+		\begin{equation}
+			\displaystyle\oint_{\gamma^{+}} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} = \displaystyle\iint\limits_{R} \left(\dfrac{\partial F_{2}}{\partial x} - \dfrac{\partial F_{1}}{\partial y}\right) \:\mathrm{d}x\:\mathrm{d}y
+		\end{equation}
+	\end{theorem}
+
+	\noindent
+	Il teorema si applica spesso nel calcolo delle aree. Infatti, scegliendo per esempio il campo $\overset{\rightarrow}{F}\left(x,y\right) = \left(-y,x\right)$, il teorema di Green consente di scrivere:
+	\begin{equation*}
+		\dfrac{1}{2}\displaystyle\oint_{\gamma^{+}} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} = \displaystyle\iint\limits_{R} \:\mathrm{d}x\:\mathrm{d}y = Area\left(R\right)
 	\end{equation*}
 
-
-
-
-
-	%\subsubsection{Insiemi semplicemente connessi}
-
-	%\subsection{Operatori differenziali}
-
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Calcolare l'arco della regione di piano limitata dall'ellisse di equazione:
+	\begin{equation*}
+		\dfrac{x^{2}}{4} + \dfrac{y^{2}}{9} = 1
+	\end{equation*}
+	Il \textbf{primo passo} è parametrizzare la curva di un'ellisse usando le formule a pagina \pageref{eq: parametrizzazione ellisse di centro}:
+	\begin{equation*}
+		\gamma\left(t\right) = \left(0+\sqrt{4}\cos\left(t\right) , 0+\sqrt{9}\sin\left(t\right)\right) = \left(2\cos\left(t\right), 3\sin\left(t\right)\right) \hspace{2em} t \in \left[0, 2\pi\right]
+	\end{equation*}
+	Adesso si passa al calcolo dell'integrale usando il teorema di Green:
+	\begin{equation*}
+		Area = \dfrac{1}{2} \displaystyle\oint \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}
+	\end{equation*}
+	Con il campo vettoriale che corrisponde a (per essere in linea con il teorema di Green):
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y\right) = \left(-y,x\right)
+	\end{equation*}
+	Per cui il \textbf{secondo passo} è ottenere i valori per calcolare l'integrale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\gamma\left(t\right) &=& \left(2\cos\left(t\right), 3\sin\left(t\right)\right) \\ [.1em]
+			\overset{\rightarrow}{F} &=& \left(-y, x\right) \\ [.1em]
+			\overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) &=& \left(-3\sin\left(t\right), 2\cos\left(t\right)\right) \\ [.3em]
+			\gamma'\left(t\right) &=& \left(-2\sin\left(t\right), 3\cos\left(t\right)\right) \\ [1em]
+			\dfrac{1}{2} \displaystyle\oint \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} &=& \dfrac{1}{2}\displaystyle\int_{0}^{2\pi} \left(-3\sin\left(t\right), 2\cos\left(t\right)\right) \cdot \left(-2\sin\left(t\right), 3\cos\left(t\right)\right) \:\mathrm{d}t \\ [1em]
+			&=& 
+			\dfrac{1}{2}\displaystyle\int_{0}^{2\pi} 6\sin\left(t\right)^{2} + 6\cos\left(t\right)^{2} \:\mathrm{d}t \\ [1em]
+			&=& 
+			\dfrac{1}{2}\displaystyle\int_{0}^{2\pi} 6 \:\mathrm{d}t \\ [1em]
+			&=& 
+			3 \cdot 2 \pi \\ [.3em]
+			&=& 6\pi
+		\end{array}
+	\end{equation*}
 	
-
-
-
-
-
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
