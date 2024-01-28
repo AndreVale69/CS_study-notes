@@ -10131,11 +10131,12 @@
 
 	\begin{boxdef}
 		Sia $\overset{\rightarrow}{F}$ un campo vettoriale continuo su una regione che contiene il sostegno di una curva $\gamma$, regolare a tratti e orientata. Si chiama \definition{integrale del campo $\overset{\rightarrow}{F}$ lungo $\gamma$} il numero reale:
-		\begin{equation}
+		\begin{equation}\label{eq: integrale di linea del campo lungo la parametrizzazione}
 			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \:\mathrm{d}\overset{\rightarrow}{r} 
 			=
 			\displaystyle\int_{a}^{b} \overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) \cdot \gamma'\left(t\right) \:\mathrm{d}t
 		\end{equation}
+		Tale formula viene indicata anche come \definition{lavoro elementare}, ovvero la forza per spostamento infinitesimo.
 	\end{boxdef}
 
 	\noindent
@@ -10152,21 +10153,234 @@
 		\begin{equation*}
 			\omega\left(x,y\right) = A\left(x,y\right) \:\mathrm{d}x + B\left(x,y\right) \:\mathrm{d}y
 		\end{equation*}
-		Si chiama forma differenziale lineare (in $\mathbb{R}^{2}$) ed è un modo alternativo di esprimere il prodotto scalare $\overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}$, con:
+		Si chiama \textbf{forma differenziale lineare} (in $\mathbb{R}^{2}$) ed è un modo alternativo di esprimere il prodotto scalare $\overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}$, con:
 		\begin{equation*}
 			\overset{\rightarrow}{F}\left(x,y\right) = \left(A\left(x,y\right), B\left(x,y\right)\right) \hspace{2em} \mathrm{d}\overset{\rightarrow}{r} = \left(\mathrm{d}x, \mathrm{d}y\right)
 		\end{equation*}
-		Si è quindi soliti scrivere l'integrale di linea di un campo vettoriale anche nella forma:
+		Si è quindi soliti scrivere l'\textbf{integrale di linea di un campo vettoriale} anche nella forma:
 		\begin{equation*}
 			\displaystyle\int_{\gamma} \omega
 		\end{equation*}
 	\end{itemize}\newpage
 
-	\subsubsection{Conservativi}
+	\subsubsection{Campi vettoriali conservativi}
 
 	\begin{boxdef}
 		Sia $\Omega$ un insieme aperto in $\mathbb{R}^{n}$ e $\overset{\rightarrow}{F} : \Omega \rightarrow \mathbb{R}^{n}$ un campo vettoriale. Si dice che $\overset{\rightarrow}{F}$ è \definition{conservativo} se esiste una funzione $U: \mathbb{R}^{n} \rightarrow \mathbb{R}$ tale che $\overset{\rightarrow}{F} = \nabla U$. In cui $U$ è chiamato \textbf{potenziale} di $\overset{\rightarrow}{F}$.
 	\end{boxdef}
+
+	\begin{theorem}[\textbf{Fondamentale del calcolo per integrali di linea}]\label{theorem: fondamentale del calcolo per integrali di linea}
+		Se $\overset{\rightarrow}{F}: \Omega \rightarrow \mathbb{R}^{n}$ è un campo conservativo e $U\left(x_{1}, x_{2}, \dots, x_{n}\right)$ è un suo potenziale, allora:
+		\begin{equation}
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} = U\left(\gamma\left(b\right)\right) - U\left(\gamma\left(a\right)\right)
+		\end{equation}
+		Dove $\gamma : \left[a,b\right] \rightarrow \mathbb{R}^{n}$ è un arco di curva regolare a tratti con sostegno in $\Omega$.
+	\end{theorem}
+
+	\begin{flushleft}
+		\example{\underline{Esempio 1}}
+	\end{flushleft}
+	Verificare che la funzione:
+	\begin{equation*}
+		U\left(x,y\right) = x^{3} + xy^{2}
+	\end{equation*}
+	È un potenziale del campo:
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y\right) = \left(3x^{2}+y^{2}, 2xy\right)
+	\end{equation*}
+	E successivamente valutare:
+	\begin{equation*}
+		\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}
+	\end{equation*}
+	Dove $\gamma$ è l'arco di circonferenza con centro in $\left(0,0\right)$ che congiunge nell'ordine i punti $P\left(-2,0\right)$ e $Q\left(0,-2\right)$.\newline
+
+	\noindent
+	Se $U$ è il potenziale del campo $\overset{\rightarrow}{F}$, vuol dire che quest'ultimo è conservativo  (come da definizione). Di conseguenza, vale l'equivalenza $\overset{\rightarrow}{F} = \nabla U$. Per cui facendo il gradiente del potenziale $U$, si dovrebbe ottenere il campo conservativo. Questo tipo di operazione viene solitamente effettuata a termine degli esercizi per essere sicuri che il potenziale trovato sia effettivamente uno dei possibili potenziali del campo conservativo.\newline
+
+	\noindent
+	Si procede con il calcolo del gradiente:
+	\begin{equation*}
+		\nabla U = \begin{cases}
+			\dfrac{\partial U}{\partial x}\left(x,y\right) = 3x^{2} + y^{2} \vspace{.5em}\\
+			\dfrac{\partial U}{\partial y}\left(x,y\right) = 2xy
+		\end{cases}
+		\Rightarrow
+		\overset{\rightarrow}{F} = \nabla U \rightarrow \left(3x^{2}+y^{2}, 2xy\right) = \nabla U
+	\end{equation*}
+	Adesso che si è dimostrato che $U$ è un potenziale del campo $\overset{\rightarrow}{F}$, si valuta l'integrale di linea. Il grande vantaggio di un campo conservativo è il suo potenziale! Per cui \underline{non} è necessario stare a parametrizzare la curva, ma basta semplicemente applicare il teorema \ref{theorem: fondamentale del calcolo per integrali di linea}, il quale afferma che dato un campo conservativo e un suo potenziale, allora si può calcolare l'integrale di linea, essendo a conoscenza degli estremi della parametrizzazione, come:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} = U\left(Q\right) - U\left(P\right) 
+			&=& 
+			U\left(\left(0,-2\right)\right) - U\left(\left(-2,0\right)\right) \\ [1em]
+			%
+			&=& 
+			\left(0^{3} + 0 \cdot \left(-2\right)^{2}\right) - \left(\left(-2\right)^{3} + -2 \cdot 0^{2}\right) \\ [1em]
+			%
+			&=&
+			8
+		\end{array}
+	\end{equation*}
+
+	\begin{flushleft}
+		\example{\underline{Esempio 2}}
+	\end{flushleft}
+	Sapendo che:
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y,z\right) = 2xy\overset{\rightarrow}{i} + \left(x^{2} + 2yz\right)\overset{\rightarrow}{j} + y^{2}\overset{\rightarrow}{k}
+	\end{equation*}
+	È un campo conservativo, calcolare il lavoro di $\overset{\rightarrow}{F}$ lungo un qualunque cammino che congiunge i punti $A\left(0,0,0\right)$ e $B\left(1,1,1\right)$.\newline
+
+	\noindent
+	Dato che è noto che $\overset{\rightarrow}{F}$ è un campo conservativo, per calcolare il campo senza avere il potenziale si potrebbe sfruttare la definizione di campo conservativo, ovvero che qualsiasi percorso da $A$ a $B$ ha lo stesso valore. Di conseguenza, si prende in considerazione la parametrizzazione più semplice: la retta.
+	\begin{equation*}
+		\gamma\left(t\right) = \left(0,0,0\right) + t\left(1,1,1\right) = \left(t,t,t\right) \hspace{3em} t\in\left[0,1\right]
+	\end{equation*}
+	E si calcola l'integrale di linea del campo (eq. \ref{eq: integrale di linea del campo lungo la parametrizzazione}):
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}
+			&=&
+			\displaystyle\int_{0}^{1} \left(2t^{2},3t^{2},t^{2}\right) \cdot \left(1,1,1\right) \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} 6t^{2} \:\mathrm{d}t \\ [1em]
+			%
+			&=&
+			2\left[t^{3}\right]_{0}^{1} \\ [.5em]
+			%
+			&=&
+			2
+		\end{array}
+	\end{equation*}\newpage
+
+	\subsubsection{Condizioni per la conservatività di un campo vettoriale}
+
+	\begin{theorem}
+		Se $\overset{\rightarrow}{F}$ è un campo conservativo di classe $\mathcal{C}^{1}$ sull'insieme aperto $\Omega \subseteq \mathbb{R}^{n}$, allora:
+		\begin{equation}
+			\dfrac{\partial F_{i}}{\partial x_{j}} = \dfrac{\partial F_{j}}{\partial x_{i}}
+		\end{equation}
+		Per ogni $i,j$ e per ogni $\left(x_{1}, x_{2}, \dots, x_{n}\right) \in \Omega$.
+	\end{theorem}
+
+	\noindent
+	Questo teorema esprime una \textbf{condizione \underline{necessaria}}, \textbf{ma non sufficiente} affinché un campo sia conservativo. Un \emph{metodo rapido} per controllare se è rispettata la condizione precedente è verificare la condizione di simmetrica della matrice Jacobiana del campo $\overset{\rightarrow}{F}$:
+	\begin{equation*}
+		J_{F}\left(x\right) = \begin{rowequmat}{cccc}
+			\dfrac{\partial F_{1}}{\partial x_{1}}\left(x\right) & \dfrac{\partial F_{1}}{\partial x_{2}}\left(x\right) & \cdots & \dfrac{\partial F_{1}}{\partial x_{n}}\left(x\right) \\ [1em]
+			%
+			\dfrac{\partial F_{2}}{\partial x_{1}}\left(x\right) & \dfrac{\partial F_{2}}{\partial x_{2}}\left(x\right) & \cdots & \dfrac{\partial F_{2}}{\partial x_{n}}\left(x\right) \\ [.5em]
+			%
+			\vdots & \vdots & & \vdots \\ [.5em]
+			%
+			\dfrac{\partial F_{n}}{\partial x_{1}}\left(x\right) & \dfrac{\partial F_{n}}{\partial x_{2}}\left(x\right) & \cdots & \dfrac{\partial F_{n}}{\partial x_{n}}\left(x\right)
+		\end{rowequmat}
+	\end{equation*}
+
+	\begin{flushleft}
+		\example{\underline{Esempio}}
+	\end{flushleft}
+	Il campo vettoriale:
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y,z\right) = yze^{xz}\overset{\rightarrow}{i} + e^{xz}\overset{\rightarrow}{j} + xye^{xz}\overset{\rightarrow}{k}
+	\end{equation*}
+	È conservativo. Verificare che è soddisfatta la condizione necessaria espressa dal precedente teorema e poi trovare un potenziale.\newline
+
+	\noindent
+	Il \textbf{primo passo} è verificare che la condizione necessaria del teorema sia rispettata. Si utilizza la matrice Jacobiana per mostrare come è possibile dimostrare rapidamente la condizione necessaria:
+	\begin{equation*}
+		\begin{array}{rcl}
+			J_{\overset{\rightarrow}{F}}\left(x,y,z\right) &=& \begin{rowequmat}{c c c}
+				\dfrac{\partial F_{\overset{\rightarrow}{i}}}{\partial x}\left(x,y,z\right) & \dfrac{\partial F_{\overset{\rightarrow}{j}}}{\partial x}\left(x,y,z\right) & \dfrac{\partial F_{\overset{\rightarrow}{k}}}{\partial x}\left(x,y,z\right) \\ [1.5em]
+				%
+				\dfrac{\partial F_{\overset{\rightarrow}{i}}}{\partial y}\left(x,y,z\right) & \dfrac{\partial F_{\overset{\rightarrow}{j}}}{\partial y}\left(x,y,z\right) & \dfrac{\partial F_{\overset{\rightarrow}{k}}}{\partial y}\left(x,y,z\right) \\ [1.5em]
+				%
+				\dfrac{\partial F_{\overset{\rightarrow}{i}}}{\partial z}\left(x,y,z\right) & \dfrac{\partial F_{\overset{\rightarrow}{j}}}{\partial z}\left(x,y,z\right) & \dfrac{\partial F_{\overset{\rightarrow}{k}}}{\partial z}\left(x,y,z\right)
+			\end{rowequmat} \\ [5em]
+			&=& \begin{rowequmat}{c c c}
+				yz^{2}e^{xz} & \textcolor{Red3}{\boldsymbol{ze^{xz}}} & \textcolor{Green4}{\boldsymbol{y\left(e^{xz} + xze^{xz}\right)}} \\ [1em]
+				%
+				\textcolor{Red3}{\boldsymbol{ze^{xz}}} & 0 & \textcolor{Blue2}{\boldsymbol{xe^{xz}}} \\ [1em]
+				%
+				\textcolor{Green4}{\boldsymbol{y\left(e^{xz}+zxe^{xz}\right)}} & \textcolor{Blue2}{\boldsymbol{xe^{xz}}} & x^{2}ye^{xz}
+			\end{rowequmat}
+		\end{array}
+	\end{equation*}
+	I colori indicano quale coppie osservare per capire se sono uguali e di conseguenza capire se la matrice è simmetrica. Per cui, in questo caso la matrice è simmetrica e la condizione necessaria è rispettata.\newpage
+
+	\noindent
+	Il \textbf{secondo passo} è trovare un potenziale. Per farlo basta seguire i seguenti passaggi. Dato che i campi conservativi hanno la seguente proprietà $\overset{\rightarrow}{F} = \nabla U$, ovvero:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\overset{\rightarrow}{F} &=& \left(\dfrac{\partial U}{\partial x}, \dfrac{\partial U}{\partial y}, \dfrac{\partial U}{\partial z}\right) \\ [1em]
+			%
+			\left(yze^{xz}, e^{xz}, xye^{xz}\right) &=& \left(\dfrac{\partial U}{\partial x}, \dfrac{\partial U}{\partial y}, \dfrac{\partial U}{\partial z}\right)
+		\end{array}
+	\end{equation*}
+	Calcolando l'integrale rispetto alla derivata parziale di $x$, si riesce ad ottenere una forma parziale del potenziale:
+	\begin{gather*}
+		\begin{array}{rcl}
+			\overset{\rightarrow}{F}_{x} = \dfrac{\partial U}{\partial x}\left(x,y,z\right) = yze^{xz} \: \Longrightarrow \: U\left(x,y,z\right) 
+			&=&
+			\displaystyle\int yze^{xz} \:\mathrm{d}x \\ [1em]
+			%
+			&=&
+			yz \cdot \displaystyle\int e^{xz} \:\mathrm{d}x \\ [1em]
+			%
+			&=&
+			yz \cdot \dfrac{e^{xz}}{z} + c\left(y,z\right) \\ [1em]
+			%
+			&=&
+			ye^{xz} + c\left(y,z\right)
+		\end{array}
+		\\
+		\text{Forma parziale del potenziale: } U\left(x,y,z\right) = ye^{xz} + c\left(y,z\right)
+	\end{gather*}
+	Ovviamente vi è una costante che dipende da $y,z$, la quale può essere un numero o anche una funzione. Per trovare il potenziale c'è anche da valutare la $y$ e la $z$. Per questo motivo si esegue la derivata parziale del potenziale (la sua forma parziale) rispetto ad $y$ e si eguaglia alla $y$ del campo:
+	\begin{gather*}
+		\begin{array}{rcl}
+			\overset{\rightarrow}{F}_{y} = \dfrac{\partial U}{\partial y}\left(x,y,z\right) = e^{xz} \: \Longrightarrow \: \dfrac{\partial }{\partial y}\left(ye^{xz} + c\left(y,z\right)\right)
+			&=&
+			e^{xz} \\ [1em]
+			%
+			e^{xz} + \dfrac{\partial}{\partial y}c\left(y,z\right)
+			&=&
+			e^{xz} \\ [1em]
+			%
+			\dfrac{\partial}{\partial y}c\left(y,z\right)
+			&=&
+			0
+		\end{array}
+		\\
+		\text{Forma parziale del potenziale: } U\left(x,y,z\right) = ye^{xz} + c_{1}\left(z\right)
+	\end{gather*}
+	Da questo risultato si deduce che la costante $c$ non dipende da $y$, ma soltanto da $z$: $c_{1}\left(z\right)$. Si conclude la costruzione del potenziale valutando $z$:
+	\begin{gather*}
+		\begin{array}{rcl}
+			\overset{\rightarrow}{F}_{z} = \dfrac{\partial U}{\partial z}\left(x,y,z\right) = xye^{xz} \: \Longrightarrow \: \dfrac{\partial }{\partial z}\left(ye^{xz} + c_{1}\left(z\right)\right)
+			&=&
+			xye^{xz} \\ [1em]
+			%
+			xye^{xz} + \dfrac{\partial}{\partial z}c_{1}\left(z\right)
+			&=&
+			xye^{xz} \\ [1em]
+			%
+			\dfrac{\partial}{\partial z}c_{1}\left(z\right)
+			&=&
+			0
+		\end{array}
+		\\
+		\text{Forma finale: } U\left(x,y,z\right) = ye^{xz} + k
+	\end{gather*}
+	Dato che la derivata di $c_{1}\left(z\right)$ è uguale a zero, vuol dire che essa è una costante (un numero, infatti la derivata di un numero è zero!). Si conclude l'esercizio scrivendo la forma finale del potenziale con il dettaglio di $k$:
+	\begin{equation*}
+		U\left(x,y,z\right) = ye^{xz} + k \hspace{3em} k \in \mathbb{R}
+	\end{equation*}
+
+
+
+
 
 	%\subsubsection{Insiemi semplicemente connessi}
 
