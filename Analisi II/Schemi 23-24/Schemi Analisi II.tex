@@ -7454,6 +7454,20 @@
 		\end{itemize}
 	\end{theorem}
 
+	\begin{table}[!htp]
+		\centering
+		\begin{tabular}{@{} c | c | c @{}}
+			\toprule
+			Determinante & Derivata p. sec. & Definizione di $\left(x,y\right)$ \\
+			\midrule
+			$\det\left(H_{f}\left(x,y\right)\right) > 0$	& $\dfrac{\partial f}{\partial xx}\left(x,y\right) > 0$	& Minimo locale \\ [1.5em]
+			$\det\left(H_{f}\left(x,y\right)\right) > 0$	& $\dfrac{\partial f}{\partial xx}\left(x,y\right) < 0$	& Massimo locale \\ [1.5em]
+			$\det\left(H_{f}\left(x,y\right)\right) < 0$	& \ding{55}														& Punto di sella \\ [1em]
+			$\det\left(H_{f}\left(x,y\right)\right) = 0$	& \ding{55}														& Poche informazioni \\
+			\bottomrule
+		\end{tabular}
+	\end{table}\newpage
+
 	\begin{flushleft}
 		\example{\underline{Esempio guidato}}
 	\end{flushleft}
@@ -7565,7 +7579,9 @@
 			&\rightarrow&
 			\det\left(H_{f}\left(-2,-1\right)\right) &=& 8 - 8 - 16 = -16 \\ [1em]
 		\end{array}
-	\end{equation*}
+	\end{equation*}\newpage
+
+	\noindent
 	La classificazione, seguendo il teorema \ref{theorem: delle derivate seconde} delle derivate seconde:
 	\begin{itemize}
 		\item $A\left(0,0\right)$ ha la derivata parziale seconda rispetto $x$ maggiore di zero ($2$) e il determinante maggiore di zero ($8$). Per cui è un punto di minimo;
@@ -7574,7 +7590,7 @@
 
 		\item $C\left(0,0\right)$ ha la derivata parziale seconda rispetto $x$ uguale a zero, ma soprattutto il determinante minore di zero ($-16$). Per cui è anch'esso un punto di sella.
 	\end{itemize}
-	In generale, è conveniente prima guardare il determinante e in caso sia maggiore di zero valutare anche la derivata seconda rispetto a $x$.
+	In generale, è conveniente prima guardare il determinante e in caso sia maggiore di zero valutare anche la derivata seconda rispetto a $x$.\newpage
 	
 	\subsection{Ricerca dei massimi e minimi assoluti}\label{subsection: ricerca dei massimi e minimi assoluti}
 
@@ -8053,6 +8069,169 @@
 		\end{cases}
 	\end{gather*}
 	Il punto trovato e sostituito nella funzione restituisce $f\left(9,4\right) = 30$ che è un minimo assoluto. Il massimo assoluto sarebbe $75$ con il punto $\left(0,25\right)$. Tuttavia, Lagrange non ha intercettato tale punto poiché non è regolare a causa della condizione fornita! Infatti, si vede immediatamente che se nel sistema si sostituisce $x=0,y=0$, il risultato o è impossibile o non sensato.\newpage
+
+	\subsection{Esercizi}
+
+	\subsubsection{Determinare e classificare i punti stazionari della funzione}
+
+	\begin{flushleft}
+		\label{exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (a)}
+		\hypertarget{
+			exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (a)
+		}{
+			\definition{\underline{Esame 6 settembre 2023 - Gruppo A - 5 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Determinare e classificare i punti stazionari della funzione $f\left(x,y\right) = x^{2}y - x -y$.}}\newline
+
+	\noindent
+	Si calcolano le derivate parziali prime per ottenere i punti stazionari e seconde per determinare con la matrice Hessiana la loro natura:
+	\begin{equation*}
+		\begin{array}{lll}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 2xy-1 \hspace{2em} & \dfrac{\partial f}{\partial xy}\left(x,y\right) = 2x \hspace{2em} & \dfrac{\partial f}{\partial xx}\left(x,y\right) = 2y \\ [1em]
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = x^{2}-1 \hspace{2em} & \dfrac{\partial f}{\partial yx}\left(x,y\right) = 2x \hspace{2em} & \dfrac{\partial f}{\partial yy}\left(x,y\right) = 0
+		\end{array}
+	\end{equation*}
+	Adesso si inseriscono le derivate parziali primo rispetto a $x$ e $y$ nel sistema per calcolare i punti stazionari, quindi uguale a $0$:
+	\begin{gather*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 0 \vspace{.5em} \\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = 0 
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			2xy-1 = 0 \\
+			x^{2}-1 = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			2xy-1 = 0 \\
+			x = \pm 1
+		\end{cases}
+		\\
+		\begin{array}{rcl}
+			x = 1 
+			& \rightarrow & 
+			\begin{cases}
+				2 \cdot 1 \cdot y = 1 \\
+				x = 1
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				y = \dfrac{1}{2} \vspace{.3em} \\
+				x = 1
+			\end{cases} \\ [2em]
+			x = -1
+			& \rightarrow & 
+			\begin{cases}
+				2 \cdot \left(-1\right) \cdot y = 1 \\
+				x = -1
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				y = -\dfrac{1}{2} \vspace{.3em} \\
+				x = -1
+			\end{cases} \\ [1em]
+		\end{array}
+	\end{gather*}
+	I punti stazionari sono due: $A\left(1, \dfrac{1}{2}\right), B\left(-1, -\dfrac{1}{2}\right)$. Si crea la matrice Hessiana e si calcola il determinante:
+	\begin{gather*}
+		H_{f} = \begin{rowequmat}{c c}
+			2y & 2x \\
+			2x & 0
+		\end{rowequmat}
+		\\
+		\begin{array}{rcl}
+			H_{A} = \begin{rowequmat}{c c}
+				1 & 2 \\
+				2 & 0
+			\end{rowequmat} & \rightarrow & \det\left(H_{A}\right) = \left(1 \cdot 0\right) - \left(2 \cdot 2\right) = -4 \\ [2em]
+			H_{A} = \begin{rowequmat}{c c}
+				-1 & -2 \\
+				-2 &  0
+			\end{rowequmat} & \rightarrow & \det\left(H_{B}\right) = \left(-1 \cdot 0\right) - \left(-2 \cdot -2\right) = -4
+		\end{array}
+	\end{gather*}
+	Entrambi i determinanti sono minori di zero, per cui si può subito affermare che siano punti di sella.
+
+	\newpage
+
+	\subsubsection{Calcolare massimo e minimo assoluto}
+
+	\begin{flushleft}
+		\label{exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (b)}
+		\hypertarget{
+			exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (b)
+		}{
+			\definition{\underline{Esame 6 settembre 2023 - Gruppo A - 5 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Calcolare (se esiste) massimo e minimo assoluto della funzione $f\left(x,y\right) = x^{2}y - x -y$ su}}
+	
+	\example{\begin{equation*}
+		E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: xy = 2\right\}
+	\end{equation*}}
+
+	\noindent
+	Si inizia verificando che l'insieme (vincolo) sia limitato e chiuso:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{E} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: xy \ne 2\right\} \\ [.3em]
+			\partial E &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: xy = 2\right\} \\ [.3em]
+			\overline{E} &=& E \cup \partial E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: xy = 2\right\}
+		\end{array}
+	\end{equation*}
+	Il vincolo $E$ è chiuso, ma non limitato poiché non esiste nessuna palla centrata nell'origine con raggio maggiore di zero che contenga l'insieme! Per cui non esiste nessun massimo o minimo assoluto. E difatti applicando Lagrange:
+	\begin{equation*}
+		\mathcal{L}\left(x,y,\lambda\right) = x^{2}y - x -y - \lambda\left(xy-2\right)
+	\end{equation*}
+	E costruendo il sistema uguale a zero:
+	\begin{gather*}
+		\begin{cases}
+			\dfrac{\partial \mathcal{L}}{\partial x}\left(x,y,\lambda\right) = 0 \vspace{.5em} \\
+			\dfrac{\partial \mathcal{L}}{\partial y}\left(x,y,\lambda\right) = 0 \vspace{.5em} \\
+			\dfrac{\partial \mathcal{L}}{\partial \lambda}\left(x,y,\lambda\right) = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			2xy-1-\lambda y = 0 \\
+			x^{2} - 1 - \lambda x = 0 \\
+			- xy + 2 = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			2xy-1-\lambda y = 0 \\
+			x^{2} - 1 - \lambda x = 0 \vspace{.3em} \\
+			xy = 2
+		\end{cases}
+		\\ \\
+		\begin{cases}
+			4-1-\lambda y = 0 \\
+			x^{2} - 1 - \lambda x = 0 \vspace{.3em} \\
+			xy = 2
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\lambda y = 3 \\
+			x^{2} - 1 - \lambda x = 0 \vspace{.3em} \\
+			x = \dfrac{2}{3}\lambda
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			y = \dfrac{3}{\lambda} \vspace{.5em} \\
+			\dfrac{4}{9}\lambda^{2} - \dfrac{2}{3}\lambda^{2} = 1 \vspace{.5em} \\
+			x = \dfrac{2}{3}\lambda
+		\end{cases}
+		\\
+		\begin{cases}
+			y = \dfrac{3}{\lambda} \vspace{.5em} \\
+			\lambda^{2} = -\dfrac{9}{2} \vspace{.5em} \\
+			x = \dfrac{2}{3}\lambda
+		\end{cases}
+	\end{gather*}
+	Si nota che le soluzioni non sono nell'insieme dei reali.
+
+	\newpage
 
 	\section{Integrali multipli}\label{section: integrali multipli}
 
@@ -9939,6 +10118,177 @@
 		\end{array}
 	\end{equation*}\newpage
 
+	\subsection{Esercizi}
+
+	\subsubsection{Integrali doppi: calcolare il baricentro}
+
+	\begin{flushleft}
+		\label{exam: esame 06 settembre 2023 - Gruppo A - 6 esercizio}
+		\hypertarget{
+			exam: esame 06 settembre 2023 - Gruppo A - 6 esercizio
+		}{
+			\definition{\underline{Esame 06 settembre 2023 - Gruppo A - 6 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Calcolare il baricentro della regione piana rappresentata in figura.}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.55\textwidth]{img/exercise/2023-09-06-A-ex6.pdf}
+		\caption*{\example{\emph{Suggerimento: la curva ha equazione $y = x^{2}$.}}}
+	\end{figure}
+
+	\noindent
+	Il baricentro, nell'insieme $\mathbb{R}^{2}$, è lo stesso del baricentro dell'insieme $\mathbb{R}^{3}$. Per cui, si calcola innanzitutto l'integrale della funzione, che in questo caso è uguale a $1$:
+	\begin{equation*}
+		\displaystyle\iint\limits_{D} \:\mathrm{d}x\:\mathrm{d}y
+	\end{equation*}
+	L'insieme $D$ è possibile rappresentarlo in due modi:
+	\begin{itemize}
+		\item Come $y$-semplice:
+		\begin{equation*}
+			D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 1, \: 0 \le y \le x^{2}\right\}
+		\end{equation*}
+
+		\item Come $x$-semplice:
+		\begin{equation*}
+			D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le y \le 1, \: \sqrt{y} \le x \le 1\right\}
+		\end{equation*}
+	\end{itemize}
+	Si sceglie $y$-semplice per non avere eventuali radici nell'integrale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint\limits_{D} \:\mathrm{d}x\:\mathrm{d}y 
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{x^{2}} \:\mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left[y\right]_{0}^{x^{2}} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} x^{2} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\left[\dfrac{x^{3}}{3}\right]_{0}^{1}\\ [1.5em]
+			%
+			&=&
+			\dfrac{1}{3}
+		\end{array}
+	\end{equation*}
+	Adesso si calcolano le coordinate del baricentro:
+	\begin{itemize}
+		\item Rispetto $x_{G}$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				x_{G} = \dfrac{1}{\frac{1}{3}} \cdot \displaystyle\iint\limits_{D} x \cdot 1 \:\mathrm{d}x\:\mathrm{d}y
+				&=&
+				\dfrac{1}{\frac{1}{3}} \cdot\displaystyle\int_{0}^{1} \left(\int_{0}^{x^{2}} x \cdot 1 \:\mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+				%
+				&=&
+				3 \cdot \displaystyle\int_{0}^{1} \left(x \cdot \left[y\right]_{0}^{x^{2}}\right) \:\mathrm{d}x \\ [1.5em]
+				%
+				&=&
+				3 \cdot \displaystyle\int_{0}^{1} x^{3} \:\mathrm{d}x \\ [1.5em]
+				%
+				&=&
+				3 \cdot \left[\dfrac{x^{4}}{4}\right]_{0}^{1} \\ [1em]
+				%
+				&=&
+				\dfrac{3}{4}
+			\end{array}
+		\end{equation*}
+
+		\item Rispetto $y_{G}$:
+		\begin{equation*}
+			\begin{array}{rcl}
+				y_{G} = \dfrac{1}{\frac{1}{3}} \cdot \displaystyle\iint\limits_{D} y \cdot 1 \:\mathrm{d}x\:\mathrm{d}y
+				&=&
+				\dfrac{1}{\frac{1}{3}} \cdot\displaystyle\int_{0}^{1} \left(\int_{0}^{x^{2}} y \cdot 1 \:\mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+				%
+				&=&
+				3 \cdot \displaystyle\int_{0}^{1} \left(\left[\dfrac{y^{2}}{2}\right]_{0}^{x^{2}}\right) \:\mathrm{d}x \\ [1.5em]
+				%
+				&=&
+				\dfrac{3}{2} \cdot \displaystyle\int_{0}^{1} x^{4} \:\mathrm{d}x \\ [1.5em]
+				%
+				&=&
+				\dfrac{3}{2} \cdot \left[\dfrac{x^{5}}{5}\right]_{0}^{1} \\ [1em]
+				%
+				&=&
+				\dfrac{3}{10}
+			\end{array}
+		\end{equation*}
+	\end{itemize}
+
+	\newpage
+
+	\subsubsection{Calcolare l'integrale triplo}
+	\begin{flushleft}
+		\label{exam: esame 06 settembre 2023 - Gruppo A - 7 esercizio}
+		\hypertarget{
+			exam: esame 06 settembre 2023 - Gruppo A - 7 esercizio
+		}{
+			\definition{\underline{Esame 06 settembre 2023 - Gruppo A - 7 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Calcolare:}
+	\begin{equation*}
+		\displaystyle\iiint\limits_{\Omega} y\sqrt{x^{2}+y^{2}} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}
+	\emph{dove $\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: x^{2}+y^{2} \le z \le 4, y \ge 0\right\}$.}}\newline
+
+	\noindent
+	Già dall'integrale è evidente che sarà necessario applicare le coordinate polari, cilindriche o sferiche. Si rappresenta il dominio per capire l'area di integrazione. Innanzitutto si identifica le condizioni più semplici: $y \ge 0$ e $z \le 4$. Dopodiché si passa alla forma, in questo caso un paraboloide ellittico: $x^{2}+y^{2} = z$:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/exercise/2023-09-06-A-ex7.png}
+	\end{figure}
+
+	\noindent
+	Questa area può essere calcolata con le \textbf{coordinate cilindriche}. Nella dimensione $\mathbb{R}^{2}$, la circonferenza $x^{2}+y^{2}=z$ ha un raggio che varia da $0$ a $2$ (radice di $4$, valore massimo di $z$). Nella seguente figura si rappresenta la circonferenza con la $z=4$. Ovviamente non è rappresentativa, ma è utile per capire come convertire i valori in coordinate polari:\newpage
+
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/exercise/2023-09-06-A-ex7_2.pdf}
+	\end{figure}
+
+	\noindent
+	Dalla figura si può capire che $\theta$ varia da un minimo di zero e ad un massimo di $180\degree$, che in radianti è:
+	\begin{equation*}
+		180 \cdot 2\pi \cdot \dfrac{1}{360} = \pi \hspace{1em} \Longrightarrow \hspace{1em} 0 \le \theta \le \pi
+	\end{equation*}
+	Per quanto riguarda $\rho$, essa può andare da un minimo di $0$ e ad un massimo di $2$ (valore massimo di $z$, ma sotto radice poiché il raggio):
+	\begin{equation*}
+		\Omega = \left\{\left(\rho, \theta, z\right) \in \mathbb{R}^{2} \: : \: 0 \le \theta \le \pi, \: 0 \le \rho \le 2, \: \rho^{2} \le z \le 4\right\}
+	\end{equation*}
+	La $z$ varia da un massimo di $4$ ad un minimo di $\rho^{2}$ (valore ottenuto mettendo le coordinate polari nell'equazione $x^{2}+y^{2}\le z \le 4$). Si esegue prima la conversione dell'argomento:
+	\begin{equation*}
+		y\sqrt{x^{2}+y^{2}} \rightarrow \rho\sin\left(\theta\right) \sqrt{\rho^{2}\cos^{2}\left(\theta\right) + \rho^{2}\sin^{2}\left(\theta\right)} \cdot \rho = \rho^{3} \sin\left(\theta\right)
+	\end{equation*}
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iiint\limits_{\Omega} y\sqrt{x^{2}+y^{2}} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			&=&
+			\displaystyle\iint\limits_{D} \left(\int_{\rho^{2}}^{4} \rho^{3} \sin\left(\theta\right) \:\mathrm{d}z\right) \:\mathrm{d}\rho\:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\pi} \sin\left(\theta\right) \left(\int_{0}^{2} \rho^{3} \left[z\right]_{\rho^{2}}^{4} \:\mathrm{d}\rho\right)\:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\pi} \sin\left(\theta\right) \left(\int_{0}^{2} 4\rho^{3} - \rho^{5} \:\mathrm{d}\rho\right)\:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\pi} \sin\left(\theta\right) \left(4\left[\dfrac{\rho^{4}}{4}\right]_{0}^{2} - \left[\dfrac{\rho^{6}}{6}\right]_{0}^{2}\right)\:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			2 \cdot \dfrac{16}{3} \\ [.5em]
+			%
+			&=&
+			\dfrac{32}{3}
+		\end{array}
+	\end{equation*}
+	
+	\newpage
+
 	\section{Integrali di linea}
 
 	\subsection{Di prima specie}
@@ -10541,6 +10891,171 @@
 			3 \cdot 2 \pi \\ [.3em]
 			&=& 6\pi
 		\end{array}
+	\end{equation*}\newpage
+
+	\subsection{Esercizi}
+
+	\subsubsection{Verificare se un campo è conservativo e determinare un potenziale}
+	
+	\begin{flushleft}
+		\label{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)}
+		\hypertarget{
+			exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)
+		}{
+			\definition{\underline{Esame 06 settembre 2023 - Gruppo A - 8 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Verificare che il campo vettoriale}
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y,z\right) = \left(ze^{zx}+\alpha y, \alpha x - \beta + z, xe^{zx}+y\right)
+	\end{equation*}
+	\emph{è conservativo per ogni $\alpha, \beta \in \mathbb{R}$ e determinare un suo potenziale nel caso $\alpha = 0$, $\beta = 1$.}}\newline
+
+	\noindent
+	Dato che $x,y,z \in \mathbb{R}^{3}$, allora la condizione sufficiente è rispettata poiché l'insieme è semplicemente connesso. Per verificare la condizione necessaria, si costruisce la matrice Jacobiana con le matrici parziali per verificare che sia simmetrica:
+	\begin{equation*}
+		J_{\overset{\rightarrow}{F}}\left(x,y,z\right) = \begin{rowequmat}{c c c}
+			z^{2}e^{zx} & \alpha & e^{zx}\left(1+zx\right) \\
+			\alpha & 0 & 1 \\
+			e^{zx}\left(1+zx\right) & 1 & x^{2}e^{zx}
+		\end{rowequmat}
+	\end{equation*}
+	La matrice è simmetrica per cui il campo è conservativo. Per ottenere un potenziale, si inizia con la condizione data dall'esercizio, ossia $\alpha=0$, $\beta = 1$:
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y,z\right) = \left(ze^{zx}, - 1 + z, xe^{zx}+y\right)
+	\end{equation*}
+	Dato che il campo è conservativo, allora vale la seguente definizione: $\overset{\rightarrow}{F} = \nabla U$ (dove $U$ è il potenziale). Per questo motivo, si inizia ad ottenere il potenziale partendo da $x$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial U}{\partial x} \left(x,y,z\right) = ze^{zx} \hspace{1em} \Longrightarrow \hspace{1em} U\left(x,y,z\right) &=& \displaystyle\int ze^{zx} \:\mathrm{d}x \\ [1em]
+			%
+			&=& z \cdot \dfrac{e^{zx}}{z} \\ [1em]
+			%
+			&=& e^{zx} + c\left(y,z\right)
+		\end{array}
+	\end{equation*}
+	Il potenziale per adesso ha quella forma. Si continua l'analisi provando $y$. Considerando che adesso si ha un potenziale, per definizione la derivata rispetto $y$ dovrebbe restituire la $y$ di $\overset{\rightarrow}{F}$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial U}{\partial y}\left(x,y,z\right) = - 1 + z \hspace{1em}\Longrightarrow\hspace{1em} \dfrac{\partial}{\partial y}\left(e^{zx} + c\left(y,z\right)\right) &=& -1+z \\ [1em]
+			\dfrac{\partial}{\partial y}c\left(y,z\right) &=& z-1
+		\end{array}
+	\end{equation*}
+	Dato che la derivata non è uguale a zero, vuol dire che la $c$ non è una costante, ma una funzione. Di conseguenza si calcola l'integrale:
+	\begin{equation*}
+		\displaystyle\int z-1 \:\mathrm{d}y = zy-y + c_{1}\left(z\right)
+	\end{equation*}
+	A questo punto il potenziale ha:
+	\begin{equation*}
+		U\left(x,y,z\right) = e^{zx} + zy - y + c_{1}\left(z\right)
+	\end{equation*}
+	Si conclude l'esercizio studiando la variabile $z$ (sempre con la stessa logica di $y$):
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial U}{\partial z}\left(x,y,z\right) = xe^{zx}+y \hspace{1em}\Longrightarrow\hspace{1em} \dfrac{\partial}{\partial z}\left(e^{zx} + zy - y + c_{1}\left(z\right)\right) &=& xe^{zx}+y \\ [1em]
+			%
+			\dfrac{\partial}{\partial z}c_{1}\left(z\right) + xe^{zx} + y &=& xe^{zx}+y \\ [1em]
+			%
+			\dfrac{\partial}{\partial z}c_{1}\left(z\right) &=& 0
+		\end{array}
+	\end{equation*}
+	La derivata è uguale a zero, per cui il valore integrato era un valore $k \in \mathbb{R}$. Di conseguenza un possibile potenziale può essere:
+	\begin{equation*}
+		U\left(x,y,z\right) = e^{zx} + y\left(z-1\right) + k \hspace{3em} k \in \mathbb{R}
+	\end{equation*}
+
+	\newpage
+
+	\subsubsection{Calcolo dell'integrale di linea di prima specie e del campo lungo la parametrizzazione}
+
+	\begin{flushleft}
+		\label{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)}
+		\hypertarget{
+			exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)
+		}{
+			\definition{\underline{Esame 06 settembre 2023 - Gruppo A - 8 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Dato il campo vettoriale}
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y,z\right) = \left(ze^{zx}+\alpha y, \alpha x - \beta + z, xe^{zx}+y\right)
+	\end{equation*}
+	\emph{Con $\alpha = 0$, $\beta = 1$, calcolare $\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overrightarrow{r}$ e $\int_{\gamma} F_{z} \:\mathrm{d}s$, dove}
+	\begin{equation*}
+		\gamma\left(t\right) = \left(2\cos\left(t\right), 2\sin\left(t\right), 0\right) \hspace{3em} t \in \left[0, \frac{\pi}{4}\right]
+	\end{equation*}}
+	\example{\emph{Nota: $F_{z}$ è la terza componente del campo vettoriale $\overset{\rightarrow}{F}$.}}\newline
+	
+	\noindent
+	Dato che per definizione:
+	\begin{equation*}
+		\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overrightarrow{r} = \displaystyle\int_{\gamma} \overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) \cdot \gamma'\left(t\right) \:\mathrm{d}t
+	\end{equation*}
+	Si inizia con il calcolo dei valori necessari inclusa la sostituzione di $\alpha$ e $\beta$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\overset{\rightarrow}{F} &=& \left(ze^{zx}, z-1, xe^{zx}+y\right) \\ [.5em]
+			\gamma'\left(t\right) &=& \left(-2\sin\left(t\right), 2\cos\left(t\right), 0\right) \\ [.5em]
+			%
+			\overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) &=& \left(0, -1, -2\sin\left(t\right)+2\cos\left(t\right)\right)
+		\end{array}
+	\end{equation*}
+	Adesso si calcola l'integrale del campo lungo la parametrizzazione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overrightarrow{r} 
+			&=&
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) \cdot \gamma'\left(t\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{4}} \left(0, -1, -2\sin\left(t\right)+2\cos\left(t\right)\right) \cdot \left(-2\sin\left(t\right), 2\cos\left(t\right), 0\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{4}} \left(0, -2\cos\left(t\right), 0\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			-2\displaystyle\int_{0}^{\frac{\pi}{4}} \cos\left(t\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			-2\left[\sin\left(t\right)\right]_{0}^{\frac{\pi}{4}} \\ [1.5em]
+			%
+			&=&
+			-\sqrt{2} \\ [1.5em]
+		\end{array}
+	\end{equation*}
+	Il secondo è un integrale di linea di prima specie, per cui è necessario calcolare anche la lunghezza (eq. \ref{eq: integrale di linea di prima specie}) della parametrizzazione:
+	\begin{equation*}
+		\left|\left| \gamma'\left(t\right) \right|\right| = \sqrt{\left(-2\sin\left(t\right)\right)^{2} + \left(2\cos\left(t\right)\right)^{2}} = \sqrt{4} = 2
+	\end{equation*}\newpage
+
+	\noindent
+	E si calcola l'integrale di linea di prima specie:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{\frac{\pi}{4}} F_{z} \:\mathrm{d}s
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{4}} \left(2\cos\left(t\right) + 2\sin\left(t\right)\right) \cdot 2 \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{4}} 4\cos\left(t\right) + 4\sin\left(t\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{\pi}{4}} 4\left(\cos\left(t\right) + \sin\left(t\right)\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			4\left[\displaystyle\int_{0}^{\frac{\pi}{4}} \cos\left(t\right) \:\mathrm{d}t + \displaystyle\int_{0}^{\frac{\pi}{4}} \sin\left(t\right) \:\mathrm{d}t\right] \\ [1.5em]
+			%
+			&=&
+			4\left[\left[\sin\left(t\right)\right]_{0}^{\frac{\pi}{4}} + \left[-\cos\left(t\right)\right]_{0}^{\frac{\pi}{4}}\right] \\ [1.5em]
+			%
+			&=&
+			4\left[\left(\sin\left(\dfrac{\pi}{4}\right) - \sin\left(0\right)\right) + \left(-\cos\left(\dfrac{\pi}{4}\right) - -\cos\left(0\right)\right)\right] \\ [1.5em]
+			%
+			&=&
+			4\left[\left(\dfrac{1}{\sqrt{2}} - 0\right) + \left(-\dfrac{\sqrt{2}}{2} + 1\right)\right] \\ [1.5em]
+			%
+			&=& 4
+		\end{array}
 	\end{equation*}
 	
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -10760,6 +11275,44 @@
 						exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (b)}
+					}
+
+					\item (\emph{a}) Determinare e classificare i punti stazionari: pag.~\hyperlink{
+						exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (a)}
+					}
+
+					\setcounter{enumi}{4}
+
+					\item (\emph{b}) Determinare massimo e minimo assoluto - Insieme chiuso ma non limitato: pag.~\hyperlink{
+						exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (b)}
+					}
+
+					\item Calcolare il baricentro della regione piana rappresentata in figura: pag.~\hyperlink{
+						exam: esame 06 settembre 2023 - Gruppo A - 6 esercizio
+					}{
+						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 6 esercizio}
+					}
+
+					\item Calcolare l'integrale triplo: pag.~\hyperlink{
+						exam: esame 06 settembre 2023 - Gruppo A - 7 esercizio
+					}{
+						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 7 esercizio}
+					}
+
+					\item Verificare che il campo sia conservativo e determinare un potenziale: pag.~\hyperlink{
+						exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)}
+					}
+
+					\item Calcolo dell'integrale di linea di prima specie e del campo lungo la parametrizzazione: pag.~\hyperlink{
+						exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
