@@ -8156,6 +8156,85 @@
 
 	\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (a)}
+		\hypertarget{
+			exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (a)
+		}{
+			\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 5 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = 2\alpha\left(x^{2}+y^{2}+1\right) - \left(x^{4}-y^{4}\right)
+	\end{equation*}
+	\emph{con $\alpha$ parametro reale. Posto $\alpha = 1$, determinare e classificare i punti stazionari della funzione $f$.}}\newline
+
+	\noindent
+	Si sostituisce $\alpha = 1$ nella funzione:
+	\begin{equation*}
+		f\left(x,y\right) = 2\left(x^{2}+y^{2}+1\right) - \left(x^{4}-y^{4}\right)
+	\end{equation*}
+	Si calcolano le varie derivate:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 4x-4x^{3} \hspace{1em} & \dfrac{\partial f}{\partial xy}\left(x,y\right) = 0 \hspace{1em} & \dfrac{\partial f}{\partial xx}\left(x,y\right) = 4-12x^{2} \\ [1em]
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = 4y+4y^{3} \hspace{1em} & \dfrac{\partial f}{\partial yx}\left(x,y\right) = 0 \hspace{1em} & \dfrac{\partial f}{\partial yy}\left(x,y\right) = 4+12y^{2}
+		\end{array}
+	\end{equation*}
+	Adesso si costruisce il sistema:
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 0 \vspace{.5em} \\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			4x-4x^{3} = 0 \\
+			4y+4y^{3} = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			4x\left(1-x^{2}\right) = 0 & \rightarrow x = \pm 1 \lor x = 0 \\
+			4y\left(1+y^{2}\right) = 0 & \rightarrow y = 0
+		\end{cases}
+	\end{equation*}
+	I punti stazionari sono tutte le combinazioni:
+	\begin{multicols}{3}
+		\begin{itemize}
+			\item $A\left(1,0\right)$
+			\item $B\left(-1,0\right)$
+			\item $C\left(0,0\right)$
+		\end{itemize}
+	\end{multicols}
+	Si costruisce la matrice Hessiana:
+	\begin{equation*}
+		H_{f}\left(x,y\right) = \begin{rowequmat}{c c}
+			4-12x^{2} & 0 \\
+			0 & 4+12y^{2}
+		\end{rowequmat}
+	\end{equation*}
+	E si sostituiscono i valori all'interno della matrice:
+	\begin{equation*}
+		\begin{array}{rcl}
+			H_{A} = \begin{rowequmat}{c c}
+				4-12 & 0 \\
+				0 & 4
+			\end{rowequmat} & \rightarrow & \det\left(H_{A}\right) = -8 \cdot 4 = -32 \\ [1em]
+			H_{B} = \begin{rowequmat}{c c}
+				4-12 & 0 \\
+				0 & 4
+			\end{rowequmat} & \rightarrow & \det\left(H_{A}\right) = -8 \cdot 4 = -32 \\ [1em]
+			H_{C} = \begin{rowequmat}{c c}
+				4 & 0 \\
+				0 & 4
+			\end{rowequmat} & \rightarrow & \det\left(H_{A}\right) = 4 \cdot 4 = 16 \\
+		\end{array}
+	\end{equation*}
+	I punti $A$ e $B$ sono punti di sella poiché il determinante è minore di zero, mentre il punto $C$ è un punto di minimo locale dato che il determinante è maggiore di zero e la derivata parziale seconda rispetto $x$ è maggiore di zero.
+
+	\newpage
+
 	\subsubsection{Calcolare massimo e minimo assoluto}
 
 	\begin{flushleft}
@@ -11229,6 +11308,12 @@
 					}{
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 4 esercizio (b)}
 					}
+
+					\item \vspace{-1.1em}(\emph{a}) Determinare e classificare i punti stazionari: pag.~\hyperlink{
+						exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (a)}
+					}
 				\end{enumerate}
 			\end{itemize}
 
@@ -11285,7 +11370,7 @@
 
 					\setcounter{enumi}{4}
 
-					\item (\emph{b}) Determinare massimo e minimo assoluto - Insieme chiuso ma non limitato: pag.~\hyperlink{
+					\item \vspace{-1.1em}(\emph{b}) Determinare massimo e minimo assoluto - Insieme chiuso ma non limitato: pag.~\hyperlink{
 						exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (b)}
@@ -11303,13 +11388,15 @@
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 7 esercizio}
 					}
 
-					\item Verificare che il campo sia conservativo e determinare un potenziale: pag.~\hyperlink{
+					\item (\emph{a}) Verificare che il campo sia conservativo e determinare un potenziale: pag.~\hyperlink{
 						exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)
 					}{
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)}
 					}
 
-					\item Calcolo dell'integrale di linea di prima specie e del campo lungo la parametrizzazione: pag.~\hyperlink{
+					\setcounter{enumi}{7}
+
+					\item (\emph{b}) Calcolo dell'integrale di linea di prima specie e del campo lungo la parametrizzazione: pag.~\hyperlink{
 						exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)}
