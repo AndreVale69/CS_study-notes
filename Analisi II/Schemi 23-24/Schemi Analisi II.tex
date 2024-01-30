@@ -8312,6 +8312,180 @@
 
 	\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (b)}
+		\hypertarget{
+			exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (b)
+		}{
+			\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 5 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = 2\alpha\left(x^{2}+y^{2}+1\right)-\left(x^{4}-y^{4}\right)
+	\end{equation*}
+	\emph{Con $\alpha$ parametro reale. Posto $\alpha = 0$, calcolare (se esistono) massimo e minimo assoluto della funzione $f$ su}
+	\begin{equation*}
+		E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2}+y^{2} = 1\right\}
+	\end{equation*}}
+	Innanzitutto si studia il vincolo dato: se è limitato e chiuso allora il teorema di Weierstrass assicura un minimo e massimo assoluto.
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{E} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} \ne 1\right\} \\ [.3em]
+			\partial E &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} = 1\right\} \\ [.3em]
+			\overline{E} &=& \partial E \cup E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} = 1\right\}
+		\end{array}
+	\end{equation*}
+	L'insieme è chiuso ($E = \overline{E}$) ed inoltre è anche limitato dato che il vincolo è una circonferenza di raggio $1$, precisamente i punti sulla frontiera. A questo punto, si sostituisce $\alpha = 0$ nella funzione:
+	\begin{equation*}
+		f\left(x,y\right) = -\left(x^{4}-y^{4}\right)
+	\end{equation*}
+	E si utilizza Lagrange:
+	\begin{gather*}
+		\mathcal{L}\left(x,y,\lambda\right) = -\left(x^{4}-y^{4}\right) - \lambda\left(x^{2}+y^{2}-1\right) \\
+		\begin{cases}
+			\dfrac{\partial \mathcal{L}}{\partial x}\left(x,y,\lambda\right) = 0 \vspace{.5em}\\
+			\dfrac{\partial \mathcal{L}}{\partial y}\left(x,y,\lambda\right) = 0 \vspace{.5em}\\
+			\dfrac{\partial \mathcal{L}}{\partial \lambda}\left(x,y,\lambda\right) = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			-4x^{3}-2\lambda x = 0 \\
+			4y^{3}-2\lambda y = 0 \\
+			-x^{2}-y^{2}+1 = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x\left(2x^{2}+\lambda\right) = 0 \\
+			y\left(2y^{2}-\lambda\right) = 0 \\
+			-x^{2}-y^{2}+1 = 0
+		\end{cases}
+	\end{gather*}
+	In questo caso non ci sono scorciatoie ma soltanto casistiche da considerare (ogni numero indica il numero di equazione dal quale partire):
+	\begin{enumerate}
+		\item Esplicitare $\lambda$ in questo caso non ha molto senso dato che nella seconda equazione la $y$ dipende da $\lambda$. Per cui la $y$ dipenderebbe di nuovo da un'altra variabile. 
+		
+		Esplicitare la $x^{2}$ potrebbe essere una buona scelta, infatti si otterrebbe $\frac{\lambda}{2}$. A questo punto, inserendo l'espressione nell'ultima equazione, si otterrebbe $y^{2} = 1-\frac{\lambda}{2}$. L'espressione si potrebbe sostituire nella seconda equazione, ma successivamente si avrebbe una situazione molto complessa:
+		\begin{equation*}
+			\sqrt{1-\dfrac{\lambda}{2}}\left(2-2\lambda\right)
+		\end{equation*}
+		Infatti per esplicitare $\lambda$ in questo caso si otterrebbe un'espressione difficile da gestire.
+
+
+		\item Esplicitare $\lambda$ non ha molto senso neanche in questo caso per lo stesso motivo di prima.
+		
+		Esplicitare la $y^{2}$ potrebbe essere una buona scelta per lo stesso motivo di prima. A questo punto nella terza equazione si otterrebbe $x^{2}=1-\frac{\lambda}{2}$. A differenza di prima, andando a sostituire tale valore nella prima equazione si ottiene qualcosa di interessante:
+		\begin{equation*}
+			\sqrt{1-\dfrac{\lambda}{2}}\left(2-\lambda+\lambda\right)
+		\end{equation*}
+		
+		
+		\item Esplicitare $x$ o $y$ non ha senso in questo caso perché la sostituzione nelle prime due provoca comunque una situazione di stallo.
+	\end{enumerate}
+	\begin{gather*}
+		\begin{cases}
+			x\left(2x^{2}+\lambda\right) = 0 \vspace{.5em} \\
+			\dfrac{1}{y} \cdot y\left(2y^{2}-\lambda\right) = 0 \vspace{.5em} \\
+			-x^{2}-y^{2}+1 = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x\left(2x^{2}+\lambda\right) = 0 \vspace{.5em}\\
+			y^{2} = \dfrac{\lambda}{2} \vspace{.5em}\\
+			-x^{2}-y^{2}+1 = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x\left(2x^{2}+\lambda\right) = 0 \vspace{.5em}\\
+			y^{2} = \dfrac{\lambda}{2} \vspace{.5em}\\
+			-x^{2} = \dfrac{\lambda}{2}-1
+		\end{cases}
+		\\
+		\begin{cases}
+			x\left(2x^{2}+\lambda\right) = 0 \vspace{.5em}\\
+			y^{2} = \dfrac{\lambda}{2} \vspace{.5em}\\
+			x^{2} = 1-\dfrac{\lambda}{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\sqrt{1-\dfrac{\lambda}{2}}\left(2 - \lambda +\lambda\right) = 0 \vspace{.5em}\\
+			y^{2} = \dfrac{\lambda}{2} \vspace{.5em}\\
+			x^{2} = 1-\dfrac{\lambda}{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\left(\sqrt{1-\dfrac{\lambda}{2}} \cdot \left(2\right)\right)^{2} = 0 \vspace{.5em}\\
+			y^{2} = \dfrac{\lambda}{2} \vspace{.5em}\\
+			x^{2} = 1-\dfrac{\lambda}{2}
+		\end{cases}
+		\\
+		\begin{cases}
+			4\left(1-\dfrac{\lambda}{2}\right) = 0 \vspace{.5em}\\
+			y^{2} = \dfrac{\lambda}{2} \vspace{.5em}\\
+			x^{2} = 1-\dfrac{\lambda}{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			4 - 2\lambda = 0 \vspace{.5em}\\
+			y^{2} = \dfrac{\lambda}{2} \vspace{.5em}\\
+			x^{2} = 1-\dfrac{\lambda}{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\lambda = 2 \vspace{.5em}\\
+			y^{2} = \dfrac{\lambda}{2} \vspace{.5em}\\
+			x^{2} = 1-\dfrac{\lambda}{2}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\lambda = 2 \vspace{.5em}\\
+			y = \pm 1 \vspace{.5em}\\
+			x = 0
+		\end{cases}
+	\end{gather*}
+	Ovviamente non ci si deve dimenticare di $y=0$ all'inizio:
+	\begin{gather*}
+		\begin{cases}
+			x\left(2x^{2}+\lambda\right) = 0 \\
+			0 \cdot \left(2\cdot 0^{2}-\lambda\right) = 0 \\
+			-x^{2}-y^{2}+1 = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x\left(2x^{2}+\lambda\right) = 0 \\
+			y = 0 \\
+			-x^{2}+1 = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x\left(2x^{2}+\lambda\right) = 0 \\
+			y = 0 \\
+			x = \pm 1
+		\end{cases}
+		\\
+		\begin{cases}
+			\pm \left(2+\lambda\right) = 0 \\
+			y = 0 \\
+			x = \pm 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\lambda = -2 \\
+			y = 0 \\
+			x = \pm 1
+		\end{cases}
+	\end{gather*}
+	Si valutano i punti ottenuti:
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item $f\left(0, \pm1, 2\right) = 1$
+			\item $f\left(\pm1, 0, -2\right) = -1$
+		\end{itemize}
+	\end{multicols}
+	Quindi $1$ è il massimo assoluto e $-1$ il minimo assoluto.
+
+	\newpage
+
 	\section{Integrali multipli}\label{section: integrali multipli}
 
 	\subsection{Integrali doppi}\label{subsection: integrali doppi}
@@ -11313,6 +11487,14 @@
 						exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (a)
 					}{
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (a)}
+					}
+
+					\setcounter{enumi}{4}
+
+					\item \vspace{-1.1em}(\emph{b}) Determinare massimo e minimo assoluto: pag.~\hyperlink{
+						exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
