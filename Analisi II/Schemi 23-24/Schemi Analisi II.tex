@@ -10474,6 +10474,81 @@
 
 	\newpage
 
+	\subsubsection{Calcolare l'integrale doppio}
+	\begin{flushleft}
+		\label{exam: esame 10 luglio 2023 - Gruppo A - 6 esercizio}
+		\hypertarget{
+			exam: esame 10 luglio 2023 - Gruppo A - 6 esercizio
+		}{
+			\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 6 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Calcolare}
+	\begin{equation*}
+		\displaystyle\iint\limits_{D} e^{x+y} \:\mathrm{d}x\:\mathrm{d}y
+	\end{equation*}
+	\emph{Dove $D$ è la regione interna al triangolo di vertici $\left(0,0\right), \left(2,0\right), \left(1,1\right)$.}}\newline
+
+	\noindent
+	Si rappresenta il triangolo con i vertici forniti. Per farlo, si considera che la $x$ e la $y$ devono essere rispettivamente minore di $2$ e minore di $1$ (ovviamente entrambi maggiori di zero). 
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/exercise/2023-07-10-A-ex6.pdf}
+	\end{figure}
+	
+	\noindent
+	Per quanto riguarda il collegamento di $A$ e $B$ al punto $C$, si potrebbe ottenere in due modi: usando la formula $\dfrac{x-x_{1}}{x_{2}-x_{1}} = \dfrac{y-y_{1}}{y_{2}-y_{1}}$, oppure con un banale ragionamento. Dato che da $\left(0,0\right)$ a $\left(1,1\right)$ è una retta obliqua che taglia il grafico a metà, si utilizza la nota equazione $y = x$. Mentre l'altra retta obliqua è l'opposta ma spostata di $2$ poiché non è centrata nell'origine:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/exercise/2023-07-10-A-ex6_2.pdf}
+	\end{figure}\newpage
+
+	\noindent
+	Adesso si ricava l'insieme facilmente:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 2, \: 0 \le y \le 1, \: x \ge y, \: x \le 2-y\right\}
+	\end{equation*}
+	Per decidere quale metodo usare, si ragiona sull'integrale e sulla figura. Innanzitutto si può escludere a priori le coordinate polari poiché in questo caso potrebbero complicare i calcoli. Mentre per $x$ e $y$ semplice, è necessario osservare la figura. Nel caso di $y$-semplice, si avrebbe la $x$ che varia tra $0$ e $2$, mentre per quanto riguarda la $y$, si dovrebbe eseguire un calcolo doppio. Ovvero arrivare da $0$ a $x$ per calcolare metà area, mentre per l'altra metà area da $-x+2$ a $0$. Risulta evidente che è abbastanza difficile affrontare l'esercizio così.
+
+	Si decide per questo motivo di usare $x$-semplice e variare $y$ tra $0$ e $1$, mentre per quanto riguarda $x$ si hanno già le disuguaglianze, ovvero tra $y$ e $2-y$:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le y \le 1, \: y \le x \le 2-y\right\}
+	\end{equation*}
+	Si calcola l'integrale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint\limits_{D} e^{x+y} \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{y}^{2-y} e^{x+y} \:\mathrm{d}x\right) \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(\left[e^{x+y}\right]_{y}^{2-y} \right) \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} e^{2} - e^{2y} \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} e^{2} \:\mathrm{d}y - \displaystyle\int_{0}^{1} e^{2y} \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			e^{2}\left[y\right]_{0}^{1} - \left[\dfrac{e^{2y}}{2}\right]_{0}^{1} \\ [1.5em]
+			%
+			&=&
+			e^{2} - \left[\dfrac{e^{2}}{2} - \dfrac{1}{2}\right] \\ [1.5em]
+			%
+			&=&
+			e^{2} - \dfrac{e^{2}}{2} + \dfrac{1}{2} \\ [1.5em]
+			%
+			&=&
+			\dfrac{2e^{2} - e^{2} + 1}{2} \\ [1.5em]
+			%
+			&=&
+			\dfrac{e^{2} + 1}{2}
+		\end{array}
+	\end{equation*}
+
+	\newpage
+
 	\subsubsection{Calcolare l'integrale triplo}
 	\begin{flushleft}
 		\label{exam: esame 06 settembre 2023 - Gruppo A - 7 esercizio}
@@ -11495,6 +11570,12 @@
 						exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (b)}
+					}
+
+					\item Calcolare l'integrale doppio definito in un triangolo con un insieme definito: pag.~\hyperlink{
+						exam: esame 10 luglio 2023 - Gruppo A - 6 esercizio
+					}{
+						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 6 esercizio}
 					}
 				\end{enumerate}
 			\end{itemize}
