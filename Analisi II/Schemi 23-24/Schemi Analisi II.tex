@@ -10617,6 +10617,87 @@
 	
 	\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 10 luglio 2023 - Gruppo A - 7 esercizio}
+		\hypertarget{
+			exam: esame 10 luglio 2023 - Gruppo A - 7 esercizio
+		}{
+			\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 7 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri il seguente sottoinsieme di $\mathbb{R}^{3}$:}
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: x^{2}+y^{2} \le 1, \: 2x + y + 2z \le 6, \: z \ge 0\right\}
+	\end{equation*}
+	\emph{Rappresentare graficamente la proiezione di $\Omega$ sul piano $yz$ e poi calcolare:}
+	\begin{equation*}
+		\displaystyle\iiint\limits_{\Omega} \left(x^{2}+y^{2}\right)^{3} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}}
+
+	\noindent
+	Dalla prima condizione si nota immediatamente un cilindro di raggio $1$ tagliato a metà da $z \ge 0$. Per quanto riguarda la seconda condizione, essa è una retta che taglia il grafico. Per rappresentare quest'ultima, basta assegnare dei valori alla $x$ e alla $y$ e vedere i valori di $z$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			x=0,y=0 & \rightarrow & z = 3 - x - \dfrac{y}{2} \rightarrow z = 3 \\ [.8em]
+			x=1,y=1 & \rightarrow & z = 3 - x - \dfrac{y}{2} \rightarrow z = \dfrac{3}{2} = 1.5 \\ [.8em]
+			x=-1,y=-1 & \rightarrow & z = 3 - x - \dfrac{y}{2} \rightarrow z = \dfrac{9}{2} = 4.5
+		\end{array}
+	\end{equation*}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/exercise/2023-07-10-A-ex7.png}
+	\end{figure}
+
+	\noindent
+	L'area è quella dentro il cilindro e si può facilmente calcolare con le coordinate cilindriche. Quindi, per quanto riguarda la $z$ si ha il seguente intervallo:
+	\begin{equation*}
+		0 \le z \le 3-x-\dfrac{y}{2} \hspace{1em} \Rightarrow \hspace{1em} 0 \le z \le 3 - \rho\cos\left(\theta\right) - \dfrac{\rho\sin\left(\theta\right)}{2}
+	\end{equation*}
+	Per quanto riguarda $\theta$ basta prendere l'intera circonferenza: $0 \le \theta \le 2\pi$. Inoltre, per quanto riguarda $\rho$, essa varia da zero a $1$, ovvero il raggio del cilindro:
+	\begin{equation*}
+		\Omega = \left\{\left(\rho,\theta, z\right) \in \mathbb{R}^{3} \: : \: 0 \le \theta \le 2\pi, \: 0 \le \rho \le 1, \: 0 \le z \le 3 - \rho\cos\left(\theta\right) - \dfrac{\rho\sin\left(\theta\right)}{2}\right\}
+	\end{equation*}\newpage
+
+	\noindent
+	Si imposta l'integrale con i valori calcolati:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iiint\limits_{\Omega} \left(x^{2}+y^{2}\right)^{3} \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			&=&
+			\displaystyle\int_{0}^{2\pi} \left(
+				\int_{0}^{1} \left(
+					\int_{0}^{3-\rho\cos\left(\theta\right)-\frac{\rho\sin\left(\theta\right)}{2}} \left(\rho^{2}\right)^{3} \cdot \rho \:\mathrm{d}z 
+				\right) \:\mathrm{d}\rho 
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \left(
+				\int_{0}^{1} \rho^{7} \cdot \left(3-\rho\cos\left(\theta\right)-\frac{\rho\sin\left(\theta\right)}{2}\right) \:\mathrm{d}\rho 
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \left(
+				\int_{0}^{1} 3\rho^{7} - \rho^{8}\cos\left(\theta\right)-\rho^{8}\sin\left(\theta\right)\dfrac{1}{2} \:\mathrm{d}\rho 
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \left(
+				3\left[\dfrac{\rho^{8}}{8}\right]_{0}^{1} - \cos\left(\theta\right)\left[\dfrac{\rho^{9}}{9}\right]_{0}^{1} - \dfrac{\sin\left(\theta\right)}{2}\left[\dfrac{\rho^{9}}{9}\right]_{0}^{1}
+			\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2\pi} \dfrac{3}{8} - \dfrac{1}{9}\cos\left(\theta\right) - \dfrac{1}{18}\sin\left(\theta\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\dfrac{3}{8}\left[\theta\right]_{0}^{2\pi} - \dfrac{1}{9}\left[\sin\left(\theta\right)\right]_{0}^{2\pi} - \dfrac{1}{18}\left[-\cos\left(\theta\right)\right]_{0}^{2\pi} \\ [1.5em]
+			%
+			&=&
+			\dfrac{3}{4}\pi
+		\end{array}
+	\end{equation*}
+
+	\newpage
+
 	\section{Integrali di linea}
 
 	\subsection{Di prima specie}
@@ -11576,6 +11657,12 @@
 						exam: esame 10 luglio 2023 - Gruppo A - 6 esercizio
 					}{
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 6 esercizio}
+					}
+
+					\item Calcolare l'integrale triplo: pag.~\hyperlink{
+						exam: esame 10 luglio 2023 - Gruppo A - 7 esercizio
+					}{
+						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 7 esercizio}
 					}
 				\end{enumerate}
 			\end{itemize}
