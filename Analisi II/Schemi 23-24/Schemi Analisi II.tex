@@ -8235,6 +8235,80 @@
 
 	\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (a)}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (a)
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 5 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \alpha x^{2} - \beta y^{2} - 4x + \alpha y
+	\end{equation*}
+	\emph{con $\alpha, \beta$ parametri reali. Determinare i valori di $\alpha,\beta$ in modo tale che $\left(1, -\frac{1}{3}\right)$ sia un punto stazionario per $f$. Classificare poi tale punto.}}\newline
+
+	\noindent
+	Si calcolano le varie derivate:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 2\alpha x - 4 \hspace{1em}& \dfrac{\partial f}{\partial xy}\left(x,y\right) = 0 \hspace{1em}& \dfrac{\partial f}{\partial xx}\left(x,y\right) = 2\alpha \\ [1em]
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = -2\beta y + \alpha \hspace{1em}& \dfrac{\partial f}{\partial yx}\left(x,y\right) = 0 \hspace{1em}& \dfrac{\partial f}{\partial yy}\left(x,y\right) = -2\beta \\ [1em]
+		\end{array}
+	\end{equation*}
+	Si crea il sistema con le derivate uguale a zero:
+	\begin{equation*}
+		\begin{cases}
+			\dfrac{\partial f}{\partial x}\left(x,y\right) = 0 \vspace{.5em}\\
+			\dfrac{\partial f}{\partial y}\left(x,y\right) = 0 
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			2\alpha x - 4 = 0 \\
+			-2\beta y + \alpha = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			x = \dfrac{2}{\alpha} \vspace{.5em} \\
+			y = \dfrac{\alpha}{2\beta}
+		\end{cases}
+	\end{equation*}
+	Per ottenere il punto stazionario $\left(1,-\frac{1}{3}\right)$, si può esplicitare le equazioni:
+	\begin{equation*}
+		\begin{cases}
+			1 = \dfrac{2}{\alpha} \vspace{.5em} \\
+			-\dfrac{1}{3} = \dfrac{\alpha}{2\beta}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\alpha = 2 \vspace{.5em} \\
+			-\dfrac{1}{3} = \dfrac{2}{2\beta}
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\alpha = 2 \vspace{.5em} \\
+			-\beta\dfrac{1}{3} = 1
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			\alpha = 2 \\
+			\beta = -3
+		\end{cases}
+	\end{equation*}
+	Quindi si può ottenere il punto stazionario $\left(1,-\frac{1}{3}\right)$ con le costanti $\alpha = 2$ e $\beta = -3$. Per valutarlo si utilizza la matrice Hessiana:
+	\begin{equation*}
+		H_{f} = \begin{rowequmat}{c c}
+			4 & 0 \\
+			0 & 6
+		\end{rowequmat}
+		\rightarrow
+		\det\left(H_{f}\right) = 24
+	\end{equation*}
+	Il punto stazionario è un punto di minimo poiché il determinante è maggiore di zero e la derivata seconda rispetto $x$ è maggiore di zero.
+
+	\newpage
+
 	\subsubsection{Calcolare massimo e minimo assoluto}
 
 	\begin{flushleft}
@@ -11693,6 +11767,12 @@
 						exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 4 esercizio (b)}
+					}
+
+					\item (\emph{a}) Determinare e classificare delle costanti per trovare un punto stazionario: pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (a)}
 					}
 				\end{enumerate}
 			\end{itemize}
