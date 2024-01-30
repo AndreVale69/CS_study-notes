@@ -11466,6 +11466,108 @@
 			&=& 4
 		\end{array}
 	\end{equation*}
+
+	\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 10 luglio 2023 - Gruppo A - 8 esercizio (a)}
+		\hypertarget{
+			exam: esame 10 luglio 2023 - Gruppo A - 8 esercizio (a)
+		}{
+			\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 8 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Dato il campo vettoriale}
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y,z\right) = \left(x^{2} - 2y, 2z, \dfrac{2}{3}xy\right)
+	\end{equation*}
+	\emph{E sia $\gamma\left(t\right) = \left(3t, \dfrac{3}{2}t^{2}, t^{3}\right)$, con $t \in \left[0,1\right]$ un cammino orientato in $\mathbb{R}^{3}$. Calcolare $\int_{\gamma}\left(\frac{2}{3}x+4z\right)\:\mathrm{d}s$ e dare un'interpretazione fisica o geometrica del risultato.}}\newline
+
+	\noindent
+	Si calcola l'integrale di linea di prima specie:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{\gamma}\left(\frac{2}{3}x+4z\right)\:\mathrm{d}s
+			&=&
+			\displaystyle\int_{0}^{1} \dfrac{2}{3} \cdot 3t + 4t^{3} \cdot \left|\left|\gamma'\left(t\right) \right|\right| \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(2t + 4t^{3}\right) \cdot \left|\left|\gamma'\left(t\right) \right|\right| \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(2t + 4t^{3}\right) \cdot 3\sqrt{1+t^{2}+t^{4}} \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			3\displaystyle\int_{0}^{1} \left(2t + 4t^{3}\right) \cdot \sqrt{1+t^{2}+t^{4}} \:\mathrm{d}t \\ [1.5em]
+			%
+			&\downarrow&
+			\text{sostituzione: }x = 1+t^{2}+t^{4} \:\:\: \mathrm{d}t = \dfrac{1}{2t+4t^{3}}\:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			3\displaystyle\int_{0}^{1} \left(2t + 4t^{3}\right) \cdot \sqrt{x} \cdot \dfrac{1}{2t + 4t^{3}} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			3\displaystyle\int_{0}^{1} \sqrt{x} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			3\displaystyle\int_{0}^{1} x^{\frac{1}{2}} \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			3\left[\dfrac{2}{3}x^{\frac{3}{2}}\right]_{0}^{1} \\ [1.5em]
+			%
+			&=&
+			3\left[\dfrac{2}{3}\sqrt[2]{\left(1+t^{2}+t^{4}\right)^{3}}\right]_{0}^{1} \\ [1.5em]
+			%
+			&=&
+			2\sqrt{27} - 2
+		\end{array}
+	\end{equation*}
+	L'integrale di linea di prima specie può essere interpretato come l'area della superficie verticale limitata in basso dalla parametrizzazione $\gamma$ e in alto dalla superificie $z = f$.
+
+	\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 10 luglio 2023 - Gruppo A - 8 esercizio (b)}
+		\hypertarget{
+			exam: esame 10 luglio 2023 - Gruppo A - 8 esercizio (b)
+		}{
+			\definition{\underline{Esame 10 luglio 2023 - Gruppo A - 8 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Dato il campo vettoriale}
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y,z\right) = \left(x^{2} - 2y, 2z, \dfrac{2}{3}xy\right)
+	\end{equation*}
+	\emph{E sia $\gamma\left(t\right) = \left(3t, \dfrac{3}{2}t^{2}, t^{3}\right)$, con $t \in \left[0,1\right]$ un cammino orientato in $\mathbb{R}^{3}$. Calcolare il lavoro del campo $\overset{\rightarrow}{F}$ necessario per spostare un punto lungo $\gamma$.}}\newline
+
+	\noindent
+	Per calcolare il lavoro del campo lungo la parametrizzazione, si utilizza l'integrale del campo lungo la parametrizzazione:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}
+			&=&
+			\displaystyle\int_{0}^{1} \overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) \cdot \gamma'\left(t\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(9t^{2}- 3t^{2}, 2t^{3}, 3t \cdot t^{2}\right) \cdot \left(3, 3t, 3t^{2}\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(6t^{2}, 2t^{3}, 3t^{3}\right) \cdot \left(3, 3t, 3t^{2}\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(18t^{2}, 6t^{4}, 9t^{5}\right) \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			18\displaystyle\int_{0}^{1} t^{2} \:\mathrm{d}t + 6\displaystyle\int_{0}^{1} t^{4} \:\mathrm{d}t + 9\displaystyle\int_{0}^{1} t^{5} \:\mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			18\left[\dfrac{t^{3}}{3}\right]_{0}^{1} + 6\left[\dfrac{t^{5}}{5}\right]_{0}^{1} + 9\left[\dfrac{t^{6}}{6}\right]_{0}^{1} \\ [1.5em]
+			%
+			&=& \dfrac{87}{10}
+		\end{array}
+	\end{equation*}
+
+
 	
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -11663,6 +11765,20 @@
 						exam: esame 10 luglio 2023 - Gruppo A - 7 esercizio
 					}{
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 7 esercizio}
+					}
+
+					\item (\emph{a}) Calcolo dell'integrale di linea di prima specie: pag.~\hyperlink{
+						exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)}
+					}
+
+					\setcounter{enumi}{7}
+
+					\item \vspace{-1.1em}(\emph{b}) Calcolo dell'integrale del campo lungo la parametrizzazione: pag.~\hyperlink{
+						exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
