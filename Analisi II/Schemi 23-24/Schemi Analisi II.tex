@@ -10686,6 +10686,77 @@
 
 	\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 6 esercizio}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 6 esercizio
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 6 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Rappresentare nel piano cartesiano l'insieme}
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1 \le x^{2}+y^{2} \le 4, \: x+y \ge 0, y \ge 0\right\}
+	\end{equation*}
+	\emph{e calcolare:}
+	\begin{equation*}
+		\displaystyle\iint\limits_{D} \dfrac{x+y}{x^{2}+y^{2}} \:\mathrm{d}x\:\mathrm{d}y
+	\end{equation*}}
+
+	\noindent
+	La figura da rappresentare è composta da:
+	\begin{itemize}
+		\item Una circonferenza di raggio $1$ e di equazione $1 = x^{2}+y^{2}$
+		\item Una circonferenza di raggio $2$ ottenuto dalla radice quadrata di $\sqrt{4}$, e di equazione $x^{2}+y^{2} = 4$
+		\item Una retta che taglia il grafico a metà con equazione $x = -y$, e si considera la parte superiore dato che $x \ge -y$
+		\item Metà grafico viene dimenticato poiché $y \ge 0$
+	\end{itemize}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/exercise/2023-06-21-A-ex6.pdf}
+	\end{figure}
+
+	\noindent
+	Sia dalla figura che dall'integrale, risulta evidente che siano necessarie le coordinate polari. Il valore di $\theta$ varia da un minimo di $0$ ad un massimo di $135\degree$ $\left(90\degree + 45\degree\right)$ che in radianti corrisponde a:
+	\begin{equation*}
+		135 \cdot 2\pi \cdot \dfrac{1}{360} = \dfrac{3}{4}\pi \Longrightarrow 0 \le \theta \le \dfrac{3}{4}\pi
+	\end{equation*}
+	Per quanto riguarda $\rho$, esso parte da un minimo di $1$ (raggio della prima circonferenza che si incontra partendo dall'origine), ad un massimo di $2$ (raggio della seconda circonferenza). Per cui l'insieme diventa:
+	\begin{equation*}
+		D = \left\{\left(\rho, \theta\right) \in \mathbb{R}^{2} \: : \: 0 \le \theta \le \dfrac{3}{4}\pi, \:1 \le \rho \le 2\right\}
+	\end{equation*}
+	Si calcola l'integrale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint\limits_{D} \dfrac{x+y}{x^{2}+y^{2}} \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			\displaystyle\int_{0}^{\frac{3}{4}\pi} \left(\int_{1}^{2} \dfrac{\rho\cos\left(\theta\right)+\rho\sin\left(\theta\right)}{\rho^{2}\left(\cos^{2}\left(\theta\right)+\sin^{2}\left(\theta\right)\right)} \cdot \rho \:\mathrm{d}\rho\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{3}{4}\pi} \left(\int_{1}^{2} \dfrac{\rho\cos\left(\theta\right)+\rho\sin\left(\theta\right)}{\rho^{2}} \cdot \rho \:\mathrm{d}\rho\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{3}{4}\pi} \left(\int_{1}^{2} \dfrac{\rho^{2}\left(\cos\left(\theta\right)+\sin\left(\theta\right)\right)}{\rho^{2}} \:\mathrm{d}\rho\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{3}{4}\pi} \left(\cos\left(\theta\right)+\sin\left(\theta\right)\right) \left[\rho\right]_{1}^{2} \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{3}{4}\pi} \left(\cos\left(\theta\right)+\sin\left(\theta\right)\right) \left(2-1\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{\frac{3}{4}\pi} \cos\left(\theta\right) \:\mathrm{d}\theta + \int_{0}^{\frac{3}{4}\pi} \sin\left(\theta\right) \:\mathrm{d}\theta \\ [1.5em]
+			%
+			&=&
+			\left[\sin\left(\theta\right)\right]_{0}^{\frac{3}{4}\pi} + \left[-\cos\left(\theta\right)\right]_{0}^{\frac{3}{4}\pi} \\ [1em]
+			%
+			&=&
+			1 + \sqrt{2}
+		\end{array}
+	\end{equation*}
+
+	\newpage
+
 	\subsubsection{Calcolare l'integrale triplo}
 	\begin{flushleft}
 		\label{exam: esame 06 settembre 2023 - Gruppo A - 7 esercizio}
@@ -11728,6 +11799,22 @@
 	%	\end{tabular}
 	%\end{table}
 	\begin{itemize}
+		\item \textbf{2022}
+		\begin{itemize}
+			\item \textbf{01 marzo}
+			\begin{itemize}
+				\item Gruppo A
+				\begin{enumerate}[label*=Ex. \arabic*), leftmargin = 4em]
+					\setcounter{enumi}{3}
+					\item (\emph{a}) Limiti e continuità: pag.~\hyperlink{
+						exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)}
+					}
+				\end{enumerate}
+			\end{itemize}
+		\end{itemize}
+
 		\item \textbf{2023}
 		\begin{itemize}
 			\item \textbf{07 febbraio}
@@ -11845,6 +11932,13 @@
 					}{
 						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (b)}
 					}
+
+					\item Calcolare l'integrale doppio con coordinate polari:\newline%
+					pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 6 esercizio
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 6 esercizio}
+					}
 				\end{enumerate}
 			\end{itemize}
 
@@ -11892,7 +11986,8 @@
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 4 esercizio (b)}
 					}
 
-					\item \vspace{-1.1em}(\emph{a}) Determinare e classificare i punti stazionari: pag.~\hyperlink{
+					\item \vspace{-1.1em}(\emph{a}) Determinare e classificare i punti stazionari:\newline%
+					pag.~\hyperlink{
 						exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (a)
 					}{
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (a)}
@@ -11900,7 +11995,7 @@
 
 					\setcounter{enumi}{4}
 
-					\item \vspace{-1.1em}(\emph{b}) Determinare massimo e minimo assoluto: pag.~\hyperlink{
+					\item (\emph{b}) Determinare massimo e minimo assoluto: pag.~\hyperlink{
 						exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 5 esercizio (b)}
@@ -11918,7 +12013,8 @@
 						\hypergetpageref{exam: esame 10 luglio 2023 - Gruppo A - 7 esercizio}
 					}
 
-					\item (\emph{a}) Calcolo dell'integrale di linea di prima specie: pag.~\hyperlink{
+					\item (\emph{a}) Calcolo dell'integrale di linea di prima specie:\newline%
+					pag.~\hyperlink{
 						exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)
 					}{
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (a)}
@@ -11926,7 +12022,7 @@
 
 					\setcounter{enumi}{7}
 
-					\item \vspace{-1.1em}(\emph{b}) Calcolo dell'integrale del campo lungo la parametrizzazione: pag.~\hyperlink{
+					\item (\emph{b}) Calcolo dell'integrale del campo lungo la parametrizzazione: pag.~\hyperlink{
 						exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 8 esercizio (b)}
@@ -11979,7 +12075,8 @@
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 4 esercizio (b)}
 					}
 
-					\item (\emph{a}) Determinare e classificare i punti stazionari: pag.~\hyperlink{
+					\item (\emph{a}) Determinare e classificare i punti stazionari:\newline%
+					pag.~\hyperlink{
 						exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (a)
 					}{
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (a)}
@@ -11987,7 +12084,7 @@
 
 					\setcounter{enumi}{4}
 
-					\item \vspace{-1.1em}(\emph{b}) Determinare massimo e minimo assoluto - Insieme chiuso ma non limitato: pag.~\hyperlink{
+					\item (\emph{b}) Determinare massimo e minimo assoluto - Insieme chiuso ma non limitato: pag.~\hyperlink{
 						exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 06 settembre 2023 - Gruppo A - 5 esercizio (b)}
@@ -12021,27 +12118,11 @@
 				\end{enumerate}
 			\end{itemize}
 		\end{itemize}
-
-		\item \textbf{2022}
-		\begin{itemize}
-			\item \textbf{01 marzo}
-			\begin{itemize}
-				\item Gruppo A
-				\begin{enumerate}[label*=Ex. \arabic*), leftmargin = 4em]
-					\setcounter{enumi}{3}
-					\item (\emph{a}) Limiti e continuità: pag.~\hyperlink{
-						exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)
-					}{
-						\hypergetpageref{exam: esame 01 marzo 2022 - Gruppo A - 4 esercizio (a)}
-					}
-				\end{enumerate}
-			\end{itemize}
-		\end{itemize}
 	\end{itemize}
 
-	\newpage
+	%\newpage
 
-	\subsection{Raccoglitore di argomenti}
+	%\subsection{Raccoglitore di argomenti}
 
-	In questo paragrafo viene presenta una lista di argomenti presenti all'esame raggruppata per esercizio. Per esempio, l'esercizio 3 sarà composto da argomenti del tipo: limiti, continuità, derivate direzionali, valore massimo, ecc. L'intento è quello di analizzare ogni tipo di argomento raggruppato per numero di esercizio, così da abituarsi all'esame.
+	%In questo paragrafo viene presenta una lista di argomenti presenti all'esame raggruppata per esercizio. Per esempio, l'esercizio 3 sarà composto da argomenti del tipo: limiti, continuità, derivate direzionali, valore massimo, ecc. L'intento è quello di analizzare ogni tipo di argomento raggruppato per numero di esercizio, così da abituarsi all'esame.
 \end{document}
