@@ -10906,6 +10906,114 @@
 
 	\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 7 esercizio}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 7 esercizio
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 7 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri il tetraedro $\Omega$ di vertici $O, A, B, C$ (vedi figura, in rosso l'ascissa e in verde l'ordinata):}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/exercise/2023-06-21-A-ex7.png}
+	\end{figure}
+
+	\noindent
+	\example{\emph{Calcolare}
+	\begin{equation*}
+		\displaystyle\iiint\limits_{\Omega} 4 \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}
+	\emph{sapendo che il piano passante per $A, B$ e $C$ ha equazione cartesiana $6x+3y+4z-12=0$.}}\newline
+
+	\noindent
+	Per calcolare i punti $A,B,C$ si sfrutta l'equazione data, considerando che $A$ è lungo $x$, $B$ è lungo $y$ e $C$ è lungo $z$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			A &=& 6x + 3 \cdot 0 + 4 \cdot 0 = 12 \rightarrow x = 2 \rightarrow \left(2,0,0\right) \\ [.5em]
+			B &=& 6 \cdot 0 + 3y + 4 \cdot 0 = 12 \rightarrow y = 4 \rightarrow \left(0,4,0\right) \\ [.5em]
+			C &=& 6 \cdot 0 + 3 \cdot 0 + 4z = 12 \rightarrow z = 3 \rightarrow \left(0,0,3\right) \\ [.5em]
+			O &=& \left(0,0,0\right)
+		\end{array}
+	\end{equation*}
+	A questo punto si può scegliere come procedere. In questo caso si applica il metodo per fili. Per cui, dato che l'insieme è:
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 0 \le x \le 2,\: 0 \le y \le 4, \: 0 \le z \le 3, \: 6x+3y+4z-12 \le 0\right\}
+	\end{equation*}
+	La disuguaglianza si è ottenuta con un semplice calcolo: basta vedere se l'origine è all'interno o no. Si esplicita la $z$:
+	\begin{equation*}
+		z \le 3 - \frac{3}{2}x - \frac{3}{4}y
+	\end{equation*}
+	L'integrazione per fili risulta semplice a questo punto poiché per la $z$ è definita:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iiint\limits_{\Omega} 4 \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			&=&
+			\displaystyle\iint\limits_{D} \left(\int_{0}^{3 - \frac{3}{2}x - \frac{3}{4}y} 4 \:\mathrm{d}z\right) \:\mathrm{d}x\:\mathrm{d}y
+		\end{array}
+	\end{equation*}\newpage
+
+	\begin{equation*}
+		\begin{array}{rcl}
+			\phantom{\displaystyle\iiint\limits_{\Omega} 4 \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z}
+			&=&
+			4\cdot\displaystyle\iint\limits_{D} 3 - \frac{3}{2}x - \frac{3}{4}y \:\mathrm{d}x\:\mathrm{d}y
+		\end{array}
+	\end{equation*}
+	L'insieme $D$ si ricava eliminando la $z$ dall'insieme $\Omega$. Chiaramente sarebbe errato non aggiungere un'equazione che regoli il rapporto tra $x$ e $y$. Scrivendo (in modo errato) l'insieme $D$ in questo modo:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 2,\: 0 \le y \le 4\right\}
+	\end{equation*}
+	Non avrebbe molto senso poiché in questo modo sarebbe ammesso anche $x=2,y=4$, valore non sensato se si guarda la regione da considerare. Per cui, per facilitare il ragionamento, si rappresenta l'insieme $D$ in due dimensioni, ovvero la proiezione della regione:
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.5\textwidth]{img/exercise/2023-06-21-A-ex7_2.pdf}
+	\end{figure}
+
+	\noindent
+	La retta passante dal punto $\left(2,0\right)$ al punto $\left(0,4\right)$ si ottiene banalmente con la formula:
+	\begin{equation*}
+		\dfrac{x-2}{0-2} = \dfrac{y-0}{4-0} \Rightarrow -2x + 4 = y
+	\end{equation*}
+	E ovviamente la disuguaglianza per prendere l'area interna al triangolo è: $-2x + 4 \ge y$ (si omettono i calcoli banali). A questo punto è possibile scrivere l'insieme chiaramente:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le x \le 2,\: 0 \le y \le -2x + 4\right\}
+	\end{equation*}\newpage
+
+	\noindent
+	Si passa al calcolo dell'area con la tecnica della $y$-semplice, dato che l'insieme è già definito:
+	\begin{equation*}
+		\begin{array}{rcl}
+			4\cdot\displaystyle\iint\limits_{D} 3 - \frac{3}{2}x - \frac{3}{4}y \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			4\cdot\displaystyle\int_{0}^{2} \left(\int_{0}^{-2x + 4} 3 - \frac{3}{2}x - \frac{3}{4}y \:\mathrm{d}y\right)\:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			4 \cdot \displaystyle\int_{0}^{2} \left(3\int_{0}^{-2x + 4}\:\mathrm{d}y -\dfrac{3}{2}x\int_{0}^{-2x + 4} \:\mathrm{d}y - \dfrac{3}{4}\int_{0}^{-2x + 4} y\:\mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			4 \cdot \displaystyle\int_{0}^{2} \left(-6x+12 +3x^{2}-6x -\dfrac{3}{2}x^{2}+6x-6\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			4 \cdot \displaystyle\int_{0}^{2} \left(6 -6x +\dfrac{3}{2}x^{2}\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			4 \cdot \left(6\displaystyle\int_{0}^{2} \:\mathrm{d}x -6\displaystyle\int_{0}^{2} x \:\mathrm{d}x + \dfrac{3}{2}\displaystyle\int_{0}^{2} x^{2} \:\mathrm{d}x\right) \\ [1.5em]
+			%
+			&=&
+			4 \cdot \left(6\displaystyle\int_{0}^{2} \:\mathrm{d}x -6\displaystyle\int_{0}^{2} x \:\mathrm{d}x + \dfrac{3}{2}\displaystyle\int_{0}^{2} x^{2} \:\mathrm{d}x\right) \\ [1.5em]
+			%
+			&=&
+			4 \cdot \left(12 - 12 + 4\right) \\ [1em]
+			%
+			&=&
+			16
+		\end{array}
+	\end{equation*}
+
+	\newpage
+
 	\section{Integrali di linea}
 
 	\subsection{Di prima specie}
@@ -11938,6 +12046,12 @@
 						exam: esame 21 giugno 2023 - Gruppo A - 6 esercizio
 					}{
 						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 6 esercizio}
+					}
+
+					\item Calcolare l'integrale triplo data un'immagine e con insieme da calcolare: pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 7 esercizio
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 7 esercizio}
 					}
 				\end{enumerate}
 			\end{itemize}
