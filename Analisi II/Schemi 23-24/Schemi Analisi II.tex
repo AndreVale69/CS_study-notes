@@ -11691,6 +11691,63 @@
 
 	\newpage
 
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (a)}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (a)
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 8 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri il campo vettoriale}
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y\right) = \left(x^{2}y+y^{2}+1, \dfrac{1}{3}x^{3}+2xy\right)
+	\end{equation*}
+	\emph{e sia $\gamma\left(t\right) = \left(3t, t^{2}-1\right)$, con $t \in \left[1,2\right]$ un cammino orientato in $\mathbb{R}^{2}$.}}
+
+	\noindent
+	\example{\emph{Dimostrare che il campo è conservativo e determinarne il potenziale che in $\left(3,0\right)$ vale $0$.}}\newline
+
+	\noindent
+	Il campo è definito in $\mathbb{R}^{2}$, per cui la condizione sufficiente per essere conservativo è soddisfatta dato che l'insieme $\mathbb{R}^{2}$ è semplicemente connesso per definizione. Si controlla la condizione necessaria utilizzando la matrice Jacobiana e usando le derivate parziali (rispetto ad $x$ nella prima riga e rispetto ad $y$ nella seconda):
+	\begin{equation*}
+		J_{\overset{\rightarrow}{F}} = \begin{rowequmat}{c c}
+			2xy 		& x^{2} + 2y \\
+			x^{2}+2y	& 2x
+		\end{rowequmat}
+	\end{equation*}
+	La matrice è simmetrica dato che nella diagonale secondaria i valori sono uguali. Quindi, la condizione necessaria è rispettata e il campo è sicuramente conservativo. Per trovare il potenziale si parte dalla solita condizione teorica: $\overset{\rightarrow}{F} = \nabla U$ ($U$ è il potenziale). Per questo motivo, l'integrale rispetto a $x$ della $F_{x}$ dovrebbe dare la $U_{x}$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial U}{\partial x}\left(x,y\right) = x^{2}y+y^{2}+1 \hspace{1em} \Rightarrow \hspace{1em} U\left(x,y\right) &=& \displaystyle\int x^{2}y+y^{2}+1 \:\mathrm{d}x \\ [1em]
+			%
+			&=& \dfrac{1}{3}x^{3}y + y^{2}x + x + c\left(y\right)
+		\end{array}
+	\end{equation*}
+	A questo punto si eguaglia $F_{y}$ alla derivata parziale di $U$ per $y$. Questo è necessario per verificare il valore di $c$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\dfrac{\partial U}{\partial y}\left(x,y\right) = \dfrac{1}{3}x^{3}+2xy \hspace{1em} \Rightarrow \hspace{1em} \dfrac{\partial}{\partial y}\left(\dfrac{1}{3}x^{3}y + y^{2}x + x + c\left(y\right)\right) &=& \dfrac{1}{3}x^{3}+2xy \\ [1em]
+			%
+			\dfrac{1}{3}x^{3}+2xy + \dfrac{\partial}{\partial y}c\left(y\right)
+			&=&
+			\dfrac{1}{3}x^{3}+2xy \\ [1em]
+			%
+			\dfrac{\partial}{\partial y}c\left(y\right) &=& 0
+		\end{array}
+	\end{equation*}
+	Se la derivata rispetto ad $y$ restituisce zero, vuol dire che la primitiva è una costante in $\mathbb{R}$. Per cui si può specificare questo caso usando $k$:
+	\begin{equation*}
+		U\left(x,y\right) = \dfrac{1}{3}x^{3}y + y^{2}x + x + k \hspace{2em} k \in \mathbb{R}
+	\end{equation*}
+	La controprova è usare $\left(3,0\right)$ per vedere se il valore è zero (a meno di una costante $k$):
+	\begin{equation*}
+		U\left(3,0\right) = \dfrac{1}{3}\cdot 3^{3} \cdot 0 + 0^{2} \cdot 3 + 3 + k = 3 - 3 = 0
+	\end{equation*}
+	Come si vede in questo caso $k$ vale $-3$, valore ammesso in $\mathbb{R}$, e il potenziale è corretto poiché uguale a zero.
+
+	\newpage
+
 	\subsubsection{Calcolo dell'integrale di linea di prima specie e del campo lungo la parametrizzazione}
 
 	\begin{flushleft}
@@ -11881,7 +11938,83 @@
 			%
 			&=& \dfrac{87}{10}
 		\end{array}
+	\end{equation*}\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (b)}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (b)
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 8 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri il campo vettoriale}
+	\begin{equation*}
+		\overset{\rightarrow}{F}\left(x,y\right) = \left(x^{2}y+y^{2}+1, \dfrac{1}{3}x^{3}+2xy\right)
 	\end{equation*}
+	\emph{e sia $\gamma\left(t\right) = \left(3t, t^{2}-1\right)$, con $t \in \left[1,2\right]$ un cammino orientato in $\mathbb{R}^{2}$.}}
+
+	\noindent
+	\example{\emph{Calcolare in due modi diversi il lavoro del campo necessario per spostare un punto lungo $\gamma$.}}\newline
+
+	\noindent
+	Per calcolare il lavoro si possono usare due metodi:
+	\begin{itemize}
+		\item Il più semplice è utilizzare la differenza di potenziali. Il potenziale si è ottenuto a pagina~\hyperlink{
+			exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (a)
+		}{
+			\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (a)}
+		} nell'esercizio \emph{a}. Si riporta il potenziale:
+		\begin{equation*}
+			U\left(x,y\right) = \dfrac{1}{3}x^{3}y + y^{2}x + x
+		\end{equation*}
+		Se un campo è conservativo, allora il lavoro si calcola anche come:
+		\begin{equation*}
+			\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} 
+			= 
+			U\left(\gamma\left(b\right)\right) - U\left(\gamma\left(a\right)\right)
+		\end{equation*}
+		Per cui si sostituiscono gli estremi nella parametrizzazione:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\gamma\left(2\right) &=& \left(6,3\right) \\ [.3em]
+				\gamma\left(1\right) &=& \left(3,0\right)
+			\end{array}
+		\end{equation*}
+		E si inseriscono i risultati nella parametrizzazione:
+		\begin{equation*}
+			\begin{array}{rcl}
+				U\left(6,3\right) &=& 276 \\ [.3em]
+				U\left(3,0\right) &=& 3
+			\end{array}
+		\end{equation*}
+		La differenza e dunque il lavoro è:
+		\begin{equation*}
+			U\left(\gamma\left(2\right)\right) - U\left(\gamma\left(1\right)\right) = 276-3 = 273
+		\end{equation*}
+
+		\item Il metodo più lungo è l'utilizzo dell'integrale del campo lungo la parametrizzazione:
+		\begin{equation*}
+			\begin{array}{rcl}
+				\displaystyle\int_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}
+				&=&
+				\displaystyle\int_{1}^{2} \overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) \cdot \gamma'\left(t\right) \:\mathrm{d}t \\ [1em]
+				%
+				&=&
+				\displaystyle\int_{1}^{2} \left(10t^{4}-11t^{2}+2, 15t^{3}-6t\right) \cdot \left(3, 2t\right) \:\mathrm{d}t \\ [1em]
+				%
+				&=&
+				\displaystyle\int_{1}^{2} \left(30t^{4}-33t^{2}+6, 30t^{4}-12t^{2}\right) \:\mathrm{d}t \\ [1em]
+				%
+				&=&
+				\displaystyle\int_{1}^{2} 60t^{4}-45t^{2}+6 \:\mathrm{d}t \\ [1.5em]
+				%
+				&=& 273
+			\end{array}
+		\end{equation*}
+	\end{itemize}
+
+
 
 
 	
@@ -12052,6 +12185,20 @@
 						exam: esame 21 giugno 2023 - Gruppo A - 7 esercizio
 					}{
 						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 7 esercizio}
+					}
+
+					\item (\emph{a}) Determinare se il campo è conservativo e il suo potenziale: pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (a)}
+					}
+
+					\setcounter{enumi}{7}
+
+					\item (\emph{b}) Calcolo dell'integrale in due modi diversi: lungo la parametrizzazione e differenza tra il potenziale valutato agli estremi: pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 8 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
