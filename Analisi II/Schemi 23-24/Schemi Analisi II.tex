@@ -8334,7 +8334,7 @@
 			\overline{E} &=& E \cup \partial E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: xy = 2\right\}
 		\end{array}
 	\end{equation*}
-	Il vincolo $E$ è chiuso, ma non limitato poiché non esiste nessuna palla centrata nell'origine con raggio maggiore di zero che contenga l'insieme! Per cui non esiste nessun massimo o minimo assoluto. E difatti applicando Lagrange:
+	Il vincolo $E$ è chiuso, ma non limitato poiché non esiste nessuna palla centrata nell'origine con raggio maggiore di zero che contenga l'insieme! Per cui non è garantita la presenza di massimo o minimo assoluto. E difatti applicando Lagrange:
 	\begin{equation*}
 		\mathcal{L}\left(x,y,\lambda\right) = x^{2}y - x -y - \lambda\left(xy-2\right)
 	\end{equation*}
@@ -8557,6 +8557,69 @@
 		\end{itemize}
 	\end{multicols}
 	Quindi $1$ è il massimo assoluto e $-1$ il minimo assoluto.
+
+	\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (b)}
+		\hypertarget{
+			exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (b)
+		}{
+			\definition{\underline{Esame 21 giugno 2023 - Gruppo A - 5 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri la funzione}
+	\begin{equation*}
+		f\left(x,y\right) = \alpha x^{2} - \beta y^{2} - 4x + \alpha y
+	\end{equation*}
+	\emph{Con $\alpha, \beta$ parametri reali. Posto $\alpha = 3$, $\beta = 0$, calcolare massimo e minimo assoluto, se esistono, della funzione $f$ su}
+	\begin{equation*}
+		E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: y = x\right\}
+	\end{equation*}}
+	
+	\noindent
+	Si analizza inizialmente il vincolo per verificare che sia un insieme chiuso e limitato:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{E} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: y \ne x\right\} \\ [.3em]
+			\partial E &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: y = x\right\} \\ [.3em]
+			\overline{E} &=& \partial E \cup E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: y = x\right\}
+		\end{array}
+	\end{equation*}
+	L'insieme è chiuso ma non limitato poiché non esiste nessuna palla centrata nell'origine con raggio maggiore di zero che contenga tale insieme. Per cui si procede con cautela con il metodo di Lagrange:
+	\begin{gather*}
+		\mathcal{L}\left(x,y,\lambda\right) = 3x^{2} - 4x + 3y - \lambda\left(y-x\right)
+		\\
+		\begin{cases}
+			\dfrac{\partial \mathcal{L}}{\partial x}\left(x,y,\lambda\right) = 0 \vspace{.5em} \\
+			\dfrac{\partial \mathcal{L}}{\partial y}\left(x,y,\lambda\right) = 0 \vspace{.5em} \\
+			\dfrac{\partial \mathcal{L}}{\partial \lambda}\left(x,y,\lambda\right) = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			6x - 4 + \lambda = 0 \\
+			3 - \lambda = 0 \\
+			-y+x = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			6x = 4 - 3 \\
+			\lambda = 3 \\
+			-y+x = 0
+		\end{cases}
+		\\
+		\begin{cases}
+			x = \dfrac{1}{6} \vspace{.5em} \\
+			\lambda = 3 \vspace{.5em} \\
+			y = \dfrac{1}{6}
+		\end{cases}
+	\end{gather*}
+	L'unico punto esistente è $\left(\dfrac{1}{6},\dfrac{1}{6}\right)$, che applicata alla funzione restituisce:
+	\begin{equation*}
+		f\left(\dfrac{1}{6},\dfrac{1}{6}\right) = -\dfrac{1}{12}
+	\end{equation*}
+	Quindi è un punto di minimo.
+
 
 	\newpage
 
@@ -11773,6 +11836,14 @@
 						exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (a)
 					}{
 						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (a)}
+					}
+
+					\setcounter{enumi}{4}
+
+					\item (\emph{b}) Determinare massimo e minimo assoluto: pag.~\hyperlink{
+						exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 21 giugno 2023 - Gruppo A - 5 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
