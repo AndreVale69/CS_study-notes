@@ -21,6 +21,7 @@
 \usepackage{tcolorbox}				% pacchetto per le box colorate
 \usepackage{multicol}				% pacchetto per creare più colonne (utilizzato per le liste)
 \usepackage{url}
+\usepackage{qrcode}
 
 % draw a frame around given text
 \newcommand{\framedtext}[1]{%
@@ -10782,6 +10783,94 @@
 			\end{array}
 		\end{equation*}
 	\end{itemize}
+
+	\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 6 esercizio}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 6 esercizio
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 6 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Sia $D$ la regione del piano limitata dalla curva $y = -\sqrt[3]{4x}$, dal segmento che unisce i punti $\left(-1, 0\right)$ e $\left(-2,2\right)$ e dall'asse $x$.}}
+	\begin{figure}[!htp]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/exercise/2023-03-03-A-ex6.png}
+	\end{figure}
+
+	\noindent
+	\example{\emph{Calcolare $\displaystyle\iint\limits_{D} y \:\mathrm{d}x\:\mathrm{d}y$}}
+
+	\noindent
+	\example{\emph{Sapendo che l'area della regione $D$ è $2$, determinare la quota $y$ del baricentro di $D$.}}\newline
+
+	\noindent
+	Qualsiasi tecnica si utilizzi per calcolare l'integrale, è necessario ottenere l'equazione della retta passante per i punti $\left(-1,0\right)$ e $\left(-2,2\right)$. Si utilizza dunque la classica formula:
+	\begin{equation*}
+		\dfrac{x-x_{1}}{x_{2}-x_{1}} = \dfrac{y-y_{1}}{y_{2}-y_{1}} \rightarrow \dfrac{x-\left(-1\right)}{-2-\left(-1\right)} = \dfrac{y-0}{2-0} \rightarrow -2x-2 = y
+	\end{equation*}
+	Per capire quale sia il verso della disuguaglianza, si esegue il classico test con un punto di prova. Per esempio, dato il punto $\left(-1,1\right)$, si desidera che la disuguaglianza sia vera, per cui:
+	\begin{equation*}
+		-2\left(-1\right)-2 = 1 \rightarrow 0 = 1 \Longrightarrow 0 \le 1 \Longrightarrow -2x-2 \le y
+	\end{equation*}
+	Per quanto riguarda il metodo di risoluzione, sembrerebbe conveniente usare $x$-semplice poiché si bloccano i valori di $y$ che sono banalmente $0 \le y \le 2$. Per quanto riguarda le due funzioni sulle quali integrare $x$, nessun tipo di problema, quella di partenza (la retta) è già stata calcolata, mentre la curva viene fornita dall'esercizio. Dunque, per creare l'insieme $D$ si esplicita la $x$ nella disuguaglianza della retta e il medesimo ragionamento si effettua anche per la curva (ovviamente prima si ragiona su come convertirla in disuguaglianza).\newline
+
+	\noindent
+	Si esplicita la $x$ nella disuguaglianza della retta:
+	\begin{equation*}
+		-2x-2 \le y \Longrightarrow x \ge -\dfrac{y + 2}{2}
+	\end{equation*}
+	Per quanto riguarda la curva, si inizia esplicitando la $x$:
+	\begin{equation*}
+		y = -\sqrt[3]{4x} \Longrightarrow y^{3} = -4x \Longrightarrow -\dfrac{y^{3}}{4} = x
+	\end{equation*}
+	E per trovare la disuguaglianza si ragiona come si è fatto per la retta. Il punto di prova $\left(-1, 1\right)$ deve essere all'interno, per cui:
+	\begin{equation*}
+		-\dfrac{1^{3}}{4} = -1 \Longrightarrow -\dfrac{1}{4} \ge -1 \Longrightarrow -\dfrac{y^{3}}{4} \ge x
+	\end{equation*}
+	Adesso si hanno tutte le risorse per creare l'insieme $D$:
+	\begin{equation*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 0 \le y \le 2, \: -\dfrac{y+2}{2} \le x \le -\dfrac{y^{3}}{4}\right\}
+	\end{equation*}
+	Per vedere la figura e le sue coordinate in maniera più dettagliate, aprire il seguente \href{https://www.geogebra.org/calculator/xnqawhvt}{link di GeoGebra} o scannerizzare il seguente QR code:
+	\begin{center}
+		\qrcode{https://www.geogebra.org/calculator/xnqawhvt}
+	\end{center}
+	Si calcola l'integrale:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iint\limits_{D} y \:\mathrm{d}x\:\mathrm{d}y
+			&=&
+			\displaystyle\int_{0}^{2} \left(\int_{-\frac{y+2}{2}}^{-\frac{y^{3}}{4}}y \:\mathrm{d}x\right) \:\mathrm{d}y \\ [2em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2} y \left(-\dfrac{y^{3}}{4} + \dfrac{y+2}{2}\right) \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{2} - \dfrac{1}{4}y^{4} + \dfrac{1}{2}y^{2} + y \:\mathrm{d}y \\ [1.5em]
+			%
+			&=&
+			-\dfrac{1}{4}\left(\dfrac{2^{5}}{5}\right) + \dfrac{1}{2}\left(\dfrac{2^{3}}{3}\right) + \left(\dfrac{2^{2}}{2}\right) \\ [1.5em]
+			%
+			&=&
+			-\dfrac{32}{20} + \dfrac{8}{6} + \dfrac{4}{2} \\ [1em]
+			%
+			&=&
+			\dfrac{26}{15}
+		\end{array}
+	\end{equation*}
+	La coordinata di $y$ del baricentro si calcola con la classica formula:
+	\begin{equation*}
+		y_{G} 
+		= 
+		\dfrac{\displaystyle\iint\limits_{D} y \:\mathrm{d}x\:\mathrm{d}y}{\displaystyle\iint\limits_{D} \:\mathrm{d}x\:\mathrm{d}y}
+		=
+		\dfrac{\frac{26}{15}}{2}
+		=
+		\dfrac{13}{15}
+	\end{equation*}
 
 	\newpage
 
