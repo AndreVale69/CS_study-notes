@@ -8620,6 +8620,180 @@
 	\end{equation*}
 	Quindi è un punto di minimo.
 
+	\newpage
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 5 esercizio (a)}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 5 esercizio (a)
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 5 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Trovare, con il metodo dei moltiplicatori di Lagrange, massimo e minimo assoluto (se esistono) di $f\left(x,y\right) = x^{3}-y^{2}$ su}
+	\begin{equation*}
+		E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} = 1\right\}
+	\end{equation*}}
+
+	\noindent
+	Si studia il vincolo per vedere se è chiuso e limitato:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\mathring{E} &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} \ne 1\right\} \\ [.5em]
+			\partial E &=& \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} = 1\right\} \\ [.5em]
+			\overline{E} &=& \partial E \cup E = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: x^{2} + y^{2} = 1\right\}
+		\end{array}
+	\end{equation*}
+	L'insieme è chiuso e limitato, quindi il teorema di Weierstrass ci assicura che ci sia un massimo e minimo assoluto. Si cercano con Lagrange:
+	\begin{gather*}
+		\mathcal{L}\left(x,y,\lambda\right) = x^{3}-y^{2}-\lambda\left(x^{2}+y^{2}-1\right)
+		\\
+		\begin{cases}
+			\dfrac{\partial \mathcal{L}}{\partial x}\left(x,y,\lambda\right) = 0 \vspace{.5em} \\
+			\dfrac{\partial \mathcal{L}}{\partial y}\left(x,y,\lambda\right) = 0 \vspace{.5em} \\
+			\dfrac{\partial \mathcal{L}}{\partial \lambda}\left(x,y,\lambda\right) = 0
+		\end{cases}
+		\rightarrow
+		\begin{cases}
+			3x^{2} - 2\lambda x = 0 \vspace{.5em} \\
+			-2y - 2 \lambda y = 0 \vspace{.5em} \\
+			-x^{2}-y^{2}+1 = 0
+		\end{cases}
+		\\
+		\rightarrow
+		\begin{cases}
+			x\left(3x - 2\lambda\right) = 0	& \rightarrow x = 0 \lor x = \dfrac{2}{3}\lambda \vspace{.5em} \\
+			-2y\left(1+\lambda\right) = 0	& \rightarrow y = 0 \lor \lambda = -1 \vspace{.5em} \\
+			-x^{2}-y^{2}+1 = 0				& \rightarrow y^{2} = 1-x^{2}
+		\end{cases}
+	\end{gather*}
+	Si provano i vari valori:
+	\begin{itemize}
+		\item $x = 0$
+		\begin{equation*}
+			\begin{cases}
+				x = 0 \\
+				-2y\left(1+\lambda\right) = 0 \\
+				y = \pm 1
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				x = 0 \\
+				\lambda = -1 \\
+				y = \pm 1
+			\end{cases}
+		\end{equation*}
+
+		\item $y = 0$
+		\begin{equation*}
+			\begin{cases}
+				x\left(3x - 2\lambda\right) = 0 \\
+				y = 0 \\
+				y^{2} = 1-x^{2}
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				x\left(3x - 2\lambda\right) = 0 \\
+				y = 0 \\
+				x = \pm 1
+			\end{cases}
+		\end{equation*}
+		\begin{itemize}
+			\item $x = 1$
+			\begin{equation*}
+				\begin{cases}
+					x\left(3x - 2\lambda\right) = 0 \\
+					y = 0 \\
+					x = 1
+				\end{cases}
+				\rightarrow
+				\begin{cases}
+					3 - 2\lambda = 0 \\
+					y = 0 \\
+					x = 1
+				\end{cases}
+				\rightarrow
+				\begin{cases}
+					\lambda = \dfrac{3}{2} \vspace{.5em}\\
+					y = 0 \\
+					x = 1
+				\end{cases}
+			\end{equation*}
+
+			\item $x = -1$
+			\begin{equation*}
+				\begin{cases}
+					x\left(3x - 2\lambda\right) = 0 \\
+					y = 0 \\
+					x = -1
+				\end{cases}
+				\rightarrow
+				\begin{cases}
+					-\left(-3 - 2\lambda\right) = 0 \\
+					y = 0 \\
+					x = -1
+				\end{cases}
+				\rightarrow
+				\begin{cases}
+					\lambda = -\dfrac{3}{2} \vspace{.5em}\\
+					y = 0 \\
+					x = -1
+				\end{cases}
+			\end{equation*}
+		\end{itemize}
+
+		\item $\lambda = -1$
+		\begin{equation*}
+			\begin{cases}
+				x = -\dfrac{2}{3} \vspace{.5em} \\
+				\lambda = -1 \vspace{.5em} \\
+				y^{2} = 1-\dfrac{4}{9}
+			\end{cases}
+			\rightarrow
+			\begin{cases}
+				x = -\dfrac{2}{3} \vspace{.5em} \\
+				\lambda = -1 \vspace{.5em} \\
+				y = \pm \dfrac{\sqrt{5}}{3}
+			\end{cases}
+		\end{equation*}
+	\end{itemize}
+	Quindi tutti i punti stazionari sono:
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item $A = \left(0, \pm 1, -1\right)$
+			\item $B = \left(1, 0, \dfrac{3}{2}\right)$
+			\item $C = \left(-1, 0, -\dfrac{3}{2}\right)$
+			\item $D = \left(-\dfrac{2}{3}, \pm\dfrac{\sqrt{5}}{3}, -1\right)$
+		\end{itemize}
+	\end{multicols}
+	Si inseriscono i valori dentro la funzione per valutarli:
+	\begin{multicols}{3}
+		\begin{itemize}
+			\item $f\left(A\right) = -1$
+			\item $f\left(B\right) = 1$
+			\item $f\left(C\right) = -1$
+			\item $f\left(D\right) = -\dfrac{23}{27}$
+		\end{itemize}
+	\end{multicols}
+	Il valore $1$ è massimo assoluto e $-1$ minimo assoluto.
+
+	\longline
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 5 esercizio (b)}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 5 esercizio (b)
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 5 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{Dimostrare che il punto $\left(0,0\right)$ è un punto di sella per $f$.}\newline
+
+	\noindent
+	Il punto $\left(0,0\right)$ è un punto stazionario dato che andandolo a sostituire nella funzione il risultato è $0$ (guardare l'esercizio soprastante). Esso è un punto di sella poiché in un suo intorno la funzione prende valori positivi (punto $B$) e valori negativi (punto $C$).
+
+
+	
 
 	\newpage
 
@@ -12112,6 +12286,20 @@
 						exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (b)
 					}{
 						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 4 esercizio (b)}
+					}
+
+					\item (\emph{a}) Determinare massimo e minimo assoluto con metodo di Lagrange: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 5 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 5 esercizio (a)}
+					}
+
+					\setcounter{enumi}{4}
+
+					\item (\emph{b}) Dimostrare che un punto è un punto di sella: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 5 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 5 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
