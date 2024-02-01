@@ -11517,7 +11517,9 @@
 			=
 			\displaystyle\int_{a}^{b} \overset{\rightarrow}{F}\left(\gamma\left(t\right)\right) \cdot \gamma'\left(t\right) \:\mathrm{d}t
 		\end{equation}
-		Tale formula viene indicata anche come \definition{lavoro elementare}, ovvero la forza per spostamento infinitesimo.
+		Tale formula viene indicata anche come \definition{lavoro elementare}, ovvero la forza per spostamento infinitesimo.\newline
+
+		\definition{Attenzione:} \textbf{se il cammino $\gamma$ è chiuso, l'integrale ha valore $0$.}
 	\end{boxdef}
 
 	\noindent
@@ -12320,6 +12322,130 @@
 		\end{equation*}
 	\end{itemize}
 
+	\newpage
+
+	\subsubsection{Calcolo dell'integrale di linea e del teorema di Green}
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (a)}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (a)
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 8 esercizio (\emph{a})}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri il campo veottoriale $\overset{\rightarrow}{F}\left(x,y\right) = \left(x+y, y-x\right)$ e il cammino \textbf{chiuso} $\gamma = \gamma_{1} \cup \gamma_{2}$, dove $\gamma_{1}\left(t\right) = \left(t, t^{2}-1\right)$, con $t \in \left[1,2\right]$ (arco di parabola) e $\gamma_{2}$ è il segmento che unisce i punti $\left(2,3\right)$ e $\left(1,0\right)$.}}
+
+	\noindent
+	\example{\emph{Calcolare $\oint_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}$. Il risultato ottenuto ci permette di affermare che il campo non è conservativo? (motivare la risposta).}}\newline
+
+	\noindent
+	Il primo passo è calcolare la parametrizzazione $\gamma_{2}\left(t\right)$ che è una retta:
+	\begin{equation*}
+		\gamma_{2}\left(t\right) = \left(2,3\right) + t\left(\left(1,0\right) - \left(2,3\right)\right) = \left(2-t, 3-3t\right) \hspace{2em} t \in \left[0,1\right]
+	\end{equation*}
+	Per calcolare l'integrale di linea di prima specie lungo $\gamma$, si può fare facilmente, ma ricordando che $\gamma$ è l'unione, per cui:
+	\begin{equation*}
+		\displaystyle\oint_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} = \displaystyle\oint_{\gamma_{1}} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} + \displaystyle\oint_{\gamma_{2}} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}
+	\end{equation*}
+	Si calcola prima l'integrale di linea lungo $\gamma_{1}\left(t\right)$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\oint_{\gamma_{1}} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}
+			&=&
+			\displaystyle\int_{1}^{2} \overset{\rightarrow}{F}\left(\gamma_{1}\left(t\right)\right) \cdot \gamma_{1}'\left(t\right) \mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{1}^{2} \left(t^{2}+t-1, t^{2}-t-1\right)\left(1,2t\right) \mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{1}^{2} 2t^{3}-t^{2}-t-1 \mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			2\left(\dfrac{2^{4}}{4} - \dfrac{1^{4}}{4}\right) - \left(\dfrac{2^{3}}{3} - \dfrac{1^{3}}{3}\right) - \left(\dfrac{2^{2}}{2} - \dfrac{1^{2}}{2}\right) - 1 \\ [1.5em]
+			%
+			&=&
+			\dfrac{8}{3}
+		\end{array}
+	\end{equation*}
+	Si calcola il secondo integrale di linea lungo $\gamma_{2}\left(t\right)$:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\oint_{\gamma_{2}} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r}
+			&=&
+			\displaystyle\int_{0}^{1} \overset{\rightarrow}{F}\left(\gamma_{2}\left(t\right)\right) \cdot \gamma_{2}'\left(t\right) \mathrm{d}t \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(5-4t, 1-2t\right)\left(-1,-3\right) \mathrm{d}t \\ [1em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} -8+10t \mathrm{d}t \\ [1em]
+			%
+			&=&
+			-8\left(1\right) + 10\left(\dfrac{1^{2}}{2}\right) \\ [1em]
+			%
+			&=&
+			-3
+		\end{array}
+	\end{equation*}
+	Per cui l'integrale di linea è:
+	\begin{equation*}
+		\displaystyle\oint_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} = \dfrac{8}{3} + \left(- 3\right) = -\dfrac{1}{3}
+	\end{equation*}
+	Per definizione, un campo non è conservativo se l'integrale di linea in un percorso chiuso è diverso da zero.
+
+	\longline
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (b)}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (b)
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 8 esercizio (\emph{b})}}
+		}
+	\end{flushleft}
+	\example{\emph{Verificare che, in accordo con il teorema di Green, si ha}
+	\begin{equation*}
+		\displaystyle\oint_{\gamma} \overset{\rightarrow}{F} \cdot \mathrm{d}\overset{\rightarrow}{r} = \displaystyle\iint\limits_{D} \left(\dfrac{\partial F_{2}}{\partial x} - \dfrac{\partial F_{1}}{\partial y}\right) \:\mathrm{d}x\:\mathrm{d}y
+	\end{equation*}
+	\emph{dove $F_{1}$ e $F_{2}$ sono le componenti scalari del campo $\overset{\rightarrow}{F}$ e $D$ è la regione limitata da $\gamma$.}}\newline
+
+	\noindent
+	Questo esercizio è la seconda parte di un esercizio più grande, per cui si consiglia di vedere e far riferimento ai dati della prima parte a pagina~\hyperlink{
+		exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (a)
+	}{
+		\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (a)}%
+	}.\newline
+
+	\noindent
+	Si calcolano prima le derivate parziali rispetto alle componenti del campo:
+	\begin{gather*}
+		\begin{array}{rcl}
+			\dfrac{\partial F_{2}}{\partial x} &=& \dfrac{\partial }{\partial x}\left(y-x\right) = -1 \\ [1em]
+			\dfrac{\partial F_{1}}{\partial y} &=& \dfrac{\partial }{\partial y}\left(x+y\right) = 1
+		\end{array}
+		\\
+		\displaystyle\iint\limits_{D} \left(\dfrac{\partial F_{2}}{\partial x} - \dfrac{\partial F_{1}}{\partial y}\right) \:\mathrm{d}x\:\mathrm{d}y
+		=
+		\displaystyle\iint\limits_{D} -1 -1 \:\mathrm{d}x\:\mathrm{d}y 
+		= 
+		\displaystyle\iint\limits_{D} -2 \:\mathrm{d}x\:\mathrm{d}y
+	\end{gather*}
+	L'insieme $D$ si ricava dalla parametrizzazione (ottenendo le loro equazioni cartesiane):
+	\begin{gather*}
+		D = \left\{\left(x,y\right) \in \mathbb{R}^{2} \: : \: 1 \le x \le 2, \: x^{2}-1 \le y \le 3x-3\right\}
+		\\
+		\displaystyle\iint\limits_{D} -2 \:\mathrm{d}x\:\mathrm{d}y
+		=
+		-2\displaystyle\int_{1}^{2} \left(\int_{x^{2}-1}^{3x-3} \:\mathrm{d}y\right) \:\mathrm{d}x
+		=
+		-\dfrac{1}{3}
+	\end{gather*}
+
+	
+
+
+
 
 
 
@@ -12445,6 +12571,20 @@
 						exam: esame 03 marzo 2023 - Gruppo A - 7 esercizio
 					}{
 						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 7 esercizio}
+					}
+
+					\item (\emph{a}) Determinare l'integrale di linea unendo due parametrizzazioni: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (a)
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (a)}
+					}
+
+					\setcounter{enumi}{7}
+
+					\item (\emph{b}) Applicare il teorema di Green: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (b)
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 8 esercizio (b)}
 					}
 				\end{enumerate}
 			\end{itemize}
