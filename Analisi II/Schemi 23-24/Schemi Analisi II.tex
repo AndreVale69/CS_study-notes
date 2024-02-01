@@ -11268,12 +11268,55 @@
 			4 \cdot \left(6\displaystyle\int_{0}^{2} \:\mathrm{d}x -6\displaystyle\int_{0}^{2} x \:\mathrm{d}x + \dfrac{3}{2}\displaystyle\int_{0}^{2} x^{2} \:\mathrm{d}x\right) \\ [1.5em]
 			%
 			&=&
-			4 \cdot \left(12 - 12 + 4\right) \\ [1em]
+			4 \cdot \left(12 - 12 + 4\right) \\ [.5em]
 			%
 			&=&
 			16
 		\end{array}
 	\end{equation*}
+
+	\longline
+
+	\begin{flushleft}
+		\label{exam: esame 03 marzo 2023 - Gruppo A - 7 esercizio}
+		\hypertarget{
+			exam: esame 03 marzo 2023 - Gruppo A - 7 esercizio
+		}{
+			\definition{\underline{Esame 03 marzo 2023 - Gruppo A - 7 esercizio}}
+		}
+	\end{flushleft}
+	\example{\emph{Si consideri la regione}
+	\begin{equation*}
+		\Omega = \left\{\left(x,y,z\right) \in \mathbb{R}^{3} \: : \: 0 \le x \le 1, \: 0 \le y \le x, \: 0 \le z \le x-y\right\}
+	\end{equation*}
+	\emph{Calcolare}
+	\begin{equation*}
+		\displaystyle\iiint\limits_{\Omega} \left(x-\cos\left(z\right)\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+	\end{equation*}
+	\emph{e dare una possibile interpretazione fisica al risultato trovato.}}
+
+	\noindent
+	La regione è già definita, per cui si procede per fili considerando prima la $z$ e successivamente si integra per $y$-semplice:
+	\begin{equation*}
+		\begin{array}{rcl}
+			\displaystyle\iiint\limits_{\Omega} \left(x-\cos\left(z\right)\right) \:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{x} \left(\int_{0}^{x-y} x-\cos\left(z\right) \:\mathrm{d}z\right) \:\mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(\int_{0}^{x} \left(x^{2}-xy -\sin\left(x-y\right)\right) \:\mathrm{d}y\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\displaystyle\int_{0}^{1} \left(x^{3} - \dfrac{1}{2}x^{3} - 1 + \cos\left(x\right)\right) \:\mathrm{d}x \\ [1.5em]
+			%
+			&=&
+			\dfrac{1^{4}}{4} - \dfrac{1}{2}\left(\dfrac{1^{4}}{4}\right) - 1 + \sin\left(1\right) \\ [1em]
+			%
+			&=&
+			-\dfrac{7}{8} + \sin\left(1\right)
+		\end{array}
+	\end{equation*}
+	Una possibile interpretazione è: l'integrale rappresenta la densità di massa di un corpo nello spazio $\Omega$.
 
 	\newpage
 
@@ -12396,6 +12439,12 @@
 						exam: esame 03 marzo 2023 - Gruppo A - 6 esercizio
 					}{
 						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 6 esercizio}
+					}
+
+					\item Calcolare l'integrale triplo: pag.~\hyperlink{
+						exam: esame 03 marzo 2023 - Gruppo A - 7 esercizio
+					}{
+						\hypergetpageref{exam: esame 03 marzo 2023 - Gruppo A - 7 esercizio}
 					}
 				\end{enumerate}
 			\end{itemize}
