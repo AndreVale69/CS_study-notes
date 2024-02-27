@@ -1,4 +1,4 @@
-# University study notes
+# University notes
 
 This repository contains all my university notes.
 
